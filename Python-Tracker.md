@@ -423,7 +423,8 @@ t.track_ecommerce_transaction("order-456", "", 142, 20, 12.99, "London", "", "Un
 <a name="ecommerce-transaction-item" />
 ### 4.5 Track ecommerce transactions with `track_ecommerce_transaction_item()`
 
-Use `track_ecommerce_transaction_item()` to track an ecommerce transaction on the item level.
+Use `track_ecommerce_transaction_item()` to track an individual line item within an ecommerce transaction.
+
 Arguments:
 
 | **Argument**     | **Description**                     | **Required?** | **Validation**           |
