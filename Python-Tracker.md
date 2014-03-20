@@ -26,11 +26,12 @@
     - 4.1.2 [Optional timestamp argument](#tstamp-arg)
     - 4.1.3 [Return values](#ret-vals)
   - 4.2 [`track_screen_view()`](#screen-view)
-  - 4.3 
-  - 4.4 
-  - 4.5 [`track_struct_event()`](#struct-event)
-  - 4.6 [`track_unstruct_event()`](#unstruct-event)
-    - 4.6.1 [Supported datatypes](#unstruct-datatypes)
+  - 4.3 [`track_page_view()`](#page-view)
+  - 4.4 [`track_ecommerce_transaction()`](#ecommerce-transaction)
+  - 4.5 [`track_ecommerce_transaction_item`](#ecommerce-transaction-item)
+  - 4.6 [`track_struct_event()`](#struct-event)
+  - 4.7 [`track_unstruct_event()`](#unstruct-event)
+    - 4.7.1 [Supported datatypes](#unstruct-datatypes)
 
 <a name="overview" />
 ## 1. Overview
@@ -271,7 +272,7 @@ Tracking methods supported by the Python Tracker at a glance:
 | **Function**                                  | **Description**                                        |
 |----------------------------------------------:|:-------------------------------------------------------|
 | [`track_page_view()`]                           | Track and record views of web pages. |
-| [`track__ecommerce_transaction()`]              | Track an ecommerce transaction on transcation level. |
+| [`track__ecommerce_transaction()`]              | Track an ecommerce transaction on transaction level. |
 | [`track_ecommerce_transaction_item()`]          | Track an ecommerce transaction on item level. 
 | [`track_screen_view()`](#trackScreenView)       | Track the user viewing a screen within the application |
 | [`track_struct_event()`](#trackStructEvent)     | Track a Snowplow custom structured event               |
@@ -345,7 +346,7 @@ Not figured out yet
 These values are as follows:
 
 1. The first value (`status` above) is a boolean, set to `true` if the event was successfully logged to the collector, or `false` if the event was not successfully logged
-2. The second value (`msg` above) is a string, which is `None` if `status` is true, but contains the error message if `status` be `false`
+2. The second value (`msg` above) is a string, which is `None` if `status` is true, but contains the error message if `status` is `false`
 
 -->
 
@@ -367,17 +368,84 @@ Use `track_screen_view()` to track a user viewing a screen (or equivalent) withi
 Example:
 
 ```python
-t.trackScreenView("HUD > Save Game", "screen23", 1368725287)
+t.track_screen_view("HUD > Save Game", "screen23", 1368725287)
+```
+
+[Back to top](#top)
+
+<a name="page-view" />
+### 4.3 Track pageviews with `track_page_view()`
+
+Use `track_page_view()` to track a user viewing a page within your app.
+Arguments are:
+
+| **Argument** | **Description**                     | **Required?** | **Validation**          |
+|-------------:|:------------------------------------|:--------------|:------------------------|
+| `page_url`   | The URL of the page                 | Yes           | Non-empty string        |
+| `page_title` | The title of the page               | No           | Non-empty string        |
+| `referrer`   | The address which linked to the page| No            | String or None          |
+| `tstamp`     | When the pageview occurred          | No            | Positive integer or None |
+
+Example:
+
+```python
+t.track_page_view("www.example.com", "example", "www.referrer.com")
+```
+
+[Back to top](#top)
+
+<a name="ecommerce-transaction" />
+### 4.4 Track ecommerce transactions with `track-ecommerce-transaction()`
+
+Use `track_ecommerce_transaction()` to track an ecommerce transaction on the transaction level.
+Arguments:
+
+| **Argument**     | **Description**                      | **Required?** | **Validation**           |
+|-----------------:|:-------------------------------------|:--------------|:-------------------------|
+| `order_id`       | ID of the eCommerce transaction      | Yes           | Non-empty string         |
+| `tr_affiliation` | Transaction affiliation              | No            | String or None           |
+| `tr_total_value` | Total transaction value              | No            | Int or Float             |
+| `tr_tax_value`   | Transaction tax value                | No            | Int or Float             |
+| `tr_shipping`    | Delivery cost charged                | No            | Int or Float             |
+| `tr_city`        | Delivery address city                | No            | String or None           |
+| `tr_state`       | Delivery address state               | No            | String or None           |
+| `tr_country`     | Delivery address country             | No            | String or None           |
+| `tstamp`         | When the transaction event occurred  | No            | Positive integer or None |
+
+Example: 
+
+```python
+t.track_ecommerce_transaction("order-456", "", 142, 20, 12.99, "London", "", "United Kingdom")
+```
+
+[Back to top](#top)
+
+<a name="ecommerce-transaction-item" />
+### 4.5 Track ecommerce transactions with `track_ecommerce_transaction_item()`
+
+Use `track_ecommerce_transaction_item()` to track an ecommerce transaction on the item level.
+Arguments:
+
+| **Argument**     | **Description**                     | **Required?** | **Validation**           |
+|-----------------:|:------------------------------------|:--------------|:-------------------------|
+| `ti_id`          | Order ID                            | Yes           | Non-empty string         |
+| `ti_sku`         | Item SKU                            | No            | Non-empty string         |
+| `ti_name`        | Item name                           | No            | Non-empty string         |
+| `ti_category`    | Item category                       | No            | Non-empty string         |
+| `ti_price`       | Item price                          | No            | Int or Float             |
+| `ti_quantity`    | Item quantity                       | No            | Int                      |
+| `tstamp`         | When the transaction event occurred | No            | Positive integer or None |
+
+Example:
+
+```python
+t.track_ecommerce_transaction_item("order-789", "2001", "Green shoes", "clothing", 49.99, 1)
 ```
 
 [Back to top](#top)
 
 <a name="struct-event" />
-### 4.3
-
-### 4.4
-
-### 4.5 Track structured events with `track_struct_event()`
+### 4.6 Track structured events with `track_struct_event()`
 
 Use `track_struct_event()` to track a custom event happening in your app which fits the Google Analytics-style structure of having up to five fields (with only the first two required):
 
@@ -387,7 +455,7 @@ Use `track_struct_event()` to track a custom event happening in your app which f
 | `action`     | Defines the type of user interaction which this event involves   | Yes           | Non-empty string        |
 | `label`      | A string to provide additional dimensions to the event data      | No            | String or None           |
 | `property`   | A string describing the object or the action performed on it     | No            | String or None           |
-| `value`      | A value to provide numerical data about the event                | No            | Number of None           |
+| `value`      | A value to provide numerical data about the event                | No            | Number or None           |
 | `tstamp`     | When the structured event occurred                               | No            | Positive integer or None |
 
 Example:
@@ -399,7 +467,7 @@ t.track_struct_event("shop", "add-to-basket", None, "pcs", 2, 1369330909)
 [Back to top](#top)
 
 <a name="unstruct-event" />
-### 4.6 Track unstructured events with `track_unstruct_event()`
+### 4.7 Track unstructured events with `track_unstruct_event()`
 
 **Warning:** this feature is implemented in the Python tracker, but it is **not** currently supported in the Enrichment, Storage or Analytics stages in the Snowplow data pipeline. As a result, if you use this feature, you will log unstructured events to your collector logs, but these will not be parsed and loaded into e.g. Redshift to analyse. (Adding this capability is on the roadmap.)
 
@@ -410,11 +478,11 @@ Use `track_unstruct_event()` to track a custom event which consists of a name an
 
 The arguments are as follows:
 
-| **Argument** | **Description**                     | **Required?** | **Validation**          |
-|-------------:|:------------------------------------|:--------------|:------------------------|
-| `name`       | The name of the event               | Yes           | Non-empty string        |
-| `properties` | The properties of the event         | Yes           | Non-empty table         |
-| `tstamp`     | When the screen was viewed          | No            | Positive integer or None |
+| **Argument** | **Description**                      | **Required?** | **Validation**          |
+|-------------:|:-------------------------------------|:--------------|:------------------------|
+| `name`       | The name of the event                | Yes           | Non-empty string        |
+| `properties` | The properties of the event          | Yes           | Non-empty table         |
+| `tstamp`     | When the unstructured event occurred | No            | Positive integer or None |
 
 Example:
 
@@ -432,7 +500,7 @@ The properties table consists of a set of individual `name = value` pairs. The s
 [Back to top](#top)
 
 <a name="unstruct-datatypes" />
-#### 4.6.1 Supported datatypes
+#### 4.7.1 Supported datatypes
 
 Snowplow unstructured events support a relatively rich set of datatypes. Because these datatypes do not always map directly onto Python datatypes, we have introduced some "type suffixes" for the Python property names, so that Snowplow knows what Snowplow data types the Python data types map onto:
 
@@ -449,11 +517,11 @@ Snowplow unstructured events support a relatively rich set of datatypes. Because
 
 Let"s go through each of these in turn, providing some examples as we go:
 
-###### 4.6.1.1 Null
+###### 4.7.1.1 Null
 
 Tracking a Null value for a given field is currently untested in the Python Tracker. TODO.
 
-###### 4.6.1.2 String
+###### 4.7.1.2 String
 
 Tracking a String is easy:
 
@@ -463,7 +531,7 @@ Tracking a String is easy:
 }
 ```
 
-###### 4.6.1.3 Boolean
+###### 4.7.1.3 Boolean
 
 Tracking a Boolean is also straightforward:
 
@@ -473,7 +541,7 @@ Tracking a Boolean is also straightforward:
 }
 ```
 
-###### 4.6.1.4 Integer
+###### 4.7.1.4 Integer
 
 To track an Integer, use a Python number but add a type suffix like so:
 
@@ -485,7 +553,7 @@ To track an Integer, use a Python number but add a type suffix like so:
 
 **Warning:** if you do not add the `$int` type suffix, Snowplow will assume you are tracking a Floating point number.
 
-###### 4.6.1.5 Floating point
+###### 4.7.1.5 Floating point
 
 To track a Floating point number, use a Python number; adding a type suffix is optional:
 
@@ -496,7 +564,7 @@ To track a Floating point number, use a Python number; adding a type suffix is o
 }
 ```
 
-###### 4.6.1.5 Geo-coordinates
+###### 4.7.1.5 Geo-coordinates
 
 Tracking a pair of Geographic coordinates is done like so:
 
@@ -510,7 +578,7 @@ Please note that the datatype takes the format **latitude** followed by **longit
 
 **Warning:** if you do not add the `$geo` type suffix, then the value will be incorrectly interpreted by Snowplow as an Array of Floating points.
 
-###### 4.6.1.6 Date
+###### 4.7.1.6 Date
 
 Snowplow Dates include the date _and_ the time, with milliseconds precision. There are three type suffixes supported for tracking a Date:
 
@@ -542,7 +610,7 @@ Note that the type prefix only indicates how the Python number sent to Snowplow 
 ```
 
 <!--
-###### 4.6.1.7 Arrays
+###### 4.7.1.7 Arrays
 
 You can track an Array of values of any data type other than Null.
 
