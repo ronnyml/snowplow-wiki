@@ -53,12 +53,6 @@ Assuming you have completed the [[Python Tracker Setup]] for your Python project
 Require the Python Tracker"s module into your Python code like so:
 
 ```python
-from snowplowtracker import tracker
-```
-
-or
-
-```python
 from snowplowtracker.tracker import Tracker
 ```
 
