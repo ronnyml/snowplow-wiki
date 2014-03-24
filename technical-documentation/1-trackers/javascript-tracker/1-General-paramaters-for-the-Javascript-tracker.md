@@ -16,6 +16,8 @@
     - 2.4.1 [`setUserId`](#setUserId)
   - 2.5 [Setting the URL as a custom value](#customurl)
     - 2.5.1 [`setCustomUrl`](#setcustomurl)
+  - 2.6 [User privacy](#do-not-track)
+    - 2.6.1 [`respectDoNotTrack`](#respectDoNotTrack)
 
 There are three "global parameters" that can be set for the Javascript tracker:
 
@@ -166,8 +168,9 @@ Note: this will only set the user ID on further events fired while the user is o
 
 The Snowplow Javascript tracker automatically tracks the page URL on any event tracked.
 
-However, in certain situations, you may want to override the actual URL with a custom value. (For example, this might be desirable if your CMS spits out particularly ugly URLs that are hard to unpick at analysis time.) In that case, you can override the default value using the `setCustoUrl` function.
+However, in certain situations, you may want to override the actual URL with a custom value. (For example, this might be desirable if your CMS spits out particularly ugly URLs that are hard to unpick at analysis time.) In that case, you can override the default value using the `setCustomUrl` function.
 
+<a name="setcustomurl" />
 #### 2.5.1 Setting a custom URL using `setCustomUrl` 
 
 To set a custom URL, use the `setCustomUrl` method i.e.:
@@ -175,5 +178,21 @@ To set a custom URL, use the `setCustomUrl` method i.e.:
 ```javascript
 _snaq.push(['setCustomUrl', 'http://mysite.com/checkout-page']);
 ```
+
+<a name="do-not-track" />
+### 2.6 User privacy
+
+Most browsers offer a Do Not Track feature, allowing users to request not to be tracked by websites. The Javascript tracker gives you the option to respect that preference.
+
+<a name="respectDoNotTrack" />
+#### 2.6.1 Respecting a user's privacy preferences using `respectDoNotTrack`
+
+Use the `respectDoNotTrack` method like so:
+
+```javascript
+_snaq.push(['respectDoNotTrack', true]);
+```
+
+If a user's Do Not Track feature is enabled, this will prevent the Javascript tracker from setting cookies or sending events to a collector.
 
 [contents]: Javascript-Tracker
