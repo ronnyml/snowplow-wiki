@@ -50,7 +50,7 @@ In the [first part of this guide](#common), we cover the parameters in the Snowp
 
 | **Parameter** | **Maps to**      | **Type** |**Description**               | **Implemented?** | **Example values**        | 
 |:--------------|:-----------------|:---------|:------------------------------|:-----------------|:--------------------------|
-| `tna`         | N/A              | text     | The tracker namespace         | yes               | `tracker_1`
+| `tna`         | N/A              | text     | The tracker namespace         | Yes               | `tracker_1`
 | `aid`         | `app_id`         | text     | Unique identifier for website / application    | Yes | `angry-birds-android` |
 | `p`           | `platform`       | text     | The platform the app runs on  | No               | `web`, `mob`, `app`      |
 
@@ -79,7 +79,7 @@ Back to [common field types](#common).
 
 | **Parameter** | **Maps to**      | **Type** | **Description**               | **Implemented?** | **Example values**        | 
 |:--------------|:-----------------|:---------|:------------------------------|:-----------------|:--------------------------|
-| `dtm`         | `dvce_dt`, `dvce_tm` and `dvce_epoch` | int |Timestamp when event occurred, as recorded by client device | Yes  | 1361553733313 |                         |
+| `dtm`         | `dvce_dt`, `dvce_tm` and `dvce_epoch` | int |Timestamp when event occurred, as recorded by client device | Yes  | `1361553733313` |                         |
 | `tz`          | `os_timezone`    | text     | Operating system time zone    | Yes              | `Europe%2FLondon`
 
 It is possible to record the time that an event occurs on the clients-side (i.e. in the tracker), or server side (i.e. by the collector). When using the Javascript tracker to track web events, it makes sense to rely on the collector logs to identify the time that events occured, as Snowplow tracking tags are fired as events happen, and so the time they are received server-side should be an accurate representation of the time the event being tracked occured. In other situations (e.g. when using mobile trackers), the time the collector receives the data may be sometime after an event occurred, and so it makes sense to record the timestamp on the client-side, in which case this is handled by the tracker.
@@ -94,7 +94,7 @@ Back to [common field types](#common).
 | **Parameter** | **Maps to**      | **Type** | **Description**               | **Implemented?** | **Example values**        | 
 |:--------------|:-----------------|:---------|:------------------------------|:-----------------|:--------------------------|
 | `e`           | `event`          | text     | Event type                    | Yes              | (See table [below](#events))|
-| `tid`         | `txn_id`         | text     | Transaction ID                | Yes              | 352583                    |
+| `tid`         | `txn_id`         | text     | Transaction ID                | Yes              | `352583`                    |
 
 Every line of data passed from the tracker should contain an event field (`e`) to denote the type of event being tracked. For details about the potential values that `e` can take, and the corresponding event types that they refer to, see the section detailing [Snowplow events](#events).
 
@@ -122,7 +122,7 @@ Back to [common field types](#common).
 | `nuid`        | `network_userid` | text     | Unique identifier for a user, based on a third party cookie (so set at a network level) | Yes | `ecdff4d0-9175-40ac-a8bb-325c49733607` |
 | `uid`         | `user_id`        | text     | Unique identifier for user, set by the business using `setUserId`    | Yes              | `jon.doe@email.com`  |
 | `vid`         | `domain_sessionidx`| int    | Index of number of visits that this user_id has made to this domain e.g. `1` is first visit | Yes       | `1`, `2`...|
-| `ip`          | `user_ipaddress` | text     | IP address                    | Yes              | '37.157.33.178' |
+| `ip`          | `user_ipaddress` | text     | IP address                    | Yes              | `37.157.33.178` |
 
 We recommend **always** setting the `uid` / `user_id` parameter: as this is the cornerstone of all customer-centric analytics.
 
@@ -356,14 +356,14 @@ To track an ecommerce transaction, fire a `transaction` event (`e=tr`) to regist
 
 | **Parameter** | **Maps to**      | **Type** |**Description**       | **Implemented?** | **Example values**| 
 |:--------------|:-----------------|:---------|:---------------------|:-----------------|:------------------|
-| `tr_id`       | `tr_orderid`     | text     | Order ID             | Yes              | 12345             |
-| `tr_af`       | `tr_affiliation` | text     | Transaction affiliation (e.g. channel) | Yes | Web          |
-| `tr_tt`       | `tr_total`       | decimal  | Transaction total value | Yes           | 9.99              |
-| `tr_tx`       | `tr_tax`         | decimal  | Transaction tax value (i.e. amount of VAT included) | Yes | 1.98 |
-| `tr_sh`       | `tr_shipping`    | decimal  | Delivery cost charged | Yes             | 3.00              |
-| `tr_ci`       | `tr_city`        | text     | Delivery address: city | Yes            | 'London'          |
-| `tr_st`       | `tr_state`       | text     | Delivery address: state | Yes           | 'Denver'          |
-| `tr_co`       | `tr_country`     | text     | Delivery address: country | Yes         | 'United Kingdom'  |
+| `tr_id`       | `tr_orderid`     | text     | Order ID             | Yes              | `12345`             |
+| `tr_af`       | `tr_affiliation` | text     | Transaction affiliation (e.g. channel) | Yes | `Web`          |
+| `tr_tt`       | `tr_total`       | decimal  | Transaction total value | Yes           | `9.99`              |
+| `tr_tx`       | `tr_tax`         | decimal  | Transaction tax value (i.e. amount of VAT included) | Yes | `1.98` |
+| `tr_sh`       | `tr_shipping`    | decimal  | Delivery cost charged | Yes             | `3.00`              |
+| `tr_ci`       | `tr_city`        | text     | Delivery address: city | Yes            | `London`          |
+| `tr_st`       | `tr_state`       | text     | Delivery address: state | Yes           | `Denver`          |
+| `tr_co`       | `tr_country`     | text     | Delivery address: country | Yes         | `United Kingdom`  |
 
 Transaction event example:
 
@@ -387,12 +387,12 @@ duid=aeb1691c5a0ee5a6   // Domain user ID
 
 | **Parameter** | **Maps to**      | **Type** |**Description**       | **Implemented?** | **Example values**| 
 |:--------------|:-----------------|:---------|:---------------------|:-----------------|:------------------|
-| `ti_id`       | `ti_orderid`     | text     | Order ID             | Yes              | '12345'           |
-| `ti_sk`       | `ti_sku`         | text     | Item SKU             | Yes              | 'pbz0025'         |
-| `ti_nm`       | `ti_name`        | text     | Item name            | Yes              | 'black-tarot'     |
-| `ti_ca`       | `ti_category`    | text     | Item category        | Yes              | 'tarot'           |
-| `ti_pr`       | `ti_price`       | decimal  | Item price           | Yes              | 7.99              |
-| `ti_qu`       | `ti_quantity`    | integer  | Item quantity        | Yes              | 2                 |
+| `ti_id`       | `ti_orderid`     | text     | Order ID             | Yes              | `12345`           |
+| `ti_sk`       | `ti_sku`         | text     | Item SKU             | Yes              | `pbz0025'         |
+| `ti_nm`       | `ti_name`        | text     | Item name            | Yes              | `black-tarot`     |
+| `ti_ca`       | `ti_category`    | text     | Item category        | Yes              | `tarot`           |
+| `ti_pr`       | `ti_price`       | decimal  | Item price           | Yes              | `7.99`              |
+| `ti_qu`       | `ti_quantity`    | integer  | Item quantity        | Yes              | `2`                 |
 
 Item hit example:
 
@@ -469,11 +469,11 @@ As well as setting `e=ue`, there are five custom event specific parameters that 
 
 | **Parameter** | **Maps to**      | **Type** |**Description**                                     | **Implemented?** | **Example values**| 
 |:--------------|:-----------------|:---------|:---------------------------------------------------|:-----------------|:------------------|
-| `se_ca`       | `se_category`    | text     | The category of event                              | Yes              | 'Ecomm', 'Media'  |
+| `se_ca`       | `se_category`    | text     | The category of event                              | Yes              | `Ecomm`, `Media`  |
 | `se_ac`       | `se_action`      | text     | The action / event itself                          | Yes              | `add-to-basket`, `play-video` |
 | `se_la`       | `se_label`       | text     | A label often used to refer to the 'object' the action is performed on | Yes | 'dog-skateboarding-video' |
-| `se_pr`       | `se_property`    | text     | A property associated with either the action or the object | Yes      | 'hd' |
-| `se_va`       | `se_value`       | decimal  | A value associated with the user action            | Yes              | 13.99 |
+| `se_pr`       | `se_property`    | text     | A property associated with either the action or the object | Yes      | `hd` |
+| `se_va`       | `se_value`       | decimal  | A value associated with the user action            | Yes              | `13.99` |
 
 _Add-to-basket_ example:
 
@@ -523,7 +523,7 @@ As well as setting `e=se`, there are three custom event specific parameters that
 
 | **Parameter** | **Maps to**      | **Type** |**Description**                                     | **Implemented?** | **Example values**| 
 |:--------------|:-----------------|:---------|:---------------------------------------------------|:-----------------|:------------------|
-| `ue_na`       | `ue_name`        | text     | The name of the event                              | No               | 'viewed_product', 'added_to_cart'  |
+| `ue_na`       | `ue_name`        | text     | The name of the event                              | No               | `viewed_product`, `added_to_cart`  |
 | `ue_pr`       | `ue_json`        | JSON     | The properties of the event                        | No               | `{ "product_id": "ASO01043", "price": 49.95 }` |
 | `ue_px`       | `ue_json`        | JSON (Base64 encoded)   | The properties of the event         | No               | `eyAicHJvZHVjdF9pZCI6ICJBU08wMTA0MyIsICJwcmljZSI6IDQ5Ljk1IH0=` |
 
@@ -567,11 +567,23 @@ Back to [event tracking](#events).
 
 #### 4. Custom contexts
 
-Custom contexts can be used to attach additional data in the form of a JSON to any Snowplow event. 
+Custom contexts can be used to attach additional data in the form of a JSON to any Snowplow event.
+
+An example of a possible custom context JSON:
+
+```javascript
+{ 
+  user: { 
+    fb_uid: '999999 x' 
+  } 
+}
+```
+
+The tracker can be configured to encode the context into Base64 to ensure that no data is lost or corrupted. The downside is that the data will be bigger and less readable. Otherwise the data will be percent-encoded.
 
 | **Parameter** | **Maps to**      | **Type** |**Description**                                     | **Implemented?** | **Example values**| 
 |:--------------|:-----------------|:---------|:---------------------------------------------------|:-----------------|:------------------|
-| `co`       | `co_json`        | JSON     | A custom context                        | No          | `{ user: { fb_uid: '123456 x' } }` |
+| `co`       | `co_json`        | JSON     | A custom context                        | No          | `%7B%22user%22%3A%7B%22fb_uid%22%3A%22999999%20x%22%7D%7D` |
 | `cx`       | `co_json`        | JSON (Base64 encoded)   | A custom context         | No          | `6eyJ1c2VyX3R5cGUiOiJ0ZXN0ZXIifX=` |
 
 Example of a custom context attached to the _watch-video-clip_ structured event from above:
@@ -591,7 +603,7 @@ uid=aeb1691c5a0ee5a6    // User ID
 &se_va=14.99            // event_value = 14.99 (price of item added to basket)  
 
 &co=%7B%22user%22%3A%7B%22fb_uid%22%3A%22123456%20x%22%7D%7D 
-                        // context = { user: { fb_uid: '123456 x' } }
+                        // context = { user: { fb_uid: '999999 x' } }
 ```
 
 Back to [top](#top).
