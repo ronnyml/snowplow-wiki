@@ -29,6 +29,8 @@ Snowplow has been built to enable users to track a wide range of events that occ
     - 3.8.1 [`trackUnstructEvent`](#trackUnstructEvent)   
   - 3.9 [Link click tracking](#link-click-track)
     - 3.9.1 [`enableLinkTracking`](#enableLinkTracking)
+  - 3.10 [Custom contexts](#custom-contexts)
+
 
 <a name="overview" />
 ## 1. Overview
@@ -767,6 +769,72 @@ This feature is on the roadmap: it has not been developed yet.
 [Back to top](#top)  
 [Back to Javascript technical documentation contents][contents]
 
+<a name="custom-contexts" />
+### 3.10 Custom contexts
+
+Custom contexts can be used to augment any standard Snowplow event type, including unstructured events, with additional data.
+
+Custom contexts can be added as an extra argument to any of Snowplow's `track..()` methods and to `addItem` and `addTrans`. 
+
+If set, the context argument must be a JSON of the form:
+
+```javascript
+{
+  "context1_name": {
+    ...
+  },
+  "context2_name": {
+    ...
+  }
+
+}
+```
+
+where each inner context JSON follows the same rules as the event properties JSON argument for an [unstructured event](#trackUnstructEvent). In particular, they must have a flat structure, so this movie poster context is allowed:
+
+```javascript
+{
+  "movie_poster": {
+    "movie_name": "Solaris",
+    "poster_country": "JP",
+    "poster_year": new Date(1978, 1, 1)
+  }
+}
+```
+
+But this one isn't:
+
+```javascript
+{
+  "movie_poster": {
+    "movie_name": "Solaris",
+    "nested_poster_data": {
+      "poster_country": "JP",
+      "poster_year": new Date(1978, 1, 1)
+    }
+  }
+}
+```
+
+How to track a pageview event with this custom context:
+
+```javascript
+_snaq.push(['trackPageView', '', { 
+  "movie_poster": {
+    "movie_name": "Solaris",
+    "poster_country": "JP",
+    "poster_year": new Date(1978, 1, 1)
+  }
+}]);
+```
+
+In this case an empty string has been provided to the optional `customTitle` argument in order to reach the `context` argument.
+
+For more information on custom contexts, see [this][contexts] blog post.
+
+[Back to top](#top)  
+[Back to Javascript technical documentation contents][contents]
+
 [contents]: Javascript-Tracker
 
 
@@ -782,3 +850,4 @@ This feature is on the roadmap: it has not been developed yet.
 [mixpanel]: https://mixpanel.com/
 [kissmetrics]: https://www.kissmetrics.com/
 [keen.io]: https://keen.io/
+[contexts]: http://snowplowanalytics.com/blog/2014/01/27/snowplow-custom-contexts-guide/

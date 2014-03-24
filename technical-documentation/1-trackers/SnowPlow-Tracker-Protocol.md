@@ -40,6 +40,7 @@ In the [first part of this guide](#common), we cover the parameters in the Snowp
   - 3.8 [Error tracking](#error)
   - 3.9 [Custom structured events](#event)
   - 3.10 [Custom unstructured events](#unstructevent)
+- 4. [Custom contexts](#customcontexts)
 
 <a name="common" />
 ## 1. Common parameters (platform and event independent) 
@@ -513,7 +514,7 @@ uid=aeb1691c5a0ee5a6    // User ID
 Back to [event tracking](#events).
 
 
-<a name="" />
+<a name="unstructevent" />
 #### 3.10 Custom unstructured event tracking
 
 Custom unstructured event tracking is used to track events that are not natively supported by Snowplow and allow arbitrary name: value pairs associated with the event.
@@ -560,5 +561,37 @@ uid=aeb1691c5a0ee5a6   // User ID
 
 ```
 
-Back to [event tracking](#events).  
+Back to [event tracking](#events).
+
+<a name="custom-contexts" />
+
+#### 4. Custom contexts
+
+Custom contexts can be used to attach additional data in the form of a JSON to any Snowplow event. 
+
+| **Parameter** | **Maps to**      | **Type** |**Description**                                     | **Implemented?** | **Example values**| 
+|:--------------|:-----------------|:---------|:---------------------------------------------------|:-----------------|:------------------|
+| `co`       | `co_json`        | JSON     | A custom context                        | No          | `{ user: { fb_uid: '123456 x' } }` |
+| `cx`       | `co_json`        | JSON (Base64 encoded)   | A custom context         | No          | `6eyJ1c2VyX3R5cGUiOiJ0ZXN0ZXIifX=` |
+
+Example of a custom context attached to the _watch-video-clip_ structured event from above:
+
+```javascript
+uid=aeb1691c5a0ee5a6    // User ID  
+&vid=2                  // Visit ID (i.e. session number for this user_id)  
+&tid=508780             // Transaction ID  
+&aid=1                  // App ID
+&tv=js-0.5.2            // Tracker version
+
+&e=se                   // event = custom  
+&se_ca=ecomm            // event_category = ecomm  
+&se_ac=add-to-basket    // event_action = add-to-basket  
+&se_la=178              // event_label = 178 (product_id of item added to basket)  
+&se_pr=1                // event_property = 1 (quantity of item added to basket)  
+&se_va=14.99            // event_value = 14.99 (price of item added to basket)  
+
+&co=%7B%22user%22%3A%7B%22fb_uid%22%3A%22123456%20x%22%7D%7D 
+                        // context = { user: { fb_uid: '123456 x' } }
+```
+
 Back to [top](#top).
