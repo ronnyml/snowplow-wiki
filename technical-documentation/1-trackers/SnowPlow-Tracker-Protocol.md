@@ -49,13 +49,15 @@ In the [first part of this guide](#common), we cover the parameters in the Snowp
 
 | **Parameter** | **Maps to**      | **Type** |**Description**               | **Implemented?** | **Example values**        | 
 |:--------------|:-----------------|:---------|:------------------------------|:-----------------|:--------------------------|
-| `tna`         | N/A              | text     | The tracker namespace. (Useful for users running multiple trackers, pinging to different collectors). Note that the name can be any string that *does not* contain a colon or semi-colon character |
+| `tna`         | N/A              | text     | The tracker namespace         | yes               | `tracker_1`
 | `aid`         | `app_id`         | text     | Unique identifier for website / application    | Yes | `angry-birds-android` |
 | `p`           | `platform`       | text     | The platform the app runs on  | No               | `web`, `mob`, `app`      |
 
-The application ID parameter is used to distinguish data from different website and applications.
+The tracker namespace parameter is used to distinguish between different trackers. The name can be any string that *does not* contain a colon or semi-colon character. Tracker namespacing allows you to run multiple trackers, pinging to different collectors.
 
-As a Snowplow user, you can define application IDs for each of your different ditial products and track behaviour of your users across all of them using the same Snowplow instance by setting the `app_id` in your tracker of choice.
+The application ID parameter is used to distinguish data from different websites and applications.
+
+As a Snowplow user, you can define application IDs for each of your different digital products and track behaviour of your users across all of them using the same Snowplow instance by setting the `app_id` in your tracker of choice.
 
 **Potential platform values**: (to finalise and complete...)
 
@@ -153,7 +155,7 @@ In addition, there is a set of browser-specific parameters that only makes sense
 | `url`         | `page_url`       | text     | Page URL                                            | Yes              | `http%3A%2F%2Ftest.psybazaar.com%2F2-tarot-cards` |
 | `page`        | `page_title`     | text     | Page title                                          | Yes              | `Tarot%20cards`   |
 | `refr`        | `page_referrer`  | text     | Referrer URL                                        | Yes              | `http%3A%2F%2Ftest.psybazaar.com%2F` |
-| `fp`          | `user_fingerprint`| integer | User identifier based on (hopefully unique) browser features | Yes     |                   |
+| `fp`          | `user_fingerprint`| integer | User identifier based on (hopefully unique) browser features | Yes     | `4048966212`      |
 | `ctype`       | `connection_type`| text     | Type of connection                                  | No               |                   |
 | `cookie`      | `br_cookies`     | boolean  | Does the browser permit cookies?                    | Yes              | `1`               |
 | `lang`        | `br_lang`        | text     | Language the browser is set to                      | Yes              | `en-US`           |
@@ -166,7 +168,7 @@ In addition, there is a set of browser-specific parameters that only makes sense
 | `f_java`      | `br_featurse` or `br_features_java`     | boolean | Java plugin installed?       | Yes               | `1`               |
 | `f_gears`     | `br_featurse` or `br_features_gears`    | boolean | Google gears installed?      | Yes               | `1`               |
 | `f_ag`        | `br_featurse` or `br_features_silverlight` | boolean | Silverlight plugin installed? | Yes           | `1`               |
-| `cd`          | `br_colordepth`  | Browser color depth   | integer |                             | Yes               | `24`              |
+| `cd`          | `br_colordepth`  | integer   | Browser color depth                               | Yes               | `24`              |
 | `ds`          | `doc_width` and `doc_height` | text | Web page width and height                  | Yes               | `1090x1152`       |
 | `cs`          | `doc_charset`    | text      | Web page's character encoding                     | Yes               | `UTF-8`
 | `vp`          | `br_viewwidth` and `br_viewheight` | text | Browser viewport width and height    | Yes               | `1105x390`        |
