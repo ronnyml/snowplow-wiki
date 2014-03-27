@@ -18,6 +18,9 @@
     - 2.5.1 [`setCustomUrl`](#setcustomurl)
   - 2.6 [User privacy](#do-not-track)
     - 2.6.1 [`respectDoNotTrack`](#respectDoNotTrack)
+  - 2.7 [User fingerprinting](#fingerprint)
+    - 2.7.1 [`enableUserFingerprinting`](#enableUserFingerprinting)
+    - 2.7.2 [`setUserFingerprintSeed`](#setUserFingerprintSeed)
 
 There are three "global parameters" that can be set for the Javascript tracker:
 
@@ -194,5 +197,34 @@ _snaq.push(['respectDoNotTrack', true]);
 ```
 
 If a user's Do Not Track feature is enabled, this will prevent the Javascript tracker from setting cookies or sending events to a collector.
+
+[Back to top](#top)
+[Back to Javascript technical documentation contents][contents]
+
+<a name="fingerprint" />
+### 2.7 User fingerprinting
+
+The Tracker generates a user fingerprint based on various browser features. This fingerprint is likely to be unique and so can be used to track anonymous users.
+
+<a name="enableUserFingerprinting" />
+#### 2.7.1 Turning off user fingerprinting using `enableUserFingerprinting`
+
+User fingerprinting is turned on by default. To switch it off, use the `enableUserFingerprinting` method:
+
+```javascript
+_snaq.push(['enableUserFingerprinting', false]);
+```
+
+<a name="setUserFingerprintSeed" />
+#### 2.7.2 Setting the user fingerprint seed using `setUserFingerprintSeed`
+
+You can change the hash seed used to generate the user fingerprint with the `setUserFingerprintSeed` method:
+
+```javascript
+_snaq.push(['setUserFingerprintSeed', 149257683]);
+```
+
+[Back to top](#top)
+[Back to Javascript technical documentation contents][contents]
 
 [contents]: Javascript-Tracker
