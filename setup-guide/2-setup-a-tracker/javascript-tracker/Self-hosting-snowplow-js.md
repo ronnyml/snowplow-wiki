@@ -1,4 +1,4 @@
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2: setup a Tracker**](Setting-up-a-Tracker) > [**Javascript tracker**](Javascript-tracker-setup) > [Self-hosting Snowplow.js](Self-hosting-snowplow-js)
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2: setup a Tracker**](Setting-up-a-Tracker) > [**JavaScript Tracker**](Javascript-tracker-setup) > [Self-hosting Snowplow.js](Self-hosting-snowplow-js)
 
 ## Overview
 
@@ -45,7 +45,7 @@ A couple of notes on this:
 
 ### 2. Upload the JavaScript
 
-You want to upload the **minified** version of the Snowplow JavaScript, which is called `sp.js`. You can obtain the latest version of the Javascript from the [[hosted assets]] section or review the [Snowplow Github repo](https://github.com/snowplow/snowplow).
+You want to upload the **minified** version of the Snowplow JavaScript, which is called `sp.js`. You can obtain the latest version of the JavaScript from the [[hosted assets]] section or review the [Snowplow Github repo](https://github.com/snowplow/snowplow).
 
 Now you're ready to upload the JavaScript file into S3. Within the S3 pane, hit **Upload** and browse to your file:
 
@@ -151,7 +151,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp
 <!-- Snowplow stops plowing -->
 ```
 
-The reference to `'://d1fc8wv8zag5ca.cloudfront.net/0.13.1/sp.js'` loads `sp.js`, the Snowplow JavaScript tracker. The version loaded is the version [hosted by the Snowplow team from our own Cloudfront subdomain](hosted-assets) (and provided free to the community). 
+The reference to `'://d1fc8wv8zag5ca.cloudfront.net/0.13.1/sp.js'` loads `sp.js`, the Snowplow JavaScript Tracker. The version loaded is the version [hosted by the Snowplow team from our own Cloudfront subdomain](hosted-assets) (and provided free to the community). 
 
 To use the version hosted yourself, update the `sp.src` line to point to your own self-hosted `sp.js`:
 
@@ -163,7 +163,7 @@ sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://{{YOU
 
 The `setCollectorCf` method is used to determine the Cloudfront subdomain where your tracking pixel is served from. This should **not** be confused with the Cloudfront subdomain used to serve `sp.js`.
 
-This page of documentation relates to self-hosting `sp.js`. You should be using a different Cloudfront distribution for you `setCollectorCf` method in the Snowplow tag. (Or if you're not using the Cloudfront collector, `setCollectorUrl`.) If you are using the Cloudfront collector, see [Cloudfront collector setup](1-Setup-a-bucket-on-S3-for-the-pixel) for details on setting up a Cloudfront distribution for your tracking pixel, and [setting the collector endpoint of your Javascript tracker](javascript-tracker#wiki-endpoint) for details on configuring your Snowplow tags.
+This page of documentation relates to self-hosting `sp.js`. You should be using a different Cloudfront distribution for you `setCollectorCf` method in the Snowplow tag. (Or if you're not using the Cloudfront collector, `setCollectorUrl`.) If you are using the Cloudfront collector, see [Cloudfront collector setup](1-Setup-a-bucket-on-S3-for-the-pixel) for details on setting up a Cloudfront distribution for your tracking pixel, and [setting the collector endpoint of your JavaScript Tracker](javascript-tracker#wiki-endpoint) for details on configuring your Snowplow tags.
 
 <a name="advanced-options" />
 ## Advanced options
@@ -182,7 +182,7 @@ The second option is out of the scope of the Snowplow documentation but you shou
 
 You may want to setup [campaign tracking](tracking your marketing campaigns), so that you can tie user behaviour on your website to any paid campaigns that drove those users to your website.
 
-Finished setting up the [Javascript tracker] (javascript-tracker-setup)? Then you are ready to [setup EmrEtlRunner] (Setting-up-Snowplow#wiki-step3).
+Finished setting up the [JavaScript Tracker] (javascript-tracker-setup)? Then you are ready to [setup EmrEtlRunner] (Setting-up-Snowplow#wiki-step3).
 
 Return to the [setup guide] (Setting-up-Snowplow).
 

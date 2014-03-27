@@ -1,4 +1,4 @@
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2: setup a Tracker**](Setting-up-a-Tracker) > [**Javascript tracker**](Javascript-tracker-setup) > [Modifying Snowplow.js](Modifying-Snowplow-js)
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2: setup a Tracker**](Setting-up-a-Tracker) > [**JavaScript Tracker**](Javascript-tracker-setup) > [Modifying Snowplow.js](Modifying-Snowplow-js)
 
 ## Overview
 
@@ -76,7 +76,7 @@ To do this, please follow the testing instructions at the end of the guide to [I
 
 ## Next steps
 
-Finished setting up the [Javascript tracker] (javascript-tracker-setup)? Then you are ready to [setup EmrEtlRunner] (Setting-up-Snowplow#wiki-step3).
+Finished setting up the [JavaScript Tracker] (javascript-tracker-setup)? Then you are ready to [setup EmrEtlRunner] (Setting-up-Snowplow#wiki-step3).
 
 Return to the [setup guide] (Setting-up-Snowplow).
 

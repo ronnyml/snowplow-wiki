@@ -82,7 +82,7 @@ Back to [common field types](#common).
 | `dtm`         | `dvce_dt`, `dvce_tm` and `dvce_epoch` | int |Timestamp when event occurred, as recorded by client device | Yes  | `1361553733313` |                         |
 | `tz`          | `os_timezone`    | text     | Operating system time zone    | Yes              | `Europe%2FLondon`
 
-It is possible to record the time that an event occurs on the clients-side (i.e. in the tracker), or server side (i.e. by the collector). When using the Javascript tracker to track web events, it makes sense to rely on the collector logs to identify the time that events occured, as Snowplow tracking tags are fired as events happen, and so the time they are received server-side should be an accurate representation of the time the event being tracked occured. In other situations (e.g. when using mobile trackers), the time the collector receives the data may be sometime after an event occurred, and so it makes sense to record the timestamp on the client-side, in which case this is handled by the tracker.
+It is possible to record the time that an event occurs on the clients-side (i.e. in the tracker), or server side (i.e. by the collector). When using the JavaScript tracker to track web events, it makes sense to rely on the collector logs to identify the time that events occured, as Snowplow tracking tags are fired as events happen, and so the time they are received server-side should be an accurate representation of the time the event being tracked occured. In other situations (e.g. when using mobile trackers), the time the collector receives the data may be sometime after an event occurred, and so it makes sense to record the timestamp on the client-side, in which case this is handled by the tracker.
 
 The tracker can pass a client-side timestamp to the collector using the above parameters.
 
@@ -109,7 +109,7 @@ Back to [common field types](#common).
 |:--------------|:-----------------|:---------|:------------------------------|:-----------------|:--------------------------|
 | `tv`          | `v_tracker`      | text     | Identifier for Snowplow tracker | No             | `js-0.5.1`                |
 
-For deployments where multiple trackers are used (e.g. for businesses that use the [Javascript tracker] (javascript-tracker) to track events on their domains alongside the [No-JS tracker] (no-js-tracker) to track events on 3rd party domains), it is useful to be able to distinguish data generated from each tracker. It can also be useful when tracker versions are updated, so that it is easier to see if an update in tracker accounts for a feature of the data at analysis time.
+For deployments where multiple trackers are used (e.g. for businesses that use the [JavaScript tracker] (javascript-tracker) to track events on their domains alongside the [No-JS tracker] (no-js-tracker) to track events on 3rd party domains), it is useful to be able to distinguish data generated from each tracker. It can also be useful when tracker versions are updated, so that it is easier to see if an update in tracker accounts for a feature of the data at analysis time.
 
 Back to [common field types](#common).
 

@@ -1,6 +1,6 @@
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2: setup a Tracker**](Setting-up-a-Tracker) > [**No-JS tracker**](No-JS-tracker-setup)
 
-The No-JS tracker (pixel tracker) enables you to track page views of HTML pages where it is not possible to insert standard Snowplow Javascript tracking tags: for example HTML emails or pages hosted with 3rd party service providers.
+The No-JS tracker (pixel tracker) enables you to track page views of HTML pages where it is not possible to insert standard Snowplow JavaScript tracking tags: for example HTML emails or pages hosted with 3rd party service providers.
 
 The tracker is effectively a wizard that generates an HTML tracking tag based on parameters that you pass into it via a webform. The sourcecode for the wizard is [available on the Github repo] [no-js-tracker-repo]. A hosted version of the wizard is available on the [Snowplow Analytics website] [no-js-wizard].
 
@@ -49,7 +49,7 @@ If this is an HTML email, you will need to insert it in the email. If it is a we
 
 The behaviour of the No-JS tracker is very different if used with the Clojure collector than with the Cloudfront collector.
 
-When used with the Cloudfront collector, no `user_id` is set, because this has to be done client-side using Javascript. As a result, we **cannot** use the data to count e.g. the number of unique views of an HTML email or a Github README that contain the No-JS tracking tag. This limits the scope of the analysis that can be performed on the data.
+When used with the Cloudfront collector, no `user_id` is set, because this has to be done client-side using JavaScript. As a result, we **cannot** use the data to count e.g. the number of unique views of an HTML email or a Github README that contain the No-JS tracking tag. This limits the scope of the analysis that can be performed on the data.
 
 On the other hand, when used with the Clojure collector, a `user_id` is set. That is because it is set server side. The Clojure collector then drops a cookie with the stored `user_id` on the user's browsers. If you were using this to track views of Github READMEs, for example, you would then be able to track specific user browsing behaviour across your site and your Github repos.
 

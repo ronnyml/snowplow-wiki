@@ -1,10 +1,10 @@
 <a name="top" />
 
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2: setup a Tracker**](Setting-up-a-Tracker) > [**Javascript tracker**](Javascript-tracker-setup) > [Setting up the Javascript Tracker with Google Tag Manager](Integrating-Javascript-tags-with-Google-Tag-Manager)
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2: setup a Tracker**](Setting-up-a-Tracker) > [**JavaScript Tracker**](Javascript-tracker-setup) > [Setting up the JavaScript Tracker with Google Tag Manager](Integrating-Javascript-tags-with-Google-Tag-Manager)
 This setup guide is divided into three sections:
 
 1. [Setting up Google Tag Manager](#setup-gtm) (GTM)
-2. [Integrating Snowplow Javascript tracking tags with Google Tag Manager](#snowplow-setup)
+2. [Integrating Snowplow JavaScript tracking tags with Google Tag Manager](#snowplow-setup)
 3. [Next steps](#next-steps)
 
 If you have already setup Google Tag Manager on your website, you can proceed directly to [section 2](#snowplow-setup). However, we recommend at least skimming the section on [setting up Google Tag Manager](#setup-gtm), as we've seen a number of companies implement this badly, with the end result that they cannot pass all the data they would like to Snowplow tags for analysis later.
@@ -23,7 +23,7 @@ There are six steps to setting up GTM to the point you can integrate Snowplow (o
 5. [Integrate the `dataLayer` onto your website](#1.5)
 6. [Create macros for the variables stored in the `dataLayer` in in the GTM UI](#1.6)
 
-Typically, the steps people get wrong (or miss out alltogether) are steps 3-6. Getting them right is critical, however, because if you do not setup a robust mechanism for passing **all** the relevant data you want to report on in Snowplow (or any other web analytics program) into GTM, then GTM will not be able to pass that data into Snowplow, in turn. Either you will need to go back to your webmaster to add additional lines to your HTML / Javascript to pass the missing data points later, or you'll be forced to perform analysis without them. Managing the data pipeline between your website(s) and GTM is key.
+Typically, the steps people get wrong (or miss out alltogether) are steps 3-6. Getting them right is critical, however, because if you do not setup a robust mechanism for passing **all** the relevant data you want to report on in Snowplow (or any other web analytics program) into GTM, then GTM will not be able to pass that data into Snowplow, in turn. Either you will need to go back to your webmaster to add additional lines to your HTML / JavaScript to pass the missing data points later, or you'll be forced to perform analysis without them. Managing the data pipeline between your website(s) and GTM is key.
 
 <a name="1.1" />
 ### 1.1 Create a Google Tag Manager account
@@ -153,7 +153,7 @@ To create a new macro in GTM, click on the **Create Macro** button on the top ri
 
 [[/setup-guide/images/gtm/create-macro-1.png]]
 
-Give your macro an appropriate name. For simplicity, we always use the same name used in the `dataLayer`, although that is not a requirement. From the **Macro Type** dropdown, select **Data Layer Variable**. Then enter the name of the variable, exactly as used in the HTML / Javascript. (This is case sensitive.) 
+Give your macro an appropriate name. For simplicity, we always use the same name used in the `dataLayer`, although that is not a requirement. From the **Macro Type** dropdown, select **Data Layer Variable**. Then enter the name of the variable, exactly as used in the HTML / JavaScript. (This is case sensitive.) 
 
 [[/setup-guide/images/gtm/create-macro-2.png]]
 
@@ -168,7 +168,7 @@ GTM comes pre-configured with three macros already: `event`, `referrer` and `url
 [Back to top](#top)
 
 <a name="snowplow-setup" />
-## 2. Integrating Snowplow Javascript tracking tags with Google Tag Manager
+## 2. Integrating Snowplow JavaScript tracking tags with Google Tag Manager
 
 1. [Integrating Snowplow page tracking tags](#page)
 2. [Integrating Snowplow structured event tracking tags](#events)
@@ -214,9 +214,9 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp
 <!-- Snowplow stops plowing -->
 ```
 
-You will need to update the {{CLOUDFRONT DOMAIN}} with the Cloudfront subdomain details you created as part of the [collector setup](https://github.com/snowplow/snowplow/wiki/setting-up-cloudfront-collector). (If you are using a version of Snowplow hosted by the Snowplow team, we will provide you with a Cloudfront domain to enter.) It will look something like `d3rkrsqld9gmqf`. If you are using a different collector the Cloudfront collector (e.g. the Clojure collector), you will need to use the `setCollectorUrl` method instead. For full instructions on all the options available for setting the collector endpoint, see the [Javascript tracker technical documentation](Javascript-Tracker).
+You will need to update the {{CLOUDFRONT DOMAIN}} with the Cloudfront subdomain details you created as part of the [collector setup](https://github.com/snowplow/snowplow/wiki/setting-up-cloudfront-collector). (If you are using a version of Snowplow hosted by the Snowplow team, we will provide you with a Cloudfront domain to enter.) It will look something like `d3rkrsqld9gmqf`. If you are using a different collector the Cloudfront collector (e.g. the Clojure collector), you will need to use the `setCollectorUrl` method instead. For full instructions on all the options available for setting the collector endpoint, see the [JavaScript Tracker technical documentation](Javascript-Tracker).
 
-The calls to `setAppId` and `setCookieDomain` are optional: the first is used if you are running Snowplow across different applications and want to distinguish data for each easily. `setCookieDomain` is used if you are tracking users across multiple subdomains e.g. 'blog.mysite.com', 'www.mysite.com', 'mysite.com'. Full instructions on the use of both these methods can be found in the [Javascript tracker technical documentation](Javascript-Tracker).
+The calls to `setAppId` and `setCookieDomain` are optional: the first is used if you are running Snowplow across different applications and want to distinguish data for each easily. `setCookieDomain` is used if you are tracking users across multiple subdomains e.g. 'blog.mysite.com', 'www.mysite.com', 'mysite.com'. Full instructions on the use of both these methods can be found in the [JavaScript Tracker technical documentation](Javascript-Tracker).
 
 If you are hosting your own Snowplow JavaScript file (see the guide to [Self-hosting snowplow.js] (https://github.com/snowplow/snowplow/wiki/Self-hosting-snowplow-js)), then you need to update the tag above, swapping your own {{CLOUDFRONT DOMAIN}} (the one from which you serve sp.js in for ours:
 
@@ -241,7 +241,7 @@ Note: although set up, the tag wont fire until this update is **published**. We 
 <a name="events" />
 ### 2.2 Integrating Snowplow structured event tracking tags
 
-This is best explained through an example. Let's assume, again, that we are implementing Snowplow on a Youtube-like video site. There will be a large number of possible events that occur on a user journey including searching for a video, playing a video, pausing a video, liking a video, uploading a video, sharing a video etc... As per steps [1.3](#1.3), [1.4](#1.4) and [1.5](#1.5), each time one of these events occurs, the event is logged in the `dataLayer` along with the associated data. For example, for a 'video play', the following Javascript would execute:
+This is best explained through an example. Let's assume, again, that we are implementing Snowplow on a Youtube-like video site. There will be a large number of possible events that occur on a user journey including searching for a video, playing a video, pausing a video, liking a video, uploading a video, sharing a video etc... As per steps [1.3](#1.3), [1.4](#1.4) and [1.5](#1.5), each time one of these events occurs, the event is logged in the `dataLayer` along with the associated data. For example, for a 'video play', the following JavaScript would execute:
 
 ```javascript
 dataLayer.push(
@@ -478,7 +478,7 @@ As well as the page view, structured events and ecommerce event tracking tags, S
 
 Detailed documentation on how to capture the complete range of events possible with Snowplow can be found in the [[Javascript Tracker]] section of the [Technical Documentation] (snowplow-technical-documentation).
 
-Note: we recommend after you finish consulting the technical documentation related to the events supported by the Javascript tracker that you return to the setup guide to complete the setup.
+Note: we recommend after you finish consulting the technical documentation related to the events supported by the JavaScript Tracker that you return to the setup guide to complete the setup.
 
 <a name="publish" />
 ### 2.5 Publishing changes to GTM
@@ -514,7 +514,7 @@ In the event that it is not working as expected, you can go back and make the ch
 <a name="next-steps" />
 ## 3. Next steps
 
-Now you have setup the Javascript tracking tags, you are in a position to [test that they fire](testing the javascript tracker is firing).
+Now you have setup the JavaScript tracking tags, you are in a position to [test that they fire](testing the javascript tracker is firing).
 
 [Return to setup guide](Setting-up-Snowplow).
 

@@ -1,6 +1,6 @@
 <a name="top" />
 
-[**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > [**Javascript Tracker**](Javascript-Tracker)
+[**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > [**JavaScript Tracker**](Javascript-Tracker)
 
 ## Contents
 
@@ -45,11 +45,11 @@
 <a name="overview" />
 ## 1. Overview
 
-The [Snowplow Javascript tracker](https://github.com/snowplow/snowplow/tree/master/1-trackers/javascript-tracker/) works in much the same way as Javascript trackers for other major web analytics solutions including Google Analytics and Omniture. We have tried, as far as possible, to keep the API very close to that used by Google Analytics, so that users who have implemented Google Analytics Javascript tags have no difficulty also implementing the Snowplow Javascript tags.
+The [Snowplow JavaScript Tracker](https://github.com/snowplow/snowplow/tree/master/1-trackers/javascript-tracker/) works in much the same way as JavaScript trackers for other major web analytics solutions including Google Analytics and Omniture. We have tried, as far as possible, to keep the API very close to that used by Google Analytics, so that users who have implemented Google Analytics JavaScript tags have no difficulty also implementing the Snowplow JavaScript tags.
 
-Tracking is done by inserting Javascript tags onto pages. These tags run functions defined in [snowplow.js](https://github.com/snowplow/snowplow/blob/master/1-trackers/javascript-tracker/js/snowplow.js), that trigger GET requests of the Snowplow pixel. The Javascript functions append data points to be passed into Snowplow onto the query string for the GET requests. These then get logged by the Snowplow [collector](collectors). For a full list of data points that can be passed into Snowplow in this way, please refer to the [Snowplow tracker protocol](snowplow-tracker-protocol) documentation.
+Tracking is done by inserting JavaScript tags onto pages. These tags run functions defined in [tracker.js](https://github.com/snowplow/snowplow-javascript-tracker/blob/master/src/js/tracker.js), that trigger GET requests of the Snowplow pixel. The JavaScript functions append data points to be passed into Snowplow onto the query string for the GET requests. These then get logged by the Snowplow [collector](collectors). For a full list of data points that can be passed into Snowplow in this way, please refer to the [Snowplow tracker protocol](snowplow-tracker-protocol) documentation.
 
-The Javascript tracker supports both synchronous and asynchronous tags. We recommend the asynchronous tags in nearly all instances, as these do not slow down page load times. 
+The JavaScript Tracker supports both synchronous and asynchronous tags. We recommend the asynchronous tags in nearly all instances, as these do not slow down page load times. 
 
 [2. General parameters](1-General-parameters-for-the-Javascript-tracker#wiki-general)  
 [3. Tracking specific events](2-Specific-event-tracking-with-the-Javascript-tracker#wiki-tracking-specific-events) 

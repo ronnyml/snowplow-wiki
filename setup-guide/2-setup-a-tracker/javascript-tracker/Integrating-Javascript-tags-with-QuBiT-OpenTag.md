@@ -1,11 +1,11 @@
 <a name="top" />
 
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2: setup a Tracker**](Setting-up-a-Tracker) > [**Javascript tracker**](Javascript-tracker-setup) > [Setting up the Javascript Tracker with QuBit OpenTag](Integrating-Javascript-tags-with-QuBit-OpenTag)
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2: setup a Tracker**](Setting-up-a-Tracker) > [**JavaScript Tracker**](Javascript-tracker-setup) > [Setting up the JavaScript Tracker with QuBit OpenTag](Integrating-Javascript-tags-with-QuBit-OpenTag)
 
 This setup guide is divided into two sections:
 
 1. [Setting up QuBit OpenTag](#setup-opentag)
-2. [Integrating Snowplow Javascript tracking tags with OpenTag](#snowplow-setup)
+2. [Integrating Snowplow JavaScript tracking tags with OpenTag](#snowplow-setup)
 3. [Next steps](#next-steps)
 
 <a name="setup-opentag" />
@@ -105,7 +105,7 @@ The code appears in a popup. You can copy it to your clipboard directly.
 
 You need to implement this tag on every page of your website, *with* the `opentag-event-extension.js` file. This file is [hosted] (Hosted-assets) on [[https://s3-eu-west-1.amazonaws.com/snowplow-hosted-assets/1-trackers/javascript-tracker/tag-management/opentag/opentag-event-extension.js]].
 
-As a result, the code you insert onto every page (the container tag and include for the above Javascript file) will look something this:
+As a result, the code you insert onto every page (the container tag and include for the above JavaScript file) will look something this:
 
 ```html
 <script src='//d1fc8wv8zag5ca.cloudfront.net/opentag/opentag-event-extension.js'></script>
@@ -115,7 +115,7 @@ As a result, the code you insert onto every page (the container tag and include 
 [Back to top] (#top)
 
 <a name="snowplow-setup" />
-## 2. Integrating Snowplow Javascript tracking tags with OpenTag
+## 2. Integrating Snowplow JavaScript tracking tags with OpenTag
 
 Once you've got OpenTag implemented on your website, you're in position to setup the Snowplow tracking tags in OpenTag.
 
@@ -171,19 +171,19 @@ If your CloudFront distribution's URL is `http://d1x5tduoxffdr7.cloudfront.net`,
 
 	_snaq.push(['setCollectorCf', 'd1x5tduoxffdr7']);
 
-If you are not using the Cloudfront collector (e.g. you are using the Clojure collector), you will need to use the `setCollectorUrl` method instead. Full instructions on doing so can be found in the [technical documentation for the Javascript tracker](Javascript-Tracker).
+If you are not using the Cloudfront collector (e.g. you are using the Clojure collector), you will need to use the `setCollectorUrl` method instead. Full instructions on doing so can be found in the [technical documentation for the JavaScript Tracker](Javascript-Tracker).
 
 #### Setting the {{SITE-ID}} and {{COOKIE-DOMAIN}} values
 
-You can optionally use the `setAppId` method to set an application ID for the page that is being tracked: this is useful if you are using Snowplow to track user behaviour across two or more applications, and wish to distinguish them easily in your data. For full instructions on doing so, please refer to the [Javascript tracker technical documentation](Javascript-Tracker).
+You can optionally use the `setAppId` method to set an application ID for the page that is being tracked: this is useful if you are using Snowplow to track user behaviour across two or more applications, and wish to distinguish them easily in your data. For full instructions on doing so, please refer to the [JavaScript Tracker technical documentation](Javascript-Tracker).
 
-In addition, you can optionally use the `setCookieDomain` method to change your cookie domain from e.g. 'www.mysite.com' to '.mysite.com'. This is important if you are tracking user behaviour across multiple subdomains e.g. 'mysite.com', 'www.mysite.com', 'application.mysite.com', 'blog.mysite.com' etc. Full instructions on how to use this method can be found in the [technical documentation for the Javascript tracker](Javascript-Tracker).
+In addition, you can optionally use the `setCookieDomain` method to change your cookie domain from e.g. 'www.mysite.com' to '.mysite.com'. This is important if you are tracking user behaviour across multiple subdomains e.g. 'mysite.com', 'www.mysite.com', 'application.mysite.com', 'blog.mysite.com' etc. Full instructions on how to use this method can be found in the [technical documentation for the JavaScript Tracker](Javascript-Tracker).
 
 #### Updating the reference to `sp.js`
 
-The reference to `://d1fc8wv8zag5ca.cloudfront.net/0.9.1/sp.js` loads `sp.js`, the Snowplow Javascript tracker. The version loaded is the version [hosted by the Snowplow team from our own Cloudfront subdomain](https://github.com/snowplow/snowplow/wiki/hosted-assets).
+The reference to `://d1fc8wv8zag5ca.cloudfront.net/0.9.1/sp.js` loads `sp.js`, the Snowplow JavaScript Tracker. The version loaded is the version [hosted by the Snowplow team from our own Cloudfront subdomain](https://github.com/snowplow/snowplow/wiki/hosted-assets).
 
-If you are hosting your own Snowplow Javascript file (see the guide to [self-hosting snowplow.js](self hosting snowplow js)), then you need to update the tag above, swapping your own Cloudfront `{{SUBDOMAIN}}` (the one from which you serve `sp.js`) in for ours:
+If you are hosting your own Snowplow JavaScript file (see the guide to [self-hosting snowplow.js](self hosting snowplow js)), then you need to update the tag above, swapping your own Cloudfront `{{SUBDOMAIN}}` (the one from which you serve `sp.js`) in for ours:
 
 	sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://{{SUBDOMAIN}}.cloudfront.net/sp.js';
 

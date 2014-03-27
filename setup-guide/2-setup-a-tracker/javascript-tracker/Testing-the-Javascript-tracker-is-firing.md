@@ -1,4 +1,4 @@
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2: setup a Tracker**](Setting-up-a-Tracker) > [**Javascript tracker**](Javascript-tracker-setup) > Testing the Javascript tracker is firing
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2: setup a Tracker**](Setting-up-a-Tracker) > [**JavaScript Tracker**](Javascript-tracker-setup) > Testing the JavaScript Tracker is firing
 
 Once you have integrated Snowplow tracking tags on your website, you can test that they are firing from your browser, using tools like [Firebug] [firebug] for Firefox, or developer tools in Chrome or IE.
 
@@ -14,7 +14,7 @@ Once this has been enabled, you should be able to see requests made listed in th
 
 #### 2. Checking the network log to see if it contains Snowplow 
 
-The Javascript tracker makes GET requests to the Snowplow collector. The GET request is for the Snowplow pixel, called `i`. You should be able to look through the set of requests made in the network tab, and identify some to `i`. By clicking on them, you can inspect the request more closely:
+The JavaScript Tracker makes GET requests to the Snowplow collector. The GET request is for the Snowplow pixel, called `i`. You should be able to look through the set of requests made in the network tab, and identify some to `i`. By clicking on them, you can inspect the request more closely:
 
 [[/setup-guide/images/test-tracker/2.png]]
 

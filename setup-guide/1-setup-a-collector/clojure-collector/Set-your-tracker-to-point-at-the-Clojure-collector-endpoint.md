@@ -2,7 +2,7 @@
 
 Now that you've set up your Clojure collector, you need to configure your tracker to send event data to it.
 
-Assuming you're using the [Javascript tracker][javascript-tracker], you'll need to modify your Javascript tracking tags to set the correct end point. The standard tracking tags look as follows:
+Assuming you're using the [JavaScript tracker][javascript-tracker], you'll need to modify your JavaScript tracking tags to set the correct end point. The standard tracking tags look as follows:
 
 ```html
 <!-- Snowplow starts plowing -->

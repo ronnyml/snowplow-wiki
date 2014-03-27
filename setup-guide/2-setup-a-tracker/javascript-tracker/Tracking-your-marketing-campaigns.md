@@ -1,4 +1,4 @@
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2: setup a Tracker**](Setting-up-a-Tracker) > [**Javascript tracker**](Javascript-tracker-setup) > [[Tracking your marketing campaigns]]
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2: setup a Tracker**](Setting-up-a-Tracker) > [**JavaScript Tracker**](Javascript-tracker-setup) > [[Tracking your marketing campaigns]]
 
 A very common requirement for web analytics platforms including Snowplow is that they correctly identify traffic from different campaigns, so that it is possible to:
 
@@ -107,7 +107,7 @@ In the analysis phase, we can then look this creative id up via the AdWords API,
 
 Hopefully setting up other marketing channels to include the query parameters necessary to do campaign tracking with Snowplow should be straightforward, and work in a similar fashion to AdWords.
 
-Finished setting up the [Javascript tracker] (javascript-tracker-setup)? Then you are ready to [setup EmrEtlRunner] (Setting-up-Snowplow#wiki-step3).
+Finished setting up the [JavaScript Tracker] (javascript-tracker-setup)? Then you are ready to [setup EmrEtlRunner] (Setting-up-Snowplow#wiki-step3).
 
 Return to the [setup guide] (Setting-up-Snowplow).
 

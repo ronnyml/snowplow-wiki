@@ -2,7 +2,7 @@
 
 **1. Trackers**  
 [Overview](trackers)  
-[Javascript Tracker](javascript-tracker)  
+[JavaScript Tracker](javascript-tracker)  
 
 * [Overview](javascript-tracker)
 * [General parameters](1-General-parameters-for-the-Javascript-tracker)  
