@@ -5,16 +5,16 @@
 ## Contents
 
 - 1. [Overview](#overview)  
-- 2. [General parameters](1-General-paramaters-for-the-Javascript-tracker#wiki-general)  
-  - 2.1 [Setting the endpoint](1-General-paramaters-for-the-Javascript-tracker#wiki-endpoint)  
-    - 2.1.1 [`setCollectorCf`](1-General-paramaters-for-the-Javascript-tracker#wiki-setCollectorCf)  
-    - 2.1.2 [`setCollectorUrl`](1-General-paramaters-for-the-Javascript-tracker#wiki-setCollectorUrl)
-  - 2.2 [Setting the application ID](1-General-paramaters-for-the-Javascript-tracker#wiki-app-id)
-    - 2.2.1 [`setAppId`](1-General-paramaters-for-the-Javascript-tracker#wiki-setAppId)  
-  - 2.3 [Setting the cookie domain](1-General-paramaters-for-the-Javascript-tracker#wiki-cookiedomain)
-    - 2.3.1 [`setCookieDomain`](1-General-paramaters-for-the-Javascript-tracker#wiki-setCookieDomain) 
-  - 2.4 [Setting the user ID](1-General-paramaters-for-the-Javascript-tracker#wiki-user-id)  
-    - 2.4.1 [`setUserId`](1-General-paramaters-for-the-Javascript-tracker#wiki-setUserId)
+- 2. [General parameters](1-General-parameters-for-the-Javascript-tracker#wiki-general)  
+  - 2.1 [Setting the endpoint](1-General-parameters-for-the-Javascript-tracker#wiki-endpoint)  
+    - 2.1.1 [`setCollectorCf`](1-General-parameters-for-the-Javascript-tracker#wiki-setCollectorCf)  
+    - 2.1.2 [`setCollectorUrl`](1-General-parameters-for-the-Javascript-tracker#wiki-setCollectorUrl)
+  - 2.2 [Setting the application ID](1-General-parameters-for-the-Javascript-tracker#wiki-app-id)
+    - 2.2.1 [`setAppId`](1-General-parameters-for-the-Javascript-tracker#wiki-setAppId)  
+  - 2.3 [Setting the cookie domain](1-General-parameters-for-the-Javascript-tracker#wiki-cookiedomain)
+    - 2.3.1 [`setCookieDomain`](1-General-parameters-for-the-Javascript-tracker#wiki-setCookieDomain) 
+  - 2.4 [Setting the user ID](1-General-parameters-for-the-Javascript-tracker#wiki-user-id)  
+    - 2.4.1 [`setUserId`](1-General-parameters-for-the-Javascript-tracker#wiki-setUserId)
 - 3. [Tracking specific events](2-Specific-event-tracking-with-the-Javascript-tracker#wiki-tracking-specific-events)  
   - 3.1 [Pageviews](2-Specific-event-tracking-with-the-Javascript-tracker#wiki-page)  
     - 3.1.1 [`trackPageView`](2-Specific-event-tracking-with-the-Javascript-tracker#wiki-trackPageView)  
@@ -51,7 +51,7 @@ Tracking is done by inserting Javascript tags onto pages. These tags run functio
 
 The Javascript tracker supports both synchronous and asynchronous tags. We recommend the asynchronous tags in nearly all instances, as these do not slow down page load times. 
 
-[2. General parameters](1-General-paramaters-for-the-Javascript-tracker#wiki-general)  
+[2. General parameters](1-General-parameters-for-the-Javascript-tracker#wiki-general)  
 [3. Tracking specific events](2-Specific-event-tracking-with-the-Javascript-tracker#wiki-tracking-specific-events) 
 [4. The relationship between Snowplow.js and Piwik.js](3-The-relationship-between-SnowPlow.js-and-Piwik.js) 
 [5. Modifying Snowplow JS](Modifying-snowplow-js)
