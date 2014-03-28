@@ -7,11 +7,11 @@ Assuming you're using the [JavaScript tracker][javascript-tracker], you'll need 
 ```html
 <!-- Snowplow starts plowing -->
 <script type="text/javascript">
-var _snaq = _snaq || [];
+window._snaq = window._snaq || [];
 
-_snaq.push(['setCollectorCf', '{{CLOUDFRONT DOMAIN}}']);
-_snaq.push(['enableLinkTracking']);
-_snaq.push(['trackPageView']);
+window._snaq.push(['setCollectorCf', '{{CLOUDFRONT DOMAIN}}']);
+window._snaq.push(['enableLinkTracking']);
+window._snaq.push(['trackPageView']);
 
 (function() {
 var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
@@ -25,7 +25,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp
 The line...
 
 ```javascript
-_snaq.push(['setCollectorCf', '{{CLOUDFRONT DOMAIN}}']);
+window._snaq.push(['setCollectorCf', '{{CLOUDFRONT DOMAIN}}']);
 ```
 
 ...is the one that sets the end point, and assumes that you're using the Cloudfront collector rather than the Clojure collector.
@@ -33,7 +33,7 @@ _snaq.push(['setCollectorCf', '{{CLOUDFRONT DOMAIN}}']);
 To set your Clojure collector as the end point, remove that line and replace it with:
 
 ```javascript
-_snaq.push(['setCollectorUrl', '{{COLLECTOR URL}}']);
+window._snaq.push(['setCollectorUrl', '{{COLLECTOR URL}}']);
 ```
 
 Note that the URL your enter must **exclude** `http://` or `https://`. In our case, the url would be: `collector.snplow.com`.
@@ -41,7 +41,7 @@ Note that the URL your enter must **exclude** `http://` or `https://`. In our ca
 Also, you need to tell the JavaScript that it doesn't need to send user IDs to the collector - this is because your Clojure collector is now setting user IDs. You do this like so:
 
 ```javascript
-_snaq.push(['attachUserId', false]);
+window._snaq.push(['attachUserId', false]);
 ```
 
 So, the complete tag will look like this:
@@ -49,12 +49,12 @@ So, the complete tag will look like this:
 ```html
 <!-- Snowplow starts plowing -->
 <script type="text/javascript">
-var _snaq = _snaq || [];
+window._snaq = window._snaq || [];
 
-_snaq.push(['setCollectorUrl', 'collector.snplow.com']);
-_snaq.push(['attachUserId', false]);
-_snaq.push(['enableLinkTracking']);
-_snaq.push(['trackPageView']);
+window._snaq.push(['setCollectorUrl', 'collector.snplow.com']);
+window._snaq.push(['attachUserId', false]);
+window._snaq.push(['enableLinkTracking']);
+window._snaq.push(['trackPageView']);
 
 (function() {
 var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;

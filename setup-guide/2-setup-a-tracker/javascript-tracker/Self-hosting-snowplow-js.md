@@ -136,11 +136,11 @@ The standard Snowplow tracking tag looks something like:
 ```html
 <!-- Snowplow starts plowing -->
 <script type="text/javascript">
-var _snaq = _snaq || [];
+window._snaq = window._snaq || [];
 
-_snaq.push(['setCollectorCf', '{{YOUR COLLECTOR\'S CF SUBDOMAIN}}']);
-_snaq.push(['trackPageView']);
-_snaq.push(['enableLinkTracking']);
+window._snaq.push(['setCollectorCf', '{{YOUR COLLECTOR\'S CF SUBDOMAIN}}']);
+window._snaq.push(['trackPageView']);
+window._snaq.push(['enableLinkTracking']);
 
 (function() {
 var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;

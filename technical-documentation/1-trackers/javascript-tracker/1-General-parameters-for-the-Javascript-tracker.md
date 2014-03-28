@@ -35,12 +35,12 @@ When set, these are global parameters should be set as part of the Snowplow page
 ```javascript
 <!-- Snowplow starts plowing -->
 <script type="text/javascript">
-var _snaq = _snaq || [];
+var window._snaq = window._snaq || [];
 
-_snaq.push(['setCollectorCf', '{{MY-CLOUDFRONT-DOMAIN}}']);
-_snaq.push(['setAppId', '{{MY-SITE-ID}}']);
-_snaq.push(['setCookieDomain', '{{MY-COOKIE-DOMAIN}}'])
-_snaq.push(['trackPageView']);
+window._snaq.push(['setCollectorCf', '{{MY-CLOUDFRONT-DOMAIN}}']);
+window._snaq.push(['setAppId', '{{MY-SITE-ID}}']);
+window._snaq.push(['setCookieDomain', '{{MY-COOKIE-DOMAIN}}'])
+window._snaq.push(['trackPageView']);
 
 (function() {
 var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
@@ -66,13 +66,13 @@ If you are using a Cloudfront collector you can use [setCollectorCf](#setCollect
 You can set the collector endpoint for the Cloudfront collector using:
 
 ```javascript
-_snaq.push(['setCollectorCf', '{{CLOUDFRONT-SUBDOMAIN}}']);
+window._snaq.push(['setCollectorCf', '{{CLOUDFRONT-SUBDOMAIN}}']);
 ```
 
 So if your domain is `d3rkrsqld9gmqf`, you would include:
 
 ```javascript
-_snaq.push(['setCollectorCf', 'd3rkrsqld9gmqf']);
+window._snaq.push(['setCollectorCf', 'd3rkrsqld9gmqf']);
 ```
 
 in your Snowplow tag.
@@ -87,13 +87,13 @@ in your Snowplow tag.
 If you are running a different collector (not the Cloudfront collector) then you set the collector endpoint using:
 
 ```javascript
-_snaq.push(['setCollectorUrl', '{{COLLECTOR-URL}}'])
+window._snaq.push(['setCollectorUrl', '{{COLLECTOR-URL}}'])
 ```
 
 E.g. if your collector endpoint is at 'my-company.c.snplow.com' then you would include:
 
 ```javascript
-_snaq.push(['setCollectorUrl', 'my-company.c.snplow.com'])
+window._snaq.push(['setCollectorUrl', 'my-company.c.snplow.com'])
 ```
 
 in your Snowplow tags.
@@ -112,7 +112,7 @@ You can set different application IDs on different parts of your site. You can t
 To set the application ID, use the `setAppId` method i.e.:
 
 ```javascript
-_snaq.push(['setAppId', 'my_application_id_here']);
+window._snaq.push(['setAppId', 'my_application_id_here']);
 ```
 
 [Back to top](#top)
@@ -137,7 +137,7 @@ Snowplow will, as standard, set the cookie domain to the current domain. So if y
 To assign the cookie to '.mysite.com' instead, execute:
 
 ```javascript
-_snaq.push(['setCookieDomain', '.mysite.com']);
+window._snaq.push(['setCookieDomain', '.mysite.com']);
 ```
 
 [Back to top](#top)
@@ -156,7 +156,7 @@ There are many situations, however, when you will want to identify a specific us
 To set the user ID, use the `setUserId` method i.e.:
 
 ```javascript
-_snaq.push(['setUserId', 'joe.blogs@email.com']);
+window._snaq.push(['setUserId', 'joe.blogs@email.com']);
 ```
 
 Typically, companies employ this method at points in the customer journey when the user identifies him / herself e.g. if he / she logs in.
@@ -179,7 +179,7 @@ However, in certain situations, you may want to override the actual URL with a c
 To set a custom URL, use the `setCustomUrl` method i.e.:
 
 ```javascript
-_snaq.push(['setCustomUrl', 'http://mysite.com/checkout-page']);
+window._snaq.push(['setCustomUrl', 'http://mysite.com/checkout-page']);
 ```
 
 <a name="do-not-track" />
@@ -193,7 +193,7 @@ Most browsers offer a Do Not Track feature, allowing users to request not to be 
 Use the `respectDoNotTrack` method like so:
 
 ```javascript
-_snaq.push(['respectDoNotTrack', true]);
+window._snaq.push(['respectDoNotTrack', true]);
 ```
 
 If a user's Do Not Track feature is enabled, this will prevent the JavaScript Tracker from setting cookies or sending events to a collector.
@@ -212,7 +212,7 @@ The Tracker generates a user fingerprint based on various browser features. This
 User fingerprinting is turned on by default. To switch it off, use the `enableUserFingerprinting` method:
 
 ```javascript
-_snaq.push(['enableUserFingerprinting', false]);
+window._snaq.push(['enableUserFingerprinting', false]);
 ```
 
 <a name="setUserFingerprintSeed" />
@@ -221,7 +221,7 @@ _snaq.push(['enableUserFingerprinting', false]);
 You can change the hash seed used to generate the user fingerprint with the `setUserFingerprintSeed` method:
 
 ```javascript
-_snaq.push(['setUserFingerprintSeed', 149257683]);
+window._snaq.push(['setUserFingerprintSeed', 149257683]);
 ```
 
 [Back to top](#top)

@@ -147,12 +147,12 @@ Now we need to enter the Snowplow page tracking code:
 ```html
 <!-- Snowplow starts plowing -->
 <script type="text/javascript">
-var _snaq = _snaq || [];
+window._snaq = window._snaq || [];
 
-_snaq.push(['setCollectorCf', '{{CLOUDFRONT-DOMAIN}}']);
-_snaq.push(['setAppId', '{{SITE-ID}}']);
-_snaq.push(['setCookieDomain', '{{COOKIE-DOMAIN}}'])
-_snaq.push(['trackPageView']);
+window._snaq.push(['setCollectorCf', '{{CLOUDFRONT-DOMAIN}}']);
+window._snaq.push(['setAppId', '{{SITE-ID}}']);
+window._snaq.push(['setCookieDomain', '{{COOKIE-DOMAIN}}'])
+window._snaq.push(['trackPageView']);
 
 (function() {
 var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
@@ -169,7 +169,7 @@ You must update `{{CLOUDFRONT-DOMAIN}}` with the Cloudfront subdomain details yo
 
 If your CloudFront distribution's URL is `http://d1x5tduoxffdr7.cloudfront.net`, then update the appropriate line in your header script to look like this:
 
-	_snaq.push(['setCollectorCf', 'd1x5tduoxffdr7']);
+	window._snaq.push(['setCollectorCf', 'd1x5tduoxffdr7']);
 
 If you are not using the Cloudfront collector (e.g. you are using the Clojure collector), you will need to use the `setCollectorUrl` method instead. Full instructions on doing so can be found in the [technical documentation for the JavaScript Tracker](Javascript-Tracker).
 
@@ -248,14 +248,14 @@ var i = window.universal_variable.events.length
 while (i--) {
   e = window.universal_variable.events[i];
   if (e.type == 'struct') {
-    _snaq.push(['trackStructEvent', e.category, e.action, e.label, e.property, e.value]); 
+    window._snaq.push(['trackStructEvent', e.category, e.action, e.label, e.property, e.value]); 
     window.universal_variable.events.splice(i, 1);
   }
 }
 </script>
 ```
 
-The above code is  straightforward: it examines the `Events` object in the `Universal Variable` and takes its length. It then cycles through each `Event` in the `Events` object: if the type of event is `struct`, it calls the Snowplow event tracker (using `_snaq.push('trackStructEvent'...)`), passing in the relevant values stored in the `Universal Variable` into Snowplow. Afterwards it removes the reported event from the list: this prevents an event that occured once being reported twice. (If e.g. a number of AJAX events occur on a page in quick succession.)
+The above code is  straightforward: it examines the `Events` object in the `Universal Variable` and takes its length. It then cycles through each `Event` in the `Events` object: if the type of event is `struct`, it calls the Snowplow event tracker (using `window._snaq.push('trackStructEvent'...)`), passing in the relevant values stored in the `Universal Variable` into Snowplow. Afterwards it removes the reported event from the list: this prevents an event that occured once being reported twice. (If e.g. a number of AJAX events occur on a page in quick succession.)
 
 [[/setup-guide/images/opentag/15.png]]
 
@@ -293,7 +293,7 @@ alert('Transaction object present!');
 var t=window.universal_variable.transaction;
 
 // First fire the 'addTrans' event for the new transaction
-_snaq.push(['addTrans',
+window._snaq.push(['addTrans',
 	t.order_id || '',		// transactionId
 	'',					// transactionAffiliation
 	quote(t.total), 		// transactionTotal
@@ -306,7 +306,7 @@ _snaq.push(['addTrans',
 
 // Second fire the 'addItem' event for each item included in the transaction
 for(i=0; i < t.line_items.length; i++){
-	_snaq.push(['addItem',
+	window._snaq.push(['addItem',
 		t.order_id || '', 					// transaction Id
 		t.line_items[i].product.id || '', 		// product sku
 		t.line_items[i].product.name || '' ,		// product name
@@ -317,13 +317,13 @@ for(i=0; i < t.line_items.length; i++){
 }
 
 // Finally fire the 'trackTrans' event to commit the transaction
-_snaq.push(['trackTrans']);
+window._snaq.push(['trackTrans']);
 </script>
 ```
 
 Copy the above code into the **Inline HTML** box.
 
-The code works as follows: it takes the contents of the `Transaction` object declared on the `Universal Variable`. First it uses the `_snaq.push(['addTrans',...])` function, to log transaction level details. (E.g. `order_id`, billing address, delivery address, total, postage etc.) It then looks at the `line_items` that make up the transaction, and calls the `_snaq.push(['addItem'...])` function for every product in the transaction, storing relevant product related data (e.g. `sku`, `product_name`, `unit_price`, `quantity`). Finally it calls the `snaq.push([trackTrans]);` method, which triggers the actual tags to fire to Snowplow, passing the data stored into Snowplow proper.
+The code works as follows: it takes the contents of the `Transaction` object declared on the `Universal Variable`. First it uses the `window._snaq.push(['addTrans',...])` function, to log transaction level details. (E.g. `order_id`, billing address, delivery address, total, postage etc.) It then looks at the `line_items` that make up the transaction, and calls the `window._snaq.push(['addItem'...])` function for every product in the transaction, storing relevant product related data (e.g. `sku`, `product_name`, `unit_price`, `quantity`). Finally it calls the `snaq.push([trackTrans]);` method, which triggers the actual tags to fire to Snowplow, passing the data stored into Snowplow proper.
 
 #### 2.3.2 Triggering the code to fire on the order confirmation page
 

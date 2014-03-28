@@ -31,12 +31,12 @@ To use `snowplow.js` in an 'async' manner, first add the following script into y
 ```html
 <!-- Snowplow starts plowing -->
 <script type="text/javascript">
-var _snaq = _snaq || [];
+window._snaq = window._snaq || [];
 
-_snaq.push(['setCollectorCf', '{{CLOUDFRONT-DOMAIN}}']);
-_snaq.push(['setAppId', '{{SITE-ID}}']);
-_snaq.push(['setCookieDomain', '{{COOKIE-DOMAIN}}']);
-_snaq.push(['trackPageView']);
+window._snaq.push(['setCollectorCf', '{{CLOUDFRONT-DOMAIN}}']);
+window._snaq.push(['setAppId', '{{SITE-ID}}']);
+window._snaq.push(['setCookieDomain', '{{COOKIE-DOMAIN}}']);
+window._snaq.push(['trackPageView']);
 
 (function() {
 var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
@@ -54,25 +54,25 @@ You need to set the collector endpoint in the header script: this ensures that a
 If you are using the [Cloudfront Collector](Setting up the Cloudfront Collector), you do so using the following line:
 
 ```javascript
-_snaq.push(['setCollectorCf', '{{CLOUDFRONT DOMAIN}}']);
+window._snaq.push(['setCollectorCf', '{{CLOUDFRONT DOMAIN}}']);
 ```
 
 Simply substitude your Cloudfront domain in for the {{CLOUDFROUNT DOMAIN}} e.g.
 
 ```javascript
-_snaq.push(['setCollectorCf', 'd1x5tduoxffdr7']);
+window._snaq.push(['setCollectorCf', 'd1x5tduoxffdr7']);
 ```
 
 If you are using another Collector type (e.g. the [Clojure Collector](setting-up-the-clojure-collector)) you will need to use an alternative `setCollectorUrl` function rather than the `setCollectorCf` to set the Collector endpoint:
 
 ```javascript
-_snaq.push(['setCollectorUrl', '{{COLLECTOR ENDPOINT HERE}}']);
+window._snaq.push(['setCollectorUrl', '{{COLLECTOR ENDPOINT HERE}}']);
 ```
 
 For example, if your collector is at `c.snplow.com` then your tag would contain the line:
 
 ```javascript
-_snaq.push(['setCollectorUrl', 'c.snplow.com']);
+window._snaq.push(['setCollectorUrl', 'c.snplow.com']);
 ```
 ### 1.3 Configuring the header script: application ID and cookie domain
 

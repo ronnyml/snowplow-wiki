@@ -56,11 +56,11 @@ These are generally set as part of the pageview tracking tags, before the actual
 ```javascript
 <!-- Snowplow starts plowing -->
 <script type="text/javascript">
-var _snaq = _snaq || [];
+window._snaq = window._snaq || [];
 
-_snaq.push(['setCollectorCf', '{{CLOUDFRONT-DOMAIN}}']);
-_snaq.push(['setAppId', '{{MY-SITE-ID}}']);
-_snaq.push(['trackPageView']);
+window._snaq.push(['setCollectorCf', '{{CLOUDFRONT-DOMAIN}}']);
+window._snaq.push(['setAppId', '{{MY-SITE-ID}}']);
+window._snaq.push(['trackPageView']);
 
 (function() {
 var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
@@ -84,13 +84,13 @@ If you are using a Cloudfront collector you can use [setCollectorCf](#setCollect
 You can set the collector endpoint for the Cloudfront collector using:
 
 ```javascript
-_snaq.push(['setCollectorCf', '{{CLOUDFRONT-SUBDOMAIN}}']);
+window._snaq.push(['setCollectorCf', '{{CLOUDFRONT-SUBDOMAIN}}']);
 ```
 
 So if your domain is `d3rkrsqld9gmqf`, you would include:
 
 ```javascript
-_snaq.push(['setCollectorCf', 'd3rkrsqld9gmqf']);
+window._snaq.push(['setCollectorCf', 'd3rkrsqld9gmqf']);
 ```
 
 in your Snowplow tag.
@@ -104,13 +104,13 @@ in your Snowplow tag.
 If you are running a different collector (not the Cloudfront collector) then you set the collector endpoint using:
 
 ```javascript
-_snaq.push(['setCollectorUrl', '{{COLLECTOR-URL}}'])
+window._snaq.push(['setCollectorUrl', '{{COLLECTOR-URL}}'])
 ```
 
 E.g. if your collector endpoint is at 'my-company.c.snplow.com' then you would include:
 
 ```javascript
-_snaq.push(['setCollectorUrl', 'my-company.c.snplow.com'])
+window._snaq.push(['setCollectorUrl', 'my-company.c.snplow.com'])
 ```
 
 in your Snowplow tags.
@@ -128,7 +128,7 @@ You can set different application IDs on different parts of your site. You can t
 To set the application ID, use the `setAppId` method i.e.:
 
 ```javascript
-_snaq.push(['setAppId', 'my_application_id_here']);
+window._snaq.push(['setAppId', 'my_application_id_here']);
 ```
 
 [Back to top](#top)
@@ -146,7 +146,7 @@ There are many situations, however, when you will want to identify a specific us
 To set the user ID, use the `setUserId` method i.e.:
 
 ```javascript
-_snaq.push(['setUserId', 'joe.blogs@email.com']);
+window._snaq.push(['setUserId', 'joe.blogs@email.com']);
 ```
 
 Typically, companies employ this method at points in the customer journey when the user identifies him / herself e.g. if he / she logs in.
@@ -168,11 +168,11 @@ Page views are tracked using the `trackPageView` method. This is generally part 
 ```javascript
 <!-- Snowplow starts plowing -->
 <script type="text/javascript">
-var _snaq = _snaq || [];
+window._snaq = window._snaq || [];
 
-_snaq.push(['setCollectorCf', '{{CLOUDFRONT-DOMAIN}}']);
-_snaq.push(['setAppId', '{{MY-SITE-ID}}']);
-_snaq.push(['trackPageView']);
+window._snaq.push(['setCollectorCf', '{{CLOUDFRONT-DOMAIN}}']);
+window._snaq.push(['setAppId', '{{MY-SITE-ID}}']);
+window._snaq.push(['trackPageView']);
 
 (function() {
 var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
@@ -189,7 +189,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp
 Track pageview is called using the simple:
 
 ```javascript
-_snaq.push(['trackPageView']);
+window._snaq.push(['trackPageView']);
 ```
 
 This method automatically captures the URL, referrer and page title (inferred from the `<title>` tag.
@@ -197,7 +197,7 @@ This method automatically captures the URL, referrer and page title (inferred fr
 If you wish, you can override the title with a custom value:
 
 ```javascript
-_snaq.push(['trackPageView', 'my custom page title']);
+window._snaq.push(['trackPageView', 'my custom page title']);
 ```
 
 Note: going forwards we plan to extend this method to also capture page category.
@@ -218,13 +218,13 @@ That is accomplished using 'page ping' events. If activity tracking is enabled, 
 Page pings are enabled by:
 
 ```javascript
-_snaq.push(['enableActivityTracking', minimumVisitLength, heartBeat]);
+window._snaq.push(['enableActivityTracking', minimumVisitLength, heartBeat]);
 ```
 
 where `minimumVisitLength` is the time period from page load before the first page ping occurs, in seconds. Heartbeat is the number of seconds between each page ping, once they have started. So, if you executed:
 
 ```javascript
-_snaq.push(['enableActivityTracking', 30, 10]);
+window._snaq.push(['enableActivityTracking', 30, 10]);
 ```
 
 The first ping would occur after 30 seconds, and subsequent pings every 10 seconds as long as the user continued to browse the page actively.
@@ -264,7 +264,7 @@ The `addTrans` method creates a transaction object. It takes seven possible para
 For example: 
 
 ```javascript
-_snaq.push(['addTrans',
+window._snaq.push(['addTrans',
     '1234',           // order ID - required
     'Acme Clothing',  // affiliation or store name
     '11.99',          // total - required
@@ -298,7 +298,7 @@ There are six potential parameters that can be passed with each call, four of wh
 For example:
 
 ```javascript
-_snaq.push(['addItem',
+window._snaq.push(['addItem',
     '1234',           // order ID - required
     'DD44',           // SKU/code - required
     'T-Shirt',        // product name
@@ -314,7 +314,7 @@ _snaq.push(['addItem',
 Once the transaction object has been created (using `addTrans`) and the relevant item data added to it using the `addItem` method, we are ready to send the data to the collector. This is initiated using the `trackTrans` method:
 
 ```javascript
-_snaq.push(['trackTrans']);
+window._snaq.push(['trackTrans']);
 ```
 
 <a name="ecomm-example" />
@@ -325,11 +325,11 @@ _snaq.push(['trackTrans']);
 <head>
 <title>Receipt for your clothing purchase from Acme Clothing</title>
 <script type="text/javascript">
-  var _snaq = _snaq || [];
+  window._snaq = window._snaq || [];
 
-  _snaq.push(['setCollectorCf', 'd3rkrsqld9gmqf']);
-  _snaq.push(['trackPageView']);
-  _snaq.push(['enableLinkTracking']);
+  window._snaq.push(['setCollectorCf', 'd3rkrsqld9gmqf']);
+  window._snaq.push(['trackPageView']);
+  window._snaq.push(['enableLinkTracking']);
 
   (function() {
   var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
@@ -338,7 +338,7 @@ _snaq.push(['trackTrans']);
   })();
 
 
-  _snaq.push(['addTrans',
+  window._snaq.push(['addTrans',
     '1234',           // order ID - required
     'Acme Clothing',  // affiliation or store name
     '11.99',          // total - required
@@ -352,7 +352,7 @@ _snaq.push(['trackTrans']);
    // add item might be called for every item in the shopping cart
    // where your ecommerce engine loops through each item in the cart and
    // prints out _addItem for each
-  _snaq.push(['addItem',
+  window._snaq.push(['addItem',
     '1234',           // order ID - required
     'DD44',           // SKU/code - required
     'T-Shirt',        // product name
@@ -363,7 +363,7 @@ _snaq.push(['trackTrans']);
 
   // trackTrans sends the transaction to Snowplow tracking servers.
   // Must be called last to commit the transaction.
-  _snaq.push(['trackTrans']); //submits transaction to the collector
+  window._snaq.push(['trackTrans']); //submits transaction to the collector
 
 </script>
 </head>
@@ -400,19 +400,19 @@ The `trackSocial` method takes four parameters:
 The method is executed in as:
 
 ```javascript
-_snaq.push('trackSocial', network, socialAction, opt_target, opt_pagePath)
+window._snaq.push('trackSocial', network, socialAction, opt_target, opt_pagePath)
 ```
 
 For example:
 
 ```javascript
-_snaq.push('trackSocial', 'facebook', 'like', 'pbz00123', '/products/tarot/123-original-rider-waite')
+window._snaq.push('trackSocial', 'facebook', 'like', 'pbz00123', '/products/tarot/123-original-rider-waite')
 ```
 
 Or if the optional parameters were left off:
 
 ```javascript
-_snaq.push('trackSocial', 'facebook', 'like', '', '')
+window._snaq.push('trackSocial', 'facebook', 'like', '', '')
 ```
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
@@ -509,10 +509,10 @@ The full HTML code to append, using asynchronous Snowplow invocation, looks like
 ```html
 <!-- Snowplow starts plowing -->
 <script type="text/javascript">
-var _snaq = _snaq || [];
+window._snaq = window._snaq || [];
 
-_snaq.push(['setCollectorCf', 'patldfvsg0d8w']); // Update to your CloudFront distribution subdomain
-_snaq.push(['trackImpression', '{bannerid}', '{campaignid}', '', '{OAID}']); // OpenX magic macros. Leave this line as-is
+window._snaq.push(['setCollectorCf', 'patldfvsg0d8w']); // Update to your CloudFront distribution subdomain
+window._snaq.push(['trackImpression', '{bannerid}', '{campaignid}', '', '{OAID}']); // OpenX magic macros. Leave this line as-is
 
 (function() {
 var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
@@ -555,13 +555,13 @@ There are five parameters can be associated with each structured event. Of them,
 The async specification for the `trackStructEvent` method is:
 
 ```javascript
-_snaq.push(['trackStructEvent', 'category','action','label','property','value'])
+window._snaq.push(['trackStructEvent', 'category','action','label','property','value'])
 ```
 
 An example of tracking a user listening to a music mix:
 
 ```javascript
-_snaq.push(['trackStructEvent', 'Mixes', 'Play', 'MrC/fabric-0503-mix', '', '0.0'])
+window._snaq.push(['trackStructEvent', 'Mixes', 'Play', 'MrC/fabric-0503-mix', '', '0.0'])
 ```
 
 Note that in the above example no value is set for the `event property`.
@@ -587,13 +587,13 @@ When you track a custom unstructured event, you track the event name and a set o
 To track an unstructured event, you make use the `trackUnstructEvent` method:
 
 ```javascript
-_snaq.push('[trackUnstructEvent', <<EVENT NAME>>, <<EVENT PROPERTIES JSON>>]);
+window._snaq.push('[trackUnstructEvent', <<EVENT NAME>>, <<EVENT PROPERTIES JSON>>]);
 ```
 
 For example:
 
 ```javascript
-_snaq.push(['trackUnstructEvent', 'Viewed Product',
+window._snaq.push(['trackUnstructEvent', 'Viewed Product',
                 {
                     product_id: 'ASO01043',
                     category: 'Dresses',
@@ -819,7 +819,7 @@ But this one isn't:
 How to track a pageview event with this custom context:
 
 ```javascript
-_snaq.push(['trackPageView', '', { 
+window._snaq.push(['trackPageView', '', { 
   "movie_poster": {
     "movie_name": "Solaris",
     "poster_country": "JP",
