@@ -53,7 +53,7 @@ Assuming you have completed the [[Python Tracker Setup]] for your Python project
 Require the Python Tracker"s module into your Python code like so:
 
 ```python
-from snowplowtracker.tracker import Tracker
+from snowplow_tracker.tracker import Tracker
 ```
 
 That's it - you are now ready to initialize a tracker instance. 
@@ -294,7 +294,7 @@ checking: Int      for value: Instance of str: 'walrus'
 checking: $(Int)   for value: Instance of str: 'walrus'   
 checking: int      for value: Instance of str: 'walrus'   
 Variables bound in inner context:
-- self: Instance of Tracker: <snowplowtracker.tracker.Tracker object... [clip]
+- self: Instance of Tracker: <snowplow_tracker.tracker.Tracker object... [clip]
 
 ```
 
