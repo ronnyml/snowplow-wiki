@@ -198,12 +198,12 @@ The actual code you need to insert is:
 ```html
 <!-- Snowplow starts plowing -->
 <script type="text/javascript">
-var _snaq = _snaq || [];
+window._snaq = window._snaq || [];
 
-_snaq.push(['setCollectorCf', '{{CLOUDFRONT-DOMAIN}}']);
-_snaq.push(['setAppId', '{{SITE-ID}}']);
-_snaq.push(['setCookieDomain', '{{COOKIE-DOMAIN}}']);
-_snaq.push(['trackPageView']);
+window._snaq.push(['setCollectorCf', '{{CLOUDFRONT-DOMAIN}}']);
+window._snaq.push(['setAppId', '{{SITE-ID}}']);
+window._snaq.push(['setCookieDomain', '{{COOKIE-DOMAIN}}']);
+window._snaq.push(['trackPageView']);
 
 (function() {
 var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
@@ -272,7 +272,7 @@ In the HTML box below, we need to paste the Snowplow event tracking code. The ge
 ```html
 <!-- Snowplow event tracking -->
 <script type="text/javascript">
-_snaq.push(['trackStructEvent', {{CATEGORY}}, {{ACTION}}, {{LABEL}}, {{PROPERTY}}, {{VALUE}}]);
+window._snaq.push(['trackStructEvent', {{CATEGORY}}, {{ACTION}}, {{LABEL}}, {{PROPERTY}}, {{VALUE}}]);
 </script>
 ```
 
@@ -301,7 +301,7 @@ To implement the above mapping, we update the HTML in the box to the following:
 ```html
 <!-- Snowplow structured event tracking -->
 <script type="text/javascript">
-_snaq.push(['trackStructEvent', 'video', 'playVideo', {{videoId}}, {{videoFormat}}, '0.0']);
+window._snaq.push(['trackStructEvent', 'video', 'playVideo', {{videoId}}, {{videoFormat}}, '0.0']);
 </script>
 ```
 
@@ -347,7 +347,7 @@ Then we can create a single Snowplow event tag in GTM that is fired with every `
 ```html
 <!-- Snowplow structured event tracking -->
 <script type="text/javascript">
-_snaq.push(['trackStructEvent', '{{eventCategory}}', '{{eventAction}}', '{{eventLabel}}', '{{eventProperty}}', '{{eventValue}}']);
+window._snaq.push(['trackStructEvent', '{{eventCategory}}', '{{eventAction}}', '{{eventLabel}}', '{{eventProperty}}', '{{eventValue}}']);
 </script>
 ```
 
@@ -429,7 +429,7 @@ We then need to create a Snowplow ecommerce tracking tag in GTM that passes the 
 ```html
 <script type="text/javascript">
 // 1st, fire 'addTrans' event for the new transaction
-_snaq.push(['addTrans',
+window._snaq.push(['addTrans',
     {{transactionId}},
     {{transactionAffiliation}},
     {{transactionTotal}},
@@ -442,7 +442,7 @@ _snaq.push(['addTrans',
 
 // 2nd fire the 'addItem' event for each item included in the transaction
 for(i=0; i<{{transactionProducts}}.length; i++) {
-    _snaq.push(['addItem',
+    window._snaq.push(['addItem',
         {{transactionId}},
         {{transactionProducts}}[i].sku,
         {{transactionProducts}}[i].name,
@@ -453,7 +453,7 @@ for(i=0; i<{{transactionProducts}}.length; i++) {
 }
 
 // Finally fire the 'trackTrans' event to commit the transaction
-_snaq.push['trackTrans']
+window._snaq.push['trackTrans']
 </script>
 ```
 
