@@ -11,7 +11,7 @@
 - 3. [Setup](#setup)
   - 3.1 [PyPI](#pypi)
   - 3.2 [pip](#pip)
-  - 3.3 [easyinstall](#easyinstall)
+  - 3.3 [easy_install](#easy_install)
 
 <a name="overview" />
 ## 1. Overview
@@ -74,10 +74,10 @@ To add the Snowplow Tracker as a dependency to your own Python app, edit your `r
 snowplow-tracker ~> 0.1.0
 ```
 
-<a name="easyinstall" />
-### 3.3 easyinstall
+<a name="easy_install" />
+### 3.3 easy_install
 
-If you are still using easyinstall:
+If you are still using easy_install:
 
     $ easy_install -U snowplow-tracker
 
