@@ -55,9 +55,9 @@ These dependencies can be installed from the package manager of the host system 
 ## 3. Setup
 
 <a name="pypi" />
-### 3.1 PyPi
+### 3.1 PyPI
 
-The Snowplow Python Tracker is published to [PyPi] [pypi], the the official third-party software repository for the Python programming language.
+The Snowplow Python Tracker is published to [PyPI] [pypi], the the official third-party software repository for the Python programming language.
 
 This makes it easy to either install the tracker locally, or to add it as a dependency into your own Python app.
 
