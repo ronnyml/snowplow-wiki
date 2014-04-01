@@ -71,6 +71,7 @@ As a Snowplow user, you can define application IDs for each of your different di
 | Mobile/Tablet              | `mob`          | 
 | Desktop/Laptop/Netbook     | `pc`           |
 | Server-Side App            | `srv`          |
+| General App                | `app`          |
 | Connected TV               | `tv`           |
 | Games Console              | `cnsl`         |
 | Internet of Things         | `iot`          |
