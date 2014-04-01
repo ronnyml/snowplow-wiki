@@ -10,7 +10,7 @@
   - 2.2 [Dependencies](#dependencies)
 - 3. [Setup](#setup)
   - 3.1 [PyPI](#pypi)
-  - 3.2 [pip])(#pip)
+  - 3.2 [pip](#pip)
   - 3.3 [easyinstall](#easyinstall)
 
 <a name="overview" />
