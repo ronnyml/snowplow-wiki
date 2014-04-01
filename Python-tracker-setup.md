@@ -9,7 +9,9 @@
   - 2.1 [Tracker compatibility](#compatibility)  
   - 2.2 [Dependencies](#dependencies)
 - 3. [Setup](#setup)
-  - 3.1 [PyPi](#pip)
+  - 3.1 [PyPI](#pypi)
+  - 3.2 [pip])(#pip)
+  - 3.3 [easyinstall](#easyinstall)
 
 <a name="overview" />
 ## 1. Overview
@@ -52,22 +54,32 @@ These dependencies can be installed from the package manager of the host system 
 <a name="setup" />
 ## 3. Setup
 
-<a name="pip" />
+<a name="pypi" />
 ### 3.1 PyPi
 
 The Snowplow Python Tracker is published to [PyPi] [pypi], the the official third-party software repository for the Python programming language.
 
 This makes it easy to either install the tracker locally, or to add it as a dependency into your own Python app.
 
-To install the Snowplow Python Tracker locally (assuming you already have Pip installed):
+<a name="pip" />
+### 3.2 pip
 
-    $ pip install snowplowtracker
+To install the Snowplow Python Tracker locally, assuming you already have Pip installed:
+
+    $ pip install snowplow-tracker --upgrade
 
 To add the Snowplow Tracker as a dependency to your own Python app, edit your `requirements.txt` and add:
 
 ```python
-snowplowtracker ~> 0.0.1
+snowplow-tracker ~> 0.1.0
 ```
+
+<a name="easyinstall" />
+### 3.3 easyinstall
+
+If you are still using easyinstall:
+
+    $ easy_install -U snowplow-tracker
 
 Done? Now read the [Python Tracker API](Python-Tracker) to start tracking events.
 
