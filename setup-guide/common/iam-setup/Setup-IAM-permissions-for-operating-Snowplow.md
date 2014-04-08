@@ -366,9 +366,13 @@ However, there may be more or less in your case. For each bucket identified, you
       "Action": ["s3:ListBucket" ],
       "Resource": [ "arn:aws:s3:::snowplow-test-archive-eu-west-1"]
     }, 
+```
+
 
 Your completed permissions file should look something like this:
 
+
+```json
 	{
 	  "Version": "2012-10-17",
 	  "Statement": [
