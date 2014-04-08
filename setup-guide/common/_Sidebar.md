@@ -1,37 +1,18 @@
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Snowplow setup guide) > **Common**
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow)
 
-**1. Trackers**  
-[Tracker setup: choosing a tracker](choosing-a-tracker)  
-[Javascript tracker setup](javascript-tracker-setup)  
-[iOS tracker setup](ios-tracker-setup)  
+[**Setup Snowplow**](Setting-up-Snowplow)    
 
-**2. Collectors**  
-[Collectors setup: choosing a collector](choosing-a-collector)  
-[Cloudfront collector setup](setting-up-the-cloudfront-collector)  
-[Clojure collector setup](setting-up-the-clojure-collector)  
-[Scala stream collector setup](setting-up-the-scala-stream-collector)
-[SnowCannon (node.js) setup](snowcannon-setup-guide) 
+- [Step 1: Setup a Collector] (setting-up-a-collector)  
+- [Step 2: Setup a Tracker] (setting-up-a-tracker)  
+- [Step 3: Setup Enrich] (setting-up-enrich)  
+- [Step 4: Setup alternative data stores] (setting-up-alternative-data-stores)  
+- [Step 5: Analyze your data!] (getting-started-analyzing-Snowplow-data)  
 
-**3. ETL**  
-[ETL setup: choosing an ETL module](choosing-an-etl-module)  
-[EmrEtlRunner setup](EmrEtlRunner-setup)  
-[Hive ETL](hive-etl-setup)  
-[Scalding / Cascading ETL](scalding-etl-setup) 
+**Useful resources**  
 
-**4. Storage**  
-[Storage setup: choosing a storage option](choosing-a-storage-module)  
-[StorageLoader setup](StorageLoader-setup)  
-[S3 / Hive storage setup](s3-hive-storage-setup)  
-[Infobright setup](infobright-storage-setup)  
+- [[Troubleshooting]]  
+- [[IAM Setup]]  
+- [[Ruby and RVM setup]]  
+- [[Hosted assets]] 
 
-**5. Analytics**  
-[Analytics setup](analytics-setup)  
-[Analysis using Hive](hive analytics setup)  
-[Infobright based analytics](infobright-analytics-setup)  
-[ChartIO analytics setup](ChartIO-setup)  
 
-**COMMON**  
-[**Troubleshooting**](Troubleshooting)  
-[**IAM Setup Guide**](IAM-Setup)  
-[**Ruby and RVM setup**](Ruby-and-RVM-setup)  
-[**Hosted assets**](Hosted assets)
