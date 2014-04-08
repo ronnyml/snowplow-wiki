@@ -213,7 +213,9 @@ Now let's add permissions for the `:out:` location (this is `s3n://snowplow-test
 	        "s3:GetObjectVersionAcl",
 	        "s3:PutObject",
 	        "s3:PutObjectAcl",
-	        "s3:PutObjectVersionAcl"
+	        "s3:PutObjectVersionAcl",
+	        "s3:ListMultipartUploadParts",
+	        "s3:AbortMultipartUpload"
 	      ],
 	      "Resource": [
 	        "arn:aws:s3:::snowplow-test-data-eu-west-1/hadoop-redshift/events/*"
@@ -234,7 +236,9 @@ Now let's add permissions for the `:out_bad_rows:` and `:out_errors:` locations:
 	        "s3:GetObjectVersion",
 	        "s3:PutObject",
 	        "s3:PutObjectAcl",
-	        "s3:PutObjectVersionAcl"
+	        "s3:PutObjectVersionAcl",
+	        "s3:ListMultipartUploadParts",
+	        "s3:AbortMultipartUpload"
 	      ],
 	      "Resource": [
 	        "arn:aws:s3:::snowplow-test-data-eu-west-1/hadoop-redshift/bad-rows/*"
@@ -248,7 +252,9 @@ Now let's add permissions for the `:out_bad_rows:` and `:out_errors:` locations:
 	        "s3:GetObjectVersion",
 	        "s3:PutObject",
 	        "s3:PutObjectAcl",
-	        "s3:PutObjectVersionAcl"
+	        "s3:PutObjectVersionAcl",
+	        "s3:ListMultipartUploadParts",
+	        "s3:AbortMultipartUpload"
 	      ],
 	      "Resource": [
 	        "arn:aws:s3:::snowplow-test-data-eu-west-1/hadoop-redshift/error-rows/*"
@@ -267,7 +273,9 @@ Note that we only need to be able to write to these buckets. Next we can add the
 	        "s3:GetObjectVersion",
 	        "s3:PutObject",
 	        "s3:PutObjectAcl",
-	        "s3:PutObjectVersionAcl"
+	        "s3:PutObjectVersionAcl",
+	        "s3:ListMultipartUploadParts",
+	        "s3:AbortMultipartUpload"
 	      ],
 	      "Resource": [
 	        "arn:aws:s3:::snowplow-test-archive-eu-west-1/hadoop-redshift/raw/*"
@@ -357,13 +365,13 @@ However, there may be more or less in your case. For each bucket identified, you
     {
       "Sid": "ListAccessOnEmrEtlRunnerOutputBucket",
       "Effect": "Allow",
-      "Action": ["s3:ListBucket" ],
+      "Action": ["s3:ListBucket", "s3:ListBucketMultipartUploads" ],
       "Resource": [ "arn:aws:s3:::snowplow-test-data-eu-west-1"]
     },
     {
       "Sid": "ListObjectsOnEmrEtlRunnerArchiveBucket",
       "Effect": "Allow",
-      "Action": ["s3:ListBucket" ],
+      "Action": ["s3:ListBucket", "s3:ListBucketMultipartUploads" ],
       "Resource": [ "arn:aws:s3:::snowplow-test-archive-eu-west-1"]
     }, 
 ```
@@ -456,7 +464,7 @@ Your completed permissions file should look something like this:
 	    {
 	      "Sid": "ListAccessOnEmrEtlRunnerOutputBucket",
 	      "Effect": "Allow",
-	      "Action": ["s3:ListBucket" ],
+	      "Action": ["s3:ListBucket", "s3:ListBucketMultipartUploads" ],
 	      "Resource": [ "arn:aws:s3:::snowplow-test-data-eu-west-1"]
 	    },    
 	    {
@@ -490,7 +498,7 @@ Your completed permissions file should look something like this:
 	    {
 	      "Sid": "ListObjectsOnEmrEtlRunnerArchiveBucket",
 	      "Effect": "Allow",
-	      "Action": ["s3:ListBucket" ],
+	      "Action": ["s3:ListBucket", "s3:ListBucketMultipartUploads" ],
 	      "Resource": [ "arn:aws:s3:::snowplow-test-archive-eu-west-1"]
 	    },     
 	    {
