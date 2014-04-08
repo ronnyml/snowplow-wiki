@@ -48,6 +48,7 @@ Let's give it a _Policy Name_ of `snowplow-policy-operate-datapipeline`.
 
 We now need to create the Amazon policy document to define *just* the user permissions required by EmrEtlRunner and StorageLoader to orchestrate the Snowplow data pipeline in stages. We'll build this up in stages: we recommend start with the following template (it will help if you do this in a text editor, and then paste the result into the AWS console when completed):
 
+```json
 	{
 	  "Version": "2012-10-17",
 	  "Statement": [
@@ -108,6 +109,7 @@ We now need to create the Amazon policy document to define *just* the user permi
 	    }       
 	  ]
 	}	
+```
 
 The above statement grants gruop members all the permissions required to run Elastic Mapreduce. Note that this includes a number of permissions for EC2 (on which EMR runs), Cloudwatch and Simple DB (which EMR uses for job monitoring and debugging).
 
@@ -115,6 +117,7 @@ We need to add additional permissinons to give the user the required access to S
 
 Start with your EmrEtlRunner config.yml file. If you view the file, you should see several locations in S3 defined, for different stages of the Snowplow data pipeline - that look something like this (your locations on S3 will be different, of course):
 
+```yaml
 	:s3:
 	  :region: eu-west-1
 	  :buckets:
@@ -126,9 +129,11 @@ Start with your EmrEtlRunner config.yml file. If you view the file, you should s
 	    :out_bad_rows: s3n://snowplow-test-data-eu-west-1/hadoop-redshift/bad-rows
 	    :out_errors: s3n://snowplow-test-data-eu-west-1/hadoop-redshift/error-rows
 	    :archive: s3n://snowplow-test-archive-eu-west-1/hadoop-redshift/raw
+```
 
 We need to add permissions to our policy for each of those S3 buckets. Let's start by adding write permissions for the `:log:` location on S3 (this is `s3n://snowplow-test-etl-eu-west-1/hadoop-redshift/logs` in our example):
 
+```json
 	    {
 	      "Sid": "PermissionsOnEmrLoggingBucket",
 	      "Action": [
@@ -143,11 +148,13 @@ We need to add permissions to our policy for each of those S3 buckets. Let's sta
 	      ],
 	      "Effect": "Allow"
 	    },
+```
 
 The above permissions enable members of the group to make HEAD and PUT requests at this location. 
 
 Now we need to add permissions for our `:in:` location (i.e. the location on S3 where are collector logs are read in from, this is `s3n://snowplow-ice-logs-emrtest` in our example):
 
+```json
 	    {
 	      "Sid": "PermissionsOnEmrEtlRunnerInBucket",
 	      "Action": [
@@ -163,11 +170,13 @@ Now we need to add permissions for our `:in:` location (i.e. the location on S3 
 	      ],
 	      "Effect": "Allow"
 	    },
+```
 
 The above permissions enable members of the group to read data from this bucket, and delete data. (This is required because the data is moved as part of the process to the process bucket and then the archive bucket). 
 
 Now let's add permissions for the `:processing:` location (this is `s3n://snowplow-test-etl-eu-west-1/hadoop-redshift/processing` in our example):
 
+```json
 	    {
 	      "Sid": "PermissionsOnEmrEtlRunnerProcessingLocation",
 	      "Action": [
@@ -186,11 +195,13 @@ Now let's add permissions for the `:processing:` location (this is `s3n://snowpl
 	      ],
 	      "Effect": "Allow"
 	    },
+```
 
 These permissions are more permissive than those on the `:in:` location, because we write data to the processing bucket, then read it, then delete it (as part of moving it to the archive location). 
 
 Now let's add permissions for the `:out:` location (this is `s3n://snowplow-test-data-eu-west-1/hadoop-redshift/events` in our example):
 
+```json
 	    {
 	      "Sid": "PermissionsOnEmrEtlRunnerOutStorageLoaderInLocation",
 	      "Action": [
@@ -209,11 +220,13 @@ Now let's add permissions for the `:out:` location (this is `s3n://snowplow-test
 	      ],
 	      "Effect": "Allow"
 	    },
+```
 
 These are as permissive as the permissions on the processing bucket: that is because the output of the EMR process gets written to this location, but the data then gets read (by the StorageLoader) and archived in a separate location, so is ultimately deleted from here as well.
 
 Now let's add permissions for the `:out_bad_rows:` and `:out_errors:` locations:
 
+```json
 	    {
 	      "Sid": "PermissionsOnBadRowsLocation",
 	      "Action": [
@@ -242,9 +255,11 @@ Now let's add permissions for the `:out_bad_rows:` and `:out_errors:` locations:
 	      ],
 	      "Effect": "Allow"
 	    },
+```
 
-Note that we only need to be able to write to these buckets. Finally, we can add the permissions for the `:archive:` location:
+Note that we only need to be able to write to these buckets. Next we can add the permissions for the `:archive:` location:
 
+```json
 	    {
 	      "Sid": "PermissionsOnEmrEtlRunnerArchiveLocation",
 	      "Action": [
@@ -259,8 +274,38 @@ Note that we only need to be able to write to these buckets. Finally, we can add
 	      ],
 	      "Effect": "Allow"
 	    },
+```
 
 Note that we *only* have given write permissions on this location: this means that your raw collector logs should be safe, even if your credentials are compromised.
+
+Finally, we need to add read permissions on the actual Snowplow hosted assets - this location is given in your EmrEtlRunner config YAML:
+
+```yaml
+:s3:
+  :region: eu-west-1
+  :buckets:
+    :assets: s3://snowplow-hosted-assets
+```
+
+Note that many Snowplow users choose to use the hosted assets at the above location i.e. `s3://snowplow-hosted-assets` i.e. that we've hosted, rather than their own local copies.
+
+We need to add read permissions on these assets:
+
+```json
+	    {
+	      "Sid": "PermissionsOnHostedAssetsBucket",
+	      "Action": [
+	        "s3:GetObject",
+	        "s3:GetObjectAcl",
+	        "s3:GetObjectVersion",
+	        "s3:GetObjectVersionAcl"
+	      ],
+	      "Resource": [
+	        "arn:aws:s3:::snowplow-hosted-assets/*"
+	      ],
+	      "Effect": "Allow"
+	    },
+```
 
 Now that we have given the relevant permissions on the locations identified in the EmrEtlRunner config file, we need to do the same for the locations identified in the StorageLoader config file. Locate that file, you should have a section that looks something like this:
 
@@ -296,6 +341,7 @@ The above S3 permissions allow for specific requests to be made at the required 
 	    
 However, there may be more or less in your case. For each bucket identified, you need to add the `ListBucket` permission i.e.:
 
+```json
     {
       "Sid": "ListAccessOnCollectorLogsBucket",
       "Effect": "Allow",
@@ -472,6 +518,19 @@ Your completed permissions file should look something like this:
 	      "Effect": "Allow"
 	    },
 	    {
+	      "Sid": "PermissionsOnHostedAssetsBucket",
+	      "Action": [
+	        "s3:GetObject",
+	        "s3:GetObjectAcl",
+	        "s3:GetObjectVersion",
+	        "s3:GetObjectVersionAcl"
+	      ],
+	      "Resource": [
+	        "arn:aws:s3:::snowplow-hosted-assets/*"
+	      ],
+	      "Effect": "Allow"
+	    },
+	    {
 	      "Sid": "PermissionsForEmrPt1",
 	      "Action": [
 	        "elasticmapreduce:AddInstanceGroups",
@@ -528,6 +587,7 @@ Your completed permissions file should look something like this:
 	    }       
 	  ]
 	}
+```
 
 Copy and paste the completed file into the 
 
