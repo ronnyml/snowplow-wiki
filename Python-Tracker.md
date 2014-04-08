@@ -8,8 +8,6 @@
 - 2. [Initialization](#init)  
   - 2.1 [Importing the module](#importing)
   - 2.2 [Creating a tracker](#create-tracker)  
-    - 2.2.1 [`cloudfront()`](#create-cf)  
-    - 2.2.2 [`hostname()`](#create-uri)
   - 2.3 [Creating multiple trackers](#multi-tracker)
 - 3. [Configuration](#config)  
   - 3.1 [Configuring your tracker](#configure-tracker)
@@ -28,7 +26,7 @@
   - 4.2 [`track_screen_view()`](#screen-view)
   - 4.3 [`track_page_view()`](#page-view)
   - 4.4 [`track_ecommerce_transaction()`](#ecommerce-transaction)
-  - 4.5 [`track_ecommerce_transaction_item`](#ecommerce-transaction-item)
+  - 4.5 [`track_ecommerce_transaction_item()`](#ecommerce-transaction-item)
   - 4.6 [`track_struct_event()`](#struct-event)
   - 4.7 [`track_unstruct_event()`](#unstruct-event)
     - 4.7.1 [Supported datatypes](#unstruct-datatypes)
@@ -63,44 +61,19 @@ That's it - you are now ready to initialize a tracker instance.
 <a name="create-tracker" />
 ### 2.2 Creating a tracker
 
-There are two different versions of the tracker constructor, depending on which type of collector you want to log events to.
-
-If you are using a Cloudfront collector, use [Tracker.cloudfront()](#create-cf) to initialize your tracker instance. If you are using any other collector (e.g. the Clojure collector, or SnowCannon), then you should use [Tracker.hostname()](#create-uri).
-
-<a name="create-cf" />
-#### 2.2.1 Create a tracker logging to Cloudfront with `Tracker.cloudfront()`
-
-You can initialize a tracker instance for a Cloudfront collector with:
+Initialise a tracker instance like this:
 
 ```python
-tracker = Tracker.cloudfront(cf_subdomain)
+tracker = Tracker("d3rkrsqld9gmqf.cloudfront.net")
 ```
-So if your Cloudfront subdomain is `d3rkrsqld9gmqf`, you would write:
+
+You can also add an optional tracker name parameter:
 
 ```python
-tracker = Tracker.cloudfront("d3rkrsqld9gmqf")
+tracker = Tracker("d3rkrsqld9gmqf.cloudfront.net", "cf")
 ```
 
-This completes the initialization of your tracker instance.
-
-[Back to top](#top)
-
-<a name="create-uri" />
-#### 2.2.2 Create a tracker logging to a non-CloudFront collector using `newTrackerForUri()`
-
-You can initialize a tracker instance for a non-Cloudfront collector with:
-
-```python
-tracker = Tracker.hostname(host)
-```
-
-So if your collector is available at "my-company.c.snplow.com", you would write:
-
-```python
-tracker = Tracker.hostname("my-company.c.snplow.com")
-```
-
-This completes the initialization of your tracker instance.
+This will be attached to all events which the tracker fires, allowing you to identify their origin.
 
 [Back to top](#top)
 
@@ -112,11 +85,11 @@ Each tracker instance is completely sandboxed, so you can create multiple tracke
 Here is an example of instantiating two separate trackers:
 
 ```python
-t1 = Tracker.cloudfront("d3rkrsqld9gmqf")
+t1 = Tracker("d3rkrsqld9gmqf.cloudfront.net", "t1")
 t1.set_platform("cnsl")
 t1.track_unstruct_event("save-game", { save_id = 23 }, 1369330092)
 
-t2 = Tracker.hostname("my-company.c.snplow.com")
+t2 = Tracker("my-company.c.snplow.com", "t2")
 t2.set_platform("cnsl")
 t2.track_screen_view("Game HUD", "23")
 
@@ -265,12 +238,12 @@ Tracking methods supported by the Python Tracker at a glance:
 
 | **Function**                                  | **Description**                                        |
 |----------------------------------------------:|:-------------------------------------------------------|
-| [`track_page_view()`]                           | Track and record views of web pages. |
-| [`track__ecommerce_transaction()`]              | Track an ecommerce transaction on transaction level. |
-| [`track_ecommerce_transaction_item()`]          | Track an ecommerce transaction on item level. 
-| [`track_screen_view()`](#trackScreenView)       | Track the user viewing a screen within the application |
-| [`track_struct_event()`](#trackStructEvent)     | Track a Snowplow custom structured event               |
-| [`track_unstruct_event()`](#trackUnstructEvent) | Track a Snowplow custom unstructured event             |
+| [`track_page_view()`](#page-view)             | Track and record views of web pages. |
+| [`track__ecommerce_transaction()`](#ecommerce-transaction)   | Track an ecommerce transaction on transaction level. |
+| [`track_ecommerce_transaction_item()`](#ecommerce-transaction-item)          | Track an ecommerce transaction on item level. 
+| [`track_screen_view()`](#screen-view)         | Track the user viewing a screen within the application |
+| [`track_struct_event()`](#struct-event)       | Track a Snowplow custom structured event               |
+| [`track_unstruct_event()`](#unstruct-event)   | Track a Snowplow custom unstructured event             |
 
 <a name="common" />
 ### 4.1 Common
@@ -316,10 +289,16 @@ Each `track...()` method supports an optional timestamp as its final argument; t
 
 If you do not pass this timestamp in as an argument, then the Python Tracker will use the current time to be the timestamp for the event.
 
-Here is an example tracking a structured event and supplying the optional timestamp argument. Note that we have to explicitly supply `None`s for the intervening arguments which are empty:
+Here is an example tracking a structured event and supplying the optional timestamp argument.We can explicitly supply `None`s for the intervening arguments which are empty:
 
 ```python
 t.track_struct_event("some cat", "save action", None, None, None, 1368725287)
+```
+
+Alternatively, we can use the argument name:
+
+```python
+t.track_struct_event("some cat", "save action", tstamp=1368725287)
 ```
 
 Timestamp is counted in seconds since the Unix epoch - the same format as generated by `time.time()` in Python.
@@ -356,8 +335,8 @@ Use `track_screen_view()` to track a user viewing a screen (or equivalent) withi
 | **Argument** | **Description**                     | **Required?** | **Validation**          |
 |-------------:|:------------------------------------|:--------------|:------------------------|
 | `name`       | Human-readable name for this screen | Yes           | Non-empty string        |
-| `id`         | Unique identifier for this screen   | No            | String or None           |
-| `tstamp`     | When the screen was viewed          | No            | Positive integer or None |
+| `id`         | Unique identifier for this screen   | No            | String                  |
+| `tstamp`     | When the screen was viewed          | No            | Positive integer        |
 
 Example:
 
@@ -376,9 +355,9 @@ Arguments are:
 | **Argument** | **Description**                     | **Required?** | **Validation**          |
 |-------------:|:------------------------------------|:--------------|:------------------------|
 | `page_url`   | The URL of the page                 | Yes           | Non-empty string        |
-| `page_title` | The title of the page               | No           | Non-empty string        |
-| `referrer`   | The address which linked to the page| No            | String or None          |
-| `tstamp`     | When the pageview occurred          | No            | Positive integer or None |
+| `page_title` | The title of the page               | No            | String                  |
+| `referrer`   | The address which linked to the page| No            | String                  |
+| `tstamp`     | When the pageview occurred          | No            | Positive integer        |
 
 Example:
 
@@ -397,19 +376,23 @@ Arguments:
 | **Argument**     | **Description**                      | **Required?** | **Validation**           |
 |-----------------:|:-------------------------------------|:--------------|:-------------------------|
 | `order_id`       | ID of the eCommerce transaction      | Yes           | Non-empty string         |
-| `tr_affiliation` | Transaction affiliation              | No            | String or None           |
-| `tr_total_value` | Total transaction value              | No            | Int or Float             |
+| `tr_total_value` | Total transaction value              | Yes           | Int or Float             |
+| `tr_affiliation` | Transaction affiliation              | No            | String                   |
 | `tr_tax_value`   | Transaction tax value                | No            | Int or Float             |
 | `tr_shipping`    | Delivery cost charged                | No            | Int or Float             |
-| `tr_city`        | Delivery address city                | No            | String or None           |
-| `tr_state`       | Delivery address state               | No            | String or None           |
-| `tr_country`     | Delivery address country             | No            | String or None           |
-| `tstamp`         | When the transaction event occurred  | No            | Positive integer or None |
+| `tr_city`        | Delivery address city                | No            | String                   |
+| `tr_state`       | Delivery address state               | No            | String                   |
+| `tr_country`     | Delivery address country             | No            | String                   |
+| `tstamp`         | When the transaction event occurred  | No            | Positive integer         |
 
-Example: 
+Examples: 
 
 ```python
-t.track_ecommerce_transaction("order-456", "", 142, 20, 12.99, "London", "", "United Kingdom")
+t.track_ecommerce_transaction("order-456", 142, None, 20, 12.99, "London", None, "United Kingdom")
+```
+
+```python
+t.track_ecommerce_transaction("order-456", 142, tr_city="Paris", tr_country="France")
 ```
 
 [Back to top](#top)
@@ -424,17 +407,17 @@ Arguments:
 | **Argument**     | **Description**                     | **Required?** | **Validation**           |
 |-----------------:|:------------------------------------|:--------------|:-------------------------|
 | `ti_id`          | Order ID                            | Yes           | Non-empty string         |
-| `ti_sku`         | Item SKU                            | No            | Non-empty string         |
-| `ti_name`        | Item name                           | No            | Non-empty string         |
-| `ti_category`    | Item category                       | No            | Non-empty string         |
-| `ti_price`       | Item price                          | No            | Int or Float             |
-| `ti_quantity`    | Item quantity                       | No            | Int                      |
-| `tstamp`         | When the transaction event occurred | No            | Positive integer or None |
+| `ti_sku`         | Item SKU                            | Yes           | Non-empty string         |
+| `ti_price`       | Item price                          | Yes           | Int or Float             |
+| `ti_quantity`    | Item quantity                       | Yes           | Int                      |
+| `ti_name`        | Item name                           | No            | String                   |
+| `ti_category`    | Item category                       | No            | String                   |
+| `tstamp`         | When the transaction event occurred | No            | Positive integer         |
 
 Example:
 
 ```python
-t.track_ecommerce_transaction_item("order-789", "2001", "Green shoes", "clothing", 49.99, 1)
+t.track_ecommerce_transaction_item("order-789", "2001", 49.99, 1, "Green shoes", "clothing")
 ```
 
 [Back to top](#top)
@@ -444,19 +427,19 @@ t.track_ecommerce_transaction_item("order-789", "2001", "Green shoes", "clothing
 
 Use `track_struct_event()` to track a custom event happening in your app which fits the Google Analytics-style structure of having up to five fields (with only the first two required):
 
-| **Argument** | **Description**                                                  | **Required?** | **Validation**          |
-|-------------:|:---------------------------------------------------------------  |:--------------|:------------------------|
-| `category`   | The grouping of structured events which this `action` belongs to | Yes           | Non-empty string        |
-| `action`     | Defines the type of user interaction which this event involves   | Yes           | Non-empty string        |
-| `label`      | A string to provide additional dimensions to the event data      | No            | String or None           |
-| `property`   | A string describing the object or the action performed on it     | No            | String or None           |
-| `value`      | A value to provide numerical data about the event                | No            | Number or None           |
-| `tstamp`     | When the structured event occurred                               | No            | Positive integer or None |
+| **Argument** | **Description**                                                  | **Required?** | **Validation**           |
+|-------------:|:---------------------------------------------------------------  |:--------------|:-------------------------|
+| `category`   | The grouping of structured events which this `action` belongs to | Yes           | Non-empty string         |
+| `action`     | Defines the type of user interaction which this event involves   | Yes           | Non-empty string         |
+| `label`      | A string to provide additional dimensions to the event data      | No            | String                   |
+| `property`   | A string describing the object or the action performed on it     | No            | String                   |
+| `value`      | A value to provide numerical data about the event                | No            | Int or Float             |
+| `tstamp`     | When the structured event occurred                               | No            | Positive integer         |
 
 Example:
 
 ```python
-t.track_struct_event("shop", "add-to-basket", None, "pcs", 2, 1369330909)
+t.track_struct_event("shop", "add-to-basket", None, "pcs", 2)
 ```
 
 [Back to top](#top)
@@ -477,7 +460,7 @@ The arguments are as follows:
 |-------------:|:-------------------------------------|:--------------|:------------------------|
 | `name`       | The name of the event                | Yes           | Non-empty string        |
 | `properties` | The properties of the event          | Yes           | Non-empty table         |
-| `tstamp`     | When the unstructured event occurred | No            | Positive integer or None |
+| `tstamp`     | When the unstructured event occurred | No            | Positive integer        |
 
 Example:
 
