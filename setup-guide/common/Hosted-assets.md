@@ -42,7 +42,7 @@ Right-click on this [Download link] [ssc-download] to save it down locally via C
 
 The Scala Hadoop Enrich process uses a single jarfile containing the MapReduce job. This is made available in a public Amazon S3 bucket, for Snowplowers who are running their Hadoop Enrich process on Amazon EMR:
 
-    s3://snowplow-hosted-assets/3-enrich/hadoop-etl/snowplow-hadoop-etl-0.3.6.jar
+    s3://snowplow-hosted-assets/3-enrich/hadoop-etl/snowplow-hadoop-etl-0.4.0.jar
 
 Right-click on this [Download link] [hadoop-enrich-download] to save it down locally via CloudFront CDN.
 
