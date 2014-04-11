@@ -637,12 +637,7 @@ By contrast, the following are all allowed:
 <a name="link-click-tracking" />
 ### 3.9 Link click tracking
 
-This feature is on the roadmap: it has not been developed yet.
-
-<a name="enableLinkTracking" />
-#### 3.9.1 `enableLinkTracking`
-
-This feature is on the roadmap: it has not been developed yet.
+Automatic link click tracking is available in [version 2] [specific-events-v2].
 
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]

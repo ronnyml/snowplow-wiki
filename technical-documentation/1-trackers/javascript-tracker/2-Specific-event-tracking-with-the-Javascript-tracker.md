@@ -29,8 +29,8 @@ Snowplow has been built to enable users to track a wide range of events that occ
     - 3.7.1 [`trackStructEvent`](#trackStructEvent)
   - 3.8 [Tracking custom unstructured events](#custom-unstructured-events)
     - 3.8.1 [`trackUnstructEvent`](#trackUnstructEvent)   
-  - 3.9 [Link click tracking](#link-click-track)
-    - 3.9.1 [`enableLinkTracking`](#enableLinkTracking)
+  - 3.9 [Link click tracking](#link-click-tracking)
+    - 3.9.1 [`enableLinkClickTracking`](#enableLinkClickTracking)
   - 3.10 [Custom contexts](#custom-contexts)
 
 <a name="tracking-specific-events" />
@@ -211,6 +211,7 @@ snowplow_name_here(['trackTrans']);
   n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,'script','../../dist/snowplow.js','snowplow_name_here'));
 
   snowplow_name_here('newTracker', 'cf', 'd3rkrsqld9gmqf.cloudfront.net');
+  snowplow_name_here('enableActivityTracking', 30, 10)
   snowplow_name_here('trackPageView');
   snowplow_name_here('enableLinkClickTracking');
 
@@ -635,12 +636,43 @@ By contrast, the following are all allowed:
 <a name="link-click-tracking" />
 ### 3.9 Link click tracking
 
-This feature is on the roadmap: it has not been developed yet.
+Link click tracking is enabled using the `enableLinkClickTracking` method. Use this method once and the Tracker will add click event listeners to all link elements. Link clicks are tracked as unstructured events. Each link click event captures the link's href attribute. The event also has fields for the link's id, classes, and target (where the linked document is opened, such as a new tab or new window).
 
-<a name="enableLinkTracking" />
-#### 3.9.1 `enableLinkTracking`
+<a name="enableLinkClickTracking" />
+#### 3.9.1 `enableLinkClickTracking`
 
-This feature is on the roadmap: it has not been developed yet.
+Turn on link click tracking like this:
+
+```javascript
+snowplow_name_here('enableLinkClickTracking');
+```
+
+You can provide an array of classes which should be ignored by link click tracking. For example, the below code will stop link click events firing for links with the class "barred":
+
+```javascript
+snowplow_name_here('enableLinkClickTracking', ['barred']);
+```
+
+The second optional parameter is `pseudoClicks`. If this is not turned on, Firefox will not recognise middle clicks. If it is turned on, there is a small possibility of false positives (click events firing when they shouldn't). Turning this feature on is recommended:
+
+```javascript
+snowplow_name_here('enableLinkClickTracking', [], true);
+```
+
+<a name="trackLinkClick" />
+### 3.9.2 `trackLinkClick`
+
+You can manually track individual link click events with the `trackLinkClick` method. This is its signature:
+
+```javascript
+function trackLinkClick(elementId, elementClasses, elementTarget, targetUrl, context);
+```
+
+Of these arguments, only `targetUrl` is required. This is how to use `trackLinkClick`:
+
+```javascript
+snowplow_name_here('trackLinkCLick', 'first-link', ['class-1', 'class-2'], '', 'http://www.example.com');
+```
 
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
