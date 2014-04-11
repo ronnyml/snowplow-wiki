@@ -99,7 +99,7 @@ EmrEtlRunner requires a YAML format configuration file to run. There is a config
 :emr:
   # Can bump the below as EMR upgrades Hadoop
   :hadoop_version: 1.0.3
-  :placement: ADD HERE
+  :placement: ADD HERE     # Set even if running in VPC
   :ec2_subnet_id: ADD HERE # Leave blank if not running in VPC
   :ec2_key_name: ADD HERE
   # Adjust your Hadoop cluster below
