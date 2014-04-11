@@ -100,6 +100,7 @@ EmrEtlRunner requires a YAML format configuration file to run. There is a config
   # Can bump the below as EMR upgrades Hadoop
   :hadoop_version: 1.0.3
   :placement: ADD HERE
+  :ec2_subnet_id: ADD HERE # Leave blank if not running in VPC
   :ec2_key_name: ADD HERE
   # Adjust your Hadoop cluster below
   :jobflow:
@@ -111,7 +112,7 @@ EmrEtlRunner requires a YAML format configuration file to run. There is a config
     :task_instance_bid: 0.015 # In USD. Adjust bid, or leave blank for non-spot-priced (i.e. on-demand) task instances
 :etl:
   :job_name: SnowPlow ETL # Give your job a name
-  :hadoop_etl_version: 0.3.6 # Version of the Hadoop ETL
+  :hadoop_etl_version: 0.4.0 # Version of the Hadoop ETL
   :collector_format: cloudfront # Or 'clj-tomcat' for the Clojure Collector
   :continue_on_unexpected_error: false # You can switch to 'true' (and set :out_errors: above) if you really don't want the ETL throwing exceptions
 :enrichments:
