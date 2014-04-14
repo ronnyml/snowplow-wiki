@@ -200,18 +200,17 @@ The actual code you need to insert is:
 <script type="text/javascript">
 window._snaq = window._snaq || [];
 
-window._snaq.push(['setCollectorCf', '{{CLOUDFRONT-DOMAIN}}']);
-window._snaq.push(['setAppId', '{{SITE-ID}}']);
-window._snaq.push(['setCookieDomain', '{{COOKIE-DOMAIN}}']);
+window._snaq.push(['setCollectorCf', '{{MY-CLOUDFRONT-DOMAIN}}']);
+window._snaq.push(['setAppId', '{{MY-SITE-ID}}']);
+window._snaq.push(['setCookieDomain', '{{MY-COOKIE-DOMAIN}}'])
 window._snaq.push(['trackPageView']);
 
 (function() {
 var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
-sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://d1fc8wv8zag5ca.cloudfront.net/0.13.1/sp.js';
+sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://d1fc8wv8zag5ca.cloudfront.net/1/sp.js';
 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
 })();
  </script>
-<!-- Snowplow stops plowing -->
 ```
 
 You will need to update the {{CLOUDFRONT DOMAIN}} with the Cloudfront subdomain details you created as part of the [collector setup](https://github.com/snowplow/snowplow/wiki/setting-up-cloudfront-collector). (If you are using a version of Snowplow hosted by the Snowplow team, we will provide you with a Cloudfront domain to enter.) It will look something like `d3rkrsqld9gmqf`. If you are using a different collector the Cloudfront collector (e.g. the Clojure collector), you will need to use the `setCollectorUrl` method instead. For full instructions on all the options available for setting the collector endpoint, see the [JavaScript Tracker technical documentation](Javascript-Tracker).
