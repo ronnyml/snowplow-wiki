@@ -35,7 +35,7 @@
 
 The [Snowplow Python Tracker](https://github.com/snowplow/snowplow-python-tracker) allows you to track Snowplow events from your Python apps and games.
 
-The tracker should be straightforward to use if you are comfortable with Python development; any prior experience with Snowplow"s [[JavaScript Tracker]] or [[Lua Tracker]], Google Analytics or Mixpanel (which have similar APIs to Snowplow) is helpful but not necessary.
+The tracker should be straightforward to use if you are comfortable with Python development; any prior experience with Snowplow's [[JavaScript Tracker]] or [[Lua Tracker]], Google Analytics or Mixpanel (which have similar APIs to Snowplow) is helpful but not necessary.
 
 Note that this tracker has access to a more restricted set of Snowplow events than the [[JavaScript Tracker]] and covers almost all the events from the [[Lua Tracker]].
 
@@ -47,7 +47,7 @@ Assuming you have completed the [[Python Tracker Setup]] for your Python project
 <a name="importing" />
 ### 2.1 Importing the module
 
-Require the Python Tracker"s module into your Python code like so:
+Require the Python Tracker's module into your Python code like so:
 
 ```python
 from snowplow_tracker.tracker import Tracker
@@ -197,13 +197,13 @@ t.set_user_id("alexd")
 <a name="set-screen-res" />
 ### 3.2.1 Set screen resolution with `set_screen_resolution()`
 
-If your Python code has access to the device"s screen resolution, then you can pass this in to Snowplow too:
+If your Python code has access to the device's screen resolution, then you can pass this in to Snowplow too:
 
 ```python
 t.set_screen_resolution( {{WIDTH}}, {{HEIGHT}} )
 ```
 
-Both numbers should be positive integers; note the order is height followed by width. Example:
+Both numbers should be positive integers; note the order is width followed by height. Example:
 
 ```python
 t.set_screen_resolution(1366, 768)
@@ -214,7 +214,7 @@ t.set_screen_resolution(1366, 768)
 <a name="set-color-depth" />
 ### 3.2.1 Set color depth with `set_color_depth()`
 
-If your Python code has access to the bit depth of the device"s color palette for displaying images, then you can pass this in to Snowplow too:
+If your Python code has access to the bit depth of the device's color palette for displaying images, then you can pass this in to Snowplow too:
 
 ```python
 t.set_color_depth( {{BITS PER PIXEL}} )
@@ -446,10 +446,10 @@ Example:
 
 ```python
 t.track_unstruct_event("save-game", {
-    "save_id" = "4321",
-    "level" = 23,
-    "difficultyLevel" = "HARD",
-    "dl_content" = true 
+    "save_id": "4321",
+    "level": 23,
+    "difficultyLevel": "HARD",
+    "dl_content": true 
     }, 1369330929 )
 ```
 
@@ -473,7 +473,7 @@ Snowplow unstructured events support a relatively rich set of datatypes. Because
 | Date              | Date and time (ms precision) | number             | `$dt`, `$ts`, `$tms` | Yes             |
 | Array             | Array of values              | {x, y, z}          | -                    | -               |
 
-Let"s go through each of these in turn, providing some examples as we go:
+Let's go through each of these in turn, providing some examples as we go:
 
 ###### 4.7.1.1 Null
 
