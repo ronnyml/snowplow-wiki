@@ -587,8 +587,9 @@ The tracker can be configured to encode the context into Base64 to ensure that n
 
 | **Parameter** | **Maps to**      | **Type** |**Description**                                     | **Implemented?** | **Example values**| 
 |:--------------|:-----------------|:---------|:---------------------------------------------------|:-----------------|:------------------|
-| `co`       | `co_json`        | JSON     | A custom context                        | No          | `%7B%22user%22%3A%7B%22fb_uid%22%3A%22999999%20x%22%7D%7D` |
-| `cx`       | `co_json`        | JSON (Base64 encoded)   | A custom context         | No          | `6eyJ1c2VyX3R5cGUiOiJ0ZXN0ZXIifX=` |
+| `cv`       | `context_vendor`        | String     | Vendor for the custom contexts                        | No          | `com.acme` |
+| `co`       | `context`        | JSON     | A custom context                        | Yes         | `%7B%22user%22%3A%7B%22fb_uid%22%3A%22999999%20x%22%7D%7D` |
+| `cx`       | `context`        | JSON (Base64 encoded)   | A custom context         | Yes         | `6eyJ1c2VyX3R5cGUiOiJ0ZXN0ZXIifX=` |
 
 Example of a custom context attached to the _watch-video-clip_ structured event from above:
 
