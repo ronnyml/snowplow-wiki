@@ -44,7 +44,7 @@ To make the Snowplow Python Tracker work out-of-the-box with as many different P
 
 To make the Snowplow Python Tracker work with as many different Python programs as possible, we have tried to keep external dependencies to a minimum. There are only two external dependencies currently:
 
-* [PyContracts] [pycontracts] - Python package that allows to declare constraints on function parameters and return values.
+* [PyContracts] [pycontracts] - Python package that allows one to declare constraints on function parameters and return values.
 * [Requests] [requests] - HTTP library
 
 These dependencies can be installed from the package manager of the host system or through PyPi.
