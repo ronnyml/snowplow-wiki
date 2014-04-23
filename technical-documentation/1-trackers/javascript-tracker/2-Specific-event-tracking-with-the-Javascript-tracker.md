@@ -41,22 +41,20 @@ Snowplow has been built to enable you to track a wide range of events that occur
 <a name="page" />
 ### 3.1 Pageviews
 
-Page views are tracked using the `trackPageView` method. This is generally part of the first Snowplow tag to fire on a particular web page. As a result, the `trackPageView` method is usually deployed with "global" method like `setAppId` and `setCollectorCf` in a single tag that also invokes the Snowplow JavaScript (sp.js) e.g.
+Page views are tracked using the `trackPageView` method. This is generally part of the first Snowplow tag to fire on a particular web page. As a result, the `trackPageView` method is usually deployed straight after the tag that also invokes the Snowplow JavaScript (sp.js) e.g.
 
 ```javascript
 <!-- Snowplow starts plowing -->
 <script type="text/javascript">
-window._snaq = window._snaq || [];
+;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
+p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
+};n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
+n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"//d1fc8wv8zag5ca.cloudfront.net/2/sp.js","snowplow_name_here"));
 
-window._snaq.push(['setCollectorCf', '{{CLOUDFRONT-DOMAIN}}']);
-window._snaq.push(['setAppId', '{{MY-SITE-ID}}']);
-window._snaq.push(['trackPageView']);
+snowplow_name_here('enableActivityTracking', 30, 10);
 
-(function() {
-var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
-sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://d1fc8wv8zag5ca.cloudfront.net/0.10.0/sp.js';
-var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
-})();
+snowplow_name_here('trackPageView');
+
  </script>
 <!-- Snowplow stops plowing -->
 ```
@@ -103,6 +101,7 @@ where `minimumVisitLength` is the time period from page load before the first pa
 
 ```javascript
 snowplow_name_here('enableActivityTracking', 30, 10);
+
 snowplow_name_here('trackPageView');
 ```
 

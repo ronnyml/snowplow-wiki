@@ -20,6 +20,7 @@ This page refers to version 2 of the Snowplow JavaScript Tracker. Click [here] [
   - 2.3 [Other parameters](#other)
     - 2.3.1 [Setting the user id using `setUserId`](#user-id)
     - 2.3.2 [Setting a custom URL with `setCustomUrl`](#custom-url)
+  - 2.4 [Managing multiple trackers](#multiple-trackers)
 
 <a name="loading"/>
 ### 2.1 Loading Snowplow.js
@@ -30,7 +31,7 @@ Use the following tag to your page to load Snowplow.js:
 ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
 p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
 };n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"http://d1fc8wv8zag5ca.cloudfront.net/2/sp.js","snowplow_name_here"));
+n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"//d1fc8wv8zag5ca.cloudfront.net/2/sp.js","snowplow_name_here"));
 </script>
 
 As well as loading Snowplow, this creates a global function called "snowplow_name_here" which you use to access the Tracker. You can replace the string "snowplow_name_here" with the function name of your choice. This is encouraged: if there are two Snowplow users on the same page, there won't be any conflict between them as long as they have chosen different function names. The rest of the documentation will assume that the function is called "snowplow_name_here".
@@ -186,6 +187,52 @@ snowplow_name_here('setCustomUrl', 'http://mysite.com/checkout-page');
 
 [Back to top](#top)
 [Back to JavaScript technical documentation contents][contents]
+
+<a name="multiple-trackers" />
+### 2.4 Managing multiple trackers
+
+You have more than one tracker instance running on the same page at once. This may be useful if you want to log events to different collectors. By default, any Snowplow method you call will be executed by every tracker you have created so far:
+
+```javascript
+snowplow_name_here("newTracker", "cf1", "d3rkrsqld9gmqf.cloudfront.net", {
+  appId: "cfe23a",
+  platform: "mob"
+});
+
+snowplow_name_here("newTracker", "cf2", "a5grvrhue7ewvt.cloudfront.net", {
+  appId: "cfe23a",
+  platform: "mob"
+});
+
+// Both trackers will use this custom title
+snowplow_name_here('setCustomUrl', 'http://mysite.com/checkout-page');
+
+// Both trackers will fire a structured event
+snowplow_name_here('trackStructEvent', 'Mixes', 'Play', 'MrC/fabric-0503-mix', '', '0.0');
+```
+
+You can override this behaviour and specify which trackers will execute a Snowplow method. To do this, change the method name by adding a colon followed by a list of tracker names separated by semicolons:
+
+```javascript
+// Only the first tracker will fire this structured event
+snowplow_name_here('trackStructEvent:cf1', 'Mixes', 'Play', 'MrC/fabric-0503-mix', '', '0.0');
+
+// Only the second tracker will fire this unstructured event
+snowplow_name_here('trackUnstructEvent:cf2', 'Viewed Product',
+                {
+                    product_id: 'ASO01043',
+                    category: 'Dresses',
+                    brand: 'ACME',
+                    returning: true,
+                    price: 49.95,
+                    sizes: ['xs', 's', 'l', 'xl', 'xxl'],
+                    available_since$dt: new Date(2013,3,7)
+                }
+);
+
+// Both trackers will fire a page view event
+snowplow_name_here('trackPageView:cf1;cf2');
+```
 
 [contents]: Javascript-Tracker
 [general-parameters-v1]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker-v1
