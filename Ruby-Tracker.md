@@ -188,6 +188,7 @@ Each `track_XXX` method has `context` as its penultimate parameter. This is for 
       "segment" => "whale"
     }
   }
+```
 
 For more on how to use custom contexts, see the [blog post][contexts] which introduced them.
 
