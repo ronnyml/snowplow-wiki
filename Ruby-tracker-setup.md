@@ -24,7 +24,7 @@ Ready? Let's get started.
 <a name="dependencies" />
 ## 2. Dependencies
 
-The Snowplow Ruby Tracker is compatible with Ruby versions 1.9.3, 2.0.0, 2.1.0.
+The Snowplow Ruby Tracker is compatible with Ruby versions 1.9.3, 2.0.0, and 2.1.0.
 
 To make the Snowplow Ruby Tracker work with as many different Ruby programs as possible, we have tried to keep external dependencies to a minimum. There are only two external dependencies currently:
 
@@ -58,6 +58,8 @@ gem 'snowplow-tracker'
 ```
 
 Done? Now read the [Ruby Tracker API](Ruby-Tracker) to start tracking events.
+
+[Back to top](#top)
 
 [ruby]: https://www.ruby-lang.org/en/
 [contracts]: http://rubygems.org/gems/contracts

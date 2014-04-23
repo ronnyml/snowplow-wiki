@@ -13,9 +13,10 @@
   - 3.1 [`set_platform`](#set-platform)
   - 3.2 [`set_user_id`](#set-user-id)
   - 3.3 [`set_screen_resolution`](#set-screen-resolution)
-  - 3.4 [`set_color_depth`](#set-color-depth)
-  - 3.5 [`set_timezone`](#set-timezone)
-  - 3.6 [`set_lang`](#set-language)
+  - 3.4 [`set_viewport`](#set-viewport)
+  - 3.5 [`set_color_depth`](#set-color-depth)
+  - 3.6 [`set_timezone`](#set-timezone)
+  - 3.7 [`set_lang`](#set-language)
 - 4. [Tracking specific events](#events)
   - 4.1 [Common](#common)
     - 4.1.1 [Argument validation](#validation)
@@ -88,7 +89,8 @@ You can configure the a tracker instance with additional information about your 
 |--------------------------------------------------:|:-------------------------------------------------------|
 | [`set_platform`](#set-platform)                   | Set the application platform     |
 | [`set_user_id`](#set-user-id)                     | Set the user ID                   |
-| [`set_screen_resolution`](#set-screen-resolution) | Set the screen resolution          | 
+| [`set_screen_resolution`](#set-screen-resolution) | Set the screen resolution          |
+| [`set_viewport`](#set-viewport)                   | Set the viewport dimensions  | 
 | [`set_color_depth`](#set-color-depth)             | Set the screen color depth |
 | [`set_timezone`](#set-timezone)                   | Set the timezone               |
 | [`set_lang`](#set-language)                       | Set the language             |
@@ -118,8 +120,18 @@ If your Ruby code has access to the device's screen resolution, you can pass it 
 tracker.set_screen_resolution(1366, 768)
 ```
 
+<a name="set-viewport" />
+### 3.4 Set the viewport dimensions with `set_screen_resolution`
+
+Similarly, you can pass the viewport dimensions in to Snowplow. Again, both numbers should be positive integers and the order is width followed by height. Example:
+
+```ruby
+tracker.set_screen_resolution(300, 200)
+```
+
+
 <a name="set-color-depth" />
-### 3.4 Set the color depth with `set_color_depth`
+### 3.5 Set the color depth with `set_color_depth`
 
 If your Ruby code has access to the bit depth of the device's color palette for displaying images, you can pass it in to Snowplow. The number should be a positive integer, in bits per pixel.
 
@@ -128,7 +140,7 @@ tracker.set_color_depth(24)
 ```
 
 <a name="set-timezone" />
-### 3.5 Setting the timezone with `set_timezone`
+### 3.6 Setting the timezone with `set_timezone`
 
 If your Ruby code has access to the timezone of the device, you can pass it in to Snowplow:
 
@@ -137,7 +149,7 @@ tracker.set_timezone('Europe London')
 ```
 
 <a name="set-language" />
-### 3.6 Setting the language with `set_lang`
+### 3.7 Setting the language with `set_lang`
 
 You can set the language field like this:
 

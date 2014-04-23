@@ -17,7 +17,9 @@
     - 3.2.1 [`set_app_id()`](#set-app-id)
     - 3.2.2 [`set_user_id()`](#set-user-id)
     - 3.2.3 [`set_screen_resolution()`](#set-screen-resolution)
-    - 3.2.4 [`set_color_depth()`](#set-color-depth)
+    - 3.2.4 [`set_viewport()`](#set-viewport)
+    - 3.2.5 [`set_color_depth()`](#set-color-depth)
+    - 3.2.6 [`set_lang`](#set-lang)
 - 4. [Tracking specific events](#events)
   - 4.1 [Common](#common)
     - 4.1.1 [Argument validation](#validation)
@@ -153,9 +155,10 @@ You may have additional information about your application"s environment, curren
 
 The tracker instance has a set of `set...()` methods to attach extra data to all tracked events:
 
-* [`setAppId()`](#set-app-id)
-* [`setUserId()`](#set-user-id)
-* [`setScreenResolution()`](#set-screen-resolution)
+* [`set_app_id()`](#set-app-id)
+* [`set_user_id()`](#set-user-id)
+* [`set_screen_resolution()`](#set-screen-resolution)
+* [`set_viewport`](#set-viewport)
 * [`setColorDepth()`](#set-color-depth)
 
 We will discuss each of these in turn below:
@@ -178,7 +181,7 @@ t.set_app_id("wow-addon-1")
 [Back to top](#top)
 
 <a name="set-user-id" />
-### 3.2.1 Set user ID with `set_user_id()`
+### 3.2.2 Set user ID with `set_user_id()`
 
 You can set the user ID to any string:
 
@@ -194,8 +197,8 @@ t.set_user_id("alexd")
 
 [Back to top](#top)
 
-<a name="set-screen-res" />
-### 3.2.1 Set screen resolution with `set_screen_resolution()`
+<a name="set-screen-resolution" />
+### 3.2.3 Set screen resolution with `set_screen_resolution()`
 
 If your Python code has access to the device's screen resolution, then you can pass this in to Snowplow too:
 
@@ -211,8 +214,25 @@ t.set_screen_resolution(1366, 768)
 
 [Back to top](#top)
 
+<a name="set-screen-resolution" />
+### 3.2.4 Set viewport dimensions with `set_viewport()`
+
+If your Python code has access to the device's screen resolution, then you can pass this in to Snowplow too:
+
+```python
+t.set_viewport( {{WIDTH}}, {{HEIGHT}} )
+```
+
+Both numbers should be positive integers; note the order is width followed by height. Example:
+
+```python
+t.set_viewport(300, 200)
+```
+
+[Back to top](#top)
+
 <a name="set-color-depth" />
-### 3.2.1 Set color depth with `set_color_depth()`
+### 3.2.5 Set color depth with `set_color_depth()`
 
 If your Python code has access to the bit depth of the device's color palette for displaying images, then you can pass this in to Snowplow too:
 
@@ -227,6 +247,24 @@ t.set_color_depth(32)
 ```
 
 [Back to top](#top)
+
+<a name="set-color-depth" />
+### 3.2.6 Set the language with `set_lang()`
+
+This method lets you pass a user's language in to Snowplow:
+
+```python
+t.set_lang( {{LANGUAGE}} )
+```
+
+The number should be a positive integer, in bits per pixel. Example:
+
+```python
+t.set_lang('en')
+```
+
+[Back to top](#top)
+
 
 <a name="events" />
 ## 4. Tracking specific events
