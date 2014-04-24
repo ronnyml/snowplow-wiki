@@ -23,8 +23,10 @@ Snowplow has been built to enable users to track a wide range of events that occ
   - 3.5 [Campaign tracking](#campaign)  
     - 3.5.1 [Identifying paid sources](#identifying-paid-sources)  
     - 3.5.2 [Anatomy of the query parameter](#anatomy-of-the-query-parameter)
-  - 3.6 [Ad impression tracking](#adimps) 
-    - 3.6.1 [`trackImpression`](#trackImpression)
+  - 3.6 [Ad tracking methods](#ad-tracking) 
+    - 3.6.1 [`trackAdImpression`](#adImpression)
+    - 3.6.2 [`trackAdClick`](#adClick)
+    - 3.6.3 [`trackAdConversion`](#adConversion)
   - 3.7 [Tracking custom structured events](#custom-structured-events)  
     - 3.7.1 [`trackStructEvent`](#trackStructEvent)
   - 3.8 [Tracking custom unstructured events](#custom-unstructured-events)
@@ -344,29 +346,112 @@ The parameters are descibed in the [Google Analytics help page] [gahelppage]. Go
 [Back to JavaScript technical documentation contents][contents]
 
 <a name="adimps" />
-### 3.6 Ad impression tracking
+### 3.6 Ad tracking methods
 
-Snowplow tracking code can be included in ad tags in order to track impressions. This is used by e.g. ad networks to identify which sites and web pages users visit across a network, so that they can be segmented, for example.
+Snowplow tracking code can be included in ad tags in order to track impressions and ad clicks. This is used by e.g. ad networks to identify which sites and web pages users visit across a network, so that they can be segmented, for example.
 
-Impression tracking is accomplished using the `trackImpression` method.
-
-<a name="trackImpression" />
-#### 3.6.1 `trackImpression`
+<a name="adImpression" />
+#### 3.6.1 `trackAdImpression`
 
 **Note**: Although this feature is implemented in the JavaScript Tracker, it is **not** currently supported by the ETL, storage and analytics stages of the Snowplow data pipeline. As a result, if you implement this feature, you will successfully track impression data to your collector logs, but this data will not be extracted and loaded into e.g. Redshift for analysis. 
 
 Adding support for this event type to the ETL, storage and analytics stages of the data pipeline is on the Snowplow roadmap. Until it is delivered, we recommend using the [custom structured event tracking] [custom-structured-events] to track impressions.
 
-The method takes four parameters:
+Ad impression tracking is accomplished using the `trackAdImpression` method. Here are the arguments it accepts:
 
-| **Name**       | **Required?** | **Description**                                                                              |
-|---------------:|:--------------|:---------------------------------------------------------------------------------------------|
-|     `BannerID` | Yes           | Adserver identifier for the ad banner (creative) being displayed                             |
-|   `CampaignID` | No            | Adserver identifier for the ad campaign which the banner belongs to                          |
-| `AdvertiserID` | No            | Adserver identifier for the advertiser which the campaign belongs to                         |
-|       `UserID` | No            | Adserver identifier for the web user. Not to be confused with Snowplow's own user identifier |
+| **Name**       | **Required?** | **Description**                            | **Type**
+|---------------:|:--------------|:-------------------------------------------|:---------------------|
+| `impressionId` | No            | Identifier for the particular impression instance   | string |
+|    `costIfCpm` | No            | Cost if cost model is CPM   | number |
+|     `bannerId` | No            | Adserver identifier for the ad banner (creative) being displayed  | string                |
+|       `zoneId` | No            | Adserver identifier for the zone where the ad banner is located | string  |
+| `advertiserID` | No            | Adserver identifier for the advertiser which the campaign belongs to      | string   |
+|    `costModel` | No            | The cost model for the campaign: 'cpc', 'cpm', or 'cpa'  | string |
+|   `campaignId` | No            | Adserver identifier for the ad campaign which the banner belongs to    |  string |
+
+An example:
+
+```javascript
+snowplow_name_here('trackAdImpression:' + rnd,
+
+    '67965967893', // impressionId
+     5.5, // costIfCpm
+    '23', // bannerId
+    '7', // zoneId
+    '201', // advertiserId
+    'cpm', // costModel - 'cpa', 'cpc', or 'cpm'
+    '12' // campaignId
+);
+```
 
 You will want to set these arguments programmatically, across all of your ad zones/slots - for guidelines on how to achieve this with the [OpenX adserver] [openx], please see the following sub-sections.
+
+<a name="adClick" />
+#### 3.6.2 `trackAdClick`
+
+Ad click tracking is accomplished using the `trackAdClick` method. Here are the arguments it accepts:
+
+| **Name**       | **Required?** | **Description**                            | **Type**
+|---------------:|:--------------|:-------------------------------------------|:-----------
+|      `clickId` | No            | Identifier for the particular click instance   | string  |
+|    `costIfCpc` | No            | Cost if cost model is CPC   |    number
+|   `targetUrl`  | Yes           | The destination URL  |        string   |
+|     `bannerId` | No            | Adserver identifier for the ad banner (creative) being displayed  |  string
+|       `zoneId` | No            | Adserver identifier for the zone where the ad banner is located  | string
+| `advertiserID` | No            | Adserver identifier for the advertiser which the campaign belongs to   |  string                      |
+|    `costModel` | No            | The cost model for the campaign: 'cpc', 'cpm', or 'cpa' |  string  |
+|   `campaignId` | No            | Adserver identifier for the ad campaign which the banner belongs |  to   |  string                       |
+
+An example:
+
+```javascript
+snowplow_name_here('trackAdClick',
+
+    '12243253', // clickId
+    '',  // costIfCpc (not applicable)
+    'http://www.example.com', // targetUrl
+    '23', // bannerId
+    '7', // zoneId
+    '67965967893', // impressionId - the same as in trackAdImpression
+    '201', // advertiserId
+    'cpm', // costModel
+    '12' // campaignId
+);
+```
+
+<a name="adConversion" />
+#### 3.6.3 `trackAdConversion`
+
+Use the `trackAdConversion` method to track ad conversions.  Here are the arguments it accepts:
+
+| **Name**       | **Required?** | **Description**                            | **Type**             |
+|---------------:|:--------------|:-------------------------------------------|:--------------------
+| `conversionId` | No            | Identifier for the particular conversion instance   | String
+|    `costIfCpa` | No            | Cost if cost model is CPA                  |    string
+|     `category` | No            | Conversion category                        |    number                              |
+|       `action` | No            | The type of user interaction, e.g. 'purchase' | string                           |
+|     `property` | No            | Describes the object of the conversion        | string                           |
+| `initialValue` | No            | How much the conversion is initially worked   | number                           |
+| `advertiserID` | No            | Adserver identifier for the advertiser which the campaign belongs to |  string   |
+|    `costModel` | No            | The cost model for the campaign: 'cpc', 'cpm', or 'cpa'   |  string
+|   `campaignId` | No            | Adserver identifier for the ad campaign which the banner belongs to  |  string  |
+
+An example:
+
+```javascript
+window.adTracker('trackAdConversion:' + rnd,
+
+    '743560297', // conversionId
+    10, // costIfCpa
+    'ecommerce', // category
+    'purchase', // action
+    '', // property
+    99, // initialValue - how much the conversion is initially worth
+    '201', // advertiserId
+    'cpa', // costModel
+    '12' // campaignId
+);
+```
 
 #### 3.6.2 Example: implementing impression tracking with Snowplow and OpenX
 
@@ -463,23 +548,24 @@ When you track a custom unstructured event, you track the event name and a set o
 To track an unstructured event, you make use the `trackUnstructEvent` method:
 
 ```javascript
-snowplow_name_here('trackUnstructEvent', <<EVENT NAME>>, <<EVENT PROPERTIES JSON>>);
+snowplow_name_here('trackUnstructEvent', <<EVENT NAME>>, <<EVENT PROPERTIES JSON>>, <<EVENT VENDOR>>);
 ```
 
 For example:
 
 ```javascript
 snowplow_name_here('trackUnstructEvent', 'Viewed Product',
-                {
-                    product_id: 'ASO01043',
-                    category: 'Dresses',
-                    brand: 'ACME',
-                    returning: true,
-                    price: 49.95,
-                    sizes: ['xs', 's', 'l', 'xl', 'xxl'],
-                    available_since$dt: new Date(2013,3,7)
-                }
-            );
+    {
+        product_id: 'ASO01043',
+        category: 'Dresses',
+        brand: 'ACME',
+        returning: true,
+        price: 49.95,
+        sizes: ['xs', 's', 'l', 'xl', 'xxl'],
+        available_since$dt: new Date(2013,3,7)
+    },
+    'com.my_company'
+);
 ```
 
 Notes regarding the `properties` JSON:
@@ -487,147 +573,7 @@ Notes regarding the `properties` JSON:
 * The `properties` JSON consists of a set of individual name: value pairs
 * The structure **must** be flat: properties **cannot** be nested
 
-##### 3.8.1.1 Supported datatypes
-
-Snowplow unstructured events support a relatively rich set of datatypes. Because these datatypes do not always map directly onto JavaScript datatypes, we have introduced some "type suffixes" for the JavaScript property names, so that Snowplow knows what Snowplow data types the JavaScript data types map onto:
-
-| Snowplow datatype | Description                  | JavaScript datatype  | Type suffix(es)      | Supports array? |
-|:------------------|:-----------------------------|:---------------------|:---------------------|:----------------|
-| Null              | Absence of a value           | Null                 | -                    | No              |
-| String            | String of characters         | String               | -                    | Yes             |
-| Boolean           | True or false                | Boolean              | -                    | Yes             |
-| Integer           | Number without decimal       | Number               | `$int`               | Yes             |
-| Floating point    | Number with decimal          | Number               | `$flt`               | Yes             |
-| Geo-coordinates   | Longitude and latitude       | \[Number, Number\]   | `$geo`               | Yes             |
-| Date              | Date and time (ms precision) | Number               | `$dt`, `$ts`, `$tms` | Yes             |
-| Array             | Array of values              | \[x, y, z\]          | -                    | -               |
-
-Let's go through each of these in turn, providing some examples as we go:
-
-###### 3.8.1.1.1 Null
-
-Tracking a Null value for a given field is straightforward:
-
-```javascript
-{
-    returns_id: null
-}
-```
-
-###### 3.8.1.1.2 String
-
-Tracking a String is easy:
-
-```javascript
-{
-    product_id: 'ASO01043' // Or "ASO01043"
-}
-```
-
-###### 3.8.1.1.3 Boolean
-
-Tracking a Boolean is also straightforward:
-
-```javascript
-{
-    trial: true
-}
-```
-
-###### 3.8.1.1.4 Integer
-
-To track an Integer, use a JavaScript Number but add a type suffix like so:
-
-```javascript
-{
-    in_stock$int: 23
-}
-```
-
-**Warning:** if you do not add the `$int` type suffix, Snowplow will assume you are tracking a Floating point number.
-
-###### 3.8.1.1.5 Floating point
-
-To track a Floating point number, use a JavaScript Number; adding a type suffix is optional:
-
-```javascript
-{
-    price$flt: 4.99, 
-    sales_tax: 49.99 // Same as $sales_tax:$flt
-}
-```
-
-###### 3.8.1.1.5 Geo-coordinates
-
-Tracking a pair of Geographic coordinates is done like so:
-
-```javascript
-{
-    check_in$geo: [40.11041, -88.21337] // Lat, long
-}
-```
-
-Please note that the datatype takes the format **latitude** followed by **longitude**. That is the same order used by services such as Google Maps.
-
-**Warning:** if you do not add the `$geo` type suffix, then the value will be incorrectly interpreted by Snowplow as an Array of Floating points.
-
-###### 3.8.1.1.6 Date
-
-Snowplow Dates include the date _and_ the time, with milliseconds precision. There are three type suffixes supported for tracking a Date:
-
-* `$dt` - the Number of days since the epoch
-* `$ts` - the Number of seconds since the epoch
-* `$tms` - the Number of milliseconds since the epoch. This is the default for JavaScript Dates if no type suffix supplied
-
-You can track a date by adding either a JavaScript Number _or_ JavaScript Date to your `properties` object. The following are all valid dates:
-
-```javascript
-{
-    birthday$dt: new Date(1980,11,10), // Sent to Snowplow as birthday$dt: 3996
-    birthday2$dt: 3996, // ^ Same as above
-    
-    registered$ts: new Date(2013,05,13,14,20,10), // Sent to Snowplow as registered$ts: 1371129610
-    registered2$ts: 1371129610, // Same as above
-    
-    last_action$tms: 1368454114215, // Accurate to milliseconds
-    last_action2: new Date() // Sent to Snowplow as last_action2$tms: 1368454114215
-}
-```
-
-Note that the type prefix only indicates how the JavaScript Number sent to Snowplow is interpreted - all Snowplow Dates are stored to milliseconds precision (whether or not they include that level of precision).
-
-**Two warnings:**
-
-1. If you specify a JavaScript Number but do not add a valid Date suffix (`$dt`, `$ts` or `$tms`), then the value will be incorrectly interpreted by Snowplow as a Number, not a Date
-2. If you specify a JavaScript Number but add the wrong Date suffix, then the Date will be incorrectly interpreted by Snowplow, for example:
-
-```javascript
-{
-    last_ping$dt: 1371129610 // Should have been $ts. Snowplow will interpret this as the year 3756521449
-}
-```
-
-###### 3.8.1.1.7 Arrays
-
-You can track an Array of values of any data type other than Null.
-
-Arrays must be homogeneous - in other words, all values within the Array must be of the same datatype. This means that the following is **not** allowed:
-
-```javascript
-{
-    sizes: ['xs', 28, 'l', 38, 'xxl'] // NOT allowed
-}
-```
-
-By contrast, the following are all allowed:
-
-```javascript
-{
-    sizes: ['xs', 's', 'l', 'xl', 'xxl'],
-    session_starts$ts: [1371129610, 1064329730, 1341127611],
-    check_ins$geo: [[-88.21337, 40.11041], [-78.81557, 30.22047]]
-}
-```
+The event vendor parameter is the reversed domain name of the company which defined the unstructured event. If the company's domain name were "my_company.com", the event vendor would be "com.my_company". Specifying an event vendor helps to distinguish between unstructured events defined by different companies.
 
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
@@ -754,8 +700,9 @@ For more information on custom contexts, see [this][contexts] blog post.
 [magicmacros]: http://www.openx.com/docs/whitepapers/magic-macros
 [dmp]: http://www.adopsinsider.com/online-ad-measurement-tracking/data-management-platforms/what-are-data-management-platforms/ 
 [contactus]: mailto:snowplow-ads@keplarllp.com
+[gahelppage]: https://support.google.com/analytics/answer/1033863
+[gaurlbuilder]: https://support.google.com/analytics/answer/1033867?hl=en
 [mixpanel]: https://mixpanel.com/
 [kissmetrics]: https://www.kissmetrics.com/
 [keen.io]: https://keen.io/
 [contexts]: http://snowplowanalytics.com/blog/2014/01/27/snowplow-custom-contexts-guide/
-[specific-events-v1]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker-v1

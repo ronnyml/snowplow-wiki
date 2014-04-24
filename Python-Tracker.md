@@ -22,7 +22,7 @@ This page refers to version 0.3.0 of the Snowplow Python Tracker. Click [here] [
   - 3.3 [`set_screen_resolution()`](#set-screen-resolution)
   - 3.4 [`set_viewport()`](#set-viewport)
   - 3.5 [`set_color_depth()`](#set-color-depth)
-  - 3.6 [`set_lang`](#set-lang)
+  - 3.6 [`set_lang()`](#set-lang)
 - 4. [Tracking specific events](#events)
   - 4.1 [Common](#common)
     - 4.1.1 [Custom contexts](#custom-contexts)

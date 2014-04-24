@@ -12,14 +12,17 @@ This page refers to version 2 of the Snowplow JavaScript Tracker. Click [here] [
     - 2.2.2 [Setting the platform](#platform)
     - 2.2.3 [Configuring the cookie domain](#cookie-domain)
     - 2.2.4 [Configuring the cookie name](#cookie-name)
-    - 2.2.5 [Configuring base 64 encoding](#base-64)
-    - 2.2.6 [Respecting Do Not Track](#respect-do-not-track)
-    - 2.2.7 [User fingerprinting](#user-fingerprint)
-    - 2.2.8 [Setting the user fingerprint seed](#user-fingerprint-seed)
-    - 2.2.9 [Altering cookies](#write-cookies)
+    - 2.2.5 [Setting a context vendor](#context-vendor)
+    - 2.2.6 [Configuring base 64 encoding](#base-64)
+    - 2.2.7 [Respecting Do Not Track](#respect-do-not-track)
+    - 2.2.8 [User fingerprinting](#user-fingerprint)
+    - 2.2.9 [Setting the user fingerprint seed](#user-fingerprint-seed)
+    - 2.2.10 [Setting the page unload pause](#page-unload-timer)
+    - 2.2.11 [Altering cookies](#write-cookies)
   - 2.3 [Other parameters](#other)
     - 2.3.1 [Setting the user id using `setUserId`](#user-id)
     - 2.3.2 [Setting a custom URL with `setCustomUrl`](#custom-url)
+    - 2.3.3 [Setting the pause time before leaving a page with `setLinkTrackingTimer`](#tracker-pause)
   - 2.4 [Managing multiple trackers](#multiple-trackers)
 
 <a name="loading"/>
@@ -87,10 +90,12 @@ snowplow_name_here("newTracker", "cf", "d3rkrsqld9gmqf.cloudfront.net", {
   platform: "mob"
   cookieDomain: null,
   cookieName: "_sp534_",
+  contextVendor: "com.my_company",
   encodeBase64: false,
   respectDoNotTrack: false,
   userFingerprint: true,
   userFingerprintSeed: 6385926734,
+  pageUnloadTimer: 0,
   writeCookies: true
 });
 ```
@@ -124,27 +129,39 @@ Set the cookie domain for the tracker instance using the `cookieDomain` field of
 
 Set the cookie name for the tracker instance using the `cookieName` field of the argmap. The default is "_sp_". Snowplow uses two cookies, a domain cookie and a session cookie. In the default case, their names are "_sp_id" and "_sp_ses" respectively. If you are upgrading from an earlier version of Snowplow, you should use the default cookie name so that the cookies set by the earlier version are still remembered. Otherwise you should provide a new name to prevent clashes with other Snowplow users on the same page.
 
+<a name="context-vendor" />
+#### 2.2.5 Setting a context vendor
+
+Snowplow lets you attach [custom contexts] [contexts] to all events. The `contextVendor` field of the argmap is the reversed domain name of the company who defined the contexts. For example, if a company's domain name is "my_company.com", the context vendor string should be "com.my_company". This helps to avoid confusion between contexts defined by different companies. Note that the context vendor string should contain no characters other than lower case letters, underscores, and dots. Whenever the tracker fires an event with a custom context, it will attach the context vendor to the context.
+
 <a name="base-64">
-### 2.2.5 Configuring base 64 encoding
+### 2.2.6 Configuring base 64 encoding
 By default, unstructured events and custom contexts are encoded into Base64 to ensure that no data is lost or corrupted. You can turn encoding on or off using the `encodeBase64` field of the argmap.
 
 <a name="respect-do-not-track" />
-#### 2.2.6 Respecting Do Not Track
+#### 2.2.7 Respecting Do Not Track
 
 Most browsers have a Do Not Track option which allows users to express a preference not to be tracked. You can respect that preference by setting the `respectDoNotTrack` field of the argmap to `true`. This prevents cookies from being sent and events from being fired.
 
 <a name="user-fingerprint" />
-#### 2.2.7 User fingerprinting
+#### 2.2.8 User fingerprinting
 
 By default, the tracker generates a user fingerprint based on various browser features. This fingerprint is likely to be unique and so can be used to track anonymous users. You can turn user fingerprinting off by setting the `userFingerprint` field of the argmap to `false`.
 
 <a name="user-fingerprint-seed" />
-#### 2.2.8 Setting the user fingerprint seed
+#### 2.2.9 Setting the user fingerprint seed
 
 The `userFingerprintSeed` field of the the argmap lets you choose the hash seed used to generate the user fingerprint. If this is not specified, the default is 123412414.
 
+<a name="page-unload-timer" />
+#### 2.2.10 Setting the page unload pause
+
+Whenever the Snowplow Javascript Tracker fires an event, it automatically starts a 500 millisecond timer running. If the user clicks on a link or refreshes the page during this period (or, more likely, if the event was triggered by the user clicking a link), the page will wait until the timer is finished before unloading. 500 milliseconds is usually enough to ensure the event has time to be sent.
+
+You can change the pause length (in milliseconds) using the `pageUnloadTimer` of the argmap. The above example completely eliminates the pause. This does make it unlikely that events triggered by link clicks will be sent.
+
 <a name="write-cookies" />
-#### 2.2.9 Altering cookies
+#### 2.2.11 Altering cookies
 
 The `writeCookies` argument is a boolean value which determines whether the tracker instance will be able to alter cookies or add new ones. It does not affect whether the tracker instance will read cookies, so if it is turned off but Snowplow cookies with the tracker's configured cookie name already exist for the page, the tracker will continue to report those cookies' values. If you do use this argument, be careful - if two trackers on the same page are both initialised with the same cookie name and with `writeCookies` turned on, inaccurate data will result from them both trying to alter the same cookies. Note that you will always be fine if the `writeCookies` argument is not set - because the default behaviour avoids these problems.
 
@@ -175,7 +192,7 @@ Note: this will only set the user ID on further events fired while the user is o
 [Back to JavaScript technical documentation contents][contents]
 
 <a name="custom-url" />
-#### 2.3.3 Setting a custom URL with `setCustomUrl`
+#### 2.3.2 Setting a custom URL with `setCustomUrl`
 
 The Snowplow JavaScript Tracker automatically tracks the page URL on any event tracked. However, in certain situations, you may want to override the actual URL with a custom value. (For example, this might be desirable if your CMS spits out particularly ugly URLs that are hard to unpick at analysis time.) In that case, you can override the default value using the `setCustomUrl` function.
 
@@ -219,15 +236,15 @@ snowplow_name_here('trackStructEvent:cf1', 'Mixes', 'Play', 'MrC/fabric-0503-mix
 
 // Only the second tracker will fire this unstructured event
 snowplow_name_here('trackUnstructEvent:cf2', 'Viewed Product',
-                {
-                    product_id: 'ASO01043',
-                    category: 'Dresses',
-                    brand: 'ACME',
-                    returning: true,
-                    price: 49.95,
-                    sizes: ['xs', 's', 'l', 'xl', 'xxl'],
-                    available_since$dt: new Date(2013,3,7)
-                }
+    {
+        product_id: 'ASO01043',
+        category: 'Dresses',
+        brand: 'ACME',
+        returning: true,
+        price: 49.95,
+        sizes: ['xs', 's', 'l', 'xl', 'xxl'],
+        available_since$dt: new Date(2013,3,7)
+    }
 );
 
 // Both trackers will fire a page view event
@@ -237,3 +254,4 @@ snowplow_name_here('trackPageView:cf1;cf2');
 [contents]: Javascript-Tracker
 [general-parameters-v1]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker-v1
 [snowplow-tracker-protocol]: https://github.com/snowplow/snowplow/wiki/SnowPlow-Tracker-Protocol
+[contexts]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker-v1#custom-contexts

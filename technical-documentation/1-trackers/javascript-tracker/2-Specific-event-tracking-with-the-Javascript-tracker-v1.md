@@ -719,6 +719,8 @@ For more information on custom contexts, see [this][contexts] blog post.
 [zoneappend]: /snowplow/snowplow/wiki/setup-guide/images/03a_zone_prepend_openx.png
 [magicmacros]: http://www.openx.com/docs/whitepapers/magic-macros
 [dmp]: http://www.adopsinsider.com/online-ad-measurement-tracking/data-management-platforms/what-are-data-management-platforms/ 
+[gahelppage]: https://support.google.com/analytics/answer/1033863
+[gaurlbuilder]: https://support.google.com/analytics/answer/1033867?hl=en
 [contactus]: mailto:snowplow-ads@keplarllp.com
 [mixpanel]: https://mixpanel.com/
 [kissmetrics]: https://www.kissmetrics.com/
