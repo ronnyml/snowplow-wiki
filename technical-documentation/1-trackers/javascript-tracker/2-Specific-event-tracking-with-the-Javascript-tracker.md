@@ -27,6 +27,7 @@ Snowplow has been built to enable users to track a wide range of events that occ
     - 3.6.1 [`trackAdImpression`](#adImpression)
     - 3.6.2 [`trackAdClick`](#adClick)
     - 3.6.3 [`trackAdConversion`](#adConversion)
+    - 3.6.4 [Example: implementing impression tracking with Snowplow and OpenX](#ad-example)
   - 3.7 [Tracking custom structured events](#custom-structured-events)  
     - 3.7.1 [`trackStructEvent`](#trackStructEvent)
   - 3.8 [Tracking custom unstructured events](#custom-unstructured-events)
@@ -45,7 +46,7 @@ Snowplow has been built to enable you to track a wide range of events that occur
 
 Page views are tracked using the `trackPageView` method. This is generally part of the first Snowplow tag to fire on a particular web page. As a result, the `trackPageView` method is usually deployed straight after the tag that also invokes the Snowplow JavaScript (sp.js) e.g.
 
-```javascript
+```html
 <!-- Snowplow starts plowing -->
 <script type="text/javascript">
 ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
@@ -374,13 +375,13 @@ An example:
 ```javascript
 snowplow_name_here('trackAdImpression:' + rnd,
 
-    '67965967893', // impressionId
-     5.5, // costIfCpm
-    '23', // bannerId
-    '7', // zoneId
-    '201', // advertiserId
-    'cpm', // costModel - 'cpa', 'cpc', or 'cpm'
-    '12' // campaignId
+    '67965967893',   // impressionId
+     5.5,            // costIfCpm
+    '23',            // bannerId
+    '7',             // zoneId
+    '201',           // advertiserId
+    'cpm',           // costModel - 'cpa', 'cpc', or 'cpm'
+    '12'             // campaignId
 );
 ```
 
@@ -407,15 +408,15 @@ An example:
 ```javascript
 snowplow_name_here('trackAdClick',
 
-    '12243253', // clickId
-    '',  // costIfCpc (not applicable)
-    'http://www.example.com', // targetUrl
-    '23', // bannerId
-    '7', // zoneId
-    '67965967893', // impressionId - the same as in trackAdImpression
-    '201', // advertiserId
-    'cpm', // costModel
-    '12' // campaignId
+    '12243253',                // clickId
+    '',                        // costIfCpc (not applicable)
+    'http://www.example.com',  // targetUrl
+    '23',                      // bannerId
+    '7',                       // zoneId
+    '67965967893',             // impressionId - the same as in trackAdImpression
+    '201',                     // advertiserId
+    'cpm',                     // costModel
+    '12'                       // campaignId
 );
 ```
 
@@ -426,7 +427,7 @@ Use the `trackAdConversion` method to track ad conversions.  Here are the argume
 
 | **Name**       | **Required?** | **Description**                            | **Type**             |
 |---------------:|:--------------|:-------------------------------------------|:--------------------
-| `conversionId` | No            | Identifier for the particular conversion instance   | String
+| `conversionId` | No            | Identifier for the particular conversion instance   | string
 |    `costIfCpa` | No            | Cost if cost model is CPA                  |    string
 |     `category` | No            | Conversion category                        |    number                              |
 |       `action` | No            | The type of user interaction, e.g. 'purchase' | string                           |
@@ -453,7 +454,8 @@ window.adTracker('trackAdConversion:' + rnd,
 );
 ```
 
-#### 3.6.2 Example: implementing impression tracking with Snowplow and OpenX
+<a name="ad-example" />
+#### 3.6.4 Example: implementing impression tracking with Snowplow and OpenX
 
 Most ad servers enable you to append custom code to your ad tags. Here's what the zone append functionality looks like in the OpenX adserver (OnRamp edition): 
 
@@ -470,16 +472,16 @@ The full HTML code to append, using asynchronous Snowplow invocation, looks like
 ```html
 <!-- Snowplow starts plowing -->
 <script type="text/javascript">
-window._snaq = window._snaq || [];
+;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
+p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
+};n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
+n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"//d1fc8wv8zag5ca.cloudfront.net/2/sp.js","snowplow_name_here"));
 
-window._snaq.push(['setCollectorCf', 'patldfvsg0d8w']); // Update to your CloudFront distribution subdomain
-window._snaq.push(['trackImpression', '{bannerid}', '{campaignid}', '', '{OAID}']); // OpenX magic macros. Leave this line as-is
+// Update tracker constructor to use your CloudFront distribution subdomain
+window.snowplow_name_here('newTracker', 'cf', 'patldfvsg0d8w.cloudfront.net');
 
-(function() {
-var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
-sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://d107t3sdgumbla.cloudfront.net/sp.js';
-var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
-})();
+window.snowplow_name_here('', '{costIfCpc}', '{bannerid}', '{zoneid}', '{advertiserId}', '', '{campaignid}'); // OpenX magic macros. Leave this line as-is
+
  </script>
 <!-- Snowplow stops plowing -->
 ```
