@@ -2,30 +2,29 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > Python Tracker
 
-This page refers to version 0.3.0 of the Snowplow Python Tracker. Click [here] [python-0.2] for the corresponding documentation for version 0.2.0.
+This page refers to version 0.2.0 of the Snowplow Python Tracker. Click [here] [python-latest] for the corresponding documentation for the latest version, 0.3.0.
 
 ## Contents
 
 - 1. [Overview](#overview)  
 - 2. [Initialization](#init)  
   - 2.1 [Importing the module](#importing)
-  - 2.2 [Creating a tracker](#create-tracker)
-    - 2.2.1 [`namespace](#namespace)  
-    - 2.2.2 [`app_id`](#app-id)
-    - 2.2.3 [`context_vendor`](#context-vendor)
-    - 2.2.4 [`encode_base64`](#base64)
-    - 2.2.5 [`contracts`](#contracts)
+  - 2.2 [Creating a tracker](#create-tracker)  
   - 2.3 [Creating multiple trackers](#multi-tracker)
-- 3. [Adding extra data](#add-data)  
-  - 3.1 [`set_platform()`](#platform)
-  - 3.2 [`set_user_id()`](#set-user-id)
-  - 3.3 [`set_screen_resolution()`](#set-screen-resolution)
-  - 3.4 [`set_viewport()`](#set-viewport)
-  - 3.5 [`set_color_depth()`](#set-color-depth)
-  - 3.6 [`set_lang`](#set-lang)
+- 3. [Configuration](#config)  
+  - 3.1 [Configuring your tracker](#configure-tracker)
+    - 3.1.1 [`set_platform()`](#platform)
+    - 3.1.2 [`set_base64_to()`](#encode-base64)
+  - 3.2 [Adding extra data](#add-data)
+    - 3.2.1 [`set_app_id()`](#set-app-id)
+    - 3.2.2 [`set_user_id()`](#set-user-id)
+    - 3.2.3 [`set_screen_resolution()`](#set-screen-resolution)
+    - 3.2.4 [`set_viewport()`](#set-viewport)
+    - 3.2.5 [`set_color_depth()`](#set-color-depth)
+    - 3.2.6 [`set_lang`](#set-lang)
 - 4. [Tracking specific events](#events)
   - 4.1 [Common](#common)
-    - 4.1.1 [Custom contexts](#custom-contexts)
+    - 4.1.1 [Argument validation](#validation)
     - 4.1.2 [Optional timestamp argument](#tstamp-arg)
   - 4.2 [`track_screen_view()`](#screen-view)
   - 4.3 [`track_page_view()`](#page-view)
@@ -65,84 +64,19 @@ That's it - you are now ready to initialize a tracker instance.
 <a name="create-tracker" />
 ### 2.2 Creating a tracker
 
-The simplest tracker initialization only requires you to provide the URI of the collector to which the tracker will log events:
+Initialise a tracker instance like this:
 
 ```python
 tracker = Tracker("d3rkrsqld9gmqf.cloudfront.net")
 ```
 
-There are other optional keyword arguments:
-
-| **Argument Name** | **Description**                      | **Required?** | **Default**          |
-|-------------:|:-------------------------------------|:--------------|:------------------------|
-| `collector_uri`      | The collector URI       | Yes           | `None`        |
-| `namespace`  | The name of the tracker instance     |  No           |  `None` |
-| `app_id` | The application ID          | No           | `None`         |
-| `context_vendor`     | [Context vendor] [context-vendor]  | No            | `None`        |
-| `encode_base64` | Whether to enable [base 64 encoding] [base64] | No | `True`  |
-| `contracts`  | Whether to enable [PyContracts] [contracts] | No | `True` |
-
-
-A more complete example:
+You can also add an optional tracker name parameter:
 
 ```python
-tracker = Tracker("d3rkrsqld9gmqf.cloudfront.net", "cf", "com.my_company", False, False)
+tracker = Tracker("d3rkrsqld9gmqf.cloudfront.net", "cf")
 ```
 
-[Back to top](#top)
-
-<a name="namespace" />
-#### 2.2.1 `namespace`
-
-If provided, the `namespace` argument will be attached to every event fired by the new tracker. This allows you to later identify which tracker fired which event if you have multiple trackers running.
-
-<a name="app-id" />
-#### 2.2.2 `app_id
-
-The `app_id` argument lets you set the application ID to any string.
-
-<a name="context-vendor" />
-#### 2.2.3 'context_vendor`
-
-The `context_vendor` argument identifies the company which defined the [custom contexts](#custom-contexts) attached to events the tracker fires. It should be a string containing no characters other than lowercase letters, underscores and dots. It should be the company's reversed internet domain name - for example, "com.example" for custom contexts developed at a company with domain name "example.com". Whenever the new tracker fires an event with a custom context attached, the context vendor will also be attached. This helps to avoid confusion between custom contexts defined by different companies.
-
-<a name="base64" />
-#### 2.2.4 `encode_base64`
-
-By default, unstructured events and custom contexts are encoded into Base64 to ensure that no data is lost or corrupted. You can turn encoding on or off using the Boolean `encode_base64` argument.
-
-<a name="contracts" />
-#### 2.2.5 'contracts'
-
-Python is a dynamically typed language, but each of our methods expects its arguments to be of specific types and value ranges, and validates that to be the case. These checks are done using the [PyContracts][pycontracts] library.
-
-If the validation check fails, then a runtime error is thrown:
-
-```python
-t = Tracker.hostname("localhost")
-t.set_color_depth("walrus")
-```
-```
-contracts.interface.ContractNotRespected: Breach for argument 'depth' to Tracker:set_color_depth().
-Expected type 'int', got 'str'.
-checking: Int      for value: Instance of str: 'walrus'   
-checking: $(Int)   for value: Instance of str: 'walrus'   
-checking: int      for value: Instance of str: 'walrus'   
-Variables bound in inner context:
-- self: Instance of Tracker: <snowplow_tracker.tracker.Tracker object... [clip]
-
-```
-
-If your value is of the wrong type, convert it before passing it into the `track...()` method, for example:
-
-```python
-level_idx = 42
-t.track_screen_view("Game Level", str(level_idx))
-```
-
-We specify the types and value ranges required for each argument below.
-
-You can turn off type checking to improve performance by setting the `contracts` argument to `False` when initializing a tracker. Note that this will disable type checking for every tracker you have initialized.
+This will be attached to all events which the tracker fires, allowing you to identify their origin.
 
 [Back to top](#top)
 
@@ -167,23 +101,21 @@ t1.track_screen_view("Test", "23") # Back to first tracker
 
 [Back to top](#top)
 
-<a name="add-data" />
-## 3. Adding extra data
+<a name="config" />
+## 3. Configuration
 
-You may have additional information about your application's environment, current user and so on, which you want to send to Snowplow with each event.
+<a name="configure-tracker" />
+### 3.1 Configuring your tracker
 
-The tracker instance has a set of `set...()` methods to attach extra data to all tracked events:
+Each tracker instance is initialized with sensible defaults:
 
-* [`set_platform()`](#set-platform)
-* [`set_user_id()`](#set-user-id)
-* [`set_screen_resolution()`](#set-screen-resolution)
-* [`set_viewport`](#set-viewport)
-* [`setColorDepth()`](#set-color-depth)
+* The platform the tracker is running on is set to "pc"
+* Property data for unstructured events is sent Base64-encoded
 
-We will discuss each of these in turn below:
+However you can change either of these defaults:
 
 <a name="platform" />
-#### 3.1 Change the tracker's platform with `set_platform()`
+#### 3.1.1 Change the tracker"s platform with `set_platform()`
 
 You can change the platform the tracker is running on by calling:
 
@@ -201,8 +133,57 @@ For a full list of supported platforms, please see the [[Snowplow Tracker Protoc
 
 [Back to top](#top)
 
+<a name="encode-base64" />
+#### 3.1.2 Disable Base64-encoding with `set_base64_to()`
+
+You can set whether or not to Base64-encode property data for unstructured events by calling:
+
+```python
+t.set_base64_to( {{True OR False}} )
+```
+
+So to disable it and send the data URI-encoded instead:
+
+```python
+t.set_base64_to(False)
+```
+
+[Back to top](#top)
+
+<a name="add-data" />
+## 3.2 Adding extra data
+
+You may have additional information about your application"s environment, current user and so on, which you want to send to Snowplow with each event.
+
+The tracker instance has a set of `set...()` methods to attach extra data to all tracked events:
+
+* [`set_app_id()`](#set-app-id)
+* [`set_user_id()`](#set-user-id)
+* [`set_screen_resolution()`](#set-screen-resolution)
+* [`set_viewport`](#set-viewport)
+* [`setColorDepth()`](#set-color-depth)
+
+We will discuss each of these in turn below:
+
+<a name="set-app-id" />
+### 3.2.1 Set application ID with `setAppId()`
+
+You can set the application ID to any string:
+
+```python
+t.set_app_id( "{{APPLICATION ID}}" )
+```
+
+Example:
+
+```python
+t.set_app_id("wow-addon-1")
+```
+
+[Back to top](#top)
+
 <a name="set-user-id" />
-### 3.2 Set user ID with `set_user_id()`
+### 3.2.2 Set user ID with `set_user_id()`
 
 You can set the user ID to any string:
 
@@ -219,7 +200,7 @@ t.set_user_id("alexd")
 [Back to top](#top)
 
 <a name="set-screen-resolution" />
-### 3.3 Set screen resolution with `set_screen_resolution()`
+### 3.2.3 Set screen resolution with `set_screen_resolution()`
 
 If your Python code has access to the device's screen resolution, then you can pass this in to Snowplow too:
 
@@ -236,7 +217,7 @@ t.set_screen_resolution(1366, 768)
 [Back to top](#top)
 
 <a name="set-screen-resolution" />
-### 3.4 Set viewport dimensions with `set_viewport()`
+### 3.2.4 Set viewport dimensions with `set_viewport()`
 
 If your Python code has access to the device's screen resolution, then you can pass this in to Snowplow too:
 
@@ -253,7 +234,7 @@ t.set_viewport(300, 200)
 [Back to top](#top)
 
 <a name="set-color-depth" />
-### 3.5 Set color depth with `set_color_depth()`
+### 3.2.5 Set color depth with `set_color_depth()`
 
 If your Python code has access to the bit depth of the device's color palette for displaying images, then you can pass this in to Snowplow too:
 
@@ -270,7 +251,7 @@ t.set_color_depth(32)
 [Back to top](#top)
 
 <a name="set-color-depth" />
-### 3.6 Set the language with `set_lang()`
+### 3.2.6 Set the language with `set_lang()`
 
 This method lets you pass a user's language in to Snowplow:
 
@@ -308,37 +289,38 @@ Tracking methods supported by the Python Tracker at a glance:
 
 All events are tracked with specific methods on the tracker instance, of the form `track_XXX()`, where `XXX` is the name of the event to track.
 
-<a name="custom-contexts" />
-### 4.1.2 Custom contexts
+<a name="validation" />
+### 4.1.1 Argument validation
 
-In short, custom contexts let you add additional information about the circumstances surrounding an event in the form of a Python dictionary object. Each tracking method accepts an additional optional contexts parameter after all the parameters specific to that method:
+Python is a dynamically typed language, but each of our `track...()` methods expects its arguments to be of specific types and value ranges, and validates that to be the case. These checks are done using the PyContracts library.
 
-```python
-def track_page_view(self, page_url, page_title=None, referrer=None, context=None, tstamp=None):
-```
-
-The context argument is a Python dictionary. Each of its keys is the name of a context, and each of its values is the flat (not nested) dictionary for that context. So if a visitor arrives on a page advertising a movie, the context argument might look like this:
+If the validation check fails, then a runtime error is thrown:
 
 ```python
-{ "movie_poster": { # Context entry 
-    "movie_name": "Solaris", 
-    "poster_country": "JP", 
-    "poster_year": new Date(1978, 1, 1) 
-  }
-}
+t = Tracker.hostname("localhost")
+t.set_color_depth("walrus")
+```
+```
+contracts.interface.ContractNotRespected: Breach for argument 'depth' to Tracker:set_color_depth().
+Expected type 'int', got 'str'.
+checking: Int      for value: Instance of str: 'walrus'   
+checking: $(Int)   for value: Instance of str: 'walrus'   
+checking: int      for value: Instance of str: 'walrus'   
+Variables bound in inner context:
+- self: Instance of Tracker: <snowplow_tracker.tracker.Tracker object... [clip]
+
 ```
 
-This is how to fire a page view event with the above custom context:
+If your value is of the wrong type, convert it before passing it into the `track...()` method, for example:
 
 ```python
-t.track_page_view("http://www.films.com", "Homepage", context={ 
-    "movie_poster": {
-        "movie_name": "Solaris",
-        "poster_country": "JP",
-        "poster_year$dt": new Date(1978, 1, 1)
-    }
-})
+level_idx = 42
+t.track_screen_view("Game Level", str(level_idx))
 ```
+
+We specify the types and value ranges required for each argument below.
+
+[Back to top](#top)
 
 <a name="tstamp-arg" />
 ### 4.1.2 Optional timestamp argument
@@ -651,5 +633,4 @@ By contrast, the following are all allowed:
 
 [Back to top](#top)
 
-[python-0.2]: https://github.com/snowplow/snowplow/wiki/Python-Tracker-v0.2
-[pycontracts]: http://andreacensi.github.io/contracts/
+[python-latest]: https://github.com/snowplow/snowplow/wiki/Python-Tracker
