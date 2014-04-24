@@ -233,7 +233,7 @@ You can override this behaviour and specify which trackers will execute a Snowpl
 snowplow_name_here('trackStructEvent:cf1', 'Mixes', 'Play', 'MrC/fabric-0503-mix', '', '0.0');
 
 // Only the second tracker will fire this unstructured event
-snowplow_name_here('trackUnstructEvent:cf2', 'Viewed Product',
+snowplow_name_here('trackUnstructEvent:cf2', 'com.acme_company' 'Viewed Product',
     {
         product_id: 'ASO01043',
         category: 'Dresses',

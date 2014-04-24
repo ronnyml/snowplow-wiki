@@ -374,6 +374,7 @@ Use `track_screen_view()` to track a user viewing a screen (or equivalent) withi
 |-------------:|:------------------------------------|:--------------|:------------------------|
 | `name`       | Human-readable name for this screen | Yes           | Non-empty string        |
 | `id`         | Unique identifier for this screen   | No            | String                  |
+| `context`    | Custom context for the event        | No            | Dict                    |
 | `tstamp`     | When the screen was viewed          | No            | Positive integer        |
 
 Example:
@@ -395,6 +396,7 @@ Arguments are:
 | `page_url`   | The URL of the page                 | Yes           | Non-empty string        |
 | `page_title` | The title of the page               | No            | String                  |
 | `referrer`   | The address which linked to the page| No            | String                  |
+| `context`    | Custom context for the event        | No            | Dict                    |
 | `tstamp`     | When the pageview occurred          | No            | Positive integer        |
 
 Example:
@@ -421,6 +423,7 @@ Arguments:
 | `tr_city`        | Delivery address city                | No            | String                   |
 | `tr_state`       | Delivery address state               | No            | String                   |
 | `tr_country`     | Delivery address country             | No            | String                   |
+| `context`    | Custom context for the event        | No            | Dict                    |
 | `tstamp`         | When the transaction event occurred  | No            | Positive integer         |
 
 Examples: 
@@ -450,6 +453,7 @@ Arguments:
 | `ti_quantity`    | Item quantity                       | Yes           | Int                      |
 | `ti_name`        | Item name                           | No            | String                   |
 | `ti_category`    | Item category                       | No            | String                   |
+| `context`        | Custom context for the event        | No            | Dict                     |
 | `tstamp`         | When the transaction event occurred | No            | Positive integer         |
 
 Example:
@@ -472,6 +476,7 @@ Use `track_struct_event()` to track a custom event happening in your app which f
 | `label`      | A string to provide additional dimensions to the event data      | No            | String                   |
 | `property`   | A string describing the object or the action performed on it     | No            | String                   |
 | `value`      | A value to provide numerical data about the event                | No            | Int or Float             |
+| `context`    | Custom context for the event                                     | No            | Dict                     |
 | `tstamp`     | When the structured event occurred                               | No            | Positive integer         |
 
 Example:
@@ -494,16 +499,18 @@ Use `track_unstruct_event()` to track a custom event which consists of a name an
 
 The arguments are as follows:
 
-| **Argument** | **Description**                      | **Required?** | **Validation**          |
-|-------------:|:-------------------------------------|:--------------|:------------------------|
-| `name`       | The name of the event                | Yes           | Non-empty string        |
-| `properties` | The properties of the event          | Yes           | Non-empty table         |
-| `tstamp`     | When the unstructured event occurred | No            | Positive integer        |
+| **Argument**   | **Description**                      | **Required?** | **Validation**          |
+|---------------:|:-------------------------------------|:--------------|:------------------------|
+| `event_vendor` | The company which defined the event  | Yes           | Non-empty string        |
+| `name`         | The name of the event                | Yes           | Non-empty string        |
+| `properties`   | The properties of the event          | Yes           | Non-empty table         |
+| `context`      | Custom context for the event         | No            | Dict                    |
+| `tstamp`       | When the unstructured event occurred | No            | Positive integer        |
 
 Example:
 
 ```python
-t.track_unstruct_event("save-game", {
+t.track_unstruct_event("save-game", "com.example_company", {
     "save_id": "4321",
     "level": 23,
     "difficultyLevel": "HARD",
@@ -512,6 +519,8 @@ t.track_unstruct_event("save-game", {
 ```
 
 The properties table consists of a set of individual `name = value` pairs. The structure must be flat: properties cannot be nested. Be careful here as this is **not** currently enforced through validation.
+
+The event vendor is the reversed domain name of the company which defined the event. It should contain no characters other than lower case letters, underscores, and dots. For example, for a company with domain name "example_company.com", the event vendor would be "com.example_company".
 
 [Back to top](#top)
 

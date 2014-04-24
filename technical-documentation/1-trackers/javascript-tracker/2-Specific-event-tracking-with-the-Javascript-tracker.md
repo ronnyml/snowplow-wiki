@@ -550,13 +550,13 @@ When you track a custom unstructured event, you track the event name and a set o
 To track an unstructured event, you make use the `trackUnstructEvent` method:
 
 ```javascript
-snowplow_name_here('trackUnstructEvent', <<EVENT NAME>>, <<EVENT PROPERTIES JSON>>, <<EVENT VENDOR>>);
+snowplow_name_here('trackUnstructEvent' , <<EVENT VENDOR>>, <<EVENT NAME>>, <<EVENT PROPERTIES JSON>>);
 ```
 
 For example:
 
 ```javascript
-snowplow_name_here('trackUnstructEvent', 'Viewed Product',
+snowplow_name_here('trackUnstructEvent', 'com.my_company', 'Viewed Product',
     {
         product_id: 'ASO01043',
         category: 'Dresses',
@@ -565,9 +565,7 @@ snowplow_name_here('trackUnstructEvent', 'Viewed Product',
         price: 49.95,
         sizes: ['xs', 's', 'l', 'xl', 'xxl'],
         available_since$dt: new Date(2013,3,7)
-    },
-    'com.my_company'
-);
+    });
 ```
 
 Notes regarding the `properties` JSON:
