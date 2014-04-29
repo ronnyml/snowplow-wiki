@@ -83,7 +83,7 @@ Please see the [[Artifact repositories]] wiki page for more information.
 [snowplow-repo]: https://github.com/snowplow/snowplow
 [cc-download]: http://d2io1hx8u877l0.cloudfront.net/2-collectors/clojure-collector/clojure-collector-0.5.0-standalone.war
 [ssc-download]: http://d2io1hx8u877l0.cloudfront.net/2-collectors/scala-stream-collector/snowplow-stream-collector-0.1.0
-[hadoop-enrich-download]: http://d2io1hx8u877l0.cloudfront.net/3-enrich/hadoop-etl/snowplow-hadoop-etl-0.3.6.jar
+[hadoop-enrich-download]: http://d2io1hx8u877l0.cloudfront.net/3-enrich/hadoop-etl/snowplow-hadoop-etl-0.4.0.jar
 [kinesis-enrich-download]: http://d2io1hx8u877l0.cloudfront.net/3-enrich/scala-kinesis-enrich/snowplow-kinesis-enrich-0.1.0
 [glc-download]: http://d2io1hx8u877l0.cloudfront.net/third-party/maxmind/GeoLiteCity.dat
 [geolite]: http://dev.maxmind.com/geoip/legacy/geolite
