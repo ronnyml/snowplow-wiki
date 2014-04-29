@@ -1,6 +1,6 @@
 ## Overview
 
-The current release of Snowplow is **0.9.1**. The planned roadmap for Snowplow is divided in two:
+The current release of Snowplow is **0.9.2**. The planned roadmap for Snowplow is divided in two:
 
 1. **Short term: a series of planned point releases** - adding specific, mostly incremental features, tweaks and bug fixes to the core platform
 2. **Longer term: an approximate schedule for new components and capabilities** - setting out priorities and approximate timings for all-new Snowplow components and other ambitious new developments
@@ -17,10 +17,10 @@ The planned releases are as follows:
 
 | Release   | Tickets                   | Objective(s)                                                                     |
 |-----------|---------------------------|----------------------------------------|
-| **0.9.2** | [See GitHub] [issues-092] | Shredding JSONs into dedicated tables  |
-| **0.9.3** | [See GitHub] [issues-093] | Improvements to Kinesis flow           |
-| **0.9.4** | [See GitHub] [issues-094] | Various Enrichment improvements        |
-| **0.9.5** | [See GitHub] [issues-095] | New enrichments                        |
+| **0.9.3** | [See GitHub] [issues-093] | Shredding JSONs into dedicated tables  |
+| **0.9.4** | [See GitHub] [issues-094] | Improvements to Kinesis flow           |
+| **0.9.5** | [See GitHub] [issues-095] | Various Enrichment improvements        |
+| **0.9.6** | [See GitHub] [issues-096] | New enrichments                        |
 
 ## Longer-term: approximate schedule
 
@@ -37,10 +37,10 @@ The longer-term schedule of major developments is approximately as follows:
 
 [milestones]: https://github.com/snowplow/snowplow/issues/milestones
 
-[issues-092]: https://github.com/snowplow/snowplow/issues?milestone=39&state=open
-[issues-093]: https://github.com/snowplow/snowplow/issues?milestone=36&state=open
-[issues-094]: https://github.com/snowplow/snowplow/issues?milestone=29&state=open
-[issues-095]: https://github.com/snowplow/snowplow/issues?milestone=30&state=open
+[issues-093]: https://github.com/snowplow/snowplow/issues?milestone=39&state=open
+[issues-094]: https://github.com/snowplow/snowplow/issues?milestone=36&state=open
+[issues-095]: https://github.com/snowplow/snowplow/issues?milestone=29&state=open
+[issues-096]: https://github.com/snowplow/snowplow/issues?milestone=30&state=open
 
 [scalding]: https://github.com/twitter/scalding
 [redshift]: http://aws.amazon.com/redshift/
