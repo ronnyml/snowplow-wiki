@@ -46,7 +46,15 @@ The Scala Hadoop Enrich process uses a single jarfile containing the MapReduce j
 
 Right-click on this [Download link] [hadoop-enrich-download] to save it down locally via CloudFront CDN.
 
-### 3.2 Scala Kinesis Enrich resources
+### 3.2 Scala Hadoop Bad Rows resources
+
+The Scala Hadoop Bad Rows tool uses a single jarfile containing the MapReduce job. This is made available in a public Amazon S3 bucket:
+
+    s3://snowplow-hosted-assets/3-enrich/scala-bad-rows/snowplow-bad-rows-0.1.0.jar
+
+Right-click on this [Download link] [hadoop-bad-rows-download] to save it down locally via CloudFront CDN.
+
+### 3.3 Scala Kinesis Enrich resources
 
 The Scala Kinesis Enrich process is packaged as an executable jarfile:
 
@@ -84,6 +92,7 @@ Please see the [[Artifact repositories]] wiki page for more information.
 [cc-download]: http://d2io1hx8u877l0.cloudfront.net/2-collectors/clojure-collector/clojure-collector-0.5.0-standalone.war
 [ssc-download]: http://d2io1hx8u877l0.cloudfront.net/2-collectors/scala-stream-collector/snowplow-stream-collector-0.1.0
 [hadoop-enrich-download]: http://d2io1hx8u877l0.cloudfront.net/3-enrich/hadoop-etl/snowplow-hadoop-etl-0.5.0.jar
+[hadoop-bad-rows-download]: http://d2io1hx8u877l0.cloudfront.net/3-enrich/scala-bad-rows/snowplow-bad-rows-0.1.0.jar
 [kinesis-enrich-download]: http://d2io1hx8u877l0.cloudfront.net/3-enrich/scala-kinesis-enrich/snowplow-kinesis-enrich-0.1.0
 [glc-download]: http://d2io1hx8u877l0.cloudfront.net/third-party/maxmind/GeoLiteCity.dat
 [geolite]: http://dev.maxmind.com/geoip/legacy/geolite
