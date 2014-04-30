@@ -351,23 +351,22 @@ The parameters are descibed in the [Google Analytics help page] [gahelppage]. Go
 
 Snowplow tracking code can be included in ad tags in order to track impressions and ad clicks. This is used by e.g. ad networks to identify which sites and web pages users visit across a network, so that they can be segmented, for example.
 
+Each ad tracking method has a `costModel` field and a `cost` field. If you provide the `cost` field, you must also provide one of `'cpa'`, `'cpc'`, and `'cpm'` for the `costModel` field.
+
 <a name="adImpression" />
 #### 3.6.1 `trackAdImpression`
-
-**Note**: Although this feature is implemented in the JavaScript Tracker, it is **not** currently supported by the ETL, storage and analytics stages of the Snowplow data pipeline. As a result, if you implement this feature, you will successfully track impression data to your collector logs, but this data will not be extracted and loaded into e.g. Redshift for analysis. 
-
-Adding support for this event type to the ETL, storage and analytics stages of the data pipeline is on the Snowplow roadmap. Until it is delivered, we recommend using the [custom structured event tracking] [custom-structured-events] to track impressions.
 
 Ad impression tracking is accomplished using the `trackAdImpression` method. Here are the arguments it accepts:
 
 | **Name**       | **Required?** | **Description**                            | **Type**
 |---------------:|:--------------|:-------------------------------------------|:---------------------|
 | `impressionId` | No            | Identifier for the particular impression instance   | string |
-|    `costIfCpm` | No            | Cost if cost model is CPM   | number |
+|    `costModel` | No            | The cost model for the campaign: 'cpc', 'cpm', or 'cpa'  | string |
+|         `cost` | No            | Ad cost   |    number    |
+|   `targetUrl`  | No            | The destination URL  |        string   |
 |     `bannerId` | No            | Adserver identifier for the ad banner (creative) being displayed  | string                |
 |       `zoneId` | No            | Adserver identifier for the zone where the ad banner is located | string  |
 | `advertiserID` | No            | Adserver identifier for the advertiser which the campaign belongs to      | string   |
-|    `costModel` | No            | The cost model for the campaign: 'cpc', 'cpm', or 'cpa'  | string |
 |   `campaignId` | No            | Adserver identifier for the ad campaign which the banner belongs to    |  string |
 
 An example:
@@ -375,13 +374,14 @@ An example:
 ```javascript
 snowplow_name_here('trackAdImpression:' + rnd,
 
-    '67965967893',   // impressionId
-     5.5,            // costIfCpm
-    '23',            // bannerId
-    '7',             // zoneId
-    '201',           // advertiserId
-    'cpm',           // costModel - 'cpa', 'cpc', or 'cpm'
-    '12'             // campaignId
+    '67965967893',             // impressionId
+    'cpm',                     // costModel - 'cpa', 'cpc', or 'cpm'    
+     5.5,                      // cost
+    'http://www.example.com',  // targetUrl
+    '23',                      // bannerId
+    '7',                       // zoneId
+    '201',                     // advertiserId
+    '12'                       // campaignId
 );
 ```
 
@@ -394,13 +394,13 @@ Ad click tracking is accomplished using the `trackAdClick` method. Here are the 
 
 | **Name**       | **Required?** | **Description**                            | **Type**
 |---------------:|:--------------|:-------------------------------------------|:-----------
-|      `clickId` | No            | Identifier for the particular click instance   | string  |
-|    `costIfCpc` | No            | Cost if cost model is CPC   |    number
 |   `targetUrl`  | Yes           | The destination URL  |        string   |
+|      `clickId` | No            | Identifier for the particular click instance   | string  |
+|    `costModel` | No            | The cost model for the campaign: 'cpc', 'cpm', or 'cpa' |  string  |
+|         `cost` | No            | Ad cost   |    number    |
 |     `bannerId` | No            | Adserver identifier for the ad banner (creative) being displayed  |  string
 |       `zoneId` | No            | Adserver identifier for the zone where the ad banner is located  | string
 | `advertiserID` | No            | Adserver identifier for the advertiser which the campaign belongs to   |  string                      |
-|    `costModel` | No            | The cost model for the campaign: 'cpc', 'cpm', or 'cpa' |  string  |
 |   `campaignId` | No            | Adserver identifier for the ad campaign which the banner belongs |  to   |  string                       |
 
 An example:
@@ -408,14 +408,14 @@ An example:
 ```javascript
 snowplow_name_here('trackAdClick',
 
-    '12243253',                // clickId
-    '',                        // costIfCpc (not applicable)
     'http://www.example.com',  // targetUrl
+    '12243253',                // clickId
+    'cpm',                     // costModel    
+     2.5,                      // cost
     '23',                      // bannerId
     '7',                       // zoneId
     '67965967893',             // impressionId - the same as in trackAdImpression
     '201',                     // advertiserId
-    'cpm',                     // costModel
     '12'                       // campaignId
 );
 ```
@@ -428,13 +428,13 @@ Use the `trackAdConversion` method to track ad conversions.  Here are the argume
 | **Name**       | **Required?** | **Description**                            | **Type**             |
 |---------------:|:--------------|:-------------------------------------------|:--------------------
 | `conversionId` | No            | Identifier for the particular conversion instance   | string
-|    `costIfCpa` | No            | Cost if cost model is CPA                  |    string
+|    `costModel` | No            | The cost model for the campaign: 'cpc', 'cpm', or 'cpa'   |  string
+|         `cost` | No            | Ad cost   |    number    |
 |     `category` | No            | Conversion category                        |    number                              |
 |       `action` | No            | The type of user interaction, e.g. 'purchase' | string                           |
 |     `property` | No            | Describes the object of the conversion        | string                           |
-| `initialValue` | No            | How much the conversion is initially worked   | number                           |
+| `initialValue` | No            | How much the conversion is initially worth   | number                           |
 | `advertiserID` | No            | Adserver identifier for the advertiser which the campaign belongs to |  string   |
-|    `costModel` | No            | The cost model for the campaign: 'cpc', 'cpm', or 'cpa'   |  string
 |   `campaignId` | No            | Adserver identifier for the ad campaign which the banner belongs to  |  string  |
 
 An example:
@@ -443,14 +443,14 @@ An example:
 window.adTracker('trackAdConversion:' + rnd,
 
     '743560297', // conversionId
-    10, // costIfCpa
+    10,          // cost
     'ecommerce', // category
-    'purchase', // action
-    '', // property
-    99, // initialValue - how much the conversion is initially worth
-    '201', // advertiserId
-    'cpa', // costModel
-    '12' // campaignId
+    'purchase',  // action
+    '',          // property
+    99,          // initialValue - how much the conversion is initially worth
+    '201',       // advertiserId
+    'cpa',       // costModel
+    '12'         // campaignId
 );
 ```
 
@@ -480,7 +480,7 @@ n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"//d1fc8wv8zag5ca.cloud
 // Update tracker constructor to use your CloudFront distribution subdomain
 window.snowplow_name_here('newTracker', 'cf', 'patldfvsg0d8w.cloudfront.net');
 
-window.snowplow_name_here('', '{costIfCpc}', '{bannerid}', '{zoneid}', '{advertiserId}', '', '{campaignid}'); // OpenX magic macros. Leave this line as-is
+window.snowplow_name_here('trackAdImpression', '{impressionId}' '{costModel}', '{cost}', '{targetUrl}', '{bannerid}', '{zoneid}', '{advertiserId}', '{campaignid}'); // OpenX magic macros. Leave this line as-is
 
  </script>
 <!-- Snowplow stops plowing -->
@@ -534,8 +534,6 @@ Note that in the above example no value is set for the `event property`.
 
 <a name="custom-unstructured-events" />
 ### 3.8 Tracking custom unstructured events
-
-**Note**: this feature is implemented in the JavaScript Tracker, but it is **not** currently supported in the ETL, storage or analytics stages in the Snowplow data pipeline. As a result, if you use this feature, you will log unstructured events to your collector logs, but these will not be parsed and loaded into e.g. Redshift to analyse. (Adding this capability is on the roadmap.) Until the ETL and storage steps are upgraded to support unstructured events, anyone using them will have to write their own custom jobs to extract the events from the collector logs and analyse them.
 
 There are certain events that you may want to track on your website or application, which are not directly supported by Snowplow, and are not suitable for being captured using the [structured event tracking] (#custom-structured-events). There are two use cases:
 
@@ -604,13 +602,15 @@ The second optional parameter is `pseudoClicks`. If this is not turned on, Firef
 snowplow_name_here('enableLinkClickTracking', [], true);
 ```
 
+Each link click event will include (if available) the destination URL, id, classes and target of the clicked link. (The target attribute of a link specifies a window or frame where the linked document will be loaded.)
+
 <a name="trackLinkClick" />
 ### 3.9.2 `trackLinkClick`
 
 You can manually track individual link click events with the `trackLinkClick` method. This is its signature:
 
 ```javascript
-function trackLinkClick(elementId, elementClasses, elementTarget, targetUrl, context);
+function trackLinkClick(targetUrl, elementId, elementClasses, elementTarget, context);
 ```
 
 Of these arguments, only `targetUrl` is required. This is how to use `trackLinkClick`:
