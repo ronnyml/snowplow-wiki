@@ -26,14 +26,7 @@ The planned releases are as follows:
 
 In this section we set out an approximate map of the new components and capabilities we want to add to Snowplow, segmented by sub-system and by time (aka priority).
 
-**Warning:** this schedule is approximate, and the items on it are subject to change. If you are interested in a specific functionality listed here, feel free to [Contact us](Talk-to-us) to find out more about its likely path-to-release.
-
-The longer-term schedule of major developments is approximately as follows:
-
-| Time   | Trackers        | Collectors | Enrichment | Storage       | Analytics        |
-|--------|-----------------|---|---------------------|---------------|------------------|
-| **Q2** | Android Tracker | - | Unstructured events | ElasticSearch | -                |
-| **Q3** | iOS Tracker     | - | Thrift output       | Neo4j         | Machine learning | 
+**Update** this section has been removed because it was not current.
 
 [milestones]: https://github.com/snowplow/snowplow/issues/milestones
 
