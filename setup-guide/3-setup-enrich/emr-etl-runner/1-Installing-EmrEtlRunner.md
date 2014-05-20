@@ -40,20 +40,20 @@ For details on how to do this, please see the section "Configuring the client" i
 <a name="s3-buckets"/>
 ### 2.4 S3 buckets
 
-EmrEtlRunner moves the Snowplow event data through four distinct buckets during the ETL process. These buckets are as follows:
+EmrEtlRunner moves the Snowplow event data through six distinct buckets (or rather, folders within S3 buckets) during the ETL process. These buckets are as follows:
 
 1. **In Bucket** - contains the raw Snowplow event logs to process
 2. **Processing Bucket** - where EmrEtlRunner moves the raw event logs for processing
 3. **Out Bucket** - where EmrEtlRunner stores the processed Snowplow-format event files
-4. **Bad Rows Bucket** - Hadoop ETL only. Where EmrEtlRunner stores any raw event lines which fail validation
-5. **Errors Bucket** - Hadoop ETL only. Where EmrEtlRunner stores any raw event lines which caused an unexpected error
-5. **Archive Bucket** - where EmrEtlRunner moves the raw Snowplow event logs after successful processing
+4. **Bad Rows Bucket** - where EmrEtlRunner stores any raw event lines which fail validation
+5. **Errors Bucket** - optional. Where EmrEtlRunner stores any raw event lines which caused an unexpected error
+6. **Archive Bucket** - where EmrEtlRunner moves the raw Snowplow event logs after successful processing
 
-You will have already setup the In Bucket when you were configuring your Snowplow collector - but the other three buckets do not exist yet. 
+You will have already set up the **In Bucket** when you were configuring your Snowplow collector - but the other five buckets do not exist yet.
 
-**Important:** Please note that currently Redshift can only load from buckets in the same region as the Redshift instance, so you will need to locate your **Out Bucket** and Redshift clusters in the same region. 
+**Important:** Please note that currently Redshift can only load from buckets in the same region as the Redshift instance, so you will need to locate your **Out Bucket** and Redshift clusters in the same region.
 
-So, create the other three buckets in the same AWS region as your In Bucket. Take a note of the buckets' names as you will need to use these buckets shortly.
+So, create the other five buckets in the same AWS region as your **In Bucket**. Take a note of the buckets' names as you will need to use these buckets shortly.
 
 Done? Right, now we can install EmrEtlRunner.
 
