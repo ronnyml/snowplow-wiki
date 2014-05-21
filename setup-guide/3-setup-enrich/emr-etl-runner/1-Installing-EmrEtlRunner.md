@@ -82,6 +82,8 @@ If you have any problems installing, please double-check that you have successfu
 EmrEtlRunner requires a YAML format configuration file to run. There is a configuration file template available in the Snowplow GitHub repository at [`/3-enrich/emr-etl-runner/config/config.yml.sample`] [config-yml]. The template looks like this:
 
 ```yaml
+:logging:
+  :level: DEBUG # You can optionally switch to INFO for production
 :aws:
   :access_key_id: ADD HERE
   :secret_access_key: ADD HERE
@@ -97,10 +99,10 @@ EmrEtlRunner requires a YAML format configuration file to run. There is a config
     :out_errors: ADD HERE # Leave blank unless :continue_on_unexpected_error: set to true below
     :archive: ADD HERE
 :emr:
-  # Can bump the below as EMR upgrades Hadoop
-  :hadoop_version: 1.0.3
-  :placement: ADD HERE     # Set even if running in VPC
-  :ec2_subnet_id: ADD HERE # Leave blank if not running in VPC
+  :ami_version: 2.4.2      # Choose as per http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-plan-ami.html
+  :region: ADD HERE        # Always set this
+  :placement: ADD HERE     # Set this if not running in VPC. Leave blank otherwise
+  :ec2_subnet_id: ADD HERE # Set this if running in VPC. Leave blank otherwise
   :ec2_key_name: ADD HERE
   # Adjust your Hadoop cluster below
   :jobflow:
@@ -111,8 +113,8 @@ EmrEtlRunner requires a YAML format configuration file to run. There is a config
     :task_instance_type: m1.small
     :task_instance_bid: 0.015 # In USD. Adjust bid, or leave blank for non-spot-priced (i.e. on-demand) task instances
 :etl:
-  :job_name: SnowPlow ETL # Give your job a name
-  :hadoop_etl_version: 0.5.0 # Version of the Hadoop ETL
+  :job_name: Snowplow ETL # Give your job a name
+  :hadoop_etl_version: 0.5.0 # Version of the Hadoop Enrichment process
   :collector_format: cloudfront # Or 'clj-tomcat' for the Clojure Collector
   :continue_on_unexpected_error: false # You can switch to 'true' (and set :out_errors: above) if you really don't want the ETL throwing exceptions
 :enrichments:
