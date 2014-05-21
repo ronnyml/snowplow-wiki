@@ -2,7 +2,7 @@
 
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 4: setting up alternative data stores**](Setting-up-alternative-data-stores) > Setup Redshift
 
-Setting up Redshift is an 6 step process:
+Setting up Redshift is a 9 step process:
 
 1. [Launch a Redshift cluster](#launch)
 2. [Authorize client connections to your cluster](#authorise)  
@@ -13,7 +13,6 @@ Setting up Redshift is an 6 step process:
 7. [Generating Redshift-format data from Snowplow](#generate)
 8. [Update the search path for your Redshift cluster](#search_path)
 9. [Automating the loading of Snowplow data into Redshift](#load)
-ess on Redshift
 
 **Note**: We recommend running all Snowplow AWS operations through an IAM user with the bare minimum permissions required to run Snowplow. Please see our [IAM user setup page](IAM-setup) for more information on doing this.
 
