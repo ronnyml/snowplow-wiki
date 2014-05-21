@@ -24,7 +24,7 @@ where 1 is the semantic MAJOR version. If you prefer, you can use this path and 
 
 The Clojure Collector packaged as a complete WAR file, ready for Amazon Elastic Beanstalk, is here:
 
-    s3://snowplow-hosted-assets/2-collectors/clojure-collector/clojure-collector-0.5.0-standalone.war
+    s3://snowplow-hosted-assets/2-collectors/clojure-collector/clojure-collector-0.6.0-standalone.war
 
 Right-click on this [Download link] [cc-download] to save it down locally via CloudFront CDN.
 
@@ -89,7 +89,7 @@ As well as these hosted assets for running Snowplow, the Snowplow Analytics team
 Please see the [[Artifact repositories]] wiki page for more information.
 
 [snowplow-repo]: https://github.com/snowplow/snowplow
-[cc-download]: http://d2io1hx8u877l0.cloudfront.net/2-collectors/clojure-collector/clojure-collector-0.5.0-standalone.war
+[cc-download]: http://d2io1hx8u877l0.cloudfront.net/2-collectors/clojure-collector/clojure-collector-0.6.0-standalone.war
 [ssc-download]: http://d2io1hx8u877l0.cloudfront.net/2-collectors/scala-stream-collector/snowplow-stream-collector-0.1.0
 [hadoop-enrich-download]: http://d2io1hx8u877l0.cloudfront.net/3-enrich/hadoop-etl/snowplow-hadoop-etl-0.5.0.jar
 [hadoop-bad-rows-download]: http://d2io1hx8u877l0.cloudfront.net/3-enrich/scala-bad-rows/snowplow-bad-rows-0.1.0.jar
