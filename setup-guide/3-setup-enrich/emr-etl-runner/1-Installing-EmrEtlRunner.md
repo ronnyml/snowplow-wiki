@@ -184,14 +184,21 @@ The EmrEtlRunner makes use of Amazon Elastic Mapreduce (EMR) to process the raw 
 
 This section of the config file is where we configure the operation of EMR. The variables with defaults can typically be left as-is, but you will need to set:
 
-1. `placement`, which is the Amazon EC2 region **and** availability zone
+1. `region`, which is the Amazon EC2 region **and** availability zone
    in which the job should run, e.g. "us-east-1a" or "eu-west-1b"
 2. `ec2_key_name`, which is the name of the Amazon EC2 key that you
    set up in the [Dependencies](#dependencies) above
 
-Make sure that placement and the EC2 key you specify both belong to the same region, or else EMR won't be able to find the key.
+Make sure that the EC2 key you specify belongs in the region you specify, or else EMR won't be able to find the key. **It's strongly recommended that you choose the same Amazon region as your S3 buckets are located in.**
 
-It's strongly recommended that you choose the same Amazon EC2 placement as your S3 buckets are located in.
+Additionally, fill in one of these two:
+
+*  `placement`, which is the Amazon EC2 region **and** availability zone
+   in which the job should run, e.g. "us-east-1a" or "eu-west-1b"
+*  `ec2_subnet_id`, which is the ID of the Amazon EC2 subnet you want
+   to run the job in
+
+You only need to set one of these (they are mutually exclusive settings), but you must set one.
 
 #### etl
 
