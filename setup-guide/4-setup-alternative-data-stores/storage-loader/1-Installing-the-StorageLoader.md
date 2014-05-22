@@ -183,7 +183,7 @@ please make sure that:
 * this path exists, 
 * is writable by StorageLoader
 * it is empty
-* **PostgreSQL's own `postgres` user must to be able to read **every** parent directory of the directory specified. This is necessary to ensure that PostgreSQL can read the data in the directory, when it comes to ingest it**
+* **PostgreSQL's own `postgres` user must to be able to read every parent directory of the directory specified. This is necessary to ensure that PostgreSQL can read the data in the directory, when it comes to ingest it**
 
 #### target
 
