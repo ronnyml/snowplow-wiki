@@ -34,6 +34,8 @@ Snowplow has been built to enable users to track a wide range of events that occ
     - 3.8.1 [`trackUnstructEvent`](#trackUnstructEvent)   
   - 3.9 [Link click tracking](#link-click-tracking)
     - 3.9.1 [`enableLinkClickTracking`](#enableLinkClickTracking)
+    - 3.9.2 [`refreshLinkClickTracking`](#refreshLinkClickTracking)
+    - 3.9.3 [`trackLinkClick`](#trackLinkClick)
   - 3.10 [Custom contexts](#custom-contexts)
 
 <a name="tracking-specific-events" />
@@ -590,22 +592,69 @@ Turn on link click tracking like this:
 snowplow_name_here('enableLinkClickTracking');
 ```
 
-You can provide an array of classes which should be ignored by link click tracking. For example, the below code will stop link click events firing for links with the class "barred":
+You can control which links are tracked using the second argument. There are three ways to do this: a blacklist, a whitelist, and a filter function.
+
+__Blacklists__
+
+This is an array of CSS classes which should be ignored be link click tracking. For example, the below code will stop link click events firing for links with the class "barred" or "untracked", but will fire link click events for all other links:
 
 ```javascript
-snowplow_name_here('enableLinkClickTracking', ['barred']);
+snowplow_name_here('enableLinkClickTracking', {'blacklist': ['barred', 'untracked']});
+```
+
+If there is only one class name you wish to blacklist, you don't need to put it in an array:
+
+```javascript
+snowplow_name_here('enableLinkClickTracking', {'blacklist': 'barred'});
+```
+
+ __Whitelists__
+
+The opposite of a blacklist. This is an array of the CSS classes of links which you do want to be tracked. Only clicks on links with a class in the list will be tracked.
+
+```javascript
+snowplow_name_here('enableLinkClickTracking', {'whitelist': ['unbarred', 'tracked']});
+```
+
+If there is only one class name you wish to whitelist, you don't need to put it in an array:
+
+```javascript
+snowplow_name_here('enableLinkClickTracking', {'whitelist': 'unbarred'});
+```
+
+__Filter functions__
+
+You can provide a filter function which determines which links should be tracked. The function should take one argument, the link element, and return either 'true' (in which case clicks on the link will be tracked) or 'false' (in which case they won't).
+
+The following code will track clicks on those and only those links whose id contains the string "interesting":
+
+```javascript
+function myFilter (linkElement) {
+  return linkElement.id.indexOf('interesting') > -1;
+}
+
+snowplow_name_here('enableLinkClickTracking', {'filter': myFilter});
 ```
 
 The second optional parameter is `pseudoClicks`. If this is not turned on, Firefox will not recognise middle clicks. If it is turned on, there is a small possibility of false positives (click events firing when they shouldn't). Turning this feature on is recommended:
 
 ```javascript
-snowplow_name_here('enableLinkClickTracking', [], true);
+snowplow_name_here('enableLinkClickTracking', null, true);
 ```
 
 Each link click event will include (if available) the destination URL, id, classes and target of the clicked link. (The target attribute of a link specifies a window or frame where the linked document will be loaded.)
 
+<a name="refreshLinkClickTracking" />
+#### 3.9.2 `refreshLinkClickTracking`
+
+`enableLinkClickTracking` only tracks clicks on links which exist when the page has loaded. If new links can be added to the page after then which you wish to track, just use `refreshLinkClickTracking`. This will add Snowplow click listeners to all links which do not already have them (and which match the blacklist, whitelist, or filter function you specified when `enableLinkClickTracking` was originally called). Use it like this:
+
+```javascript
+snowplow_name_here('refreshLinkClickTracking');
+```
+
 <a name="trackLinkClick" />
-### 3.9.2 `trackLinkClick`
+#### 3.9.3 `trackLinkClick`
 
 You can manually track individual link click events with the `trackLinkClick` method. This is its signature:
 
