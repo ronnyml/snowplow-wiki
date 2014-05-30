@@ -1,6 +1,6 @@
 ## Overview
 
-The current release of Snowplow is **0.9.3**. The planned roadmap for Snowplow is divided in two:
+The current release of Snowplow is **0.9.4**. The planned roadmap for Snowplow is divided in two:
 
 1. **Short term: a series of planned point releases** - adding specific, mostly incremental features, tweaks and bug fixes to the core platform
 2. **Longer term: an approximate schedule for new components and capabilities** - setting out priorities and approximate timings for all-new Snowplow components and other ambitious new developments
@@ -9,7 +9,7 @@ We discuss each of these in turn below.
 
 ## Short-term: planned releases
 
-In this section we list out the series of 'point' releases (0.8.x, 0.8.y etc) that we have planned. This list is accurate as of early January 2014 - but we always recommend browsing the list of [Open Milestones] [milestones] on our main GitHub repository.
+In this section we list out the series of 'point' releases (0.9.x, 0.9.y etc) that we have planned. This list is accurate as of early January 2014 - but we always recommend browsing the list of [Open Milestones] [milestones] on our main GitHub repository.
 
 **Warning:** we may change this schedule as new priorities are identified and the community feeds back on our current plans. If you are particularly interested in a given task being completed per schedule (or even accelerated), please 'vote' for the ticket by leaving a "+1" comment or similar on the relevant ticket.
 
@@ -17,10 +17,10 @@ The planned releases are as follows:
 
 | Release   | Tickets                   | Objective(s)                                                                     |
 |-----------|---------------------------|----------------------------------------|
-| **0.9.4** | [See GitHub] [issues-094] | Shredding JSONs into dedicated tables  |
-| **0.9.5** | [See GitHub] [issues-095] | Improvements to Kinesis flow           |
-| **0.9.6** | [See GitHub] [issues-096] | Various Enrichment improvements        |
-| **0.9.7** | [See GitHub] [issues-097] | New enrichments                        |
+| **0.9.5** | [See GitHub] [issues-095] | Shredding JSONs into dedicated tables  |
+| **0.9.6** | [See GitHub] [issues-096] | Improvements to Kinesis flow           |
+| **0.9.7** | [See GitHub] [issues-097] | Various Enrichment improvements        |
+| **0.9.8** | [See GitHub] [issues-098] | New enrichments                        |
 
 ## Longer-term: approximate schedule
 
@@ -30,10 +30,10 @@ In this section we set out an approximate map of the new components and capabili
 
 [milestones]: https://github.com/snowplow/snowplow/issues/milestones
 
-[issues-094]: https://github.com/snowplow/snowplow/issues?milestone=39&state=open
-[issues-095]: https://github.com/snowplow/snowplow/issues?milestone=36&state=open
-[issues-096]: https://github.com/snowplow/snowplow/issues?milestone=29&state=open
-[issues-097]: https://github.com/snowplow/snowplow/issues?milestone=30&state=open
+[issues-095]: https://github.com/snowplow/snowplow/issues?milestone=39&state=open
+[issues-096]: https://github.com/snowplow/snowplow/issues?milestone=36&state=open
+[issues-097]: https://github.com/snowplow/snowplow/issues?milestone=29&state=open
+[issues-098]: https://github.com/snowplow/snowplow/issues?milestone=30&state=open
 
 [scalding]: https://github.com/twitter/scalding
 [redshift]: http://aws.amazon.com/redshift/
