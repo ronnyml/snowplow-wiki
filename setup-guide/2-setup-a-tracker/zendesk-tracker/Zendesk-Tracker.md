@@ -1,8 +1,8 @@
 <a name="top" />
 
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2: setup a Tracker**](Setting-up-a-Tracker) > [**Zendesk Tracker**](Javascript-tracker-setup) > [Setting up the JavaScript Tracker with QuBit OpenTag](Integrating-Javascript-tags-with-QuBit-OpenTag)
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2: setup a Tracker**](Setting-up-a-Tracker) > [Zendesk Tracker](Zendesk Tracker.md)
 
-This guide will explain how to track Zendesk events using Snowplow.
+This guide will explain how to configure your Zendesk account so that whenever a ticket is created, closed, or commented on, Zendesk will send the relevant information to your Snowplow collector in the form of an unstructured event.
 
 1. [Setting up a Cloudfron collector as a Zendesk extension](#extension)
 2. [Setting up a trigger to track ticket creation](#ticket-creation)
@@ -121,4 +121,4 @@ The result should look something like this:
 
 [Back to top](#top)
 
-[Return to setup guide](Setting-up-Snowplow).
+[Return to setup guide](Setting-up-Snowplow)
