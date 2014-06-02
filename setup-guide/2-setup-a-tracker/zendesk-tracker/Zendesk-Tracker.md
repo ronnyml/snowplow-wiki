@@ -16,11 +16,9 @@ You can configure Zendesk to automatically send GET requests to a collector. The
 
 Log in to Zendesk. Click the cogwheel-shaped "Admin" icon located at the bottom-left corner of the Dashboard page to take you to the Admin page.
 
-[[/setup-guide/images/zendesk/extensions-button.png]]
-
 In the "SETTINGS" menu, click on "Extensions":
 
-[[/setup-guide/images/zendesk/admin-button.png]]
+[[/setup-guide/images/zendesk/extensions-button.png]]
 
 Click "add target":
 
@@ -28,11 +26,9 @@ Click "add target":
 
 Choose "URL target" from the list of target types to add:
 
-[[/setup-guide/images/zendesk/url-target.png]]
+[[/setup-guide/images/zendesk/extension-form.png]]
 
-In the Zendesk UI, go to Admin -> Extensions -> add target -> URL target
-
-Name the extension something like "Cloudfront-Collector"
+Name the new extension something like "Cloudfront-Collector".
 
 In the URL field, enter "http://d34uzc5hjrimh8.cloudfront.net/i?e=ue", replacing "d34uzc5hjrimh8" with your Cloudfront subdomain.
 
