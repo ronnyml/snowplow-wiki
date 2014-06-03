@@ -200,6 +200,21 @@ To set a custom URL, use the `setCustomUrl` method:
 snowplow_name_here('setCustomUrl', 'http://mysite.com/checkout-page');
 ```
 
+<a name="custom-url" />
+#### 2.3.4 Configuring cookie timeouts using `setSessionCookieTimeout`
+
+The JavaScript Tracker sets two cookies: a visitor cookie and a session cookie. The visitor cookie contains all persistent information about the user, including the number of times the user has visited the site. It lasts for two years. The session cookie is specific to an individual session. By default, it times out after 30 minutes. Whenever a Snowplow event is fired, if no session cookie is found, the Tracker takes this to mean that a new session has started. It therefore increments the part of the visitor cookie representing the number of times the user has visited the site. If the user leaves the site and returns before the 30 minutes is up, the visit count is not incremented.
+
+The visit count is added to each event querystring as "vid".
+
+You can change the default from 30 minutes by using `setSessionCookieTimeout`. You should give the expiration time of the session cookie in seconds:
+
+```javascript
+snowplow_name_here('setSessionCookieTimeout', 3600);
+```
+
+The above code would cause the session cookie to last for one hour.
+
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
 
