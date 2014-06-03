@@ -44,7 +44,8 @@ In order to analyse Snowplow data, it is important to understand how it is struc
   - 2.3.8 [Item views](#itemview)  
   - 2.3.9 [Error tracking](#error)  
   - 2.3.10 [Custom structured events](#customstruct)  
-  - 2.3.11 [Custom unstructured events](#customunstruct)  
+  - 2.3.11 [Custom unstructured events](#customunstruct)
+  - 2.3.11 [Custom contexts](#customcontext)
 
 <a name="common" />
 ### 2.1 Common fields (platform and event independent)
@@ -97,6 +98,9 @@ Back to [top](#top).
 | `v_tracker`     | text     | Tracker version | Yes       | Yes       | 'no-js-0.1.0'  |
 | `v_collector`   | text     | Collector version | Yes     | Yes       | 'clj-tomcat-0.1.0', 'cf' |
 | `v_etl`         | text     | ETL version     | Yes       | Yes       | 'serde-0.5.2'  |
+| `name_tracker`  | text     | Tracker namespace     | No        | Yes       | 'cloudfront-1' |
+
+Some Snowplow Trackers allow the user to name each specific Tracker instance. `name_tracker` corresponds to this name, and can be used to distinguish which tracker generated which events.
 
 Back to [top](#top).
 
@@ -157,12 +161,14 @@ Currently the only platform supported is `web`. However, as we build trackers fo
 | **Field**       | **Type** | **Description** | **Reqd?** | **Impl?** | **Example**    |
 |:----------------|:---------|:----------------|:----------|:----------|:---------------|
 | **Page fields** |          |                 |           |           |                |
+| `page_url'      | text     | The page URL    | Yes       | Yes       | 'http://www.example.com'|
 | `page_urlscheme`| text     | Scheme aka protocol | Yes   | Yes       | 'https'        |
 | `page_urlhost`  | text     | Host aka domain | Yes       | yes       | '“www.snowplowanalytics.com' |
 | `page_urlport`  | int      | Port if specified, 80 if not| Yes       | 80             |
 | `page_urlpath`  | text     | Path to page    | No        | Yes       | '/product/index.html' |
 | `page_urlquery` | text     | Querystring     | No        | Yes       | 'id=GTM-DLRG'  |
 | `page_urlfragment` | text  | Fragment aka anchor | No    | Yes       | '4-conclusion' |
+| `page_referrer` | text     | URL of the referrer | No    | Yes       | 'http://www.referrer.com' |
 | `page_title`    | text     | Web page title  | No        | Yes       | 'Using ChartIO to visualize and interrogate Snowplow data - Snowplow Analytics' |
 | `refr_urlscheme`| text     | Referer scheme  | No        | Yes       | 'http'         |
 | `refr_urlhost`  | text     | Referer host    | No        | Yes       | 'www.bing.com' |
@@ -204,13 +210,14 @@ Back to [top](#top).
 
 Snowplow includes specific fields to capture data associated with specific events.
 
-#### 2.3.1 Event vendor
+#### 2.3.1 Vendor
 
-Going forwards, we plan to enable users to define their own events and data model associated for each event. When that is enabled, it will be possible to distinguish between events defined by different companies using the `event_vendor` field:
+Going forwards, we plan to enable users to define their own events and contexts and data model associated for each event and context using [JSON schema][json-schema]. When that is enabled, it will be possible to distinguish between unstructured events and custom contexts defined by different companies using the `event_vendor` and `context_vendor` fields:
 
 | **Field**       | **Type** | **Description** | **Reqd?** | **Impl?** | **Example**    |
 |:----------------|:---------|:----------------|:----------|:----------|:---------------|
 | `event_vendor`  | text     | Company that developed the event model | Yes | Yes | 'com.snowplowanalytics' |
+| `context_vendor`  | text     | Company that developed the context model | Yes | Yes | 'com.example_company' |
 
 Note that to date, all event types have been defined by Snowplow. Also note that `event_vendor` values follow the [Java package naming convention](http://docs.oracle.com/javase/tutorial/java/package/namingpkgs.html).
 
@@ -359,7 +366,10 @@ Back to [top](#top).
 <a name="customunstruct" />
 #### 2.3.10 Custom unstructured events
 
-**NOTE:** This is not currently supported. (See the[ Developer FAQ] (Developer-FAQ#wiki-unstructtimeline) for more details.)
+| **Field**       | **Type** | **Description** | **Reqd?** | **Impl?** | **Example**    |
+|:----------------|:---------|:----------------|:----------|:----------|:---------------|
+| `ue_name`       | text     | Name of the event | Yes     | Yes       | 'linkClick' |
+| `ue_properties` | JSON     | Properties of the event | Yes | Yes |  | {'targetUrl':'http://www.example.com'}
 
 Back to [top](#top).
 
@@ -372,4 +382,14 @@ Back to [top](#top).
 
 Back to [top](#top).
 
+<a name="customcontexts" />
+#### 2.3.10 Custom contexts
+
+Custom contexts describe the circumstances surrounding and event. An event can have any number of custom contexts attached. Each context is a JSON.
+
+| **Field**       | **Type** | **Description** | **Reqd?** | **Impl?** | **Example**    |
+|:----------------|:---------|:----------------|:----------|:----------|:---------------|
+| `contexts`   | array     | Contexts attached to event | Yes     | Yes       | [{'userType':'tester'}] |
+
 [avro-blog-post]: http://snowplowanalytics.com/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/
+[json-schema]: http://json-schema.org/
