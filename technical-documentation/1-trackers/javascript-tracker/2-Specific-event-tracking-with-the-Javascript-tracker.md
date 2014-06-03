@@ -537,9 +537,9 @@ Note that in the above example no value is set for the `event property`.
 <a name="custom-unstructured-events" />
 ### 3.8 Tracking custom unstructured events
 
-There are certain events that you may want to track on your website or application, which are not directly supported by Snowplow, and are not suitable for being captured using the [structured event tracking] (#custom-structured-events). There are two use cases:
+There are certain events that you may want to track on your website or application, which are not directly supported by Snowplow, and are not suitable for being captured using the [structured event tracking](#custom-structured-events). There are two use cases:
 
-1. Where you want to track event types which are proprietary/specific to your business, and the type of data associated with each visit does not fit into the [structured event tracking] (#custom-structured-events), either because you want to capture data of a specific type (e.g. geographical coordinates or arrays), or you want to capture more data than the five structured event fields offer allow.
+1. Where you want to track event types which are proprietary/specific to your business, and the type of data associated with each visit does not fit into the [structured event tracking](#custom-structured-events), either because you want to capture data of a specific type (e.g. geographical coordinates or arrays), or you want to capture more data than the five structured event fields offer allow.
 2. Where you want to track events which have unpredictable or frequently changing properties, so that it is not possible to specify the fields in advance.
 
 When you track a custom unstructured event, you track the event name and a set of associated "properties" enclosed in a JSON envelope. Because you can add as many name/value properties to the JSON as you'd like, and a wide range of data types are supported (see below), this is a very flexible way of tracking events.  A custom unstructured event conforms to the primary format of events captured by analytics tools like [Mixpanel] [mixpanel], [Kissmetrics] [kissmetrics] and [Keen.io] [keen.io].
@@ -550,30 +550,32 @@ When you track a custom unstructured event, you track the event name and a set o
 To track an unstructured event, you make use the `trackUnstructEvent` method:
 
 ```javascript
-snowplow_name_here('trackUnstructEvent' , <<EVENT VENDOR>>, <<EVENT NAME>>, <<EVENT PROPERTIES JSON>>);
+snowplow_name_here('trackUnstructEvent', <<SELF-DESCRIBING EVENT JSON>>);
 ```
 
 For example:
 
 ```javascript
-snowplow_name_here('trackUnstructEvent', 'com.my_company', 'Viewed Product',
-    {
-        product_id: 'ASO01043',
+window.snowplow_name_here('trackUnstructEvent', {
+    schema: 'iglu://com.acme_company/viewed_product/jsonschema/2-0-0',
+    data: {
+        productId: 'ASO01043',
         category: 'Dresses',
         brand: 'ACME',
         returning: true,
         price: 49.95,
         sizes: ['xs', 's', 'l', 'xl', 'xxl'],
-        available_since$dt: new Date(2013,3,7)
-    });
+        availableSince: new Date(2013,3,7)
+    }
+});
 ```
 
-Notes regarding the `properties` JSON:
+The second argument is a [self-describing JSON][self-describing-json]. It has two fields:
 
-* The `properties` JSON consists of a set of individual name: value pairs
-* The structure **must** be flat: properties **cannot** be nested
+* A `data` field, containing the properties of the event
+* A `schema` field, containing the location of the [JSON schema][json-schema] against which the `data` field should be validated.
 
-The event vendor parameter is the reversed domain name of the company which defined the unstructured event. If the company's domain name were "my_company.com", the event vendor would be "com.my_company". Specifying an event vendor helps to distinguish between unstructured events defined by different companies.
+The `data` field should be flat, not nested.
 
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
@@ -676,57 +678,46 @@ snowplow_name_here('trackLinkCLick', 'first-link', ['class-1', 'class-2'], '', '
 
 Custom contexts can be used to augment any standard Snowplow event type, including unstructured events, with additional data.
 
-Custom contexts can be added as an extra argument to any of Snowplow's `track..()` methods and to `addItem` and `addTrans`. 
+Custom contexts can be added as an extra argument to any of Snowplow's `track..()` methods and to `addItem` and `addTrans`.
 
-If set, the context argument must be a JSON of the form:
+Each custom context is a self-describing JSON following the same pattern as an [unstructured event](#trackUnstructEvent). Since more than one can be attached to an event, the `context` argument (if it is provided at all) should be a non-empty array of self-describing JSONs.
 
-```javascript
-{
-  "context1_name": {
-    ...
-  },
-  "context2_name": {
-    ...
-  }
-
-}
-```
-
-where each inner context JSON follows the same rules as the event properties JSON argument for an [unstructured event](#trackUnstructEvent). In particular, they must have a flat structure, so this movie poster context is allowed:
+Here are two example custom context JSONs. One describes a page, and the other describes a user on that page.
 
 ```javascript
 {
-  "movie_poster": {
-    "movie_name": "Solaris",
-    "poster_country": "JP",
-    "poster_year": new Date(1978, 1, 1)
-  }
-}
-```
-
-But this one isn't:
-
-```javascript
-{
-  "movie_poster": {
-    "movie_name": "Solaris",
-    "nested_poster_data": {
-      "poster_country": "JP",
-      "poster_year": new Date(1978, 1, 1)
+    schema: "iglu://com.example_company/page/jsonschema/1-2-1",
+    data: {
+        pageType: 'test',
+        lastUpdated: new Date(2014,1,26)
     }
-  }
 }
 ```
 
-How to track a pageview event with this custom context:
+```javascript
+{
+    schema: "iglu://com.example_company/user/jsonschema/2-0-0",
+    data: {
+      userType: 'tester',
+    }
+}
+```
+
+How to track a page view with both these contexts attached:
 
 ```javascript
-snowplow_name_here(['trackPageView', '', { 
-  "movie_poster": {
-    "movie_name": "Solaris",
-    "poster_country": "JP",
-    "poster_year": new Date(1978, 1, 1)
-  }
+window.snowplow_name_here('trackPageView', null , [{
+    schema: "iglu://com.example_company/page/jsonschema/1-2-1",
+    data: {
+        pageType: 'test',
+        lastUpdated: new Date(2014,1,26)
+    }
+},
+{
+    schema: "iglu://com.example_company/user/jsonschema/2-0-0",
+    data: {
+      userType: 'tester',
+    }
 }]);
 ```
 
@@ -739,7 +730,8 @@ For more information on custom contexts, see [this][contexts] blog post.
 
 [contents]: Javascript-Tracker
 [specific-events-v1]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker-v1
-
+[json-schema]: http://json-schema.org/
+[self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
 
 
 
