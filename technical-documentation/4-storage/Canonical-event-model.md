@@ -111,6 +111,9 @@ Back to [top](#top).
 | `user_ipaddress` | text    | Ueser IP address | No       | Yes       | '92.231.54.234' |
 | `domain_sessionidx`      | int      | A visit / session identifier | No | Yes | 3              |
 
+`domain_sessionidx` is the number of the current user session. For example, an event occurring during a user's first session would have `domain_sessionidx` set to 1. The JavaScript Tracker calculates this field by storing a visit count in a first-party cookie. Whenever the Tracker fires an event, if more than 30 minutes have elapsed since the last event, the visitor count is increased by 1. (Whenever an event is fired, a "session cookie" is created and set to expire in 30 minutes. This is how the Tracker can tell whether the visit count should be incremented.) Thirty minutes is the default value and can be changed using the `setSessionCookieTimeout` method.
+
+
 Back to [top](#top).
 
 <a name="device" />
