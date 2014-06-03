@@ -85,7 +85,7 @@ In the "Perform these actions" section, select "Notifications: Notify target" an
 In the Message box, paste the following:
 
 ```javascript
-{"data": {"data": {"latest_comment.author.name": "{{ticket.latest_comment.author.name}}", "url": "{{ticket.url}}", "latest_comment.created_at": "{{ticket.latest_comment.created_at}}", "latest_comment.created_at_with_time": "{{ticket.latest_comment.created_at_with_time}}", "id": "{{ticket.id}}", "latest_comment.is_public": {{ticket.latest_comment.is_public}}, "latest_comment.value": "{{ticket.latest_comment.value}}"}, "schema": "iglu://com.zendesk.zendesk/ticket_commented/jsonschema/1-0-0"}, "schema": "iglu://com.snowplowanalytics.snowplow/unstruct_event/jsonschema/1-0-0"}
+{"data": {"data": {"latest_comment.author.name": "{{ticket.latest_comment.author.name}}", "url": "{{ticket.url}}", "latest_comment.created_at": "{{ticket.latest_comment.created_at}}", "latest_comment.created_at_with_time": "{{ticket.latest_comment.created_at_with_time}}", "latest_comment.is_public": {{latest_comment.is_public}}, "id": "{{ticket.id}}""}, "schema": "iglu://com.zendesk.zendesk/ticket_commented/jsonschema/1-0-0"}, "schema": "iglu://com.snowplowanalytics.snowplow/unstruct_event/jsonschema/1-0-0"}
 ```
 
 Submit the new trigger. It should look something like this:
