@@ -203,9 +203,9 @@ snowplow_name_here('setCustomUrl', 'http://mysite.com/checkout-page');
 <a name="custom-url" />
 #### 2.3.4 Configuring cookie timeouts using `setSessionCookieTimeout`
 
-The JavaScript Tracker sets two cookies: a visitor cookie and a session cookie. The visitor cookie contains all persistent information about the user, including the number of times the user has visited the site. It lasts for two years. The session cookie is specific to an individual session. By default, it times out after 30 minutes. Whenever a Snowplow event is fired, if no session cookie is found, the Tracker takes this to mean that a new session has started. It therefore increments the part of the visitor cookie representing the number of times the user has visited the site. If the user leaves the site and returns before the 30 minutes is up, the visit count is not incremented.
+The JavaScript Tracker sets two cookies: a visitor cookie and a session cookie. The visitor cookie contains all persistent information about the user, including a visit count (the number of times the user has visited the site). It lasts for two years. The session cookie is specific to an individual session. By default, it expires after 30 minutes pass with no event fired. Whenever a Snowplow event is fired, if no session cookie is found, the Tracker takes this to mean that a new session has started. It therefore increments the visitor cookie's visit count. If the user leaves the site and returns before the 30 minutes is up, the visit count is not incremented.
 
-The visit count is added to each event querystring as "vid".
+The visit count is added to each event querystring as "vid". "vid=3" would mean an event was fired during the user's third session.
 
 You can change the default from 30 minutes by using `setSessionCookieTimeout`. You should give the expiration time of the session cookie in seconds:
 
