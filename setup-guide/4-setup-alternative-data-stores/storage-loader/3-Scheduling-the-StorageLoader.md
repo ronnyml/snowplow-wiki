@@ -28,7 +28,7 @@ To consider each scheduling option in turn:
 <a name="storage-loader-cron"/>
 ## 2. Scheduling StorageLoader only
 
-The shell script [`/4-storage/storage-loader/bin/snowplow-runner-and-loader.sh`] [loader-bash]
+The shell script [`/4-storage/storage-loader/bin/snowplow-storage-loader.sh`] [loader-bash]
 runs the StorageLoader app only.
 
 You need to edit this script and update the three variables at the top:
@@ -45,7 +45,7 @@ Now, assuming you're using the excellent [cronic] [cronic] as a wrapper for
 your cronjobs, and that both cronic and Bundler are on your path, you can 
 configure your cronjob like so:
 
-    0 6   * * *   root    cronic /path/to/snowplow/4-storage/bin/snowplow-runner-and-loader.sh
+    0 6   * * *   root    /path/to/snowplow/4-storage/storage-loader/bin/snowplow-storage-loader.sh 
 
 This will run the ETL job daily at 6am, emailing any failures to you via cronic. Please make
 sure that your Snowplow events have been safely generated and stored in your In Bucket prior
@@ -54,7 +54,7 @@ to 6am.
 <a name="runner-and-loader-cron"/>
 ## 3. Scheduling EmrEtlRunner and StorageLoader
 
-The shell script [`/4-storage/storage-loader/bin/snowplow-storage-loader.sh`] [combo-bash]
+The shell script [`/4-storage/storage-loader/bin/snowplow-runner-and-loader.sh`] [combo-bash] 
 runs EmrEtlRunner, immediately followed by StorageLoader - i.e. it chains them together. At
 Snowplow, this is the scheduling option we use.
 
@@ -75,7 +75,7 @@ So for example if you installed RVM as the `admin` user, then you would set:
 Using [cronic] [cronic] as a wrapper, and with cronic and Bundler on your path, configure
 your cronjob like so:
 
-    0 4   * * *   root    cronic /path/to/snowplow/4-storage/bin/snowplow-runner-and-loader.sh
+    0 4   * * *   root    /path/to/snowplow/4-storage/storage-loader/bin/snowplow-runner-and-loader.sh 
 
 This will run the ETL job and then the database load daily at 4am, emailing any failures
 to you via cronic.
