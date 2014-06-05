@@ -557,7 +557,7 @@ For example:
 
 ```javascript
 window.snowplow_name_here('trackUnstructEvent', {
-    schema: 'iglu://com.acme_company/viewed_product/jsonschema/2-0-0',
+    schema: 'iglu:com.acme_company/viewed_product/jsonschema/2-0-0',
     data: {
         productId: 'ASO01043',
         category: 'Dresses',
@@ -686,7 +686,7 @@ Here are two example custom context JSONs. One describes a page, and the other d
 
 ```javascript
 {
-    schema: "iglu://com.example_company/page/jsonschema/1-2-1",
+    schema: "iglu:com.example_company/page/jsonschema/1-2-1",
     data: {
         pageType: 'test',
         lastUpdated: new Date(2014,1,26)
@@ -696,7 +696,7 @@ Here are two example custom context JSONs. One describes a page, and the other d
 
 ```javascript
 {
-    schema: "iglu://com.example_company/user/jsonschema/2-0-0",
+    schema: "iglu:com.example_company/user/jsonschema/2-0-0",
     data: {
       userType: 'tester',
     }
@@ -707,14 +707,14 @@ How to track a page view with both these contexts attached:
 
 ```javascript
 window.snowplow_name_here('trackPageView', null , [{
-    schema: "iglu://com.example_company/page/jsonschema/1-2-1",
+    schema: "iglu:com.example_company/page/jsonschema/1-2-1",
     data: {
         pageType: 'test',
         lastUpdated: new Date(2014,1,26)
     }
 },
 {
-    schema: "iglu://com.example_company/user/jsonschema/2-0-0",
+    schema: "iglu:com.example_company/user/jsonschema/2-0-0",
     data: {
       userType: 'tester',
     }
