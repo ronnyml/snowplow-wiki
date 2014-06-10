@@ -11,7 +11,7 @@ This page refers to version 0.4.0 of the Snowplow Python Tracker. Click [here] [
   - 2.1 [Importing the module](#importing)
   - 2.2 [Creating a tracker](#create-tracker)
     - 2.2.1 [`emitter`](#emitter)  
-    - 2.2.2 [`_subject`](#subject)
+    - 2.2.2 [`subject`](#subject)
     - 2.2.3 [`namespace`](#namespace)
     - 2.2.4 [`app_id`](#app-id)
     - 2.2.5 [`encode_base64`](#base64)
@@ -92,7 +92,7 @@ There are other optional keyword arguments:
 | **Argument Name** | **Description**                      | **Required?** | **Default**          |
 |-------------:|:-------------------------------------|:--------------|:------------------------|
 | `emitter`      | The emitter to which events are sent       | Yes           | `None`        |
-| `_subject`   | The user being tracked               |         No            | `subject.Subject()` |
+| `subject`   | The user being tracked               |         No            | `subject.Subject()` |
 | `namespace`  | The name of the tracker instance     |  No           |  `None` |
 | `app_id` | The application ID          | No           | `None`         |
 | `encode_base64` | Whether to enable [base 64 encoding] [base64] | No | `True`  |
@@ -111,7 +111,7 @@ tracker = Tracker( Emitter("d3rkrsqld9gmqf.cloudfront.net") , namespace="cf", ap
 The emitter to which the tracker will send events. See [Emitters](#emitters) for more on emitter configuration.
 
 <a name="subject" />
-#### 2.2.2 `_subject`
+#### 2.2.2 `subject`
 
 The user which the Tracker will track. This should be an instance of the [Subject](#subject) class. You don't need to set this during Tracker construction; you can use the `Tracker.set_subject` method afterwards. In fact, you don't need to create a subject at all. If you don't, though, your events won't contain user-specific data such as timezone and language.
 
