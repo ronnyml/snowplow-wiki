@@ -14,12 +14,6 @@ The minified JavaScript tracker is hosted on CloudFront against its full semanti
 
     http(s)://d1fc8wv8zag5ca.cloudfront.net/1.0.1/sp.js
 
-It is also available as:
-
-    http(s)://d1fc8wv8zag5ca.cloudfront.net/1/sp.js
-
-where 1 is the semantic MAJOR version. If you prefer, you can use this path and then get new features and bug fixes automatically as we roll-out MINOR and PATCH updates to the tracker.
-
 ### 2.1 Clojure Collector resources
 
 The Clojure Collector packaged as a complete WAR file, ready for Amazon Elastic Beanstalk, is here:
