@@ -140,7 +140,7 @@ If a visitor arrives on a page advertising a movie, the context dictionary might
   "data": {
     "movie_name": "Solaris", 
     "poster_country": "JP", 
-    "poster_year": new Date(1978, 1, 1)
+    "poster_year": "1978"
   }
 }
 ```
