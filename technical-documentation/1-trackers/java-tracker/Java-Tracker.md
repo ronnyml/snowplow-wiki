@@ -1,6 +1,91 @@
+<a name="top" />
+
+[**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > Java Tracker
+
+This page refers to version 0.1.0 of the Snowplow Java Tracker.
+
+## Contents
+
+- 1. [Overview](#overview)  
+- 2. [Initialization](#init)  
+  - 2.1 [Importing the module](#importing)
+  - 2.2 [Creating a tracker](#create-tracker)
+  - 2.3 [Setting additional context](#add-context)
+
+<a name="overview" />
+## 1. Overview
+
+The [Snowplow Java Tracker](https://github.com/snowplow/snowplow-java-tracker) allows you to track Snowplow events from your Java-based desktop and server apps, servlets and games. It supports JDK6+.
+
+The tracker should be straightforward to use if you are comfortable with Java development; its API is modelled after Snowplow's [[Python Tracker]] so any prior experience with that tracker is helpful but not necessary.
+
+[Back to top](#top)
+
+<a name="init" />
+## 2 Initialization
+
+Assuming you have completed the [[Java Tracker Setup]] for your Java project, you are now ready to initialize the Java Tracker.
+
+<a name="importing" />
+### 2.1 Importing the module
+
+Import the Java Tracker's classes into your Java code like so:
+
+```java
+import com.snowplowanalytics.snowplow.tracker.*;
+```
+
+That's it - you are now ready to initialize a TrackerC instance. 
+
+[Back to top](#top)
+
+<a name="create-tracker" />
+### 2.2 Creating a Tracker
+
+To instantiate a tracker in your code (can be global or local to the process being tracked) simply instantiate the `Tracker` interface with one of the following:
+
+```java
+TrackerC(String collector_URI, String namespace)
+
+TrackerC(String collector_uri, String namespace, String app_id, String context_vendor, boolean base64_encode, boolean enable_contracts)
+```
+
+For example:
+
+```java
+Tracker t1 = new TrackerC("d3rkrsqld9gmqf.cloudfront.net", "Snowplow Java Tracker Test", "testing_app", "com.snowplow", true, true);
+```
+
+TODO: clarify each of the arguments.
+
+<a name="add-context" />
+### 2.3 Setting additional context
+
+The Tracker has a variety of setters which you can use to add additional context to the event stream: 
+
+```java
+t1.setUserID("Kevin Gleason"); 
+t1.setLanguage("eng");
+t1.setPlatform("cnsl");
+t1.setScreenResolution(1260, 1080);
+```
+
+Current supported platforms include "pc", "tv", "mob", "cnsl", and "iot".
+
+TODO: break each of these into its own sub-section.
+
+The simplest tracker initialization only requires you to provide the URI of the collector to which the tracker will log events:
+
+```java
+e = Emitter("d3rkrsqld9gmqf.cloudfront.net")
+t = Tracker("d3rkrsqld9gmqf.cloudfront.net")
+```
+
 Documentation on functions are available [here][documentation]. 
 
 ## Comments
+
+
 
 - For a full list of available functions, look into the packages interfaces.
 - Context is meant to be in JSON String format, unstructured data can be string or Map<String,Object>
@@ -13,24 +98,11 @@ Documentation on functions are available [here][documentation].
 
 All Snowplow java-tracker files are part of the `com.snowplow.javaplow` package. Before you can work with them you must `import` them as follows:
 
-    import com.snowplow.javaplow.*;
 
-To instantiate a tracker in your code (can be global or local to the process being tracked) simply instantiate the `Tracker` interface with one of the following:
 
-    TrackerC(String collector_URI, String namespace)
 
-    TrackerC(String collector_uri, String namespace, String app_id, String context_vendor, boolean base64_encode, boolean enable_contracts)
 
-e.g.
 
-    Tracker t1 = new TrackerC("d3rkrsqld9gmqf.cloudfront.net", "Snowplow Java Tracker Test", "testing_app", "com.snowplow", true, true);
-
-There are more options you can configure, which will be documented soon. 
-
-    t1.setUserID("Kevin Gleason"); 
-    t1.setLanguage("eng");
-    t1.setPlatform("cnsl");
-    t1.setScreenResolution(1260, 1080);
     t1.track();
 
 ----
@@ -94,7 +166,7 @@ A few fields are required, like collector_uri and namespace, or page_url or catr
     A HttpGet request is configured based on the parameters passed in
      and sent to the collector URI to be stored in a database.
 
-    Current supported platforms include "pc", "tv", "mob", "cnsl", and "iot".
+
 
     Current Tracking commands:
      t1.track()
