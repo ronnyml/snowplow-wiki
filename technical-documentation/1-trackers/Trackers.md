@@ -12,8 +12,11 @@
 
 * [JavaScript Tracker](Javascript-Tracker) - for tracking user activity on websites and webapps
 * [No-JS Tracker](No-JS-Tracker) - a pixel tracker for web environments where JavaScript is not available
-* [Lua Tracker](Lua-Tracker) - track events in your Lua-based applications, Lua web servers/frameworks, or from the Lua scripting layer within your games or apps
-* [Arduino Tracker](Arduino-Tracker) - for tracking events from an IP-connected Arduino board
+* [[Python Tracker]] - for tracking events in your Python-based applications, games or Python web servers/frameworks
+* [[Ruby Tracker]] - for tracking events in your Ruby and Rails apps and gems
+* [[Java Tracker]] - for tracking events in your Java-based desktop and server apps, servlets and games
+* [[Lua Tracker]] - track events in your Lua-based applications, Lua web servers/frameworks, or from the Lua scripting layer within your games or apps
+* [[Arduino Tracker]] - for tracking events from an IP-connected Arduino board
 
 For other trackers (e.g. iOS, Android) and their approximate timelines, please see the [Product roadmap](Product-roadmap).
 

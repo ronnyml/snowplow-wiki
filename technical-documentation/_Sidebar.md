@@ -2,10 +2,13 @@
 
 **1. Trackers**  
 [Overview](trackers)  
-[Javascript Tracker](javascript-tracker)  
+[JavaScript Tracker](javascript-tracker)  
 [No-JS Tracker](no-js-tracker)  
+[[Ruby Tracker]]  
+[[Python Tracker]]  
+[[Java Tracker]]  
 [[Lua Tracker]]  
-[Arduino Tracker](Arduino-Tracker)  
+[[Arduino Tracker]]
 
 **[A. Snowplow Tracker Protocol](snowplow-tracker-protocol)**  
 
