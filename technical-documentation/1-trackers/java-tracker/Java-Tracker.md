@@ -14,6 +14,14 @@ This page refers to version 0.1.0 of the Snowplow Java Tracker.
 - 4. [Tracking specific events](#events)
   - 4.1 [Common](#common)
     - 4.1.1 [Custom contexts](#custom-contexts)
+    - 4.1.2 [Optional timestamp argument](#tstamp-arg)
+    - 4.1.3 [Tracker method return values](#return-values)
+  - 4.2 [`track_screen_view()`](#screen-view)
+  - 4.3 [`track_page_view()`](#page-view)
+  - 4.4 [`track_ecommerce_transaction()`](#ecommerce-transaction)
+  - 4.5 [`track_ecommerce_transaction_item()`](#ecommerce-transaction-item)
+  - 4.6 [`track_struct_event()`](#struct-event)
+  - 4.7 [`track_unstruct_event()`](#unstruct-event)
 
 <a name="overview" />
 ## 1. Overview
@@ -65,7 +73,7 @@ TODO: clarify each of the arguments.
 ## Comments
 
 <a name="add-data" />
-## 3. Adding extra data: The Subject class
+## 3. Adding extra data
 
 You may have additional information about your application's environment, current user and so on, which you want to send to Snowplow with each event.
 
@@ -92,6 +100,88 @@ Current supported platforms include "pc", "tv", "mob", "cnsl", and "iot".
 
 TODO: break each of these into its own sub-subject, as in the Python Tracker docs.
 
+<a name="events" />
+## 4. Tracking specific events
+
+Snowplow has been built to enable you to track a wide range of events that occur when users interact with your websites and apps. We are constantly growing the range of functions available in order to capture that data more richly.
+
+Tracking methods supported by the Java Tracker at a glance:
+
+| **Function**                                                        | **Description**                                        |
+|--------------------------------------------------------------------:|:-------------------------------------------------------|
+| [`track_screen_view()`](#screen-view)                               | Track the user viewing a screen within the application |
+| [`track_page_view()`](#page-view)                                   | Track and record views of web pages.                   |
+| [`track_ecommerce_transaction()`](#ecommerce-transaction)           | Track an ecommerce transaction                         |
+| [`track_ecommerce_transaction_item()`](#ecommerce-transaction-item) | Track an ecommerce transaction item                    |
+| [`track_struct_event()`](#struct-event)                             | Track a Snowplow custom structured event               |
+| [`track_unstruct_event()`](#unstruct-event)                         | Track a Snowplow custom unstructured event             |
+
+<a name="common" />
+### 4.1 Common
+
+All events are tracked with specific methods on the tracker instance, of the form `track_XXX()`, where `XXX` is the name of the event to track.
+
+<a name="custom-contexts" />
+### 4.1.2 Custom contexts
+
+In short, custom contexts let you add additional information about the circumstances surrounding an event in the form of a Java String in JSON format. dictionary object. Each tracking method accepts an additional optional contexts parameter after all the parameters specific to that method:
+
+```java
+t1.track_page_view(String page_url, String page_title, String referrer, String context)
+```
+
+The `context` argument should consist of a String containing a JSON array of one or more contexts. The format of each dictionary is the same as for an [unstructured event](#unstruct-event).
+
+If a visitor arrives on a page advertising a movie, the context dictionary might look like this:
+
+<a name="screen-view" />
+### 4.2 Track screen views with `track_screen_view()`
+
+**Warning:** this feature is implemented in the Python tracker, but it is **not** currently supported in the Enrichment, Storage or Analytics stages in the Snowplow data pipeline. As a result, if you use this feature, you will log screen views to your collector logs, but these will not be parsed and loaded into e.g. Redshift to analyse. (Adding this capability is coming soon to Snowplow.)
+
+Use `track_screen_view()` to track a user viewing a screen (or equivalent) within your app. Arguments are:
+
+| **Argument** | **Description**                     | **Required?** | **Validation**          |
+|-------------:|:------------------------------------|:--------------|:------------------------|
+| `name`       | Human-readable name for this screen | TBC           | TBC                     |
+| `id`         | Unique identifier for this screen   | TBC           | TBC                     |
+| `context`    | Custom context for the event        | TBC           | TBC                     |
+
+Example:
+
+```java
+t1.track_screen_view("HUD > Save Game", "screen23", null)
+```
+
+
+
+
+```json
+{ 
+  "schema": "iglu:com.acme_company/movie_poster/jsonschema/2.1.1",
+  "data": {
+    "movie_name": "Solaris", 
+    "poster_country": "JP", 
+    "poster_year": new Date(1978, 1, 1)
+  }
+}
+```
+
+Note that even if there is only one custom context attached to the event, it still needs to be placed in an array.
+
+Providing the contexts as a Java object (i.e. not as a JSON String) is not yet supported.
+
+<a name="tstamp-arg" />
+### 4.1.2 Optional timestamp argument
+
+Not yet implemented.
+
+<a name="return-value" />
+### 4.1.3 Tracker method return values
+
+To be confirmed.
+
+
 
 	String context = "{'Movie':'Shawshank Redemption', 'Time':'142 Minutes' }"
 	Map<String,Object> unstruct_info = new LinkedHashMap<String,Object>();
@@ -112,7 +202,7 @@ Now, locally in the function you would like to track, place a tracking call to o
 
     t1.track_unstruct_event(String eventVendor, String eventName, String dictInfo, String context)
 
-    t1.track_screen_view(String name, String id, String context)
+
 
     t1.track_ecommerce_transaction_item(String order_id, String sku, Double price, Integer quantity, String name, String category, String currency, String context, String transaction_id) *
 
