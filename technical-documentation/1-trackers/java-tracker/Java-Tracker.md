@@ -10,7 +10,10 @@ This page refers to version 0.1.0 of the Snowplow Java Tracker.
 - 2. [Initialization](#init)  
   - 2.1 [Importing the module](#importing)
   - 2.2 [Creating a tracker](#create-tracker)
-  - 2.3 [Setting additional context](#add-context)
+- 3. [Adding extra data](#add-data)
+- 4. [Tracking specific events](#events)
+  - 4.1 [Common](#common)
+    - 4.1.1 [Custom contexts](#custom-contexts)
 
 <a name="overview" />
 ## 1. Overview
@@ -58,10 +61,25 @@ Tracker t1 = new TrackerC("d3rkrsqld9gmqf.cloudfront.net", "Snowplow Java Tracke
 
 TODO: clarify each of the arguments.
 
-<a name="add-context" />
-### 2.3 Setting additional context
 
-The Tracker has a variety of setters which you can use to add additional context to the event stream: 
+## Comments
+
+<a name="add-data" />
+## 3. Adding extra data: The Subject class
+
+You may have additional information about your application's environment, current user and so on, which you want to send to Snowplow with each event.
+
+The TrackerC class has a set of `set...()` methods to attach extra data relating to the user to all tracked events:
+
+* [`setUserId`](#set-platform)
+* [`setPlatform`](#set-user-id)
+* [`setScreenResolution`](#set-screen-resolution)
+* [`setViewport`](#set-viewport)
+* [`setColorDepth`](#set-color-depth)
+* [`setTimezone`](#set-timezone)
+* [`setLanguage`](#set-lang)
+
+Here are some examples:
 
 ```java
 t1.setUserID("Kevin Gleason"); 
@@ -72,34 +90,13 @@ t1.setScreenResolution(1260, 1080);
 
 Current supported platforms include "pc", "tv", "mob", "cnsl", and "iot".
 
-TODO: break each of these into its own sub-section.
+TODO: break each of these into its own sub-subject, as in the Python Tracker docs.
 
-The simplest tracker initialization only requires you to provide the URI of the collector to which the tracker will log events:
-
-```java
-e = Emitter("d3rkrsqld9gmqf.cloudfront.net")
-t = Tracker("d3rkrsqld9gmqf.cloudfront.net")
-```
-
-Documentation on functions are available [here][documentation]. 
-
-## Comments
-
-
-
-- For a full list of available functions, look into the packages interfaces.
-- Context is meant to be in JSON String format, unstructured data can be string or Map<String,Object>
 
 	String context = "{'Movie':'Shawshank Redemption', 'Time':'142 Minutes' }"
 	Map<String,Object> unstruct_info = new LinkedHashMap<String,Object>();
 	unstruct_info.put("Gross movie profit", 28341469);
 	...
-
-
-All Snowplow java-tracker files are part of the `com.snowplow.javaplow` package. Before you can work with them you must `import` them as follows:
-
-
-
 
 
 
@@ -152,13 +149,6 @@ A few fields are required, like collector_uri and namespace, or page_url or catr
 
      Attach the payload to the com.snowplowanalytics.snowplow.tracker.Tracker:
       t1.setPayload(pd);
-
-     Configure the payload as you must:
-      t1.setUserID("Kevin");
-      t1.setLanguage("eng");
-      t1.setPlatform("cnsl");
-      t1.setScreenResolution(1260, 1080);
-      t1.track();
 
      Call the track function when configured:
       t1.track()
