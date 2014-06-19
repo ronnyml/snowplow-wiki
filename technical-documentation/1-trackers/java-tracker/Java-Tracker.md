@@ -122,7 +122,7 @@ Tracking methods supported by the Java Tracker at a glance:
 All events are tracked with specific methods on the tracker instance, of the form `track_XXX()`, where `XXX` is the name of the event to track.
 
 <a name="custom-contexts" />
-### 4.1.2 Custom contexts
+### 4.1.1 Custom contexts
 
 In short, custom contexts let you add additional information about the circumstances surrounding an event in the form of a Java String in JSON format. dictionary object. Each tracking method accepts an additional optional contexts parameter after all the parameters specific to that method:
 
@@ -133,28 +133,6 @@ t1.track_page_view(String page_url, String page_title, String referrer, String c
 The `context` argument should consist of a String containing a JSON array of one or more contexts. The format of each dictionary is the same as for an [unstructured event](#unstruct-event).
 
 If a visitor arrives on a page advertising a movie, the context dictionary might look like this:
-
-<a name="screen-view" />
-### 4.2 Track screen views with `track_screen_view()`
-
-**Warning:** this feature is implemented in the Python tracker, but it is **not** currently supported in the Enrichment, Storage or Analytics stages in the Snowplow data pipeline. As a result, if you use this feature, you will log screen views to your collector logs, but these will not be parsed and loaded into e.g. Redshift to analyse. (Adding this capability is coming soon to Snowplow.)
-
-Use `track_screen_view()` to track a user viewing a screen (or equivalent) within your app. Arguments are:
-
-| **Argument** | **Description**                     | **Required?** | **Validation**          |
-|-------------:|:------------------------------------|:--------------|:------------------------|
-| `name`       | Human-readable name for this screen | TBC           | TBC                     |
-| `id`         | Unique identifier for this screen   | TBC           | TBC                     |
-| `context`    | Custom context for the event        | TBC           | TBC                     |
-
-Example:
-
-```java
-t1.track_screen_view("HUD > Save Game", "screen23", null)
-```
-
-
-
 
 ```json
 { 
@@ -181,16 +159,32 @@ Not yet implemented.
 
 To be confirmed.
 
+<a name="screen-view" />
+### 4.2 Track screen views with `track_screen_view()`
+
+**Warning:** this feature is implemented in the Python tracker, but it is **not** currently supported in the Enrichment, Storage or Analytics stages in the Snowplow data pipeline. As a result, if you use this feature, you will log screen views to your collector logs, but these will not be parsed and loaded into e.g. Redshift to analyse. (Adding this capability is coming soon to Snowplow.)
+
+Use `track_screen_view()` to track a user viewing a screen (or equivalent) within your app. Arguments are:
+
+| **Argument** | **Description**                     | **Required?** | **Validation**          |
+|-------------:|:------------------------------------|:--------------|:------------------------|
+| `name`       | Human-readable name for this screen | TBC           | TBC                     |
+| `id`         | Unique identifier for this screen   | TBC           | TBC                     |
+| `context`    | Custom context for the event        | TBC           | TBC                     |
+
+Example:
+
+```java
+t1.track_screen_view("HUD > Save Game", "screen23", null)
+```
+
+# Scratchpad below this line
 
 
 	String context = "{'Movie':'Shawshank Redemption', 'Time':'142 Minutes' }"
 	Map<String,Object> unstruct_info = new LinkedHashMap<String,Object>();
 	unstruct_info.put("Gross movie profit", 28341469);
 	...
-
-
-
-    t1.track();
 
 ----
 
