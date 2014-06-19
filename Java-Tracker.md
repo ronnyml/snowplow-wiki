@@ -1,5 +1,16 @@
 Documentation on functions are available [here][documentation]. 
 
+## Comments
+
+- For a full list of available functions, look into the packages interfaces.
+- Context is meant to be in JSON String format, unstructured data can be string or Map<String,Object>
+
+	String context = "{'Movie':'Shawshank Redemption', 'Time':'142 Minutes' }"
+	Map<String,Object> unstruct_info = new LinkedHashMap<String,Object>();
+	unstruct_info.put("Gross movie profit", 28341469);
+	...
+
+
 All Snowplow java-tracker files are part of the `com.snowplow.javaplow` package. Before you can work with them you must `import` them as follows:
 
     import com.snowplow.javaplow.*;
