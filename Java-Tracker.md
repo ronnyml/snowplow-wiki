@@ -1,3 +1,5 @@
+Documentation on functions are available [here][documentation]. 
+
 All Snowplow java-tracker files are part of the `com.snowplow.javaplow` package. Before you can work with them you must `import` them as follows:
 
     import com.snowplow.javaplow.*;
