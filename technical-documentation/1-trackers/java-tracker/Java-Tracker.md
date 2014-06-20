@@ -221,7 +221,7 @@ Arguments:
 | `items`       | Items in the transaction             | TBC           | List                     |
 | `context`     | Custom context for the event         | TBC           | List                     |
 
-The `items` argument is a `List` of individual `Map<String, String>` elements representing the items in the e-commerce transaction. Note that `track_ecommerce_transaction` fires multiple events: one "transaction" event for the transaction as a whole, and one "transaction item" event for each element of the `items` array. Each transaction item event will have the same timestamp, order_id, and currency as the main transaction event.
+The `items` argument is a `List` of individual `Map<String, String>` elements representing the items in the e-commerce transaction. Note that `track_ecommerce_transaction` fires multiple events: one transaction event for the transaction as a whole, and one transaction item event for each element of the `items` `List`. Each transaction item event will have the same timestamp, order_id, and currency as the main transaction event.
 
 These are the fields that can appear as elements in each `Map` element of the transaction item `List`:
 
@@ -260,7 +260,7 @@ Use `track_struct_event()` to track a custom event happening in your app which f
 
 Example:
 
-```python
+```java
 t1.track_struct_event("shop", "add-to-basket", null, "pcs", 2, null);
 ```
 
@@ -278,29 +278,32 @@ Use `track_unstruct_event()` to track a custom event which consists of a name an
 
 The arguments are as follows:
 
-| **Argument**   | **Description**                      | **Required?** | **Validation**          |
-|---------------:|:-------------------------------------|:--------------|:------------------------|
-| `event_json`   | The properties of the event          | Yes           | Dict                    |
-| `context`      | Custom context for the event         | No            | List                    |
+| **Argument**   | **Description**                                           | **Required?** | **Validation**          |
+|---------------:|:----------------------------------------------------------|:--------------|:------------------------|
+| `eventVendor`  | The vendor who authored the event. Deprecated; do not use | TBC           | TBC                     |
+| `eventName`    | The name of the event. Deprecated; do not use             | TBC           | TBC                     |
+| `dictInfo`     | The properties of the event                               | TBC           | TBC                     |
+| `context`      | Custom context for the event                              | TBC           | TBC                     |
+
+The `dictInfo` must be either a `String` or a `Map<String, Object>`.
+
+If you supply a `String`, make sure that it is a valid JSON object containing two fields: `schema` and `data`. `data` is itself a JSON object containing the properties of the unstructured event. `schema` identifies the JSON schema against which `data` should be validated.
 
 Example:
 
-```python
+```java
+// Example to come, in the meantime here is the type signature:
 t1.track_unstruct_event(String eventVendor, String eventName, String dictInfo, String context);
-t.track_unstruct_event({
-  "schema": "com.example_company/save-game/jsonschema/1.0.2",
-  "data": {
-    "save_id": "4321",
-    "level": 23,
-    "difficultyLevel": "HARD",
-    "dl_content": true 
-  }
-})
 ```
 
-The `event_json` must be a Python dictionary with two fields: `schema` and `data`. `data` is a flat dictionary containing the properties of the unstructured event. `schema` identifies the JSON schema against which `data` should be validated.
+If you supply a `Map<String, Object>`, make sure that this top-level contains your `schema` and `data` keys, and then store your `data` properties as a child `Map<String, Object>`.
 
-**Warning:** there is also a HashMap version
+Example:
+
+```java
+// Example to come, in the meantime here is the type signature:
+t1.track_unstruct_event(String eventVendor, String eventName, Map<String, Object> dictInfo, String context);
+```
 
 For more on JSON schema, see the [blog post] [self-describing-jsons].
 
