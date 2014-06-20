@@ -9,9 +9,10 @@
   - 2.1 [Tracker compatibility](#compatibility)  
   - 2.2 [Dependencies](#dependencies)
 - 3. [Setup](#setup)
-  - 3.1 [PyPI](#pypi)
-  - 3.2 [pip](#pip)
-  - 3.3 [easy_install](#easy_install)
+  - 3.1 [Hosting](#hosting)
+  - 3.2 [maven](#maven)
+  - 3.3 [gradle](#gradle)
+  - 3.4 [sbt](#sbt)
 
 <a name="overview" />
 ## 1. Overview
@@ -44,15 +45,15 @@ To minimize jar bloat, we have tried to keep external dependencies to a minimum.
 <a name="setup" />
 ## 3. Setup
 
-<a name="pypi" />
+<a name="hosting" />
 ### 3.1 Hosting
 
 The Tracker is published to Snowplow's [hosted Maven repository] [maven-snplow], which should make it easy to add it as a dependency into your own Java app.
 
 The current version of the Snowplow Java Tracker is 0.1.0.
 
-<a name="pypi" />
-### 3.1 Maven
+<a name="maven" />
+### 3.2 Maven
 
 If you are using Maven for building your Java application, then add the following code into your `HOME/.m2/settings.xml` to be able to use this repository:
 
@@ -89,8 +90,8 @@ Then add into your project's `pom.xml`:
 </dependency>
 ```
 
-<a name="pip" />
-### 3.2 Gradle
+<a name="gradle" />
+### 3.3 Gradle
 
 If you are using Gradle in your own Java application, then add our Maven repository in your `build.gradle` file:
 
@@ -113,7 +114,8 @@ dependencies {
     ...
 ```
 
-### 3.3 SBT
+<a name="sbt" />
+### 3.4 SBT
 
 The Snowplow Java Tracker is also usable from Scala. Add this to your SBT config:
 
