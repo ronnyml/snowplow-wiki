@@ -4,8 +4,8 @@
 [Overview](trackers)  
 [JavaScript Tracker](javascript-tracker)  
 [No-JS Tracker](no-js-tracker)  
-[[Ruby Tracker]]  
 [[Python Tracker]]  
+[[Ruby Tracker]]  
 [[Java Tracker]]  
 [[Lua Tracker]]  
 [[Arduino Tracker]]

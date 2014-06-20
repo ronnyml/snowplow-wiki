@@ -8,9 +8,9 @@ The technical documentation reflects the Snowplow architecture, with five loosel
 
 [Trackers overview](trackers)  
 [JavaScript Tracker](javascript-tracker)  
-[No-JS Tracker](no-js-tracker) 
-[[Ruby Tracker]]  
+[No-JS Tracker](no-js-tracker)  
 [[Python Tracker]]  
+[[Ruby Tracker]]  
 [[Java Tracker]]  
 [[Lua Tracker]]  
 [[Arduino Tracker]] 
