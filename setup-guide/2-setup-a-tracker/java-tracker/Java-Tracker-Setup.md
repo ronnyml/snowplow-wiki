@@ -10,9 +10,9 @@
   - 2.2 [Dependencies](#dependencies)
 - 3. [Setup](#setup)
   - 3.1 [Hosting](#hosting)
-  - 3.2 [maven](#maven)
-  - 3.3 [gradle](#gradle)
-  - 3.4 [sbt](#sbt)
+  - 3.2 [Maven](#maven)
+  - 3.3 [Gradle](#gradle)
+  - 3.4 [SBT](#sbt)
 
 <a name="overview" />
 ## 1. Overview
