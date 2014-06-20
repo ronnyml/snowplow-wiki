@@ -235,7 +235,6 @@ These are the fields that can appear as elements in each `Map` element of the tr
 | `quantity` | Item quantity                       | TBC           | TBC                      |
 | `name`     | Item name                           | TBC           | TBC                      |
 | `category` | Item category                       | TBC           | TBC                      |
-| `context`  | Custom context for the event        | TBC           | TBC                      |
 
 Example of tracking a transaction containing two items:
 
