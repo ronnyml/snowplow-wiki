@@ -21,6 +21,8 @@ This page refers to version 0.1.0 of the Snowplow Java Tracker.
   - 4.4 [`track_ecommerce_transaction()`](#ecommerce-transaction)
   - 4.5 [`track_struct_event()`](#struct-event)
   - 4.6 [`track_unstruct_event()`](#unstruct-event)
+- 5 [Contracts](#contracts)
+- 6 [Logging](#logging)
 
 <a name="overview" />
 ## 1. Overview
