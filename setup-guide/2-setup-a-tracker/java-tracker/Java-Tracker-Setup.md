@@ -18,7 +18,7 @@
 
 The [Snowplow Java Tracker](https://github.com/snowplow/snowplow-java-tracker) lets you add analytics to your [Java] [java]-based desktop and server apps, servlets and games. It does not (yet) support Android.
 
-The tracker should be relatively straightforward to setup if you are familiar with Java development.
+The Tracker should be relatively straightforward to setup if you are familiar with Java development.
 
 Ready? Let's get started.
 
@@ -47,7 +47,7 @@ To minimize jar bloat, we have tried to keep external dependencies to a minimum.
 <a name="pypi" />
 ### 3.1 Hosting
 
-The Snowplow Java Tracker is published to Snowplow's [hosted Maven repository] [maven-snplow], which should make it easy to add it as a dependency into your own Java app.
+The Tracker is published to Snowplow's [hosted Maven repository] [maven-snplow], which should make it easy to add it as a dependency into your own Java app.
 
 The current version of the Snowplow Java Tracker is 0.1.0.
 
@@ -100,6 +100,7 @@ repositories {
         url "http://maven.snplow.com/releases"
     }
 }
+```
 
 Then add into the same file:
 
@@ -128,5 +129,5 @@ Done? Now read the [Java Tracker API](Java-Tracker) to start tracking events.
 
 [java]: http://www.java.com/en/
 
-[gradle-build]: https://github.com/snowplow/snowplow-java-tracker/blob/master/build.gradle://github.com/snowplow/snowplow-java-tracker/blob/master/build.gradle
+[gradle-build]: https://github.com/snowplow/snowplow-java-tracker/blob/master/build.gradle
 [maven-snplow]: http://maven.snplow.com 
