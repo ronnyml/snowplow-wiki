@@ -97,6 +97,7 @@ If you are using Gradle in your own Java application, then add our Maven reposit
 
 ```groovy
 repositories {
+    ...
     maven {
         url "http://maven.snplow.com/releases"
     }
@@ -107,11 +108,10 @@ Then add into the same file:
 
 ```groovy
 dependencies {
-
+    ...
     // Snowplow Java Tracker
     compile 'com.snowplowanalytics:snowplow-java-tracker:0.1.0'
-
-    ...
+}
 ```
 
 <a name="sbt" />
