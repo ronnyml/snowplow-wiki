@@ -92,7 +92,7 @@ Here are some examples:
 
 ```java
 t1.setUserID("Kevin Gleason"); 
-t1.setLanguage("eng");
+t1.setLanguage("en-gb");
 t1.setPlatform("cnsl");
 t1.setScreenResolution(1260, 1080);
 ```
