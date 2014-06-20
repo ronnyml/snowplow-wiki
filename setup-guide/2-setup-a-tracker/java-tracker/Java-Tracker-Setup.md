@@ -1,42 +1,132 @@
-### Downloads
+<a name="top" />
 
-There are a few ways to get the Java tracker started. Adding the jar file to your project dependencies is the recommended method of getting started. Since production is still early and large changes are being made daily, jar files may not be up to date. Check the version associated with the jar. Class files can be found in the out folder. At the moment the source files are set up as a package.
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2: setup a Tracker**](Setting-up-a-Tracker) > [**Java tracker**](Java-tracker-setup)
 
-#### Easiest Method - Jar:
+## Contents
 
-The quickest and easiest way to incorporate the Snowplow Java Tracker into your project is downloading all the files using
+- 1. [Overview](#overview)  
+- 2. [Integration options](#integration-options)
+  - 2.1 [Tracker compatibility](#compatibility)  
+  - 2.2 [Dependencies](#dependencies)
+- 3. [Setup](#setup)
+  - 3.1 [PyPI](#pypi)
+  - 3.2 [pip](#pip)
+  - 3.3 [easy_install](#easy_install)
 
-    git clone https://github.com/snowplow/snowplow.git
-    cd snowplow/1-trackers/java-tracker
-## Current Build
+<a name="overview" />
+## 1. Overview
 
-Since production is still early and large changes are being made daily, jar files may not be up to date, check the version associated with the jar. Class files can be found in the out folder. At the moment the source files are set up as a package.
+The [Snowplow Java Tracker](https://github.com/snowplow/snowplow-java-tracker) lets you add analytics to your [Java] [java]-based desktop and server apps, servlets and games. It does not (yet) support Android.
 
-To get started, move into the src folder and follow the set up guide!
+The tracker should be relatively straightforward to setup if you are familiar with Java development.
 
-Note: The set up there is for the package "com.snowplow.javaplow", this means you should leave all source files in the folders, and drag the entire package folder into your project. 
+Ready? Let's get started.
 
-## Quick Start
+[Back to top](#top)
 
-There are a few ways to get the Java tracker started. Since production is still early and large changes are being made daily, I have not uploaded class or jar files yet. At the moment they files are set up as a package.
+<a name="integration-options" />
+## 2. Integration options
 
-To get started, download the javaplow package and install the three library dependencies [Here] [dependencies].
+<a name="compatibility" />
+### 2.1 Tracker compatibility
 
-Place the javaplow package in your projects src folder or root. If performed correctly you should be ready to instantiate a tracker.
+The Snowplow Java Tracker has been built and tested using JDK6 (JRE 1.6), so should work within any Java application built using JDK6 upwards.
 
-More documentation on functions will come soon, but to instantiate a tracker in your code (can be global or local to the process being tracked) simply put the following:
+[Back to top](#top)
 
+<a name="dependencies" />
+### 2.2 Dependencies
 
+To minimize jar bloat, we have tried to keep external dependencies to a minimum. For the full list of dependencies, please see our [Gradle build file] [gradle-build].
 
-You should now see all the java tracker files, including a folder called JavaPlow_VERSION_jar. Add the jar file in there to your projects dependencies.
+[Back to top](#top)
 
-Here are setup options for popular IDEs: [IntelliJ 13][intellij] or [Eclipse][eclipse].
+<a name="setup" />
+## 3. Setup
 
-Thats it! Skip down to setting up the tracker.
+<a name="pypi" />
+### 3.1 Hosting
 
-#### Source Files: 
+The Snowplow Java Tracker is published to Snowplow's [hosted Maven repository] [maven-snplow], which should make it easy to add it as a dependency into your own Java app.
 
-To get started with the javaplow source files, download the javaplow package and either add the javaplow jar file to the list of dependencies or install the three library dependencies [Here][dependencies].
+The current version of the Snowplow Java Tracker is 0.1.0.
 
-Place the javaplow package in your projects src folder or root. If performed correctly you should be able to compile and ready to instantiate a tracker.
+<a name="pypi" />
+### 3.1 Maven
 
+If you are using Maven for building your Java application, then add the following code into your `HOME/.m2/settings.xml` to be able to use this repository:
+
+```xml
+<settings>
+  <profiles>
+    <profile>
+      <!-- ... -->
+      <repositories>
+        <repository>
+          <id>com.snowplowanalytics</id>
+          <name>SnowPlow Analytics</name>
+          <url>http://maven.snplow.com/releases</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
+    </profile>
+  </profiles>
+</settings>
+```
+
+Then add into your project's `pom.xml`:
+
+```xml
+<dependency>
+    <groupId>com.snowplowanalytics</groupId>
+    <artifactId>snowplow-java-tracker</artifactId>
+    <version>0.1.0</version>
+</dependency>
+```
+
+<a name="pip" />
+### 3.2 Gradle
+
+If you are using Gradle in your own Java application, then add our Maven repository in your `build.gradle` file:
+
+```groovy
+repositories {
+    maven {
+        url "http://maven.snplow.com/releases"
+    }
+}
+
+Then add into the same file:
+
+```groovy
+dependencies {
+
+    // Snowplow Java Tracker
+    compile 'com.snowplowanalytics:snowplow-java-tracker:0.1.0'
+
+    ...
+```
+
+### 3.3 SBT
+
+The Snowplow Java Tracker is also usable from Scala. Add this to your SBT config:
+
+```scala
+// Resolvers
+val snowplowRepo = "SnowPlow Repo" at "http://maven.snplow.com/releases/"
+
+// Dependency
+val snowplowTracker = "com.snowplowanalytics"  % "snowplow-java-tracker"  % "0.1.0"
+```
+
+Done? Now read the [Java Tracker API](Java-Tracker) to start tracking events.
+
+[java]: http://www.java.com/en/
+
+[gradle-build]: https://github.com/snowplow/snowplow-java-tracker/blob/master/build.gradle://github.com/snowplow/snowplow-java-tracker/blob/master/build.gradle
+[maven-snplow]: http://maven.snplow.com 
