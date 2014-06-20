@@ -319,38 +319,7 @@ Not yet documented.
 
 Not yet implemented.
 
-# Scratchpad below this line
-
-	String context = "{'Movie':'Shawshank Redemption', 'Time':'142 Minutes' }"
-	Map<String,Object> unstruct_info = new LinkedHashMap<String,Object>();
-	unstruct_info.put("Gross movie profit", 28341469);
-	...
-
-----
-
-#### Don't need to fill in every field?
-
-A few fields are required, like collector_uri and namespace, or page_url or catrgory and action etc. For the most part, if you dont need a field you can use null! The code will convert those values whether they be number or letters to empty strings which in turn will not show up in the final database.
-
-## Comments
-
-- For a full list of available functions, look into the packages interfaces.
-- Context is meant to be in JSON String format
-
-    `String i = "{'Movie':'Shawshank Redemption', 'Time':'100 Minutes' }"`
-
-
-    Instructions to Use:
-
-     Instantiate a com.snowplowanalytics.snowplow.tracker.PayloadMap and a com.snowplowanalytics.snowplow.tracker.Tracker:
-      com.snowplowanalytics.snowplow.tracker.PayloadMap pd = new com.snowplowanalytics.snowplow.tracker.PayloadMapC();
-      com.snowplowanalytics.snowplow.tracker.Tracker t1 = new com.snowplowanalytics.snowplow.tracker.TrackerC("collector_uri","namespace");
-
-     Configure payload if needed:
-      pd.add_json("{'Movie':'Shawshank Redemption', 'Time':'100 Minutes' }");
-
-
-    Notes:
-     Dictionary and JSON context values should be in String format or Map<String,Object> e.g. "{'name':'Kevin', ...}"
-
 [documentation]: https://gleasonk.github.io/Saggezza/JavaDoc/index.html
+
+[jsonschema]: http://snowplowanalytics.com/blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/
+[self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
