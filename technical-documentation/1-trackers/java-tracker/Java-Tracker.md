@@ -245,7 +245,7 @@ t1.track_ecommerce_transaction(String order_id, Double total_value, String affil
 [Back to top](#top)
 
 <a name="struct-event" />
-### 4.6 Track structured events with `track_struct_event()`
+### 4.5 Track structured events with `track_struct_event()`
 
 Use `track_struct_event()` to track a custom event happening in your app which fits the Google Analytics-style structure of having up to five fields (with only the first two required):
 
@@ -257,21 +257,19 @@ Use `track_struct_event()` to track a custom event happening in your app which f
 | `property`   | A string describing the object or the action performed on it     | No            | String                   |
 | `value`      | A value to provide numerical data about the event                | No            | Int or Float             |
 | `context`    | Custom context for the event                                     | No            | List                     |
-| `tstamp`     | When the structured event occurred                               | No            | Positive integer         |
 
 Example:
 
 ```python
-t.track_struct_event("shop", "add-to-basket", None, "pcs", 2)
-t1.track_struct_event(String category, String action, String label, String property, int value, String vendor, String context);
+t1.track_struct_event("shop", "add-to-basket", null, "pcs", 2, null);
 ```
 
 [Back to top](#top)
 
 <a name="unstruct-event" />
-### 4.7 Track unstructured events with `track_unstruct_event()`
+### 4.6 Track unstructured events with `track_unstruct_event()`
 
-**Warning:** this feature is implemented in the Python tracker, but it is **not** currently supported in the Enrichment, Storage or Analytics stages in the Snowplow data pipeline. As a result, if you use this feature, you will log unstructured events to your collector logs, but these will not be parsed and loaded into e.g. Redshift to analyse. (Adding this capability is on the roadmap.)
+**Warning:** this feature is implemented in the Java Tracker, but it is **not** currently supported in the Enrichment, Storage or Analytics stages in the Snowplow data pipeline. As a result, if you use this feature, you will log unstructured events to your collector logs, but these will not be parsed and loaded into e.g. Redshift to analyse. (Adding this capability is coming imminently.)
 
 Use `track_unstruct_event()` to track a custom event which consists of a name and an unstructured set of properties. This is useful when:
 
@@ -284,7 +282,6 @@ The arguments are as follows:
 |---------------:|:-------------------------------------|:--------------|:------------------------|
 | `event_json`   | The properties of the event          | Yes           | Dict                    |
 | `context`      | Custom context for the event         | No            | List                    |
-| `tstamp`       | When the unstructured event occurred | No            | Positive integer        |
 
 Example:
 
@@ -303,7 +300,19 @@ t.track_unstruct_event({
 
 The `event_json` must be a Python dictionary with two fields: `schema` and `data`. `data` is a flat dictionary containing the properties of the unstructured event. `schema` identifies the JSON schema against which `data` should be validated.
 
+**Warning:** there is also a HashMap version
+
 For more on JSON schema, see the [blog post] [self-describing-jsons].
+
+<a name="contracts" />
+## 5. Contracts
+
+Not yet documented.
+
+<a name="logging" />
+## 6. Logging
+
+Not yet implemented.
 
 # Scratchpad below this line
 
