@@ -36,7 +36,7 @@ With iOS backward compatibility is limited to a small range which it makes it ea
 <a name="dependencies" />
 ### 2.2 Dependencies
 
-The tracker has dependencies limited to the AFNetworking and FMDB libraries for networking and database management respectively. Both of which have iOS 6+ support as well. If you're installing via CocoaPods, these dependencies are recursively downloaded for your project so you don't have to worry about it.
+The tracker has dependencies limited to the [AFNetworking][afnetworking] and [FMDB][fmdb] libraries for networking and database management respectively. Both of which have iOS 6+ support as well. If you're installing via CocoaPods, these dependencies are recursively downloaded for your project so you don't have to worry about it.
 
 [Back to top](#top)
 
@@ -63,3 +63,6 @@ If you prefer not to use CocoaPods, you can grab the tracker from our [GitHub re
 
 [ios]: https://developer.apple.com/technologies/ios/
 [ios-tracker-github]: https://github.com/snowplow/snowplow-ios-tracker
+
+[afnetworking]: https://github.com/AFNetworking/AFNetworking
+[fmdb]: https://github.com/ccgus/fmdb
