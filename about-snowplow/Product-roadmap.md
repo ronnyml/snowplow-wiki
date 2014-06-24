@@ -18,8 +18,8 @@ The planned releases are as follows:
 | Release   | Tickets                   | Objective(s)                                                                     |
 |-----------|---------------------------|----------------------------------------|
 | **0.9.5** | [See GitHub] [issues-095] | Shredding JSONs into dedicated tables  |
-| **0.9.6** | [See GitHub] [issues-096] | Improvements to Kinesis flow           |
-| **0.9.7** | [See GitHub] [issues-097] | Various Enrichment improvements        |
+| **0.9.6** | [See GitHub] [issues-096] | Making our enrichments JSON-powered    |
+| **0.9.7** | [See GitHub] [issues-097] | Improvements to Kinesis flow       |
 | **0.9.8** | [See GitHub] [issues-098] | New enrichments                        |
 
 ## Longer-term: approximate schedule
@@ -31,7 +31,7 @@ In this section we set out an approximate map of the new components and capabili
 [milestones]: https://github.com/snowplow/snowplow/issues/milestones
 
 [issues-095]: https://github.com/snowplow/snowplow/issues?milestone=39&state=open
-[issues-096]: https://github.com/snowplow/snowplow/issues?milestone=36&state=open
+[issues-096]: https://github.com/snowplow/snowplow/issues?milestone=48&state=open
 [issues-097]: https://github.com/snowplow/snowplow/issues?milestone=29&state=open
 [issues-098]: https://github.com/snowplow/snowplow/issues?milestone=30&state=open
 
