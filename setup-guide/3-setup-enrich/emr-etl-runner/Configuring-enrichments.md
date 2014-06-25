@@ -22,7 +22,7 @@ Each enrichment has a JSON schema against which it is validated. (For more infor
 
 ```json
 {
-	"schema": "{{JSON schema for the enrichment}}",
+	"schema": "iglu:self-describing JSON schema for the enrichment",
 
 	"data": {
 
