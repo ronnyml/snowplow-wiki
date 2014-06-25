@@ -116,7 +116,7 @@ An example config JSON:
 The `anonOctets` field is set to two, so the last two octets of each IP address will be obscured.
 
 
-[enrichment-json-examples]: https://github.com/snowplow/snowplow/tree/feature/json-enrichments/3-enrich/emr-etl-runner/config/enrichments
+[enrichment-json-examples]: https://github.com/snowplow/snowplow/tree/master/3-enrich/emr-etl-runner/config/enrichments
 [snowplow-schemas]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
 [maxmind-post]: snowplowanalytics.com/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip/
 [anon-ip]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/anon_ip/jsonschema/1-0-0
