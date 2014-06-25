@@ -28,9 +28,9 @@ Each enrichment has a JSON schema against which it is validated. (For more infor
 
 		"name": "enrichment name",
 		"vendor": "enrichment vendor",
-		"enabled": true if the enrichment should be executed / false if not,
+		"enabled": true / false,
 		"parameters": {
-                    name-value pairs with data specific to the enrichment
+                    ...
                 }
 	}
 }
