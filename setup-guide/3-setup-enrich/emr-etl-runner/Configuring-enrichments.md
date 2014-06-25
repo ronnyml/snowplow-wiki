@@ -30,8 +30,8 @@ Each enrichment has a JSON schema against which it is validated. (For more infor
 		"vendor": "enrichment vendor",
 		"enabled": true / false,
 		"parameters": {
-                	...
-                }
+			...
+		}
 	}
 }
 ```
