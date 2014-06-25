@@ -3,7 +3,7 @@
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 3: Setting up Enrich](Setting-up-enrich) > [Using registry-aware enrichments](Using-registry-aware-enrichments)
 
   - 1. [Introduction](#introduction)
-  - 2. [Common](#common)
+  - 2. [Configuration template](#template)
   - 3. [Individual enrichments](#enrichments)
     - 3.1 [IpToGeo](#iptogeo)
     - 3.2 [AnonIp](#anonip)
@@ -15,8 +15,8 @@
 
 Snowplow offers the option to configure certain enrichments. This is done using configuration JSONs. The config.yml file which the [EmrEtlRunner](1-Installing-EmrEtlRunner) requires has an "enrichments" field which should be populated with the filepath of a directory containing your configuration JSONs.
 
-<a name="common"/>
-## 2. Common
+<a name="template"/>
+## 2. Configuration template
 
 Each enrichment has a JSON schema against which it is validated. (For more information on how Snowplow uses JSON schemas, see [this blog post][snowplow-schemas].) The enrichment JSONs follow a common pattern:
 
