@@ -4,9 +4,10 @@
 
   - 1. [Introduction](#introduction)
   - 2. [Configuration template](#template)
-  - 3. [Individual enrichments](#enrichments)
-    - 3.1 [IpToGeo](#iptogeo)
-    - 3.2 [AnonIp](#anonip)
+  - 3. [Configuration defaults](#defaults)
+  - 4. [Individual enrichments](#enrichments)
+    - 4.1 [IpToGeo](#iptogeo)
+    - 4.2 [AnonIp](#anonip)
 
 **Warning: This page is not to be used until the release of Snowplow version 0.9.6**
 
@@ -44,13 +45,18 @@ For each enrichment, the JSON used to configure the enrichment has:
 
 The `enabled` and `parameters` fields are the ones which you may wish to customize.
 
-[This][enrichment-json-examples] folder contains sample configuration JSONs with sensible default values for all the enrichments described on this page.
+<a name="defaults"/>
+## 3. Configuration defaults
+
+Snowplow ships with a set of sensible default configurations for each enrichment described on this page.
+
+The folder is browsable on GitHub, it is available as [3-enrich/emr-etl-runner/config/enrichments][enrichment-json-examples].
 
 <a name="enrichments"/>
-## 3. Individual enrichments
+## 4. Individual enrichments
 
 <a name="iptogeo"/>
-### 3.1 IpToGeo Enrichment
+### 4.1 IpToGeo Enrichment
 
 This enrichment uses a MaxMind database to look up a user's geographic location based on their IP address, and populates the `geo_country`, `geo_region`, `geo_city`, `geo_zipcode`, `geo_latitude`, and `geo_longitude` fields. [This blog post][maxmind-post] has more information.
 
@@ -82,7 +88,7 @@ The `maxmindUri` field contains the URI of the bucket in which the database file
 So the above example would correspond to the database file hosted at http://snowplow-hosted-assets.s3.amazonaws.com/third-party/maxmind/GeoLiteCity.dat.
 
 <a name="anonip"/>
-### 3.2 AnonIp Enrichment
+### 4.2 AnonIp Enrichment
 
 This enrichment lets you anonymize the IP addresses found in the `user_ipaddress` field by replacing a certain number of octets with "X"s. For example, anonymizing one octet would change the address `255.255.255.255` to `255.255.255.XXX`, and anonymizing three octets would change it to `255.XXX.XXX.XXX`.
 
