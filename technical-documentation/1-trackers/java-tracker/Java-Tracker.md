@@ -16,11 +16,12 @@ This page refers to version 0.1.0 of the Snowplow Java Tracker.
     - 4.1.1 [Custom contexts](#custom-contexts)
     - 4.1.2 [Optional timestamp argument](#tstamp-arg)
     - 4.1.3 [Tracker method return values](#return-values)
-  - 4.2 [`trackScreenview()`](#screen-view)
-  - 4.3 [`trackPageview()`](#page-view)
-  - 4.4 [`trackEcommercetransaction()`](#ecommerce-transaction)
-  - 4.5 [`trackStructuredevent()`](#struct-event)
-  - 4.6 [`trackUnstructuredevent()`](#unstruct-event)
+  - 4.2 [`trackScreenView()`](#screen-view)
+  - 4.3 [`trackPageView()`](#page-view)
+  - 4.4 [`trackEcommerceTransaction()`](#ecommerce-transaction)
+    - 4.4.1 [`TransactionItem`](#ecommerce-transactionitem)
+  - 4.5 [`trackStructuredEvent()`](#struct-event)
+  - 4.6 [`trackUnstructuredEvent()`](#unstruct-event)
 - 5 [Logging](#logging)
 
 <a name="overview" />
@@ -164,7 +165,7 @@ s.setViewport(300, 200)
 [Back to top](#top)
 
 <a name="set-color-depth" />
-### 3.5 Set color depth with `set_color_depth`
+### 3.5 Set color depth with `setColorDepth`
 
 If your Java code has access to the bit depth of the device's color palette for displaying images, then you can pass this in to Snowplow too:
 
@@ -181,35 +182,35 @@ s.setColorDepth(32)
 [Back to top](#top)
 
 <a name="set-timezone" />
-### 3.6 Set timezone with `set_timezone`
+### 3.6 Set timezone with `setTimezone`
 
 This method lets you pass a user's timezone in to Snowplow:
 
 ```java
-s.timezone( {{TIMEZONE}} )
+s.setTimezone( {{TIMEZONE}} )
 ```
 
 The timezone should be a string:
 
 ```java
-s.set_color_depth("Europe/London")
+s.setTimezone("Europe/London")
 ```
 
 [Back to top](#top)
 
 <a name="set-lang" />
-### 3.7 Set the language with `set_lang`
+### 3.7 Set the language with `setLanguage`
 
 This method lets you pass a user's language in to Snowplow:
 
 ```java
-s.set_lang( {{LANGUAGE}} )
+s.setLanguage( {{LANGUAGE}} )
 ```
 
 The language should be a string:
 
 ```java
-s.set_lang('en')
+s.setLanguage('en')
 ```
 
 [Back to top](#top)
@@ -241,7 +242,7 @@ All events are tracked with specific methods on the tracker instance, of the for
 In short, custom contexts let you add additional information about the circumstances surrounding an event in the form of a Java String in JSON format. dictionary object. Each tracking method accepts an additional optional contexts parameter after all the parameters specific to that method:
 
 ```java
-t1.trackPageview(String page_url, String page_title, String referrer, String context)
+t1.trackPageView(String page_url, String page_title, String referrer, String context)
 ```
 
 The `context` argument should consist of a `String` containing a JSON array of one or more contexts. The format of each individual context element is the same as for an [unstructured event](#unstruct-event).
@@ -274,7 +275,7 @@ Not yet implemented.
 To be confirmed.
 
 <a name="screen-view" />
-### 4.2 Track screen views with `trackScreenview()`
+### 4.2 Track screen views with `trackScreenView()`
 
 **Warning:** this feature is implemented in the Java tracker, but it is **not** currently supported in the Enrichment, Storage or Analytics stages in the Snowplow data pipeline. As a result, if you use this feature, you will log screen views to your collector logs, but these will not be parsed and loaded into e.g. Redshift to analyse. (Adding this capability is coming soon to Snowplow.)
 
@@ -296,7 +297,7 @@ t1.trackScreenview("HUD > Save Game", null, null);
 [Back to top](#top)
 
 <a name="page-view" />
-### 4.3 Track pageviews with `trackPageview()`
+### 4.3 Track pageviews with `trackPageView()`
 
 If you are using Java servlet technology or similar to serve webpages to a browser, you can use `trackPageview()` to track a user viewing a page within your app.
 
@@ -319,7 +320,7 @@ t1.trackPageview("www.example.com", null, "www.referrer.com", null);
 [Back to top](#top)
 
 <a name="ecommerce-transaction" />
-### 4.4 Track ecommerce transactions with `trackEcommercetransaction()`
+### 4.4 Track ecommerce transactions with `trackEcommerceTransaction()`
 
 Use `trackEcommercetransaction()` to track an ecommerce transaction.
 
@@ -343,8 +344,8 @@ The `items` argument is a `List` of individual `TransactionItem` elements repres
 
 [Back to top](#top)
 
-<a name="ecommerce-transaction" />
-### 4.4.1 Ecommerce TransactionItem with `trackEcommercetransaction()`
+<a name="ecommerce-transactionitem" />
+### 4.4.1 Ecommerce TransactionItem with `trackEcommerceTransaction()`
 
 To instantiate a TransactionItem in your code, simply use the following constructor signature:
 
@@ -375,7 +376,7 @@ t1.trackEcommercetransaction(String order_id, Double total_value, String affilia
 [Back to top](#top)
 
 <a name="struct-event" />
-### 4.5 Track structured events with `trackStructuredevent()`
+### 4.5 Track structured events with `trackStructuredEvent()`
 
 Use `trackStructuredevent()` to track a custom event happening in your app which fits the Google Analytics-style structure of having up to five fields (with only the first two required):
 
@@ -397,7 +398,7 @@ t1.trackStructuredevent("shop", "add-to-basket", null, "pcs", 2, null);
 [Back to top](#top)
 
 <a name="unstruct-event" />
-### 4.6 Track unstructured events with `trackUnstructuredevent()`
+### 4.6 Track unstructured events with `trackUnstructuredEvent()`
 
 trackUnstructuredEvent(String eventVendor, String eventName, Map<String, Object> dictInfo, String context)
 
