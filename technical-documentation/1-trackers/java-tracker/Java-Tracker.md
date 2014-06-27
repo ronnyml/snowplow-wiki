@@ -73,8 +73,7 @@ Tracker t2 = new TrackerC("d3rkrsqld9gmqf.cloudfront.net", null, null, true);
 | `app_id`          | The application ID                           | No            |
 | `encode_base64`   | Whether to enable [base 64 encoding][base64] | Yes           |
 
-
-## Comments
+[Back to top](#top)
 
 <a name="add-data" />
 ## 3. Adding extra data
@@ -100,7 +99,7 @@ t1.setPlatform("cnsl");
 t1.setScreenResolution(1260, 1080);
 ```
 
-<a name="platform" />
+<a name="set-platform" />
 #### 3.1 Change the tracker's platform with `setPlatform`
 
 You can change the platform the subject is using by calling:
