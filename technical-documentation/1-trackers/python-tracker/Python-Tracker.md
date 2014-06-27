@@ -15,7 +15,7 @@ This page refers to version 0.4.0 of the Snowplow Python Tracker. Click [here] [
     - 2.2.3 [`namespace`](#namespace)
     - 2.2.4 [`app_id`](#app-id)
     - 2.2.5 [`encode_base64`](#base64)
-- 3. [Adding extra data: the Subject class](#add-data)
+- 3. [Adding extra data: the Subject class](#subject-class)
   - 3.1 [`set_platform`](#platform)
   - 3.2 [`set_user_id`](#set-user-id)
   - 3.3 [`set_screen_resolution`](#set-screen-resolution)
@@ -122,7 +122,7 @@ The user which the Tracker will track. This should be an instance of the [Subjec
 If provided, the `namespace` argument will be attached to every event fired by the new tracker. This allows you to later identify which tracker fired which event if you have multiple trackers running.
 
 <a name="app-id" />
-#### 2.2.4 `app_id
+#### 2.2.4 `app_id`
 
 The `app_id` argument lets you set the application ID to any string.
 
