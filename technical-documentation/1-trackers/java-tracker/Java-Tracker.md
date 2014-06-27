@@ -279,7 +279,7 @@ To be confirmed.
 
 **Warning:** this feature is implemented in the Java tracker, but it is **not** currently supported in the Enrichment, Storage or Analytics stages in the Snowplow data pipeline. As a result, if you use this feature, you will log screen views to your collector logs, but these will not be parsed and loaded into e.g. Redshift to analyse. (Adding this capability is coming soon to Snowplow.)
 
-Use `trackScreenview()` to track a user viewing a screen (or equivalent) within your app. Arguments are:
+Use `trackScreenView()` to track a user viewing a screen (or equivalent) within your app. Arguments are:
 
 | **Argument** | **Description**                     | **Required?** | **Validation**          |
 |-------------:|:------------------------------------|:--------------|:------------------------|
@@ -290,8 +290,8 @@ Use `trackScreenview()` to track a user viewing a screen (or equivalent) within 
 Example:
 
 ```java
-t1.trackScreenview("HUD > Save Game", "screen23", null);
-t1.trackScreenview("HUD > Save Game", null, null);
+t1.trackScreenView("HUD > Save Game", "screen23", null);
+t1.trackScreenView("HUD > Save Game", null, null);
 ```
 
 [Back to top](#top)
@@ -299,7 +299,7 @@ t1.trackScreenview("HUD > Save Game", null, null);
 <a name="page-view" />
 ### 4.3 Track pageviews with `trackPageView()`
 
-If you are using Java servlet technology or similar to serve webpages to a browser, you can use `trackPageview()` to track a user viewing a page within your app.
+If you are using Java servlet technology or similar to serve webpages to a browser, you can use `trackPageView()` to track a user viewing a page within your app.
 
 Arguments are:
 
@@ -313,8 +313,8 @@ Arguments are:
 Example:
 
 ```java
-t1.trackPageview("www.example.com", "example", "www.referrer.com", null);
-t1.trackPageview("www.example.com", null, "www.referrer.com", null);
+t1.trackPageView("www.example.com", "example", "www.referrer.com", null);
+t1.trackPageView("www.example.com", null, "www.referrer.com", null);
 ```
 
 [Back to top](#top)
@@ -322,7 +322,7 @@ t1.trackPageview("www.example.com", null, "www.referrer.com", null);
 <a name="ecommerce-transaction" />
 ### 4.4 Track ecommerce transactions with `trackEcommerceTransaction()`
 
-Use `trackEcommercetransaction()` to track an ecommerce transaction.
+Use `trackEcommerceTransaction()` to track an ecommerce transaction.
 
 Arguments:
 
@@ -340,7 +340,7 @@ Arguments:
 | `items`       | Items in the transaction             | TBC           | List<TransactionItem>    |
 | `context`     | Custom context for the event         | TBC           | context                  |
 
-The `items` argument is a `List` of individual `TransactionItem` elements representing the items in the e-commerce transaction. Note that `trackEcommercetransaction` fires multiple events: one transaction event for the transaction as a whole, and one transaction item event for each element of the `items` `List`. Each transaction item event will have the same timestamp, order_id, and currency as the main transaction event.
+The `items` argument is a `List` of individual `TransactionItem` elements representing the items in the e-commerce transaction. Note that `trackEcommerceTransaction` fires multiple events: one transaction event for the transaction as a whole, and one transaction item event for each element of the `items` `List`. Each transaction item event will have the same timestamp, order_id, and currency as the main transaction event.
 
 [Back to top](#top)
 
@@ -370,7 +370,7 @@ Example of tracking a transaction containing two items:
 
 ```java
 // Example to come, in the meantime here is the type signature:
-t1.trackEcommercetransaction(String order_id, Double total_value, String affiliation, Double tax_value,Double shipping, String city, String state, String country, String currency, List<TransactionItem> items, String context);
+t1.trackEcommerceTransaction(String order_id, Double total_value, String affiliation, Double tax_value,Double shipping, String city, String state, String country, String currency, List<TransactionItem> items, String context);
 ```
 
 [Back to top](#top)
@@ -378,7 +378,7 @@ t1.trackEcommercetransaction(String order_id, Double total_value, String affilia
 <a name="struct-event" />
 ### 4.5 Track structured events with `trackStructuredEvent()`
 
-Use `trackStructuredevent()` to track a custom event happening in your app which fits the Google Analytics-style structure of having up to five fields (with only the first two required):
+Use `trackStructuredEvent()` to track a custom event happening in your app which fits the Google Analytics-style structure of having up to five fields (with only the first two required):
 
 | **Argument** | **Description**                                                  | **Required?** | **Validation** |
 |-------------:|:---------------------------------------------------------------  |:--------------|:---------------|
@@ -392,7 +392,7 @@ Use `trackStructuredevent()` to track a custom event happening in your app which
 Example:
 
 ```java
-t1.trackStructuredevent("shop", "add-to-basket", null, "pcs", 2, null);
+t1.trackStructuredEvent("shop", "add-to-basket", null, "pcs", 2, null);
 ```
 
 [Back to top](#top)
@@ -404,7 +404,7 @@ trackUnstructuredEvent(String eventVendor, String eventName, Map<String, Object>
 
 **Warning:** this feature is implemented in the Java Tracker, but it is **not** currently supported in the Enrichment, Storage or Analytics stages in the Snowplow data pipeline. As a result, if you use this feature, you will log unstructured events to your collector logs, but these will not be parsed and loaded into e.g. Redshift to analyse. (Adding this capability is coming imminently.)
 
-Use `trackUnstructuredevent()` to track a custom event which consists of a name and an unstructured set of properties. This is useful when:
+Use `trackUnstructuredRvent()` to track a custom event which consists of a name and an unstructured set of properties. This is useful when:
 
 * You want to track event types which are proprietary/specific to your business (i.e. not already part of Snowplow), or
 * You want to track events which have unpredictable or frequently changing properties
@@ -426,7 +426,7 @@ Example:
 
 ```java
 // Example to come, in the meantime here is the type signature:
-t1.trackUnstructuredevent(String eventVendor, String eventName, String dictInfo, String context);
+t1.trackUnstructuredEvent(String eventVendor, String eventName, String dictInfo, String context);
 ```
 
 If you supply a `Map<String, Object>`, make sure that this top-level contains your `schema` and `data` keys, and then store your `data` properties as a child `Map<String, Object>`.
@@ -435,7 +435,7 @@ Example:
 
 ```java
 // Example to come, in the meantime here is the type signature:
-t1.trackUnstructuredevent(String eventVendor, String eventName, Map<String, Object> dictInfo, String context);
+t1.trackUnstructuredEvent(String eventVendor, String eventName, Map<String, Object> dictInfo, String context);
 ```
 
 For more on JSON schema, see the [blog post] [self-describing-jsons].
