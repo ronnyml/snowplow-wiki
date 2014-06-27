@@ -21,15 +21,14 @@ This page refers to version 0.1.0 of the Snowplow Java Tracker.
   - 4.4 [`trackEcommercetransaction()`](#ecommerce-transaction)
   - 4.5 [`trackStructuredevent()`](#struct-event)
   - 4.6 [`trackUnstructuredevent()`](#unstruct-event)
-- 5 [Contracts](#contracts)
-- 6 [Logging](#logging)
+- 5 [Logging](#logging)
 
 <a name="overview" />
 ## 1. Overview
 
 The [Snowplow Java Tracker](https://github.com/snowplow/snowplow-java-tracker) allows you to track Snowplow events from your Java-based desktop and server apps, servlets and games. It supports JDK6+.
 
-The tracker should be straightforward to use if you are comfortable with Java development; its API is modelled after Snowplow's [[Python Tracker]] so any prior experience with that tracker is helpful but not necessary.
+The tracker should be straightforward to use if you are comfortable with Java development; its API is modelled after Snowplow's [[Python Tracker]] so any prior experience with that tracker is helpful but not necessary. If you haven't already, have a look at the [[Java Tracker Setup]] guide before continuing.
 
 [Back to top](#top)
 
@@ -57,18 +56,22 @@ That's it - you are now ready to initialize a TrackerC instance.
 To instantiate a tracker in your code (can be global or local to the process being tracked) simply instantiate the `Tracker` interface with one of the following:
 
 ```java
-TrackerC(String collector_URI, String namespace)
-
-TrackerC(String collector_uri, String namespace, String app_id, String context_vendor, boolean base64_encode, boolean enable_contracts)
+TrackerC(String collector_uri, String namespace, String app_id, boolean base64_encode, boolean enable_contracts)
 ```
 
 For example:
 
 ```java
-Tracker t1 = new TrackerC("d3rkrsqld9gmqf.cloudfront.net", "Snowplow Java Tracker Test", "testing_app", "com.snowplow", true, true);
+Tracker t1 = new TrackerC("d3rkrsqld9gmqf.cloudfront.net", "Snowplow Java Tracker Test", "testing_app", true);
+Tracker t2 = new TrackerC("d3rkrsqld9gmqf.cloudfront.net", null, null, true);
 ```
 
-TODO: clarify each of the arguments.
+| **Argument Name** | **Description**                              | **Required?** |
+|------------------:|:---------------------------------------------|:--------------|
+| `collector_uri`   | The URI endpoint to which events are sent    | Yes           |
+| `namespace`       | The name of the tracker instance             | No            |
+| `app_id`          | The application ID                           | No            |
+| `encode_base64`   | Whether to enable [base 64 encoding][base64] | Yes           |
 
 
 ## Comments
@@ -80,8 +83,8 @@ You may have additional information about your application's environment, curren
 
 The TrackerC class has a set of `set...()` methods to attach extra data relating to the user to all tracked events:
 
-* [`setUserId`](#set-platform)
-* [`setPlatform`](#set-user-id)
+* [`setPlatform`](#set-platform)
+* [`setUserId`](#set-user-id)
 * [`setScreenResolution`](#set-screen-resolution)
 * [`setViewport`](#set-viewport)
 * [`setColorDepth`](#set-color-depth)
@@ -97,9 +100,121 @@ t1.setPlatform("cnsl");
 t1.setScreenResolution(1260, 1080);
 ```
 
-Current supported platforms include "pc", "tv", "mob", "cnsl", and "iot".
+<a name="platform" />
+#### 3.1 Change the tracker's platform with `setPlatform`
 
-TODO: break each of these into its own sub-section, as in the Python Tracker docs.
+You can change the platform the subject is using by calling:
+
+```java
+t1.setPlatform("cnsl");
+```
+
+For a full list of supported platforms, please see the [[Snowplow Tracker Protocol]].
+
+[Back to top](#top)
+
+<a name="set-user-id" />
+### 3.2 Set user ID with `setUserId`
+
+You can set the user ID to any string:
+
+```java
+t1.setUserId( "{{USER ID}}" )
+```
+
+Example:
+
+```java
+t1.setUserId("alexd")
+```
+
+[Back to top](#top)
+
+<a name="set-screen-resolution" />
+### 3.3 Set screen resolution with `setScreenResolution`
+
+If your Java code has access to the device's screen resolution, then you can pass this in to Snowplow too:
+
+```java
+t1.setScreenResolution( {{WIDTH}}, {{HEIGHT}} )
+```
+
+Both numbers should be positive integers; note the order is width followed by height. Example:
+
+```java
+t1.setScreenResolution(1366, 768)
+```
+
+[Back to top](#top)
+
+<a name="set-viewport-dimensions" />
+### 3.4 Set viewport dimensions with `setViewport`
+
+If your Java code has access to the viewport dimensions, then you can pass this in to Snowplow too:
+
+```java
+s.setViewport( {{WIDTH}}, {{HEIGHT}} )
+```
+
+Both numbers should be positive integers; note the order is width followed by height. Example:
+
+```java
+s.setViewport(300, 200)
+```
+
+[Back to top](#top)
+
+<a name="set-color-depth" />
+### 3.5 Set color depth with `set_color_depth`
+
+If your Java code has access to the bit depth of the device's color palette for displaying images, then you can pass this in to Snowplow too:
+
+```java
+s.setColorDepth( {{BITS PER PIXEL}} )
+```
+
+The number should be a positive integer, in bits per pixel. Example:
+
+```java
+s.setColorDepth(32)
+```
+
+[Back to top](#top)
+
+<a name="set-timezone" />
+### 3.6 Set timezone with `set_timezone`
+
+This method lets you pass a user's timezone in to Snowplow:
+
+```java
+s.timezone( {{TIMEZONE}} )
+```
+
+The timezone should be a string:
+
+```java
+s.set_color_depth("Europe/London")
+```
+
+[Back to top](#top)
+
+<a name="set-lang" />
+### 3.7 Set the language with `set_lang`
+
+This method lets you pass a user's language in to Snowplow:
+
+```java
+s.set_lang( {{LANGUAGE}} )
+```
+
+The language should be a string:
+
+```java
+s.set_lang('en')
+```
+
+[Back to top](#top)
+
 
 <a name="events" />
 ## 4. Tracking specific events
@@ -108,13 +223,13 @@ Snowplow has been built to enable you to track a wide range of events that occur
 
 Tracking methods supported by the Java Tracker at a glance:
 
-| **Function**                                                        | **Description**                                        |
-|--------------------------------------------------------------------:|:-------------------------------------------------------|
-| [`trackScreenview()`](#screen-view)                               | Track the user viewing a screen within the application |
-| [`trackPageview()`](#page-view)                                   | Track and record views of web pages.                   |
-| [`trackEcommercetransaction()`](#ecommerce-transaction)           | Track an ecommerce transaction and its items           |
-| [`trackStructuredevent()`](#struct-event)                             | Track a Snowplow custom structured event               |
-| [`trackUnstructuredevent()`](#unstruct-event)                         | Track a Snowplow custom unstructured event             |
+| **Function**                                                | **Description*                                         |
+|------------------------------------------------------------:|:-------------------------------------------------------|
+| [`trackScreenView()`](#screen-view)                         | Track the user viewing a screen within the application |
+| [`trackPageView()`](#page-view)                             | Track and record views of web pages.                   |
+| [`trackEcommerceTransaction()`](#ecommerce-transaction)     | Track an ecommerce transaction and its items           |
+| [`trackStructuredEvent()`](#struct-event)                   | Track a Snowplow custom structured event               |
+| [`trackUnstructuredEvent()`](#unstruct-event)               | Track a Snowplow custom unstructured event             |
 
 <a name="common" />
 ### 4.1 Common
@@ -168,14 +283,15 @@ Use `trackScreenview()` to track a user viewing a screen (or equivalent) within 
 
 | **Argument** | **Description**                     | **Required?** | **Validation**          |
 |-------------:|:------------------------------------|:--------------|:------------------------|
-| `name`       | Human-readable name for this screen | TBC           | TBC                     |
-| `id`         | Unique identifier for this screen   | TBC           | TBC                     |
-| `context`    | Custom context for the event        | TBC           | TBC                     |
+| `name`       | Human-readable name for this screen | Yes           | String                  |
+| `id`         | Unique identifier for this screen   | No            | String                  |
+| `context`    | Custom context for the event        | No            | String                  |
 
 Example:
 
 ```java
 t1.trackScreenview("HUD > Save Game", "screen23", null);
+t1.trackScreenview("HUD > Save Game", null, null);
 ```
 
 [Back to top](#top)
@@ -189,15 +305,16 @@ Arguments are:
 
 | **Argument** | **Description**                     | **Required?** | **Validation**          |
 |-------------:|:------------------------------------|:--------------|:------------------------|
-| `page_url`   | The URL of the page                 | TBC           | TBC                     |
-| `page_title` | The title of the page               | TBC           | TBC                     |
-| `referrer`   | The address which linked to the page| TBC           | TBC                     |
-| `context`    | Custom context for the event        | TBC           | TBC                     |
+| `page_url`   | The URL of the page                 | Yes           | String                  |
+| `page_title` | The title of the page               | No            | String                  |
+| `referrer`   | The address which linked to the page| No            | String                  |
+| `context`    | Custom context for the event        | No            | String                  |
 
 Example:
 
 ```java
 t1.trackPageview("www.example.com", "example", "www.referrer.com", null);
+t1.trackPageview("www.example.com", null, "www.referrer.com", null);
 ```
 
 [Back to top](#top)
@@ -211,36 +328,49 @@ Arguments:
 
 | **Argument**  | **Description**                      | **Required?** | **Validation**           |
 |--------------:|:-------------------------------------|:--------------|:-------------------------|
-| `order_id`    | ID of the eCommerce transaction      | TBC           | Non-empty string         |
-| `total_value` | Total transaction value              | TBC           | Int or Float             |
+| `order_id`    | ID of the eCommerce transaction      | TBC           | String                   |
+| `total_value` | Total transaction value              | TBC           | Double                   |
 | `affiliation` | Transaction affiliation              | TBC           | String                   |
-| `tax_value`   | Transaction tax value                | TBC           | Int or Float             |
-| `shipping`    | Delivery cost charged                | TBC           | Int or Float             |
+| `tax_value`   | Transaction tax value                | TBC           | Double                   |
+| `shipping`    | Delivery cost charged                | TBC           | Double                   |
 | `city`        | Delivery address city                | TBC           | String                   |
 | `state`       | Delivery address state               | TBC           | String                   |
 | `country`     | Delivery address country             | TBC           | String                   | 
 | `currency`    | Transaction currency                 | TBC           | String                   |
-| `items`       | Items in the transaction             | TBC           | List                     |
-| `context`     | Custom context for the event         | TBC           | List                     |
+| `items`       | Items in the transaction             | TBC           | List<TransactionItem>    |
+| `context`     | Custom context for the event         | TBC           | context                  |
 
-The `items` argument is a `List` of individual `Map<String, String>` elements representing the items in the e-commerce transaction. Note that `trackEcommercetransaction` fires multiple events: one transaction event for the transaction as a whole, and one transaction item event for each element of the `items` `List`. Each transaction item event will have the same timestamp, order_id, and currency as the main transaction event.
+The `items` argument is a `List` of individual `TransactionItem` elements representing the items in the e-commerce transaction. Note that `trackEcommercetransaction` fires multiple events: one transaction event for the transaction as a whole, and one transaction item event for each element of the `items` `List`. Each transaction item event will have the same timestamp, order_id, and currency as the main transaction event.
 
-These are the fields that can appear as elements in each `Map` element of the transaction item `List`:
+[Back to top](#top)
+
+<a name="ecommerce-transaction" />
+### 4.4.1 Ecommerce TransactionItem with `trackEcommercetransaction()`
+
+To instantiate a TransactionItem in your code, simply use the following constructor signature:
+
+```java
+TransactionItem (String order_id, String sku, double price, int quantity, String name, String category, String currency, JsonNode context)
+```
+
+These are the fields that can appear as elements in each `TransactionItem` element of the transaction item `List`:
 
 | **Field**  | **Description**                     | **Required?** | **Validation**           |
 |-----------:|:------------------------------------|:--------------|:-------------------------|
-| `ti_id`    | Order ID                            | TBC           | TBC                      |
-| `sku`      | Item SKU                            | TBC           | TBC                      |
-| `price`    | Item price                          | TBC           | TBC                      |
-| `quantity` | Item quantity                       | TBC           | TBC                      |
-| `name`     | Item name                           | TBC           | TBC                      |
-| `category` | Item category                       | TBC           | TBC                      |
+| `order_id` | Order ID                            | Yes           | String                   |
+| `sku`      | Item SKU                            | No            | String                   |
+| `price`    | Item price                          | No            | double                   |
+| `quantity` | Item quantity                       | No            | int                      |
+| `name`     | Item name                           | No            | String                   |
+| `category` | Item category                       | No            | String                   |
+| `currency` | Item currency                       | No            | String                   |
+| `context`  | Item context                        | No            | JsonNode                 |
 
 Example of tracking a transaction containing two items:
 
 ```java
 // Example to come, in the meantime here is the type signature:
-t1.trackEcommercetransaction(String order_id, Double total_value, String affiliation, Double tax_value,Double shipping, String city, String state, String country, String currency, List<Map<String, String>> items, String context);
+t1.trackEcommercetransaction(String order_id, Double total_value, String affiliation, Double tax_value,Double shipping, String city, String state, String country, String currency, List<TransactionItem> items, String context);
 ```
 
 [Back to top](#top)
@@ -250,14 +380,14 @@ t1.trackEcommercetransaction(String order_id, Double total_value, String affilia
 
 Use `trackStructuredevent()` to track a custom event happening in your app which fits the Google Analytics-style structure of having up to five fields (with only the first two required):
 
-| **Argument** | **Description**                                                  | **Required?** | **Validation**           |
-|-------------:|:---------------------------------------------------------------  |:--------------|:-------------------------|
-| `category`   | The grouping of structured events which this `action` belongs to | Yes           | Non-empty string         |
-| `action`     | Defines the type of user interaction which this event involves   | Yes           | Non-empty string         |
-| `label`      | A string to provide additional dimensions to the event data      | No            | String                   |
-| `property`   | A string describing the object or the action performed on it     | No            | String                   |
-| `value`      | A value to provide numerical data about the event                | No            | Int or Float             |
-| `context`    | Custom context for the event                                     | No            | List                     |
+| **Argument** | **Description**                                                  | **Required?** | **Validation** |
+|-------------:|:---------------------------------------------------------------  |:--------------|:---------------|
+| `category`   | The grouping of structured events which this `action` belongs to | Yes           | String         |
+| `action`     | Defines the type of user interaction which this event involves   | Yes           | String         |
+| `label`      | A string to provide additional dimensions to the event data      | No            | String         |
+| `property`   | A string describing the object or the action performed on it     | No            | String         |
+| `value`      | A value to provide numerical data about the event                | No            | Int            |
+| `context`    | Custom context for the event                                     | No            | String         |
 
 Example:
 
@@ -270,6 +400,8 @@ t1.trackStructuredevent("shop", "add-to-basket", null, "pcs", 2, null);
 <a name="unstruct-event" />
 ### 4.6 Track unstructured events with `trackUnstructuredevent()`
 
+trackUnstructuredEvent(String eventVendor, String eventName, Map<String, Object> dictInfo, String context)
+
 **Warning:** this feature is implemented in the Java Tracker, but it is **not** currently supported in the Enrichment, Storage or Analytics stages in the Snowplow data pipeline. As a result, if you use this feature, you will log unstructured events to your collector logs, but these will not be parsed and loaded into e.g. Redshift to analyse. (Adding this capability is coming imminently.)
 
 Use `trackUnstructuredevent()` to track a custom event which consists of a name and an unstructured set of properties. This is useful when:
@@ -279,12 +411,12 @@ Use `trackUnstructuredevent()` to track a custom event which consists of a name 
 
 The arguments are as follows:
 
-| **Argument**   | **Description**                                           | **Required?** | **Validation**          |
-|---------------:|:----------------------------------------------------------|:--------------|:------------------------|
-| `eventVendor`  | The vendor who authored the event. Deprecated; do not use | TBC           | TBC                     |
-| `eventName`    | The name of the event. Deprecated; do not use             | TBC           | TBC                     |
-| `dictInfo`     | The properties of the event                               | TBC           | TBC                     |
-| `context`      | Custom context for the event                              | TBC           | TBC                     |
+| **Argument**   | **Description**                                           | **Required?** |    **Validation**   |
+|---------------:|:----------------------------------------------------------|:--------------|:--------------------|
+| `eventVendor`  | The vendor who authored the event. Deprecated; do not use | Yes           | String              |
+| `eventName`    | The name of the event. Deprecated; do not use             | Yes           | String              |
+| `dictInfo`     | The properties of the event                               | No            | Map<String, Object> |
+| `context`      | Custom context for the event                              | No            | String              |
 
 The `dictInfo` must be either a `String` or a `Map<String, Object>`.
 
@@ -308,13 +440,8 @@ t1.trackUnstructuredevent(String eventVendor, String eventName, Map<String, Obje
 
 For more on JSON schema, see the [blog post] [self-describing-jsons].
 
-<a name="contracts" />
-## 5. Contracts
-
-Not yet documented.
-
 <a name="logging" />
-## 6. Logging
+## 5. Logging
 
 Not yet implemented.
 
