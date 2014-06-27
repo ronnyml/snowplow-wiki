@@ -16,7 +16,7 @@ This page refers to version 0.4.0 of the Snowplow Python Tracker. Click [here] [
     - 2.2.4 [`app_id`](#app-id)
     - 2.2.5 [`encode_base64`](#base64)
 - 3. [Adding extra data: the Subject class](#subject-class)
-  - 3.1 [`set_platform`](#platform)
+  - 3.1 [`set_platform`](#set-platform)
   - 3.2 [`set_user_id`](#set-user-id)
   - 3.3 [`set_screen_resolution`](#set-screen-resolution)
   - 3.4 [`set_viewport`](#set-viewport)
@@ -164,7 +164,7 @@ t.subject.set_platform("mob").set_user_id("user-12345").set_lang("en")
 
 We will discuss each of these in turn below:
 
-<a name="platform" />
+<a name="set-platform" />
 #### 3.1 Change the tracker's platform with `set_platform`
 
 The default platform is "pc". You can change the platform the subject is using by calling:
