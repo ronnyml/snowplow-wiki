@@ -328,17 +328,17 @@ Arguments:
 
 | **Argument**  | **Description**                      | **Required?** | **Validation**           |
 |--------------:|:-------------------------------------|:--------------|:-------------------------|
-| `order_id`    | ID of the eCommerce transaction      | TBC           | String                   |
-| `total_value` | Total transaction value              | TBC           | Double                   |
-| `affiliation` | Transaction affiliation              | TBC           | String                   |
-| `tax_value`   | Transaction tax value                | TBC           | Double                   |
-| `shipping`    | Delivery cost charged                | TBC           | Double                   |
-| `city`        | Delivery address city                | TBC           | String                   |
-| `state`       | Delivery address state               | TBC           | String                   |
-| `country`     | Delivery address country             | TBC           | String                   | 
-| `currency`    | Transaction currency                 | TBC           | String                   |
-| `items`       | Items in the transaction             | TBC           | List<TransactionItem>    |
-| `context`     | Custom context for the event         | TBC           | context                  |
+| `order_id`    | ID of the eCommerce transaction      | Yes           | String                   |
+| `total_value` | Total transaction value              | Yes           | Double                   |
+| `affiliation` | Transaction affiliation              | No            | String                   |
+| `tax_value`   | Transaction tax value                | No            | Double                   |
+| `shipping`    | Delivery cost charged                | No            | Double                   |
+| `city`        | Delivery address city                | No            | String                   |
+| `state`       | Delivery address state               | No            | String                   |
+| `country`     | Delivery address country             | No            | String                   | 
+| `currency`    | Transaction currency                 | No            | String                   |
+| `items`       | Items in the transaction             | Yes           | List<TransactionItem>    |
+| `context`     | Custom context for the event         | No            | context                  |
 
 The `items` argument is a `List` of individual `TransactionItem` elements representing the items in the e-commerce transaction. Note that `trackEcommerceTransaction` fires multiple events: one transaction event for the transaction as a whole, and one transaction item event for each element of the `items` `List`. Each transaction item event will have the same timestamp, order_id, and currency as the main transaction event.
 
