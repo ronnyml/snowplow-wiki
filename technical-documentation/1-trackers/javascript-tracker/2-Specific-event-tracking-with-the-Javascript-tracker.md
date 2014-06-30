@@ -598,7 +598,7 @@ You can control which links are tracked using the second argument. There are thr
 
 __Blacklists__
 
-This is an array of CSS classes which should be ignored be link click tracking. For example, the below code will stop link click events firing for links with the class "barred" or "untracked", but will fire link click events for all other links:
+This is an array of CSS classes which should be ignored by link click tracking. For example, the below code will stop link click events firing for links with the class "barred" or "untracked", but will fire link click events for all other links:
 
 ```javascript
 snowplow_name_here('enableLinkClickTracking', {'blacklist': ['barred', 'untracked']});
