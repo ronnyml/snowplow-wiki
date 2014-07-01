@@ -14,8 +14,8 @@ Here we document the different formats, and show which collectors generate what.
 | **Logging formats**                   | **Description**                                 | **Status** | **Collector** |
 |:--------------------------------------|:------------------------------------------------|:-----------|:--------------|
 | [Cloudfront logs](#cloudfront)        | Amazon's Cloudfront log formats with Amazon Cloudfront filename naming convention | Supported (both pre and post Sept 2012 formats) | [[Cloudfront Collector]] |
-| [Tomcat access logs](#tomcat)         | Tomcat access logs with Amazon Elastic Beanstalk filename naming convention | Supported | [Clojure Collector](#clojure-collector) |
-| [Snowplow Thrift raw event](#thrift-raw-event) | Binary serialized Thrift events | Supported | [Scala Stream Collector](#scala-stream-collector) |
+| [Tomcat access logs](#tomcat)         | Tomcat access logs with Amazon Elastic Beanstalk filename naming convention | Supported | [[Clojure Collector]] |
+| [Snowplow Thrift raw event](#thrift) | Binary serialized Thrift events | Supported | [[Scala Stream Collector]] |
 
 <a name="cloudfront" />
 ## The Cloudfront logging format (with Cloudfront naming convention)
