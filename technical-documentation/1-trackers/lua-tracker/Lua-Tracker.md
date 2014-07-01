@@ -62,7 +62,7 @@ That's it - you are now ready to initialize a tracker instance.
 
 There are two different versions of the tracker constructor, depending on which type of collector you want to log events to.
 
-If you are using a Cloudfront collector, use [newTrackerForCf()](#create-cf) to initialize your tracker instance. If you are using any other collector (e.g. the Clojure collector, or SnowCannon), then you should use [newTrackerForUri()](#create-uri).
+If you are using a Cloudfront collector, use [newTrackerForCf()](#create-cf) to initialize your tracker instance. If you are using any other collector (e.g. the Clojure Collector or the Scala Stream Collector), then you should use [newTrackerForUri()](#create-uri).
 
 <a name="create-cf" />
 #### 2.2.1 Create a tracker logging to Cloudfront with `newTrackerForCf()`

@@ -43,7 +43,6 @@ The Scala Stream Collector is built on top of [Spray][spray] and [Akka][akka] ac
 
 [snowplow]: http://snowplowanalytics.com
 [cloudfront-collector]: https://github.com/snowplow/snowplow/tree/master/2-collectors/cloudfront-collector
-[snowcannon]: https://github.com/shermozle/SnowCannon
 [snowplow-js]: https://github.com/snowplow/snowplow/tree/master/1-trackers/javascript
 
 [github-repo]: https://github.com/snowplow/snowplow/tree/master/2-collectors/scala-stream-collector

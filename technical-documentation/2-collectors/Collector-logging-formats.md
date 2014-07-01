@@ -13,9 +13,9 @@ Here we document the different formats, and show which collectors generate what.
 
 | **Logging formats**                   | **Description**                                 | **Status** | **Collector** |
 |:--------------------------------------|:------------------------------------------------|:-----------|:--------------|
-| [Cloudfront logs](#cloudfront)        | Amazon's Cloudfront log formats with Amazon Cloudfront filename naming convention | Supported (both pre and post Sept 2012 formats) | [[Cloudfront collector]] |
-| [Tomcat access logs](#tomcat)         | Tomcat access logs with Amazon Elastic Beanstalk filename naming convention | Supported | [Clojure collector](clojure) |
-| [Fluentd logs](#fluentd)              | Fluentd logs with the fluent-s3 plugin filename conventions | Not currently supported | [[SnowCannon]] |
+| [Cloudfront logs](#cloudfront)        | Amazon's Cloudfront log formats with Amazon Cloudfront filename naming convention | Supported (both pre and post Sept 2012 formats) | [[Cloudfront Collector]] |
+| [Tomcat access logs](#tomcat)         | Tomcat access logs with Amazon Elastic Beanstalk filename naming convention | Supported | [Clojure Collector](#clojure-collector) |
+| [Snowplow Thrift raw event](#thrift-raw-event) | Binary serialized Thrift events | Supported | [Scala Stream Collector](#scala-stream-collector) |
 
 <a name="cloudfront" />
 ## The Cloudfront logging format (with Cloudfront naming convention)
@@ -27,7 +27,7 @@ TO WRITE
 
 TO WRITE
 
-<a name="fluentd" />
-## The Fluentd log format (with s3 plugin filename convention)
+<a name="thrift" />
+## The Snowplow Thrift raw event format
 
 TO WRITE

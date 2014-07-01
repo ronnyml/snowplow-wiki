@@ -20,9 +20,9 @@
 
 **2. Collectors**  
 [Overview](collectors)  
-[Cloudfront collector](cloudfront-cloudfront)  
-[Clojure collector (Elastic Beanstalk)](Clojure-collector)   
-[SnowCannon (node.js)](snowcannon)  
+[Cloudfront Collector](cloudfront-cloudfront)  
+[Clojure Collector (Elastic Beanstalk)](Clojure-collector)   
+[Scala Stream Collector](Scala-Stream-Collector)
 
 **[B. Collector logging formats](Collector-logging-formats)**  
 

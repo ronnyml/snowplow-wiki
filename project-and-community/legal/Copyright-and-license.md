@@ -19,7 +19,7 @@ limitations under the License.
 
 ## Third-party, git-submoduled contributions
 
-The loosely-coupled architecture of Snowplow makes it easy to swap out individual sub-system implementations for first- or third-party alternatives. For example, in place of the first-party CloudFront collector, you can use the third-party [SnowCannon] [snowcannon] node.js-based collector. 
+The loosely-coupled architecture of Snowplow makes it easy to swap out individual sub-system implementations for first- or third-party alternatives. For example, in place of the CloudFront Collector, you can use the [Scala Stream Collector](#scala-stream-collector).
 
 The Snowplow Analytics team curate some third-party sub-system implementations by git-submoduling those GitHub repositories into the Snowplow repository - see the [2-collectors] [2-collectors] folder for an example of this.
 
@@ -31,5 +31,4 @@ Third-party, git-submoduled contributions may be released under a different lice
 [piwik]: http://piwik.org/
 [piwikjs]: https://github.com/piwik/piwik/blob/master/js/piwik.js
 [bsd]: http://www.opensource.org/licenses/bsd-license.php
-[snowcannon]: https://github.com/shermozle/SnowCannon
 [2-collectors]: https://github.com/snowplow/snowplow/tree/master/2-collectors
