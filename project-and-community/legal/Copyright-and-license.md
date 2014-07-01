@@ -19,7 +19,7 @@ limitations under the License.
 
 ## Third-party, git-submoduled contributions
 
-The loosely-coupled architecture of Snowplow makes it easy to swap out individual sub-system implementations for first- or third-party alternatives. For example, in place of the CloudFront Collector, you can use the [Scala Stream Collector](#scala-stream-collector).
+The loosely-coupled architecture of Snowplow makes it easy to swap out individual sub-system implementations for first- or third-party alternatives. For example, in place of the CloudFront Collector, you can use the [[Scala Stream Collector]].
 
 The Snowplow Analytics team curate some third-party sub-system implementations by git-submoduling those GitHub repositories into the Snowplow repository - see the [2-collectors] [2-collectors] folder for an example of this.
 
