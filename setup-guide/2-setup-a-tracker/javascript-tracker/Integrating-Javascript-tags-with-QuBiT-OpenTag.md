@@ -171,7 +171,7 @@ If your CloudFront distribution's URL is `http://d1x5tduoxffdr7.cloudfront.net`,
 
 	window._snaq.push(['setCollectorCf', 'd1x5tduoxffdr7']);
 
-If you are not using the Cloudfront collector (e.g. you are using the Clojure collector), you will need to use the `setCollectorUrl` method instead. Full instructions on doing so can be found in the [technical documentation for the JavaScript Tracker](Javascript-Tracker).
+If you are not using the Cloudfront Collector (e.g. you are using the Clojure Collector or the Scala Stream Collector), you will need to use the `setCollectorUrl` method instead. Full instructions on doing so can be found in the [technical documentation for the JavaScript Tracker](Javascript-Tracker).
 
 #### Setting the {{SITE-ID}} and {{COOKIE-DOMAIN}} values
 

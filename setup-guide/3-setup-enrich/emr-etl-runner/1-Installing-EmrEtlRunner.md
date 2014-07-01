@@ -206,7 +206,7 @@ This section is where we configure exactly how we want our ETL process to operat
 
 1. `job_name`, the name to give our ETL job. This makes it easier to identify your ETL job in the Elastic MapReduce console
 2. `hadoop_etl_version` is the version of the Hadoop ETL process to run. This variable lets you upgrade the ETL process without having to update the EmrEtlRunner application itself
-3. `collector_format`, what format is our collector saving data in? Currently two formats are supported: "cloudfront" (if you are running the Cloudfront collector), or "clj-tomcat" if you are running the Clojure collector
+3. `collector_format`, what format is our collector saving data in? Currently three formats are supported: "cloudfront" (if you are running the Cloudfront collector), "clj-tomcat" if you are running the Clojure collector, or "raw-thrift" if you are using the Scala Stream Collector.
 4. `continue_on_unexpected_error`, continue processing even on unexpected row-level errors, e.g. an input file not matching the expected CloudFront format. Off ("false") by default
 
 <a name="next-steps" />

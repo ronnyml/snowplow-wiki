@@ -46,7 +46,7 @@ Now we need to give permissions on:
 * Amazon EMR
 * Amazon EC2 (required for EmrEtlRunner / StorageLoader)
 * Amazon Marketplaces (required for EmrEtlRunner / StorageLoader)
-* Amazon CloudFront (requried for Cloudfront collector)
+* Amazon CloudFront (required for Cloudfront collector)
 * Amazon Elastic Beanstalk (required for Clojure collector)
 * Amazon Redshift (required for Redshift)
 * Amazon Cloudformation (experimental)

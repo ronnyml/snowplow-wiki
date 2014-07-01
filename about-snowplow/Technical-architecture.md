@@ -5,7 +5,7 @@ Snowplow has a very different architecture from conventional open-source web ana
 To briefly explain these five sub-systems:
 
 * **Trackers** fire Snowplow events. Currently we have a JavaScript tracker; no-JS tracker, Arduino and Lua trackers. (For more information see the [trackers section](https://github.com/snowplow/snowplow/tree/master/1-trackers) of the repository. Python, Ruby, Java, iOS and Android trackers are on the roadmap
-* **Collectors** receive Snowplow events from trackers. Currently we have a simple CDN-based collector on [Amazon CloudFront] [cloudfront], and a collector that sets a third party pixel for cross-domain tracking called the [Clojure Collector](https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector). 
+* **Collectors** receive Snowplow events from trackers. Currently we have a simple CDN-based collector on [Amazon CloudFront] [cloudfront], a collector that sets a third party pixel for cross-domain tracking called the [Clojure Collector](https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector), and a [Scala Stream Collector](https://github.com/snowplow/snowplow/tree/master/2-collectors/scala-stream-collector) which sets a third-party cookie for cross-domain tracking.
 * **Enrichment** cleans up the raw Snowplow events, enriches them and puts them into storage. Currently we have an ETL process using [Scalding] (https://github.com/twitter/scalding)
 * **Storage** is where the Snowplow events live. Currently we store the Snowplow events in an S3, Amazon Redshift and PostgreSQL
 * **Analytics** are performed on the Snowplow events
