@@ -198,29 +198,32 @@ The actual code you need to insert is:
 ```html
 <!-- Snowplow starts plowing -->
 <script type="text/javascript">
-window._snaq = window._snaq || [];
+;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
+p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
+};p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
+n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.0.0/sp.js","snowplow"));
 
-window._snaq.push(['setCollectorCf', '{{MY-CLOUDFRONT-DOMAIN}}']);
-window._snaq.push(['setAppId', '{{MY-SITE-ID}}']);
-window._snaq.push(['setCookieDomain', '{{MY-COOKIE-DOMAIN}}'])
-window._snaq.push(['trackPageView']);
+window.snowplow('newTracker', 'cf', '{{MY-COLLECTOR-URI}}', { // Initialise a tracker
+  appId: '{{MY-SITE-ID}}',
+  cookieDomain: '{{MY-COOKIE-DOMAIN}}'
+});
 
-(function() {
-var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
-sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://d1fc8wv8zag5ca.cloudfront.net/1/sp.js';
-var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
-})();
- </script>
+window.snowplow('trackPageView');
+</script>
+<!-- Snowplow stops plowing -->
 ```
 
-You will need to update the {{CLOUDFRONT DOMAIN}} with the Cloudfront subdomain details you created as part of the [collector setup](https://github.com/snowplow/snowplow/wiki/setting-up-cloudfront-collector). (If you are using a version of Snowplow hosted by the Snowplow team, we will provide you with a Cloudfront domain to enter.) It will look something like `d3rkrsqld9gmqf`. If you are using a different collector the Cloudfront collector (e.g. the Clojure collector), you will need to use the `setCollectorUrl` method instead. For full instructions on all the options available for setting the collector endpoint, see the [JavaScript Tracker technical documentation](Javascript-Tracker).
+You will need to update {{MY-COLLECTOR-URI}} with the Cloudfront subdomain details you created as part of the [collector setup](https://github.com/snowplow/snowplow/wiki/setting-up-cloudfront-collector). (If you are using a version of Snowplow hosted by the Snowplow team, we will provide you with a Cloudfront domain to enter.) It will look something like `d3rkrsqld9gmqf.cloudfront.net`. If you are using a different collector the Cloudfront collector (e.g. the Clojure collector), use the URI of that collector instead. There is no need to include a protocol ("http" or "https") - the tracker does this automatically.
 
-The calls to `setAppId` and `setCookieDomain` are optional: the first is used if you are running Snowplow across different applications and want to distinguish data for each easily. `setCookieDomain` is used if you are tracking users across multiple subdomains e.g. 'blog.mysite.com', 'www.mysite.com', 'mysite.com'. Full instructions on the use of both these methods can be found in the [JavaScript Tracker technical documentation](Javascript-Tracker).
+The `appId` and `cookieDomain` fields are optional: the first is used if you are running Snowplow across different applications and want to distinguish data for each easily. Setting a custom cookie domain is useful if you are tracking users across multiple subdomains e.g. 'blog.mysite.com', 'www.mysite.com', 'mysite.com'. Full instructions on the use of both these methods can be found in the [JavaScript Tracker technical documentation](Javascript-Tracker).
 
-If you are hosting your own Snowplow JavaScript file (see the guide to [Self-hosting snowplow.js] (https://github.com/snowplow/snowplow/wiki/Self-hosting-snowplow-js)), then you need to update the tag above, swapping your own {{CLOUDFRONT DOMAIN}} (the one from which you serve sp.js in for ours:
+If you are hosting your own Snowplow JavaScript file (see the guide to [self-hosting snowplow.js](self hosting snowplow js)), then you need to update the tag above, swapping your own Cloudfront `{{SUBDOMAIN}}` (the one from which you serve `sp.js`) in for ours:
 
 ```javascript
-sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://{{CLOUDFRONT DOMAIN}}.cloudfront.net/sp.js';
+;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
+p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
+};p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
+n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//://{{SUBDOMAIN}}.cloudfront.net/sp.js.cloudfront.net/2.0.0/sp.js","snowplow"));
 ```
 
 [[/setup-guide/images/gtm/integrate-page-tracker-4.png]]
@@ -271,7 +274,7 @@ In the HTML box below, we need to paste the Snowplow event tracking code. The ge
 ```html
 <!-- Snowplow event tracking -->
 <script type="text/javascript">
-window._snaq.push(['trackStructEvent', {{CATEGORY}}, {{ACTION}}, {{LABEL}}, {{PROPERTY}}, {{VALUE}}]);
+window.snowplow('trackStructEvent', {{CATEGORY}}, {{ACTION}}, {{LABEL}}, {{PROPERTY}}, {{VALUE}});
 </script>
 ```
 
@@ -300,7 +303,7 @@ To implement the above mapping, we update the HTML in the box to the following:
 ```html
 <!-- Snowplow structured event tracking -->
 <script type="text/javascript">
-window._snaq.push(['trackStructEvent', 'video', 'playVideo', {{videoId}}, {{videoFormat}}, '0.0']);
+window.snowplow('trackStructEvent', 'video', 'playVideo', {{videoId}}, {{videoFormat}}, '0.0');
 </script>
 ```
 
@@ -346,7 +349,7 @@ Then we can create a single Snowplow event tag in GTM that is fired with every `
 ```html
 <!-- Snowplow structured event tracking -->
 <script type="text/javascript">
-window._snaq.push(['trackStructEvent', '{{eventCategory}}', '{{eventAction}}', '{{eventLabel}}', '{{eventProperty}}', '{{eventValue}}']);
+window.snowplow('trackStructEvent', '{{eventCategory}}', '{{eventAction}}', '{{eventLabel}}', '{{eventProperty}}' '{{eventValue}}');
 </script>
 ```
 
@@ -428,7 +431,7 @@ We then need to create a Snowplow ecommerce tracking tag in GTM that passes the 
 ```html
 <script type="text/javascript">
 // 1st, fire 'addTrans' event for the new transaction
-window._snaq.push(['addTrans',
+window.snowplow('addTran',
     {{transactionId}},
     {{transactionAffiliation}},
     {{transactionTotal}},
@@ -437,11 +440,11 @@ window._snaq.push(['addTrans',
     {{transactionCity}},
     {{transactionState}},
     {{transactionCountry}}
-]);
+);
 
 // 2nd fire the 'addItem' event for each item included in the transaction
 for(i=0; i<{{transactionProducts}}.length; i++) {
-    window._snaq.push(['addItem',
+    window.snowplow('addItem',
         {{transactionId}},
         {{transactionProducts}}[i].sku,
         {{transactionProducts}}[i].name,
@@ -452,7 +455,7 @@ for(i=0; i<{{transactionProducts}}.length; i++) {
 }
 
 // Finally fire the 'trackTrans' event to commit the transaction
-window._snaq.push['trackTrans']
+window.snowplow['trackTrans']
 </script>
 ```
 

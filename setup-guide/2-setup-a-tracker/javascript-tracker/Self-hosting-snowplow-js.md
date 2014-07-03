@@ -136,32 +136,36 @@ The standard Snowplow tracking tag looks something like:
 ```html
 <!-- Snowplow starts plowing -->
 <script type="text/javascript">
-window._snaq = window._snaq || [];
+;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
+p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
+};p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
+n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.0.0/sp.js","snowplow"));
 
-window._snaq.push(['setCollectorCf', '{{YOUR COLLECTOR\'S CF SUBDOMAIN}}']);
-window._snaq.push(['trackPageView']);
-window._snaq.push(['enableLinkTracking']);
+window.snowplow('newTracker', 'cf', '{{MY-COLLECTOR-URI}}', { // Initialise a tracker
+  appId: '{{MY-SITE-ID}}',
+  cookieDomain: '{{MY-COOKIE-DOMAIN}}'
+});
 
-(function() {
-var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
-sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://d1fc8wv8zag5ca.cloudfront.net/0.13.1/sp.js';
-var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
-})();
- </script>
+window.snowplow('trackPageView');
+</script>
 <!-- Snowplow stops plowing -->
 ```
 
-The reference to `'://d1fc8wv8zag5ca.cloudfront.net/0.13.1/sp.js'` loads `sp.js`, the Snowplow JavaScript Tracker. The version loaded is the version [hosted by the Snowplow team from our own Cloudfront subdomain](hosted-assets) (and provided free to the community). 
+The reference to `'://d1fc8wv8zag5ca.cloudfront.net/2.0.0/sp.js'` loads `sp.js`, the Snowplow JavaScript Tracker. The version loaded is the version [hosted by the Snowplow team from our own Cloudfront subdomain](hosted-assets) (and provided free to the community). 
 
-To use the version hosted yourself, update the `sp.src` line to point to your own self-hosted `sp.js`:
+To use the version hosted yourself, update the source string to point to your own self-hosted `sp.js`:
+
 
 ```javascript
-sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://{{YOUR SP.JS CF SUBDOMAIN}}.cloudfront.net/sp.js';
+;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
+p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
+};p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
+n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//://{{SUBDOMAIN}}.cloudfront.net/sp.js.cloudfront.net/2.0.0/sp.js","snowplow"));
 ```
 
 #### A note on `setCollectorCf`
 
-The `setCollectorCf` method is used to determine the Cloudfront subdomain where your tracking pixel is served from. This should **not** be confused with the Cloudfront subdomain used to serve `sp.js`.
+The `setCollectorCf` legacy method is used to determine the Cloudfront subdomain where your tracking pixel is served from. This should **not** be confused with the Cloudfront subdomain used to serve `sp.js`.
 
 This page of documentation relates to self-hosting `sp.js`. You should be using a different Cloudfront distribution for you `setCollectorCf` method in the Snowplow tag. (Or if you're not using the Cloudfront collector, `setCollectorUrl`.) If you are using the Cloudfront collector, see [Cloudfront collector setup](1-Setup-a-bucket-on-S3-for-the-pixel) for details on setting up a Cloudfront distribution for your tracking pixel, and [setting the collector endpoint of your JavaScript Tracker](javascript-tracker#wiki-endpoint) for details on configuring your Snowplow tags.
 
