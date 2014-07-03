@@ -2,7 +2,28 @@
 
 Now that you've set up your Clojure collector, you need to configure your tracker to send event data to it.
 
-Assuming you're using the [JavaScript tracker][javascript-tracker], you'll need to modify your JavaScript tracking tags to set the correct end point. The standard tracking tags look as follows:
+Assuming you're using the [JavaScript Tracker][javascript-tracker], you'll need to modify your JavaScript tracking tags to set the correct end point.
+
+If you are using version 2.0.0 or later of the JavaScript Tracker, then just replace `'{{CLOUDFRONT DOMAIN}}.cloudfront.net'` with your Clojure collector's url when creating a new tracker instance. For instance, you might replace
+
+```javascript
+snowplow_name_here("newTracker", "tracker1", "d3rkrsqld9gmqf.cloudfront.net", {
+  appId: "cfe23a",
+  platform: "mob"
+});
+```
+
+with
+
+```javascript
+snowplow_name_here("newTracker", "tracker1", "collector.snplow.com", {
+  appId: "cfe23a",
+  platform: "mob"
+});
+
+If you are using a version earlier than 2.0.0, you will also need to change the method you use from `setCollectorCf` to `setCollectorUrl` as explained below.
+
+The standard tracking tags for a version of the JavaScript Tracker that's earlier than 2.0.0 look as follows:
 
 ```html
 <!-- Snowplow starts plowing -->

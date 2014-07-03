@@ -2,7 +2,7 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > [**JavaScript Tracker**](Javascript-Tracker) > Specific event tracking
 
-This page refers to **version 2 of the Snowplow JavaScript Tracker which has not been released yet**. Click [here] [specific-events-v1] for the corresponding documentation for version 1.
+This page refers to version 2 of the Snowplow JavaScript Tracker. Click [here] [specific-events-v1] for the corresponding documentation for version 1.
 
 <a name="tracking-specific-events" />
 ## 3. Tracking specific events
@@ -54,7 +54,7 @@ Page views are tracked using the `trackPageView` method. This is generally part 
 ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
 p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
 };n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"//d1fc8wv8zag5ca.cloudfront.net/2/sp.js","snowplow_name_here"));
+n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"//d1fc8wv8zag5ca.cloudfront.net/2.0.0/sp.js","snowplow_name_here"));
 
 snowplow_name_here('enableActivityTracking', 30, 10);
 
@@ -477,7 +477,7 @@ The full HTML code to append, using asynchronous Snowplow invocation, looks like
 ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
 p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
 };n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"//d1fc8wv8zag5ca.cloudfront.net/2/sp.js","snowplow_name_here"));
+n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"//d1fc8wv8zag5ca.cloudfront.net/2.0.0/sp.js","snowplow_name_here"));
 
 // Update tracker constructor to use your CloudFront distribution subdomain
 window.snowplow_name_here('newTracker', 'cf', 'patldfvsg0d8w.cloudfront.net');
