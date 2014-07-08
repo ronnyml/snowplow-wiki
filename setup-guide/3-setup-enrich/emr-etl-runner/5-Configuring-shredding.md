@@ -15,7 +15,7 @@ Snowplow has a [Shredding process](Shredding) for Redshift which consists of two
 
 The first phase is instrumented by EmrEtlRunner; in this page we will explain how to configure the shredding process to operate smoothly with EmrEtlRunner.
 
-**Note: this guide is ONLY required if you want to shred your own unstructured event JSONs and context JSONs. If you are only shredding Snowplow-authored JSONs like link clicks and ad impressions, then you can skip this guide.**
+**Note: this guide is ONLY required if you want to shred your own unstructured event JSONs and context JSONs. If you are only shredding Snowplow-authored JSONs like link clicks and ad impressions, then you can skip this page and go straight to [[Loading shredded types]].**
 
 <a name="pre-reqs"/>
 ## 2. Pre-requisites
@@ -52,7 +52,7 @@ The first relevant section of the EmrEtlRunner's `config.yml` is:
 
 Please make sure that these shredded buckets are set correctly. 
 
-Next, we need to let EmrEtlRunner know about your Iglu schema repository, so that schemas can be retrieved from there as well as from Iglu Central. The relevant section of `config.yml` is:
+Next, we let EmrEtlRunner know about your Iglu schema repository, so that schemas can be retrieved from there as well as from Iglu Central. The relevant section of `config.yml` is:
 
 ```yaml
 :iglu:
@@ -100,4 +100,4 @@ Your updated `config.yml` will end up looking something like:
 <a name="next-steps"/>
 ## 4. Next steps
 
-That's it for configuring EmrEtlRunner for shredding. Next, please refer to the [[Loading shredded types]] wiki page to understand how to configure StorageLoader.
+That's it for configuring EmrEtlRunner for shredding. Next, please refer to the [Loading shredded types](4-Loading-shredded-types) wiki page to understand how to configure StorageLoader.
