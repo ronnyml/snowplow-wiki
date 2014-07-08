@@ -50,7 +50,7 @@ The first relevant section of the EmrEtlRunner's `config.yml` is:
   :errors: ADD HERE     # Leave blank unless :continue_on_unexpected_error: set to true below
 ```
 
-Please configure 
+Please make sure that these shredded buckets are set correctly. 
 
 Next, we need to let the shredding process know about your Iglu schema repository, so it can look up schemas there as well as in Iglu Central. The relevant section of the EmrEtlRunner's `config.yml` is:
 
