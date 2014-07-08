@@ -84,7 +84,7 @@ Now you can add the fields required for your JSON:
 	element_classes varchar(2048) encode raw,
 	element_target  varchar(255)  encode text255,
 	target_url      varchar(4096) encode text32k not null
-)
+	...
 ```
 
 Note that, in the example above, `element_classes` was originally a JSON array in the source JSON. Because our Shredding process does not yet support nested shredding, we simply set this field to a large varchar; an analyst can use Redshift's in-built JSON support to explore this field's contents.
@@ -92,6 +92,8 @@ Note that, in the example above, `element_classes` was originally a JSON array i
 And finally, all tables should have a standard `DISTKEY` and `SORTKEY`:
 
 ```sql
+    ...
+)
 DISTSTYLE KEY
 -- Optimized join to atomic.events
 DISTKEY (root_id)
@@ -109,7 +111,9 @@ Install the table into your Redshift database. The table must be stored in the s
 
 ### 4.1 Overview
 
-You need to create a JSON Paths file which StorageLoader will use to load your shredded type into Redshift. The format is simple - a JSON Paths file consists of a JSON array, where each element corresponds to a column in the target table. For full details, see the [Copy from JSON](http://docs.aws.amazon.com/redshift/latest/dg/copy-usage_notes-copy-from-json.html) documentation from Amazon.
+You need to create a JSON Paths file which StorageLoader will use to load your shredded type into Redshift.
+
+The format is simple - a JSON Paths file consists of a JSON array, where each element corresponds to a column in the target table. For full details, see the [Copy from JSON](http://docs.aws.amazon.com/redshift/latest/dg/copy-usage_notes-copy-from-json.html) documentation from Amazon.
 
 ### 4.2 Creating a JSON Paths file
 
@@ -153,11 +157,11 @@ A few things to note:
 
 The JSON Paths file should be named the same as the table created in 3, **minus** the shredded type's vendor. For example, if your table is called:
 
-    com_acme_website_customer_1
+    com_acme_website_anonymous_customer_1
 
 Then your JSON Paths file should be called:
 
-    customer_1.json
+    anonymous_customer_1.json
 
 ### 4.4 Installing the JSON Paths file
 
@@ -165,7 +169,7 @@ Upload the JSON Paths file to a private S3 bucket which is accessible using the 
 
 Store the JSON Paths file in a sub-folder named after the vendor, for example:
 
-    s3://acmes-jsonpaths-files/com.acme.website/customer_1.json
+    s3://acme-jsonpaths-files/com.acme.website/anonymous_customer_1.json
 
 <a name="configure"/>
 ## 5. Configuring StorageLoader
@@ -174,7 +178,7 @@ Now you need to update StorageLoader's `config.yml` to load the shredded types. 
 
 ```yaml
 :buckets:
-  :jsonpath_assets: s3://acmes-jsonpaths-file
+  :jsonpath_assets: s3://acme-jsonpaths-file
 ```
 
 Next, make sure that you have populated the `:shredded:` section correctly:
