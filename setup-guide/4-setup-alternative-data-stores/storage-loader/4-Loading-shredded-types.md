@@ -1,10 +1,11 @@
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 4: setting up alternative data stores**](Setting-up-alternative-data-stores) > [**4: Loading shredded types**](4-Loading-shredded-types)
 
 1. [Overview](#overview)
-2. [Defining and installing a new table](#table)
-3. [Creating and uploading a JSON Paths file](#jsonpaths)
-4. [Configuring StorageLoader](#configure)
-5. [Next steps](#next-steps)
+2. [Loading Snowplow-authored JSONs](#snowplow-jsons)
+3. [Defining and installing a new table](#table)
+4. [Creating and uploading a JSON Paths file](#jsonpaths)
+5. [Configuring StorageLoader](#configure)
+6. [Next steps](#next-steps)
 
 <a name="overview"/>
 ## 1. Overview
@@ -30,13 +31,70 @@ Each table needs to be loaded using a JSON Paths file. Snowplow provides JSON Pa
 <a name="overview"/>
 ## 3. Defining and installing a new table
 
-StorageLoader loads each shredded type into its own table in Redshift. In this section, we will help you to create a table for a new shredded type you have defined.
+### 3.1 Overview
+
+StorageLoader loads each shredded type into its own table in Redshift. You need to create a Redshift table table for a new shredded type you have defined.
+
+### 3.2 Naming the table
+
+The table name must be a SQL-friendly compound of the schema's vendor, name and model version, converted from CamelCase to snake_case and with any periods or hyphens replaced with underscores. For example, with the Iglu schema key:
+
+    iglu:com.acme.website/anonymous-customer/jsonschema/1-0-2
+
+The table name would be:
+
+    com_acme_website_anonymous_customer_1
+
+Note that only the model version is included - do not incldue the remaining portions of the version (SchemaVer revision or addition).
+
+### 3.2 Creating the table definition
 
 Each table definition starts with a set of standard "boilerplate" fields. These fields help to document the type hierarchy which has been shredded and are very useful for later analysis. These fields are as follows:
 
 ```sql
-
+CREATE TABLE atomic.com_snowplowanalytics_snowplow_link_click_1 (
+    -- Schema of this type
+    schema_vendor   varchar(128)  encode runlength not null,
+    schema_name     varchar(128)  encode runlength not null,
+    schema_format   varchar(128)  encode runlength not null,
+    schema_version  varchar(128)  encode runlength not null,
+	-- Parentage of this type
+	root_id         char(36)      encode raw not null,
+	root_tstamp     timestamp     encode raw not null,
+	ref_root        varchar(255)  encode runlength not null,
+	ref_tree        varchar(1500) encode runlength not null,
+	ref_parent      varchar(255)  encode runlength not null,
+	...
 ```
+
+Now you can add the fields required for your JSON:
+
+```sql
+	...
+	-- Properties of this type
+	element_id      varchar(255)  encode text32k,
+	element_classes varchar(2048) encode raw,
+	element_target  varchar(255)  encode text255,
+	target_url      varchar(4096) encode text32k not null
+)
+```
+
+Note that, in the example above, `element_classes` was originally a JSON array in the source JSON. Because our Shredding process does not yet support nested shredding, we simply set this field to a large varchar; an analyst can use Redshift's in-built JSON support to explore this field's contents.
+
+And finally, all tables should have a standard `DISTKEY` and `SORTKEY`:
+
+```sql
+DISTSTYLE KEY
+-- Optimized join to atomic.events
+DISTKEY (root_id)
+SORTKEY (root_tstamp);
+```
+
+These keys are designed to make JOINs from these tables back to `atomic.events` as performant as possible.
+
+### 3.3 Installing the table
+
+Install the table into your Redshift database. The table must be stored in the same schema as your `events` table.
 
 <a name="jsonpaths"/>
 ## 4. Creating and uploading a JSON Paths file
@@ -119,9 +177,9 @@ Next, make sure that you have populated the `:shredded:` section correctly:
   :archive: ADD HERE # Where to archive shredded types to
 ```
 
-Make sure it cross-checks with the corresponding paths in your EmrEtlRunner's `config.yml`.
+Make sure this cross-checks with the corresponding paths in your EmrEtlRunner's `config.yml`.
 
 <a name="next-steps"/>
-## 5. Next steps
+## 6. Next steps
 
 That's it for configuring StorageLoader for shredding. You should be ready to load shredded types into Redshift.
