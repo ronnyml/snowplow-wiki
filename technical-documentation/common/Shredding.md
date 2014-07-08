@@ -29,7 +29,7 @@ Scala Hadoop Shred is a dedicated Scalding job to perform the JSON validation an
 4. Adds metadata to these JSONs to track their origins
 5. Writes these JSONs out to nested folders dependent on their schema
 
-Configuring this is covered in [[Configuring shredding]].
+Configuring this is covered in [Configuring shredding](5-Configuring-shredding).
 
 ### 2. StorageLoader
 
@@ -41,6 +41,6 @@ The StorageLoader has functionality to load shredded types into corresponding ta
   * Determine the Redshift tablename from the shredded type
   * Load the shredded type files into the Redshift table using the JSON Paths file
 
-Configuring this is covered in [[Loading shredded types]].
+Configuring this is covered in [Loading shredded types](4-Loading-shredded-types).
 
 [iglu-wiki]: https://github.com/snowplow/iglu/wiki

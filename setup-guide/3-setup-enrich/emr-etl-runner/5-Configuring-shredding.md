@@ -52,7 +52,7 @@ The first relevant section of the EmrEtlRunner's `config.yml` is:
 
 Please make sure that these shredded buckets are set correctly. 
 
-Next, we need to let the shredding process know about your Iglu schema repository, so it can look up schemas there as well as in Iglu Central. The relevant section of the EmrEtlRunner's `config.yml` is:
+Next, we need to let EmrEtlRunner know about your Iglu schema repository, so that schemas can be retrieved from there as well as from Iglu Central. The relevant section of `config.yml` is:
 
 ```yaml
 :iglu:
