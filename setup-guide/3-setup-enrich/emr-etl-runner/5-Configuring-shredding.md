@@ -5,10 +5,10 @@
 3. [Configuring EmrEtlRunner](#configure)
 4. [Next steps](#next-steps)
 
-<a name="usage-overview"/>
+<a name="overview"/>
 ## 1. Overview
 
-Snowplow has a [Shredding process](Shredding) which consists of two phases:
+Snowplow has a [Shredding process](Shredding) for Redshift which consists of two phases:
 
 1. Extracting unstructured event JSONs and context JSONs from enriched event files into their own files
 2. Loading those files into corresponding tables in Redshift

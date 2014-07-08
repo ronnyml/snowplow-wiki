@@ -1,4 +1,4 @@
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 4: setting up alternative data stores**](Setting-up-alternative-data-stores) > [**Using the StorageLoader**](3-Scheduling-the-StorageLoader)
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 4: setting up alternative data stores**](Setting-up-alternative-data-stores) > [**3: Scheduling the StorageLoader**](3-Scheduling-the-StorageLoader)
 
 1. [Overview](#scheduling-overview)
 2. [Scheduling StorageLoader only](#storage-loader-cron)
