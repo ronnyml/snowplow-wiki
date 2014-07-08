@@ -41,4 +41,5 @@
 [[Analytics documentation]]  
 
 **Common**  
+[[Shredding]]  
 [[Artifact repositories]]  
