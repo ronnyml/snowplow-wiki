@@ -15,7 +15,7 @@ Snowplow has a [Shredding process](Shredding) for Redshift which consists of two
 
 The first phase is instrumented by EmrEtlRunner; in this page we will explain how to configure the shredding process to operate smoothly with EmrEtlRunner.
 
-**Note: this guide is ONLY required if you want to shred your own unstructured event JSONs and context JSONs. If you are only shredding Snowplow-authored JSONs like link clicks and ad impressions, then you can skip this page and go straight to [[Loading shredded types]].**
+**Note: this guide is ONLY required if you want to shred your own unstructured event JSONs and context JSONs. If you are only shredding Snowplow-authored JSONs like link clicks and ad impressions, then you can skip this page and go straight to [Loading shredded types](4-Loading-shredded-types).**
 
 <a name="pre-reqs"/>
 ## 2. Pre-requisites
