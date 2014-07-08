@@ -26,14 +26,14 @@ Loading Snowplow-authored JSONs is straightforward: Snowplow provides pre-made R
 
 For example, if you have link click tracking enabled in the JavaScript Tracker, then install `com.snowplowanalytics.snowplow/link_click_1.sql` into your Snowplow database.
 
-Each table needs to be loaded using a JSON Paths file. Snowplow provides JSON Paths files for all Snowplow-authored JSONs. StorageLoader will automatically locate these JSON Paths files and use them to load shredded types into Redshift.
+Each table needs to be loaded using a JSON Paths file. Snowplow hosts JSON Paths files for all Snowplow-authored JSONs. StorageLoader will automatically locate these JSON Paths files and use them to load shredded types into Redshift.
 
 <a name="overview"/>
 ## 3. Defining and installing a new table
 
 ### 3.1 Overview
 
-StorageLoader loads each shredded type into its own table in Redshift. You need to create a Redshift table table for a new shredded type you have defined.
+StorageLoader loads each shredded type into its own table in Redshift. You need to create a Redshift table table for each new shredded type you have defined.
 
 ### 3.2 Naming the table
 
@@ -44,6 +44,14 @@ The table name must be a SQL-friendly compound of the schema's vendor, name and 
 The table name would be:
 
     com_acme_website_anonymous_customer_1
+
+With the Iglu schema key:
+
+    iglu:de.company/AddToBasket/jsonschema/2-1-0
+
+The table name would be:
+
+    de_company_add_to_basket_2
 
 Note that only the model version is included - do not incldue the remaining portions of the version (SchemaVer revision or addition).
 
