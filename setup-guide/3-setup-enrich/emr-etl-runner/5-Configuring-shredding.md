@@ -41,7 +41,18 @@ You are now ready to configure EmrEtlRunner for shredding.
 <a name="configure"/>
 ## 3. Configuring EmrEtlRunner
 
-The relevant section of the EmrEtlRunner's `config.yml` is:
+The first relevant section of the EmrEtlRunner's `config.yml` is:
+
+```yaml
+:shredded:
+  :good: ADD HERE       # e.g. s3://my-out-bucket/shredded/good
+  :bad: ADD HERE        # e.g. s3://my-out-bucket/shredded/bad
+  :errors: ADD HERE     # Leave blank unless :continue_on_unexpected_error: set to true below
+```
+
+Please configure 
+
+Next, we need to let the shredding process know about your Iglu schema repository, so it can look up schemas there as well as in Iglu Central. The relevant section of the EmrEtlRunner's `config.yml` is:
 
 ```yaml
 :iglu:
@@ -62,7 +73,31 @@ You must add an extra entry in the `:repositories:` array pointing to your own I
 
 For more information on how to do this, please review the [Iglu client configuration](https://github.com/snowplow/iglu/wiki/Iglu-client-configuration) wiki page. The EmrEtlRunner converts the YAML format given above into an Iglu client configuration JSON automatically.
 
+Your updated `config.yml` will end up looking something like:
+
+```yaml
+:iglu:
+  :schema: iglu:com.snowplowanalytics.iglu/resolver-config/jsonschema/1-0-0
+  :data:
+    :cache_size: 500
+    :repositories:
+      - :name: "Iglu Central"
+        :priority: 0
+        :vendor_prefixes:
+          - com.snowplowanalytics
+        :connection:
+          :http:
+            :uri: http://iglucentral.com
+      - :name: "Acme's Iglu repository"
+        :priority: 0
+        :vendor_prefixes:
+          - com.acme
+        :connection:
+          :http:
+            :uri: http://internal.acme.com/iglu
+```
+
 <a name="next-steps"/>
 ## 4. Next steps
 
-That's it for configuring EmrEtlRunner for shredding. Next, please refer to the [[Loading shredded types]] wiki page to understand how to configure the StorageLoader.
+That's it for configuring EmrEtlRunner for shredding. Next, please refer to the [[Loading shredded types]] wiki page to understand how to configure StorageLoader.
