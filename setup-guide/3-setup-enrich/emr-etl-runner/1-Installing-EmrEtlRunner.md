@@ -92,18 +92,27 @@ EmrEtlRunner requires a YAML format configuration file to run. There is a config
   :buckets:
     :assets: s3://snowplow-hosted-assets # DO NOT CHANGE unless you are hosting the jarfiles etc yourself in your own bucket
     :log: ADD HERE
-    :in: ADD HERE
-    :processing: ADD HERE
-    :out: ADD HERE WITH SUB-FOLDER # e.g. s3://my-out-bucket/events
-    :out_bad_rows: ADD HERE        # e.g. s3://my-out-bucket/bad-rows
-    :out_errors: ADD HERE # Leave blank unless :continue_on_unexpected_error: set to true below
-    :archive: ADD HERE
+    :raw:
+      :in: ADD HERE
+      :processing: ADD HERE
+      :archive: ADD HERE    # e.g. s3://my-archive-bucket/raw
+    :enriched:
+      :good: ADD HERE       # e.g. s3://my-out-bucket/enriched/good
+      :bad: ADD HERE        # e.g. s3://my-out-bucket/enriched/bad
+      :errors: ADD HERE     # Leave blank unless :continue_on_unexpected_error: set to true below
+    :shredded:
+      :good: ADD HERE       # e.g. s3://my-out-bucket/shredded/good
+      :bad: ADD HERE        # e.g. s3://my-out-bucket/shredded/bad
+      :errors: ADD HERE     # Leave blank unless :continue_on_unexpected_error: set to true below
 :emr:
   :ami_version: 2.4.2      # Choose as per http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-plan-ami.html
   :region: ADD HERE        # Always set this
   :placement: ADD HERE     # Set this if not running in VPC. Leave blank otherwise
   :ec2_subnet_id: ADD HERE # Set this if running in VPC. Leave blank otherwise
   :ec2_key_name: ADD HERE
+  :software:
+    :hbase:                # To launch on cluster, provide version, "0.92.0", keep quotes
+    :lingual:              # To launch on cluster, provide version, "1.1", keep quotes
   # Adjust your Hadoop cluster below
   :jobflow:
     :master_instance_type: m1.small
@@ -114,9 +123,23 @@ EmrEtlRunner requires a YAML format configuration file to run. There is a config
     :task_instance_bid: 0.015 # In USD. Adjust bid, or leave blank for non-spot-priced (i.e. on-demand) task instances
 :etl:
   :job_name: Snowplow ETL # Give your job a name
-  :hadoop_etl_version: 0.5.0 # Version of the Hadoop Enrichment process
+  :versions:
+    :hadoop_enrich: 0.5.0 # Version of the Hadoop Enrichment process
+    :hadoop_shred: 0.1.0 # Version of the Hadoop Shredding process
   :collector_format: cloudfront # Or 'clj-tomcat' for the Clojure Collector
-  :continue_on_unexpected_error: false # You can switch to 'true' (and set :out_errors: above) if you really don't want the ETL throwing exceptions
+  :continue_on_unexpected_error: false # Set to 'true' (and set :out_errors: above) if you don't want any exceptions thrown from ETL
+:iglu:
+  :schema: iglu:com.snowplowanalytics.iglu/resolver-config/jsonschema/1-0-0
+  :data:
+    :cache_size: 500
+    :repositories:
+      - :name: "Iglu Central"
+        :priority: 0
+        :vendor_prefixes:
+          - com.snowplowanalytics
+        :connection:
+          :http:
+            :uri: http://iglucentral.com
 :enrichments:
   :anon_ip:
     :enabled: false
@@ -124,6 +147,10 @@ EmrEtlRunner requires a YAML format configuration file to run. There is a config
 ```
 
 To take each section in turn:
+
+### logging
+
+This section allows you to determine how verbose/chatty the log output from EmrEtlRunner should be.
 
 ### aws
 
@@ -135,16 +162,17 @@ The `region` variable should hold the AWS region in which your four data buckets
 
 Within the `s3` section, the `buckets` variables are as follows:
 
-* `assets` holds the ETL job's static assets (HiveQL script plus Hive deserializer). You can leave this as-is (pointing to Snowplow   Analytics' [own public bucket containing these assets](Hosted-assets)) or replace this with your own private bucket containing the assets
-* `log` is the bucket in which Amazon EMR will record processing information for this job run, including logging any errors  
-* `in` is where you specify your In Bucket
-* `processing` is where you specify your Processing Bucket - **always include a sub-folder on this variable (see below for why)**. 
-* `out` is where you specify your Out Bucket - **always include a sub-folder on this variable (see below for why)**. If you are loading data into Redshift, the bucket specified here **must** be located in a region where Amazon has launched Redshift, because Redshift can only bulk load data from S3 that is located in the same region as the Redshift instance, and Redshift has not, to-date, been launched across all Amazon regions.
-* `out_bad_rows` is where you specify your Bad Rows Bucket. This will store any raw Snowplow log lines which did not pass the ETL’s validation, along with their validation errors. This is only required for the 'hadoop' ETL implementation (our latest version). It should be left blank if you are running the legacy 'hive' implementation
-* `out_errors` is where you specify your Errors Bucket. If you set continue_on_unexpected_error to true (see below), then this bucket will contain any raw Snowplow log lines which caused an unexpected error
-* `archive` is where you specify your Archive Bucket
+* `:assets:` holds the ETL job's static assets (HiveQL script plus Hive deserializer). You can leave this as-is (pointing to Snowplow   Analytics' [own public bucket containing these assets](Hosted-assets)) or replace this with your own private bucket containing the assets
+* `:log:` is the bucket in which Amazon EMR will record processing information for this job run, including logging any errors  
+* `:raw:` is where you specify the buckets through which your raw Snowplow events will flow. For `:processing:`, **always include a sub-folder on this variable (see below for why)**. `:archive:` is where your raw Snowplow events will be moved after they have been successfully processed by Elastic MapReduce
+* `:enriched:` is where you specify the buckets through which your enriched Snowplow events will flow.
+* `:shredded:` is where you specify the buckets through which your shredded types will flow
+
+For `:good:`, **always include a sub-folder on this variable (see below for why)**. If you are loading data into Redshift, the `:good:` specified here **must** be located in a region where Amazon has launched Redshift, because Redshift can only bulk load data from S3 that is located in the same region as the Redshift instance, and Redshift has not, to-date, been launched across all Amazon regions
 
 Each of the bucket variables must start with an S3 protocol - either `s3://` or `s3n://`. Each variable can include a sub-folder within the bucket as required, and a trailing slash is optional.
+
+The `:bad:` entries will store any raw Snowplow log lines which did not pass the enrichment or JSON validation, along with their validation errors. The `:errors:` entries will contain any raw Snowplow log lines which caused an unexpected error, but only if you set continue_on_unexpected_error to true (see below).
 
 **Important 1:** there is a bug in Hive on Amazon EMR where Hive dies if you attempt to read or write data to the root of an S3 bucket. **Therefore always specify a sub-folder (e.g. `/events/`) for the `processing` and all three `out` bucket variables.**
 
@@ -169,11 +197,18 @@ Here is an example configuration:
   :assets: s3://snowplow-hosted-assets
   :in: s3n://my-snowplow-logs/
   :log: s3n://my-snowplow-etl/logs/
-  :processing: s3n://my-snowplow-etl/processing/
-  :out: s3n://my-snowplow-data/events/
-  :out_bad_rows: s3n://my-snowplow-data/bad-rows/
-  :out_errors: s3n://my-snowplow-data/error-rows/
-  :archive: s3n://my-snowplow-archive/raw/
+  :raw:
+    :in: s3n://my-snowplow-logs/
+    :processing: s3n://my-snowplow-etl/processing/
+    :archive: s3://my-archive-bucket/raw
+  :enriched:
+    :good: s3://my-out-bucket/enriched/good
+    :bad: s3://my-out-bucket/enriched/bad
+    :errors: s3://my-out-bucket/enriched/errors
+  :shredded:
+    :good: s3://my-out-bucket/shredded/good
+    :bad: s3://my-out-bucket/shredded/bad
+    :errors: s3://my-out-bucket/shredded/errors
 ```
 
 Please note that all buckets must exist prior to running EmrEtlRunner; trailing slashes are optional.
@@ -200,7 +235,19 @@ Additionally, fill in one of these two:
 
 You only need to set one of these (they are mutually exclusive settings), but you must set one.
 
-#### etl
+The `:software:` section lets you start up Lingual and/or HBase when you start up your Elastic MapReduce cluster. This is the configuration to start up both, specifying the versions to start:
+
+```yaml
+:software:
+  :hbase: "0.92.0"
+  :lingual: "1.1"
+```
+
+### iglu
+
+This is where we list the schema repositories to use to retrieve JSON Schemas for validation. For more information on this, see the [wiki page for Configuring shredding](5-Configuring-shredding).
+
+### etl
 
 This section is where we configure exactly how we want our ETL process to operate:
 
@@ -208,6 +255,10 @@ This section is where we configure exactly how we want our ETL process to operat
 2. `hadoop_etl_version` is the version of the Hadoop ETL process to run. This variable lets you upgrade the ETL process without having to update the EmrEtlRunner application itself
 3. `collector_format`, what format is our collector saving data in? Currently three formats are supported: "cloudfront" (if you are running the Cloudfront collector), "clj-tomcat" if you are running the Clojure collector, or "raw-thrift" if you are using the Scala Stream Collector.
 4. `continue_on_unexpected_error`, continue processing even on unexpected row-level errors, e.g. an input file not matching the expected CloudFront format. Off ("false") by default
+
+### enrichments
+
+This is where we configure the enrichments for Scala Hadoop Enrich.
 
 <a name="next-steps" />
 ## 5. Next steps
