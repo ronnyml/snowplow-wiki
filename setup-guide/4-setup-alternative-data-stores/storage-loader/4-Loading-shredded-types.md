@@ -33,7 +33,7 @@ Each table needs to be loaded using a JSON Paths file. Snowplow hosts JSON Paths
 
 ### 3.1 Overview
 
-StorageLoader loads each shredded type into its own table in Redshift. You need to create a Redshift table table for each new shredded type you have defined.
+StorageLoader loads each shredded type into its own table in Redshift. You need to create a Redshift table for each new shredded type you have defined.
 
 ### 3.2 Naming the table
 
