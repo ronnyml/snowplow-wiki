@@ -245,7 +245,7 @@ In short, custom contexts let you add additional information about the circumsta
 t1.trackPageView(String page_url, String page_title, String referrer, Map context, long timestamp)
 ```
 
-The `context` argument should consist of a `String` containing a JSON array of one or more contexts. The format of each individual context element is the same as for an [unstructured event](#unstruct-event).
+The `context` argument should consist of a `Map` containing one or more contexts. The format of each individual context element is the same as for an [unstructured event](#unstruct-event).
 
 If a visitor arrives on a page advertising a movie, the context dictionary might look like this:
 
@@ -267,7 +267,7 @@ Providing the contexts as a Java object (i.e. not as a `String` in JSON format) 
 <a name="tstamp-arg" />
 ### 4.1.2 Optional timestamp argument
 
-Not yet implemented.
+The `timestamp` argument is optional for you to add in each tracker. If you decide to use the `timestamp` generated from the device itself, you can see the `timestamp` argument to 0.
 
 <a name="return-value" />
 ### 4.1.3 Tracker method return values
@@ -285,13 +285,14 @@ Use `trackScreenView()` to track a user viewing a screen (or equivalent) within 
 |-------------:|:------------------------------------|:--------------|:------------------------|
 | `name`       | Human-readable name for this screen | Yes           | String                  |
 | `id`         | Unique identifier for this screen   | No            | String                  |
-| `context`    | Custom context for the event        | No            | String                  |
+| `context`    | Custom context for the event        | No            | Map                     |
+| `timestamp`  | User set item timestamp             | No            | long or 0               |
 
 Example:
 
 ```java
-t1.trackScreenView("HUD > Save Game", "screen23", null);
-t1.trackScreenView("HUD > Save Game", null, null);
+t1.trackScreenView("HUD > Save Game", "screen23", null, 123456L);
+t1.trackScreenView("HUD > Save Game", null, null, 0);
 ```
 
 [Back to top](#top)
@@ -309,12 +310,13 @@ Arguments are:
 | `page_title` | The title of the page               | No            | String                  |
 | `referrer`   | The address which linked to the page| No            | String                  |
 | `context`    | Custom context for the event        | No            | Map                     |
+| `timestamp`  | User set item timestamp             | No            | long or 0               |
 
 Example:
 
 ```java
-t1.trackPageView("www.example.com", "example", "www.referrer.com", null);
-t1.trackPageView("www.example.com", null, "www.referrer.com", null);
+t1.trackPageView("www.example.com", "example", "www.referrer.com", null, 123456L);
+t1.trackPageView("www.example.com", null, "www.referrer.com", null, 0);
 ```
 
 [Back to top](#top)
@@ -339,6 +341,7 @@ Arguments:
 | `currency`    | Transaction currency                 | No            | String                   |
 | `items`       | Items in the transaction             | Yes           | List<TransactionItem>    |
 | `context`     | Custom context for the event         | No            | Map                      |
+| `timestamp`   | User set item timestamp              | No            | long or 0                |
 
 The `items` argument is a `List` of individual `TransactionItem` elements representing the items in the e-commerce transaction. Note that `trackEcommerceTransaction` fires multiple events: one transaction event for the transaction as a whole, and one transaction item event for each element of the `items` `List`. Each transaction item event will have the same timestamp, order_id, and currency as the main transaction event.
 
@@ -350,7 +353,7 @@ The `items` argument is a `List` of individual `TransactionItem` elements repres
 To instantiate a TransactionItem in your code, simply use the following constructor signature:
 
 ```java
-trackEcommerceTransactionItem(String order_id, String sku, Double price, Integer quantity, String name, String category, String currency, Map context, long transaction_id, long timestamp)
+trackEcommerceTransactionItem(String order_id, String sku, Double price, Integer quantity, String name, String category, String currency, Map context, long transaction_id)
 ```
 
 These are the fields that can appear as elements in each `TransactionItem` element of the transaction item `List`:
@@ -366,7 +369,6 @@ These are the fields that can appear as elements in each `TransactionItem` eleme
 | `currency`       | Item currency                       | No            | String                   |
 | `context`        | Item context                        | No            | Map                      |
 | `transaction_id` | Item transaction id                 | No            | long                     |
-| `timestamp`      | User set item timestamp             | No            | long or 0                |
 
 Example of tracking a transaction containing two items:
 
@@ -390,11 +392,11 @@ Use `trackStructuredEvent()` to track a custom event happening in your app which
 | `property`   | A string describing the object or the action performed on it     | No            | String         |
 | `value`      | A value to provide numerical data about the event                | No            | Int            |
 | `context`    | Custom context for the event                                     | No            | String         |
-| `timestamp`      | User set item timestamp             | No            | long or 0                |
+| `timestamp`  | User set item timestamp                                          | No            | long or 0                |
 Example:
 
 ```java
-t1.trackStructuredEvent("shop", "add-to-basket", null, "pcs", 2, null);
+t1.trackStructuredEvent("shop", "add-to-basket", null, "pcs", 2, null, 0);
 ```
 
 [Back to top](#top)
@@ -419,7 +421,7 @@ The arguments are as follows:
 | `eventName`    | The name of the event. Deprecated; do not use             | Yes           | String              |
 | `dictInfo`     | The properties of the event                               | No            | Map<String, Object> |
 | `context`      | Custom context for the event                              | No            | String              |
-
+| `timestamp`    | User set item timestamp                                   | No            | long or 0                |
 The `dictInfo` must be either a `String` or a `Map<String, Object>`.
 
 If you supply a `String`, make sure that it is a valid JSON object containing two fields: `schema` and `data`. `data` is itself a JSON object containing the properties of the unstructured event. `schema` identifies the JSON schema against which `data` should be validated.
