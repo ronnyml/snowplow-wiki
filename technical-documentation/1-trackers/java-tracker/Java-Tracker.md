@@ -57,14 +57,14 @@ That's it - you are now ready to initialize a TrackerC instance.
 To instantiate a tracker in your code (can be global or local to the process being tracked) simply instantiate the `Tracker` interface with one of the following:
 
 ```java
-TrackerC(String collector_uri, String namespace, String app_id, boolean base64_encode, boolean enable_contracts)
+TrackerC(String collector_uri, String namespace, String app_id, boolean base64_encode)
 ```
 
 For example:
 
 ```java
-Tracker t1 = new TrackerC("d3rkrsqld9gmqf.cloudfront.net", "Snowplow Java Tracker Test", "testing_app", true);
-Tracker t2 = new TrackerC("d3rkrsqld9gmqf.cloudfront.net", null, null, true);
+Tracker t1 = new TrackerC("d3rkrsqld9gmqf.cloudfront.net", "Snowplow Java Tracker Test", "testing_app");
+Tracker t2 = new TrackerC("d3rkrsqld9gmqf.cloudfront.net", null, null);
 ```
 
 | **Argument Name** | **Description**                              | **Required?** |
@@ -242,7 +242,7 @@ All events are tracked with specific methods on the tracker instance, of the for
 In short, custom contexts let you add additional information about the circumstances surrounding an event in the form of a Java String in JSON format. dictionary object. Each tracking method accepts an additional optional contexts parameter after all the parameters specific to that method:
 
 ```java
-t1.trackPageView(String page_url, String page_title, String referrer, String context)
+t1.trackPageView(String page_url, String page_title, String referrer, Map context, long timestamp)
 ```
 
 The `context` argument should consist of a `String` containing a JSON array of one or more contexts. The format of each individual context element is the same as for an [unstructured event](#unstruct-event).
@@ -308,7 +308,7 @@ Arguments are:
 | `page_url`   | The URL of the page                 | Yes           | String                  |
 | `page_title` | The title of the page               | No            | String                  |
 | `referrer`   | The address which linked to the page| No            | String                  |
-| `context`    | Custom context for the event        | No            | String                  |
+| `context`    | Custom context for the event        | No            | Map                     |
 
 Example:
 
@@ -338,7 +338,7 @@ Arguments:
 | `country`     | Delivery address country             | No            | String                   | 
 | `currency`    | Transaction currency                 | No            | String                   |
 | `items`       | Items in the transaction             | Yes           | List<TransactionItem>    |
-| `context`     | Custom context for the event         | No            | context                  |
+| `context`     | Custom context for the event         | No            | Map                      |
 
 The `items` argument is a `List` of individual `TransactionItem` elements representing the items in the e-commerce transaction. Note that `trackEcommerceTransaction` fires multiple events: one transaction event for the transaction as a whole, and one transaction item event for each element of the `items` `List`. Each transaction item event will have the same timestamp, order_id, and currency as the main transaction event.
 
@@ -350,21 +350,23 @@ The `items` argument is a `List` of individual `TransactionItem` elements repres
 To instantiate a TransactionItem in your code, simply use the following constructor signature:
 
 ```java
-TransactionItem (String order_id, String sku, double price, int quantity, String name, String category, String currency, JsonNode context)
+trackEcommerceTransactionItem(String order_id, String sku, Double price, Integer quantity, String name, String category, String currency, Map context, long transaction_id, long timestamp)
 ```
 
 These are the fields that can appear as elements in each `TransactionItem` element of the transaction item `List`:
 
-| **Field**  | **Description**                     | **Required?** | **Validation**           |
-|-----------:|:------------------------------------|:--------------|:-------------------------|
-| `order_id` | Order ID                            | Yes           | String                   |
-| `sku`      | Item SKU                            | No            | String                   |
-| `price`    | Item price                          | No            | double                   |
-| `quantity` | Item quantity                       | No            | int                      |
-| `name`     | Item name                           | No            | String                   |
-| `category` | Item category                       | No            | String                   |
-| `currency` | Item currency                       | No            | String                   |
-| `context`  | Item context                        | No            | JsonNode                 |
+| **Field**        | **Description**                     | **Required?** | **Validation**           |
+|-----------------:|:------------------------------------|:--------------|:-------------------------|
+| `order_id`       | Order ID                            | Yes           | String                   |
+| `sku`            | Item SKU                            | No            | String                   |
+| `price`          | Item price                          | No            | double                   |
+| `quantity`       | Item quantity                       | No            | int                      |
+| `name`           | Item name                           | No            | String                   |
+| `category`       | Item category                       | No            | String                   |
+| `currency`       | Item currency                       | No            | String                   |
+| `context`        | Item context                        | No            | Map                      |
+| `transaction_id` | Item transaction id                 | No            | long                     |
+| `timestamp`      | User set item timestamp             | No            | long or 0                |
 
 Example of tracking a transaction containing two items:
 
@@ -388,7 +390,7 @@ Use `trackStructuredEvent()` to track a custom event happening in your app which
 | `property`   | A string describing the object or the action performed on it     | No            | String         |
 | `value`      | A value to provide numerical data about the event                | No            | Int            |
 | `context`    | Custom context for the event                                     | No            | String         |
-
+| `timestamp`      | User set item timestamp             | No            | long or 0                |
 Example:
 
 ```java
