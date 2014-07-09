@@ -387,7 +387,9 @@ snowplow_name_here('trackAdImpression:' + rnd,
 );
 ```
 
-You will want to set these arguments programmatically, across all of your ad zones/slots - for guidelines on how to achieve this with the [OpenX adserver] [openx], please see the following sub-sections.
+Ad impression events are implemented as Snowplow unstructured events. [Here][ad-impression-schema] is the JSON schema for an ad impression event.
+
+You will want to set these arguments programmatically, across all of your ad zones/slots. For guidelines on how to achieve this with the [OpenX adserver] [openx], please see the following section [3.6.4](#ad-example).
 
 <a name="adClick" />
 #### 3.6.2 `trackAdClick`
@@ -422,6 +424,8 @@ snowplow_name_here('trackAdClick',
 );
 ```
 
+Ad click events are implemented as Snowplow unstructured events.[Here][ad-click-schema] is the JSON schema for an ad click event.
+
 <a name="adConversion" />
 #### 3.6.3 `trackAdConversion`
 
@@ -455,6 +459,8 @@ window.adTracker('trackAdConversion:' + rnd,
     '12'         // campaignId
 );
 ```
+
+Ad conversion events are implemented as Snowplow unstructured events. [Here][ad-conversion-schema] is the schema for an ad conversion event.
 
 <a name="ad-example" />
 #### 3.6.4 Example: implementing impression tracking with Snowplow and OpenX
@@ -584,6 +590,8 @@ The `data` field should be flat, not nested.
 ### 3.9 Link click tracking
 
 Link click tracking is enabled using the `enableLinkClickTracking` method. Use this method once and the Tracker will add click event listeners to all link elements. Link clicks are tracked as unstructured events. Each link click event captures the link's href attribute. The event also has fields for the link's id, classes, and target (where the linked document is opened, such as a new tab or new window).
+
+[Here][link-click-schema] is the JSON schema for a link click event.
 
 <a name="enableLinkClickTracking" />
 #### 3.9.1 `enableLinkClickTracking`
@@ -732,9 +740,10 @@ For more information on custom contexts, see [this][contexts] blog post.
 [specific-events-v1]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker-v1
 [json-schema]: http://json-schema.org/
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
-
-
-
+[ad-impression-schema]: schemas/com.snowplowanalytics.snowplow/ad_impression/jsonschema/1-0-0
+[ad-click-schema]: schemas/com.snowplowanalytics.snowplow/ad_click/jsonschema/1-0-0
+[ad-conversion-schema]: schemas/com.snowplowanalytics.snowplow/ad_conversion/jsonschema/1-0-0
+[link-click-schema]: schemas/com.snowplowanalytics.snowplow/link_click/jsonschema/1-0-0
 
 [openx]: http://www.openx.com/publisher/enterprise-ad-server
 [zoneappend]: /snowplow/snowplow/wiki/setup-guide/images/03a_zone_prepend_openx.png
