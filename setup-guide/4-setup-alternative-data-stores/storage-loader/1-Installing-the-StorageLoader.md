@@ -86,21 +86,27 @@ The Redshift configuration template looks like this:
 :s3:
   :region: ADD HERE # S3 bucket region must be the same as Redshift cluster region
   :buckets:
-    :in: ADD HERE # Must be s3:// not s3n:// for Redshift
-    :archive: ADD HERE
+    :jsonpath_assets: # If you have defined your own JSON Schemas, add the s3:// path to your own JSON Path files in your own bucket here
+    :enriched:
+      :good: ADD HERE # Must be s3:// not s3n:// for Redshift. This is the same as the :enriched:good: bucket specified for EmrEtlRunner
+      :archive: ADD HERE # Where to archive enriched events to
+    :shredded:
+      :good: ADD HERE # Must be s3:// not s3n:// for Redshift. This is the same as the :shredded:good: bucket specified for EmrEtlRunner
+      :archive: ADD HERE # Where to archive shredded types to
 :download:
   :folder: # Not required for Redshift
 :targets:
   - :name: "My Redshift database"
     :type: redshift
     :host: ADD HERE # The endpoint as shown in the Redshift console
-    :database: ADD HERE # Name of database
+    :database: ADD HERE # Name of database 
     :port: 5439 # Default Redshift port
     :table: atomic.events
-    :username: ADD HERE
-    :password: ADD HERE
+    :username: ADD HERE 
+    :password: ADD HERE 
     :maxerror: 1 # Stop loading on first error, or increase to permit more load errors
     :comprows: 200000 # Default for a 1 XL node cluster. Not used unless --include compupdate specified
+
 ```
 
 ### Postgres sample configuration
@@ -114,19 +120,24 @@ The Postgres configuration template looks like this:
 :s3:
   :region: ADD HERE # S3 bucket region
   :buckets:
-    :in: ADD HERE
-    :archive: ADD HERE
+    :jsonpath_assets: # Not required for Postgres
+    :enriched:
+      :good: ADD HERE # This is the same as the :enriched:good: bucket specified for EmrEtlRunner
+      :archive: ADD HERE # Where to archive enriched events to
+    :shredded:
+      :good: # Not required for Postgres
+      :archive: # Not required for Postgres
 :download:
   :folder: ADD HERE # Postgres-only config option. Where to store the downloaded files
 :targets:
   - :name: "My PostgreSQL database"
     :type: postgres
     :host: ADD HERE # Hostname of database server
-    :database: ADD HERE # Name of database
+    :database: ADD HERE # Name of database 
     :port: 5432 # Default Postgres port
     :table: atomic.events
-    :username: ADD HERE
-    :password: ADD HERE
+    :username: ADD HERE 
+    :password: ADD HERE 
     :maxerror: # Not required for Postgres
     :comprows: # Not required for Postgres
 ```
@@ -146,24 +157,27 @@ The `region` variable should hold the AWS region in which your two data
 buckets (In Bucket and Archive Bucket) are located, e.g. "us-east-1"
 or "eu-west-1".
 
-**Important:** Please note that currently Redshift can only load from buckets in the US region, so you will need to put **both** your buckets in "us-east-1" if you are using Redshift.
-
 Within the `s3` section, the `buckets` variables are as follows:
 
-* `in` is where you specify your In Bucket
-* `archive` is where you specify your Archive Bucket
+* `jsonpath_assets` is where you store the JSON Paths files for your own JSON Schemas. Not used for Postgres
+* `enriched` is for loading and archiving your enriched events
+* `shredded` is for loading and archiving your shredded types (i.e. custom unstructured event and context JSONs)
 
-Each of the bucket variables must start with an S3 protocol - we recommend using `s3://`, as the `s3n://` protocol does not currently work with Redshift. Each variable can include a sub-folder within the
-bucket as required, and a trailing slash is optional.
+Each of the bucket variables must start with an S3 protocol - we recommend using `s3://`, as the `s3n://` protocol does not currently work with Redshift. Each variable can include a sub-folder within the bucket as required, and a trailing slash is optional.
 
-**Important:** do not put your Archive Bucket location inside your In Bucket, or you will create circular references which StorageLoader cannot resolve when moving files.
+**Important:** do not put your `:archive:` bucket location inside your `:good:` bucket, or you will create circular references which StorageLoader cannot resolve when moving files.
 
-The following are examples of valid bucket settings:
+The following are examples of valid bucket settings for Redshift:
 
 ```yaml
 :buckets:
-  :in: s3://my-snowplow-data/events/
-  :archive: s3://my-snowplow-archive/events/
+  :jsonpath_assets: s3://acme-jsonpath-files
+  :enriched:
+    :good: s3://my-out-bucket/enriched/good
+    :archive: s3://my-archive-bucket/enriched/good
+  :shredded:
+    :good: s3://my-out-bucket/shredded/good
+    :archive: s3://my-archive-bucket/shredded/good
 ```
 
 Please note that all buckets must exist prior to running StorageLoader.
