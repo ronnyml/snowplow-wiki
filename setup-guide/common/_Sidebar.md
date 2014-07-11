@@ -11,6 +11,7 @@
 **Useful resources**  
 
 - [[Troubleshooting]]  
+- [[AWS sub-account setup]]  
 - [[IAM Setup]]  
 - [[Ruby and RVM setup]]  
 - [[Hosted assets]] 
