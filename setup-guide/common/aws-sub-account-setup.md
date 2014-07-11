@@ -1,6 +1,8 @@
 ### Overview
 
-We recommend that Snowplow users create an AWS sub-account and sandbox all their Snowplow operations into that account. This allows you to provide Snowplow Professional Services with liberal permissions on this sub-account, without impacting on your main account (or other sub-accounts) in any way.
+We recommend that Snowplow users create an AWS sub-account and sandbox all of their Snowplow operations into that account. 
+
+This is particularly recommended for any users who are working with (or plan to work with) Snowplow Professional Services - as you can then assign Snowplow Professional Services liberal permissions on this sub-account, without impacting on your main account (or other sub-accounts) in any way.
 
 ### Setting up an AWS sub-account
 

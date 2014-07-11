@@ -11,6 +11,7 @@
 **Useful resources**  
 
 [**Troubleshooting**](Troubleshooting)  
+[**AWS sub-account setup**](AWS-sub-account-setup)  
 [**IAM Setup Guide**](IAM-Setup)  
   - [**IAM - Setup**](IAM-Setup)  
   - [**Setup a user to install Snowplow**](Setup-IAM-permissions-for-users-installing-Snowplow)  
