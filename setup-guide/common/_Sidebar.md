@@ -15,5 +15,3 @@
 - [[IAM Setup]]  
 - [[Ruby and RVM setup]]  
 - [[Hosted assets]] 
-
-
