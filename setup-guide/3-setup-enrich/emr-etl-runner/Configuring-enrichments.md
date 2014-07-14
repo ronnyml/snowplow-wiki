@@ -6,8 +6,9 @@
   - 2. [Configuration template](#template)
   - 3. [Configuration defaults](#defaults)
   - 4. [Individual enrichments](#enrichments)
-    - 4.1 [IpToGeo](#iptogeo)
+    - 4.1 [IpLookups](#iplookups)
     - 4.2 [AnonIp](#anonip)
+    - 4.3 [RefererParser](#refererparser)
 
 **Warning: This page is not to be used until the release of Snowplow version 0.9.6**
 
@@ -55,37 +56,59 @@ The folder is browsable on GitHub, it is available as [3-enrich/emr-etl-runner/c
 <a name="enrichments"/>
 ## 4. Individual enrichments
 
-<a name="iptogeo"/>
-### 4.1 IpToGeo Enrichment
+<a name="iplookups"/>
+### 4.1 IpLookups Enrichment
 
-This enrichment uses a MaxMind database to look up a user's geographic location based on their IP address, and populates the `geo_country`, `geo_region`, `geo_city`, `geo_zipcode`, `geo_latitude`, and `geo_longitude` fields. [This blog post][maxmind-post] has more information.
+This enrichment uses MaxMind databases to look up useful data based on a user's IP address.
 
-Its JSON schema can be found [here][ip-to-geo].
+Its JSON schema can be found [here][ip-lookups].
+
+The supported databases are as follows:
+
+1) [GeoIPCity][geolitecity] and the free version [GeoLiteCity][geolitecity] look up a user's geographic location. The enrichment uses this information to populate the `geo_country`, `geo_region`, `geo_city`, `geo_zipcode`, `geo_latitude`, `geo_longitude`, and `geo_region_name` fields. [This blog post][maxmind-post] has more information.
+
+2) [GeoIP ISP][geoipisp] looks up a user's ISP address. This populates the `ip_isp` field.
+
+3) [GeoIP Organization][geoiporg] looks up a user's organization. This populates the `ip_organization` field.
+
+3) [GeoIP Domain][geoipdomain] looks up the second level domain name associated with a user's IP address. This populates the `ip_domain` field.
+
+5) [GeoIP Netspeed][geoipnetspeed] estimates a user's connection speed. This populates the `ip_organization` field.
+
+For each of these services you wish to use, add a corresponding field to the enrichment JSON. The fields names you should use are "geo", "isp", "organization", "domain", and "netspeed".
 
 An example config JSON:
 
 ```json
 {
-	"schema": "iglu:com.snowplowanalytics.snowplow/ip_to_geo/jsonschema/1-0-0",
+	"schema": "iglu:com.snowplowanalytics.snowplow/ip_lookups/jsonschema/1-0-0",
 
 	"data": {
 
-		"name": "ip_to_geo",
+		"name": "ip_lookups",
 		"vendor": "com.snowplowanalytics.snowplow",
 		"enabled": true,
 		"parameters": {
-			"maxmindDatabase": "GeoLiteCity.dat",
-			"maxmindUri": "http://snowplow-hosted-assets.s3.amazonaws.com/third-party/maxmind"
+			"geo": {
+				"database": "GeoLiteCity.dat",
+				"uri": "http://snowplow-hosted-assets.s3.amazonaws.com/third-party/maxmind"
+			},
+			"organization": {
+				"database": "GeoIPOrg.dat",
+				"uri": "http://my-bucket.s3.amazonaws.com/third-party/maxmind"
+			},
 		}
 	}
 }
 ```
 
-The `maxmindDatabase` field contains the name of the database file. It must be either "GeoLiteCity.dat" or "GeoIPCity.dat".
+In this example, only the geographic location and organization lookups are performed.
 
-The `maxmindUri` field contains the URI of the bucket in which the database file is found.
+The `database` field contains the name of the database file.
 
-So the above example would correspond to the database file hosted at http://snowplow-hosted-assets.s3.amazonaws.com/third-party/maxmind/GeoLiteCity.dat.
+The `uri` field contains the URI of the bucket in which the database file is found.
+
+So the above example would correspond to using the database files hosted at http://snowplow-hosted-assets.s3.amazonaws.com/third-party/maxmind/GeoLiteCity.dat and http://my-bucket.s3.amazonaws.com/third-party/maxmind/GeoIPOrg.dat.
 
 <a name="anonip"/>
 ### 4.2 AnonIp Enrichment
@@ -115,9 +138,47 @@ An example config JSON:
 
 The `anonOctets` field is set to two, so the last two octets of each IP address will be obscured.
 
+<a name="refererparser"/>
+### 4.2 RefererParser Enrichment
+
+This enrichment lets uses the [Snowplow Referer-Parser][referer-parser-repo] to extract attribution data from referer URLs. You can provide a list of internal subdomains which will be treated as "internal" rather than unknown.
+
+Its JSON schema can be found [here][referer-parser].
+
+An example config JSON:
+
+```json
+{
+	"schema": "iglu:com.snowplowanalytics.snowplow/referer_parser/jsonschema/1-0-0",
+
+	"data": {
+
+		"name": "referer_parser",
+		"vendor": "com.snowplowanalytics.snowplow",
+		"enabled": true,
+		"parameters": {
+			"internalDomains": [
+				"subdomain1.mysite.com",
+				"subdomain2.mysite.com"
+			]
+		}
+	}
+}
+```
+
+In this example, if an event's referer URL is either "subdomain1.mysite.com" or "subdomain2.mysite.com" it will be counted as internal.
+
 
 [enrichment-json-examples]: https://github.com/snowplow/snowplow/tree/master/3-enrich/emr-etl-runner/config/enrichments
 [snowplow-schemas]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
 [maxmind-post]: snowplowanalytics.com/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip/
 [anon-ip]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/anon_ip/jsonschema/1-0-0
-[ip-to-geo]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/ip_to_geo/jsonschema/1-0-0
+[ip-lookups]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/ip_lookups/jsonschema/1-0-0
+[referer-parser]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/referer_parser/jsonschema/1-0-0
+[referer-parser-repo]: https://github.com/snowplow/referer-parser
+[geoipcity]: http://dev.maxmind.com/geoip/legacy/install/city/
+[geolitecity]: http://dev.maxmind.com/geoip/legacy/geolite/rld=snowplow
+[geoipisp]: https://www.maxmind.com/en/isprld=snowplow
+[geoiporg]: https://www.maxmind.com/en/organizationrld=snowplow
+[geoipdomain]: https://www.maxmind.com/en/domainrld=snowplow
+[geoipnetspeed]: https://www.maxmind.com/en/netspeed?rld=snowplow
