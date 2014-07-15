@@ -355,6 +355,54 @@ Snowplow tracking code can be included in ad tags in order to track impressions 
 
 Each ad tracking method has a `costModel` field and a `cost` field. If you provide the `cost` field, you must also provide one of `'cpa'`, `'cpc'`, and `'cpm'` for the `costModel` field.
 
+It may be the case that multiple ads from the same source end up on a single page. If this happens, it is important that the different Snowplow code snippets associated with those ads not interfere with one another. The best way to prevent this is to randomly name each tracker instance you create so that the probability of a name collision is negligible. See [Managing multiple trackers][multiple-trackers] for more on having more than one tracker instance on a single page.
+
+Below is an example of how to achieve this when using Snowplow ad impression tracking.
+
+```html
+<!-- Snowplow starts plowing -->
+<script type="text/javascript">
+ 
+// Wrap script in a closure.
+// This prevents rnd from becoming a global variable.
+// So if multiple copies of the script are loaded on the same page, 
+// each instance of rnd will be inside its own namespace and will
+// not overwrite any of the others.
+// See http://benalman.com/news/2010/11/immediately-invoked-function-expression/
+(function(){
+  // Randomly generate tracker namespace to prevent clashes
+  var rnd = Math.random().toString(36).substring(2);
+   
+  // Load Snowplow
+  ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
+  p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
+  };p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
+  n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.0.0/sp.js","sp_pm"));
+   
+  // Create a new tracker namespaced to rnd
+  window.sp_pm('newTracker', rnd, 'dgrp31ac2azr9.cloudfront.net', {
+    appId: 'myApp',
+    platform: 'web'
+  });
+
+  // Replace the values below with magic macros from your adserver
+  window.sp_pm('trackAdImpression:' + rnd,
+    '67965967893',            // impressionId
+    'cpm',                    // costModel - 'cpa', 'cpc', or 'cpm'
+    5.5,                      // cost
+    'http://www.example.com', // targetUrl
+    '23',                     // bannerId
+    '7',                      // zoneId
+    '201',                    // advertiserId
+    '12'                      // campaignId
+  );
+}());
+</script>
+<!-- Snowplow stops plowing -->
+```
+
+Even if several copies of the above script appear on a page, the trackers created will all (probably) have different names and so will not interfere with one another. The same technique should be used when tracking ad clicks. The below examples for `trackAdImpression` and `trackAdClick` assume that `rnd` has been defined in this way.
+
 <a name="adImpression" />
 #### 3.6.1 `trackAdImpression`
 
@@ -410,7 +458,7 @@ Ad click tracking is accomplished using the `trackAdClick` method. Here are the 
 An example:
 
 ```javascript
-snowplow_name_here('trackAdClick',
+snowplow_name_here('trackAdClick:' + rnd,
 
     'http://www.example.com',  // targetUrl
     '12243253',                // clickId
@@ -446,7 +494,7 @@ Use the `trackAdConversion` method to track ad conversions.  Here are the argume
 An example:
 
 ```javascript
-window.adTracker('trackAdConversion:' + rnd,
+window.adTracker('trackAdConversion',
 
     '743560297', // conversionId
     10,          // cost
@@ -738,6 +786,7 @@ For more information on custom contexts, see [this][contexts] blog post.
 
 [contents]: Javascript-Tracker
 [specific-events-v1]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker-v1
+[multiple-trackers]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker#24-managing-multiple-trackers
 [json-schema]: http://json-schema.org/
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
 [ad-impression-schema]: schemas/com.snowplowanalytics.snowplow/ad_impression/jsonschema/1-0-0
