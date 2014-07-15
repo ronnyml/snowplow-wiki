@@ -39,7 +39,9 @@ n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"//d1fc8wv8zag5ca.cloud
 </script>
 ```
 
-As well as loading Snowplow, this creates a global function called "snowplow_name_here" which you use to access the Tracker. You can replace the string "snowplow_name_here" with the function name of your choice. This is encouraged: if there are two Snowplow users on the same page, there won't be any conflict between them as long as they have chosen different function names. The rest of the documentation will assume that the function is called "snowplow_name_here".
+*Important note regarding testing:* `"//d1fc8wv8zag5ca.cloudfront.net/2.0.0/sp.js"` is the URL from which sp.js should be fetched, and will automatically be prepended with "http:" or "https:" depending on the page's protocol. But if you wish to try out Snowplow locally, using an HTML file on disk whose URI starts with "file://", you should manually insert "http:", changing it to `"http://d1fc8wv8zag5ca.cloudfront.net/2.0.0/sp.js"`.
+
+As well as loading Snowplow, this tag creates a global function called "snowplow_name_here" which you use to access the Tracker. You can replace the string "snowplow_name_here" with the function name of your choice. This is encouraged: if there are two Snowplow users on the same page, there won't be any conflict between them as long as they have chosen different function names. The rest of the documentation will assume that the function is called "snowplow_name_here".
 
 Once the function `snowplow_name_here` is created, the syntax for using Snowplow methods is as follows:
 
