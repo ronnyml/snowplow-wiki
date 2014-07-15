@@ -176,9 +176,9 @@ In this example, if an event's referer URL is either "subdomain1.mysite.com" or 
 [ip-lookups]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/ip_lookups/jsonschema/1-0-0
 [referer-parser]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/referer_parser/jsonschema/1-0-0
 [referer-parser-repo]: https://github.com/snowplow/referer-parser
-[geoipcity]: http://dev.maxmind.com/geoip/legacy/install/city/
-[geolitecity]: http://dev.maxmind.com/geoip/legacy/geolite/rld=snowplow
-[geoipisp]: https://www.maxmind.com/en/isprld=snowplow
-[geoiporg]: https://www.maxmind.com/en/organizationrld=snowplow
-[geoipdomain]: https://www.maxmind.com/en/domainrld=snowplow
+[geoipcity]: http://dev.maxmind.com/geoip/legacy/install/city/?rld=snowplow
+[geolitecity]: http://dev.maxmind.com/geoip/legacy/geolite/?rld=snowplow
+[geoipisp]: https://www.maxmind.com/en/isp?rld=snowplow
+[geoiporg]: https://www.maxmind.com/en/organization?rld=snowplow
+[geoipdomain]: https://www.maxmind.com/en/domain?rld=snowplow
 [geoipnetspeed]: https://www.maxmind.com/en/netspeed?rld=snowplow

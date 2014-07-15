@@ -49,4 +49,4 @@ Next: [[Configure Scala Kinesis Enrich]]
 [sbt]: http://www.scala-sbt.org/
 [assembly]: https://github.com/softprops/assembly-sbt
 
-[geolite]: http://dev.maxmind.com/geoip/legacy/geolite/
+[geolite]: http://dev.maxmind.com/geoip/legacy/geolite/?rld=snowplow

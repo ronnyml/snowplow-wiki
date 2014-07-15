@@ -98,5 +98,5 @@ Please see the [[Artifact repositories]] wiki page for more information.
 [hadoop-bad-rows-download]: http://d2io1hx8u877l0.cloudfront.net/3-enrich/scala-bad-rows/snowplow-bad-rows-0.1.0.jar
 [kinesis-enrich-download]: http://d2io1hx8u877l0.cloudfront.net/3-enrich/scala-kinesis-enrich/snowplow-kinesis-enrich-0.1.0
 [glc-download]: http://d2io1hx8u877l0.cloudfront.net/third-party/maxmind/GeoLiteCity.dat
-[geolite]: http://dev.maxmind.com/geoip/legacy/geolite
-[maxmind]: http://www.maxmind.com/
+[geolite]: http://dev.maxmind.com/geoip/legacy/geolite?rld=snowplow
+[maxmind]: http://www.maxmind.com/?rld=snowplow
