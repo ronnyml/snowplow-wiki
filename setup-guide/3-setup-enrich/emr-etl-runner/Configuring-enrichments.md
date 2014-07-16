@@ -63,21 +63,71 @@ This enrichment uses MaxMind databases to look up useful data based on a user's 
 
 Its JSON schema can be found [here][ip-lookups].
 
-The supported databases are as follows:
+There are five possible fields you can add to the "parameters" section of the enrichment configuration JSON: "geo", "isp", "organization", "domain", and "netspeed". Each of these corresponds to looking up information one of five MaxMind databases, and so needs to have two inner fields:
 
-1) [GeoIPCity][geolitecity] and the free version [GeoLiteCity][geolitecity] look up a user's geographic location. The enrichment uses this information to populate the `geo_country`, `geo_region`, `geo_city`, `geo_zipcode`, `geo_latitude`, `geo_longitude`, and `geo_region_name` fields. [This blog post][maxmind-post] has more information.
+* The `database` field contains the name of the database file.
+* The `uri` field contains the URI of the bucket in which the database file is found.
 
-2) [GeoIP ISP][geoipisp] looks up a user's ISP address. This populates the `ip_isp` field.
+Here is a maximalist example configuration JSON, which performs all five types of lookup:
 
-3) [GeoIP Organization][geoiporg] looks up a user's organization. This populates the `ip_organization` field.
+```json
+{
+	"schema": "iglu:com.snowplowanalytics.snowplow/ip_lookups/jsonschema/1-0-0",
 
-3) [GeoIP Domain][geoipdomain] looks up the second level domain name associated with a user's IP address. This populates the `ip_domain` field.
+	"data": {
 
-5) [GeoIP Netspeed][geoipnetspeed] estimates a user's connection speed. This populates the `ip_organization` field.
+		"name": "ip_lookups",
+		"vendor": "com.snowplowanalytics.snowplow",
+		"enabled": true,
+		"parameters": {
+			"geo": {
+				"database": "GeoIPCity.dat",
+				"uri": "http://my-bucket.s3.amazonaws.com/third-party/maxmind"
+			},
+			"isp": {
+				"database": "GeoIPISP.dat",
+				"uri": "http://my-bucket.s3.amazonaws.com/third-party/maxmind"				
+			},
+			"organization": {
+				"database": "GeoIPOrg.dat",
+				"uri": "http://my-bucket.s3.amazonaws.com/third-party/maxmind"
+			},
+			"domain": {
+				"database": "GeoIPDomain.dat",
+				"uri": "http://my-bucket.s3.amazonaws.com/third-party/maxmind"
+			},
+			"netspeed": {
+				"database": "GeoIPNetSpeedCell.dat",
+				"uri": "http://my-bucket.s3.amazonaws.com/third-party/maxmind"
+			}
+		}
+	}
+}
+```
+
+This table contains describes the five types of lookup:
+
+| **Field name**   | **MaxMind Database name**     | **Lookup description**                             | **Accepted database filenames**                   | **Fields populated** |
+|-----------------:|:------------------------------|:---------------------------------------------------|:--------------------------------------------------|:---------------------|
+| `"geo"`          | [GeoIPCity][geolitecity] or [GeoLiteCity][geolitecity] | Information related to geographic location         | `"GeoLiteCity.dat"` or `"GeoIPCity.dat"           | `geo_country`, `geo_region`, `geo_city`, `geo_zipcode`, `geo_latitude`, `geo_longitude`, and `geo_region_name` |
+| `"isp"`          | [GeoIP ISP][geoipisp]                   | Internet Service Provider                          | `"GeoIPISP.dat"`                                  | `ip_isp`          |
+| `"organization"` | [GeoIP Organization][geoiporg]          | Organization name for larger networks              | `"GeoIPOrg.dat"`                                  | `ip_organization` |
+| `"domain"`       | [GeoIP Domain][geoipdomain]                | Second level domain name associated with IP adress | `"GeoIPDomain.dat"`                               | `ip_domain`       |
+| `"netspeed"`     | [GeoIP Netspeed][geoipnetspeed]              | Estimated connection speed                         | `"GeoIPNetSpeed.dat"` or `"GeoIPNetSpeedCell.dat" | `ip_netspeed`     |
+
+**Field name** is the name of the field in the ip_lookups enrichment configuration JSON which you should include if you wish to use that type of lookup. That field should have two subfields: "uri" and "database".
+
+**MaxMind Database name** is the name of the database which that lookup uses.
+
+**Lookup description** describes the lookup.
+
+**Accepted database filenames** are the strings which are allowed in the "database" subfield. If the file name you provide is not one of these, the enrichment JSON will fail validation.
+
+**Fields populated** are the names of the database fields which the lookup fills.
 
 For each of these services you wish to use, add a corresponding field to the enrichment JSON. The fields names you should use are "geo", "isp", "organization", "domain", and "netspeed".
 
-An example config JSON:
+Here is a simpler example configuration (which exactly duplicates the behaviour of Snowplow 0.9.5):
 
 ```json
 {
@@ -92,23 +142,13 @@ An example config JSON:
 			"geo": {
 				"database": "GeoLiteCity.dat",
 				"uri": "http://snowplow-hosted-assets.s3.amazonaws.com/third-party/maxmind"
-			},
-			"organization": {
-				"database": "GeoIPOrg.dat",
-				"uri": "http://my-bucket.s3.amazonaws.com/third-party/maxmind"
-			},
+			}
 		}
 	}
 }
 ```
 
-In this example, only the geographic location and organization lookups are performed.
-
-The `database` field contains the name of the database file.
-
-The `uri` field contains the URI of the bucket in which the database file is found.
-
-So the above example would correspond to using the database files hosted at http://snowplow-hosted-assets.s3.amazonaws.com/third-party/maxmind/GeoLiteCity.dat and http://my-bucket.s3.amazonaws.com/third-party/maxmind/GeoIPOrg.dat.
+This example uses the free GeoLiteCity database hosted by Snowplow.
 
 <a name="anonip"/>
 ### 4.2 AnonIp Enrichment
