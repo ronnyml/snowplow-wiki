@@ -38,11 +38,6 @@ Snowplow has been built to enable users to track a wide range of events that occ
     - 3.9.3 [`trackLinkClick`](#trackLinkClick)
   - 3.10 [Custom contexts](#custom-contexts)
 
-<a name="tracking-specific-events" />
-## 3. Tracking specific events
-
-Snowplow has been built to enable you to track a wide range of events that occur when users interact with your websites and webapps. We are constantly growing the range of functions available in order to capture that data more richly.
-
 <a name="page" />
 ### 3.1 Pageviews
 
@@ -80,6 +75,8 @@ If you wish, you can override the title with a custom value:
 ```javascript
 snowplow_name_here('trackPageView', 'my custom page title');
 ```
+
+`trackPageView` can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
 
 Note: going forwards we plan to extend this method to also capture page category.
 
@@ -159,6 +156,8 @@ snowplow_name_here('addTrans',
   );
 ```
 
+`addTrans` can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
+
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
 
@@ -190,6 +189,8 @@ snowplow_name_here('addItem',
     '1'               // quantity - required
   );
 ```
+
+`addItem` can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
 
 <a name="trackTrans" />
 #### 3.3.3 `trackTrans`
@@ -269,6 +270,8 @@ Social tracking will be used to track the way users interact with Facebook, Twit
 <a name="trackSocial" />
 #### 3.4.1 `trackSocial`
 
+*This method has not yet been implemented.*
+
 The `trackSocial` method takes four parameters:
 
 | **Parameter** | **Description** | **Required?** | **Example value**     | 
@@ -295,6 +298,8 @@ Or if the optional parameters were left off:
 ```javascript
 snowplow_name_here('trackSocial', 'facebook', 'like');
 ```
+
+`trackSocial` can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
 
@@ -437,6 +442,8 @@ snowplow_name_here('trackAdImpression:' + rnd,
 
 Ad impression events are implemented as Snowplow unstructured events. [Here][ad-impression-schema] is the JSON schema for an ad impression event.
 
+`trackAdImpression` can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
+
 You will want to set these arguments programmatically, across all of your ad zones/slots. For guidelines on how to achieve this with the [OpenX adserver] [openx], please see the following section [3.6.4](#ad-example).
 
 <a name="adClick" />
@@ -474,6 +481,8 @@ snowplow_name_here('trackAdClick:' + rnd,
 
 Ad click events are implemented as Snowplow unstructured events.[Here][ad-click-schema] is the JSON schema for an ad click event.
 
+`trackAdClick` can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
+
 <a name="adConversion" />
 #### 3.6.3 `trackAdConversion`
 
@@ -509,6 +518,8 @@ window.adTracker('trackAdConversion',
 ```
 
 Ad conversion events are implemented as Snowplow unstructured events. [Here][ad-conversion-schema] is the schema for an ad conversion event.
+
+`trackAdConversion` can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
 
 <a name="ad-example" />
 #### 3.6.4 Example: implementing impression tracking with Snowplow and OpenX
@@ -585,6 +596,8 @@ snowplow_name_here('trackStructEvent', 'Mixes', 'Play', 'MrC/fabric-0503-mix', '
 
 Note that in the above example no value is set for the `event property`.
 
+`trackStructEvent` can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
+
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
 
@@ -630,6 +643,8 @@ The second argument is a [self-describing JSON][self-describing-json]. It has tw
 * A `schema` field, containing the location of the [JSON schema][json-schema] against which the `data` field should be validated.
 
 The `data` field should be flat, not nested.
+
+`trackUnstructEvent` can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
 
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
@@ -702,6 +717,8 @@ snowplow_name_here('enableLinkClickTracking', null, true);
 
 Each link click event will include (if available) the destination URL, id, classes and target of the clicked link. (The target attribute of a link specifies a window or frame where the linked document will be loaded.)
 
+`enableLinkClickTracking` can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
+
 <a name="refreshLinkClickTracking" />
 #### 3.9.2 `refreshLinkClickTracking`
 
@@ -717,7 +734,7 @@ snowplow_name_here('refreshLinkClickTracking');
 You can manually track individual link click events with the `trackLinkClick` method. This is its signature:
 
 ```javascript
-function trackLinkClick(targetUrl, elementId, elementClasses, elementTarget, context);
+function trackLinkClick(targetUrl, elementId, elementClasses, elementTarget);
 ```
 
 Of these arguments, only `targetUrl` is required. This is how to use `trackLinkClick`:
@@ -725,6 +742,8 @@ Of these arguments, only `targetUrl` is required. This is how to use `trackLinkC
 ```javascript
 snowplow_name_here('trackLinkCLick', 'first-link', ['class-1', 'class-2'], '', 'http://www.example.com');
 ```
+
+`trackLinkClick` can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
 
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
