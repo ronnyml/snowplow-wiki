@@ -18,8 +18,9 @@ The planned releases are as follows:
 | Release   | Tickets                   | Objective(s)                                                                     |
 |-----------|---------------------------|----------------------------------------|
 | **0.9.6** | [See GitHub] [issues-096] | Making our enrichments JSON-powered    |
-| **0.9.7** | [See GitHub] [issues-097] | Improvements to Kinesis flow       |
-| **0.9.8** | [See GitHub] [issues-098] | New enrichments                        |
+| **0.9.7** | [See GitHub] [issues-097] | Add POST and mobile support            |
+| **0.9.8** | [See GitHub] [issues-098] | Improvements to Kinesis flow           |
+| **0.9.9** | [See GitHub] [issues-099] | New enrichments                        |
 
 ## Longer-term: approximate schedule
 
@@ -30,8 +31,9 @@ In this section we set out an approximate map of the new components and capabili
 [milestones]: https://github.com/snowplow/snowplow/issues/milestones
 
 [issues-096]: https://github.com/snowplow/snowplow/issues?milestone=48&state=open
-[issues-097]: https://github.com/snowplow/snowplow/issues?milestone=29&state=open
-[issues-098]: https://github.com/snowplow/snowplow/issues?milestone=30&state=open
+[issues-097]: https://github.com/snowplow/snowplow/issues?milestone=38&state=open
+[issues-098]: https://github.com/snowplow/snowplow/issues?milestone=29&state=open
+[issues-099]: https://github.com/snowplow/snowplow/issues?milestone=30&state=open
 
 [scalding]: https://github.com/twitter/scalding
 [redshift]: http://aws.amazon.com/redshift/
