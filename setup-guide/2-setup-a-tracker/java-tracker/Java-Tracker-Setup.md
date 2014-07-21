@@ -50,7 +50,7 @@ To minimize jar bloat, we have tried to keep external dependencies to a minimum.
 
 The Tracker is published to Snowplow's [hosted Maven repository] [maven-snplow], which should make it easy to add it as a dependency into your own Java app.
 
-The current version of the Snowplow Java Tracker is 0.1.0.
+The current version of the Snowplow Java Tracker is 0.3.0.
 
 <a name="maven" />
 ### 3.2 Maven
@@ -86,7 +86,7 @@ Then add into your project's `pom.xml`:
 <dependency>
     <groupId>com.snowplowanalytics</groupId>
     <artifactId>snowplow-java-tracker</artifactId>
-    <version>0.1.0</version>
+    <version>0.3.0</version>
 </dependency>
 ```
 
@@ -110,7 +110,7 @@ Then add into the same file:
 dependencies {
     ...
     // Snowplow Java Tracker
-    compile 'com.snowplowanalytics:snowplow-java-tracker:0.1.0'
+    compile 'com.snowplowanalytics:snowplow-java-tracker:0.3.0'
 }
 ```
 
@@ -124,7 +124,7 @@ The Snowplow Java Tracker is also usable from Scala. Add this to your SBT config
 val snowplowRepo = "SnowPlow Repo" at "http://maven.snplow.com/releases/"
 
 // Dependency
-val snowplowTracker = "com.snowplowanalytics"  % "snowplow-java-tracker"  % "0.1.0"
+val snowplowTracker = "com.snowplowanalytics"  % "snowplow-java-tracker"  % "0.3.0"
 ```
 
 Done? Now read the [Java Tracker API](Java-Tracker) to start tracking events.
