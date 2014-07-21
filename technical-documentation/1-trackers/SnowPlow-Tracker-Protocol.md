@@ -51,13 +51,13 @@ In the [first part of this guide](#common), we cover the parameters in the Snowp
 | **Parameter** | **Maps to**      | **Type** |**Description**               | **Implemented?** | **Example values**        | 
 |:--------------|:-----------------|:---------|:------------------------------|:-----------------|:--------------------------|
 | `tna`         | N/A              | text     | The tracker namespace         | No               | `tracker_1`               |
-| `evn`        | `event_vendor`   | text     | The company who developed the event model        | No               | `com.snowplowanalytics` |
+| `evn`        | `event_vendor` (deprecated)   | text     | The company who developed the event model        | No               | `com.snowplowanalytics` |
 | `aid`         | `app_id`         | text     | Unique identifier for website / application    | Yes | `angry-birds-android` |
 | `p`           | `platform`       | text     | The platform the app runs on  | No               | `web`, `mob`, `app`      |
 
 The tracker namespace parameter is used to distinguish between different trackers. The name can be any string that *does not* contain a colon or semi-colon character. Tracker namespacing allows you to run multiple trackers, pinging to different collectors.
 
-The event vendor parameter makes it possible to distinguish between events defined by different companies.
+The event vendor parameter makes it possible to distinguish between events defined by different companies. *Note: the event vendor parameter is deprecated.*
 
 The application ID parameter is used to distinguish data from different websites and applications.
 
@@ -590,7 +590,7 @@ The tracker can be configured to encode the context into Base64 to ensure that n
 
 | **Parameter** | **Maps to**      | **Type** |**Description**                                     | **Implemented?** | **Example values**| 
 |:--------------|:-----------------|:---------|:---------------------------------------------------|:-----------------|:------------------|
-| `cv`       | `context_vendor`        | String     | Vendor for the custom contexts                        | No          | `com.acme` |
+| `cv`       | `context_vendor` (deprecated)        | String     | Vendor for the custom contexts                        | No          | `com.acme` |
 | `co`       | `context`        | JSON     | A custom context                        | Yes         | `%7B%22user%22%3A%7B%22fb_uid%22%3A%22999999%20x%22%7D%7D` |
 | `cx`       | `context`        | JSON (Base64 encoded)   | A custom context         | Yes         | `6eyJ1c2VyX3R5cGUiOiJ0ZXN0ZXIifX=` |
 

@@ -93,7 +93,6 @@ snowplow_name_here("newTracker", "cf", "d3rkrsqld9gmqf.cloudfront.net", {
   platform: "mob"
   cookieDomain: null,
   cookieName: "_sp534_",
-  contextVendor: "com.my_company",
   encodeBase64: false,
   respectDoNotTrack: false,
   userFingerprint: true,
