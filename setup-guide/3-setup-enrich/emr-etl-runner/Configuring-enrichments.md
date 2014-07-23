@@ -82,7 +82,7 @@ Here is a maximalist example configuration JSON, which performs all five types o
 		"parameters": {
 			"geo": {
 				"database": "GeoIPCity.dat",
-				"uri": "s3://my-bucket.s3.amazonaws.com/third-party/maxmind"
+				"uri": "s3://my-private-bucket.s3.amazonaws.com/third-party/maxmind"
 			},
 			"isp": {
 				"database": "GeoIPISP.dat",
