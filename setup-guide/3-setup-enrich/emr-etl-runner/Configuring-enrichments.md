@@ -66,9 +66,9 @@ Its JSON schema can be found [here][ip-lookups].
 There are five possible fields you can add to the "parameters" section of the enrichment configuration JSON: "geo", "isp", "organization", "domain", and "netspeed". Each of these corresponds to looking up information one of five MaxMind databases, and so needs to have two inner fields:
 
 * The `database` field contains the name of the database file.
-* The `uri` field contains the URI of the bucket in which the database file is found.
+* The `uri` field contains the URI of the bucket in which the database file is found. Can have either http: (for publically available MaxMind files) or s3: (for commercial MaxMind files) as the scheme
 
-Here is a maximalist example configuration JSON, which performs all five types of lookup:
+Here is a maximalist example configuration JSON, which performs all five types of lookup using the MaxMind commercial files:
 
 ```json
 {
@@ -82,23 +82,23 @@ Here is a maximalist example configuration JSON, which performs all five types o
 		"parameters": {
 			"geo": {
 				"database": "GeoIPCity.dat",
-				"uri": "http://my-bucket.s3.amazonaws.com/third-party/maxmind"
+				"uri": "s3://my-bucket.s3.amazonaws.com/third-party/maxmind"
 			},
 			"isp": {
 				"database": "GeoIPISP.dat",
-				"uri": "http://my-bucket.s3.amazonaws.com/third-party/maxmind"				
+				"uri": "s3://my-private-bucket.s3.amazonaws.com/third-party/maxmind"				
 			},
 			"organization": {
 				"database": "GeoIPOrg.dat",
-				"uri": "http://my-bucket.s3.amazonaws.com/third-party/maxmind"
+				"uri": "s3://my-private-bucket.s3.amazonaws.com/third-party/maxmind"
 			},
 			"domain": {
 				"database": "GeoIPDomain.dat",
-				"uri": "http://my-bucket.s3.amazonaws.com/third-party/maxmind"
+				"uri": "s3://my-private-bucket.s3.amazonaws.com/third-party/maxmind"
 			},
 			"netspeed": {
 				"database": "GeoIPNetSpeedCell.dat",
-				"uri": "http://my-bucket.s3.amazonaws.com/third-party/maxmind"
+				"uri": "s3://my-private-bucket.s3.amazonaws.com/third-party/maxmind"
 			}
 		}
 	}
