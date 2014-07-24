@@ -542,12 +542,12 @@ Here are all the posibile options that you can use:
 <a name="payload" />
 ## 6. Payload
 
-
+TBD
 
 <a name="logging" />
 ## 7. Logging
 
-Not yet implemented.
+Logging in the Tracker is done using SLF4J. Majority of the logging set as `DEBUG` so will not overly populate your own logging.
 
 [documentation]: https://gleasonk.github.io/Saggezza/JavaDoc/index.html
 
