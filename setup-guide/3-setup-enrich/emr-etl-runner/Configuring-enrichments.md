@@ -6,9 +6,9 @@
   - 2. [Configuration template](#template)
   - 3. [Configuration defaults](#defaults)
   - 4. [Individual enrichments](#enrichments)
-    - 4.1 [IpLookups](#iplookups)
-    - 4.2 [AnonIp](#anonip)
-    - 4.3 [RefererParser](#refererparser)
+    - 4.1 [ip_lookups](#iplookups)
+    - 4.2 [anon_ip](#anonip)
+    - 4.3 [referer_parser](#refererparser)
 
 **Warning: This page is not to be used until the release of Snowplow version 0.9.6**
 
@@ -57,7 +57,7 @@ The folder is browsable on GitHub, it is available as [3-enrich/emr-etl-runner/c
 ## 4. Individual enrichments
 
 <a name="iplookups"/>
-### 4.1 IpLookups Enrichment
+### 4.1 ip_lookups enrichment
 
 This enrichment uses MaxMind databases to look up useful data based on a user's IP address.
 
@@ -151,7 +151,7 @@ Here is a simpler example configuration (which exactly duplicates the behaviour 
 This example uses the free GeoLiteCity database hosted by Snowplow.
 
 <a name="anonip"/>
-### 4.2 AnonIp Enrichment
+### 4.2 anon_ip enrichment
 
 This enrichment lets you anonymize the IP addresses found in the `user_ipaddress` field by replacing a certain number of octets with "X"s. For example, anonymizing one octet would change the address `255.255.255.255` to `255.255.255.XXX`, and anonymizing three octets would change it to `255.XXX.XXX.XXX`.
 
@@ -179,7 +179,7 @@ An example config JSON:
 The `anonOctets` field is set to two, so the last two octets of each IP address will be obscured.
 
 <a name="refererparser"/>
-### 4.2 RefererParser Enrichment
+### 4.2 referer_parser enrichment
 
 This enrichment lets uses the [Snowplow Referer-Parser][referer-parser-repo] to extract attribution data from referer URLs. You can provide a list of internal subdomains which will be treated as "internal" rather than unknown.
 
