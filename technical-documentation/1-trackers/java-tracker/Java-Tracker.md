@@ -22,7 +22,12 @@ This page refers to version 0.1.0 of the Snowplow Java Tracker.
     - 4.4.1 [`TransactionItem`](#ecommerce-transactionitem)
   - 4.5 [`trackStructuredEvent()`](#struct-event)
   - 4.6 [`trackUnstructuredEvent()`](#unstruct-event)
-- 5 [Logging](#logging)
+- 5 [Sending event](#emitter)
+  - 5.1 [Using a buffer](#buffer)
+  - 5.2 [Choosing the HTTP method](#http-method)
+  - 5.3 [Method of sending HTTP requests](#http-request)
+- 6 [Payload](#payload)
+- 7 [Logging](#logging)
 
 <a name="overview" />
 ## 1. Overview
@@ -47,7 +52,7 @@ Import the Java Tracker's classes into your Java code like so:
 import com.snowplowanalytics.snowplow.tracker.*;
 ```
 
-That's it - you are now ready to initialize a TrackerC instance. 
+That's it - you are now ready to initialize a Tracker instance. 
 
 [Back to top](#top)
 
@@ -57,31 +62,35 @@ That's it - you are now ready to initialize a TrackerC instance.
 To instantiate a tracker in your code (can be global or local to the process being tracked) simply instantiate the `Tracker` interface with one of the following:
 
 ```java
-TrackerC(String collector_uri, String namespace, String app_id, boolean base64_encode)
+Tracker(Emitter emitter, String namespace, String appId)
+Tracker(Emitter emitter, Subject subject, String namespace, String appId)
+Tracker(Emitter emitter, String namespace, String appId, boolean base64Encoded)
+Tracker(Emitter emitter, Subject subject, String namespace, String appId, boolean base64Encoded)
 ```
 
 For example:
 
 ```java
-Tracker t1 = new TrackerC("d3rkrsqld9gmqf.cloudfront.net", "Snowplow Java Tracker Test", "testing_app");
-Tracker t2 = new TrackerC("d3rkrsqld9gmqf.cloudfront.net", null, null);
+Tracker t1 = new Tracker("d3rkrsqld9gmqf.cloudfront.net", user1Subject, "AF003", "cloudfront", true);
+Tracker t2 = new Tracker("d3rkrsqld9gmqf.cloudfront.net", "AF003", "cloudfront");
 ```
 
-| **Argument Name** | **Description**                              | **Required?** |
-|------------------:|:---------------------------------------------|:--------------|
-| `collector_uri`   | The URI endpoint to which events are sent    | Yes           |
-| `namespace`       | The name of the tracker instance             | No            |
-| `app_id`          | The application ID                           | No            |
-| `encode_base64`   | Whether to enable [base 64 encoding][base64] | Yes           |
+| **Argument Name** | **Description**                              |    **Required?**  |
+|------------------:|:---------------------------------------------|:------------------|
+| `emitter`         | The Emitter object you create                | Yes               |
+| `subject`         | The subject that defines a user              | No                |
+| `namespace`       | The name of the tracker instance             | Yes               |
+| `appId`           | The application ID                           | Yes               |
+| `base64Encoded`   | Whether to enable [base 64 encoding][base64] | No (Default true) |
 
 [Back to top](#top)
 
 <a name="add-data" />
-## 3. Adding extra data
+## 3. Adding Subject data
 
 You may have additional information about your application's environment, current user and so on, which you want to send to Snowplow with each event.
 
-The TrackerC class has a set of `set...()` methods to attach extra data relating to the user to all tracked events:
+The Subject class has a set of `set...()` methods to attach extra data relating to the user to all tracked events:
 
 * [`setPlatform`](#set-platform)
 * [`setUserId`](#set-user-id)
@@ -94,10 +103,17 @@ The TrackerC class has a set of `set...()` methods to attach extra data relating
 Here are some examples:
 
 ```java
-t1.setUserID("Kevin Gleason"); 
-t1.setLanguage("en-gb");
-t1.setPlatform("cnsl");
-t1.setScreenResolution(1260, 1080);
+s1.setUserID("Kevin Gleason"); 
+s1.setLanguage("en-gb");
+s1.setPlatform("cnsl");
+s1.setScreenResolution(1920, 1080);
+```
+
+After that, you can add your Subject to your Tracker like so:
+```java
+Tracker(emitter, s1, namespace, appId);
+// OR
+t1.setSubject(s1);
 ```
 
 <a name="set-platform" />
@@ -106,7 +122,7 @@ t1.setScreenResolution(1260, 1080);
 You can change the platform the subject is using by calling:
 
 ```java
-t1.setPlatform("cnsl");
+s1.setPlatform("cnsl");
 ```
 
 For a full list of supported platforms, please see the [[Snowplow Tracker Protocol]].
@@ -119,13 +135,13 @@ For a full list of supported platforms, please see the [[Snowplow Tracker Protoc
 You can set the user ID to any string:
 
 ```java
-t1.setUserId( "{{USER ID}}" )
+s1.setUserId( "{{USER ID}}" )
 ```
 
 Example:
 
 ```java
-t1.setUserId("alexd")
+s1.setUserId("alexd")
 ```
 
 [Back to top](#top)
@@ -234,7 +250,7 @@ Tracking methods supported by the Java Tracker at a glance:
 <a name="common" />
 ### 4.1 Common
 
-All events are tracked with specific methods on the tracker instance, of the form `track_XXX()`, where `XXX` is the name of the event to track.
+All events are tracked with specific methods on the tracker instance, of the form `trackXXX()`, where `XXX` is the name of the event to track.
 
 <a name="custom-contexts" />
 ### 4.1.1 Custom contexts
@@ -242,10 +258,13 @@ All events are tracked with specific methods on the tracker instance, of the for
 In short, custom contexts let you add additional information about the circumstances surrounding an event in the form of a Java String in JSON format. dictionary object. Each tracking method accepts an additional optional contexts parameter after all the parameters specific to that method:
 
 ```java
-t1.trackPageView(String page_url, String page_title, String referrer, Map context, long timestamp)
+t1.trackPageView(String pageUrl, String pageTitle, String referrer)
+t1.trackPageView(String pageUrl, String pageTitle, String referrer, Map context)
+t1.trackPageView(String pageUrl, String pageTitle, String referrer, double timestamp)
+t1.trackPageView(String pageUrl, String pageTitle, String referrer, Map context, double timestamp)
 ```
 
-The `context` argument should consist of a `Map` containing one or more contexts. The format of each individual context element is the same as for an [unstructured event](#unstruct-event).
+The `context` argument should consist of a `Map` containing a JSON array of one or more contexts. The format of each individual context element is the same as for an [unstructured event](#unstruct-event).
 
 If a visitor arrives on a page advertising a movie, the context dictionary might look like this:
 
@@ -262,22 +281,23 @@ If a visitor arrives on a page advertising a movie, the context dictionary might
 
 Note that even if there is only one custom context attached to the event, it still needs to be placed in an array.
 
-Providing the contexts as a Java object (i.e. not as a `String` in JSON format) is not yet supported.
-
 <a name="tstamp-arg" />
-### 4.1.2 Optional timestamp argument
+### 4.1.2 Optional timestamp & context argument
 
-The `timestamp` argument is optional for you to add in each tracker. If you decide to use the `timestamp` generated from the device itself, you can see the `timestamp` argument to 0.
+In all the trackers, we offer a way to set the timestamp if you want the event to show as tracked at a specific time. If you don't, we create a timestamp while the event is being tracked.
+
+Here is an example:
+```java
+
+```
 
 <a name="return-value" />
 ### 4.1.3 Tracker method return values
 
-To be confirmed.
+To be confirmed. As of now, trackers do not return anything.
 
 <a name="screen-view" />
 ### 4.2 Track screen views with `trackScreenView()`
-
-**Warning:** this feature is implemented in the Java tracker, but it is **not** currently supported in the Enrichment, Storage or Analytics stages in the Snowplow data pipeline. As a result, if you use this feature, you will log screen views to your collector logs, but these will not be parsed and loaded into e.g. Redshift to analyse. (Adding this capability is coming soon to Snowplow.)
 
 Use `trackScreenView()` to track a user viewing a screen (or equivalent) within your app. Arguments are:
 
@@ -285,14 +305,14 @@ Use `trackScreenView()` to track a user viewing a screen (or equivalent) within 
 |-------------:|:------------------------------------|:--------------|:------------------------|
 | `name`       | Human-readable name for this screen | Yes           | String                  |
 | `id`         | Unique identifier for this screen   | No            | String                  |
-| `context`    | Custom context for the event        | No            | Map                     |
-| `timestamp`  | User set item timestamp             | No            | long or 0               |
+| `context`    | Custom context for the event        | No            | String                  |
+| `timestamp`  | Optional timestamp for the event    | No            | Long                    |
 
 Example:
 
 ```java
-t1.trackScreenView("HUD > Save Game", "screen23", null, 123456L);
-t1.trackScreenView("HUD > Save Game", null, null, 0);
+t1.trackScreenView("HUD > Save Game", "screen23");
+t1.trackScreenView("HUD > Save Game", contextMap, 123456);
 ```
 
 [Back to top](#top)
@@ -304,19 +324,19 @@ If you are using Java servlet technology or similar to serve webpages to a brows
 
 Arguments are:
 
-| **Argument** | **Description**                     | **Required?** | **Validation**          |
-|-------------:|:------------------------------------|:--------------|:------------------------|
-| `page_url`   | The URL of the page                 | Yes           | String                  |
-| `page_title` | The title of the page               | No            | String                  |
-| `referrer`   | The address which linked to the page| No            | String                  |
-| `context`    | Custom context for the event        | No            | Map                     |
-| `timestamp`  | User set item timestamp             | No            | long or 0               |
+| **Argument** | **Description**                      | **Required?** | **Validation**          |
+|-------------:|:-------------------------------------|:--------------|:------------------------|
+| `page_url`   | The URL of the page                  | Yes           | String                  |
+| `page_title` | The title of the page                | Yes           | String                  |
+| `referrer`   | The address which linked to the page | Yes           | String                  |
+| `context`    | Custom context for the event         | No            | Map                     |
+| `timestamp`  | Optional timestamp for the event     | No            | Long                    |
 
 Example:
 
 ```java
-t1.trackPageView("www.example.com", "example", "www.referrer.com", null, 123456L);
-t1.trackPageView("www.example.com", null, "www.referrer.com", null, 0);
+t1.trackPageView("www.example.com", "example", "www.referrer.com", mapContext);
+t1.trackPageView("www.example.com", "example", "www.referrer.com");
 ```
 
 [Back to top](#top)
@@ -332,16 +352,16 @@ Arguments:
 |--------------:|:-------------------------------------|:--------------|:-------------------------|
 | `order_id`    | ID of the eCommerce transaction      | Yes           | String                   |
 | `total_value` | Total transaction value              | Yes           | Double                   |
-| `affiliation` | Transaction affiliation              | No            | String                   |
-| `tax_value`   | Transaction tax value                | No            | Double                   |
-| `shipping`    | Delivery cost charged                | No            | Double                   |
-| `city`        | Delivery address city                | No            | String                   |
-| `state`       | Delivery address state               | No            | String                   |
-| `country`     | Delivery address country             | No            | String                   | 
-| `currency`    | Transaction currency                 | No            | String                   |
+| `affiliation` | Transaction affiliation              | Yes           | String                   |
+| `tax_value`   | Transaction tax value                | Yes           | Double                   |
+| `shipping`    | Delivery cost charged                | Yes           | Double                   |
+| `city`        | Delivery address city                | Yes           | String                   |
+| `state`       | Delivery address state               | Yes           | String                   |
+| `country`     | Delivery address country             | Yes           | String                   | 
+| `currency`    | Transaction currency                 | Yes           | String                   |
 | `items`       | Items in the transaction             | Yes           | List<TransactionItem>    |
 | `context`     | Custom context for the event         | No            | Map                      |
-| `timestamp`   | User set item timestamp              | No            | long or 0                |
+| `timestamp`   | Optional timestamp for the event     | No            | Long                     |
 
 The `items` argument is a `List` of individual `TransactionItem` elements representing the items in the e-commerce transaction. Note that `trackEcommerceTransaction` fires multiple events: one transaction event for the transaction as a whole, and one transaction item event for each element of the `items` `List`. Each transaction item event will have the same timestamp, order_id, and currency as the main transaction event.
 
@@ -358,17 +378,17 @@ trackEcommerceTransactionItem(String order_id, String sku, Double price, Integer
 
 These are the fields that can appear as elements in each `TransactionItem` element of the transaction item `List`:
 
-| **Field**        | **Description**                     | **Required?** | **Validation**           |
-|-----------------:|:------------------------------------|:--------------|:-------------------------|
-| `order_id`       | Order ID                            | Yes           | String                   |
-| `sku`            | Item SKU                            | No            | String                   |
-| `price`          | Item price                          | No            | double                   |
-| `quantity`       | Item quantity                       | No            | int                      |
-| `name`           | Item name                           | No            | String                   |
-| `category`       | Item category                       | No            | String                   |
-| `currency`       | Item currency                       | No            | String                   |
-| `context`        | Item context                        | No            | Map                      |
-| `transaction_id` | Item transaction id                 | No            | long                     |
+| **Field**  | **Description**                     | **Required?** | **Validation**           |
+|-----------:|:------------------------------------|:--------------|:-------------------------|
+| `order_id` | Order ID                            | Yes           | String                   |
+| `sku`      | Item SKU                            | No            | String                   |
+| `price`    | Item price                          | No            | double                   |
+| `quantity` | Item quantity                       | No            | int                      |
+| `name`     | Item name                           | No            | String                   |
+| `category` | Item category                       | No            | String                   |
+| `currency` | Item currency                       | No            | String                   |
+| `context`  | Item context                        | No            | Map                      |
+| `timestamp`| Optional timestamp for the event    | No            | Long                     |
 
 Example of tracking a transaction containing two items:
 
@@ -388,15 +408,17 @@ Use `trackStructuredEvent()` to track a custom event happening in your app which
 |-------------:|:---------------------------------------------------------------  |:--------------|:---------------|
 | `category`   | The grouping of structured events which this `action` belongs to | Yes           | String         |
 | `action`     | Defines the type of user interaction which this event involves   | Yes           | String         |
-| `label`      | A string to provide additional dimensions to the event data      | No            | String         |
-| `property`   | A string describing the object or the action performed on it     | No            | String         |
-| `value`      | A value to provide numerical data about the event                | No            | Int            |
-| `context`    | Custom context for the event                                     | No            | String         |
-| `timestamp`  | User set item timestamp                                          | No            | long or 0                |
+| `label`      | A string to provide additional dimensions to the event data      | Yes           | String         |
+| `property`   | A string describing the object or the action performed on it     | Yes           | String         |
+| `value`      | A value to provide numerical data about the event                | Yes           | Int            |
+| `context`    | Custom context for the event                                     | No            | Map            |
+| `timestamp`  | Optional timestamp for the event                                 | No            | Long           |
+
 Example:
 
 ```java
-t1.trackStructuredEvent("shop", "add-to-basket", null, "pcs", 2, null, 0);
+t1.trackStructuredEvent("shop", "add-to-basket", "Add To Basket", "pcs", 2);
+t1.trackStructuredEvent("shop", "add-to-basket", "Add To Basket", "pcs", 2, 123456.7);
 ```
 
 [Back to top](#top)
@@ -415,14 +437,13 @@ Use `trackUnstructuredRvent()` to track a custom event which consists of a name 
 
 The arguments are as follows:
 
-| **Argument**   | **Description**                                           | **Required?** |    **Validation**   |
-|---------------:|:----------------------------------------------------------|:--------------|:--------------------|
-| `eventVendor`  | The vendor who authored the event. Deprecated; do not use | Yes           | String              |
-| `eventName`    | The name of the event. Deprecated; do not use             | Yes           | String              |
-| `dictInfo`     | The properties of the event                               | No            | Map<String, Object> |
-| `context`      | Custom context for the event                              | No            | String              |
-| `timestamp`    | User set item timestamp                                   | No            | long or 0                |
-The `dictInfo` must be either a `String` or a `Map<String, Object>`.
+| **Argument**   | **Description**                   |  **Required?** |    **Validation**   |
+|---------------:|:----------------------------------|:---------------|:--------------------|
+| `eventData`    | The properties of the event       | Yes            | Map<String, Object> |
+| `context`      | Custom context for the event      | No             | Map                 |
+| `timestamp`    | Optional timestamp for the event  | No             | Long                |
+
+The `eventData` must be either a `String` or a `Map<String, Object>`.
 
 If you supply a `String`, make sure that it is a valid JSON object containing two fields: `schema` and `data`. `data` is itself a JSON object containing the properties of the unstructured event. `schema` identifies the JSON schema against which `data` should be validated.
 
@@ -430,7 +451,7 @@ Example:
 
 ```java
 // Example to come, in the meantime here is the type signature:
-t1.trackUnstructuredEvent(String eventVendor, String eventName, String dictInfo, String context);
+t1.trackUnstructuredEvent(String eventVendor, String eventName, String eventData, String context);
 ```
 
 If you supply a `Map<String, Object>`, make sure that this top-level contains your `schema` and `data` keys, and then store your `data` properties as a child `Map<String, Object>`.
@@ -439,13 +460,92 @@ Example:
 
 ```java
 // Example to come, in the meantime here is the type signature:
-t1.trackUnstructuredEvent(String eventVendor, String eventName, Map<String, Object> dictInfo, String context);
+t1.trackUnstructuredEvent(String eventVendor, String eventName, Map<String, Object> eventData, String context);
 ```
 
 For more on JSON schema, see the [blog post] [self-describing-jsons].
 
+<a name="emitter" />
+## 5. Sending event
+
+Events are sent using an `Emitter` class. You can initialize an class with a collector endpoint URL with various options to choose how these events should be sent.
+Here are the Emitter interfaces that can be used:
+
+```java
+Emitter(String URI)
+Emitter(String URI, HttpMethod httpMethod)
+```
+
+For example:
+
+```java
+Emitter e1 = new Emitter("d3rkrsqld9gmqf.cloudfront.net");
+Emitter e2 = new Emitter("d3rkrsqld9gmqf.cloudfront.net", HttpMethod.POST);
+```
+
+| **Argument Name** | **Description**                                   |    **Required?**  |
+|------------------:|:--------------------------------------------------|:------------------|
+| `URI`             | The collector endpoint URI events will be sent to | Yes               |
+| `httpMethod`      | The HTTP method events should be sent             | No                |
+
+<a name="buffer" />
+### 5.1 Using a buffer
+
+A buffer is used to group events together in bulk before sending them. This is especially handy to reduce network usage. By default, the Emitter buffers up to 10 events before sending them. You can change this to send evenets instantly as soon as they are created like so:
+
+```java
+Emitter e1 = new Emitter("d3rkrsqld9gmqf.cloudfront.net");
+e1.setBufferOption(BufferOption.Instant);
+// OR
+e1.setBufferOption(BufferOption.Default);
+```
+
+Here are all the posibile options that you can use:
+|  **Option**  | **Description**                                    |
+|-------------:|:---------------------------------------------------|
+| `Instant`    | Events are sent as soon as they are created        |
+| `Default`    | Sends events in a group when 10 events are created |
+
+<a name="http-method" />
+###  5.2 Choosing the HTTP method
+
+Snowplow supports receiving events via GET requests, but will soon have POST support. In a GET request, each event is sent in individual request. With POST requests, events are bundled together in one request.
+
+You can set the HTTP method in the Emitter constructor:
+```java
+Emitter e1 = new Emitter("d3rkrsqld9gmqf.cloudfront.net", HttpMethod.POST);
+```
+
+Here are all the posibile options that you can use:
+|  **Option**  | **Description**                                    |
+|-------------:|:---------------------------------------------------|
+| `GET`        | Sends events as GET requests                       |
+| `POST`       | Sends events as POST requests                      |
+
+<a name="http-request" />
+###  5.3 Method of sending HTTP requests
+
+An Emitter sends requests synchronously by default. If you want events to be sent asynchronously you can set this using `setRequestMethod(RequestMethod)`:
+
+```java
+Emitter e1 = new Emitter("d3rkrsqld9gmqf.cloudfront.net");
+e1.setRequestMethod(RequestMethod.Asynchronous);
+```
+
+Here are all the posibile options that you can use:
+|  **Option**    | **Description**               |
+|---------------:|:------------------------------|
+| `Synchronous`  | Sends events synchronously    |
+| `Asynchronous` | Sends events asynchronously   |
+
+
+<a name="payload" />
+## 6. Payload
+
+
+
 <a name="logging" />
-## 5. Logging
+## 7. Logging
 
 Not yet implemented.
 
