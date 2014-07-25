@@ -39,6 +39,7 @@ The command-line options for EmrEtlRunner look like this:
 
     Specific options:
         -c, --config CONFIG              configuration file
+        -n, --enrichments ENRICHMENTS    enrichments directory
         -d, --debug                      enable EMR Job Flow debugging
         -s, --start YYYY-MM-DD           optional start date *
         -e, --end YYYY-MM-DD             optional end date *
@@ -54,7 +55,7 @@ The command-line options for EmrEtlRunner look like this:
 A note on the `--skip` option: this takes a list of individual steps to skip.
 So for example you could run **only** the EMR job with the command-line option:
 
-    $ bundle exec bin/snowplow-emr-etl-runner --skip staging,archive --config config/config.yml
+    $ bundle exec bin/snowplow-emr-etl-runner --skip staging,archive --config config/config.yml --enrichments config/enrichments
 
 <a name="running"/>
 ## 3. Running in each mode
@@ -65,7 +66,7 @@ Invoking EmrEtlRunner with just the `--config` option puts it into rolling
 mode, processing all the raw Snowplow event logs it can find in your In
 Bucket:
 
-    $ bundle exec bin/snowplow-emr-etl-runner --config config/config.yml
+    $ bundle exec bin/snowplow-emr-etl-runner --config config/config.yml --enrichments config/enrichments.yml
 
 ### 3.2 Timespan mode
 

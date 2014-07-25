@@ -35,6 +35,7 @@ You need to edit this script and update the three variables:
     rvm_path=/path/to/.rvm # Typically in the $HOME of the user who installed RVM
     RUNNER_PATH=/path/to/snowplow/3-enrich/snowplow-emr-etl-runner
     RUNNER_CONFIG=/path/to/your-config.yml
+    RUNNER_ENRICHMENTS=/path/to/your-enrichment-jsons
 
 So for example if you installed RVM as the `admin` user, then you would set:
 

@@ -6,7 +6,8 @@
 2. [Dependencies](#dependencies)
 3. [Installation](#installation)
 4. [Configuration](#configuration)
-5. [Next steps](#next-steps)
+5. [Configuring enrichments](#enrichments)
+6. [Next steps](#next-steps)
 
 <a name="assumptions"/>
 ## 1. Assumptions
@@ -72,7 +73,7 @@ Next you are ready to install the application on your system:
 Check it worked okay:
 
     $ bundle exec bin/snowplow-emr-etl-runner --version
-    snowplow-emr-etl-runner 0.0.8
+    snowplow-emr-etl-runner 0.0.9
 
 If you have any problems installing, please double-check that you have successfully completed our [Ruby and RVM setup guide](Ruby-and-RVM-setup).
 
@@ -140,10 +141,6 @@ EmrEtlRunner requires a YAML format configuration file to run. There is a config
         :connection:
           :http:
             :uri: http://iglucentral.com
-:enrichments:
-  :anon_ip:
-    :enabled: false
-    :anon_octets: 1 # Or 2, 3 or 4. 0 is same as enabled: false
 ```
 
 To take each section in turn:
@@ -256,12 +253,13 @@ This section is where we configure exactly how we want our ETL process to operat
 3. `collector_format`, what format is our collector saving data in? Currently three formats are supported: "cloudfront" (if you are running the Cloudfront collector), "clj-tomcat" if you are running the Clojure collector, or "raw-thrift" if you are using the Scala Stream Collector.
 4. `continue_on_unexpected_error`, continue processing even on unexpected row-level errors, e.g. an input file not matching the expected CloudFront format. Off ("false") by default
 
-### enrichments
+<a name="enrichments" />
+## 5. Configuring enrichments
 
-This is where we configure the enrichments for Scala Hadoop Enrich.
+If you wish to use Snowplow enrichments, see the [wiki page for configuring enrichments](Configuring-enrichments).
 
 <a name="next-steps" />
-## 5. Next steps
+## 6. Next steps
 
 All done installing EmrEtlRunner? Then [learn how to use it] [using-emretlrunner]
 
