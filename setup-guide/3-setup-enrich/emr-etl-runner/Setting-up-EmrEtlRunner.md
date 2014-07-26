@@ -10,11 +10,14 @@ Snowplow [EmrEtlRunner] [emr-etl-runner] is an application that parses the log f
 2. **Enriches the data** (e.g. infers the location of the visitor from his / her IP address and infers the search engine keywords from the query string)
 3. **Stores that cleaned, enriched data in S3**
 
-This guide covers how to setup EmrEtlRunner including scheduling it so that your event data is automatically fetched from the collector logs, processed and updated in your cleaned data store on S3. It is divided into three sections:
+This guide covers how to setup EmrEtlRunner including scheduling it so that your event data is automatically fetched from the collector logs, processed and updated in your cleaned data store on S3. It is divided into six sections:
 
-1. [Installation] [installation]. You need to install EmrEtlRunner on your own server. It will interact with Amazon Elastic MapReduce and S3 via the Amazon API
-2. [Usage] [usage]. How to use EmrEtlRunner at the command line, to instuct it to process data from your collector
-3. [Scheduling] [schedule]. How to schedule the tool so that you always have an up to date set of cleaned, enriched data available for analysis
+1. [Installation](1-Installing-EmrEtlRunner). You need to install EmrEtlRunner on your own server. It will interact with Amazon Elastic MapReduce and S3 via the Amazon API
+2. [Usage](2-Using-EmrEtlRunner). How to use EmrEtlRunner at the command line, to instuct it to process data from your collector
+3. [Scheduling](3-Scheduling-EmrEtlRunner). How to schedule the tool so that you always have an up to date set of cleaned, enriched data available for analysis
+4. [Self-hosting Hadoop Enrich](4-Self-hosting-Hadoop-Enrich). (Optional step)
+5. [Configuring enrichments](5-Configuring-enrichments). How to configure enrichments such as referer parsing and IP lookups
+6. [Configuring shredding](6-Configuring-shredding). How to configure Snowplow to shred unstructured events and contexts ready for loading into dedicated tables in Redshift
 
 To start with [install] [installation] EmrEtlRunner.
 
