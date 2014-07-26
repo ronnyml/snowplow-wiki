@@ -10,8 +10,6 @@
     - 4.2 [anon_ip](#anonip)
     - 4.3 [referer_parser](#refererparser)
 
-**Warning: This page is not to be used until the release of Snowplow version 0.9.6**
-
 <a name="introduction"/>
 ## 1. Introduction
 
