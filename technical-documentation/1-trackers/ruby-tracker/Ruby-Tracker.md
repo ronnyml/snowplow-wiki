@@ -423,14 +423,14 @@ Example:
 
 ```ruby
 tracker.track_unstruct_event({
-  "schema": "com.example_company/save_game/jsonschema/1.0.2",
-  "data": {
-    "saveId": "4321",
-    "level": 23,
-    "difficultyLevel": "HARD",
-    "dlContent": true 
+  "schema" => "com.example_company/save_game/jsonschema/1.0.2",
+  "data" => {
+    "saveId" => "4321",
+    "level" => 23,
+    "difficultyLevel" => "HARD",
+    "dlContent" => true 
   }
-    "com.mycompany")
+})
 ```
 
 The `event_json` argument is [self-describing JSON][self-describing-jsons]. It has two fields: "schema", containing a pointer to the JSON schema for the event, and "data", containing the event data itself. The data field must be flat: properties cannot be nested.
