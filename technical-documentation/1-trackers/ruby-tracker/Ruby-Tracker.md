@@ -187,19 +187,29 @@ Each `track_XXX` method expects arguments of a certain type. The types are valid
 <a name="context-arg" />
 #### 4.1.2 Optional context argument
 
-Each `track_XXX` method has `context` as its penultimate parameter. This is for optional custom contexts attached to the event. The `context` argument should be a JSON whose keys are strings and whose values are JSONs, for example:
+Each `track_XXX` method has `context` as its penultimate optional parameter. This is for an optional array of [self-describing custom context JSONs][self-describing-jsons] attached to the event. Each element of the `context` argument should be a hash whose keys are "schema", containing a pointer to the JSON schema against which the context will be validated, and "data", containing the context data itself. The "data" field should contain a flat hash of key-value pairs. 
+
+For example, an array containing two custom contexts relating to the event of a movie poster being viewed:
 
 ```ruby
-  { "movie_poster" => {          # <- First context entry
-      "movie_name" => "Solaris",
-      "poster_country" => "JP",
-      "poster_year$dt" => new Date(1978, 1, 1)
-    },
-    "customer" => {              # <- Second context entry
-      "p_buy" => 0.23,
-      "segment" => "whale"
-    }
+# Array of contexts
+[{
+  # First context
+  'schema' => 'iglu:com.my_company/movie_poster/jsonschema/1-0-0',
+  'data' => {
+    'movie_name' => 'Solaris',
+    'poster_country' => 'JP',
+    'poster_year$dt' => new Date(1978, 1, 1)  
   }
+},
+{
+  # Second context
+  'schema' => 'iglu:com.my_company/customer/jsonschema/1-0-0',
+  'data' => {
+      'p_buy' => 0.23,
+      'segment' => 'young adult'
+  }
+}]
 ```
 
 For more on how to use custom contexts, see the [blog post][contexts] which introduced them.
@@ -215,23 +225,27 @@ After the optional context argument, each `track_XXX` method supports an optiona
 Here is an example of a page view event with custom context and timestamp arguments supplied:
 
 ```ruby
-tracker.track_page_view('http://www.example.com', nil, nil, {
-    "movie_poster" => {
-      "movie_name" => "Solaris",
-      "poster_country" => "JP",
-      "poster_year$dt" => new Date(1978, 1, 1)
-    },
-    "customer" => {              # <- Second context entry
-      "p_buy" => 0.23,
-      "segment" => "whale"
-    }
-  }, 1368725287)
+tracker.track_page_view('http://www.film_company.com/movie_poster', nil, nil, [{
+  # First context
+  'schema' => 'iglu:com.my_company/movie_poster/jsonschema/1-0-0',
+  'data' => {
+    'movie_name' => 'Solaris',
+    'poster_country' => 'JP',
+    'poster_year$dt' => new Date(1978, 1, 1)  
+  }
+},
+{
+  # Second context
+  'schema' => 'iglu:com.my_company/customer/jsonschema/1-0-0',
+  'data' => {
+      'p_buy' => 0.23,
+      'segment' => 'young adult'
+  }
+}], 1368725287)
 ```
 
 <a name="screen-view" />
 ### Track screen views with `track_screen_view`
-
-**Warning:** this feature is implemented in the Lua, Python and Ruby Trackers, but it is **not** currently supported in the Enrichment, Storage or Analytics stages in the Snowplow data pipeline. As a result, if you use this feature, you will log screen views to your collector logs, but these will not be parsed and loaded into e.g. Redshift to analyse. (Adding this capability is on the roadmap.)
 
 Use `track_screen_view()` to track a user viewing a screen (or equivalent) within your app. Arguments are:
 
@@ -390,8 +404,6 @@ tracker.track_struct_event("shop", "add-to-basket", nil, "pcs", 2)
 <a name="unstruct-event" />
 ### 4.6 Track unstructured events with ```track_unstruct_event```
 
-**Warning:** this feature is implemented in the Ruby tracker, but it is **not** currently supported in the Enrichment, Storage or Analytics stages in the Snowplow data pipeline. As a result, if you use this feature, you will log unstructured events to your collector logs, but these will not be parsed and loaded into e.g. Redshift to analyse. (Adding this capability is on the roadmap.)
-
 Use `track_unstruct_event()` to track a custom event which consists of a name and an unstructured set of properties. This is useful when:
 
 * You want to track event types which are proprietary/specific to your business (i.e. not already part of Snowplow), or
@@ -401,28 +413,27 @@ The arguments are as follows:
 
 | **Argument**   | **Description**                      | **Required?** | **Validation**          |
 |---------------:|:-------------------------------------|:--------------|:------------------------|
-| `name`         | The name of the event                | Yes           | String                  |
-| `properties`   | The properties of the event          | Yes           | Hash                    |
-| `event_vendor` | The company which defined the event  | No            | String                  |
+| `event_json`   | The properties of the event          | Yes           | Hash                    |
 | `context`      | Custom context                       | No            | Hash                    |
 | `tstamp`       | When the unstructured event occurred | No            | Positive integer        |
 
 Example:
 
 ```ruby
-tracker.track_unstruct_event("save-game", {
-    "save_id" => "4321",
-    "level" => 23,
-    "difficultyLevel" => "HARD",
-    "dl_content" => true 
-    },
+tracker.track_unstruct_event({
+  "schema": "com.example_company/save_game/jsonschema/1.0.2",
+  "data": {
+    "saveId": "4321",
+    "level": 23,
+    "difficultyLevel": "HARD",
+    "dlContent": true 
+  }
     "com.mycompany")
 ```
 
-The properties table consists of a set of individual `name = value` pairs. The structure must be flat: properties cannot be nested. Be careful here as this is **not** currently enforced through validation.
-
-The `event_vendor` parameter helps to distinguish between events defined by different companies. The event vendor string should contain no characters other than lowercase letters, underscores, and dots. It should be your company's reversed Internet domain name - for example, "com.example" for an event developed at the company with domain name "example.com".
+The `event_json` argument is [self-describing JSON][self-describing-jsons]. It has two fields: "schema", containing a pointer to the JSON schema for the event, and "data", containing the event data itself. The data field must be flat: properties cannot be nested.
 
 [Back to top](#top)
 
 [contexts]: http://snowplowanalytics.com/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#contexts
+[self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
