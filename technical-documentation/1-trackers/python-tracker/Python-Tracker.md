@@ -441,8 +441,6 @@ The `set_subject` method will always return the Tracker instance.
 <a name="screen-view" />
 ### 4.2 Track screen views with `track_screen_view()`
 
-**Warning:** this feature is implemented in the Python tracker, but it is **not** currently supported in the Enrichment, Storage or Analytics stages in the Snowplow data pipeline. As a result, if you use this feature, you will log screen views to your collector logs, but these will not be parsed and loaded into e.g. Redshift to analyse. (Adding this capability is on the roadmap.)
-
 Use `track_screen_view()` to track a user viewing a screen (or equivalent) within your app. Arguments are:
 
 | **Argument** | **Description**                     | **Required?** | **Validation**          |
@@ -588,8 +586,6 @@ t.track_struct_event("shop", "add-to-basket", None, "pcs", 2)
 
 <a name="unstruct-event" />
 ### 4.7 Track unstructured events with `track_unstruct_event()`
-
-**Warning:** this feature is implemented in the Python tracker, but it is **not** currently supported in the Enrichment, Storage or Analytics stages in the Snowplow data pipeline. As a result, if you use this feature, you will log unstructured events to your collector logs, but these will not be parsed and loaded into e.g. Redshift to analyse. (Adding this capability is on the roadmap.)
 
 Use `track_unstruct_event()` to track a custom event which consists of a name and an unstructured set of properties. This is useful when:
 
