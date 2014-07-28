@@ -212,6 +212,8 @@ For example, an array containing two custom contexts relating to the event of a 
 }]
 ```
 
+The keys of a context hash can be either strings or Ruby symbols.
+
 For more on how to use custom contexts, see the [blog post][contexts] which introduced them.
 
 <a name="tstamp-arg" />
@@ -432,6 +434,8 @@ tracker.track_unstruct_event({
 ```
 
 The `event_json` argument is [self-describing JSON][self-describing-jsons]. It has two fields: "schema", containing a pointer to the JSON schema for the event, and "data", containing the event data itself. The data field must be flat: properties cannot be nested.
+
+The keys of the `event_json` hash can be either strings or Ruby symbols.
 
 [Back to top](#top)
 
