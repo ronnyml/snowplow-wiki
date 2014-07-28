@@ -255,7 +255,7 @@ Use `track_screen_view()` to track a user viewing a screen (or equivalent) withi
 |-------------:|:------------------------------------|:--------------|:------------------------|
 | `name`       | Human-readable name for this screen | Yes           | String                  |
 | `id`         | Unique identifier for this screen   | No            | String                  |
-| `context`    | Custom context                      | No            | Hash                    |
+| `context`    | Custom context                      | No            | Array[Hash]                    |
 | `tstamp`     | When the screen was viewed          | No            | Positive integer        |
 
 Example:
@@ -275,7 +275,7 @@ Arguments are:
 | `page_url`   | The URL of the page                 | Yes           | String                  |
 | `page_title` | The title of the page               | No            | String                  |
 | `referrer`   | The address which linked to the page| No            | String                  |
-| `context`    | Custom context                      | No            | Hash                    |
+| `context`    | Custom context                      | No            | Array[Hash]                    |
 | `tstamp`     | When the pageview occurred          | No            | Positive integer        |
 
 Example:
@@ -294,7 +294,7 @@ Arguments:
 |-----------------:|:-------------------------------------|:--------------|:---------------------|
 | `transaction`    | Data for the whole transaction       | Yes           | Hash                 |
 | `items`          | Data for each item                   | Yes           | Array of hashes      |
-| `context`        | Custom context                       | No            | Hash                 |
+| `context`        | Custom context                       | No            | Array[Hash]                 |
 | `tstamp`         | When the transaction event occurred  | No            | Positive integer     |
 
 The `transaction` argument is a hash containing information about the transaction. Here are the fields supported in this hash:
@@ -332,7 +332,7 @@ The `items` parameter is an array of hashes. Each hash represents one item in th
 | `quantity`     | Item quantity                       | Yes           | Int                      |
 | `name`         | Item name                           | No            | String                   |
 | `category`     | Item category                       | No            | String                   |
-| `context`      | Custom context                      | No            | Hash                     |
+| `context`      | Custom context                      | No            | Array[Hash]                     |
 
 The `items` parameter might look like that:
 
@@ -393,7 +393,7 @@ Use `track_struct_event()` to track a custom event happening in your app which f
 | `label`      | A string to provide additional dimensions to the event data      | No            | String                   |
 | `property`   | A string describing the object or the action performed on it     | No            | String                   |
 | `value`      | A value to provide numerical data about the event                | No            | Int or Float             |
-| `context`    | Custom context                                                   | No            | Hash                     |
+| `context`    | Custom context                                                   | No            | Array[Hash]                     |
 | `tstamp`     | When the structured event occurred                               | No            | Positive integer         |
 
 
@@ -416,7 +416,7 @@ The arguments are as follows:
 | **Argument**   | **Description**                      | **Required?** | **Validation**          |
 |---------------:|:-------------------------------------|:--------------|:------------------------|
 | `event_json`   | The properties of the event          | Yes           | Hash                    |
-| `context`      | Custom context                       | No            | Hash                    |
+| `context`      | Custom context                       | No            | Array[Hash]                    |
 | `tstamp`       | When the unstructured event occurred | No            | Positive integer        |
 
 Example:
