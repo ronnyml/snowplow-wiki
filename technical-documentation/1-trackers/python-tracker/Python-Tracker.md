@@ -361,6 +361,8 @@ def track_page_view(self, page_url, page_title=None, referrer=None, context=None
 
 The `context` argument should consist of an array of one or more Python dictionaries. The format of each dictionary is the same as for an [unstructured event](#unstruct-event).
 
+**Important:** Even if only one custom context is being attached to an event, it still needs to be wrapped in an array.
+
 If a visitor arrives on a page advertising a movie, the context dictionary might look like this:
 
 

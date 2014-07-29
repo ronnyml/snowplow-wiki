@@ -757,6 +757,8 @@ Custom contexts can be added as an extra argument to any of Snowplow's `track..(
 
 Each custom context is a self-describing JSON following the same pattern as an [unstructured event](#trackUnstructEvent). Since more than one can be attached to an event, the `context` argument (if it is provided at all) should be a non-empty array of self-describing JSONs.
 
+**Important:** Even if only one custom context is being attached to an event, it still needs to be wrapped in an array.
+
 Here are two example custom context JSONs. One describes a page, and the other describes a user on that page.
 
 ```javascript
