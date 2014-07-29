@@ -526,17 +526,49 @@ Back to [event tracking](#events).
 
 Custom unstructured event tracking is used to track events that are not natively supported by Snowplow and allow arbitrary name: value pairs associated with the event.
 
-As well as setting `e=se`, there are three custom event specific parameters that can be set:
+An example of an unstructured event for a product view event:
+
+```javascript
+{
+  schema: 'iglu:com.my_company/viewed_product/jsonschema/1-0-0',
+  data: {
+    "product_id": "ASO01043", 
+    "price": 49.95
+  }
+}
+```
+
+The tracker will wrap this [self-describing JSON][self-desc-jsons] in an outer self-describing JSON, which is what gets sent:
+
+```javascript
+{
+
+  // Tells Snowplow this is an unstructured event
+  schema: 'iglu:com.my_company/unstruct_event/jsonschema/1-0-0', 
+  data: {
+
+    // Tells Snowplow this is a viewed_product event
+    schema: 'iglu:com.my_company/viewed_product/jsonschema/1-0-0',
+    data: {
+
+      // The event data itself
+      "product_id": "ASO01043", 
+      "price": 49.95
+    }
+  }
+}
+```
+
+As well as setting `e=ue`, there are two custom event specific parameters that can be set:
 
 | **Parameter** | **Maps to**      | **Type** |**Description**                                     | **Implemented?** | **Example values**| 
 |:--------------|:-----------------|:---------|:---------------------------------------------------|:-----------------|:------------------|
-| `ue_na`       | `ue_name`        | text     | The name of the event                              | No               | `viewed_product`, `added_to_cart`  |
 | `ue_pr`       | `ue_json`        | JSON     | The properties of the event                        | No               | `{ "product_id": "ASO01043", "price": 49.95 }` |
 | `ue_px`       | `ue_json`        | JSON (Base64 encoded)   | The properties of the event         | No               | `eyAicHJvZHVjdF9pZCI6ICJBU08wMTA0MyIsICJwcmljZSI6IDQ5Ljk1IH0=` |
 
 The tracker can decide to pass the `ue_pr` or the `ue_px` parameter depending on configuration. Encoding properties into Base64 allows for more data while sacrificing readability.
 
-*viewed_product* example (using `ue_pr`):
+*viewed_product* example (using percent encoding and the key `ue_pr`):
 
 ```
 uid=aeb1691c5a0ee5a6   // User ID  
@@ -546,13 +578,21 @@ uid=aeb1691c5a0ee5a6   // User ID
 &tv=js-0.13.1          // Tracker version
 
 &e=ue                  // event = unstructured  
-&ue_na=viewed_product  // event_name = viewed_product  
-&ue_pr=%7B+%22product_id%22%3A+%22ASO01043%22%2C+%22price%22%3A+49.95+%7D
-                       // event_properties = { "product_id": "ASO01043", "price": 49.95 }
+&ue_pr="%7B%22schema%22:%22iglu:com.my_company/unstruct_event/jsonschema/1-0-0%22,%22data%22:%7B%22schema%22:%22iglu:com.my_company/viewed_product/jsonschema/1-0-0%22,%22data%22:%7B%22product_id%22:%22ASO01043%22,%22price%22:49.95%7D%7D%7D"
+                       // event_properties =  {
+                                                schema: 'iglu:com.my_company/unstruct_event/jsonschema/1-0-0', 
+                                                data: {
+                                                  schema: 'iglu:com.my_company/viewed_product/jsonschema/1-0-0',
+                                                  data: {
+                                                    "product_id": "ASO01043", 
+                                                    "price": 49.95
+                                                  }
+                                                }
+                                              }
 
 ```
 
-*viewed_product* example (using `ue_px`):
+*viewed_product* example (using base 64 encoding and the key `ue_px`):
 
 ```
 uid=aeb1691c5a0ee5a6   // User ID  
@@ -562,9 +602,17 @@ uid=aeb1691c5a0ee5a6   // User ID
 &tv=js-0.13.1          // Tracker version
 
 &e=ue                  // event = unstructured  
-&ue_na=viewed_product  // event_name = viewed_product  
-&ue_px=eyAicHJvZHVjdF9pZCI6ICJBU08wMTA0MyIsICJwcmljZSI6IDQ5Ljk1IH0=
-                       // event_properties = { "product_id": "ASO01043", "price": 49.95 }
+&ue_px=ew0KICBzY2hlbWE6ICdpZ2x1OmNvbS5teV9jb21wYW55L3Vuc3RydWN0X2V2ZW50L2pzb25zY2hlbWEvMS0wLTAnLCANCiAgZGF0YTogew0KICAgIHNjaGVtYTogJ2lnbHU6Y29tLm15X2NvbXBhbnkvdmlld2VkX3Byb2R1Y3QvanNvbnNjaGVtYS8xLTAtMCcsDQogICAgZGF0YTogew0KICAgICAgInByb2R1Y3RfaWQiOiAiQVNPMDEwNDMiLCANCiAgICAgICJwcmljZSI6IDQ5Ljk1DQogICAgfQ0KICB9DQp9
+                       // event_properties = {
+                                                schema: 'iglu:com.my_company/unstruct_event/jsonschema/1-0-0', 
+                                                data: {
+                                                  schema: 'iglu:com.my_company/viewed_product/jsonschema/1-0-0',
+                                                  data: {
+                                                    "product_id": "ASO01043", 
+                                                    "price": 49.95
+                                                  }
+                                                }
+                                              }
 
 ```
 
@@ -576,13 +624,37 @@ Back to [event tracking](#events).
 
 Custom contexts can be used to attach additional data in the form of a JSON to any Snowplow event.
 
-An example of a possible custom context JSON:
+Each individual custom context is a [self-describing JSON][self-desc-jsons] such as:
 
 ```javascript
-{ 
-  user: { 
-    fb_uid: '999999 x' 
-  } 
+{
+  schema: 'iglu:com.my_company/user/jsonschema/1-0-0' 
+  data: {
+    fb_uid: '9999xyz'
+  }
+}
+```
+
+All custom contexts to be attached to an event will be wrapped in an array by the user and passed to the tracker, which will wrap them in a self-describing JSON:
+
+
+```javascript
+{
+
+  // Tells Snowplow this is an array of custom contexts
+  schema: 'iglu:com.snowplowanalytics.snowplow/contexts/jsonschema/1-0-0' 
+  data: [
+    {
+
+      // Tells Snowplow that this is a "user" context
+      schema: 'iglu:com.my_company/user/jsonschema/1-0-0',
+      data: {
+
+        // The context data itself
+        fb_uid: '9999xyz'
+      }
+    }
+  ]
 }
 ```
 
@@ -590,11 +662,11 @@ The tracker can be configured to encode the context into Base64 to ensure that n
 
 | **Parameter** | **Maps to**      | **Type** |**Description**                                     | **Implemented?** | **Example values**| 
 |:--------------|:-----------------|:---------|:---------------------------------------------------|:-----------------|:------------------|
-| `cv`       | `context_vendor` (deprecated)        | String     | Vendor for the custom contexts                        | No          | `com.acme` |
-| `co`       | `context`        | JSON     | A custom context                        | Yes         | `%7B%22user%22%3A%7B%22fb_uid%22%3A%22999999%20x%22%7D%7D` |
-| `cx`       | `context`        | JSON (Base64 encoded)   | A custom context         | Yes         | `6eyJ1c2VyX3R5cGUiOiJ0ZXN0ZXIifX=` |
+| `cv`       | `context_vendor` (deprecated)        | String     | Vendor for the custom contexts  | deprecated       | `com.acme`        |
+| `co`       | `context`        | JSON     | An array of custom contexts                        | Yes         | `%7B%22schema%22:%22iglu:com.snowplowanalytics.snowplow/contexts/jsonschema/1-0-0%22,%22data%22:%5B%7B%22schema%22:%22iglu:com.my_company/user/jsonschema/1-0-0%22,%22data%22:%7B%22fb_uid%22:%229999xyz%22%7D%7D%5D%7D` |
+| `cx`       | `context`        | JSON (Base64 encoded)   | An array of custom contexts         | Yes         | `ew0KICBzY2hlbWE6ICdpZ2x1OmNvbS5zbm93cGxvd2FuYWx5dGljcy5zbm93cGxvdy9jb250ZXh0cy9qc29uc2NoZW1hLzEtMC0wJyANCiAgZGF0YToge1sNCiAgICB7DQogICAgICBzY2hlbWE6ICdpZ2x1OmNvbS5teV9jb21wYW55L3VzZXIvanNvbnNjaGVtYS8xLTAtMCcgDQogICAgICBkYXRhOiB7DQogICAgICAgIGZiX3VpZDogJzk5OTl4eXonDQogICAgICB9DQogICAgfQ0KICBdfQ0KfQ==` |
 
-Example of a custom context attached to the _watch-video-clip_ structured event from above:
+Example of a custom context attached to the _watch-video-clip_ structured event from above using percent encoding and the key `co`:
 
 ```
 uid=aeb1691c5a0ee5a6    // User ID  
@@ -610,8 +682,50 @@ uid=aeb1691c5a0ee5a6    // User ID
 &se_pr=1                // event_property = 1 (quantity of item added to basket)  
 &se_va=14.99            // event_value = 14.99 (price of item added to basket)  
 
-&co=%7B%22user%22%3A%7B%22fb_uid%22%3A%22123456%20x%22%7D%7D 
-                        // context = { user: { fb_uid: '999999 x' } }
+&co=%7B%22schema%22:%22iglu:com.snowplowanalytics.snowplow/contexts/jsonschema/1-0-0%22,%22data%22:%5B%7B%22schema%22:%22iglu:com.my_company/user/jsonschema/1-0-0%22,%22data%22:%7B%22fb_uid%22:%229999xyz%22%7D%7D%5D%7D
+                        // context =  {
+                                        schema: 'iglu:com.snowplowanalytics.snowplow/contexts/jsonschema/1-0-0' 
+                                        data: [
+                                          {
+                                            schema: 'iglu:com.my_company/user/jsonschema/1-0-0',
+                                            data: {
+                                              fb_uid: '9999xyz'
+                                            }
+                                          }
+                                        ]}
+                                      }
+```
+
+Example of a custom context attached to the _watch-video-clip_ structured event from above using base 64 encoding and the key `cx`:
+
+```
+uid=aeb1691c5a0ee5a6    // User ID  
+&vid=2                  // Visit ID (i.e. session number for this user_id)  
+&tid=508780             // Transaction ID  
+&aid=1                  // App ID
+&tv=js-0.5.2            // Tracker version
+
+&e=se                   // event = custom  
+&se_ca=ecomm            // event_category = ecomm  
+&se_ac=add-to-basket    // event_action = add-to-basket  
+&se_la=178              // event_label = 178 (product_id of item added to basket)  
+&se_pr=1                // event_property = 1 (quantity of item added to basket)  
+&se_va=14.99            // event_value = 14.99 (price of item added to basket)  
+
+&cx=ew0KICBzY2hlbWE6ICdpZ2x1OmNvbS5zbm93cGxvd2FuYWx5dGljcy5zbm93cGxvdy9jb250ZXh0cy9qc29uc2NoZW1hLzEtMC0wJyANCiAgZGF0YToge1sNCiAgICB7DQogICAgICBzY2hlbWE6ICdpZ2x1OmNvbS5teV9jb21wYW55L3VzZXIvanNvbnNjaGVtYS8xLTAtMCcgDQogICAgICBkYXRhOiB7DQogICAgICAgIGZiX3VpZDogJzk5OTl4eXonDQogICAgICB9DQogICAgfQ0KICBdfQ0KfQ==
+                        // context =  {
+                                        schema: 'iglu:com.snowplowanalytics.snowplow/contexts/jsonschema/1-0-0' 
+                                        data: [
+                                          {
+                                            schema: 'iglu:com.my_company/user/jsonschema/1-0-0',
+                                            data: {
+                                              fb_uid: '9999xyz'
+                                            }
+                                          }
+                                        ]}
+                                      }
 ```
 
 Back to [top](#top).
+
+[self-desc-jsons]: https://github.com/snowplow/iglu/wiki/Self-describing-JSONs
