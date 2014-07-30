@@ -741,8 +741,8 @@ uid=aeb1691c5a0ee5a6    // User ID
 Back to [top](#top).
 
 [self-desc-jsons]: https://github.com/snowplow/iglu/wiki/Self-describing-JSONs
-[link-click-schema]: iglucentral.com/schemas/com.snowplowanalytics.snowplow/link_click/jsonschema/1-0-0
-[ad-impression-schema]: iglucentral.com/schemas/com.snowplowanalytics.snowplow/ad_impression/jsonschema/1-0-0
-[ad-click-schema]: iglucentral.com/schemas/com.snowplowanalytics.snowplow/ad_click/jsonschema/1-0-0
-[ad-conversion-schema]: iglucentral.com/schemas/com.snowplowanalytics.snowplow/ad_conversion/jsonschema/1-0-0
+[link-click-schema]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/link_click/jsonschema/1-0-0
+[ad-impression-schema]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/ad_impression/jsonschema/1-0-0
+[ad-click-schema]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/ad_click/jsonschema/1-0-0
+[ad-conversion-schema]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/ad_conversion/jsonschema/1-0-0
 
