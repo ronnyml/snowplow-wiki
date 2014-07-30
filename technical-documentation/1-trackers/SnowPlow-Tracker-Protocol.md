@@ -203,8 +203,8 @@ At its heart, Snowplow is a platform for granular tracking of events. Currently,
 |:---|:------------------------------|:--------------------------|
 | 3.1| [Pageview tracking](#pageview)| `pv`                      | 
 | 3.2| [Page pings](#pagepings)      | `pp`                      |  
-| 3.3| [Link click](#linkclick)      | TBD                       | 
-| 3.4| [Ad impression tracking](#adimp)| `ad`                    |  
+| 3.3| [Link click](#linkclick)      | `ue`                      | 
+| 3.4| [Ad impression tracking](#adimp)| `ue`                    |  
 | 3.5| [Ecommerce transaction tracking](#ecomm) | `tr` and `ti`  |  
 | 3.6| [Social tracking](#social)    | TBD                       |  
 | 3.7| [Item view](#item)            | TBD                       |  
@@ -318,13 +318,19 @@ Back to [event tracking](#events).
 <a name="linkclick" />
 #### 3.3 Link click tracking
 
-This is not currently supported: adding support is on the roadmap (https://github.com/snowplow/snowplow/issues/75). 
+Link clicks are treated as unstructured events. The schema for a link click event can be found [here][link-click-schema].
 
 Back to [event tracking](#events).
 
-
 <a name="adimp" />
 #### 3.4 Ad impression tracking
+
+*Deprecation warning: the special ad impression querystring parameters described in this section are deprecated. Instead, ad impressions, ad clicks, and ad conversions are all treated as unstructured events. There schemas are available at the following locations:
+
+[Ad impression schema][ad-impression-schema]
+[Ad click schema][ad-click-schema]
+[Ad conversion schema][ad-conversion-schema]
+*
 
 As well as setting `e=ad`, there are four specific parameters that can be set when an ad impression is tracked:
 
@@ -371,6 +377,7 @@ To track an ecommerce transaction, fire a `transaction` event (`e=tr`) to regist
 | `tr_ci`       | `tr_city`        | text     | Delivery address: city | Yes            | `London`          |
 | `tr_st`       | `tr_state`       | text     | Delivery address: state | Yes           | `Denver`          |
 | `tr_co`       | `tr_country`     | text     | Delivery address: country | Yes         | `United Kingdom`  |
+| `tr_cu`       | `tr_currency`    | text     | Transaction Currency | Yes         | `GBP`  |
 
 Transaction event example:
 
@@ -388,6 +395,7 @@ duid=aeb1691c5a0ee5a6   // Domain user ID
 &tr_ci=london		// City on customer address
 &tr_st=london 		// State on customer address
 &tr_co=united kingdom	// Country on customer address
+&tr_cu= GBP    // Transaction currency
 ```
 
 ##### 3.5.2 Transaction item parameters
@@ -398,8 +406,9 @@ duid=aeb1691c5a0ee5a6   // Domain user ID
 | `ti_sk`       | `ti_sku`         | text     | Item SKU             | Yes              | `pbz0025'         |
 | `ti_nm`       | `ti_name`        | text     | Item name            | Yes              | `black-tarot`     |
 | `ti_ca`       | `ti_category`    | text     | Item category        | Yes              | `tarot`           |
-| `ti_pr`       | `ti_price`       | decimal  | Item price           | Yes              | `7.99`              |
-| `ti_qu`       | `ti_quantity`    | integer  | Item quantity        | Yes              | `2`                 |
+| `ti_pr`       | `ti_price`       | decimal  | Item price           | Yes              | `7.99`            |
+| `ti_qu`       | `ti_quantity`    | integer  | Item quantity        | Yes              | `2`               |
+| `ti_cu`       | `ti_currency`    | text     | Currency             | Yes              | `USD`             |
 
 Item hit example:
 
@@ -417,6 +426,7 @@ uid=aeb1691c5a0ee5a6    // User ID
 &ti_ca=tarot 		// Item category
 &ti_pr=7.99 		// Item price
 &ti_qu=1 			// Item quantity
+&ti_cu=USD      // Currency
 ```
 
 Back to [event tracking](#events).
@@ -729,3 +739,8 @@ uid=aeb1691c5a0ee5a6    // User ID
 Back to [top](#top).
 
 [self-desc-jsons]: https://github.com/snowplow/iglu/wiki/Self-describing-JSONs
+[link-click-schema]: iglucentral.com/schemas/com.snowplowanalytics.snowplow/link_click/jsonschema/1-0-0
+[ad-impression-schema]: iglucentral.com/schemas/com.snowplowanalytics.snowplow/ad_impression/jsonschema/1-0-0
+[ad-click-schema]: iglucentral.com/schemas/com.snowplowanalytics.snowplow/ad_click/jsonschema/1-0-0
+[ad-conversion-schema]: iglucentral.com/schemas/com.snowplowanalytics.snowplow/ad_conversion/jsonschema/1-0-0
+
