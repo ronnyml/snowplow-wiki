@@ -50,7 +50,7 @@ In the [first part of this guide](#common), we cover the parameters in the Snowp
 
 | **Parameter** | **Maps to**      | **Type** |**Description**               | **Implemented?** | **Example values**        | 
 |:--------------|:-----------------|:---------|:------------------------------|:-----------------|:--------------------------|
-| `tna`         | N/A              | text     | The tracker namespace         | No               | `tracker_1`               |
+| `tna`         | `name_tracker`   | text     | The tracker namespace         | Yes               | `tracker_1`               |
 | `evn`        | `event_vendor` (deprecated)   | text     | The company who developed the event model        | No               | `com.snowplowanalytics` |
 | `aid`         | `app_id`         | text     | Unique identifier for website / application    | Yes | `angry-birds-android` |
 | `p`           | `platform`       | text     | The platform the app runs on  | No               | `web`, `mob`, `app`      |
@@ -83,7 +83,7 @@ Back to [common field types](#common).
 
 | **Parameter** | **Maps to**      | **Type** | **Description**               | **Implemented?** | **Example values**        | 
 |:--------------|:-----------------|:---------|:------------------------------|:-----------------|:--------------------------|
-| `dtm`         | `dvce_dt`, `dvce_tm` and `dvce_epoch` | int |Timestamp when event occurred, as recorded by client device | Yes  | `1361553733313` |                         |
+| `dtm`         | `dvce_epoch` | int |Timestamp when event occurred, as recorded by client device | Yes  | `1361553733313` |                         |
 | `tz`          | `os_timezone`    | text     | Operating system time zone    | Yes              | `Europe%2FLondon`
 
 It is possible to record the time that an event occurs on the clients-side (i.e. in the tracker), or server side (i.e. by the collector). When using the JavaScript tracker to track web events, it makes sense to rely on the collector logs to identify the time that events occured, as Snowplow tracking tags are fired as events happen, and so the time they are received server-side should be an accurate representation of the time the event being tracked occured. In other situations (e.g. when using mobile trackers), the time the collector receives the data may be sometime after an event occurred, and so it makes sense to record the timestamp on the client-side, in which case this is handled by the tracker.
@@ -325,12 +325,14 @@ Back to [event tracking](#events).
 <a name="adimp" />
 #### 3.4 Ad impression tracking
 
-*Deprecation warning: the special ad impression querystring parameters described in this section are deprecated. Instead, ad impressions, ad clicks, and ad conversions are all treated as unstructured events. There schemas are available at the following locations:
+*Deprecation warning: the special ad impression querystring parameters described in this section are deprecated. Instead, ad impressions, ad clicks, and ad conversions are all treated as unstructured events. There schemas are available at the following locations:*
 
-[Ad impression schema][ad-impression-schema]
-[Ad click schema][ad-click-schema]
-[Ad conversion schema][ad-conversion-schema]
-*
+*[Ad impression schema][ad-impression-schema]*
+
+*[Ad click schema][ad-click-schema]*
+
+*[Ad conversion schema][ad-conversion-schema]*
+
 
 As well as setting `e=ad`, there are four specific parameters that can be set when an ad impression is tracked:
 
@@ -569,12 +571,12 @@ The tracker will wrap this [self-describing JSON][self-desc-jsons] in an outer s
 }
 ```
 
-As well as setting `e=ue`, there are two custom event specific parameters that can be set:
+As well as setting `e=ue`, there are two custom event specific parameters that can be populated with the outer self-describing JSON:
 
 | **Parameter** | **Maps to**      | **Type** |**Description**                                     | **Implemented?** | **Example values**| 
 |:--------------|:-----------------|:---------|:---------------------------------------------------|:-----------------|:------------------|
-| `ue_pr`       | `ue_json`        | JSON     | The properties of the event                        | No               | `{ "product_id": "ASO01043", "price": 49.95 }` |
-| `ue_px`       | `ue_json`        | JSON (Base64 encoded)   | The properties of the event         | No               | `eyAicHJvZHVjdF9pZCI6ICJBU08wMTA0MyIsICJwcmljZSI6IDQ5Ljk1IH0=` |
+| `ue_pr`       | `unstruct_event`        | JSON     | The properties of the event                        | Yes               | `{ "product_id": "ASO01043", "price": 49.95 }` |
+| `ue_px`       | `unstruct_event`        | JSON (Base64 encoded)   | The properties of the event         | Yes               | `eyAicHJvZHVjdF9pZCI6ICJBU08wMTA0MyIsICJwcmljZSI6IDQ5Ljk1IH0=` |
 
 The tracker can decide to pass the `ue_pr` or the `ue_px` parameter depending on configuration. Encoding properties into Base64 allows for more data while sacrificing readability.
 
