@@ -351,7 +351,7 @@ Tracking methods supported by the Python Tracker at a glance:
 All events are tracked with specific methods on the tracker instance, of the form `track_XXX()`, where `XXX` is the name of the event to track.
 
 <a name="custom-contexts" />
-### 4.1.2 Custom contexts
+### 4.1.1 Custom contexts
 
 In short, custom contexts let you add additional information about the circumstances surrounding an event in the form of a Python dictionary object. Each tracking method accepts an additional optional contexts parameter after all the parameters specific to that method:
 
