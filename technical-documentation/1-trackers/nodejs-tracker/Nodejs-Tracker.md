@@ -26,7 +26,6 @@
   - 4.5 [`trackEcommerceTransactionItem()`](#ecommerce-transaction-item)
   - 4.6 [`trackStructEvent()`](#struct-event)
   - 4.7 [`trackUnstructEvent()`](#unstruct-event)
-    - 4.7.1 [Supported datatypes](#unstruct-datatypes)
 
 <a name="overview" />
 ## 1. Overview
@@ -234,8 +233,7 @@ Tracking methods supported by the Node.js Tracker at a glance:
 <a name="common" />
 ### 4.1 Common
 
-All events are tracked with specific methods on the tracker instance, of the form `track_XXX()`, where `XXX` is the name of the event to track.
-
+All events are tracked with specific methods on the tracker instance, of the form `trackXXX()`, where `XXX` is the name of the event to track.
 
 <a name="custom-contexts" />
 ### 4.1.1 Custom contexts
