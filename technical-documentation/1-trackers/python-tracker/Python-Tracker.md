@@ -339,8 +339,8 @@ Tracking methods supported by the Python Tracker at a glance:
 
 | **Function**                                  | **Description**                                        |
 |----------------------------------------------:|:-------------------------------------------------------|
-| [`track_page_view()`](#page-view)             | Track and record views of web pages. |
-| [`track__ecommerce_transaction()`](#ecommerce-transaction)   | Track an ecommerce transaction          |
+| [`track_page_view()`](#page-view)             | Track and record views of web pages.                   |
+| [`track_ecommerce_transaction()`](#ecommerce-transaction)   | Track an ecommerce transaction           |
 | [`track_screen_view()`](#screen-view)         | Track the user viewing a screen within the application |
 | [`track_struct_event()`](#struct-event)       | Track a Snowplow custom structured event               |
 | [`track_unstruct_event()`](#unstruct-event)   | Track a Snowplow custom unstructured event             |
