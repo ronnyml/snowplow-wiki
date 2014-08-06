@@ -27,7 +27,7 @@ npm install snowplow-tracker --save
 <a name="next-steps" />
 ## 2. Next steps
 
-Once you've installed the module, check out the [technical documentation page](Nodejs-Tracker) for information on the Node.js Tracker API. Then you should be ready to start tracking your own events.
+Once you've installed the module, check out the [technical documentation page](Node.js-Tracker) for information on the Node.js Tracker API. Then you should be ready to start tracking your own events.
 
 [Back to top](#top)
 
