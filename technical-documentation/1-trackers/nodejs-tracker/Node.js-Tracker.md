@@ -37,7 +37,7 @@ The tracker should be straightforward to use if you are comfortable with JavaScr
 <a name="init" />
 ## 2 Initialization
 
-Assuming you have completed the [Node.js Tracker Setup](Nodejs-tracker-setup) for your project, you are now ready to initialize the Tracker.
+Assuming you have completed the [Node.js Tracker Setup](Node.js-tracker-setup) for your project, you are now ready to initialize the Tracker.
 
 <a name="requiring" />
 ### 2.1 Requiring the module
