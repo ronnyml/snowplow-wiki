@@ -94,19 +94,21 @@ The tracker instance has a set of `set...()` methods to attach extra data to all
 We will discuss each of these in turn below:
 
 <a name="set-platform" />
-### 3.1 Set the platform ID with `setAppId()`
+### 3.1 Set the platform ID with `setPlatform()`
 
 You can set the platform:
 
 ```js
-t.setPlatform( "{{APPLICATION ID}}" );
+t.setPlatform( "{{PLATFORM}}" );
 ```
 
 Example:
 
 ```js
-t.setPlatform("wow-addon-1");
+t.setPlatform("mob");
 ```
+
+If the platform is not set manually, it defaults to `'srv'` (for server).
 
 For a full list of supported platforms, please see the [[Snowplow Tracker Protocol]].
 
