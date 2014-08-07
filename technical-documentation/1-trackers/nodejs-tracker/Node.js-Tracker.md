@@ -370,7 +370,7 @@ The `items` argument is an array of dictionaries. Each dictionary represents one
 Example:
 
 ```js
-t.tracEcommerceTransaction("order-456", null, 142, 20, 12.99, "London", null, "United Kingdom", [{
+t.trackEcommerceTransaction("order-456", null, 142, 20, 12.99, "London", null, "United Kingdom", [{
     "sku": "pbz0026",
     "price": 20,
     "quantity": 1
