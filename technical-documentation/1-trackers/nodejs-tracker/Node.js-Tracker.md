@@ -351,7 +351,7 @@ Arguments:
 | `city`        | Delivery address city                | No            | String                   |
 | `state`       | Delivery address state               | No            | String                   |
 | `country`     | Delivery address country             | No            | String                   |
-| `country`     | Currency                             | No            | String                   |
+| `currency`    | Currency                             | No            | String                   |
 | `items`    | Array of items in the transaction       | No            | Array                    |
 | `context`    | Custom context                      | No            | Array                    |
 | `tstamp`         | When the transaction event occurred  | No            | Positive integer         |
