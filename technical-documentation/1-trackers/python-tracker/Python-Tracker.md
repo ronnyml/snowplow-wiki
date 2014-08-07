@@ -170,7 +170,7 @@ We will discuss each of these in turn below:
 The default platform is "pc". You can change the platform the subject is using by calling:
 
 ```python
-s.set_platform(platform_code)
+s.set_platform( {{PLATFORM}} )
 ```
 
 For example:
