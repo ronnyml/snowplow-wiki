@@ -18,8 +18,9 @@
   - 3.7 [`setLang()`](#set-lang)
 - 4. [Tracking specific events](#events)
   - 4.1 [Common](#common)
-    - 4.1.1 [Custom contexts](#custom-contexts)
-    - 4.1.2 [Optional timestamp argument](#tstamp-arg)
+    - 4.1.1 [Optional arguments](#optional-arguments)
+    - 4.1.2 [Custom contexts](#custom-contexts)
+    - 4.1.3 [Timestamps](#tstamp-arg)
   - 4.2 [`trackScreenView()`](#screen-view)
   - 4.3 [`trackPageView()`](#page-view)
   - 4.4 [`trackEcommerceTransaction()`](#ecommerce-transaction)
@@ -237,14 +238,23 @@ Tracking methods supported by the Node.js Tracker at a glance:
 
 All events are tracked with specific methods on the tracker instance, of the form `trackXXX()`, where `XXX` is the name of the event to track.
 
+<a name="optional-arguments" />
+### 4.1.1 Optional arguments
+
+Each tracker method has both default and optional arguments. If you don't want to provide a value for an optional argument, just pass `null` and it will be ignored. For example, if you want to track a page view event with a referrer but without a title:
+
+``js
+t.trackPageView('http://www.example.com', null, 'http://www.referer.com');
+``
+
 <a name="custom-contexts" />
-### 4.1.1 Custom contexts
+### 4.1.2 Custom contexts
 
 In short, custom contexts let you add additional information about the circumstances surrounding an event in the form of a JavaScript dictionary object. Each tracking method accepts an additional optional contexts parameter after all the parameters specific to that method:
 
-``js
+```js
 t.trackPageView('myUrl', 'myPage', 'myReferrer', myCustomContexts);
-``
+```
 
 The `context` argument should consist of an array of one or more dictionaries. Each dictionary should be a self-describing JSON following the same pattern as an [unstructured event](#unstruct-event).
 
@@ -277,7 +287,7 @@ t.trackPageView("http://www.films.com", "Homepage", null, [{
 Note that even though there is only one custom context attached to the event, it still needs to be placed in an array.
 
 <a name="tstamp-arg" />
-### 4.1.2 Optional timestamp argument
+### 4.1.3 Timestamps
 
 Each `track...()` method supports an optional timestamp as its final argument, after the context argument; this allows you to manually override the timestamp attached to this event.
 
