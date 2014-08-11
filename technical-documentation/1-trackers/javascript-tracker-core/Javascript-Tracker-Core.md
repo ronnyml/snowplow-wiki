@@ -37,7 +37,9 @@
 
 The [Snowplow JavaScript Tracker Core][repo] is an [npm][npm-page] module providing functionality common to both the server-side [Snowplow Node.js Tracker][server-tracker] and the client-side [Snowplow JavaScript Tracker][client-tracker]. It supports all the Snowplow event types. Custom contexts and timestamps can be added to all events.
 
-It has two main types of method: setter methods and tracking methods. Setter methods like `setUserId`
+It has two main types of method: setter methods and tracking methods. Setter methods like `setUserId` store a name-value pair to be added to all future events, while tracking methods like `trackPageView` track a specific event.
+
+There is a setup guide [here][setup].
 
 <a name="init" />
 ## 2 Initialization
@@ -436,6 +438,7 @@ t.trackAdConversion(
 );
 ```
 
+[setup]: https://github.com/snowplow/snowplow/wiki/Javascript-tracker-core-setup
 [repo]: https://github.com/snowplow/snowplow-javascript-tracker/tree/master/core
 [npm-page]: https://www.npmjs.org/package/snowplow-tracker-core
 [server-tracker]: https://github.com/snowplow/snowplow-nodejs-tracker
