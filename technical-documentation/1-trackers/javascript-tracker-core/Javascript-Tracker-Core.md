@@ -158,6 +158,26 @@ Any method whose name starts with `"track..."` is a tracking method which create
 
 Each tracking method's penultimate argument is an optional array of custom context dictionaries.
 
+Example:
+
+```js
+var myContexts = [{
+  'schema': 'iglu:com.acme/viewed_product/1-0-1',
+  'data': {
+    'price': 13,
+    'name': 'cyan paint'
+  }
+},
+{
+  'schema': 'iglu:com.acme/page_type/1-0-1',
+  'data': {
+    'type': 'testPage'
+  }
+}];
+
+t.trackScreenView('title screen', 's-1342', myContexts);
+```
+
 <a name="tstamp" />
 #### 4.1.2 Timestamp argument
 
@@ -400,6 +420,7 @@ t.trackAdClick(
 | `advertiserID` | Adserver identifier for the advertiser which the campaign belongs to | No            |  string   |
 |   `campaignId` | Adserver identifier for the ad campaign which the banner belongs to  | No            |  string  |
 
+Example:
 
 ```js
 t.trackAdConversion(
