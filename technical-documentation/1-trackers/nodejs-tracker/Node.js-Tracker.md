@@ -310,10 +310,12 @@ Use `trackScreenView()` to track a user viewing a screen (or equivalent) within 
 
 | **Argument** | **Description**                     | **Required?** | **Type**                |
 |-------------:|:------------------------------------|:--------------|:------------------------|
-| `name`       | Human-readable name for this screen | Yes           | Non-empty string        |
+| `name`       | Human-readable name for this screen | No            | Non-empty string        |
 | `id`         | Unique identifier for this screen   | No            | String                  |
 | `context`    | Custom context                      | No            | Array                    |
 | `tstamp`     | When the screen was viewed          | No            | Positive integer        |
+
+`name` and `id` are not individually required, but you must provide at least one of them.
 
 Example:
 
