@@ -2,7 +2,7 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > Java Tracker
 
-This page refers to version 0.1.0 of the Snowplow Java Tracker.
+This page refers to version 0.4.0 of the Snowplow Java Tracker.
 
 ## Contents
 
