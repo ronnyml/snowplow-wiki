@@ -448,7 +448,7 @@ Use `track_screen_view()` to track a user viewing a screen (or equivalent) withi
 | **Argument** | **Description**                     | **Required?** | **Validation**          |
 |-------------:|:------------------------------------|:--------------|:------------------------|
 | `name`       | Human-readable name for this screen | Yes           | Non-empty string        |
-| `id`         | Unique identifier for this screen   | No            | String                  |
+| `id_`         | Unique identifier for this screen   | No            | String                  |
 | `context`    | Custom context for the event        | No            | List                    |
 | `tstamp`     | When the screen was viewed          | No            | Positive integer        |
 
