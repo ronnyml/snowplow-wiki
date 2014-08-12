@@ -173,7 +173,7 @@ The `:bad:` entries will store any raw Snowplow log lines which did not pass the
 
 **Important 1:** there is a bug in Hive on Amazon EMR where Hive dies if you attempt to read or write data to the root of an S3 bucket. **Therefore always specify a sub-folder (e.g. `/events/`) for the `processing` and all three `out` bucket variables.**
 
-**Important 2:** do not put your Processing Bucket location inside your In Bucket, or your Out Bucket inside your Processing Bucket, or you will create circular references which EmrEtlRunner cannot resolve when moving files.
+**Important 2:** do not put your Processing Path inside your In Path, or your Out Path inside your Processing Path, or you will create circular references which EmrEtlRunner cannot resolve when moving files.
 
 **Important 3:** if you are using the **Clojure collector**, the path to your `in` bucket will be of the format: 
 
