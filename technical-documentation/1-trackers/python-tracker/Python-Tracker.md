@@ -655,7 +655,7 @@ def __init__(self, endpoint,
 
 When the emitter receives an event, it adds it to a buffer. When the queue is full, all events in the queue get sent to the collector. The `buffer_size` argument allows you to customize the queue size. By default, it is 1 for GET requests and 10 for POST requests. (So in the case of GET requests, each event is fired as soon as the emitter receives it.) If the emitter is configured to send POST requests, then instead of sending one for every event in the buffer, it will send a sing request containing all those events in JSON format.
 
-*Warning: `method` defaults to GET Snowplow collectors do not currently support POST requests.*
+*Warning: `method` defaults to GET because Snowplow collectors do not currently support POST requests.*
 
 `on_success` is an optional callback that will execute whenever the queue is flushed successfully, that is, whenever every request sent has status code 200. It will be passed one argument: the number of events that were sent.
 
