@@ -6,6 +6,7 @@ This is a page of hints, tips and explanations to help you work with Snowplow. I
 4. [I need to recreate my table of Snowplow events, how?](#rebuild-database)
 5. [I want to recompute my Snowplow events, how?](#recompute-events)
 6. [My database load process died during an S3 file copy, help!](#s3-filecopy)
+7. [Shredding is failing with File does not exist: hdfs:/local/snowplow/shredded-events](#shred-fail)
 
 <a name="etl-failure"/>
 ### EmrEtlRunner failed. What do I do now?
@@ -89,6 +90,22 @@ If the job died during the download-to-local step, then:
   2. Rerun StorageLoader
 
 If the job died during the archiving step, rerun StorageLoader with the command-line option of `--skip download,delete,load`
+
+<a name="shred-fail"/>
+### Shredding is failing with File does not exist: hdfs:/local/snowplow/shredded-event
+
+You are probably seeing an error like this in your EMR job's `syslog`:
+
+```
+2014-07-17 02:31:42,198 INFO com.amazon.elasticmapreduce.s3distcp.S3DistCp (main): Running with args: [Ljava.lang.String;@471719b6
+2014-07-17 02:31:45,975 FATAL com.amazon.elasticmapreduce.s3distcp.S3DistCp (main): Failed to get source file system
+java.io.FileNotFoundException: File does not exist: hdfs:/local/snowplow/shredded-events
+	at org.apache.hadoop.hdfs.DistributedFileSystem.getFileStatus(DistributedFileSystem.java:517)
+```
+
+The Hadoop job step that is failing is the copy (using Amazon's S3DistCp utility) of shredded JSONs from your EMR cluster's HDFS file system back to Amazon S3, ready for loading into Redshift. Due to an unfortunate attribute of S3DistCp, it will fail if no files were output for shredding. This will happen if no JSONs could be found in your Snowplow enriched events to shred - i.e. if you have no custom contexts and no unstructured events and don't enable link click tracking.
+
+The solution is to run EmrEtlRunner with `--skip shred`. Remove this `--skip` as/when you know that you do have JSONs to shred.
 
 [sluice]: https://github.com/snowplow/sluice
 
