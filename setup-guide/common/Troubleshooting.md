@@ -103,9 +103,11 @@ java.io.FileNotFoundException: File does not exist: hdfs:/local/snowplow/shredde
 	at org.apache.hadoop.hdfs.DistributedFileSystem.getFileStatus(DistributedFileSystem.java:517)
 ```
 
-The Hadoop job step that is failing is the copy (using Amazon's S3DistCp utility) of shredded JSONs from your EMR cluster's HDFS file system back to Amazon S3, ready for loading into Redshift. Due to an unfortunate attribute of S3DistCp, it will fail if no files were output for shredding. This will happen if no JSONs could be found in your Snowplow enriched events to shred - i.e. if you have no custom contexts and no unstructured events and don't enable link click tracking.
+The Hadoop job step that is failing is the copy (using Amazon's S3DistCp utility) of shredded JSONs from your EMR cluster's HDFS file system back to Amazon S3, ready for loading into Redshift. Due to an unfortunate attribute of S3DistCp, it will fail if no files were output for shredding. Possible reasons for this:
 
-The solution is to run EmrEtlRunner with `--skip shred`. Remove this `--skip` as/when you know that you do have JSONs to shred.
+1. You are not generating any custom contexts, nor unstructured events and have not enabled link click tracking. Solution: run EmrEtlRunner with `--skip shred`. Remove this `--skip` as/when you know that you do have JSONs to shred.
+2. You are trying to send contexts/unstructured events, but something is going wrong. Solution: do a text search on your collector logs and see if you can spot the unstructured events / context there, as per the tracker protocol. Specifically you're looking for query string parameters with 'ue_pr' or 'ue_px' or 'co' or 'cx'. Then review your tracker implementation to fix
+3. The rows are failing validation for some reason. In this case you should be able to find the data in your bad rows bucket, with the reason for the validation failure. Update your JSON Schemas in Iglu, or your JSON instances accordingly
 
 [sluice]: https://github.com/snowplow/sluice
 
