@@ -114,7 +114,7 @@ Set the application ID using the `appId` field of the argmap. This will be attac
 Set the application platform using the `platform` field of the argmap. This will be attached to every event the tracker fires. Its default value is "web". For a list of supported platforms, please see the [Snowplow Tracker Protocol] [snowplow-tracker-protcol]. 
 
 <a name="cookie-domain" />
-### 2.2.3 Configuring the cookie domain
+#### 2.2.3 Configuring the cookie domain
 
 If your website spans multiple subdomains e.g.
 
