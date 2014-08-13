@@ -66,7 +66,7 @@ Invoking EmrEtlRunner with just the `--config` option puts it into rolling
 mode, processing all the raw Snowplow event logs it can find in your In
 Bucket:
 
-    $ bundle exec bin/snowplow-emr-etl-runner --config config/config.yml --enrichments config/enrichments.yml
+    $ bundle exec bin/snowplow-emr-etl-runner --config config/config.yml --enrichments config/enrichments
 
 ### 3.2 Timespan mode
 
