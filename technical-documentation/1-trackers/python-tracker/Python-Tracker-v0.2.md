@@ -2,7 +2,13 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > Python Tracker
 
-This page refers to version 0.2.0 of the Snowplow Python Tracker. Click [here] [python-latest] for the corresponding documentation for the latest version, 0.3.0.
+*This page refers to version 0.2.0 of the Snowplow Python Tracker. Documentation for more recent versions is available:*
+
+*[Version 0.3][python-0.3]*
+
+*[Version 0.4][python-0.4]*
+
+*[Version 0.5][python-latest]*
 
 ## Contents
 
@@ -633,4 +639,6 @@ By contrast, the following are all allowed:
 
 [Back to top](#top)
 
+[python-0.3]: https://github.com/snowplow/snowplow/wiki/Python-Tracker-v0.3
+[python-0.4]: https://github.com/snowplow/snowplow/wiki/Python-Tracker-v0.4
 [python-latest]: https://github.com/snowplow/snowplow/wiki/Python-Tracker

@@ -2,7 +2,13 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > Python Tracker
 
-This page refers to version 0.5.0 of the Snowplow Python Tracker. Click [here] [python-0.3] for the corresponding documentation for version 0.3.0, or [here][python-0.2] for version 0.2.0.
+*This page refers to version 0.5.0 of the Snowplow Python Tracker, which is the latest version. Documentation for earlier versions is available:*
+
+*[Version 0.2][python-0.2]*
+
+*[Version 0.3][python-0.3]*
+
+*[Version 0.4][python-0.4]*
 
 ## Contents
 
@@ -854,6 +860,7 @@ This will set up a worker which will run indefinitely, taking events from the Re
 
 [python-0.2]: https://github.com/snowplow/snowplow/wiki/Python-Tracker-v0.2
 [python-0.3]: https://github.com/snowplow/snowplow/wiki/Python-Tracker-v0.3
+[python-0.4]: https://github.com/snowplow/snowplow/wiki/Python-Tracker-v0.4
 [pycontracts]: http://andreacensi.github.io/contracts/
 
 [jsonschema]: http://snowplowanalytics.com/blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/
