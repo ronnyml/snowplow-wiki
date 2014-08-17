@@ -406,7 +406,7 @@ duid=aeb1691c5a0ee5a6   // Domain user ID
 |:--------------|:-----------------|:---------|:---------------------|:-----------------|:------------------|
 | `ti_id`       | `ti_orderid`     | text     | Order ID             | Yes              | `12345`           |
 | `ti_sk`       | `ti_sku`         | text     | Item SKU             | Yes              | `pbz0025'         |
-| `ti_nm`       | `ti_name`        | text     | Item name            | Yes              | `black-tarot`     |
+| `ti_na`       | `ti_name`        | text     | Item name            | Yes              | `black-tarot`     |
 | `ti_ca`       | `ti_category`    | text     | Item category        | Yes              | `tarot`           |
 | `ti_pr`       | `ti_price`       | decimal  | Item price           | Yes              | `7.99`            |
 | `ti_qu`       | `ti_quantity`    | integer  | Item quantity        | Yes              | `2`               |
@@ -424,7 +424,7 @@ uid=aeb1691c5a0ee5a6    // User ID
 &e=ti 				// Transaction item event type
 &ti_id=12345 		// Order ID
 &ti_sk=pbz0025 		// Item SKU
-&ti_nm=black-tarot 	// Item name
+&ti_na=black-tarot 	// Item name
 &ti_ca=tarot 		// Item category
 &ti_pr=7.99 		// Item price
 &ti_qu=1 			// Item quantity
