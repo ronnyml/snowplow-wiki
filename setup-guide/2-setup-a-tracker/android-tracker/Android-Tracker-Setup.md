@@ -113,7 +113,7 @@ dependencies {
 }
 ```
 
-Done? Now read the [Java/Android Tracker API](Java-Tracker) to start tracking events.
+Done? Now read the [Java/Android Tracker API](Android-and-Java-Tracker) to start tracking events.
 
 [android]: http://www.android.com/
 
