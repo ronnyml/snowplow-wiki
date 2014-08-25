@@ -1,12 +1,13 @@
 <a name="top" />
 
-[**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > Java Tracker
+[**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > Android/Java Tracker
 
-This page refers to version 0.5.0 of the Snowplow Java Tracker.
+This page refers to version 0.5.0 of the Snowplow Java Tracker and 0.1.0 of Snowplow Android Tracker.
 
 ## Contents
 
 - 1. [Overview](#overview)  
+  - 1.1 [Android specific](#android-specific)
 - 2. [Initialization](#init)  
   - 2.1 [Importing the module](#importing)
   - 2.2 [Creating a tracker](#create-tracker)
@@ -42,14 +43,23 @@ This page refers to version 0.5.0 of the Snowplow Java Tracker.
 
 The [Snowplow Java Tracker](https://github.com/snowplow/snowplow-java-tracker) allows you to track Snowplow events from your Java-based desktop and server apps, servlets and games. It supports JDK6+.
 
-The tracker should be straightforward to use if you are comfortable with Java development; its API is modelled after Snowplow's [[Python Tracker]] so any prior experience with that tracker is helpful but not necessary. If you haven't already, have a look at the [[Java Tracker Setup]] guide before continuing.
+The [Snowplow Android Tracker](https://github.com/snowplow/snowplow-android-tracker) allows you to track Snowplow events from your Android applications and games. It supports applications using the Android SDK 11 and above.
+
+The tracker should be straightforward to use if you are comfortable with Java development; its API is modelled after Snowplow's [[Python Tracker]] so any prior experience with that tracker is helpful but not necessary. If you haven't already, have a look at the [[Java Tracker Setup]] or [[Android Tracker Setup]] guide before continuing.
+
+[Back to top](#top)
+
+<a name="android-specific" />
+### 1.1 Android specific
+
+The Android Tracker is based off of the Java Tracker core library which is the same library used by the Java Tracker. Hence, they both very similar in features and with a few differences in them. For sections of this documentation which only apply to Android, we will flag with Android only.
 
 [Back to top](#top)
 
 <a name="init" />
 ## 2 Initialization
 
-Assuming you have completed the [[Java Tracker Setup]] for your Java project, you are now ready to initialize the Java Tracker.
+Assuming you have completed the [[Android Tracker Setup]] or [[Java Tracker Setup]] for your project, you are now ready to initialize the Android/Java Tracker.
 
 <a name="importing" />
 ### 2.1 Importing the module
@@ -639,7 +649,21 @@ A TrackerPayload is used internally within the Java Tracker to create the tracki
 <a name="schema-payload" />
 ### 6.2 Schema Payload
 
-A SchemaPayload 
+A SchemaPayload is used primarily as a wrapper around a TrackerPayload. After creating a TrackerPayload, you create a SchemaPayload and use `setData` with the Payload, followed by, `setSchema` to set the schema that the payload will be used against.
+
+This is mainly used under the hood, in the Tracker class but is useful to know if you want to create your own Tracker class.
+
+Here's a short example:
+```java
+// This is our TrackerPayload that we created
+TrackerPayload trackerPayload = new TrackerPayload();
+trackerPayload.add("key", "value");
+
+// We wrap that payload in a SchemaPayload before sending it.
+SchemaPayload schemaPayload = new SchemaPayload();
+schemaPayload.setData(trackerPayload);
+schemaPayload.setSchema("iglu:com.snowplowanalytics.snowplow/example/jsonschema/1-0-0");
+```
 
 [Back to top](#top)
 
