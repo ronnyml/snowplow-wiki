@@ -4,6 +4,8 @@
 
 This page refers to version 0.5.0 of the Snowplow Java Tracker and 0.1.0 of Snowplow Android Tracker.
 
+*[Version 0.4][java-0.4]*
+
 ## Contents
 
 - 1. [Overview](#overview)  
@@ -677,3 +679,4 @@ Logging in the Tracker is done using SLF4J. Majority of the logging set as `DEBU
 
 [jsonschema]: http://snowplowanalytics.com/blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
+[java-0.4]: https://github.com/snowplow/snowplow/wiki/Java-Tracker-v0.4
