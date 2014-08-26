@@ -12,12 +12,13 @@ This page refers to version 0.5.0 of the Snowplow Java Tracker and 0.1.0 of Snow
   - 1.1 [Android specific](#android-specific)
 - 2. [Initialization](#init)  
   - 2.1 [Importing the module](#importing)
-  - 2.2 [Creating a tracker](#create-tracker)
-    - 2.2.1 [`emitter`](#emitter)  
-    - 2.2.2 [`subject`](#subject)
-    - 2.2.3 [`namespace`](#namespace)
-    - 2.2.4 [`appId`](#app-id)
-    - 2.2.5 [`base64Encoded`](#base64)
+  - 2.2 [Understanding the module structure](#structure)
+  - 2.3 [Creating a tracker](#create-tracker)
+    - 2.3.1 [`emitter`](#emitter)  
+    - 2.3.2 [`subject`](#subject)
+    - 2.3.3 [`namespace`](#namespace)
+    - 2.3.4 [`appId`](#app-id)
+    - 2.3.5 [`base64Encoded`](#base64)
 - 3. [Adding extra data](#add-data)
 - 4. [Tracking specific events](#events)
   - 4.1 [Common](#common)
@@ -76,8 +77,16 @@ That's it - you are now ready to initialize a Tracker instance.
 
 [Back to top](#top)
 
+<a name="structure" />
+### 2.2 Understanding the module structure
+
+As we've mentioned in the setup guides, the Android and Java Tracker are based off a Java core library. This means that you'll find a set the core libraries in `com.snowplowanalytics.snowplow.tracker.core.*`. 
+For example, if you're using the Android Tracker you would use the classes in `com.snowplowanalytics.snowplow.tracker.android.*`, since it would contain class overrides specific to Android. If the class doesn't exist in that module (mostly enums), you can use the ones in the `core` package instead.
+
+[Back to top](#top)
+
 <a name="create-tracker" />
-### 2.2 Creating a Tracker
+### 2.3 Creating a Tracker
 
 To instantiate a tracker in your code (can be global or local to the process being tracked) simply instantiate the `Tracker` interface with one of the following:
 
@@ -104,28 +113,28 @@ Tracker t2 = new Tracker("d3rkrsqld9gmqf.cloudfront.net", "AF003", "cloudfront")
 | `base64Encoded`   | Whether to enable [base 64 encoding][base64] | No (Default true) |
 
 <a name="emitter" />
-#### 2.2.1 `emitter`
+#### 2.3.1 `emitter`
 
 The emitter to which the tracker will send events. See [Emitters](#emitter) for more on emitter configuration.
 
 <a name="subject" />
-#### 2.2.2 `subject`
+#### 2.3.2 `subject`
 
 The user which the Tracker will track. This should be an instance of the [Subject](#subject) class. You don't need to set this during Tracker construction; you can use the `Tracker.setSubject` method afterwards. In fact, you don't need to create a subject at all. If you don't, though, your events won't contain user-specific data such as timezone and language.
 
 
 <a name="namespace" />
-#### 2.2.3 `namespace`
+#### 2.3.3 `namespace`
 
 If provided, the `namespace` argument will be attached to every event fired by the new tracker. This allows you to later identify which tracker fired which event if you have multiple trackers running.
 
 <a name="app-id" />
-#### 2.2.4 `appId`
+#### 2.3.4 `appId`
 
 The `appId` argument lets you set the application ID to any string.
 
 <a name="base64" />
-#### 2.2.5 `base64Encoded`
+#### 2.3.5 `base64Encoded`
 
 By default, unstructured events and custom contexts are encoded into Base64 to ensure that no data is lost or corrupted. You can turn encoding on or off using the Boolean `encode_base64` argument.
 
