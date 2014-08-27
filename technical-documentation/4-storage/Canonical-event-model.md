@@ -14,7 +14,7 @@ In order to analyse Snowplow data, it is important to understand how it is struc
 
 * **Each line represents one event**. Each line in the Snowplow events table represents a single *event*, be that a *page view*, *add to basket*, *play video*, *like* etc.
 * **Structured data**. Snowplow data is structured: individual fields are stored in their own columns, making writing sophisticated queries on the data easy, and making it straightforward for analysts to plugin any kind of analysis tool into their Snowplow data to compose and execute queries
-* **Extendible schema**. Snowplow started life as a web analytics data warehousing platform, and has a basic schema suitable for performing web analytics, with a wide range of web-specific dimensions (related to page URLs, browsers, operating systems, devices, IP addresses, cookie IDs) and web-specfic events (page views, page pings, transactions). All of these fields can be found in the `atomic.events` table, which is a "fat" (many columns) table. As Snowplow has evolved into a general purpose event analytics platform, we've enabled Snowplow users to define additional event types (we call these *custom unstructured events*) and define their own entities (we call these *custom contexts*) so that they can extend the schema to suit their own businesses. For Snowplow users running Amazon Redshift, each custom unstructured event and custom context will be stored in its own dedicated table, again with one line per event. These additional tables can be joined back to the core `atomic.events` table, by joining on the `root_id` field in the custom unstructured event / custom context table with the `event_id` in the `atomic.events` table
+* **Extensible schema**. Snowplow started life as a web analytics data warehousing platform, and has a basic schema suitable for performing web analytics, with a wide range of web-specific dimensions (related to page URLs, browsers, operating systems, devices, IP addresses, cookie IDs) and web-specfic events (page views, page pings, transactions). All of these fields can be found in the `atomic.events` table, which is a "fat" (many columns) table. As Snowplow has evolved into a general purpose event analytics platform, we've enabled Snowplow users to define additional event types (we call these *custom unstructured events*) and define their own entities (we call these *custom contexts*) so that they can extend the schema to suit their own businesses. For Snowplow users running Amazon Redshift, each custom unstructured event and custom context will be stored in its own dedicated table, again with one line per event. These additional tables can be joined back to the core `atomic.events` table, by joining on the `root_id` field in the custom unstructured event / custom context table with the `event_id` in the `atomic.events` table
 * **Single table**. All the events are effectively stored in a single table, making running queries across the data very easy. Even if you're running Snowplow with Redshift and have extended the schema as described above, you can still query the data as if it were in a single fat table. This is because:
   * The joins from the additional tables to the core `atomic.events` table are one-to-one
   * The field joined on is the distribution and sort key for both tables, so queries are as fast as if the data were in a single table
@@ -47,6 +47,12 @@ In order to analyse Snowplow data, it is important to understand how it is struc
   - 2.3.10 [Custom structured events](#customstruct)  
   - 2.3.11 [Custom unstructured events](#customunstruct)
   - 2.3.11 [Custom contexts](#customcontext)
+- 2.4 [**Specific unstructured events**](#specific-unstruct)
+  - 2.4.1 [Link clicks](#link-click)
+  - 2.4.2 [Ad impressions](#ad-impression)
+  - 2.4.3 [Ad clicks](#ad-click)
+  - 2.4.4 [Ad conversions](#ad-conversion)
+  - 2.4.5 [Screen views](#screen-view)
 
 <a name="common" />
 ### 2.1 Common fields (platform and event independent)
@@ -427,6 +433,74 @@ The array of contexts JSONs related to an event is loaded directly into the `ato
 | `contexts`   | array     | Contexts attached to event | Yes     | Yes       | [{"schema":"iglu:com.acme/page_type/jsonschema/1-0-0", "data":{"type":"test"}}] |
 
 In addition, for users running on Redshift, Snowplow will shred each context JSON into a dedicated table in the `atomic` schema, making it much more efficient for analysts to query data passed in in any one of the contexts. Those contexts can be joined back to the core `atomic.events` table on `atomic.my_custom_context_table.root_id = atomic.events.event_id`, which is a one-to-one join.
+
+Back to [top](#top).
+
+<a name="specific-unstruct" />
+### 2.4 Specific unstructured events
+
+These are unstructured events defined by Snowplow.
+
+<a name="link-click" />
+#### 2.4.1 Link clicks
+
+| **Field**        | **Type** | **Description**     | **Reqd?** | **Example**    |
+|:-----------------|:---------|:--------------------|:----------|:---------------|
+| `targetUrl`      | text     | Link href attribute | Yes       | 'http://www.example.com' |
+| `elementId`      | text     | ID of the link element | No     | 'firstLink'         |
+| `elementClasses` | array    | CSS classes of the link element | No | ['title', 'foreground'] |
+| `elementTarget`  | text     | Target of the link element  | No | '_blank' |
+
+<a name="ad-impression" />
+#### 2.4.2 Ad impressions
+
+| **Name**       | **Type** | **Description**                            | **Requd?**
+|---------------:|:---------|:-------------------------------------------|:---------------------|
+| `impressionId` | text     | Identifier for the particular impression instance   | No |
+|    `costModel` | text     | The cost model for the campaign: 'cpc', 'cpm', or 'cpa'  | No |
+|         `cost` | decimal  | Ad cost   |    No    |
+|   `targetUrl`  | text     | The destination URL  |        No   |
+|     `bannerId` | text     | Adserver identifier for the ad banner (creative) being displayed  | No  |
+|       `zoneId` | text     | Adserver identifier for the zone where the ad banner is located | No  |
+| `advertiserId` | text     | Adserver identifier for the advertiser which the campaign belongs to      | No   |
+|   `campaignId` | text     | Adserver identifier for the ad campaign which the banner belongs to    |  No |
+
+<a name="ad-click" />
+#### 2.4.3 Ad clicks
+
+| **Name**       | **Type** | **Description**                            | **Reqd?**
+|---------------:|:---------|:-------------------------------------------|:-----------
+|   `targetUrl`  | text     | The destination URL  |        yes   |
+|      `clickId` | text     | Identifier for the particular click instance   | No  |
+|    `costModel` | text     | The cost model for the campaign: 'cpc', 'cpm', or 'cpa' |  No  |
+|         `cost` | decimal  | Ad cost   |    No    |
+|     `bannerId` | text     | Adserver identifier for the ad banner (creative) being displayed  |  No
+|       `zoneId` | text     | Adserver identifier for the zone where the ad banner is located  | No
+| `advertiserId` | text     | Adserver identifier for the advertiser which the campaign belongs to   |  No |
+|   `campaignId` | text     | Adserver identifier for the ad campaign which the banner belongs to   |No |
+
+<a name="ad-conversion" />
+#### 2.4.4 Ad conversions
+
+| **Name**       | **Type** | **Description**                            | **Reqd?**             |
+|---------------:|:--------------|:-------------------------------------------|:--------------------
+| `conversionId` | text            | Identifier for the particular conversion instance   | No
+|    `costModel` | text            | The cost model for the campaign: 'cpc', 'cpm', or 'cpa'   |  No
+|         `cost` | decimal            | Ad cost   |    No    |
+|     `category` | text            | Conversion category                        |    No                              |
+|       `action` | text            | The type of user interaction, e.g. 'purchase' | No                           |
+|     `property` | text            | Describes the object of the conversion        | No                           |
+| `initialValue` | decimal            | How much the conversion is initially worth   | number                           |
+| `advertiserId` | text            | Adserver identifier for the advertiser which the campaign belongs to |  No   |
+|   `campaignId` | text            | Adserver identifier for the ad campaign which the banner belongs to  |  No  |
+
+<a name="screen-view" />
+#### 2.4.5 Screen views
+
+| **Name**       | **Type**  | **Description** | **Reqd?**    |
+|---------------:|:----------|:----------------|:-------------|
+| `name`         | text      | Screen name     | No           |
+|   `id`         | text      | Screen ID       | No           |
 
 [shredding]: https://github.com/snowplow/snowplow/wiki/Shredding
 [avro-blog-post]: http://snowplowanalytics.com/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/
