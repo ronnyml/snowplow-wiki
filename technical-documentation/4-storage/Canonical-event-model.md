@@ -12,13 +12,13 @@
 
 In order to analyse Snowplow data, it is important to understand how it is structured. We have tried to make the structure of Snowplow data as simple, logical, and easy-to-query as possible.
 
-* **Single table** Most Snowplow data is stored in a single, "fat" (many columns) table. We call this the *Snowplow events table*. In addition, if Amazon Redshift is used, unstructured event JSONs and custom context JSONs are [shredded][shredding] and stored in their own dedicated tables.
 * **Each line represents one event**. Each line in the Snowplow events table represents a single *event*, be that a *page view*, *add to basket*, *play video*, *like* etc.
+* **Structured data**. Snowplow data is structured: individual fields are stored in their own columns, making writing sophisticated queries on the data easy, and making it straightforward for analysts to plugin any kind of analysis tool into their Snowplow data to compose and execute queries
+* **Extendible schema**. Snowplow started life as a web analytics data warehousing platform, and has a basic schema suitable for performing web analytics, with a wide range of web-specific dimensions (related to page URLs, browsers, operating systems, devices, IP addresses, cookie IDs) and web-specfic events (page views, page pings, transactions). All of these fields can be found in the `atomic.events` table, which is a "fat" (many columns) table. As Snowplow has evolved into a general purpose event analytics platform, we've enabled Snowplow users to define additional event types (we call these *custom unstructured events*) and define their own entities (we call these *custom contexts*) so that they can extend the schema to suit their own businesses. For Snowplow users running Amazon Redshift, each custom unstructured event and custom context will be stored in its own dedicated table, again with one line per event. These additional tables can be joined back to the core `atomic.events` table, by joining on the `root_id` field in the custom unstructured event / custom context table with the `event_id` in the `atomic.events` table
+* **Single table**. All the events are effectively stored in a single table, making running queries across the data very easy. Even if you're running Snowplow with Redshift and have extended the schema as described above, you can still query the data as if it were in a single fat table. This is because:
+  * The joins from the additional tables to the core `atomic.events` table are one-to-one
+  * The field joined on is the distribution and sort key for both tables, so queries are as fast as if the data were in a single table
 * **Immutable log**. The Snowplow data table is designed to be immutable: the data in each line should not change over time. Data points that we would expect to change over time (e.g. what cohort a particular user belongs to, how we classify a particular visitor) can be derived from Snowplow data. However, our recommendation is that these derived fields should be defined and calculated at analysis time, stored in a separate table and joined to the *Snowplow events table* when performing any analysis
-* **Structured events**. Snowplow explicitly recognises particular events that are common in web analytics (e.g. page views, transactions, ad impressions) as 'first class citizerns'. We have a model for the types of fields that may be captured when those events occur, and specific columns in the database that correspond to those fields
-* **Unstructured events and custom contexts** Snowplow users can define their own custom unstructured events and custom contexts using [JSON schema][json-schema]. These are handled by the [Snowplow shredding process][shredding].
-* Whilst some fields are event specific (e.g. `tr_city` representing the city in a delivery address for an online transaction), others are platform specific (e.g. `page_url` for events that occur on the web) and some are relevant across platforms, devices and events (e.g. `dt` and `tm`, the date and time an event occurs, or `app_id`, the application ID).
-* **Evolving over time**. We are building out the canonical data structure to make its understanding of individual event-types richer (more events, more fields per events) and to support more platforms. This needs to be done in a collaborative way with the Snowplow community, so that the events and fields that you need to track can easily be accommodated in this data structure. Please [get in touch] (Talk-to-us) to discuss your ideas and requirements
 
 <a name="model" />
 ## 2. The Snowplow canonical data structure: understanding the individual fields
@@ -392,9 +392,17 @@ Back to [top](#top).
 <a name="customunstruct" />
 #### 2.3.10 Custom unstructured events
 
+Custom unstructured events are a flexible tool that enable Snowplow users to define their own event types and send them into Snowplow.
+
+When a user sends in a custom unstructured event, they do so as a JSON of name-value properties, that conforms to a JSON schema defined for the event earlier. 
+
+The complete JSON envelop for the event is loaded into the `atomic.events` table, in the `unstruct_event` field as shown below:
+
 | **Field**        | **Type** | **Description** | **Reqd?** | **Impl?** | **Example**    |
 |:-----------------|:---------|:----------------|:----------|:----------|:---------------|
 | `unstruct_event` | JSON     | Name of the event | Yes     | Yes       | {"schema":"iglu:com.mycompany/product_view/jsonschema/1-0-1", "data":{"sku":"14424"}} |
+
+In addition, for Snowplow users running Redshift, the unstructured event is shredded into its own table in Amazon Redshift. The fields in this table will be determined by the JSON schema defined for the event in advance. Users can query just the table for that particular unstructured event, if that's all that's required for their analysis, or join that table back to the `atomic.events` table by `atomic.my_example_unstructured_event_table.root_id = atomic.events.root_id`.
 
 Back to [top](#top).
 
@@ -410,11 +418,17 @@ Back to [top](#top).
 <a name="customcontexts" />
 #### 2.3.10 Custom contexts
 
-Custom contexts describe the circumstances surrounding and event. An event can have any number of custom contexts attached. Each context is a JSON.
+Custom contexts enable Snowplow users to define their own entities that are related to events, and fields that are related to each of those entities. For example, an online retailer may choose to define a `user` context, to store information about a particular user, which might include data points like the users Facebook ID, age, membership details etc. In addition, they may also define a `product` context, with product data e.g. SKU, name, created date, description, tags etc. 
+
+An event can have any number of custom contexts attached. Each context is passed into Snowplow as a JSON.
+
+The array of contexts JSONs related to an event is loaded directly into the `atomic.events` table in the `contexts` field, as described below:
 
 | **Field**       | **Type** | **Description** | **Reqd?** | **Impl?** | **Example**    |
 |:----------------|:---------|:----------------|:----------|:----------|:---------------|
 | `contexts`   | array     | Contexts attached to event | Yes     | Yes       | [{"schema":"iglu:com.acme/page_type/jsonschema/1-0-0", "data":{"type":"test"}}] |
+
+In addition, for users running on Redshift, Snowplow will shred each context JSON into a dedicated table in the `atomic` schema, making it much more efficient for analysts to query data passed in in any one of the contexts. Those contexts can be joined back to the core `atomic.events` table on `atomic.my_custom_context_table.root_id = atomic.events.event_id`, which is a one-to-one join.
 
 [shredding]: https://github.com/snowplow/snowplow/wiki/Shredding
 [avro-blog-post]: http://snowplowanalytics.com/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/
