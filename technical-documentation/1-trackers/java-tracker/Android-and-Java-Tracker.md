@@ -100,8 +100,8 @@ Tracker(Emitter emitter, Subject subject, String namespace, String appId, boolea
 For example:
 
 ```java
-Tracker t1 = new Tracker("d3rkrsqld9gmqf.cloudfront.net", user1Subject, "AF003", "cloudfront", true);
-Tracker t2 = new Tracker("d3rkrsqld9gmqf.cloudfront.net", "AF003", "cloudfront");
+Tracker t1 = new Tracker(emitter, user1Subject, "AF003", "cloudfront", true);
+Tracker t2 = new Tracker(emitter, "AF003", "cloudfront");
 ```
 
 | **Argument Name** | **Description**                              |    **Required?**  |
@@ -689,3 +689,4 @@ Logging in the Tracker is done using SLF4J. Majority of the logging set as `DEBU
 [jsonschema]: http://snowplowanalytics.com/blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
 [java-0.4]: https://github.com/snowplow/snowplow/wiki/Java-Tracker-v0.4
+[base64]: https://en.wikipedia.org/wiki/Base64
