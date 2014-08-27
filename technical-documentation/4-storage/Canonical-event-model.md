@@ -31,6 +31,7 @@ In order to analyse Snowplow data, it is important to understand how it is struc
   - 2.1.5 [User-related fields](#user)  
   - 2.1.6 [Device and operating system fields](#device)  
   - 2.1.7 [Location fields](#location)
+  - 2.1.8 [IP address-based fields](#ip)
 - 2.2 [**Platform-specific fields**](#platform)  
   - 2.2.1 [Web-specific fields](#web)  
 - 2.3 [**Event-specific fields**](#event)
@@ -71,6 +72,7 @@ Back to [top](#top).
 |:----------------|:---------|:----------------|:----------|:----------|:---------------|
 | `collector_tstamp`| timestamp | Time stamp for the event recorded by the collector | Yes    | Yes       | '2013-11-26 00:02:05'   |
 | `dvce_tstamp`   | timestamp | Timestamp event was recorded on the client device | No | Yes | '2013-11-26 00:03:57.885' |
+| `etl_tstamp`   | timestamp | Timestamp event began ETL | No | Yes | '2017-01-26 00:01:25.292' |
 | `os_timezone`   | text     | Client operating system timezone | No | Yes | 'Europe/London' |
 
 We are currently considering extending the date / time fields to store the date / time as recorded on the client and server in separate fields. See [issue 149](https://github.com/snowplow/snowplow/issues/149) for details.
@@ -139,16 +141,25 @@ Back to [top](#top).
 <a name="location" />
 #### 2.1.7 Location fields
 
-Note: none of these fields have been implemented yet.
+| **Field**       | **Type** | **Description** | **Reqd?** | **Impl?** | **Example**    |
+|:----------------|:---------|:----------------|:----------|:----------|:---------------|
+| `geo_country`   | text     | ISO 3166-1 code for the country the visitor is located in | No  | Yes | 'GB', 'US' |
+| `geo_region`    | text     | ISO-3166-2 code for country region the visitor is in | No | Yes | 'I9', 'TX' |
+| `geo_city`      | text     | City the visitor is in | No | Yes        | 'New York', 'London'       |
+| `geo_zipcode`  | text     | Postcode the visitor is in | No | Yes    | '94109'           |
+| `geo_latitude`  | text     | Visitor location latitude | No | Yes     | 37.443604      |
+| `geo_longitude` | text     | Visitor location longitude | No | Yes    | -122.4124      |
+| `geo_region_name` | text     | Visitor region name | No | Yes    | 'Florida'      |
+
+<a name="ip" />
+#### 2.1.7 IP address-based fields
 
 | **Field**       | **Type** | **Description** | **Reqd?** | **Impl?** | **Example**    |
 |:----------------|:---------|:----------------|:----------|:----------|:---------------|
-| `geo_country`   | text     | ISO 3166-1 code for the country the visitor is located in | No  | No | 'GB', 'US' |
-| `geo_region`    | text     | ISO-3166-2 code for country region the visitor is in | No | No | 'I9', 'TX' |
-| `geo_city`      | text     | City the visitor is in | No | No        | 'New York', 'London'       |
-| `geo_zipcode`  | text     | Postcode the visitor is in | No | No    | '94109'           |
-| `geo_latitude`  | text     | Visitor location latitude | No | No     | 37.443604      |
-| `geo_longitude` | text     | Visitor location longitude | No | No    | -122.4124      |
+| `ip_isp`   | text     | Visitor's ISP | No  | Yes | 'FDN Communications' |
+| `ip_organization`    | text     | Organization associated with the visitor's IP address - defaults to ISP name if none is found | No | Yes | 'Bouygues Telecom' |
+| `ip_domain`      | text     | Second level domain name associated with the visitor's IP address | No | Yes        | 'nuvox.net'       |
+| `ip_netspeed`  | text     | Visitor's connection type | No | Yes    | 'Cable/DSL'           |
 
 <a name="platform" />
 ### 2.2 Platform-specific fields
@@ -176,8 +187,9 @@ Currently the only platform supported is `web`. However, as we build trackers fo
 | `refr_urlpath`  | text     | Referer page path | No      | Yes       | '/images/search' |
 | `refr_urlquery` | text     | Referer URL querystring | No | Yes      | 'q=psychic+oracle+cards' |
 | `refr_urlfragment` | text   | Referer URL fragment | No   | Yes       |                |
+| `refr_medium`   | text     | Type of referer | No | Yes | 'search', 'internal' |
 | `refr_source`   | text     | Name of referer if recognised | No | Yes | 'Bing images' |
-| `refr_term`     | text     | Keywords if source is a search engine | No | Yes | 'psychic oracle cards' 
+| `refr_term`     | text     | Keywords if source is a search engine | No | Yes | 'psychic oracle cards' |
 | **Document fields** |      |                 |           |           |                |
 | `doc_charset`   | text     | The page’s character encoding | No | Yes | , 'UTF-8' |
 | `doc_width`     | int      | The page's width in pixels  | No | Yes  | 1024       |
@@ -189,17 +201,31 @@ Currently the only platform supported is `web`. However, as we build trackers fo
 | `mkt_term`      | text     | Any keywords associated with the referrer | Yes | No | 'new age tarot decks' |
 | `mkt_content`   | text     | The content of the ad. (Or an ID so that it can be looked up.) | No | Yes | 13894723 |
 | `mkt_campaign`  | text     | The campaign ID | No        | Yes        | 'diageo-123' |
-| `mkt_referrerurl`| text    | The URL that drove the user to the website being tracked at the session start | No | No | 'http://news.ycombinator.com/newest' |
+| `mkt_referrerurl`| text    | The URL that drove the user to the webtp://news.ycombinator.com/newest' |
 | **Browser fields** |          |                 |           |           |                |
-| `user_fingerprint` | int   | A user fingerprint generated by looking at the individual browser features | No | Yes | 2161814971 |
+| `user_fingerprint` | int   | A user fingerprint generated by looking at the individual browser features | No | No | 2161814971 |
 | `connection_type` | text   | Type of internet connection | No | No   | - |
 | `cookie`        | boolean  | Does the browser support persistent cookies? | No | Yes | 1 |
+| `br_name`       | text     | Browser name  | No | Yes   | 'Firefox 12' |
+| `br_version`    | text     | Browser version  | No | Yes   | '12.0' |
+| `br_family`     | text     | Browser family  | No | Yes   | 'Firefox' |
+| `br_type`       | text     | Browser type  | No | Yes   | 'Browser' |
+| `br_renderengine` | text   | Browser rendering engine  | No | Yes   | 'GECKO' |
 | `br_lang`       | text     | Language the browser is set to  | No | Yes   | 'en-GB' |
-| `br_features`   | array    | An array of browser features that the browser supports | No | Yes | ['pdf', 'java', 'fla'] |
+| `br_features_pdf` | boolean     | Whether the browser recognizes PDFs | No | Yes   | 1 |
+| `br_features_flash` | boolean     | Whether Flash is installed | No | Yes   | 1 |
+| `br_features_java` | boolean     | Whether Java is installed | No | Yes   | 1 |
+| `br_features_director` | boolean     | Whether Adobe Shockwave is installed | No | Yes   | 1 |
+| `br_features_quicktime` | boolean     | Whether QuickTime is installed | No | Yes   | 1 |
+| `br_features_realplayer` | boolean     | Whether RealPlayer is installed | No | Yes   | 1 |
+| `br_features_windowsmedia` | boolean     | Whether mplayer2 is installed | No | Yes   | 1 |
+| `br_features_gears` | boolean     | Whether Google Gears is installed | No | Yes   | 1 |
+| `br_features_silverlight` | boolean     | Whether Microsoft Silverlight is installed | No | Yes   | 1 |
+| `br_cookies` | boolean     | Whether cookies are enabled | No | Yes   | 1 |
 | `br_colordepth` | int      | Bit depth of the browser color palette  | No | Yes | 24 |
 | `br_jsversion`  | text     | Javascript version | No     | No        | - |
-| `br_viewheight`| int     | Viewport height    | No     | No         | 1000 |
-| `br_viewwidth` | int     | Viewport width     | No     | No         | 1000 |
+| `br_viewheight`| int     | Viewport height    | No     | Yes         | 1000 |
+| `br_viewwidth` | int     | Viewport width     | No     | Yes         | 1000 |
 
 See [issue 94](https://github.com/snowplow/snowplow/issues/94) for more details on `br_windowheight` and `br_windowwidth`.
 
@@ -241,7 +267,7 @@ Details of which fields are available for which events are given below:
 <a name="pageview" />
 #### 2.3.2 Page views
 
-There are currently fields that are specific to `page_view` events: all the fields that are required are part of the standard fields available for any [web-based event](#web) e.g. `page_urlscheme`, `page_title`.
+There are currently no fields that are specific to `page_view` events: all the fields that are required are part of the standard fields available for any [web-based event](#web) e.g. `page_urlscheme`, `page_title`.
 
 Back to [top](#top).
 
@@ -366,10 +392,9 @@ Back to [top](#top).
 <a name="customunstruct" />
 #### 2.3.10 Custom unstructured events
 
-| **Field**       | **Type** | **Description** | **Reqd?** | **Impl?** | **Example**    |
-|:----------------|:---------|:----------------|:----------|:----------|:---------------|
-| `ue_name`       | text     | Name of the event | Yes     | Yes       | 'linkClick' |
-| `ue_properties` | JSON     | Properties of the event | Yes | Yes |  | {'targetUrl':'http://www.example.com'}
+| **Field**        | **Type** | **Description** | **Reqd?** | **Impl?** | **Example**    |
+|:-----------------|:---------|:----------------|:----------|:----------|:---------------|
+| `unstruct_event` | JSON     | Name of the event | Yes     | Yes       | {"schema": "iglu:com.mycompany/product_view/jsonschema/1-0-1", "data": {"sku": "14424"}} |
 
 Back to [top](#top).
 
@@ -389,7 +414,7 @@ Custom contexts describe the circumstances surrounding and event. An event can h
 
 | **Field**       | **Type** | **Description** | **Reqd?** | **Impl?** | **Example**    |
 |:----------------|:---------|:----------------|:----------|:----------|:---------------|
-| `contexts`   | array     | Contexts attached to event | Yes     | Yes       | [{'userType':'tester'}] |
+| `contexts`   | array     | Contexts attached to event | Yes     | Yes       | [{"schema": "iglu:com.acme/page_type/jsonschema/1-0-0", "data": {"type": "test"}}] |
 
 [avro-blog-post]: http://snowplowanalytics.com/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/
 [json-schema]: http://json-schema.org/
