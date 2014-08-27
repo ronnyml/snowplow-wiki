@@ -35,24 +35,21 @@ In order to analyse Snowplow data, it is important to understand how it is struc
 - 2.2 [**Platform-specific fields**](#platform)  
   - 2.2.1 [Web-specific fields](#web)  
 - 2.3 [**Event-specific fields**](#event)
-  - 2.3.1 [Event vendor](#eventvendor)  
-  - 2.3.2 [Page views](#pageview)  
-  - 2.3.3 [Page pings](#pagepings)  
-  - 2.3.4 [Link clicks](#linkclicks)  
-  - 2.3.5 [Ad impressions](#ad-imp)  
-  - 2.3.6 [Ecommerce transations](#ecomm)  
-  - 2.3.7 [Social events](#social)  
-  - 2.3.8 [Item views](#itemview)  
-  - 2.3.9 [Error tracking](#error)  
-  - 2.3.10 [Custom structured events](#customstruct)  
-  - 2.3.11 [Custom unstructured events](#customunstruct)
-  - 2.3.11 [Custom contexts](#customcontext)
+  - 2.3.1 [Page views](#pageview)  
+  - 2.3.2 [Page pings](#pagepings)  
+  - 2.3.3 [Ecommerce transations](#ecomm)   
+  - 2.3.4 [Error tracking](#error)  
+  - 2.3.5 [Custom structured events](#customstruct)  
+  - 2.3.6 [Custom unstructured events](#customunstruct)
+  - 2.3.7 [Custom contexts](#customcontext)
 - 2.4 [**Specific unstructured events**](#specific-unstruct)
   - 2.4.1 [Link clicks](#link-click)
   - 2.4.2 [Ad impressions](#ad-impression)
   - 2.4.3 [Ad clicks](#ad-click)
   - 2.4.4 [Ad conversions](#ad-conversion)
   - 2.4.5 [Screen views](#screen-view)
+  - 2.4.6 [Social events](#social)  
+  - 2.4.7 [Item views](#itemview)
 
 <a name="common" />
 ### 2.1 Common fields (platform and event independent)
@@ -240,43 +237,30 @@ Back to [top](#top).
 
 Snowplow includes specific fields to capture data associated with specific events.
 
-#### 2.3.1 Vendor
-
-Going forwards, we plan to enable users to define their own events and contexts and data model associated for each event and context using [JSON schema][json-schema]. When that is enabled, it will be possible to distinguish between unstructured events and custom contexts defined by different companies using the `event_vendor` and `context_vendor` fields:
-
-| **Field**       | **Type** | **Description** | **Reqd?** | **Impl?** | **Example**    |
-|:----------------|:---------|:----------------|:----------|:----------|:---------------|
-| `event_vendor`  | text     | Company that developed the event model | Yes | Yes | 'com.snowplowanalytics' |
-| `context_vendor`  | text     | Company that developed the context model | Yes | Yes | 'com.example_company' |
-
 Note that to date, all event types have been defined by Snowplow. Also note that `event_vendor` values follow the [Java package naming convention](http://docs.oracle.com/javase/tutorial/java/package/namingpkgs.html).
 
 Snowplow currently supports (or will support in the near future) the following event types:
 
 |        | **Event type**                                              | **Value of `event` field in model**    |
 |:-------|:------------------------------------------------------------|:---------------------------------------|
-| 2.3.2  | [Page views](#pageview)                                     | 'page_view'                            |
-| 2.3.3  | [Page pings](#pageping)                                     | 'page_ping'                            |
-| 2.3.4  | [Link clicks](#linkclicks)                                  | 'link_click'                           |
-| 2.3.5  | [Ad impressions](#ad-imps)                                  | 'ad_impression'                        |
-| 2.3.6  | [Ecommerce transactions](#ecomm)                            | 'transaction' and 'transaction_item'   |
-| 2.3.7  | [Social events](#social)                                    | 'social'                               |
-| 2.3.8  | [Item views](#items)                                        | 'item_view'                            |
-| 2.3.9  | [Errors](#error)                                            | 'error'                                |
-| 2.3.10 | [Custom structured events](#customstruct)                   | 'struct'                               |
-| 2.3.11 | [Custom unstructured events](#customunstruct)               | 'unstruct'                             |
+| 2.3.1  | [Page views](#pageview)                                     | 'page_view'                            |
+| 2.3.2  | [Page pings](#pageping)                                     | 'page_ping'                            |
+| 2.3.3  | [Ecommerce transactions](#ecomm)                            | 'transaction' and 'transaction_item'   |
+| 2.3.4  | [Errors](#error)                                            | 'error'                                |
+| 2.3.5  | [Custom structured events](#customstruct)                   | 'struct'                               |
+| 2.3.6  | [Custom unstructured events](#customunstruct)               | 'unstruct'                             |
 
 Details of which fields are available for which events are given below:
 
 <a name="pageview" />
-#### 2.3.2 Page views
+#### 2.3.1 Page views
 
 There are currently no fields that are specific to `page_view` events: all the fields that are required are part of the standard fields available for any [web-based event](#web) e.g. `page_urlscheme`, `page_title`.
 
 Back to [top](#top).
 
 <a name="pagepings" />
-#### 2.3.3 Page pings
+#### 2.3.2 Page pings
 
 There are four additional fields included with page pings that indicate how a user has scrolled over a web page since the last page ping:
 
@@ -289,30 +273,8 @@ There are four additional fields included with page pings that indicate how a us
 
 Back to [top](#top).
 
-<a name="linkclicks" />
-#### 2.3.3 Link clicks
-
-This is not currently supported: we plan to add support shortly. For details see [issue 75] (https://github.com/snowplow/snowplow/issues/75).
-
-Back to [top](#top).
-
-<a name="ad-imp" />
-#### 2.3.4 Ad impressions
-
-Currently the following ad-impression specific fields are not included in the canonical event model. We need to implement them shortly. (See [issue 129](https://github.com/snowplow/snowplow/issues/129).)
-
-| **Field**       | **Type** | **Description** | **Reqd?** | **Impl?** | **Example**    |
-|:----------------|:---------|:----------------|:----------|:----------|:---------------|
-| `adi_bannerid`  | text     | Banner ID       | No        | No        | -              |
-| `adi_campaignid`| text     | Campaign ID     | No        | No        | -              |
-| `adi_advertiserid`| text   | Advertiser ID   | No        | No        | -              |
-| `adi_userid`    | text     | User ID (as set by the ad server) | No | No | -          |
-| `adi_zoneid`    | text     | Publisher / website zone ID | No | No   | -              |
-
-Back to [top](#top).
-
 <a name="ecomm" />
-#### 2.3.5 Ecommerce transactions
+#### 2.3.3 Ecommerce transactions
 
 There are a large number of fields specifically for transaction events.
 
@@ -337,46 +299,15 @@ Fields that start `tr_` relate to the transaction as a whole. Fields that start 
 
 Back to [top](#top).
 
-<a name="social" />
-#### 2.3.6 Social events
-
-This has not been developed yet. However, the intention is to build support for the following fields for use recording social events (e.g. *likes*, *+1s*).
-
-| **Field**       | **Type** | **Description** | **Reqd?** | **Impl?** | **Example**    |
-|:----------------|:---------|:----------------|:----------|:----------|:---------------|
-| `social_action` | text     | Social action performed | Yes | No      | 'like'         |
-| `social_network`| text     | Social network  | Yes       | No        | 'Google+'      |
-| `social_target` | text     | The object of the social action e.g. the music track liked, the tweet retweeted | No | No | 'pbz00123' |
-| `social_pagepath` | text   | The URL of the page where the action occurred. This is generally the same as `page_url`, so does not need to be set | No | No | - |
-
-Back to [top](#top).
-
-<a name="itemview" />
-#### 2.3.7 Item views
-
-This has not been implemented yet. The intention is to implement the following fields:
-
-| **Field**       | **Type** | **Description** | **Reqd?** | **Impl?** | **Example**    |
-|:----------------|:---------|:----------------|:----------|:----------|:---------------|
-| `item_id`         | text     | Item ID e.g. SKU if item is a product | Yes       | No        | 'pbz00123' |
-| `item_name`       | text     | Item name or title | Yes    | No        | 'Cone pendulum' |
-| `item_displayformat`| text   | Type of item listing. Used to distinguish views of a product summary (in a catalogue page) vs a detailed view (on the product page). | No  | 'summary-view' |
-| `item_rank`     | integer  | Item rank (position if there is a list of items displayed on the page) | No | No | 3 |
-| `item_location` | text     | Location of the item on the web page | No | No | 'div-cat-4' |
-
-For additional details see [this gist](https://gist.github.com/4327909) and [issue 113](https://github.com/snowplow/snowplow/issues/113)
-
-Back to [top](#top).
-
 <a name="error" />
-#### 2.3.8 Error tracking
+#### 2.3.4 Error tracking
 
 This has not been implemented yet.
 
 Back to [top](#top).
 
 <a name="customstruct" />
-#### 2.3.9 Custom structured events
+#### 2.3.5 Custom structured events
 
 If you wish to track an event that Snowplow does not recognise as a first class citizen (i.e. one of the events listed above), then you can track them using the generic 'custom structured events'. Currently there are five fields that are available to store data related to custom events: we plant to increase this to 25 in the near future:
 
@@ -394,7 +325,7 @@ See [issue 74](https://github.com/snowplow/snowplow/issues/74) for additional in
 Back to [top](#top).
 
 <a name="customunstruct" />
-#### 2.3.10 Custom unstructured events
+#### 2.3.6 Custom unstructured events
 
 Custom unstructured events are a flexible tool that enable Snowplow users to define their own event types and send them into Snowplow.
 
@@ -420,7 +351,7 @@ Back to [top](#top).
 Back to [top](#top).
 
 <a name="customcontexts" />
-#### 2.3.10 Custom contexts
+#### 2.3.7 Custom contexts
 
 Custom contexts enable Snowplow users to define their own entities that are related to events, and fields that are related to each of those entities. For example, an online retailer may choose to define a `user` context, to store information about a particular user, which might include data points like the users Facebook ID, age, membership details etc. In addition, they may also define a `product` context, with product data e.g. SKU, name, created date, description, tags etc. 
 
@@ -501,6 +432,36 @@ These are unstructured events defined by Snowplow.
 |---------------:|:----------|:----------------|:-------------|
 | `name`         | text      | Screen name     | No           |
 |   `id`         | text      | Screen ID       | No           |
+
+
+<a name="social" />
+#### 2.4.6 Social events
+
+This has not been developed yet. However, the intention is to build support for the following fields for use recording social events (e.g. *likes*, *+1s*).
+
+| **Field**       | **Type** | **Description** | **Reqd?** | **Impl?** | **Example**    |
+|:----------------|:---------|:----------------|:----------|:----------|:---------------|
+| `social_action` | text     | Social action performed | Yes | No      | 'like'         |
+| `social_network`| text     | Social network  | Yes       | No        | 'Google+'      |
+| `social_target` | text     | The object of the social action e.g. the music track liked, the tweet retweeted | No | No | 'pbz00123' |
+| `social_pagepath` | text   | The URL of the page where the action occurred. This is generally the same as `page_url`, so does not need to be set | No | No | - |
+
+<a name="itemview" />
+#### 2.4.7 Item views
+
+This has not been implemented yet. The intention is to implement the following fields:
+
+| **Field**       | **Type** | **Description** | **Reqd?** | **Impl?** | **Example**    |
+|:----------------|:---------|:----------------|:----------|:----------|:---------------|
+| `item_id`         | text     | Item ID e.g. SKU if item is a product | Yes       | No        | 'pbz00123' |
+| `item_name`       | text     | Item name or title | Yes    | No        | 'Cone pendulum' |
+| `item_displayformat`| text   | Type of item listing. Used to distinguish views of a product summary (in a catalogue page) vs a detailed view (on the product page). | No  | 'summary-view' |
+| `item_rank`     | integer  | Item rank (position if there is a list of items displayed on the page) | No | No | 3 |
+| `item_location` | text     | Location of the item on the web page | No | No | 'div-cat-4' |
+
+For additional details see [this gist](https://gist.github.com/4327909) and [issue 113](https://github.com/snowplow/snowplow/issues/113)
+
+Back to [top](#top).
 
 [shredding]: https://github.com/snowplow/snowplow/wiki/Shredding
 [avro-blog-post]: http://snowplowanalytics.com/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/
