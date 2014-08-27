@@ -12,11 +12,11 @@
 
 In order to analyse Snowplow data, it is important to understand how it is structured. We have tried to make the structure of Snowplow data as simple, logical, and easy-to-query as possible.
 
-* **Single table** Snowplow data is stored in a single, "fat" (many columns) table. We call this the *Snowplow events table*
-* **Each line represents one event**. Each line in the table represents a single *event*, be that a *page view*, *add to basket*, *play video*, *like* etc.
+* **Single table** Most Snowplow data is stored in a single, "fat" (many columns) table. We call this the *Snowplow events table*. In addition, if Amazon Redshift is used, unstructured event JSONs and custom context JSONs are [shredded][shredding] and stored in their own dedicated tables.
+* **Each line represents one event**. Each line in the Snowplow events table represents a single *event*, be that a *page view*, *add to basket*, *play video*, *like* etc.
 * **Immutable log**. The Snowplow data table is designed to be immutable: the data in each line should not change over time. Data points that we would expect to change over time (e.g. what cohort a particular user belongs to, how we classify a particular visitor) can be derived from Snowplow data. However, our recommendation is that these derived fields should be defined and calculated at analysis time, stored in a separate table and joined to the *Snowplow events table* when performing any analysis
 * **Structured events**. Snowplow explicitly recognises particular events that are common in web analytics (e.g. page views, transactions, ad impressions) as 'first class citizerns'. We have a model for the types of fields that may be captured when those events occur, and specific columns in the database that correspond to those fields
-* **Unstructured events**. We intend to build out support for unstructured events. (So that Snowplow users will be able to construct their own arbritary JSONs of fields for their own event types.) When supported, these JSONs will be stored as-is e.g. in a single 'unstructured event' column in Hive
+* **Unstructured events and custom contexts** Snowplow users can define their own custom unstructured events and custom contexts using [JSON schema][json-schema]. These are handled by the [Snowplow shredding process][shredding].
 * Whilst some fields are event specific (e.g. `tr_city` representing the city in a delivery address for an online transaction), others are platform specific (e.g. `page_url` for events that occur on the web) and some are relevant across platforms, devices and events (e.g. `dt` and `tm`, the date and time an event occurs, or `app_id`, the application ID).
 * **Evolving over time**. We are building out the canonical data structure to make its understanding of individual event-types richer (more events, more fields per events) and to support more platforms. This needs to be done in a collaborative way with the Snowplow community, so that the events and fields that you need to track can easily be accommodated in this data structure. Please [get in touch] (Talk-to-us) to discuss your ideas and requirements
 
@@ -394,7 +394,7 @@ Back to [top](#top).
 
 | **Field**        | **Type** | **Description** | **Reqd?** | **Impl?** | **Example**    |
 |:-----------------|:---------|:----------------|:----------|:----------|:---------------|
-| `unstruct_event` | JSON     | Name of the event | Yes     | Yes       | {"schema": "iglu:com.mycompany/product_view/jsonschema/1-0-1", "data": {"sku": "14424"}} |
+| `unstruct_event` | JSON     | Name of the event | Yes     | Yes       | {"schema":"iglu:com.mycompany/product_view/jsonschema/1-0-1", "data":{"sku":"14424"}} |
 
 Back to [top](#top).
 
@@ -414,7 +414,8 @@ Custom contexts describe the circumstances surrounding and event. An event can h
 
 | **Field**       | **Type** | **Description** | **Reqd?** | **Impl?** | **Example**    |
 |:----------------|:---------|:----------------|:----------|:----------|:---------------|
-| `contexts`   | array     | Contexts attached to event | Yes     | Yes       | [{"schema": "iglu:com.acme/page_type/jsonschema/1-0-0", "data": {"type": "test"}}] |
+| `contexts`   | array     | Contexts attached to event | Yes     | Yes       | [{"schema":"iglu:com.acme/page_type/jsonschema/1-0-0", "data":{"type":"test"}}] |
 
+[shredding]: https://github.com/snowplow/snowplow/wiki/Shredding
 [avro-blog-post]: http://snowplowanalytics.com/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/
 [json-schema]: http://json-schema.org/
