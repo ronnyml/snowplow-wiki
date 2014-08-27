@@ -370,7 +370,7 @@ Back to [top](#top).
 <a name="specific-unstruct" />
 ### 2.4 Specific unstructured events
 
-These are unstructured events defined by Snowplow.
+These are unstructured events defined by Snowplow. Their schemas can be found [here][snowplow-schemas].
 
 <a name="link-click" />
 #### 2.4.1 Link clicks
@@ -433,7 +433,6 @@ These are unstructured events defined by Snowplow.
 | `name`         | text      | Screen name     | No           |
 |   `id`         | text      | Screen ID       | No           |
 
-
 <a name="social" />
 #### 2.4.6 Social events
 
@@ -466,3 +465,4 @@ Back to [top](#top).
 [shredding]: https://github.com/snowplow/snowplow/wiki/Shredding
 [avro-blog-post]: http://snowplowanalytics.com/blog/2013/02/04/help-us-build-out-the-snowplow-event-model/
 [json-schema]: http://json-schema.org/
+[snowplow-schemas]: https://github.com/snowplow/iglu-central/tree/master/schemas/com.snowplowanalytics.snowplow
