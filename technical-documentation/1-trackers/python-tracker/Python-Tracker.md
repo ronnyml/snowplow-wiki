@@ -865,5 +865,6 @@ This will set up a worker which will run indefinitely, taking events from the Re
 
 [jsonschema]: http://snowplowanalytics.com/blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
+[base64]: https://en.wikipedia.org/wiki/Base64
 [celery]: http://www.celeryproject.org/
 [redis]: http://redis.io/
