@@ -31,7 +31,7 @@ This page refers to version 0.5.0 of the Snowplow Java Tracker and 0.1.0 of Snow
     - 4.4.1 [`TransactionItem`](#ecommerce-transactionitem)
   - 4.5 [`trackStructuredEvent()`](#struct-event)
   - 4.6 [`trackUnstructuredEvent()`](#unstruct-event)
-- 5 [Sending event](#emitter)
+- 5 [Sending event](#emitters)
   - 5.1 [Using a buffer](#buffer)
   - 5.2 [Choosing the HTTP method](#http-method)
   - 5.3 [Method of sending HTTP requests](#http-request)
@@ -534,7 +534,7 @@ For more on JSON schema, see the [blog post] [self-describing-jsons].
 
 [Back to top](#top)
 
-<a name="emitter" />
+<a name="emitters" />
 ## 5. Sending event
 
 Events are sent using an `Emitter` class. You can initialize an class with a collector endpoint URL with various options to choose how these events should be sent.
