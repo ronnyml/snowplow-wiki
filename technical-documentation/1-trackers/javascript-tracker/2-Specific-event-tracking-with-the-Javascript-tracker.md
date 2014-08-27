@@ -451,16 +451,16 @@ You will want to set these arguments programmatically, across all of your ad zon
 
 Ad click tracking is accomplished using the `trackAdClick` method. Here are the arguments it accepts:
 
-| **Name**       | **Required?** | **Description**                            | **Type**
-|---------------:|:--------------|:-------------------------------------------|:-----------
+| **Name**       | **Required?** | **Description**                            | **Type**   |
+|---------------:|:--------------|:-------------------------------------------|:-----------|
 |   `targetUrl`  | Yes           | The destination URL  |        string   |
 |      `clickId` | No            | Identifier for the particular click instance   | string  |
 |    `costModel` | No            | The cost model for the campaign: 'cpc', 'cpm', or 'cpa' |  string  |
 |         `cost` | No            | Ad cost   |    number    |
-|     `bannerId` | No            | Adserver identifier for the ad banner (creative) being displayed  |  string
-|       `zoneId` | No            | Adserver identifier for the zone where the ad banner is located  | string
-| `advertiserID` | No            | Adserver identifier for the advertiser which the campaign belongs to   |  string                      |
-|   `campaignId` | No            | Adserver identifier for the ad campaign which the banner belongs |  to   |  string                       |
+|     `bannerId` | No            | Adserver identifier for the ad banner (creative) being displayed  |  string |
+|       `zoneId` | No            | Adserver identifier for the zone where the ad banner is located  | string |
+| `advertiserID` | No            | Adserver identifier for the advertiser which the campaign belongs to   |  string |
+|   `campaignId` | No            | Adserver identifier for the ad campaign which the banner belongs to   |  string  |
 
 An example:
 
