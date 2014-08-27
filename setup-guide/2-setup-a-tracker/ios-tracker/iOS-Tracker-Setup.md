@@ -51,7 +51,7 @@ We support installing the iOS Tracker via CocoaPods since it's the easiest way t
 2. Create the file `Podfile` in your XCode project directory, if you haven't created one already
 3. Add the followinling line into it:
 ```
-pod 'Snowplow'
+pod 'SnowplowTracker'
 ```
 4. Run `pod install` in the same directory
 
