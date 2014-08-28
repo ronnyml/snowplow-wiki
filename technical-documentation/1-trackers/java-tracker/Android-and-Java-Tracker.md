@@ -470,7 +470,9 @@ These are the fields that can appear as elements in each `TransactionItem` eleme
 Example of tracking a transaction containing two items:
 
 ```java
-t1.trackEcommerceTransaction("6a8078be", 300, "my_affiliat", 30, 10, "Boston", "Massachusetts", "USA", "USD", items, context);
+// Example to come, in the meantime here is the type signature:
+t1.trackEcommerceTransaction(String order_id, Double total_value, String affiliation, Double tax_value,Double shipping, String city, String state, String country, String currency, List<TransactionItem> items, Map<SchemaPayload> context);
+t1.trackEcommerceTransaction("6a8078be", 300, "my_affiliate", 30, 10, "Boston", "Massachusetts", "USA", "USD", items, context);
 ```
 
 [Back to top](#top)
