@@ -2,6 +2,10 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > Ruby Tracker
 
+*This page refers to version 0.2.0 of the Snowplow Python Tracker. Documentation for the latest version, 0.3.0, is available:*
+
+*[Version 0.3][ruby-latest]*
+
 ## Contents
 
 - 1. [Overview](#overview)  
@@ -169,7 +173,7 @@ Tracking methods supported by the Ruby Tracker at a glance:
 | **Function**                                  | **Description**                                        |
 |----------------------------------------------:|:-------------------------------------------------------|
 | [`track_page_view`](#page-view)             | Track and record views of web pages.                   |
-| [`track__ecommerce_transaction`](#ecommerce-transaction)   | Track an ecommerce transaction          | 
+| [`track_ecommerce_transaction`](#ecommerce-transaction)   | Track an ecommerce transaction          | 
 | [`track_screen_view`](#screen-view)         | Track the user viewing a screen within the application |
 | [`track_struct_event`](#struct-event)       | Track a Snowplow custom structured event               |
 | [`track_unstruct_event`](#unstruct-event)   | Track a Snowplow custom unstructured event             |
@@ -440,6 +444,8 @@ The `event_json` argument is [self-describing JSON][self-describing-jsons]. It h
 The keys of the `event_json` hash can be either strings or Ruby symbols.
 
 [Back to top](#top)
+
+[ruby-latest]: https://github.com/snowplow/snowplow/wiki/Ruby-Tracker
 
 [contexts]: http://snowplowanalytics.com/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#contexts
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
