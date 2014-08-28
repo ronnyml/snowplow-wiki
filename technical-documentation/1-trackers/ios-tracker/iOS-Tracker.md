@@ -109,7 +109,7 @@ By default, unstructured events and custom contexts are encoded into Base64 to e
 <a name="add-data" />
 ## 3. Adding extra data
 
-Unlike the other Trackers, the iOS tracker collects automatically collects your platform, screen resolution, viewport, color depth, timezone and language off the device. You can still however, set your user ID.
+Unlike the other Trackers, the iOS tracker automatically collects your platform, screen resolution, viewport, color depth, timezone and language from the device. You can still however, set your user ID to properly track different users if you require it.
 
 * [`setUserId`](#set-user-id)
 
