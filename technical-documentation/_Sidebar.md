@@ -6,7 +6,7 @@
 [No-JS Tracker](no-js-tracker)  
 [[Python Tracker]]  
 [[Ruby Tracker]]  
-[[Java Tracker]]  
+[[Android and Java Tracker]]  
 [[Lua Tracker]]  
 [[Arduino Tracker]]
 
