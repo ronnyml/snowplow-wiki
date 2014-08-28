@@ -38,7 +38,7 @@ This page refers to version 0.5.0 of the Snowplow Java Tracker and 0.1.0 of Snow
     - 4.4.1 [`TransactionItem`](#ecommerce-transactionitem)
   - 4.5 [`trackStructuredEvent()`](#struct-event)
   - 4.6 [`trackUnstructuredEvent()`](#unstruct-event)
-- 5 [Sending event](#emitters)
+- 5 [Sending event: `Emitter`](#emitters)
   - 5.1 [Using a buffer](#buffer)
   - 5.2 [Choosing the HTTP method](#http-method)
   - 5.3 [Method of sending HTTP requests](#http-request)
@@ -504,8 +504,6 @@ t1.trackStructuredEvent("shop", "add-to-basket", "Add To Basket", "pcs", 2, 1234
 <a name="unstruct-event" />
 ### 4.6 Track unstructured events with `trackUnstructuredEvent()`
 
-trackUnstructuredEvent(String eventVendor, String eventName, Map<String, Object> dictInfo, String context)
-
 Custom unstructured events are a flexible tool that enable Snowplow users to define their own event types and send them into Snowplow.
 
 When a user sends in a custom unstructured event, they do so as a JSON of name-value properties, that conforms to a JSON schema defined for the event earlier.
@@ -523,14 +521,9 @@ The arguments are as follows:
 | `context`      | Custom context for the event      | No             | Map<SchemaPayload>  |
 | `timestamp`    | Optional timestamp for the event  | No             | Long                |
 
-The `eventData` must be either a `String` or a `Map<String, Object>`.
-
-If you supply a `String`, make sure that it is a valid JSON object containing two fields: `schema` and `data`. `data` is itself a JSON object containing the properties of the unstructured event. `schema` identifies the JSON schema against which `data` should be validated.
-
 Example:
 
 ```java
-// Example to come, in the meantime here is the type signature:
 t1.trackUnstructuredEvent(String eventVendor, String eventName, String eventData, String context);
 ```
 
@@ -539,7 +532,6 @@ If you supply a `Map<String, Object>`, make sure that this top-level contains yo
 Example:
 
 ```java
-// Example to come, in the meantime here is the type signature:
 t1.trackUnstructuredEvent(String eventVendor, String eventName, Map<String, Object> eventData, String context);
 ```
 
