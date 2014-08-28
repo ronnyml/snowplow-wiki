@@ -31,7 +31,7 @@ In this section we set out an approximate map of the new components and capabili
 [milestones]: https://github.com/snowplow/snowplow/issues/milestones
 
 [issues-097]: https://github.com/snowplow/snowplow/milestones/Version%200.9.7
-[issues-098]: https://github.com/snowplow/snowplow/issues?milestone=38&state=open
+[issues-098]: https://github.com/snowplow/snowplow/milestones/Version%200.9.8
 [issues-099]: https://github.com/snowplow/snowplow/issues?milestone=29&state=open
 [issues-0910]: https://github.com/snowplow/snowplow/issues?milestone=30&state=open
 
