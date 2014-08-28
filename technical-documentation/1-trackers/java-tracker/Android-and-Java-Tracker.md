@@ -323,7 +323,7 @@ All events are tracked with specific methods on the tracker instance, of the for
 <a name="custom-contexts" />
 ### 4.1.1 Custom contexts
 
-In short, custom contexts let you add additional information about the circumstances surrounding an event in the form of a Java String in JSON format. dictionary object. Each tracking method accepts an additional optional contexts parameter after all the parameters specific to that method:
+In short, custom contexts let you add additional information about the circumstances surrounding an event in the form of a Map object. Each tracking method accepts an additional optional contexts parameter after all the parameters specific to that method:
 
 ```java
 t1.trackPageView(String pageUrl, String pageTitle, String referrer)
