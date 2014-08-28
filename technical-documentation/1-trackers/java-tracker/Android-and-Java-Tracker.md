@@ -326,10 +326,10 @@ All events are tracked with specific methods on the tracker instance, of the for
 In short, custom contexts let you add additional information about the circumstances surrounding an event in the form of a Map object. Each tracking method accepts an additional optional contexts parameter after all the parameters specific to that method:
 
 ```java
-t1.trackPageView(String pageUrl, String pageTitle, String referrer)
-t1.trackPageView(String pageUrl, String pageTitle, String referrer, List<SchemaPayload> context)
-t1.trackPageView(String pageUrl, String pageTitle, String referrer, double timestamp)
-t1.trackPageView(String pageUrl, String pageTitle, String referrer, List<SchemaPayload> context, double timestamp)
+t1.trackPageView(String pageUrl, String pageTitle, String referrer);
+t1.trackPageView(String pageUrl, String pageTitle, String referrer, List<SchemaPayload> context);
+t1.trackPageView(String pageUrl, String pageTitle, String referrer, double timestamp);
+t1.trackPageView(String pageUrl, String pageTitle, String referrer, List<SchemaPayload> context, double timestamp);
 ```
 
 The `context` argument should consist of a `List` of `SchemaPayload` representing an array of one or more contexts. The format of each individual context element is the same as for an [unstructured event](#unstruct-event).
@@ -540,7 +540,7 @@ For more on JSON schema, see the [blog post] [self-describing-jsons].
 [Back to top](#top)
 
 <a name="emitters" />
-## 5. Sending event
+## 5. Sending event: `Emitter`
 
 Events are sent using an `Emitter` class. You can initialize an class with a collector endpoint URL with various options to choose how these events should be sent.
 Here are the Emitter interfaces that can be used:
