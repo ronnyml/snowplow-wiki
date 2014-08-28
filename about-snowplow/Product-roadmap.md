@@ -15,11 +15,12 @@ In this section we list out the series of 'point' releases (0.9.x, 0.9.y etc) th
 
 The planned releases are as follows:
 
-| Release   | Tickets                   | Objective(s)                                                                     |
-|-----------|---------------------------|----------------------------------------|
-| **0.9.7** | [See GitHub] [issues-097] | Add POST and mobile support            |
-| **0.9.8** | [See GitHub] [issues-098] | Improvements to Kinesis flow           |
-| **0.9.9** | [See GitHub] [issues-099] | New enrichments                        |
+| Release   | Tickets                     | Objective(s)                           |
+|------------|----------------------------|----------------------------------------|
+| **0.9.7**  | [See GitHub] [issues-097]  | Various bug fixes                      |
+| **0.9.8**  | [See GitHub] [issues-098]  | Add POST and mobile support            |
+| **0.9.9**  | [See GitHub] [issues-099]  | Improvements to Kinesis flow           |
+| **0.9.10** | [See GitHub] [issues-0910] | New enrichments                        |
 
 ## Longer-term: approximate schedule
 
@@ -29,10 +30,10 @@ In this section we set out an approximate map of the new components and capabili
 
 [milestones]: https://github.com/snowplow/snowplow/issues/milestones
 
-[issues-096]: https://github.com/snowplow/snowplow/issues?milestone=48&state=open
-[issues-097]: https://github.com/snowplow/snowplow/issues?milestone=38&state=open
-[issues-098]: https://github.com/snowplow/snowplow/issues?milestone=29&state=open
-[issues-099]: https://github.com/snowplow/snowplow/issues?milestone=30&state=open
+[issues-097]: https://github.com/snowplow/snowplow/milestones/Version%200.9.7
+[issues-098]: https://github.com/snowplow/snowplow/issues?milestone=38&state=open
+[issues-099]: https://github.com/snowplow/snowplow/issues?milestone=29&state=open
+[issues-0910]: https://github.com/snowplow/snowplow/issues?milestone=30&state=open
 
 [scalding]: https://github.com/twitter/scalding
 [redshift]: http://aws.amazon.com/redshift/
