@@ -388,16 +388,68 @@ For more on JSON schema, see the [blog post] [self-describing-jsons].
 
 <a name="emitters" />
 ## 5. Sending events: `SnowplowRequest`
+Events created by the Tracker are sent to a collector using a `SnowplowRequest` instance. You can create one using one of the init methods:
+```objective-c
+- (id) initWithURLRequest:(NSURL *)url 
+               httpMethod:(NSString *)method
+             bufferOption:(enum SnowplowBufferOptions)option;
+- (id) initWithURLRequest:(NSURL *)url 
+               httpMethod:(NSString* )method;
+```
 
+For example:
+
+```objective-c
+NSURL *url = [[NSURL alloc] initWithString:@"collector.acme.net"];
+SnowplowRequest emitter = [[SnowplowRequest alloc] initWithURLRequest:url
+                                                           httpMethod:@"POST"
+                                                         bufferOption:SnowplowBufferInstant];
+SnowplowRequest emitter2 = [[SnowplowRequest alloc] initWithURLRequest:url
+                                                            httpMethod:@"GET"];
+```
 
 <a name="buffer" />
 ### 5.1 Using a buffer
+A buffer is used to group events together in bulk before sending them. This is especially handy to reduce network usage. By default, the SnowplowRequest buffers up to 10 events before sending them.
+
+You can set this during the creation of a `SnowplowRequest` object or using the setter `-(void)setBufferOption:`
+
+```objective-c
+NSURL *url = [[NSURL alloc] initWithString:@"collector.acme.net"];
+SnowplowRequest emitter = [[SnowplowRequest alloc] initWithURLRequest:url
+                                                           httpMethod:@"POST"
+                                                         bufferOption:SnowplowBufferInstant];
+SnowplowRequest emitter2 = [[SnowplowRequest alloc] initWithURLRequest:url
+                                                           httpMethod:@"POST"
+                                                         bufferOption:SnowplowBufferDefault];
+[emitter setBufferOption:SnowplowBufferInstant];
+```
+
+Here are all the posibile options that you can use:
+|         **Option**         | **Description**                                    |
+|---------------------------:|:---------------------------------------------------|
+| `SnowplowBufferInstant`    | Events are sent as soon as they are created        |
+| `SnowplowBufferDefault`    | Sends events in a group when 10 events are created |
 
 <a name="http-method" />
 ### 5.2 Choosing the HTTP method
 
+Snowplow supports receiving events via GET requests, but will soon have POST support. In a GET request, each event is sent in individual request. With POST requests, events are bundled together in one request.
+
+
 <a name="http-request" />
 ### 5.3 Sending HTTP requests
+
+You can set this during the creation of a `SnowplowRequest` object:
+```objective-c
+NSURL *url = [[NSURL alloc] initWithString:@"collector.acme.net"];
+SnowplowRequest emitter = [[SnowplowRequest alloc] initWithURLRequest:url
+                                                           httpMethod:@"POST"
+                                                         bufferOption:SnowplowBufferInstant];
+SnowplowRequest emitter2 = [[SnowplowRequest alloc] initWithURLRequest:url
+                                                           httpMethod:@"GET"
+                                                         bufferOption:SnowplowBufferDefault];
+```
 
 [Back to top](#top)
 
