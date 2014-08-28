@@ -27,7 +27,10 @@ This page refers to version 0.1.0 of the Snowplow iOS Tracker.
   - 4.5 [`trackEcommerceTransactionItem:`](#ecommerce-transaction-item)
   - 4.6 [`trackStructuredEvent:`](#struct-event)
   - 4.7 [`trackUnstructuredEvent:`](#unstruct-event)
-- 5. [SnowplowRequest](#emitters)
+- 5. [Sending events: `SnowplowRequest`](#emitters)
+  - 5.1 [Using a buffer](#buffer)
+  - 5.2 [Choosing the HTTP method](#http-method)
+  - 5.3 [Sending HTTP requests](#http-request)
 
 <a name="overview" />
 ## 1. Overview
@@ -338,4 +341,65 @@ Example:
 
 [Back to top](#top)
 
+<a name="unstruct-event" />
+### 4.6 Track unstructured events with `trackUnstructuredEvent:`
+
+Custom unstructured events are a flexible tool that enable Snowplow users to define their own event types and send them into Snowplow.
+
+When a user sends in a custom unstructured event, they do so as a JSON of name-value properties, that conforms to a JSON schema defined for the event earlier.
+
+Use `trackUnstructuredEvent:` to track a custom event which consists of a name and an unstructured set of properties. This is useful when:
+
+* You want to track event types which are proprietary/specific to your business (i.e. not already part of Snowplow), or
+* You want to track events which have unpredictable or frequently changing properties
+
+The arguments are as follows:
+
+| **Argument**   | **Description**                   |  **Required?** |    **Validation**   |
+|---------------:|:----------------------------------|:---------------|:--------------------|
+| `eventJson`    | The properties of the event       | Yes            | NSDictionary*       |
+| `context`      | Custom context for the event      | No             | NSMutableArray*     |
+| `timestamp`    | Optional timestamp for the event  | No             | double              |
+
+Example:
+
+```objective-c
+- (void) trackUnstructuredEvent:(NSDictionary *)eventJson
+                        context:(NSMutableArray *)context
+                      timestamp:(double)timestamp;
+```
+
+If you supply a `NSDictionary*`, make sure that this top-level contains your `schema` and `data` keys, and then store your `data` properties as a child `NSDictionary*`.
+
+Example:
+
+```java
+NSDictionary* eventJson = [NSDictionary dictionaryWithObjectsAndKeys:
+                            "iglu:com.snowplowanalytics.snowplow/example/jsonschema/1-0-0", "schema",
+                            "data", "{\"src\": \"Images\/Sun.png\", \"name\": \"sun1\", \"hOffset\": 250, \"vOffset\": 250, \"alignment\": \"center\"}"];
+tracker trackUnstructuredEvent:eventJson
+                        context:nil
+                      timestamp:12345678;
+```
+
+For more on JSON schema, see the [blog post] [self-describing-jsons].
+
+[Back to top](#top)
+
+<a name="emitters" />
+## 5. Sending events: `SnowplowRequest`
+
+
+<a name="buffer" />
+### 5.1 Using a buffer
+
+<a name="http-method" />
+### 5.2 Choosing the HTTP method
+
+<a name="http-request" />
+### 5.3 Sending HTTP requests
+
+[Back to top](#top)
+
 [base64]: https://en.wikipedia.org/wiki/Base64
+[self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
