@@ -506,9 +506,11 @@ t1.trackStructuredEvent("shop", "add-to-basket", "Add To Basket", "pcs", 2, 1234
 
 trackUnstructuredEvent(String eventVendor, String eventName, Map<String, Object> dictInfo, String context)
 
-**Warning:** this feature is implemented in the Java Tracker, but it is **not** currently supported in the Enrichment, Storage or Analytics stages in the Snowplow data pipeline. As a result, if you use this feature, you will log unstructured events to your collector logs, but these will not be parsed and loaded into e.g. Redshift to analyse. (Adding this capability is coming imminently.)
+Custom unstructured events are a flexible tool that enable Snowplow users to define their own event types and send them into Snowplow.
 
-Use `trackUnstructuredRvent()` to track a custom event which consists of a name and an unstructured set of properties. This is useful when:
+When a user sends in a custom unstructured event, they do so as a JSON of name-value properties, that conforms to a JSON schema defined for the event earlier.
+
+Use `trackUnstructuredEvent()` to track a custom event which consists of a name and an unstructured set of properties. This is useful when:
 
 * You want to track event types which are proprietary/specific to your business (i.e. not already part of Snowplow), or
 * You want to track events which have unpredictable or frequently changing properties
