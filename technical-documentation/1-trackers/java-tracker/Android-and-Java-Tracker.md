@@ -19,7 +19,14 @@ This page refers to version 0.5.0 of the Snowplow Java Tracker and 0.1.0 of Snow
     - 2.3.3 [`namespace`](#namespace)
     - 2.3.4 [`appId`](#app-id)
     - 2.3.5 [`base64Encoded`](#base64)
-- 3. [Adding extra data](#add-data)
+- 3. [Adding extra data: the Subject class](#add-data)
+  - 3.1 [`setPlatform`](#set-platform)
+  - 3.2 [`setUserId`](#set-user-id)
+  - 3.3 [`setScreenResolution`](#set-screen-resolution)
+  - 3.4 [`setViewport`](#set-viewport-dimensions)
+  - 3.5 [`setColorDepth`](#set-color-depth)
+  - 3.6 [`setTimezone`](#set-timezone)
+  - 3.7 [`setLanguage`](#set-lang)
 - 4. [Tracking specific events](#events)
   - 4.1 [Common](#common)
     - 4.1.1 [Custom contexts](#custom-contexts)
@@ -136,12 +143,12 @@ The `appId` argument lets you set the application ID to any string.
 <a name="base64" />
 #### 2.3.5 `base64Encoded`
 
-By default, unstructured events and custom contexts are encoded into Base64 to ensure that no data is lost or corrupted. You can turn encoding on or off using the Boolean `encode_base64` argument.
+By default, unstructured events and custom contexts are encoded into Base64 to ensure that no data is lost or corrupted. You can turn encoding on or off using the Boolean `base64Encoded` argument.
 
 [Back to top](#top)
 
 <a name="add-data" />
-## 3. Adding Subject data
+## 3. Adding extra data: the Subject class
 
 You may have additional information about your application's environment, current user and so on, which you want to send to Snowplow with each event.
 
@@ -174,7 +181,7 @@ t1.setSubject(s1);
 [Back to top](#top)
 
 <a name="set-platform" />
-#### 3.1 Change the tracker's platform with `setPlatform`
+### 3.1 Change the tracker's platform with `setPlatform`
 
 You can change the platform the subject is using by calling:
 
