@@ -327,12 +327,12 @@ In short, custom contexts let you add additional information about the circumsta
 
 ```java
 t1.trackPageView(String pageUrl, String pageTitle, String referrer)
-t1.trackPageView(String pageUrl, String pageTitle, String referrer, Map<SchemaPayload> context)
+t1.trackPageView(String pageUrl, String pageTitle, String referrer, List<SchemaPayload> context)
 t1.trackPageView(String pageUrl, String pageTitle, String referrer, double timestamp)
-t1.trackPageView(String pageUrl, String pageTitle, String referrer, Map<SchemaPayload> context, double timestamp)
+t1.trackPageView(String pageUrl, String pageTitle, String referrer, List<SchemaPayload> context, double timestamp)
 ```
 
-The `context` argument should consist of a `Map` containing a JSON array of one or more contexts. The format of each individual context element is the same as for an [unstructured event](#unstruct-event).
+The `context` argument should consist of a `List` of `SchemaPayload` representing an array of one or more contexts. The format of each individual context element is the same as for an [unstructured event](#unstruct-event).
 
 If a visitor arrives on a page advertising a movie, the context dictionary might look like this:
 
@@ -358,7 +358,10 @@ In all the trackers, we offer a way to set the timestamp if you want the event t
 
 Here is an example:
 ```java
-
+t1.trackPageView("www.page.com", "Example Page", "www.referrer.com");
+t1.trackPageView("www.page.com", "Example Page", "www.referrer.com", contextArray);
+t1.trackPageView("www.page.com", "Example Page", "www.referrer.com", contextArray, 12348567890);
+t1.trackPageView("www.page.com", "Example Page", "www.referrer.com", 12348567890);
 ```
 
 [Back to top](#top)
@@ -377,7 +380,7 @@ Use `trackScreenView()` to track a user viewing a screen (or equivalent) within 
 
 | **Argument** | **Description**                     | **Required?** | **Validation**          |
 |-------------:|:------------------------------------|:--------------|:------------------------|
-| `name`       | Human-readable name for this screen | Yes           | String                  |
+| `name`       | Human-readable name for this screen | No            | String                  |
 | `id`         | Unique identifier for this screen   | No            | String                  |
 | `context`    | Custom context for the event        | No            | Map<SchemaPayload>      |
 | `timestamp`  | Optional timestamp for the event    | No            | Long                    |
@@ -467,8 +470,7 @@ These are the fields that can appear as elements in each `TransactionItem` eleme
 Example of tracking a transaction containing two items:
 
 ```java
-// Example to come, in the meantime here is the type signature:
-t1.trackEcommerceTransaction(String order_id, Double total_value, String affiliation, Double tax_value,Double shipping, String city, String state, String country, String currency, List<TransactionItem> items, Map<SchemaPayload> context);
+t1.trackEcommerceTransaction("6a8078be", 300, "my_affiliat", 30, 10, "Boston", "Massachusetts", "USA", "USD", items, context);
 ```
 
 [Back to top](#top)
