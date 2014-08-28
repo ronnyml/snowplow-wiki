@@ -61,7 +61,7 @@ You can now initialize tracker instances.
 Initialize a tracker instance like this:
 
 ```ruby
-tracker = Snowplow::Tracker.new('d3rkrsqld9gmqf.cloudfront.net')
+tracker = SnowplowTracker::Tracker.new('d3rkrsqld9gmqf.cloudfront.net')
 ```
 
 This tracker will log events to http://d3rkrsqld9gmqf.cloudfront.net/i. There are three other optional parameters:
@@ -75,7 +75,7 @@ def initialize(endpoint, namespace=nil, app_id=nil, encode_base64=true)
 So a more complete tracker initialization example might look like this:
 
 ```ruby
-tracker = Snowplow::Tracker.new('d3rkrsqld9gmqf.cloudfront.net', 'cf', 'ID-ap00035', false)
+tracker = SnowplowTracker::Tracker.new('d3rkrsqld9gmqf.cloudfront.net', 'cf', 'ID-ap00035', false)
 ```
 
 [Back to top](#top)
