@@ -436,6 +436,11 @@ Here are all the posibile options that you can use:
 
 Snowplow supports receiving events via GET requests, but will soon have POST support. In a GET request, each event is sent in individual request. With POST requests, events are bundled together in one request.
 
+Here are all the posibile options that you can use:
+| **Option**  | **Description**                                                            |
+|------------:|:---------------------------------------------------------------------------|
+| `@"GET"`    | Events are sent individually as GET requests                               |
+| `@"POST"`   | Events are sent in a group when 10 events are received in one POST request |
 
 <a name="http-request" />
 ### 5.3 Sending HTTP requests
