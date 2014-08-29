@@ -40,7 +40,7 @@
   - 4.5 [`track_ecommerce_transaction_item()`](#ecommerce-transaction-item)
   - 4.6 [`track_struct_event()`](#struct-event)
   - 4.7 [`track_unstruct_event()`](#unstruct-event)
-- 5. [Emitters](#emitters)
+- 5. [Emitters](#emitter)
   - 5.1 [The basic Emitter class](#base-emitter)
   - 5.2 [The AsyncEmitter class](#async-emitter)
   - 5.3 [The CeleryEmitter class](#celery-emitter)
@@ -610,7 +610,7 @@ The `event_json` must be a Python dictionary with two fields: `schema` and `data
 
 For more on JSON schema, see the [blog post] [self-describing-jsons].
 
-<a name="emitters" />
+<a name="emitter" />
 ## 5. Emitters
 
 Tracker instances must be initialized with an emitter. This section will go into more depth about the Emitter class and its subclasses.
