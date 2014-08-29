@@ -39,6 +39,8 @@ The [Snowplow iOS Tracker](https://github.com/snowplow/snowplow-ios-tracker) all
 
 The tracker should be straightforward to use if you are comfortable with iOS development; its API is modelled after Snowplow's [[Python Tracker]] so any prior experience with that tracker is helpful but not necessary. If you haven't already, have a look at the [[iOS Tracker Setup]] guide before continuing.
 
+You can also find detailed documentation for the method calls in the tracker classes available as part of the [CocoaPods documentation](http://cocoadocs.org/docsets/SnowplowTracker/).
+
 [Back to top](#top)
 
 <a name="init" />
