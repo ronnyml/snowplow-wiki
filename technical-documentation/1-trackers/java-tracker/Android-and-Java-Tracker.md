@@ -62,7 +62,7 @@ The tracker should be straightforward to use if you are comfortable with Java de
 <a name="android-specific" />
 ### 1.1 Android specific
 
-The Android Tracker is based off of the Java Tracker core library which is the same library used by the Java Tracker. Hence, they both very similar in features and with a few differences in them. For sections of this documentation which only apply to Android, we will flag with Android only.
+The Android Tracker is based off of the Java Tracker core library which is the same library used by the Java Tracker. Hence, they both very similar in features and with a few differences in them. For sections of this documentation which only apply to Android, we will flag with a sub-section, **Android Only**.
 
 [Back to top](#top)
 
