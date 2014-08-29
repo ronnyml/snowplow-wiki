@@ -96,7 +96,7 @@ Here is an example of instantiating two separate trackers:
 ```python
 t1 = Tracker("d3rkrsqld9gmqf.cloudfront.net", "t1")
 t1.set_platform("cnsl")
-t1.track_unstruct_event("save-game", { save_id = 23 }, 1369330092)
+t1.track_page_view("http://www.example.com")
 
 t2 = Tracker("my-company.c.snplow.com", "t2")
 t2.set_platform("cnsl")

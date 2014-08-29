@@ -101,6 +101,27 @@ emitter = Emitter("d3rkrsqld9gmqf.cloudfront.net")
 tracker = SnowplowTracker::Tracker.new(emitter, initial_subject, 'cf', 'ID-ap00035', false)
 ```
 
+<a name="multi-tracker" />
+### 2.3 Creating multiple trackers
+
+Each tracker instance is completely sandboxed, so you can create multiple trackers as you see fit.
+
+Here is an example of instantiating two separate trackers:
+
+```ruby
+t1 = SnowplowTracker::Tracker(SnowplowTracker::AsyncEmitter("d3rkrsqld9gmqf.cloudfront.net"), nil, "t1")
+t1.set_platform("cnsl")
+t1.track_page_view("http://www.example.com")
+
+t2 = SnowplowTracker::Tracker(SnowplowTracker::AsyncEmitter("my-company.c.snplow.com"), nil, "t2")
+t2.set_platform("cnsl")
+t2.track_screen_view("Game HUD", "23")
+
+t1.track_screen_view("Test", "23") # Back to first tracker 
+```
+
+[Back to top](#top)
+
 [Back to top](#top)
 
 <a name="add-data" />
