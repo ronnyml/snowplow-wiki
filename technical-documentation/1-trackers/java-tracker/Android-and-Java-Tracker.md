@@ -565,7 +565,37 @@ Emitter e4 = new Emitter("d3rkrsqld9gmqf.cloudfront.net", HttpMethod.POST, new R
 |------------------:|:----------------------------------------------------------------------------|:------------------|
 | `URI`             | The collector endpoint URI events will be sent to                           | Yes               |
 | `httpMethod`      | The HTTP method events should be sent                                       | No                |
-| `httpMethod`      | Lets you pass a callback class to handle succes/failure in sending events.  | No                |
+| `callback`        | Lets you pass a callback class to handle succes/failure in sending events.  | No                |
+
+## Android Only
+
+For Android, the Emitter class is virtually the same in the way it is instantiated with the addition of an extra parameter to accept a [`Context`](https://developer.android.com/reference/android/content/Context.html).
+The `Context` is used for caching events in an [SQLite database](http://developer.android.com/reference/android/database/sqlite/SQLiteOpenHelper.html) in order to avoid losing events to network related issues.
+
+Here are what the Emitter interfaces for Android looks like:
+
+```java
+Emitter(String URI, Context context)
+Emitter(String URI, Context context, HttpMethod httpMethod)
+Emitter(String URI, Context context, RequestCallback callback)
+Emitter(String URI, HttpMethod httpMethod, RequestCallback callback, Context context)
+```
+
+For example, if you're creating an Emitter in an [`Activity`](https://developer.android.com/reference/android/app/Activity.html) class:
+```java
+Emitter e1 = new Emitter("d3rkrsqld9gmqf.cloudfront.net", this);
+Emitter e2 = new Emitter("d3rkrsqld9gmqf.cloudfront.net", this, HttpMethod.POST);
+Emitter e3 = new Emitter("d3rkrsqld9gmqf.cloudfront.net", this, new RequestCallback() {...});
+Emitter e4 = new Emitter("d3rkrsqld9gmqf.cloudfront.net", this, HttpMethod.POST, new RequestCallback() {...});
+```
+
+| **Argument Name** | **Description**                                                             |    **Required?**  |
+|------------------:|:----------------------------------------------------------------------------|:------------------|
+| `URI`             | The collector endpoint URI events will be sent to                           | Yes               |
+| `context`         | Used to use to open or create an SQLite database                            | Yes               |
+| `httpMethod`      | The HTTP method events should be sent                                       | No                |
+| `callback`        | Lets you pass a callback class to handle succes/failure in sending events.  | No                |
+
 
 [Back to top](#top)
 
@@ -622,6 +652,10 @@ Here are all the posibile options that you can use:
 |---------------:|:------------------------------|
 | `Synchronous`  | Sends events synchronously    |
 | `Asynchronous` | Sends events asynchronously   |
+
+## Android Only
+
+For Android, we only send events asynchronously so we've deprecated the `setRequestMethod` method.
 
 [Back to top](#top)
 
