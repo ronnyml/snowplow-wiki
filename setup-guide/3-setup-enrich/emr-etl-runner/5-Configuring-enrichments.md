@@ -9,6 +9,7 @@
     - 4.1 [ip_lookups](#iplookups)
     - 4.2 [anon_ip](#anonip)
     - 4.3 [referer_parser](#refererparser)
+    - 4.4 [campaigns](#campaigns)
 
 <a name="introduction"/>
 ## 1. Introduction
@@ -177,9 +178,9 @@ An example config JSON:
 The `anonOctets` field is set to two, so the last two octets of each IP address will be obscured.
 
 <a name="refererparser"/>
-### 4.2 referer_parser enrichment
+### 4.3 referer_parser enrichment
 
-This enrichment lets uses the [Snowplow Referer-Parser][referer-parser-repo] to extract attribution data from referer URLs. You can provide a list of internal subdomains which will be treated as "internal" rather than unknown.
+This enrichment uses the [Snowplow Referer-Parser][referer-parser-repo] to extract attribution data from referer URLs. You can provide a list of internal subdomains which will be treated as "internal" rather than unknown.
 
 Its JSON schema can be found [here][referer-parser].
 
@@ -207,12 +208,109 @@ An example config JSON:
 In this example, if an event's referer URL is either "subdomain1.mysite.com" or "subdomain2.mysite.com" it will be counted as internal.
 
 
+<a name="campaigns"/>
+### 4.4 campaigns enrichment
+
+**This enrichment is not currently supported but will be added in Snowplow version 0.9.7.**
+
+This enrichment lets you choose which querystring parameters will be used to generate the marketing campaign fields `mkt_medium`, `mkt_source`, `mkt_term`, `mkt_content`, and `mkt_campaign`. If you do not enable the campaigns enrichment, those fields will not be populated.
+
+Its JSON schema can be found [here][campaigns].
+
+An example config JSON corresponding to the standard Google parameter names:
+
+```json
+{
+	"schema": "iglu:com.snowplowanalytics.snowplow/referer_parser/jsonschema/1-0-0",
+
+	"data": {
+
+		"name": "referer_parser",
+		"vendor": "com.snowplowanalytics.snowplow",
+		"enabled": true,
+		"parameters": {
+			"mapping": "static",
+			"fields": {
+				"mktMedium": ["utm_medium"],
+				"mktSource": ["utm_source"],
+				"mktTerm": ["utm_term"],
+				"mktContent": ["utm_content"],
+				"mktCampaign": ["utm_campaign"],
+			}
+		}
+	}
+}
+```
+
+This configuration indicates that, for instance, the `mkt_medium` field in the atomic.events table should be populated by the value of the "utm_medium" field in the querystring.
+
+The Omniture version, in which only the `mkt_campaign` field can be populated:
+
+```json
+{
+	"schema": "iglu:com.snowplowanalytics.snowplow/referer_parser/jsonschema/1-0-0",
+
+	"data": {
+
+		"name": "referer_parser",
+		"vendor": "com.snowplowanalytics.snowplow",
+		"enabled": true,
+		"parameters": {
+			"mapping": "static",
+			"fields": {
+				"mktMedium": [],
+				"mktSource": [],
+				"mktTerm": [],
+				"mktContent": [],
+				"mktCampaign": ["cid"],
+			}
+		}
+	}
+}
+```
+
+It is possible to have more than one parameter name in each array, for example:
+
+```json
+{
+    "schema": "iglu:com.snowplowanalytics.snowplow/campaigns/jsonschema/1-0-0",
+
+    "data": {
+
+        "name": "campaigns",
+        "vendor": "com.snowplowanalytics.snowplow",     
+        "enabled": false,
+        "parameters": {
+            "mapping": "static",
+            "fields": {
+                "mktMedium": ["utm_medium", "medium"],
+                "mktSource": ["utm_source", "source"],
+                "mktTerm": ["utm_term", "legacy_term"],
+                "mktContent": ["utm_content"],
+                "mktCampaign": ["utm_campaign", "cid", "legacy_campaign"],
+            }
+        }
+    }
+}
+```
+
+If multiple acceptable parameter names for the same field are found in the querystring, the first one listed in the configuration JSON will take precedence. For example, using the above configuration, if the querystring contained:
+
+```
+"[...]&legacy_campaign=decoy&utm_campaign=mycampaign&cid=anotherdecoy[...]"
+```
+
+then the `mkt_campaign` field would be populated with `utm_campaign`.
+
+The "mapping" field is currently not implemented. In the future, setting it to "script" will indicate that the enrichment uses custom JavaScript to extract the campaign fields from the querystring.
+
 [enrichment-json-examples]: https://github.com/snowplow/snowplow/tree/master/3-enrich/emr-etl-runner/config/enrichments
 [snowplow-schemas]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
 [maxmind-post]: snowplowanalytics.com/blog/2013/05/16/snowplow-0.8.4-released-with-maxmind-geoip/
 [anon-ip]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/anon_ip/jsonschema/1-0-0
 [ip-lookups]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/ip_lookups/jsonschema/1-0-0
 [referer-parser]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/referer_parser/jsonschema/1-0-0
+[campaigns]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/campaigns/jsonschema/1-0-0
 [referer-parser-repo]: https://github.com/snowplow/referer-parser
 [geoipcity]: http://dev.maxmind.com/geoip/legacy/install/city/?rld=snowplow
 [geolitecity]: http://dev.maxmind.com/geoip/legacy/geolite/?rld=snowplow
