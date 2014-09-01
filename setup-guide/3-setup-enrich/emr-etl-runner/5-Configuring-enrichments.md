@@ -221,11 +221,11 @@ An example config JSON corresponding to the standard Google parameter names:
 
 ```json
 {
-	"schema": "iglu:com.snowplowanalytics.snowplow/referer_parser/jsonschema/1-0-0",
+	"schema": "iglu:com.snowplowanalytics.snowplow/campaigns/jsonschema/1-0-0",
 
 	"data": {
 
-		"name": "referer_parser",
+		"name": "campaigns",
 		"vendor": "com.snowplowanalytics.snowplow",
 		"enabled": true,
 		"parameters": {
@@ -248,11 +248,11 @@ The Omniture version, in which only the `mkt_campaign` field can be populated:
 
 ```json
 {
-	"schema": "iglu:com.snowplowanalytics.snowplow/referer_parser/jsonschema/1-0-0",
+	"schema": "iglu:com.snowplowanalytics.snowplow/campaigns/jsonschema/1-0-0",
 
 	"data": {
 
-		"name": "referer_parser",
+		"name": "campaigns",
 		"vendor": "com.snowplowanalytics.snowplow",
 		"enabled": true,
 		"parameters": {
@@ -300,7 +300,7 @@ If multiple acceptable parameter names for the same field are found in the query
 "[...]&legacy_campaign=decoy&utm_campaign=mycampaign&cid=anotherdecoy[...]"
 ```
 
-then the `mkt_campaign` field would be populated with `utm_campaign`.
+then the `mkt_campaign` field would be populated with "my_campaign".
 
 The "mapping" field is currently not implemented. In the future, setting it to "script" will indicate that the enrichment uses custom JavaScript to extract the campaign fields from the querystring.
 
