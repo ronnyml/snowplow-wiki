@@ -9,7 +9,7 @@
     - 4.1 [ip_lookups](#iplookups)
     - 4.2 [anon_ip](#anonip)
     - 4.3 [referer_parser](#refererparser)
-    - 4.4 [campaigns](#campaigns)
+    - 4.4 [campaign_attribution](#campaign_attribution)
 
 <a name="introduction"/>
 ## 1. Introduction
@@ -208,24 +208,24 @@ An example config JSON:
 In this example, if an event's referer URL is either "subdomain1.mysite.com" or "subdomain2.mysite.com" it will be counted as internal.
 
 
-<a name="campaigns"/>
-### 4.4 campaigns enrichment
+<a name="campaign_attribution"/>
+### 4.4 campaign_attribution enrichment
 
 **This enrichment is not currently supported but will be added in Snowplow version 0.9.7.**
 
-This enrichment lets you choose which querystring parameters will be used to generate the marketing campaign fields `mkt_medium`, `mkt_source`, `mkt_term`, `mkt_content`, and `mkt_campaign`. If you do not enable the campaigns enrichment, those fields will not be populated.
+This enrichment lets you choose which querystring parameters will be used to generate the marketing campaign fields `mkt_medium`, `mkt_source`, `mkt_term`, `mkt_content`, and `mkt_campaign`. If you do not enable the campaign_attribution enrichment, those fields will not be populated.
 
-Its JSON schema can be found [here][campaigns].
+Its JSON schema can be found [here][campaign_attribution].
 
 An example config JSON corresponding to the standard Google parameter names:
 
 ```json
 {
-	"schema": "iglu:com.snowplowanalytics.snowplow/campaigns/jsonschema/1-0-0",
+	"schema": "iglu:com.snowplowanalytics.snowplow/campaign_attribution/jsonschema/1-0-0",
 
 	"data": {
 
-		"name": "campaigns",
+		"name": "campaign_attribution",
 		"vendor": "com.snowplowanalytics.snowplow",
 		"enabled": true,
 		"parameters": {
@@ -248,11 +248,11 @@ The Omniture version, in which only the `mkt_campaign` field can be populated:
 
 ```json
 {
-	"schema": "iglu:com.snowplowanalytics.snowplow/campaigns/jsonschema/1-0-0",
+	"schema": "iglu:com.snowplowanalytics.snowplow/campaign_attribution/jsonschema/1-0-0",
 
 	"data": {
 
-		"name": "campaigns",
+		"name": "campaign_attribution",
 		"vendor": "com.snowplowanalytics.snowplow",
 		"enabled": true,
 		"parameters": {
@@ -273,11 +273,11 @@ It is possible to have more than one parameter name in each array, for example:
 
 ```json
 {
-    "schema": "iglu:com.snowplowanalytics.snowplow/campaigns/jsonschema/1-0-0",
+    "schema": "iglu:com.snowplowanalytics.snowplow/campaign_attribution/jsonschema/1-0-0",
 
     "data": {
 
-        "name": "campaigns",
+        "name": "campaign_attribution",
         "vendor": "com.snowplowanalytics.snowplow",     
         "enabled": false,
         "parameters": {
@@ -310,7 +310,7 @@ The "mapping" field is currently not implemented. In the future, setting it to "
 [anon-ip]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/anon_ip/jsonschema/1-0-0
 [ip-lookups]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/ip_lookups/jsonschema/1-0-0
 [referer-parser]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/referer_parser/jsonschema/1-0-0
-[campaigns]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/campaigns/jsonschema/1-0-0
+[campaign_attribution]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/campaign_attribution/jsonschema/1-0-0
 [referer-parser-repo]: https://github.com/snowplow/referer-parser
 [geoipcity]: http://dev.maxmind.com/geoip/legacy/install/city/?rld=snowplow
 [geolitecity]: http://dev.maxmind.com/geoip/legacy/geolite/?rld=snowplow
