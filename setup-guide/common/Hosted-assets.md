@@ -78,7 +78,11 @@ If you are running Scala Kinesis Enrich, you will need a local copy of this file
 
 ## 4. Storage
 
-No hosted assets currently.
+Our shredding process for loading JSONs into Redshift uses a standard set of JSON Path files, available here:
+
+    s3://snowplow-hosted-assets/4-storage/redshift-storage/jsonpaths
+
+If you are running StorageLoader, these files will automatically be used for loading corresponding JSONs into Redshift.
 
 ## 5. Analytics
 
