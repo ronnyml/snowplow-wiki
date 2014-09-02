@@ -43,10 +43,13 @@ The command-line options for EmrEtlRunner look like this:
         -d, --debug                      enable EMR Job Flow debugging
         -s, --start YYYY-MM-DD           optional start date *
         -e, --end YYYY-MM-DD             optional end date *
-        -s, --skip staging,emr,archive   skip work step(s)
-        -b, --process-bucket BUCKET      run emr only on specified bucket. Implies --skip staging,archive
+        -x staging,s3distcp,emr{enrich,shred},archive,
+            --skip                       skip work step(s)
+        -E, --process-enrich LOCATION    run enrichment only on specified location. Implies --skip staging,shred,archive
+        -S, --process-shred LOCATION     run shredding only on specified location. Implies --skip staging,enrich,archive
 
-    * filters the raw event logs processed by EmrEtlRunner by their timestamp
+    * filters the raw event logs processed by EmrEtlRunner by their timestamp. Only
+      supported with 'cloudfront' collector format currently.
 
     Common options:
         -h, --help                       Show this message
