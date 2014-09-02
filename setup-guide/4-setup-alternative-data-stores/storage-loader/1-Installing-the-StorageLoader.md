@@ -82,7 +82,7 @@ The Redshift configuration template looks like this:
   :access_key_id: ADD HERE
   :secret_access_key: ADD HERE
 :s3:
-  :region: ADD HERE # S3 bucket region must be the same as Redshift cluster region
+  :region: ADD HERE # S3 bucket region
   :buckets:
     :jsonpath_assets: # If you have defined your own JSON Schemas, add the s3:// path to your own JSON Path files in your own bucket here
     :enriched:
