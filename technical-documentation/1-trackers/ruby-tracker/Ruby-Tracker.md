@@ -77,7 +77,7 @@ You can now initialize tracker instances.
 Initialize a tracker instance like this:
 
 ```ruby
-emitter = SnowplowTracker::Emitter("d3rkrsqld9gmqf.cloudfront.net")
+emitter = SnowplowTracker::Emitter.new("d3rkrsqld9gmqf.cloudfront.net")
 tracker = SnowplowTracker::Tracker.new('d3rkrsqld9gmqf.cloudfront.net')
 ```
 
@@ -97,7 +97,7 @@ So a more complete tracker initialization example might look like this:
 
 ```ruby
 initial_subject = SnowplowTracker::Subject.new
-emitter = Emitter("d3rkrsqld9gmqf.cloudfront.net")
+emitter = SnowplowTracker::Emitter.new("d3rkrsqld9gmqf.cloudfront.net")
 tracker = SnowplowTracker::Tracker.new(emitter, initial_subject, 'cf', 'ID-ap00035', false)
 ```
 
@@ -109,11 +109,11 @@ Each tracker instance is completely sandboxed, so you can create multiple tracke
 Here is an example of instantiating two separate trackers:
 
 ```ruby
-t1 = SnowplowTracker::Tracker(SnowplowTracker::AsyncEmitter("d3rkrsqld9gmqf.cloudfront.net"), nil, "t1")
+t1 = SnowplowTracker::Tracker.new(SnowplowTracker::AsyncEmitter.new("d3rkrsqld9gmqf.cloudfront.net"), nil, "t1")
 t1.set_platform("cnsl")
 t1.track_page_view("http://www.example.com")
 
-t2 = SnowplowTracker::Tracker(SnowplowTracker::AsyncEmitter("my-company.c.snplow.com"), nil, "t2")
+t2 = SnowplowTracker::Tracker.new(SnowplowTracker::AsyncEmitter.new("my-company.c.snplow.com"), nil, "t2")
 t2.set_platform("cnsl")
 t2.track_screen_view("Game HUD", "23")
 
@@ -148,7 +148,7 @@ For example:
 
 ```ruby
 s0 = SnowplowTracker::Subject.new
-emitter = SnowplowTracker::Emitter("d3rkrsqld9gmqf.cloudfront.net")
+emitter = SnowplowTracker::Emitter.new("d3rkrsqld9gmqf.cloudfront.net")
 my_tracker = SnowplowTracker::Tracker.new(emitter, s0)
 
 # The following two lines are equivalent, except that the first returns s0 and the second returns my_tracker
@@ -160,7 +160,7 @@ If you are using multiple subjects, you can use the `set_subject` tracker method
 
 ```ruby
 s0 = SnowplowTracker::Subject.new
-emitter = SnowplowTracker::Emitter("d3rkrsqld9gmqf.cloudfront.net")
+emitter = SnowplowTracker::Emitter.new("d3rkrsqld9gmqf.cloudfront.net")
 my_tracker = SnowplowTracker::Tracker.new(emitter, s0)
 
 # Set the viewport for the active subject, s0
