@@ -747,7 +747,7 @@ t.flush()
 ```
 
 <a name="multiple-emitters" />
-### 5.6 Custom emitters
+### 5.6 Multiple emitters emitters
 
 You can configure a tracker instance to send events to multiple emitters by passing the `Tracker` constructor function an array of emitters instead of a single emitter, or by using the `addEmitter` method:
 
@@ -767,7 +767,7 @@ e3 = RedisEmitter(rdb, "my_snowplow_key")
 t.addEmitter(e3)
 ```
 
-<a name="custom-emitter" />
+<a name="custom-emitters" />
 ### 5.7 Custom emitters
 
 You can create your own custom emitter class, either from scratch or by subclassing one of the existing classes (with the exception of `CeleryEmitter`, since it uses the `pickle` module which doesn't work correctly with a class subclassed from a class located in a different module). The only requirement for compatibility is that is must have an `input` method which accepts a Python dictionary of name-value pairs.
