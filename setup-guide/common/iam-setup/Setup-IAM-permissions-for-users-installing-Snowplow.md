@@ -49,7 +49,10 @@ Now we need to give permissions on:
 * Amazon CloudFront (required for Cloudfront collector)
 * Amazon Elastic Beanstalk (required for Clojure collector)
 * Amazon Redshift (required for Redshift)
-* Amazon Cloudformation (experimental)
+* Amazon Cloudformation (required if the Snowplow team setup your Snowplow data pipeline, as we use Cloudformation)
+* Amazon IAM (required as part of the Clojure collector setup, as a role is created for the Clojure collector application)
+
+
 
 
 These permissions are set out in the following policy document. **If you are not using the Clojure Collector, you can remove the Elastic Beanstalk section.**
@@ -135,7 +138,16 @@ Now paste the following JSON into the _Policy Document_ text area:
         "*"
       ],
       "Effect": "Allow"
-    }
+    },
+    {
+      "Action": [
+        "iam:*"
+      ],
+      "Resource": [
+        "*"
+      ],
+      "Effect": "Allow"
+    },
   ]
 }
 ```
