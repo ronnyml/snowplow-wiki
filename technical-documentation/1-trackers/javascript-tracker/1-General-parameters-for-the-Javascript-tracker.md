@@ -23,6 +23,7 @@
     - 2.3.2 [Setting a custom URL with `setCustomUrl`](#custom-url)
     - 2.3.3 [Setting the pause time before leaving a page with `setLinkTrackingTimer`](#tracker-pause)
   - 2.4 [Managing multiple trackers](#multiple-trackers)
+  - 2.5 [How the Tracker uses cookies](#cookies)
 
 <a name="loading"/>
 ### 2.1 Loading Snowplow.js
@@ -261,7 +262,34 @@ snowplow_name_here('trackUnstructEvent:cf2', 'com.acme_company' 'Viewed Product'
 snowplow_name_here('trackPageView:cf1;cf2');
 ```
 
+<a name="multiple-trackers" />
+### 2.5 How the Tracker uses cookies
+
+Unless you have enabled `respectDoNotTrack` in the configuration argmap, the tracker will use cookies to persist information. There are two first party cookies: the session cookie and the ID cookie. By default their names are prefixed with "_sp_", but you can change this using the "cookieName" field in the argmap.
+
+#### The session cookie
+
+Called _sp_ses by default, the only purpose of this cookie is to differentiate between different visits. Whenever an event is fired, the session cookie is set to expire in 30 minutes. (This value can be altered using `setSessionCookieTimeout`.) 
+
+If no session cookie is already present when an event fires, the tracker treats this as an indication that long enough has passed since the user last visited that this session should be treated as a new session rather than a continuation of the previous session. The `visitCount` (how many times the user has visited) is increased by one and the `lastVisitTs` (the timestamp for the last session) is updated.
+
+#### The ID cookie
+
+This cookie is called _sp_id by default. It is used to persist information about a user's activity on the domain between sessions. It contains the following information:
+
+* An ID for the user based on a hash of various browser attributes
+* How many times the user has visited the domain
+* The time of the current visit
+* The time of the last visit
+
+It expires after 2 years.
+
+#### The Clojure Collector cookie
+
+There is a third sort of Snowplow-related cookie: the cookie set by the [Clojure Collector][clojure-collector], independently of the JavaScript Tracker. If you are using another type of collector, this cookie will not be set. The Clojure Collector cookie is called "sp". It is a third-party cookie used to track users over multiple domains. It expires after one year.
+
 [contents]: Javascript-Tracker
 [general-parameters-v1]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker-v1
 [snowplow-tracker-protocol]: https://github.com/snowplow/snowplow/wiki/SnowPlow-Tracker-Protocol
 [contexts]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker-v1#custom-contexts
+[clojure-collector]: https://github.com/snowplow/snowplow/wiki/Clojure-collector
