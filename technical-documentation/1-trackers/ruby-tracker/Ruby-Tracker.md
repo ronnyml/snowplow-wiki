@@ -2,7 +2,7 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > Ruby Tracker
 
-*This page refers to version 0.3.0 of the Snowplow Python Tracker. Documentation for the previous version, 0.2.0, is available:*
+*This page refers to version 0.3.0 of the Snowplow Ruby Tracker. Documentation for the previous version, 0.2.0, is available:*
 
 *[Version 0.2][ruby-0.2]*
 
@@ -78,7 +78,7 @@ Initialize a tracker instance like this:
 
 ```ruby
 emitter = SnowplowTracker::Emitter.new("d3rkrsqld9gmqf.cloudfront.net")
-tracker = SnowplowTracker::Tracker.new('d3rkrsqld9gmqf.cloudfront.net')
+tracker = SnowplowTracker::Tracker.new(e)
 ```
 
 If you wish to send events to more than one emitter, you can provide an array of emitters to the tracker constructor.
@@ -625,7 +625,7 @@ SnowplowTracker::enable_contracts
 <a name="logging" />
 ## 7. Logging
 
-The emitters.rb module has Python logging enabled to give you information about requests being sent. The logger prints messages about what emitters are doing. By default, only messages with priority "INFO" or higher will be logged.
+The emitters.rb module has Ruby logging enabled to give you information about requests being sent. The logger prints messages about what emitters are doing. By default, only messages with priority "INFO" or higher will be logged.
 
 To change this:
 

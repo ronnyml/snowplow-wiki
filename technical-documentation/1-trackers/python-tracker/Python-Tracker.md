@@ -44,7 +44,7 @@
   - 5.1 [The basic Emitter class](#base-emitter)
   - 5.2 [The AsyncEmitter class](#async-emitter)
   - 5.3 [The CeleryEmitter class](#celery-emitter)
-  - 5.4 [The RedisEmitter class](#redis-emitter)()
+  - 5.4 [The RedisEmitter class](#redis-emitter)
   - 5.5 [Manual flushing](#manual-flushing)
   - 5.6 [Multiple emitters](#multiple-emitters)
   - 5.7 [Custom emitters](#custom-emitters)
@@ -91,7 +91,7 @@ The simplest tracker initialization only requires you to provide the URI of the 
 
 ```python
 e = Emitter("d3rkrsqld9gmqf.cloudfront.net")
-t = Tracker("d3rkrsqld9gmqf.cloudfront.net")
+t = Tracker(e)
 ```
 
 There are other optional keyword arguments:
@@ -440,10 +440,12 @@ Use `track_screen_view()` to track a user viewing a screen (or equivalent) withi
 
 | **Argument** | **Description**                     | **Required?** | **Validation**          |
 |-------------:|:------------------------------------|:--------------|:------------------------|
-| `name`       | Human-readable name for this screen | Yes           | Non-empty string        |
-| `id_`         | Unique identifier for this screen   | No            | String                  |
+| `name`       | Human-readable name for this screen | No           | Non-empty string         |
+| `id_`         | Unique identifier for this screen  | No            | String                  |
 | `context`    | Custom context for the event        | No            | List                    |
 | `tstamp`     | When the screen was viewed          | No            | Positive integer        |
+
+Although name and id_ are not individually required, at least one must be provided or the event will fail validation.
 
 Example:
 
@@ -747,7 +749,7 @@ t.flush()
 ```
 
 <a name="multiple-emitters" />
-### 5.6 Multiple emitters emitters
+### 5.6 Multiple emitters
 
 You can configure a tracker instance to send events to multiple emitters by passing the `Tracker` constructor function an array of emitters instead of a single emitter, or by using the `addEmitter` method:
 
