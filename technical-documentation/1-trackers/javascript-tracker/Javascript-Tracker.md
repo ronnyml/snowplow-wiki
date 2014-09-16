@@ -23,6 +23,7 @@
     - 2.3.2 [Setting a custom URL with `setCustomUrl`](1-General-parameters-for-the-Javascript-tracker#wiki-custom-url)
     - 2.3.3 [Setting the pause time before leaving a page with `setLinkTrackingTimer`](1-General-parameters-for-the-Javascript-tracker#wiki-tracker-pause)
   - 2.4 [Managing multiple trackers](1-General-parameters-for-the-Javascript-tracker#wiki-multiple-trackers)
+  - 2.5 [How the Tracker uses cookies](1-General-parameters-for-the-Javascript-tracker#wiki-cookies)
 - 3. [Tracking specific events](2-Specific-event-tracking-with-the-Javascript-tracker#wiki-tracking-specific-events)  
 - 3.1 [Pageviews](2-Specific-event-tracking-with-the-Javascript-tracker#wiki-page)  
   - 3.1.1 [`trackPageView`](2-Specific-event-tracking-with-the-Javascript-tracker#wiki-trackPageView)  

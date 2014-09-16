@@ -262,7 +262,7 @@ snowplow_name_here('trackUnstructEvent:cf2', 'com.acme_company' 'Viewed Product'
 snowplow_name_here('trackPageView:cf1;cf2');
 ```
 
-<a name="multiple-trackers" />
+<a name="cookies" />
 ### 2.5 How the Tracker uses cookies
 
 Unless you have enabled `respectDoNotTrack` in the configuration argmap, the tracker will use cookies to persist information. There are two first party cookies: the session cookie and the ID cookie. By default their names are prefixed with "_sp_", but you can change this using the "cookieName" field in the argmap.
