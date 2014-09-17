@@ -120,8 +120,6 @@ dependencies {
 }
 ```
 
-Done? Now read the [Java/Android Tracker API](Android-and-Java-Tracker) to start tracking events.
-
 <a name="permissions" />
 ### 3.4 Permissions
 
@@ -137,6 +135,8 @@ If you want to send location information with each event you will need to add th
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 ```
+
+Done? Now read the [Java/Android Tracker API](Android-and-Java-Tracker) to start tracking events.
 
 [android]: http://www.android.com/
 
