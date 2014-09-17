@@ -148,6 +148,15 @@ Now paste the following JSON into the _Policy Document_ text area:
       ],
       "Effect": "Allow"
     },
+    {
+      "Action": [
+        "elasticloadbalancing:*"
+      ],
+      "Resource": [
+        "*"
+      ],
+      "Effect": "Allow"
+    }
   ]
 }
 ```
