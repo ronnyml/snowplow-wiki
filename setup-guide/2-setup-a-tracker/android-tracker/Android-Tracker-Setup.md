@@ -87,6 +87,11 @@ Then add into your project's `pom.xml`:
     <artifactId>snowplow-android-tracker</artifactId>
     <version>0.1.0</version>
 </dependency>
+<dependency>
+    <groupId>com.snowplowanalytics</groupId>
+    <artifactId>snowplow-java-tracker-core</artifactId>
+    <version>0.1.3</version>
+</dependency>
 ```
 
 <a name="gradle" />
@@ -110,10 +115,20 @@ dependencies {
     ...
     // Snowplow Android Tracker
     compile 'com.snowplowanalytics:snowplow-android-tracker:0.1.0'
+    compile 'com.snowplowanalytics:snowplow-java-tracker-core:0.1.3'
 }
 ```
 
 Done? Now read the [Java/Android Tracker API](Android-and-Java-Tracker) to start tracking events.
+
+<a name="maven" />
+### 3.4 Permissions
+
+To send the events, you need to update your AndroidManifest.xml with the internet access permission:
+
+```xml
+<uses-permission android:name="android.permission.INTERNET" /> 
+```
 
 [android]: http://www.android.com/
 
