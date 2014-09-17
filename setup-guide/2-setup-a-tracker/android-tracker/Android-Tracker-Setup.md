@@ -125,10 +125,17 @@ Done? Now read the [Java/Android Tracker API](Android-and-Java-Tracker) to start
 <a name="permissions" />
 ### 3.4 Permissions
 
-To send the events, you need to update your AndroidManifest.xml with the internet access permission:
+To send the events, you need to update your `AndroidManifest.xml` with the internet access permission:
 
 ```xml
 <uses-permission android:name="android.permission.INTERNET" /> 
+```
+
+If you want to send location information with each event you will need to add the following permissons to your `AndroidManifest.xml`:
+
+```xml
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 ```
 
 [android]: http://www.android.com/
