@@ -12,6 +12,7 @@
   - 3.1 [Hosting](#hosting)
   - 3.2 [Maven](#maven)
   - 3.3 [Gradle](#gradle)
+  - 3.4 [Permissions](#permissions)
 
 <a name="overview" />
 ## 1. Overview
@@ -121,7 +122,7 @@ dependencies {
 
 Done? Now read the [Java/Android Tracker API](Android-and-Java-Tracker) to start tracking events.
 
-<a name="maven" />
+<a name="permissions" />
 ### 3.4 Permissions
 
 To send the events, you need to update your AndroidManifest.xml with the internet access permission:
