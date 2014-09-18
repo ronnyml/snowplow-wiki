@@ -583,10 +583,10 @@ Emitter(String URI, HttpMethod httpMethod, RequestCallback callback, Context con
 
 For example, if you're creating an Emitter in an [`Activity`](https://developer.android.com/reference/android/app/Activity.html) class:
 ```java
-Emitter e1 = new Emitter("d3rkrsqld9gmqf.cloudfront.net", this);
-Emitter e2 = new Emitter("d3rkrsqld9gmqf.cloudfront.net", this, HttpMethod.POST);
-Emitter e3 = new Emitter("d3rkrsqld9gmqf.cloudfront.net", this, new RequestCallback() {...});
-Emitter e4 = new Emitter("d3rkrsqld9gmqf.cloudfront.net", this, HttpMethod.POST, new RequestCallback() {...});
+Emitter e1 = new Emitter("snowplow-collector.acme.com", this);
+Emitter e2 = new Emitter("snowplow-collector.acme.com", this, HttpMethod.POST);
+Emitter e3 = new Emitter("snowplow-collector.acme.com", this, new RequestCallback() {...});
+Emitter e4 = new Emitter("snowplow-collector.acme.com", this, HttpMethod.POST, new RequestCallback() {...});
 ```
 
 | **Argument Name** | **Description**                                                             |    **Required?**  |
