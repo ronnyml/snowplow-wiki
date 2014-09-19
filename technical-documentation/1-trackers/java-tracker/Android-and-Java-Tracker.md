@@ -612,6 +612,7 @@ e1.setBufferOption(BufferOption.Default);
 ```
 
 Here are all the posibile options that you can use:
+
 |  **Option**  | **Description**                                    |
 |-------------:|:---------------------------------------------------|
 | `Instant`    | Events are sent as soon as they are created        |
