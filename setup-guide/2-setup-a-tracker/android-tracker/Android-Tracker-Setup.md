@@ -86,7 +86,7 @@ Then add into your project's `pom.xml`:
 <dependency>
     <groupId>com.snowplowanalytics</groupId>
     <artifactId>snowplow-android-tracker</artifactId>
-    <version>0.1.2</version>
+    <version>[0.1.2, 0.2.0)</version>
 </dependency>
 <dependency>
     <groupId>com.snowplowanalytics</groupId>
@@ -115,7 +115,7 @@ Then add into the same file:
 dependencies {
     ...
     // Snowplow Android Tracker
-    compile 'com.snowplowanalytics:snowplow-android-tracker:0.1.2'
+    compile 'com.snowplowanalytics:snowplow-android-tracker:0.1.*'
     compile 'com.snowplowanalytics:snowplow-java-tracker-core:0.1.*'
 }
 ```
