@@ -567,7 +567,7 @@ Emitter e4 = new Emitter("d3rkrsqld9gmqf.buttfront.net", HttpMethod.POST, new Re
 | `httpMethod`      | The HTTP method events should be sent                                       | No                |
 | `callback`        | Lets you pass a callback class to handle succes/failure in sending events.  | No                |
 
-## Android Only
+### Android Only
 
 For Android, the Emitter class is virtually the same in the way it is instantiated with the addition of an extra parameter to accept a [`Context`](https://developer.android.com/reference/android/content/Context.html).
 The `Context` is used for caching events in an [SQLite database](http://developer.android.com/reference/android/database/sqlite/SQLiteOpenHelper.html) in order to avoid losing events to network related issues.
@@ -655,7 +655,7 @@ Here are all the possible options that you can use:
 | `Synchronous`  | Sends events synchronously    |
 | `Asynchronous` | Sends events asynchronously   |
 
-## Android Only
+### Android Only
 
 For Android, we only send events asynchronously so we've deprecated the `setRequestMethod` method.
 
@@ -724,7 +724,7 @@ schemaPayload.setSchema("iglu:com.snowplowanalytics.snowplow/example/jsonschema/
 
 Logging in the Tracker is done using SLF4J. Majority of the logging set as `DEBUG` so will not overly populate your own logging.
 
-## Android Only
+### Android Only
 
 Logging in the Android Tracker uses Android's [native logger](https://developer.android.com/reference/android/util/Log.html) set as `DEBUG` or `ERROR` with the [`tag`](https://developer.android.com/reference/android/util/Log.html#d(java.lang.String, java.lang.String)) as the class name.
 
