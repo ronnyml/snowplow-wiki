@@ -630,6 +630,7 @@ Emitter e1 = new Emitter("d3rkrsqld9gmqf.buttfront.net", HttpMethod.POST);
 ```
 
 Here are all the posibile options that you can use:
+
 |  **Option**  | **Description**                                    |
 |-------------:|:---------------------------------------------------|
 | `GET`        | Sends events as GET requests                       |
@@ -647,7 +648,8 @@ Emitter e1 = new Emitter("d3rkrsqld9gmqf.buttfront.net");
 e1.setRequestMethod(RequestMethod.Asynchronous);
 ```
 
-Here are all the posibile options that you can use:
+Here are all the possible options that you can use:
+
 |  **Option**    | **Description**               |
 |---------------:|:------------------------------|
 | `Synchronous`  | Sends events synchronously    |
@@ -721,6 +723,16 @@ schemaPayload.setSchema("iglu:com.snowplowanalytics.snowplow/example/jsonschema/
 ## 7. Logging
 
 Logging in the Tracker is done using SLF4J. Majority of the logging set as `DEBUG` so will not overly populate your own logging.
+
+## Android Only
+
+Logging in the Android Tracker uses Android's [native logger](https://developer.android.com/reference/android/util/Log.html) set as `DEBUG` or `ERROR` with the [`tag`](https://developer.android.com/reference/android/util/Log.html#d(java.lang.String, java.lang.String)) as the class name.
+
+For example:
+```java
+private final String TAG = Emitter.class.getName();
+Log.e(TAG, "Cannot change RequestMethod: Asynchronous requests only available.");
+```
 
 [Back to top](#top)
 
