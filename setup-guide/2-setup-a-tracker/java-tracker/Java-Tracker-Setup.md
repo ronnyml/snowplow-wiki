@@ -127,7 +127,7 @@ val snowplowRepo = "SnowPlow Repo" at "http://maven.snplow.com/releases/"
 val snowplowTracker = "com.snowplowanalytics"  % "snowplow-java-tracker"  % "0.5.1"
 ```
 
-Done? Now read the [Java Tracker API](Android-and-Java-Tracker) to start tracking events.
+Done? Now read the [Java/Android Tracker API](Android-and-Java-Tracker) to start tracking events.
 
 [java]: http://www.java.com/en/
 
