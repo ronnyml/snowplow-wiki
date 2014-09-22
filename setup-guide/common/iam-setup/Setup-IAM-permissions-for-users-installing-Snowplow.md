@@ -64,98 +64,27 @@ Now paste the following JSON into the _Policy Document_ text area:
   "Version": "2012-10-17",
   "Statement": [
     {
+      "Effect": "Allow",
       "Action": [
-        "s3:*"
-      ],
-      "Resource": [
-        "*"
-      ],
-      "Effect": "Allow"
-    },
-    {
-      "Action": [
-        "elasticmapreduce:*"
-      ],
-      "Resource": [
-        "*"
-      ],
-      "Effect": "Allow"
-    },
-    {
-      "Action": [
-        "ec2:*"
-      ],
-      "Resource": [
-        "*"
-      ],
-      "Effect": "Allow"
-    },
-    {
-      "Action": [
-        "cloudfront:CreateDistribution",
-        "cloudfront:Get*",
-        "cloudfront:List*"
-      ],
-      "Resource": [
-        "*"
-      ],
-      "Effect": "Allow"
-    },
-    {
-      "Action": [
-        "cloudformation:*"
-      ],
-      "Resource": [
-        "*"
-      ],
-      "Effect": "Allow"
-    },
-    {
-      "Action": [
+        "autoscaling:*",
         "aws-marketplace:ViewSubscriptions",
         "aws-marketplace:Subscribe",
-        "aws-marketplace:Unsubscribe"
+        "aws-marketplace:Unsubscribe",
+        "cloudformation:*",
+        "cloudfront:CreateDistribution",
+        "cloudfront:Get*",
+        "cloudfront:List*",
+        "cloudwatch:*",
+        "ec2:*",
+        "elasticbeanstalk:*",
+        "elasticloadbalancing:*",
+        "elasticmapreduce:*",
+        "iam:*",
+        "redshift:*",
+        "s3:*",
+        "sns:*" 
       ],
-      "Resource": [
-        "*"
-      ],
-      "Effect": "Allow"
-    },
-    {
-      "Action": [
-        "elasticbeanstalk:*"
-      ],
-      "Resource": [
-        "*"
-      ],
-      "Effect": "Allow"
-    },
-    {
-      "Action": [
-        "redshift:*"
-      ],
-      "Resource": [
-        "*"
-      ],
-      "Effect": "Allow"
-    },
-    {
-      "Action": [
-        "iam:*"
-      ],
-      "Resource": [
-        "*"
-      ],
-      "Effect": "Allow"
-    },
-    {
-      "Action": [
-        "elasticloadbalancing:*"
-      ],
-      "Resource": [
-        "*"
-      ],
-      "Effect": "Allow"
+      "Resource": "*"
     }
   ]
 }
