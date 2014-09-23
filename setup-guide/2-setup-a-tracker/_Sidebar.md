@@ -12,6 +12,7 @@
   - [2.6: Setup the Node.js Tracker](Node.js-tracker-setup)
   - [2.7: Setup the Lua Tracker](Lua-tracker-setup)
   - [2.8: Setup the Arduino Tracker](Arduino-tracker-setup)
+  - [2.9: Setup the .NET Tracker](.NET-tracker-setup)
   - [Zendesk Tracking](Zendesk-Tracker)
 - [Step 3: Setup Enrich](setting-up-enrich)  
 - [Step 4: Setup alternative data stores](setting-up-alternative-data-stores) 
