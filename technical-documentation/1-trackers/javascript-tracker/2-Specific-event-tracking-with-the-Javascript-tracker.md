@@ -604,12 +604,9 @@ Note that in the above example no value is set for the `event property`.
 <a name="custom-unstructured-events" />
 ### 3.8 Tracking custom unstructured events
 
-There are certain events that you may want to track on your website or application, which are not directly supported by Snowplow, and are not suitable for being captured using the [structured event tracking](#custom-structured-events). There are two use cases:
+You may wish to track events on your website or application which are not directly supported by Snowplow and which [structured event tracking](#custom-structured-events) does not adequately capture. Your event may have more than the five fields offered by `trackStructEvent`, or its fields may not fit into the category-action-label-property-value model. The solution is Snowplow's custom unstructured events. Unstructured events use JSONs which can have arbitrarily many fields.
 
-1. Where you want to track event types which are proprietary/specific to your business, and the type of data associated with each visit does not fit into the [structured event tracking](#custom-structured-events), either because you want to capture data of a specific type (e.g. geographical coordinates or arrays), or you want to capture more data than the five structured event fields offer allow.
-2. Where you want to track events which have unpredictable or frequently changing properties, so that it is not possible to specify the fields in advance.
-
-When you track a custom unstructured event, you track the event name and a set of associated "properties" enclosed in a JSON envelope. Because you can add as many name/value properties to the JSON as you'd like, and a wide range of data types are supported (see below), this is a very flexible way of tracking events.  A custom unstructured event conforms to the primary format of events captured by analytics tools like [Mixpanel] [mixpanel], [Kissmetrics] [kissmetrics] and [Keen.io] [keen.io].
+To define your own custom event, you must create a [JSON schema][json-schema] for that event and upload it to an [Iglu Schema Repository][iglu-repo]. Snowplow uses the schema to validate that the JSON containing the event properties is well-formed.
 
 <a name="trackUnstructEvent" />
 #### 3.8.1 `trackUnstructEvent`
@@ -755,7 +752,7 @@ Custom contexts can be used to augment any standard Snowplow event type, includi
 
 Custom contexts can be added as an extra argument to any of Snowplow's `track..()` methods and to `addItem` and `addTrans`.
 
-Each custom context is a self-describing JSON following the same pattern as an [unstructured event](#trackUnstructEvent). Since more than one can be attached to an event, the `context` argument (if it is provided at all) should be a non-empty array of self-describing JSONs.
+Each custom context is a self-describing JSON following the same pattern as an [unstructured event](#trackUnstructEvent). As with unstructured events, if you want to create your own custom context, you must create a [JSON schema][json-schema] for it and upload it to an [Iglu repository][iglu-repo]. Since more than one can be attached to an event, the `context` argument (if it is provided at all) should be a non-empty array of self-describing JSONs.
 
 **Important:** Even if only one custom context is being attached to an event, it still needs to be wrapped in an array.
 
@@ -826,3 +823,4 @@ For more information on custom contexts, see [this][contexts] blog post.
 [kissmetrics]: https://www.kissmetrics.com/
 [keen.io]: https://keen.io/
 [contexts]: http://snowplowanalytics.com/blog/2014/01/27/snowplow-custom-contexts-guide/
+[iglu-repo]: https://github.com/snowplow/iglu
