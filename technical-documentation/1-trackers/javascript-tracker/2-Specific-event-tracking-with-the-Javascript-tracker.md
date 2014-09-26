@@ -634,7 +634,7 @@ window.snowplow_name_here('trackUnstructEvent', {
 });
 ```
 
-The second argument is a [self-describing JSON][self-describing-json]. It has two fields:
+The second argument is a [self-describing JSON][self-describing-jsons]. It has two fields:
 
 * A `data` field, containing the properties of the event
 * A `schema` field, containing the location of the [JSON schema][json-schema] against which the `data` field should be validated.
