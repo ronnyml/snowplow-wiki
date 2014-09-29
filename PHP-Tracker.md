@@ -95,13 +95,13 @@ $tracker = new Tracker($emitter,$subject);
 
 Other Tracker arguments:
 
-| **Argument Name** | **Description**                      | **Required?** | **Default**          |
+| **Argument Name** | **Description**                      | **Required?** | **Default**        |
 |-------------:|:-------------------------------------|:--------------|:------------------------|
-| `emitters`      | The emitter to which events are sent       | Yes           | `None`        |
-| `subject`   | The user being tracked               |         Yes            | `Subject()` |
-| `namespace`  | The name of the tracker instance     |  No           |  `None` |
-| `app_id` | The application ID          | No           | `None`         |
-| `encode_base64` | Whether to enable [base 64 encoding] [base64] | No | `True`  |
+| `emitters`      | The emitter to which events are sent          | Yes         | `None`        |
+| `subject`       | The user being tracked                        | Yes         | `Subject()`   |
+| `namespace`     | The name of the tracker instance              | No          | `None`        |
+| `app_id`        | The application ID                            | No          | `None`        |
+| `encode_base64` | Whether to enable [base 64 encoding] [base64] | No          | `True`        |
 
 Another example using all allowed arguments:
 ```PHP
@@ -344,6 +344,7 @@ $tracker->trackEcommerceTransaction(
 
 The above example contains an order with two order items.
 
+<a name="ecommerce-item" />
 #### 6.2.2.1 `trackEcommerceTransactionItem`
 
 This is a private function that is called from within `trackEcommerceTransaction`.  It is important to note that for an item to be added successfully you need to include the following fields in the array; even if the value is `NULL`.
@@ -403,7 +404,72 @@ $tracker->trackScreenView("HUD > Save Game", NULL, NULL, 1368725287000);
 <a name="struct-event" />
 ### 6.2.4 `trackStructEvent`
 
+Track a custom event happening in your app which fits the Google Analytics-style structure of having up to five fields (with only the first two required).
+
+Function:
+```PHP
+public function trackStructEvent($category, $action, $label = NULL, $property = NULL, $value = NULL, 
+                                 $context = NULL, $tstamp = NULL)
+```
+
+Arguments:
+
+| **Argument** | **Description**                                                  | **Required?** | **Validation**           |
+|-------------:|:---------------------------------------------------------------  |:--------------|:-------------------------|
+| `$category`   | The grouping of structured events which this `action` belongs to | Yes           | Non-empty string         |
+| `$action`     | Defines the type of user interaction which this event involves   | Yes           | Non-empty string         |
+| `$label`      | A string to provide additional dimensions to the event data      | No            | String                   |
+| `$property`   | A string describing the object or the action performed on it     | No            | String                   |
+| `$value`      | A value to provide numerical data about the event                | No            | Int or Float             |
+| `$context`    | Custom context for the event                                     | No            | Array                      |
+| `$tstamp`     | When the structured event occurred                               | No            | Positive integer         |
+
+Example:
+
+```PHP
+$tracker->trackStructEvent("shop", "add-to-basket", NULL, "pcs", 2);
+```
+
 <a name="unstruct-event" />
 ### 6.2.5 `trackUnstructEvent`
+
+Track a custom event which consists of a name and an unstructured set of properties. This is useful when:
+
+* You want to track event types which are proprietary/specific to your business (i.e. not already part of Snowplow), or
+* You want to track events which have unpredictable or frequently changing properties
+
+Function:
+
+```PHP
+public function trackUnstructEvent($event_json, $context = NULL, $tstamp = NULL)
+```
+
+Arguments:
+
+| **Argument**   | **Description**                      | **Required?** | **Validation**          |
+|---------------:|:-------------------------------------|:--------------|:------------------------|
+| `$event_json`   | The properties of the event          | Yes          | Array                   |
+| `$context`      | Custom context for the event         | No           | Array                   |
+| `$tstamp`       | When the unstructured event occurred | No           | Positive integer        |
+
+Example:
+
+```PHP
+$tracker->trackUnstructEvent(
+    array(
+        "schema" => "com.example_company/save-game/jsonschema/1.0.2",
+        "data" => array(
+            "save_id" => "4321",
+            "level" => 23,
+            "difficultyLevel" => "HARD",
+            "dl_content" => true 
+        )
+    ),
+    NULL,
+    132184654684
+);
+```
+
+The `$event_json` must be an array with two fields: `schema` and `data`. `data` is a flat array containing the properties of the unstructured event. `schema` identifies the JSON schema against which `data` should be validated.
 
 [base64]: https://en.wikipedia.org/wiki/Base64
