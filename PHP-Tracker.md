@@ -6,7 +6,6 @@
 - 2. [Installation](#install)  
   - 2.1 [Composer](#composer)
 - 3. [Initialize](#init)
-- 4.
 
 <a name="overview" />
 ## 1. Overview
