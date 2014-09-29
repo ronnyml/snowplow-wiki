@@ -61,11 +61,9 @@ Using Composer to manage your dependencies, simply add the Snowplow PHP Tracker 
 Assuming you have Composer setup correctly in the root of your project.
 Type the following command line argument:
 ```sh
-composer install
-composer update
+composer install #If composer has not been run yet
+composer update #If composer dependencies are already installed
 ```
- - install (If composer has not been run yet)
- - update (If composer dependencies are already installed)
 
 <a name="init" />
 ## 3. Initialize
@@ -125,7 +123,7 @@ $emitter = new Emitter("collector_uri");
 $emitters = array($emitter1, $emitter2);
 ```
 
-For more information go to [Emitters](#emitter-class).
+For more information go to [emitters](#emitter-class).
 
 <a name="subject" />
 #### 3.1.2 `subject`
@@ -133,7 +131,7 @@ For more information go to [Emitters](#emitter-class).
 The user which the Tracker will track. This will give your events user-specific data such as timezone and language. You change the subject of your tracker at any time by calling `updateSubject($new_subject_object)`.
 All events sent from this Tracker will now have the new subject information appended.
 
-For more information go to [Subjects](#subject-class).
+For more information go to [subjects](#subject-class).
 
 <a name="namespace" />
 #### 3.1.3 `namespace`
@@ -158,11 +156,10 @@ For any additional information about your application's environment, current use
 To create a new subject:
 
 ```PHP
-use Snowplow\Tracker\Subject;
 $subject = new Subject();
 ```
 
-By default the subject has one pair of information in it already, platform ["plat"].
+By default the subject has one pair of information in it already, platform ["plat" => "srv"].
 
 The Subject class contains a variety of 'set' methods to attach extra data to your event.
 
@@ -297,7 +294,9 @@ $subject->setLang('en');
 <a name="emitter-class" />
 ## 5. Emitters
 
-The most basic emitter only requires the collectors URI as a parameter.  However you can also specify the type of Request that the emitter uses (either POST or GET), the Protocol that the emitter will use (HTTP or HTTPS) and the buffer size (the amount of events stored before sending).
+The most basic emitter only requires the collectors URI as a parameter.  
+
+However you can also specify the type of Request that the emitter uses (either POST or GET), the Protocol that the emitter will use (HTTP or HTTPS) and the buffer size (the amount of events stored before sending).
 
 By default the emitter uses POST, HTTP and a buffer size of 10.  GET defaults to a buffer size of 1.
 
