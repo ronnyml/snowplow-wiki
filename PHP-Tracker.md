@@ -227,7 +227,7 @@ $subject->setScreenRes(1366, 768);
 <a name="set-viewport" />
 ### 4.4 `setViewport`
 
-If your Python code has access to the viewport dimensions, then you can pass this in to Snowplow too:
+If your PHP code has access to the viewport dimensions, then you can pass this in to Snowplow too:
 
 ```PHP
 $subject->setViewport($width, $height);
