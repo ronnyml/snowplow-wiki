@@ -109,6 +109,12 @@ Another example using all allowed arguments:
 $tracker = new Tracker($emitter,$subject,"cf","cf29ea","1");
 ```
 
+The `encode_base64` argument is always a string:
+- "1" for True
+- "0" for False
+
+The default setting is True.
+
 <a name="emitters" />
 #### 3.1.1 `emitters`
 
@@ -119,11 +125,15 @@ $emitter = new Emitter("collector_uri");
 $emitters = array($emitter1, $emitter2);
 ```
 
+For more information go to [Emitters](#emitter-class).
+
 <a name="subject" />
 #### 3.1.2 `subject`
 
 The user which the Tracker will track. This will give your events user-specific data such as timezone and language. You change the subject of your tracker at any time by calling `updateSubject($new_subject_object)`.
 All events sent from this Tracker will now have the new subject information appended.
+
+For more information go to [Subjects](#subject-class).
 
 <a name="namespace" />
 #### 3.1.3 `namespace`
@@ -138,7 +148,7 @@ The `app_id` argument lets you set the application ID to any string.
 <a name="base64" />
 #### 3.1.5 `encode_base64`
 
-By default, unstructured events and custom contexts are encoded into Base64 to ensure that no data is lost or corrupted. You can turn encoding on or off using the Boolean `encode_base64` argument.
+By default, unstructured events and custom contexts are encoded into Base64 to ensure that no data is lost or corrupted. You can turn encoding on or off using the `encode_base64` argument.
 
 <a name="subject-class" />
 ## 4. Subjects
@@ -287,6 +297,25 @@ $subject->setLang('en');
 <a name="emitter-class" />
 ## 5. Emitters
 
+The most basic emitter only requires the collectors URI as a parameter.  However you can also specify the type of Request that the emitter uses (either POST or GET), the Protocol that the emitter will use (HTTP or HTTPS) and the buffer size (the amount of events stored before sending).
+
+By default the emitter uses POST, HTTP and a buffer size of 10.  GET defaults to a buffer size of 1.
+
+Constructor:
+
+```PHP
+public function __construct($collector_uri, $req_type = NULL, $protocol = NULL, $buffer_size = NULL)
+```
+
+Arguments:
+
+| **Argument** | **Description**                     | **Required?** | **Validation**          |
+|-------------:|:------------------------------------|:--------------|:------------------------|
+| `$collector_uri`| Collector URI                          | Yes           | Non-empty string  |
+| `$req_type`     | Request Type (POST or GET)             | No            | String            |
+| `$protocol`     | Collector Protocol (HTTP or HTTPS)     | No            | String            |
+| `$buffer_size`  | Amount of events to store before flush | No            | Int               |
+
 <a name="track-an-event" />
 ## 6. Tracking an Event
 
@@ -376,7 +405,7 @@ Arguments:
 | `$page_url`   | The URL of the page                 | Yes           | Non-empty string        |
 | `$page_title` | The title of the page               | No            | String                  |
 | `$referrer`   | The address which linked to the page| No            | String                  |
-| `$context`    | Custom context for the event        | No            | List                    |
+| `$context`    | Custom context for the event        | No            | Array                   |
 | `$tstamp`     | When the pageview occurred          | No            | Positive integer        |
 
 Example Usage:
