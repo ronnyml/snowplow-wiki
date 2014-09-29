@@ -13,7 +13,7 @@ Currently the only supported method of installation is through composer.  For a 
 <a name="composer" />
 ### 1.1 Composer
 
-Using Composer to manage your dependencies, simply add the Snowplow PHP Tracker to your project by including it in your composer.json file.
+Using Composer to manage your dependencies, simply add the Snowplow PHP Tracker to your project by including it in your composer.json file as a dependency.
 
 ```json
 {
