@@ -31,4 +31,16 @@ composer install #If composer has not been run yet
 composer update #If composer dependencies are already installed
 ```
 
-This will install the Snowplow Tracker and allow you to initialize a Tracker object.
+This will install the Snowplow Tracker and allow you to initialize a Tracker object:
+
+```PHP
+// Bare minimum Tracker initialization.
+ 
+use Snowplow\Tracker\Tracker;
+use Snowplow\Tracker\Subject;
+use Snowplow\Tracker\Emitter;
+
+$subject = new Subject();
+$emitter = new Emitter("collector_uri");
+$tracker = new Tracker($emitter, $subject);
+```
