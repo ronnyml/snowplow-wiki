@@ -15,11 +15,11 @@
 - 4. [Subjects](#subject-class)
   - 4.1 [`setPlatform`](#set-platform)
   - 4.2 [`setUserId`](#set-user-id)
-  - 4.3 [`setScreenRes`](#set-screen-res)
+  - 4.3 [`setScreenResolution`](#set-screen-res)
   - 4.4 [`setViewport`](#set-viewport)
   - 4.5 [`setColorDepth`](#set-color-depth)
   - 4.6 [`setTimezone`](#set-timezone)
-  - 4.7 [`setLang`](#set-lang)
+  - 4.7 [`setLanguage`](#set-lang)
 - 5. [Emitters](#emitter-class)
 - 6. [Tracking an Event](#track-an-event)
   - 6.1 [Optional Tracking Arguments](#tracking-options)
@@ -224,18 +224,18 @@ $subject->setUserId("jbeem");
 ```
 
 <a name="set-screen-res" />
-### 4.3 `setScreenRes`
+### 4.3 `setScreenResolution`
 
 If your PHP code has access to the device's screen resolution, then you can pass this in to Snowplow too:
 
 ```PHP
-$subject->setScreenRes($width, $height);
+$subject->setScreenResolution($width, $height);
 ```
 
 Both numbers should be positive integers; note the order is width followed by height. Example:
 
 ```PHP
-$subject->setScreenRes(1366, 768);
+$subject->setScreenResolution(1366, 768);
 ```
 
 <a name="set-viewport" />
@@ -284,18 +284,18 @@ $subject->setTimezone("Europe/London");
 ```
 
 <a name="set-lang" />
-### 4.7 `setLang`
+### 4.7 `setLanguage`
 
 This method lets you pass a user's language in to Snowplow:
 
 ```PHP
-$subject->setLang($language);
+$subject->setLanguage($language);
 ```
 
 The language should be a string:
 
 ```PHP
-$subject->setLang('en');
+$subject->setLanguage('en');
 ```
 
 <a name="emitter-class" />
