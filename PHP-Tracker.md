@@ -12,7 +12,25 @@
     - 3.1.3 [`namespace`](#namespace)
     - 3.1.4 [`app_id`](#app-id)
     - 3.1.5 [`encode_base64`](#base64)
-- 4. [The Subject Class](#subject-class)
+- 4. [Subjects](#subject-class)
+  - 4.1 [`setPlatform`](#set-platform)
+  - 4.2 [`setUserId`](#set-user-id)
+  - 4.3 [`setScreenRes`](#set-screen-res)
+  - 4.4 [`setViewport`](#set-viewport)
+  - 4.5 [`setColorDepth`](#set-color-depth)
+  - 4.6 [`setTimezone`](#set-timezone)
+  - 4.7 [`setLang`](#set-lang)
+- 5. [Emitters](#emitter-class)
+- 6. [Tracking an Event](#track-an-event)
+  - 6.1 [Optional Tracking Arguments](#tracking-options)
+    - 6.1.1 [Custom Context](#custom-context)
+    - 6.1.2 [Timestamp](#timestamp)
+  - 6.2 [Event Tracking Methods](#tracking-methods)
+    - 6.2.1 [`trackPageView`](#page-view)
+    - 6.2.2 [`trackEcommerceTransaction`](#ecommerce-transaction)
+    - 6.2.3 [`trackScreenView`](#screen-view) 
+    - 6.2.4 [`trackStructEvent`](#struct-event)  
+    - 6.2.5 [`trackUnstructEvent`](#unstruct-event)
 
 <a name="overview" />
 ## 1. Overview
@@ -119,5 +137,146 @@ The `app_id` argument lets you set the application ID to any string.
 #### 3.1.5 `encode_base64`
 
 By default, unstructured events and custom contexts are encoded into Base64 to ensure that no data is lost or corrupted. You can turn encoding on or off using the Boolean `encode_base64` argument.
+
+<a name="subject-class" />
+## 4. Subjects
+
+For any additional information about your application's environment, current user and so on, which you want to send to Snowplow with each event we have the subject object.
+
+To create a new subject:
+
+```PHP
+use Snowplow\Tracker\Subject;
+$subject = new Subject();
+```
+
+By default the subject has one pair of information in it already, platform ["plat"].
+
+The Subject class contains a variety of 'set' methods to attach extra data to your event.
+
+* [`setPlatform`](#set-platform)
+* [`setUserId`](#set-user-id)
+* [`setScreenRes`](#set-screen-res)
+* [`setViewport`](#set-viewport)
+* [`setColorDepth`](#set-color-depth)
+* [`setTimezone`](#set-timezone)
+* [`setLang`](#set-lang)
+
+<a name="set-platform" />
+### 4.1 `setPlatform`
+
+<a name="set-user-id" />
+### 4.2 `setUserId`
+
+<a name="set-screen-res" />
+### 4.3 `setScreenRes`
+
+<a name="set-viewport" />
+### 4.4 `setViewport`
+
+<a name="set-color-depth" />
+### 4.5 `setColorDepth`
+
+<a name="set-timezone" />
+### 4.6 `setTimezone`
+
+<a name="set-lang" />
+### 4.7 `setLang`
+
+<a name="emitter-class" />
+## 5. Emitters
+
+<a name="track-an-event" />
+## 6. Tracking an Event
+
+Snowplow has been built to enable you to track a wide range of events that occur when users interact with your websites and apps. We are constantly growing the range of functions available so as to capture that data more richly.
+
+Tracking methods supported by the PHP Tracker:
+
+| **Function**                                  | **Description**                                        |
+|----------------------------------------------:|:-------------------------------------------------------|
+| [`trackPageView`](#page-view)             | Track and record views of web pages.                   |
+| [`trackEcommerceTransaction`](#ecommerce-transaction)   | Track an ecommerce transaction           |
+| [`trackScreenView`](#screen-view)         | Track the user viewing a screen within the application |
+| [`trackStructEvent`](#struct-event)       | Track a Snowplow custom structured event               |
+| [`trackUnstructEvent`](#unstruct-event)   | Track a Snowplow custom unstructured event             |
+
+<a name="tracking-options">
+### 6.1 Optional Tracking Arguments
+
+<a name="custom-context" />
+#### 6.1.1 Custom Context
+
+Custom contexts let you add additional information about any circumstances surrounding an event in the form of a PHP Array of name-value pairs. Each tracking method accepts an additional optional contexts parameter after all the parameters specific to that method:
+
+```PHP
+public function trackPageView($page_url, $page_title = NULL, $referrer = NULL, $context = NULL, $tstamp = NULL)
+```
+
+An example of a Context Array Structure:
+
+```PHP
+array(
+    "schema" => "iglu:com.acme_company/movie_poster/jsonschema/2.1.1",
+    "data" => array(
+        "movie_name" => "Solaris", 
+        "poster_country" => "JP"
+    )
+)
+```
+
+This is how to fire a page view event with the above custom context:
+
+```PHP
+$tracker->trackPageView(
+    "http://www.films.com", 
+    "Homepage", 
+    NULL,
+    array(
+        "schema" => "iglu:com.acme_company/movie_poster/jsonschema/2.1.1",
+        "data" => array(
+            "movie_name" => "Solaris", 
+            "poster_country" => "JP"
+        )
+    )
+);
+```
+
+<a name="timestamp" />
+#### 6.1.2 Timestamp
+
+Each tracking method supports an optional timestamp as its final argument; this allows you to manually override the timestamp attached to this event. The timestamp should be in <b>milliseconds</b> since the Unix epoch.
+
+If you do not pass this timestamp in as an argument, then the PHP Tracker will use the current time to be the timestamp for the event.
+
+Here is an example tracking a structured event and supplying the optional timestamp argument. We can explicitly supply a `NULL` for the intervening arguments which are empty:
+
+```PHP
+$tracker->trackStructEvent("some cat", "save action", NULL, NULL, NULL, 1368725287000);
+```
+
+<a name="tracking-methods" />
+## 6.2 Event Tracking Methods
+
+<a name="page-view" />
+### 6.2.1 `trackPageView`
+
+Track a user viewing a page within your app.
+
+Function:
+```PHP
+public function trackPageView($page_url, $page_title = NULL, $referrer = NULL, $context = NULL, $tstamp = NULL)
+```
+
+Arguments:
+
+| **Argument** | **Description**                     | **Required?** | **Validation**          |
+|-------------:|:------------------------------------|:--------------|:------------------------|
+| `$page_url`   | The URL of the page                 | Yes           | Non-empty string        |
+| `$page_title` | The title of the page               | No            | String                  |
+| `$referrer`   | The address which linked to the page| No            | String                  |
+| `$context`    | Custom context for the event        | No            | List                    |
+| `$tstamp`     | When the pageview occurred          | No            | Positive integer        |
+
 
 [base64]: https://en.wikipedia.org/wiki/Base64
