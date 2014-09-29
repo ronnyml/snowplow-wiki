@@ -3,35 +3,33 @@
 ## Contents
 
 - 1. [Overview](#overview)
-- 2. [Installation](#install)  
-  - 2.1 [Composer](#composer)
-- 3. [Initialize](#init)
-  - 3.1 [Create a Tracker](#create-tracker)
-    - 3.1.1 [`emitters`](#emitters)
-    - 3.1.2 [`subject`](#subject)
-    - 3.1.3 [`namespace`](#namespace)
-    - 3.1.4 [`app_id`](#app-id)
-    - 3.1.5 [`encode_base64`](#base64)
-- 4. [Subjects](#subject-class)
-  - 4.1 [`setPlatform`](#set-platform)
-  - 4.2 [`setUserId`](#set-user-id)
-  - 4.3 [`setScreenResolution`](#set-screen-res)
-  - 4.4 [`setViewport`](#set-viewport)
-  - 4.5 [`setColorDepth`](#set-color-depth)
-  - 4.6 [`setTimezone`](#set-timezone)
-  - 4.7 [`setLanguage`](#set-lang)
-- 5. [Emitters](#emitter-class)
-- 6. [Tracking an Event](#track-an-event)
-  - 6.1 [Optional Tracking Arguments](#tracking-options)
-    - 6.1.1 [Custom Context](#custom-context)
-    - 6.1.2 [Timestamp](#timestamp)
-  - 6.2 [Event Tracking Methods](#tracking-methods)
-    - 6.2.1 [`trackPageView`](#page-view)
-    - 6.2.2 [`trackEcommerceTransaction`](#ecommerce-transaction)
-      - 6.2.2.1 [`trackEcommerceTransactionItem`](#ecommerce-item)
-    - 6.2.3 [`trackScreenView`](#screen-view) 
-    - 6.2.4 [`trackStructEvent`](#struct-event)  
-    - 6.2.5 [`trackUnstructEvent`](#unstruct-event)
+- 2. [Initialize](#init)
+  - 2.1 [Create a Tracker](#create-tracker)
+    - 2.1.1 [`emitters`](#emitters)
+    - 2.1.2 [`subject`](#subject)
+    - 2.1.3 [`namespace`](#namespace)
+    - 2.1.4 [`app_id`](#app-id)
+    - 2.1.5 [`encode_base64`](#base64)
+- 3. [Subjects](#subject-class)
+  - 3.1 [`setPlatform`](#set-platform)
+  - 3.2 [`setUserId`](#set-user-id)
+  - 3.3 [`setScreenResolution`](#set-screen-res)
+  - 3.4 [`setViewport`](#set-viewport)
+  - 3.5 [`setColorDepth`](#set-color-depth)
+  - 3.6 [`setTimezone`](#set-timezone)
+  - 3.7 [`setLanguage`](#set-lang)
+- 4. [Emitters](#emitter-class)
+- 5. [Tracking an Event](#track-an-event)
+  - 5.1 [Optional Tracking Arguments](#tracking-options)
+    - 5.1.1 [Custom Context](#custom-context)
+    - 5.1.2 [Timestamp](#timestamp)
+  - 5.2 [Event Tracking Methods](#tracking-methods)
+    - 5.2.1 [`trackPageView`](#page-view)
+    - 5.2.2 [`trackEcommerceTransaction`](#ecommerce-transaction)
+      - 5.2.2.1 [`trackEcommerceTransactionItem`](#ecommerce-item)
+    - 5.2.3 [`trackScreenView`](#screen-view) 
+    - 5.2.4 [`trackStructEvent`](#struct-event)  
+    - 5.2.5 [`trackUnstructEvent`](#unstruct-event)
 
 <a name="overview" />
 ## 1. Overview
@@ -66,7 +64,7 @@ composer update #If composer dependencies are already installed
 ```
 
 <a name="init" />
-## 3. Initialize
+## 2. Initialize
 
 To instantiate a new Tracker instance we need to make sure the Snowplow Tracker classes are available.
 
@@ -81,7 +79,7 @@ use Snowplow\Tracker\Subject;
 We can now create our Emitter, Subject and Tracker objects.
 
 <a name="create-tracker" />
-### 3.1 Creating a Tracker
+### 2.1 Creating a Tracker
 
 The most basic Tracker instance will only require you to provide the URI of the collector to which the Tracker will log events.
 
@@ -114,7 +112,7 @@ The `encode_base64` argument is always a string:
 The default setting is True.
 
 <a name="emitters" />
-#### 3.1.1 `emitters`
+#### 2.1.1 `emitters`
 
 This can be either single emitter or an array of emitters. The tracker will send events to all of these emitters, which will in turn send them on to a collector.
 
@@ -133,7 +131,7 @@ $tracker2 = ($emitters, $subject); // Array of Emitters
 For more information go to [emitters](#emitter-class).
 
 <a name="subject" />
-#### 3.1.2 `subject`
+#### 2.1.2 `subject`
 
 The user which the Tracker will track. This will give your events user-specific data such as timezone and language. You change the subject of your tracker at any time by calling `updateSubject($new_subject_object)`.
 All events sent from this Tracker will now have the new subject information appended.
@@ -141,22 +139,22 @@ All events sent from this Tracker will now have the new subject information appe
 For more information go to [subjects](#subject-class).
 
 <a name="namespace" />
-#### 3.1.3 `namespace`
+#### 2.1.3 `namespace`
 
 If provided, the `namespace` argument will be attached to every event fired by the new tracker. This allows you to later identify which tracker fired which event if you have multiple trackers running.
 
 <a name="app-id" />
-#### 3.1.4 `app_id`
+#### 2.1.4 `app_id`
 
 The `app_id` argument lets you set the application ID to any string.
 
 <a name="base64" />
-#### 3.1.5 `encode_base64`
+#### 2.1.5 `encode_base64`
 
 By default, unstructured events and custom contexts are encoded into Base64 to ensure that no data is lost or corrupted. You can turn encoding on or off using the `encode_base64` argument.
 
 <a name="subject-class" />
-## 4. Subjects
+## 3. Subjects
 
 For any additional information about your application's environment, current user and so on, which you want to send to Snowplow with each event we have the subject object.
 
@@ -192,7 +190,7 @@ $tracker->subject->setPlatform("tv");
 ```
 
 <a name="set-platform" />
-### 4.1 `setPlatform`
+### 3.1 `setPlatform`
 
 The default platform is "srv". You can change the platform of the subject by calling:
 
@@ -209,7 +207,7 @@ $subject->setPlatform("tv") # Running on a Connected TV
 For a full list of supported platforms, please see the [[Snowplow Tracker Protocol]].
 
 <a name="set-user-id" />
-### 4.2 `setUserId`
+### 3.2 `setUserId`
 
 You can set the user ID to any string:
 
@@ -224,7 +222,7 @@ $subject->setUserId("jbeem");
 ```
 
 <a name="set-screen-res" />
-### 4.3 `setScreenResolution`
+### 3.3 `setScreenResolution`
 
 If your PHP code has access to the device's screen resolution, then you can pass this in to Snowplow too:
 
@@ -239,7 +237,7 @@ $subject->setScreenResolution(1366, 768);
 ```
 
 <a name="set-viewport" />
-### 4.4 `setViewport`
+### 3.4 `setViewport`
 
 If your PHP code has access to the viewport dimensions, then you can pass this in to Snowplow too:
 
@@ -254,7 +252,7 @@ $subject->setViewport(300, 200);
 ```
 
 <a name="set-color-depth" />
-### 4.5 `setColorDepth`
+### 3.5 `setColorDepth`
 
 If your PHP code has access to the bit depth of the device's color palette for displaying images, then you can pass this in to Snowplow too:
 
@@ -269,7 +267,7 @@ $subject->setColorDepth(32);
 ```
 
 <a name="set-timezone" />
-### 4.6 `setTimezone`
+### 3.6 `setTimezone`
 
 This method lets you pass a user's timezone in to Snowplow:
 
@@ -284,7 +282,7 @@ $subject->setTimezone("Europe/London");
 ```
 
 <a name="set-lang" />
-### 4.7 `setLanguage`
+### 3.7 `setLanguage`
 
 This method lets you pass a user's language in to Snowplow:
 
@@ -299,7 +297,7 @@ $subject->setLanguage('en');
 ```
 
 <a name="emitter-class" />
-## 5. Emitters
+## 4. Emitters
 
 The most basic emitter only requires the collectors URI as a parameter.  
 
@@ -323,7 +321,7 @@ Arguments:
 | `$buffer_size`  | Amount of events to store before flush | No            | Int               |
 
 <a name="track-an-event" />
-## 6. Tracking an Event
+## 5. Tracking an Event
 
 Snowplow has been built to enable you to track a wide range of events that occur when users interact with your websites and apps. We are constantly growing the range of functions available so as to capture that data more richly.
 
@@ -338,10 +336,10 @@ Tracking methods supported by the PHP Tracker:
 | [`trackUnstructEvent`](#unstruct-event)   | Track a Snowplow custom unstructured event             |
 
 <a name="tracking-options">
-### 6.1 Optional Tracking Arguments
+### 5.1 Optional Tracking Arguments
 
 <a name="custom-context" />
-#### 6.1.1 Custom Context
+#### 5.1.1 Custom Context
 
 Custom contexts let you add additional information about any circumstances surrounding an event in the form of a PHP Array of name-value pairs. Each tracking method accepts an additional optional contexts parameter after all the parameters specific to that method:
 
@@ -379,7 +377,7 @@ $tracker->trackPageView(
 ```
 
 <a name="timestamp" />
-#### 6.1.2 Timestamp
+#### 5.1.2 Timestamp
 
 Each tracking method supports an optional timestamp as its final argument; this allows you to manually override the timestamp attached to this event. The timestamp should be in <b>milliseconds</b> since the Unix epoch.
 
@@ -392,10 +390,10 @@ $tracker->trackStructEvent("some cat", "save action", NULL, NULL, NULL, 13687252
 ```
 
 <a name="tracking-methods" />
-## 6.2 Event Tracking Methods
+## 5.2 Event Tracking Methods
 
 <a name="page-view" />
-### 6.2.1 `trackPageView`
+### 5.2.1 `trackPageView`
 
 Track a user viewing a page within your app.
 
@@ -421,7 +419,7 @@ $tracker->trackPageView("www.example.com", NULL, NULL, NULL, 123123132132);
 ```
 
 <a name="ecommerce-transaction" />
-### 6.2.2 `trackEcommerceTransaction`
+### 5.2.2 `trackEcommerceTransaction`
 
 Track an ecommerce transaction.
 
@@ -467,7 +465,7 @@ $tracker->trackEcommerceTransaction(
 The above example contains an order with two order items.
 
 <a name="ecommerce-item" />
-#### 6.2.2.1 `trackEcommerceTransactionItem`
+#### 5.2.2.1 `trackEcommerceTransactionItem`
 
 This is a private function that is called from within `trackEcommerceTransaction`.  It is important to note that for an item to be added successfully you need to include the following fields in the array; even if the value is `NULL`.
 
@@ -524,7 +522,7 @@ $tracker->trackScreenView("HUD > Save Game", NULL, NULL, 1368725287000);
 ```
 
 <a name="struct-event" />
-### 6.2.4 `trackStructEvent`
+### 5.2.4 `trackStructEvent`
 
 Track a custom event happening in your app which fits the Google Analytics-style structure of having up to five fields (with only the first two required).
 
@@ -553,7 +551,7 @@ $tracker->trackStructEvent("shop", "add-to-basket", NULL, "pcs", 2);
 ```
 
 <a name="unstruct-event" />
-### 6.2.5 `trackUnstructEvent`
+### 5.2.5 `trackUnstructEvent`
 
 Track a custom event which consists of a name and an unstructured set of properties. This is useful when:
 
