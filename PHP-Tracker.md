@@ -28,6 +28,7 @@
   - 6.2 [Event Tracking Methods](#tracking-methods)
     - 6.2.1 [`trackPageView`](#page-view)
     - 6.2.2 [`trackEcommerceTransaction`](#ecommerce-transaction)
+      - 6.2.2.1 [`trackEcommerceTransactionItem`](#ecommerce-item)
     - 6.2.3 [`trackScreenView`](#screen-view) 
     - 6.2.4 [`trackStructEvent`](#struct-event)  
     - 6.2.5 [`trackUnstructEvent`](#unstruct-event)
@@ -162,6 +163,19 @@ The Subject class contains a variety of 'set' methods to attach extra data to yo
 * [`setTimezone`](#set-timezone)
 * [`setLang`](#set-lang)
 
+These set methods can be called either directly onto a subject object:
+
+```PHP
+$subject = new Subject();
+$subject->setPlatform("tv");
+```
+
+Or they can be called through the tracker object:
+
+```PHP
+$tracker->subject->setPlatform("tv");
+```
+
 <a name="set-platform" />
 ### 4.1 `setPlatform`
 
@@ -278,5 +292,118 @@ Arguments:
 | `$context`    | Custom context for the event        | No            | List                    |
 | `$tstamp`     | When the pageview occurred          | No            | Positive integer        |
 
+Example Usage:
+
+```PHP
+$tracker->trackPageView("www.example.com", NULL, NULL, NULL, 123123132132);
+```
+
+<a name="ecommerce-transaction" />
+### 6.2.2 `trackEcommerceTransaction`
+
+Track an ecommerce transaction.
+
+Function:
+
+```PHP
+public function trackEcommerceTransaction($order_id, $total_value, $currency = NULL, $affiliation = NULL,
+                                          $tax_value = NULL, $shipping = NULL, $city = NULL, $state = NULL,
+                                          $country = NULL, $items, $context = NULL, $tstamp = NULL)
+```
+
+Arguments:
+
+| **Argument**     | **Description**                   | **Required?** | **Validation**    |
+|-----------------:|:----------------------------------|:--------------|:------------------|
+| `$order_id`    | ID of the eCommerce transaction      | Yes           | Non-empty string  |
+| `$total_value` | Total transaction value              | Yes           | Int or Float      |
+| `$currency`    | Transaction currency                 | No            | String            |
+| `$affiliation` | Transaction affiliation              | No            | String            |
+| `$tax_value`   | Transaction tax value                | No            | Int or Float      |
+| `$shipping`    | Delivery cost charged                | No            | Int or Float      |
+| `$city`        | Delivery address city                | No            | String            |
+| `$state`       | Delivery address state               | No            | String            |
+| `$country`     | Delivery address country             | No            | String            | 
+| `$items`       | Items in the transaction             | Yes           | Array             |
+| `$context`     | Custom context for the event         | No            | Array             |
+| `$tstamp`      | When the transaction event occurred  | No            | Positive integer  |
+
+Example Usage:
+
+```PHP
+$tracker->trackEcommerceTransaction(
+    "test_order_id_1", 200, "GBP", "affiliation_1", "tax_value_1","shipping_1", "city_1", "state_1", "country_1",
+    array(
+        array("name" => "name_1","category" => "category_1",
+            "price" => 100,"sku" => "sku_1","quantity" => 1),
+        array("name" => "name_2","category" => "category_2",
+            "price" => 100,"sku" => "sku_2","quantity" => 1)
+    )
+);
+```
+
+The above example contains an order with two order items.
+
+#### 6.2.2.1 `trackEcommerceTransactionItem`
+
+This is a private function that is called from within `trackEcommerceTransaction`.  It is important to note that for an item to be added successfully you need to include the following fields in the array; even if the value is `NULL`.
+
+Arguments:
+
+| **Argument**    | **Description**                     | **Required?** | **Validation**           |
+|----------------:|:------------------------------------|:--------------|:-------------------------|
+| `"sku"`         | Item SKU                            | Yes           | Non-empty string         |
+| `"price"`       | Item price                          | Yes           | Int or Float             |
+| `"quantity"`    | Item quantity                       | Yes           | Int                      |
+| `"name"`        | Item name                           | No            | String                   |
+| `"category"`    | Item category                       | No            | String                   |
+
+Example Item:
+
+```PHP
+array(
+    array("name" => NULL,
+          "category" => NULL,
+          "price" => 100,
+          "sku" => "sku_1",
+          "quantity" => 1)
+)
+```
+
+If any of these fields are missing the item event will not be created.  However the order of these fields is not important.
+
+<a name="screen-view" />
+### 6.2.3 `trackScreenView`
+
+Track a user viewing a screen (or equivalent) within your app.
+
+Function:
+
+```PHP
+public function trackScreenView($name = NULL, $id = NULL, $context = NULL, $tstamp = NULL)
+```
+
+Arguments:
+
+| **Argument** | **Description**                     | **Required?** | **Validation**          |
+|-------------:|:------------------------------------|:--------------|:------------------------|
+| `$name`      | Human-readable name for this screen | No            | Non-empty string        |
+| `$id`        | Unique identifier for this screen   | No            | String                  |
+| `$context`   | Custom context for the event        | No            | Array                   |
+| `$tstamp`    | When the screen was viewed          | No            | Positive integer        |
+
+Although `$name` and `$id` are not individually required, at least one must be provided or the event will fail validation.
+
+Example:
+
+```PHP
+$tracker->trackScreenView("HUD > Save Game", NULL, NULL, 1368725287000);
+```
+
+<a name="struct-event" />
+### 6.2.4 `trackStructEvent`
+
+<a name="unstruct-event" />
+### 6.2.5 `trackUnstructEvent`
 
 [base64]: https://en.wikipedia.org/wiki/Base64
