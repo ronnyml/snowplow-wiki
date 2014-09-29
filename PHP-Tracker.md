@@ -40,29 +40,6 @@ There are three basic types of object you will create when using the Snowplow PH
 
 A subject represents a user whose events are tracked. A tracker constructs events and sends them to one or more emitters. Each emitter then sends the event to the endpoint you configure, a Snowplow Collector.
 
-<a name="install" />
-## 2. Installation
-
-<a name="composer" />
-### 2.1 Composer
-
-Using Composer to manage your dependencies, simply add the Snowplow PHP Tracker to your project by including it in your composer.json file.
-
-```json
-{
-    "require": {
-        "snowplow/tracker": ""
-    }
-}
-```
-
-Assuming you have Composer setup correctly in the root of your project.
-Type the following command line argument:
-```sh
-composer install #If composer has not been run yet
-composer update #If composer dependencies are already installed
-```
-
 <a name="init" />
 ## 2. Initialize
 
