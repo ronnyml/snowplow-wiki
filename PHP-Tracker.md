@@ -67,14 +67,13 @@ composer update
  - install (If composer has not been run yet)
  - update (If composer dependencies are already installed)
 
-All the dependencies for the Snowplow Tracker are now ready.
-
 <a name="init" />
 ## 3. Initialize
 
 To instantiate a new Tracker instance we need to make sure the Snowplow Tracker classes are available.
 
 Include these 'use' lines in your project.
+
 ```PHP
 use Snowplow\Tracker\Tracker;
 use Snowplow\Tracker\Emitter;
@@ -87,6 +86,7 @@ We can now create our Emitter, Subject and Tracker objects.
 ### 3.1 Creating a Tracker
 
 The most basic Tracker instance will only require you to provide the URI of the collector to which the Tracker will log events.
+
 ```PHP
 $emitter = new Emitter("collector_uri");
 $subject = new Subject();
@@ -104,6 +104,7 @@ Other Tracker arguments:
 | `encode_base64` | Whether to enable [base 64 encoding] [base64] | No          | `True`        |
 
 Another example using all allowed arguments:
+
 ```PHP
 $tracker = new Tracker($emitter,$subject,"cf","cf29ea","1");
 ```
@@ -179,23 +180,109 @@ $tracker->subject->setPlatform("tv");
 <a name="set-platform" />
 ### 4.1 `setPlatform`
 
+The default platform is "srv". You can change the platform of the subject by calling:
+
+```PHP
+$subject->setPlatform($platform);
+```
+
+For example:
+
+```PHP
+$subject->setPlatform("tv") # Running on a Connected TV
+```
+
+For a full list of supported platforms, please see the [[Snowplow Tracker Protocol]].
+
 <a name="set-user-id" />
 ### 4.2 `setUserId`
+
+You can set the user ID to any string:
+
+```PHP
+$subject->setUserId($id);
+```
+
+Example:
+
+```PHP
+$subject->setUserId("jbeem");
+```
 
 <a name="set-screen-res" />
 ### 4.3 `setScreenRes`
 
+If your PHP code has access to the device's screen resolution, then you can pass this in to Snowplow too:
+
+```PHP
+$subject->setScreenRes($width, $height);
+```
+
+Both numbers should be positive integers; note the order is width followed by height. Example:
+
+```PHP
+$subject->setScreenRes(1366, 768);
+```
+
 <a name="set-viewport" />
 ### 4.4 `setViewport`
+
+If your Python code has access to the viewport dimensions, then you can pass this in to Snowplow too:
+
+```PHP
+$subject->setViewport($width, $height);
+```
+
+Both numbers should be positive integers; note the order is width followed by height. Example:
+
+```PHP
+$subject->setViewport(300, 200);
+```
 
 <a name="set-color-depth" />
 ### 4.5 `setColorDepth`
 
+If your PHP code has access to the bit depth of the device's color palette for displaying images, then you can pass this in to Snowplow too:
+
+```PHP
+$subject->setColorDepth($depth);
+```
+
+The number should be a positive integer, in bits per pixel. Example:
+
+```PHP
+$subject->setColorDepth(32);
+```
+
 <a name="set-timezone" />
 ### 4.6 `setTimezone`
 
+This method lets you pass a user's timezone in to Snowplow:
+
+```PHP
+$subject->setTimezone($timezone);
+```
+
+The timezone should be a string:
+
+```PHP
+$subject->setTimezone("Europe/London");
+```
+
 <a name="set-lang" />
 ### 4.7 `setLang`
+
+This method lets you pass a user's language in to Snowplow:
+
+```PHP
+$subject->setLang($language);
+```
+
+The language should be a string:
+
+```PHP
+$subject->setLang('en');
+```
 
 <a name="emitter-class" />
 ## 5. Emitters
