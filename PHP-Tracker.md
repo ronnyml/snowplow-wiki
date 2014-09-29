@@ -119,8 +119,15 @@ The default setting is True.
 This can be either single emitter or an array of emitters. The tracker will send events to all of these emitters, which will in turn send them on to a collector.
 
 ```PHP
-$emitter = new Emitter("collector_uri");
+$emitter1 = new Emitter("collector_uri");
+$emitter2 = new Emitter("collector_uri_2");
+
 $emitters = array($emitter1, $emitter2);
+
+// Tracker Init
+$subject = new Subject();
+$tracker1 = ($emitter1, $subject); // Single Emitter
+$tracker2 = ($emitters, $subject); // Array of Emitters
 ```
 
 For more information go to [emitters](#emitter-class).
