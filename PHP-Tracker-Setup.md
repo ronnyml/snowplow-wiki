@@ -18,7 +18,7 @@ Using Composer to manage your dependencies, simply add the Snowplow PHP Tracker 
 ```json
 {
     "require": {
-        "snowplow/snowplow-tracker": "0.1.0"
+        "snowplow/snowplow-tracker": "dev-master"
     }
 }
 ```
