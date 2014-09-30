@@ -8,7 +8,7 @@
 <a name="install" />
 ## 1. Installation
 
-Currently the only supported method of installation is through composer.  For a tutorial on setting up a PHP project with composer please follow this [link](https://getcomposer.org/doc/00-intro.md). 
+Currently the only supported method of installation is through Composer.  For a tutorial on setting up a PHP project with Composer please follow this [link](https://getcomposer.org/doc/00-intro.md). 
 
 <a name="composer" />
 ### 1.1 Composer
