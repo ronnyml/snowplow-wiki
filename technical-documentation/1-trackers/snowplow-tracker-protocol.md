@@ -161,7 +161,7 @@ In addition, there is a set of browser-specific parameters that only makes sense
 | **Parameter** | **Maps to**      | **Type** |**Description**                                      | **Implemented?** | **Example values**| 
 |:--------------|:-----------------|:---------|:----------------------------------------------------|:-----------------|:------------------|
 | `url`         | `page_url`       | text     | Page URL                                            | Yes              | `http%3A%2F%2Ftest.psybazaar.com%2F2-tarot-cards` |
-| `ua`          | `useragent`      | text     | Useragent (a.k.a. browser string)                   |
+| `ua`          | `useragent`      | text     | Useragent (a.k.a. browser string)                   | Yes | Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.78.2 (KHTML, like Gecko) Version/7.0.6 Safari/537.78.2 |
 | `page`        | `page_title`     | text     | Page title                                          | Yes              | `Tarot%20cards`   |
 | `refr`        | `page_referrer`  | text     | Referrer URL                                        | Yes              | `http%3A%2F%2Ftest.psybazaar.com%2F` |
 | `fp`          | `user_fingerprint`| integer | User identifier based on (hopefully unique) browser features | Yes     | `4048966212`      |
