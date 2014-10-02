@@ -337,8 +337,8 @@ Use `trackStructuredEvent:` to track a custom event happening in your app which 
 Example:
 
 ```java
-[t1 trackStructuredEvent:@"shop" action:@"add-to-basket" alabel:@"Add To Basket" property:@"pcs" value:27];
-[t1 trackStructuredEvent:@"shop" action:@"add-to-basket" alabel:@"Add To Basket" property:@"pcs" value:27 timestamp:1234569];
+[t1 trackStructuredEvent:@"shop" action:@"add-to-basket" label:@"Add To Basket" property:@"pcs" value:27];
+[t1 trackStructuredEvent:@"shop" action:@"add-to-basket" label:@"Add To Basket" property:@"pcs" value:27 timestamp:1234569];
 ```
 
 [Back to top](#top)
