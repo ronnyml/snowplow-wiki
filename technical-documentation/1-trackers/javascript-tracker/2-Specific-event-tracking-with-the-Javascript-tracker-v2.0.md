@@ -2,9 +2,9 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > [**JavaScript Tracker**](Javascript-Tracker) > Specific event tracking
 
-**This page refers to version 2.1.0 of the Snowplow JavaScript Tracker, which has not been released yet.**
-**Click [here] [specific-events-v2.0] for the corresponding documentation for version 2.0.0.**
-**Click [here] [specific-events-v1] for the corresponding documentation for version 1.**
+*This page refers to version 2.0.0 of the Snowplow JavaScript Tracker.*
+*Click [here] [specific-events] for the corresponding documentation for version 2.1.0, the latest version.*
+*Click [here] [specific-events-v1] for the corresponding documentation for version 1.*
 
 <a name="tracking-specific-events" />
 ## 3. Tracking specific events
@@ -21,7 +21,7 @@ Snowplow has been built to enable users to track a wide range of events that occ
     - 3.3.3 [`trackTrans`](#trackTrans)  
     - 3.3.4 [Pulling it all together: an example](#ecomm-example)
   - 3.4 [Social tracking](#social) 
-    - 3.4.1 [`trackSocialInteraction`](#trackSocial)
+    - 3.4.1 [`trackSocial`](#trackSocial) 
   - 3.5 [Campaign tracking](#campaign)  
     - 3.5.1 [Identifying paid sources](#identifying-paid-sources)  
     - 3.5.2 [Anatomy of the query parameter](#anatomy-of-the-query-parameter)
@@ -38,9 +38,7 @@ Snowplow has been built to enable users to track a wide range of events that occ
     - 3.9.1 [`enableLinkClickTracking`](#enableLinkClickTracking)
     - 3.9.2 [`refreshLinkClickTracking`](#refreshLinkClickTracking)
     - 3.9.3 [`trackLinkClick`](#trackLinkClick)
-  - 3.10 [Form tracking](#form-tracking)
-    - 3.10.1 [`enableFormTracking`](#enableFormTracking)
-  - 3.11 [Custom contexts](#custom-contexts)
+  - 3.10 [Custom contexts](#custom-contexts)
 
 <a name="page" />
 ### 3.1 Pageviews
@@ -53,7 +51,7 @@ Page views are tracked using the `trackPageView` method. This is generally part 
 ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
 p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
 };n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"//d1fc8wv8zag5ca.cloudfront.net/2.1.0/sp.js","snowplow_name_here"));
+n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"//d1fc8wv8zag5ca.cloudfront.net/2.0.0/sp.js","snowplow_name_here"));
 
 snowplow_name_here('enableActivityTracking', 30, 10);
 
@@ -79,14 +77,6 @@ If you wish, you can override the title with a custom value:
 ```javascript
 snowplow_name_here('trackPageView', 'my custom page title');
 ```
-
-The optional third parameter is a boolean (which defaults to false) indicating whether to attach a PerformanceTiming context to the page view event. This context contains all data in the `window.performance.timing` object and can be used to calculate page performance metrics. Add it like this:
-
-
-```javascript
-snowplow_name_here('trackPageView', null, true);
-```
-
 
 `trackPageView` can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
 
@@ -280,7 +270,7 @@ Social tracking has not been implemented yet. However, the intention is to use a
 Social tracking will be used to track the way users interact with Facebook, Twitter and Google + widgets, e.g. to capture "like this" or "tweet this" events.
 
 <a name="trackSocial" />
-#### 3.4.1 `trackSocialInteraction`
+#### 3.4.1 `trackSocial`
 
 *This method has not yet been implemented.*
 
@@ -288,30 +278,30 @@ The `trackSocial` method takes four parameters:
 
 | **Parameter** | **Description** | **Required?** | **Example value**     | 
 |:--------------|:----------------|:--------------|:----------------------|
-| `action`| Social action performed | Yes         | 'like', 'retweet'     |
 | `network`     | Social network  | Yes           | 'facebook', 'twitter' |
-| `target`  | Object social action is performed on e.g. page ID, product ID | No    | '19.99' |
+| `socialAction`| Social action performed | Yes           | 'like', 'retweet'     |
+| `opt_target`  | Object social action is performed on e.g. page ID, product ID | No            | '19.99'               |
+| `opt_pagePath`| Page path of URL on which social action was carried out | No            | '2.99'                |
 
 The method is executed in as:
 
 ```javascript
-snowplow_name_here('trackSocialInteraction', network, socialAction, target);
+snowplow_name_here('trackSocial', network, socialAction, opt_target, opt_pagePath);
 ```
 
 For example:
 
 ```javascript
-snowplow_name_here('trackSocialInteraction', 'facebook', 'like', 'pbz00123');
+snowplow_name_here('trackSocial', 'facebook', 'like', 'pbz00123', '/products/tarot/123-original-rider-waite');
 ```
 
 Or if the optional parameters were left off:
 
 ```javascript
-snowplow_name_here('trackSocialInteraction', 'facebook', 'like');
+snowplow_name_here('trackSocial', 'facebook', 'like');
 ```
 
-`trackSocialInteraction` can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
-
+`trackSocial` can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
 
@@ -394,7 +384,7 @@ Below is an example of how to achieve this when using Snowplow ad impression tra
   ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
   p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
   };p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-  n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.1.0/sp.js","sp_pm"));
+  n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.0.0/sp.js","sp_pm"));
    
   // Create a new tracker namespaced to rnd
   window.sp_pm('newTracker', rnd, 'dgrp31ac2azr9.cloudfront.net', {
@@ -515,7 +505,7 @@ Use the `trackAdConversion` method to track ad conversions.  Here are the argume
 An example:
 
 ```javascript
-window.snowplow_name_here('trackAdConversion',
+window.adTracker('trackAdConversion',
 
     '743560297', // conversionId
     10,          // cost
@@ -554,7 +544,7 @@ The full HTML code to append, using asynchronous Snowplow invocation, looks like
 ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
 p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
 };n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"//d1fc8wv8zag5ca.cloudfront.net/2.1.0/sp.js","snowplow_name_here"));
+n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"//d1fc8wv8zag5ca.cloudfront.net/2.0.0/sp.js","snowplow_name_here"));
 
 // Update tracker constructor to use your CloudFront distribution subdomain
 window.snowplow_name_here('newTracker', 'cf', 'patldfvsg0d8w.cloudfront.net');
@@ -674,12 +664,6 @@ Turn on link click tracking like this:
 snowplow_name_here('enableLinkClickTracking');
 ```
 
-This is its signature:
-
-```javascript
-enableLinkClickTracking(filter, pseudoclicks, content);
-```
-
 You can control which links are tracked using the second argument. There are three ways to do this: a blacklist, a whitelist, and a filter function.
 
 __Blacklists__
@@ -730,15 +714,9 @@ The second optional parameter is `pseudoClicks`. If this is not turned on, Firef
 snowplow_name_here('enableLinkClickTracking', null, true);
 ```
 
-The third optional parameter is `content`. Set it to `true` if you want link click events to capture the innerHTML of the clicked link:
-
-```javascript
-snowplow_name_here('enableLinkClickTracking', null, null, true);
-```
-
 Each link click event will include (if available) the destination URL, id, classes and target of the clicked link. (The target attribute of a link specifies a window or frame where the linked document will be loaded.)
 
-`enableLinkClickTracking` can also be passed an array of custom contexts to attach to every link click event as an additional final parameter. See [Contexts](#custom-contexts) for more information.
+`enableLinkClickTracking` can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
 
 <a name="refreshLinkClickTracking" />
 #### 3.9.2 `refreshLinkClickTracking`
@@ -755,13 +733,13 @@ snowplow_name_here('refreshLinkClickTracking');
 You can manually track individual link click events with the `trackLinkClick` method. This is its signature:
 
 ```javascript
-function trackLinkClick(targetUrl, elementId, elementClasses, elementTarget, elementContent);
+function trackLinkClick(targetUrl, elementId, elementClasses, elementTarget);
 ```
 
 Of these arguments, only `targetUrl` is required. This is how to use `trackLinkClick`:
 
 ```javascript
-snowplow_name_here('trackLinkCLick', 'first-link', ['class-1', 'class-2'], '', 'http://www.example.com', 'this page');
+snowplow_name_here('trackLinkCLick', 'first-link', ['class-1', 'class-2'], '', 'http://www.example.com');
 ```
 
 `trackLinkClick` can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
@@ -769,84 +747,8 @@ snowplow_name_here('trackLinkCLick', 'first-link', ['class-1', 'class-2'], '', '
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
 
-<a name="form-tracking" />
-### 3.10 Form tracking
-
-Snowplow automatic form tracking detects two event types:
-
-##### `change_form`
-
-When a user changes the value of a `textarea`, `input`, or `select` element inside a form, a [`change_form`][change_form] event will be fired. It will capture the name, type, and new value of the element, and the id of the parent form.
-
-##### `submit_form`
-
-When a user submits a form, a [`submit_form`][submit_form] event will be fired. It will capture the id and classes of the form and the name, type, and value of all `textarea`, `input`, and `select` elements inside the form.
-
-<a name="enableFormTracking" />
-#### 3.10.1 `enableFormTracking`
-
-Use the `enableFormTracking` method to add event listeners to turn on form tracking by adding event listeners to all form elements and to all interactive elements inside forms (that is, all `input`, `textarea`, and `select` elements).
-
-```javascript
-snowplow('enableFormTracking');
-```
-
-This will only work for form elements which exist when it is called. If you are creating a form programatically, call `enableFormTracking` again after adding it to the document to track it. (You can call `enableFormTracking` multiple times without risk of duplicated events.)
-
-<a name="cart" />
-### 3.11 `trackAddToCart` and `trackRemoveFromCart`
-
-These methods let you track users adding and removing items from a cart on an ecommerce site. Their arguments are identical:
-
-| **Name**   | **Required?** | **Description**                            | **Type**     |
-|-----------:|:--------------|:-------------------------------------------|:-------------|
-|      `sku` | Yes           | Item SKU                                   |  string      |
-|     `name` | No            | Item name                                  |  string      |
-| `category` | No            | Item category                              |  string      |
-|    `price` | Yes           | Item price                                 |  number      |
-| `quantity` | Yes           | Quantity added to or removed from cart     |  number      |
-| `currency` | No            | Item price currency                        |  string      |
-
-An example:
-
-```javascript
-window.snowplow_name_here('addToCart', '000345', 'blue tie', 'clothing', 3.49, 2, 'GBP');
-window.snowplow_name_here('removeFromCart', '000345', 'blue tie', 'clothing', 3.49, 1, 'GBP');
-```
-
-Both methods are implemented as Snowplow unstructured events. You can see schemas for the [`add_to_cart`][add_to_cart] and [`remove_from_cart`][remove_from_cart] events.
-
-Both methods can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
-
-<a name="siteSearch" />
-### 3.12 `trackSiteSearch`
-
-Use the `trackSiteSearch` method to track users searching your website. Here are its arguments:
-
-| **Name**       | **Required?** | **Description**                            | **Type**             |
-|---------------:|:--------------|:-------------------------------------------|:---------------------|
-|        `terms` | Yes           | Search terms   | array     |
-|     `filters`  | No            | Search filters   |  array |
-| `totalResults` | No            | Results found   |    number    |
-|  `pageResults` | No            | Results displayed on first page             |    number            |
-
-An example:
-
-```javascript
-window.snowplow_name_here('trackSiteSearch',
-    ['unified', 'log'], // search terms
-    ['books'],          // filters
-    14,                 // results found
-    8,                  // results displayed on first page
-);
-```
-
-Site search events are implemented as Snowplow unstructured events. [Here][site_search] is the schema for a `site_search` event.
-
-`trackSiteSearch` can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
-
 <a name="custom-contexts" />
-### 3.11 Custom contexts
+### 3.10 Custom contexts
 
 Custom contexts can be used to augment any standard Snowplow event type, including unstructured events, with additional data.
 
@@ -904,7 +806,7 @@ For more information on custom contexts, see [this][contexts] blog post.
 
 [contents]: Javascript-Tracker
 [specific-events-v1]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker-v1
-[specific-events-v2.0]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker-v2.0
+[specific-events]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker
 [multiple-trackers]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker#24-managing-multiple-trackers
 [json-schema]: http://json-schema.org/
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
@@ -925,11 +827,3 @@ For more information on custom contexts, see [this][contexts] blog post.
 [keen.io]: https://keen.io/
 [contexts]: http://snowplowanalytics.com/blog/2014/01/27/snowplow-custom-contexts-guide/
 [iglu-repo]: https://github.com/snowplow/iglu
-
-[change_form]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/change_form/jsonschema/1-0-0
-[submit_form]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/submit_form/jsonschema/1-0-0
-[social_interaction]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/social_interaction/jsonschema/1-0-0
-[add_to_cart]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/add_to_cart/jsonschema/1-0-0
-[remove_from_cart]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/remove_from_cart/jsonschema/1-0-0
-[site_search]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/site_search/jsonschema/1-0-0
-[performancetiming]: https://github.com/snowplow/iglu-central/blob/master/schemas/org.w3/PerformanceTiming/jsonschema/1-0-0
