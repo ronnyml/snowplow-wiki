@@ -2,9 +2,9 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > [**JavaScript Tracker**](Javascript-Tracker) > General parameters
 
-*This page refers to version 2.1.0 of the Snowplow JavaScript Tracker, which has not yet been published.**  
-**Click [here] [general-parameters-v1] for the corresponding documentation for version 1.**  
-**Click [here] [general-parameters-v2.0] for the corresponding documentation for version 2.0.0.**
+*This page refers to version 2.0.0 of the Snowplow JavaScript Tracker.*  
+*Click [here] [general-parameters-v1] for the corresponding documentation for version 1.*  
+*Click [here] [general-parameters] for the corresponding documentation for version 2.1.0.*
 
 <a name="general" />
 ## 2. General parameters
@@ -19,8 +19,7 @@
     - 2.2.7 [User fingerprinting](#user-fingerprint)
     - 2.2.8 [Setting the user fingerprint seed](#user-fingerprint-seed)
     - 2.2.9 [Setting the page unload pause](#page-unload-timer)
-    - 2.2.10 [Setting the event request protocol](#force-secure-tracker)
-    - 2.2.11 [Altering cookies](#write-cookies)
+    - 2.2.10 [Altering cookies](#write-cookies)
   - 2.3 [Other parameters](#other)
     - 2.3.1 [Setting the user id using `setUserId`](#user-id)
     - 2.3.2 [Setting a custom URL with `setCustomUrl`](#custom-url)
@@ -38,11 +37,11 @@ Use the following tag to your page to load Snowplow.js:
 ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
 p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
 };n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"//d1fc8wv8zag5ca.cloudfront.net/2.1.0/sp.js","snowplow_name_here"));
+n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"//d1fc8wv8zag5ca.cloudfront.net/2.0.0/sp.js","snowplow_name_here"));
 </script>
 ```
 
-*Important note regarding testing:* `"//d1fc8wv8zag5ca.cloudfront.net/2.1.0/sp.js"` is the URL from which sp.js should be fetched, and will automatically be prepended with "http:" or "https:" depending on the page's protocol. But if you wish to try out Snowplow locally, using an HTML file on disk whose URI starts with "file://", you should manually insert "http:", changing it to `"http://d1fc8wv8zag5ca.cloudfront.net/2.1.0/sp.js"`.
+*Important note regarding testing:* `"//d1fc8wv8zag5ca.cloudfront.net/2.0.0/sp.js"` is the URL from which sp.js should be fetched, and will automatically be prepended with "http:" or "https:" depending on the page's protocol. But if you wish to try out Snowplow locally, using an HTML file on disk whose URI starts with "file://", you should manually insert "http:", changing it to `"http://d1fc8wv8zag5ca.cloudfront.net/2.0.0/sp.js"`.
 
 As well as loading Snowplow, this tag creates a global function called "snowplow_name_here" which you use to access the Tracker. You can replace the string "snowplow_name_here" with the function name of your choice. This is encouraged: if there are two Snowplow users on the same page, there won't be any conflict between them as long as they have chosen different function names. The rest of the documentation will assume that the function is called "snowplow_name_here".
 
@@ -102,7 +101,6 @@ snowplow_name_here("newTracker", "cf", "d3rkrsqld9gmqf.cloudfront.net", {
   userFingerprint: true,
   userFingerprintSeed: 6385926734,
   pageUnloadTimer: 0,
-  forceSecureTracker: true,
   writeCookies: true
 });
 ```
@@ -162,13 +160,8 @@ Whenever the Snowplow Javascript Tracker fires an event, it automatically starts
 
 You can change the pause length (in milliseconds) using the `pageUnloadTimer` of the argmap. The above example completely eliminates the pause. This does make it unlikely that events triggered by link clicks will be sent.
 
-<a name="force-secure-tracker" />
-#### 2.2.10 Setting the event request protocol
-
-Normally the protocol (http or https) used by the Tracker to send events to a collector is the same as the protocol of the current page. You can force it to use https by setting the `forceSecureTracker` field of the argmap to `true`.
-
 <a name="write-cookies" />
-#### 2.2.11 Altering cookies
+#### 2.2.10 Altering cookies
 
 The `writeCookies` argument is a boolean value which determines whether the tracker instance will be able to alter cookies or add new ones. It does not affect whether the tracker instance will read cookies, so if it is turned off but Snowplow cookies with the tracker's configured cookie name already exist for the page, the tracker will continue to report those cookies' values. If you do use this argument, be careful - if two trackers on the same page are both initialised with the same cookie name and with `writeCookies` turned on, inaccurate data will result from them both trying to alter the same cookies. Note that you will always be fine if the `writeCookies` argument is not set - because the default behaviour avoids these problems.
 
@@ -299,7 +292,7 @@ There is a third sort of Snowplow-related cookie: the cookie set by the [Clojure
 
 [contents]: Javascript-Tracker
 [general-parameters-v1]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker-v1
-[general-parameters-v2.0]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker-v2.0
+[general-parameters]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker
 [snowplow-tracker-protocol]: https://github.com/snowplow/snowplow/wiki/SnowPlow-Tracker-Protocol
 [contexts]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker-v1#custom-contexts
 [clojure-collector]: https://github.com/snowplow/snowplow/wiki/Clojure-collector
