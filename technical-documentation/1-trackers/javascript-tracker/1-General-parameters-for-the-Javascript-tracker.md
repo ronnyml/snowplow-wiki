@@ -27,6 +27,7 @@
     - 2.3.3 [Setting the pause time before leaving a page with `setLinkTrackingTimer`](#tracker-pause)
   - 2.4 [Managing multiple trackers](#multiple-trackers)
   - 2.5 [How the Tracker uses cookies](#cookies)
+  - 2.6 [How the Tracker uses localStorage](#local-storage)
 
 <a name="loading"/>
 ### 2.1 Loading Snowplow.js
@@ -158,7 +159,7 @@ The `userFingerprintSeed` field of the the argmap lets you choose the hash seed 
 <a name="page-unload-timer" />
 #### 2.2.9 Setting the page unload pause
 
-Whenever the Snowplow Javascript Tracker fires an event, it automatically starts a 500 millisecond timer running. If the user clicks on a link or refreshes the page during this period (or, more likely, if the event was triggered by the user clicking a link), the page will wait until the timer is finished before unloading. 500 milliseconds is usually enough to ensure the event has time to be sent.
+Whenever the Snowplow Javascript Tracker fires an event, it automatically starts a 500 millisecond timer running. If the user clicks on a link or refreshes the page during this period (or, more likely, if the event was triggered by the user clicking a link), the page will wait until either the event is sent or the timer is finished before unloading. 500 milliseconds is usually enough to ensure the event has time to be sent.
 
 You can change the pause length (in milliseconds) using the `pageUnloadTimer` of the argmap. The above example completely eliminates the pause. This does make it unlikely that events triggered by link clicks will be sent.
 
@@ -296,6 +297,13 @@ It expires after 2 years.
 #### The Clojure Collector cookie
 
 There is a third sort of Snowplow-related cookie: the cookie set by the [Clojure Collector][clojure-collector], independently of the JavaScript Tracker. If you are using another type of collector, this cookie will not be set. The Clojure Collector cookie is called "sp". It is a third-party cookie used to track users over multiple domains. It expires after one year.
+
+<a name="local-storage" />
+### 2.6 How the Tracker uses localStorage
+
+The Snowplow JavaScript Tracker uses `window.localStorage` to store events in case the user goes offline. Whenever the Tracker tries to fire an event, it first appends it to the queue in `localStorage`, and then sends events from the front of the queue until the queue is empty or an event fails to send.
+
+`localStorage` is only shared between pages with the exact same domain. So if a user clicks on an internal link to another page in the same domain but the link click event fails to send before the page unloads, the event will be available in `localStorage` to the destination page, and if sp.js is also loaded on that page, it will send the request. Note that the tracker on the second page must have the same Snowplow function name (e.g. "snowplow_name_here") and the same tracker namespace (e.g. "cf") as the tracker on the first page for this to work.
 
 [contents]: Javascript-Tracker
 [general-parameters-v1]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker-v1
