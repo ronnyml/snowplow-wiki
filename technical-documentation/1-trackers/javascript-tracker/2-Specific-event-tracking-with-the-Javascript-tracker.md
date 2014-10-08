@@ -52,8 +52,8 @@ Page views are tracked using the `trackPageView` method. This is generally part 
 <script type="text/javascript">
 ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
 p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
-};n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"//d1fc8wv8zag5ca.cloudfront.net/2.1.0/sp.js","snowplow_name_here"));
+};p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
+n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.1.0/sp.js","snowplow_name_here"));
 
 snowplow_name_here('enableActivityTracking', 30, 10);
 
@@ -224,8 +224,8 @@ snowplow_name_here(['trackTrans']);
 
   ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
   p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
-  };n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-  n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,'script','../../dist/snowplow.js','snowplow_name_here'));
+  };p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
+  n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.1.0/sp.js","snowplow_name_here"));
 
   snowplow_name_here('newTracker', 'cf', 'd3rkrsqld9gmqf.cloudfront.net');
   snowplow_name_here('enableActivityTracking', 30, 10)
@@ -553,8 +553,8 @@ The full HTML code to append, using asynchronous Snowplow invocation, looks like
 <script type="text/javascript">
 ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
 p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
-};n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"//d1fc8wv8zag5ca.cloudfront.net/2.1.0/sp.js","snowplow_name_here"));
+};p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
+n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.1.0/sp.js","snowplow_name_here"));
 
 // Update tracker constructor to use your CloudFront distribution subdomain
 window.snowplow_name_here('newTracker', 'cf', 'patldfvsg0d8w.cloudfront.net');
