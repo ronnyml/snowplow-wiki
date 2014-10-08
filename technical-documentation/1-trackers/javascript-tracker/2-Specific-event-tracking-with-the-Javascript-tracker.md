@@ -736,6 +736,8 @@ The third optional parameter is `content`. Set it to `true` if you want link cli
 snowplow_name_here('enableLinkClickTracking', null, null, true);
 ```
 
+The innerHTML of a link is all the text between the `a` tags. Note that if you use a base 64 encoded image as a link, the entire base 64 string will be included in the event.
+
 Each link click event will include (if available) the destination URL, id, classes and target of the clicked link. (The target attribute of a link specifies a window or frame where the linked document will be loaded.)
 
 `enableLinkClickTracking` can also be passed an array of custom contexts to attach to every link click event as an additional final parameter. See [Contexts](#custom-contexts) for more information.
