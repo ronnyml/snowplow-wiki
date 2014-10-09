@@ -802,14 +802,14 @@ This will only work for form elements which exist when it is called. If you are 
 
 These methods let you track users adding and removing items from a cart on an ecommerce site. Their arguments are identical:
 
-| **Name**   | **Required?** | **Description**                            | **Type**     |
-|-----------:|:--------------|:-------------------------------------------|:-------------|
-|      `sku` | Yes           | Item SKU                                   |  string      |
-|     `name` | No            | Item name                                  |  string      |
-| `category` | No            | Item category                              |  string      |
-|    `price` | Yes           | Item price                                 |  number      |
-| `quantity` | Yes           | Quantity added to or removed from cart     |  number      |
-| `currency` | No            | Item price currency                        |  string      |
+| **Name**    | **Required?** | **Description**                            | **Type**     |
+|------------:|:--------------|:-------------------------------------------|:-------------|
+|       `sku` | Yes           | Item SKU                                   |  string      |
+|      `name` | No            | Item name                                  |  string      |
+|  `category` | No            | Item category                              |  string      |
+| `unitPrice` | Yes           | Item price                                 |  number      |
+|  `quantity` | Yes           | Quantity added to or removed from cart     |  number      |
+|  `currency` | No            | Item price currency                        |  string      |
 
 An example:
 
