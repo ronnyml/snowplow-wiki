@@ -82,11 +82,13 @@ snowplow_name_here('trackPageView', 'my custom page title');
 
 The optional third parameter is a boolean (which defaults to false) indicating whether to attach a PerformanceTiming context to the page view event. This context contains all data in the `window.performance.timing` object and can be used to calculate page performance metrics. Add it like this:
 
-
 ```javascript
 snowplow_name_here('trackPageView', null, true);
 ```
 
+Note that if you fire a page view event as soon as the page loads, the `domComplete`, `loadEventStart`, and `loadEventEnd` metrics in the Navigation Timing API may be set to zero. This is because those properties are only known once all scripts on the page have finished executing.
+
+For more information on the Navigation Timing API, see [the specification][performance-spec].
 
 `trackPageView` can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
 
@@ -935,3 +937,4 @@ For more information on custom contexts, see [this][contexts] blog post.
 [remove_from_cart]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/remove_from_cart/jsonschema/1-0-0
 [site_search]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/site_search/jsonschema/1-0-0
 [performancetiming]: https://github.com/snowplow/iglu-central/blob/master/schemas/org.w3/PerformanceTiming/jsonschema/1-0-0
+[performance-spec]: http://www.w3.org/TR/2012/REC-navigation-timing-20121217/#sec-window.performance-attribute
