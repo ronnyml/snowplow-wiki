@@ -21,7 +21,6 @@
   - 2.3 [Other parameters](1-General-parameters-for-the-Javascript-tracker#wiki-other)
     - 2.3.1 [Setting the user id using `setUserId`](1-General-parameters-for-the-Javascript-tracker#wiki-user-id)
     - 2.3.2 [Setting a custom URL with `setCustomUrl`](1-General-parameters-for-the-Javascript-tracker#wiki-custom-url)
-    - 2.3.3 [Setting the pause time before leaving a page with `setLinkTrackingTimer`](1-General-parameters-for-the-Javascript-tracker#wiki-tracker-pause)
   - 2.4 [Managing multiple trackers](1-General-parameters-for-the-Javascript-tracker#wiki-multiple-trackers)
   - 2.5 [How the Tracker uses cookies](1-General-parameters-for-the-Javascript-tracker#wiki-cookies)
 - 3. [Tracking specific events](2-Specific-event-tracking-with-the-Javascript-tracker#wiki-tracking-specific-events)  

@@ -167,6 +167,8 @@ Whenever the Snowplow Javascript Tracker fires an event, it automatically starts
 
 You can change the pause length (in milliseconds) using the `pageUnloadTimer` of the argmap. The above example completely eliminates the pause. This does make it unlikely that events triggered by link clicks will be sent.
 
+See also [How the Tracker uses `localStorage`](#local-storage) for an explanation of how the tracker can later recover and send unsent events.
+
 <a name="force-secure-tracker" />
 #### 2.2.10 Setting the event request protocol
 
