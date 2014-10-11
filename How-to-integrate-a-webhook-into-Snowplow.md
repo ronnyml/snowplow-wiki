@@ -23,5 +23,18 @@ Also create a ticket in `snowplow/snowplow` called "Scala Common Enrich: add Ada
 ### Schema work
 
 * Create a branch in `snowplow/iglu-central` called `feature/webhooks-<<service>>`
-* Create a branch in `snowplow/iglu-central` and add JSON Schemas for each webhook event
-* Create a branch in `snowplow/snowplow` and add Redshift DDL and JSON Path files for each webhook event
+* Create a branch in `snowplow/snowplow` called `feature/webhooks-<<service>>`
+* In the branch in `snowplow/iglu-central`, add JSON Schemas for each webhook event
+* In the branch in `snowplow/snowplow`, add Redshift DDL for each webhook event
+* In the branch in `snowplow/snowplow`, add JSON Path files for each webhook event
+
+### Integration work
+
+* In the branch in `snowplow/snowplow`, add a new file into:
+
+    3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/adapters/registry
+
+* Implement the pre-processing for this webhook in this file
+* Now update the AdapterRegistry to include the new Adapter:
+
+    3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/adapters AdapterRegistry.scala
