@@ -32,9 +32,9 @@ Also create a ticket in `snowplow/snowplow` called "Scala Common Enrich: add Ada
 
 * In the branch in `snowplow/snowplow`, add a new file into:
 
-    3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/adapters/registry
+`3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/adapters/registry`
 
 * Implement the pre-processing for this webhook in this file
 * Now update the AdapterRegistry to include the new Adapter:
 
-    3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/adapters AdapterRegistry.scala
+`3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/adapters AdapterRegistry.scala`
