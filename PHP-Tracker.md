@@ -42,7 +42,9 @@ See current release wiki [here][version-0.1.0].
     - 5.2.3 [`trackScreenView`](#screen-view) 
     - 5.2.4 [`trackStructEvent`](#struct-event)  
     - 5.2.5 [`trackUnstructEvent`](#unstruct-event)
-  - 5.3 [Tracker `flushEmitters`](#flush-emitters)
+  - 5.3 [Extra Functions](#extra-functions)
+    - 5.3.1 [`flushEmitters`](#flush-emitters)
+    - 5.3.2 [`setNetworkUserId`](#set-network-user-id)
 
 <a name="overview" />
 ## 1. Overview
@@ -648,10 +650,10 @@ $tracker->trackStructEvent("some cat", "save action", NULL, NULL, NULL, 13687252
 ```
 
 <a name="tracking-methods" />
-## 5.2 Event Tracking Methods
+### 5.2 Event Tracking Methods
 
 <a name="page-view" />
-### 5.2.1 `trackPageView`
+#### 5.2.1 `trackPageView`
 
 Track a user viewing a page within your app.
 
@@ -677,7 +679,7 @@ $tracker->trackPageView("www.example.com", NULL, NULL, NULL, 123123132132);
 ```
 
 <a name="ecommerce-transaction" />
-### 5.2.2 `trackEcommerceTransaction`
+#### 5.2.2 `trackEcommerceTransaction`
 
 Track an ecommerce transaction.
 
@@ -723,7 +725,7 @@ $tracker->trackEcommerceTransaction(
 The above example contains an order with two order items.
 
 <a name="ecommerce-item" />
-#### 5.2.2.1 `trackEcommerceTransactionItem`
+##### 5.2.2.1 `trackEcommerceTransactionItem`
 
 This is a private function that is called from within `trackEcommerceTransaction`.  It is important to note that for an item to be added successfully you need to include the following fields in the array; even if the value is `NULL`.
 
@@ -752,7 +754,7 @@ array(
 If any of these fields are missing the item event will not be created.  However the order of these fields is not important.
 
 <a name="screen-view" />
-### 5.2.3 `trackScreenView`
+#### 5.2.3 `trackScreenView`
 
 Track a user viewing a screen (or equivalent) within your app.
 
@@ -780,7 +782,7 @@ $tracker->trackScreenView("HUD > Save Game", NULL, NULL, 1368725287000);
 ```
 
 <a name="struct-event" />
-### 5.2.4 `trackStructEvent`
+#### 5.2.4 `trackStructEvent`
 
 Track a custom event happening in your app which fits the Google Analytics-style structure of having up to five fields (with only the first two required).
 
@@ -809,7 +811,7 @@ $tracker->trackStructEvent("shop", "add-to-basket", NULL, "pcs", 2);
 ```
 
 <a name="unstruct-event" />
-### 5.2.5 `trackUnstructEvent`
+#### 5.2.5 `trackUnstructEvent`
 
 Track a custom event which consists of a name and an unstructured set of properties. This is useful when:
 
@@ -850,8 +852,11 @@ $tracker->trackUnstructEvent(
 
 The `$event_json` must be an array with two fields: `schema` and `data`. `data` is a flat array containing the properties of the unstructured event. `schema` identifies the JSON schema against which `data` should be validated.
 
+<a name="extra-functions" />
+### 5.3 Extra Tracker Functions
+
 <a name="flush-emitters" />
-### 5.3 Tracker `flushEmitters`
+#### 5.3.1 Tracker `flushEmitters`
 
 The `flushEmitters` function can be called after you have successfully created a Tracker with the following function call:
 
@@ -865,6 +870,16 @@ This function has a second from whereby we can `force' flush the events buffer r
 
 ```PHP
 $tracker->flushEmitters(true);
+```
+<a name="set-network-user-id" />
+#### 5.3.2 `setNetworkUserId`
+
+On Tracker creation we can now also set a Network User ID.  This will be passed along with every event that is sent to the collectors.
+
+The function expects a string to be passed.
+
+```PHP
+$tracker->setNetworkUserId("nuid");
 ```
 
 [base64]: https://en.wikipedia.org/wiki/Base64
