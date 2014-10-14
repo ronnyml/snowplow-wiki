@@ -1,7 +1,7 @@
 <a name="top" />
 
 ## Work in Progress
-See current release wiki [here][https://github.com/snowplow/snowplow/wiki/PHP-Tracker-v0.1.0]
+See current release wiki [here][version-0.1.0]
 
 ## Contents
 
@@ -783,3 +783,4 @@ The `flushEmitters` function
 
 [base64]: https://en.wikipedia.org/wiki/Base64
 [rolling-curl]: https://github.com/joshfraser/rolling-curl
+[version-0.1.0]: https://github.com/snowplow/snowplow/wiki/PHP-Tracker-v0.1.0
