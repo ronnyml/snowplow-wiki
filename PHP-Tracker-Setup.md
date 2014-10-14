@@ -40,7 +40,13 @@ use Snowplow\Tracker\Tracker;
 use Snowplow\Tracker\Subject;
 use Snowplow\Tracker\Emitter;
 
+$emitter = new Emitter("sync", array(
+                "uri" => $collector_uri,
+                "type" => NULL, # Defaults to POST
+                "protocol" => NULL, # Defaults to HTTP
+                "buffer" => NULL # Defaults to 50
+            )
+        );
 $subject = new Subject();
-$emitter = new Emitter("collector_uri");
 $tracker = new Tracker($emitter, $subject);
 ```
