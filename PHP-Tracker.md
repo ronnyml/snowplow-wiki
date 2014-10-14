@@ -60,7 +60,7 @@ A subject represents a user whose events are tracked. A tracker constructs event
 
 To instantiate a new Tracker instance we need to make sure the Snowplow Tracker classes are available.
 
-Include these 'use' lines in your project.
+Include these class aliases in your project.
 
 ```PHP
 use Snowplow\Tracker\Tracker;
