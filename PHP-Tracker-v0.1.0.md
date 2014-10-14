@@ -471,7 +471,7 @@ array(
 If any of these fields are missing the item event will not be created.  However the order of these fields is not important.
 
 <a name="screen-view" />
-### 6.2.3 `trackScreenView`
+### 5.2.3 `trackScreenView`
 
 Track a user viewing a screen (or equivalent) within your app.
 
