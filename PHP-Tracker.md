@@ -1,7 +1,7 @@
 <a name="top" />
 
 ## Work in Progress
-See current release wiki [here][version-0.1.0]
+See current release wiki [here][version-0.1.0].
 
 ## Contents
 
@@ -80,7 +80,7 @@ $emitter = new Emitter("sync", array(
             )
         );
 $subject = new Subject();
-$tracker = new Tracker($emitter,$subject);
+$tracker = new Tracker($emitter, $subject);
 ```
 
 Other Tracker arguments:
@@ -96,7 +96,7 @@ Other Tracker arguments:
 Another example using all allowed arguments:
 
 ```PHP
-$tracker = new Tracker($emitter,$subject,"cf","cf29ea","1");
+$tracker = new Tracker($emitter, $subject, "cf", "cf29ea", "1");
 ```
 
 The `encode_base64` argument is always a string:
@@ -108,7 +108,7 @@ The default setting is True.
 <a name="emitters" />
 #### 2.1.1 `emitters`
 
-This can be either single emitter or an array of emitters. The tracker will send events to all of these emitters, which will in turn send them on to a collector.
+This can be either a single emitter or an array of emitters. The tracker will send events to all of these emitters, which will in turn send them on to a collector.
 
 ```PHP
 $emitter1 = new Emitter("sync", array(
@@ -423,6 +423,13 @@ Arguments:
 The Curl Emitter allows us to have the closest thing to native asynchronous Requests in PHP.  The curl emitter uses the `curl_multi_init` resource which allows us to send any amount of Requests asynchronously. This garners quite a performance gain over the sync and socket emitters as we can now send more than one Request at a time.
 
 On top of this we are also using a modified version of this **[Rolling Curl library][rolling-curl]** for the actual sending of the curl requests.  This allows for a more efficient implementation of multiple curls as we can now not only have multiple requests sending at the same time, but as soon as one is done a new request is started. Removing the blocking aspect of sending multiple curls.
+
+**IMPORTANT**
+As the curl emitter has a secondary buffer within it; we need to ensure that we force send the emitter for cases where we have not reached the threshold.  More information can be found [here](#flush-emitters).
+
+```PHP
+$tracker->flushEmitters(true); # This will force flush all emitters associated with the Tracker instance.
+```
 
 Example Emitter creation:
 ```PHP
@@ -779,7 +786,19 @@ The `$event_json` must be an array with two fields: `schema` and `data`. `data` 
 <a name="flush-emitters" />
 ### 5.3 Tracker `flushEmitters`
 
-The `flushEmitters` function
+The `flushEmitters` function can be called after you have successfully created a Tracker with the following function call:
+
+```PHP
+$tracker->flushEmitters();
+```
+
+This will tell the tracker to send any remaining events that are left in the buffer to the collector(s).  This is useful if you have set your buffer size too high and you actually have not sent any events.  Or if you just want to be sure that you are sending all of your events.
+
+This function has a second from whereby we can `force' flush the events buffer regardless of if there are events or not.  This is useful only for the asynchronous [curl emitter](#curl-emitter) which has a secondary buffer; the curl buffer.  If the curl buffer limit is not reached no events will be sent.  Therefore this function must be passed to ensure that they are sent!
+
+```PHP
+$tracker->flushEmitters(true);
+```
 
 [base64]: https://en.wikipedia.org/wiki/Base64
 [rolling-curl]: https://github.com/joshfraser/rolling-curl
