@@ -27,6 +27,7 @@ See current release wiki [here][version-0.1.0].
   - 4.1 [Sync](#sync-emitter)
   - 4.2 [Socket](#socket-emitter)
   - 4.3 [Curl](#curl-emitter)
+    - 4.3.1 [Defaults](#curl-emitter-defaults)
   - 4.4 [File](#file-emitter)
   - 4.5 [Debug](#emitter-debug)
 - 5. [Tracking an Event](#track-an-event)
@@ -121,6 +122,7 @@ $emitter1 = new Emitter("sync", array(
 $emitter2 = new Emitter("curl", array(
                 "uri" => $collector_uri,
                 "ssl" => NULL,
+                "type" => "POST",
                 "buffer" => NULL
             )
         );
@@ -337,7 +339,7 @@ $subject->setUseragent('Agent Smith');
 We now support four different emitters; sync, socket, curl and an out of band file emitter.
 The most basic emitter only requires you to specify the type of emitter to be used and the collectors URI as parameters.
 
-Sync is the only emitter which supports both <b>GET</b> and <b>POST</b> collectors.
+All emitters support both <b>GET</b> and <b>POST</b> collectors.  However for the sake of speed we recommend using <b>POST</b>.
 
 Constructor:
 ```PHP
@@ -363,8 +365,8 @@ Example Emitter creation:
 ```PHP
 $emitter = new Emitter("sync", array(
                 "uri" => $collector_uri,
+                "type" => "POST",
                 "protocol" => NULL, # Defaults to HTTP
-                "type" => NULL, # Defaults to POST
                 "buffer" => NULL # Defaults to 50
             )
         );
@@ -397,11 +399,14 @@ Example Emitter creation:
 $emitter = new Emitter("socket", array(
                 "uri" => $collector_uri,
                 "ssl" => NULL, # Defaults to False
+                "type" => "POST",
                 "timeout" => NULL, # Defaults to 30 seconds
                 "buffer" => NULL # Defaults to 50
             )
         );
 ```
+
+Whilst you can force the buffer size to be greater than 1 for a GET Request; it will not yield any performance changes as we can still only send 1 event at a time.
 
 Constructor:
 ```PHP
@@ -422,9 +427,10 @@ Arguments:
 
 The Curl Emitter allows us to have the closest thing to native asynchronous Requests in PHP.  The curl emitter uses the `curl_multi_init` resource which allows us to send any amount of Requests asynchronously. This garners quite a performance gain over the sync and socket emitters as we can now send more than one Request at a time.
 
-On top of this we are also using a modified version of this **[Rolling Curl library][rolling-curl]** for the actual sending of the curl requests.  This allows for a more efficient implementation of multiple curls as we can now not only have multiple requests sending at the same time, but as soon as one is done a new request is started. Removing the blocking aspect of sending multiple curls.
+On top of this we are also using a modified version of this **[Rolling Curl library][rolling-curl]** for the actual sending of the curl requests.  This allows for a more efficient implementation of asynchronous curl requests as we can now not only have multiple requests sending at the same time, but as soon as one is done a new request is started.
 
 **IMPORTANT**
+
 As the curl emitter has a secondary buffer within it; we need to ensure that we force send the emitter for cases where we have not reached the threshold.  More information can be found [here](#flush-emitters).
 
 ```PHP
@@ -436,10 +442,13 @@ Example Emitter creation:
 $emitter = new Emitter("curl", array(
                 "uri" => $collector_uri,
                 "ssl" => NULL, # Defaults to False
-                "buffer" => NULL, # Defaults to 50
+                "type" => "POST",
+                "buffer" => NULL # Defaults to 50
             )
         );
 ```
+
+Whilst you can force the buffer size to be greater than 1 for a GET Request; it will not yield any performance changes as we can still only send 1 event at a time.
 
 Constructor:
 ```PHP
@@ -453,6 +462,20 @@ Arguments:
 | `$uri`          | Collector URI                          | Yes           | Non-empty string  |
 | `$ssl`          | Whether to use SSL encryption          | No            | Boolean           |
 | `$debug`        | Whether or not to log errors           | No            | Boolean           |
+
+<a name="curl-emitter-defaults">
+#### 4.3.1 Curl Default Settings
+
+The internal emitter default settings are as follows:
+
+- Rolling Window (Amount of concurrent requests)
+  - POST: 10
+  - GET: 30
+- Curl Buffer (Amount of times we need to hit the emitters buffer size)
+  - POST: 50
+  - GET: 250
+
+These settings are currently not editable from the constructor; however the values are stored at the top of the `CurlEmitter.php` file.
 
 <a name="file-emitter" />
 ### 4.4 File
@@ -468,12 +491,15 @@ Example Emitter creation:
 $emitter = new Emitter("file", array(
                 "uri" => $collector_uri,
                 "ssl" => NULL, # Defaults to False
+                "type" => "POST",
                 "workers" => NULL, # Defaults to 1
                 "timeout" => NULL, # Defaults to 15
                 "buffer" => NULL # Defaults to 250
             )
         );
 ```
+
+The buffer for the file emitter works a bit differently to the other emitters in that here it is referring to the amount of events needed before an `events-random.log` is produced for a worker.  If you are anticipating it taking a long time to reach the buffer be aware that the worker will kill itself after 15 seconds by default.  Adjust your timeout accordingly.
 
 Constructor:
 ```PHP
@@ -497,19 +523,19 @@ Currently only Sync, Socket and Curl have any level of debugging available to th
 ```PHP
 $emitter = new Emitter("sync", array(
                 "uri" => $collector_uri,
+                "type" => "POST",
                 "protocol" => NULL,
-                "type" => NULL,
                 "buffer" => NULL
             ),
             true # Simply add the debug truth here! Will otherwise default to false.
         );
 ```
 
-The debug mode will do two things.  Firstly it will create a new directory called `/debug/` in the root of the Trackers code.  It will then create a log file with the following structure; `sync-events-log-rand().log`.  Essentially the type of emitter and a randomized number to prevent it from being incorrectly overwritten.
+The debug mode will do two things.  Firstly it will create a new directory called `/debug/` in the root of the Trackers directory.  It will then create a log file with the following structure; `sync-events-log-random.log`.  Essentially the type of emitter and a randomized number to prevent it from being incorrectly overwritten.
 
 Every time the events buffer is flushed we can now check and log if the sending was a success or if there was an error.  In the case of an error it records the entire event payload we were trying to send along with the error code.
 
-Due to the nature of the File Emitter being a background process it is harder to access what is happening and log it accordingly.  For the moment it simply dumps the `events.log` file into a failed folder.
+Due to the nature of the File Emitter being a background process it is harder to access what is happening and log it accordingly.  For the moment it simply dumps the `events.log` file into a failed folder.  However as the File Emitter uses the same emitter structure as the curl emitter, if one works the other will.
 
 <a name="track-an-event" />
 ## 5. Tracking an Event
