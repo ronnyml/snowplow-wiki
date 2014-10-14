@@ -420,6 +420,7 @@ Arguments:
 |-------------:|:------------------------------------|:--------------|:------------------------|
 | `$uri`          | Collector URI                          | Yes           | Non-empty string  |
 | `$ssl`          | Whether to use SSL encryption          | No            | Boolean           |
+| `$type`         | Request Type (POST or GET)             | No            | String            |
 | `$timeout`      | Socket Timeout Limit                   | No            | Int or Float      |
 | `$debug`        | Whether or not to log errors           | No            | Boolean           |
 
@@ -462,6 +463,7 @@ Arguments:
 |-------------:|:------------------------------------|:--------------|:------------------------|
 | `$uri`          | Collector URI                          | Yes           | Non-empty string  |
 | `$ssl`          | Whether to use SSL encryption          | No            | Boolean           |
+| `$type`         | Request Type (POST or GET)             | No            | String            |
 | `$debug`        | Whether or not to log errors           | No            | Boolean           |
 
 <a name="curl-emitter-defaults">
@@ -513,6 +515,7 @@ Arguments:
 |-------------:|:------------------------------------|:--------------|:------------------------|
 | `$uri`          | Collector URI                          | Yes           | Non-empty string  |
 | `$ssl`          | Whether to use SSL encryption          | No            | Boolean           |
+| `$type`         | Request Type (POST or GET)             | No            | String            |
 | `$workers`      | Amount of background workers           | No            | Int               |
 | `$timeout`      | Worker Timeout                         | No            | Int or Float      |
 
@@ -538,6 +541,7 @@ Every time the events buffer is flushed we can now check and log if the sending 
 
 Due to the nature of the File Emitter being a background process it is harder to access what is happening and log it accordingly.  For the moment it simply dumps the `events.log` file into a failed folder.  However as the File Emitter uses the same emitter structure as the curl emitter, if one works the other will.
 
+<a name="non-logged-info" />
 #### 4.5.1 Non-logged Information
 
 Debug Mode if enabled will also have the emitter begin storing information internally.  It will store the HTTP Response code and the payload for every Request made by the emitter.
