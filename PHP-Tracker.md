@@ -866,11 +866,14 @@ $tracker->flushEmitters();
 
 This will tell the tracker to send any remaining events that are left in the buffer to the collector(s).  This is useful if you have set your buffer size too high and you actually have not sent any events.  Or if you just want to be sure that you are sending all of your events.
 
-This function has a second from whereby we can `force' flush the events buffer regardless of if there are events or not.  This is useful only for the asynchronous [curl emitter](#curl-emitter) which has a secondary buffer; the curl buffer.  If the curl buffer limit is not reached no events will be sent.  Therefore this function must be passed to ensure that they are sent!
+This function has a second form whereby we can `force' flush the events buffer regardless of if there are events or not.  This is useful only for the asynchronous [curl emitter](#curl-emitter) which has a secondary buffer; the curl buffer.  If the curl buffer limit is not reached no events will be sent.  Therefore this function must be passed to ensure that they are sent.
 
 ```PHP
 $tracker->flushEmitters(true);
 ```
+
+Regardless of how sure you are that all of your events have sent pass this command to ensure that everything gets sent!
+
 <a name="set-network-user-id" />
 #### 5.3.2 `setNetworkUserId`
 
