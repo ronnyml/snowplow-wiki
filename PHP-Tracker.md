@@ -29,7 +29,8 @@ See current release wiki [here][version-0.1.0].
   - 4.3 [Curl](#curl-emitter)
     - 4.3.1 [Defaults](#curl-emitter-defaults)
   - 4.4 [File](#file-emitter)
-  - 4.5 [Debug](#emitter-debug)
+  - 4.5 [Debug Mode](#emitter-debug)
+    - 4.5.1 [Non-logged Information](#non-logged-info)
 - 5. [Tracking an Event](#track-an-event)
   - 5.1 [Optional Tracking Arguments](#tracking-options)
     - 5.1.1 [Custom Context](#custom-context)
@@ -536,6 +537,42 @@ The debug mode will do two things.  Firstly it will create a new directory calle
 Every time the events buffer is flushed we can now check and log if the sending was a success or if there was an error.  In the case of an error it records the entire event payload we were trying to send along with the error code.
 
 Due to the nature of the File Emitter being a background process it is harder to access what is happening and log it accordingly.  For the moment it simply dumps the `events.log` file into a failed folder.  However as the File Emitter uses the same emitter structure as the curl emitter, if one works the other will.
+
+#### 4.5.1 Non-logged Information
+
+Debug Mode if enabled will also have the emitter begin storing information internally.  It will store the HTTP Response code and the payload for every Request made by the emitter.
+
+```PHP
+array(
+    "code" => 200,
+    "data" => "{"e":"pv","url":"www.example.com","page":"example","refr":"www.referrer.com"}"
+)
+```
+
+The `data` is stored as a json encoded string.  To locally test whether or not your emitters are successfully sending we can retrieve this information with the following commands:
+
+```PHP
+$emitters = $tracker->returnEmitters(); # Will store all of the emitters as an array.
+$emitter = $emitters[0]; # Get the first emitter stored by the tracker
+$real_emitter = $emitter->returnEmitter(); # Get the real emitter; aka sync or socket.
+$results = $real_emitter->returnRequestResults();  # Return the stored results.
+
+# Now that we have results we can work with...
+print("Code: ".$results[0]["code"]);
+print("Data: ".$results[0]["data"]);
+```
+
+As this does store quite a lot of information and can become quite heavy overtime we can end debug mode whenever we wish.
+
+```PHP
+$tracker->turnOfDebug();
+```
+
+This will stop all logging activity; both to the files and to the local arrays.  We can go one step further though and pass a `true` boolean to the function.  This will delete all of the associated debug log files aswell as emptying the local arrays.
+
+```PHP
+$tracker->turnOfDebug(true);
+```
 
 <a name="track-an-event" />
 ## 5. Tracking an Event
