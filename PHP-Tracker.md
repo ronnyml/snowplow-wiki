@@ -1,7 +1,8 @@
 <a name="top" />
 
-## Work in Progress
-See current release wiki [here][version-0.1.0].
+*This page refers to version 0.2.0 of the Snowplow PHP Tracker, which is the latest version. Documentation for earlier versions is available:*
+
+*[Version 0.1.0][version-0.1.0]*
 
 ## Contents
 
