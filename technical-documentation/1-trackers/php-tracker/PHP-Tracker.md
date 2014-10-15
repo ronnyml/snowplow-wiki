@@ -1,6 +1,6 @@
 <a name="top" />
 
-*This page refers to version 0.2.0 of the Snowplow PHP Tracker, which is the latest version. Documentation for earlier versions is available:*
+*This page refers to version 0.2.0 of the Snowplow php Tracker, which is the latest version. Documentation for earlier versions is available:*
 
 *[Version 0.1.0][version-0.1.0]*
 
@@ -50,9 +50,9 @@
 <a name="overview" />
 ## 1. Overview
 
-The [Snowplow PHP Tracker](https://github.com/snowplow/snowplow-php-tracker) allows you to track Snowplow events from your PHP apps and code.
+The [Snowplow php Tracker](https://github.com/snowplow/snowplow-php-tracker) allows you to track Snowplow events from your php apps and code.
 
-There are three basic types of object you will create when using the Snowplow PHP Tracker: subjects, emitters, and trackers.
+There are three basic types of object you will create when using the Snowplow php Tracker: subjects, emitters, and trackers.
 
 A subject represents a user whose events are tracked. A tracker constructs events and sends them to one or more emitters. Each emitter then sends the event to the endpoint you configure, a Snowplow collector.
 
@@ -63,7 +63,7 @@ To instantiate a new Tracker instance we need to make sure the Snowplow Tracker 
 
 Include these class aliases in your project.
 
-```PHP
+```php
 use Snowplow\Tracker\Tracker;
 use Snowplow\Tracker\Emitter;
 use Snowplow\Tracker\Subject;
@@ -76,7 +76,7 @@ We can now create our Emitter, Subject and Tracker objects.
 
 The most basic Tracker instance will only require you to provide the type of emitter and the URI of the collector to which the Tracker will log events.
 
-```PHP
+```php
 $emitter = new Emitter("sync", array(
                 "uri" => $collector_uri,
                 "type" => NULL, # Defaults to POST
@@ -100,9 +100,11 @@ Other Tracker arguments:
 
 Another example using all allowed arguments:
 
-```PHP
+```php
 $tracker = new Tracker($emitter, $subject, "cf", "cf29ea", "1");
 ```
+
+### TODO: fix boolean support
 
 The `encode_base64` argument is always a string:
 - "1" for True
@@ -115,7 +117,9 @@ The default setting is True.
 
 This can be either a single emitter or an array of emitters. The tracker will send events to all of these emitters, which will in turn send them on to a collector.
 
-```PHP
+###  TODO: update when we no longer have this Emitter factory
+
+```php
 $emitter1 = new Emitter("sync", array(
                 "uri" => $collector_uri,
                 "type" => NULL,
@@ -144,8 +148,7 @@ For more information go to [emitters](#emitter-class).
 <a name="subject" />
 #### 2.1.2 `subject`
 
-The user which the Tracker will track. This will give your events user-specific data such as timezone and language. You change the subject of your tracker at any time by calling `updateSubject($new_subject_object)`.
-All events sent from this Tracker will now have the new subject information appended.
+The user which the Tracker will track. This will give your events user-specific data such as timezone and language. You change the subject of your tracker at any time by calling `updateSubject($new_subject_object)`. All events sent from this Tracker will now have the new subject information appended.
 
 For more information go to [subjects](#subject-class).
 
@@ -167,15 +170,15 @@ By default, unstructured events and custom contexts are encoded into Base64 to e
 <a name="subject-class" />
 ## 3. Subjects
 
-For any additional information about your application's environment, current user and so on, which you want to send to Snowplow with each event we have the subject object.
+The Subject object lets you send any additional information about your application's environment, current user etc to Snowplow.
 
 To create a new subject:
 
-```PHP
+```php
 $subject = new Subject();
 ```
 
-By default the subject has one pair of information in it already, platform ["plat" => "srv"].
+By default the subject has one piece information in it already, the platform ["p" => "srv"].
 
 The Subject class contains a variety of 'set' methods to attach extra data to your event.
 
@@ -189,14 +192,14 @@ The Subject class contains a variety of 'set' methods to attach extra data to yo
 
 These set methods can be called either directly onto a subject object:
 
-```PHP
+```php
 $subject = new Subject();
 $subject->setPlatform("tv");
 ```
 
 Or they can be called through the tracker object:
 
-```PHP
+```php
 $tracker->subject->setPlatform("tv");
 ```
 
@@ -205,13 +208,13 @@ $tracker->subject->setPlatform("tv");
 
 The default platform is "srv". You can change the platform of the subject by calling:
 
-```PHP
+```php
 $subject->setPlatform($platform);
 ```
 
 For example:
 
-```PHP
+```php
 $subject->setPlatform("tv") # Running on a Connected TV
 ```
 
@@ -222,58 +225,58 @@ For a full list of supported platforms, please see the [[Snowplow Tracker Protoc
 
 You can set the user ID to any string:
 
-```PHP
+```php
 $subject->setUserId($id);
 ```
 
 Example:
 
-```PHP
+```php
 $subject->setUserId("jbeem");
 ```
 
 <a name="set-screen-res" />
 ### 3.3 `setScreenResolution`
 
-If your PHP code has access to the device's screen resolution, then you can pass this in to Snowplow too:
+If your php code has access to the device's screen resolution, then you can pass this in to Snowplow too:
 
-```PHP
+```php
 $subject->setScreenResolution($width, $height);
 ```
 
 Both numbers should be positive integers; note the order is width followed by height. Example:
 
-```PHP
+```php
 $subject->setScreenResolution(1366, 768);
 ```
 
 <a name="set-viewport" />
 ### 3.4 `setViewport`
 
-If your PHP code has access to the viewport dimensions, then you can pass this in to Snowplow too:
+If your php code has access to the viewport dimensions, then you can pass this in to Snowplow too:
 
-```PHP
+```php
 $subject->setViewport($width, $height);
 ```
 
 Both numbers should be positive integers; note the order is width followed by height. Example:
 
-```PHP
+```php
 $subject->setViewport(300, 200);
 ```
 
 <a name="set-color-depth" />
 ### 3.5 `setColorDepth`
 
-If your PHP code has access to the bit depth of the device's color palette for displaying images, then you can pass this in to Snowplow too:
+If your php code has access to the bit depth of the device's color palette for displaying images, then you can pass this in to Snowplow too:
 
-```PHP
+```php
 $subject->setColorDepth($depth);
 ```
 
 The number should be a positive integer, in bits per pixel. Example:
 
-```PHP
+```php
 $subject->setColorDepth(32);
 ```
 
@@ -282,13 +285,13 @@ $subject->setColorDepth(32);
 
 This method lets you pass a user's timezone in to Snowplow:
 
-```PHP
+```php
 $subject->setTimezone($timezone);
 ```
 
 The timezone should be a string:
 
-```PHP
+```php
 $subject->setTimezone("Europe/London");
 ```
 
@@ -297,13 +300,13 @@ $subject->setTimezone("Europe/London");
 
 This method lets you pass a user's language in to Snowplow:
 
-```PHP
+```php
 $subject->setLanguage($language);
 ```
 
 The language should be a string:
 
-```PHP
+```php
 $subject->setLanguage('en');
 ```
 
@@ -312,13 +315,13 @@ $subject->setLanguage('en');
 
 This method lets you pass a user's IP Address in to Snowplow:
 
-```PHP
+```php
 $subject->setIpAddress($ip);
 ```
 
 The IP Address should be a string:
 
-```PHP
+```php
 $subject->setIpAddress('127.0.0.1');
 ```
 
@@ -327,26 +330,27 @@ $subject->setIpAddress('127.0.0.1');
 
 This method lets you pass a useragent in to Snowplow:
 
-```PHP
+```php
 $subject->setUseragent($useragent);
 ```
 
 The useragent should be a string:
 
-```PHP
+```php
 $subject->setUseragent('Agent Smith');
 ```
+
+### TODO: add in setUserNetworkId
 
 <a name="emitter-class" />
 ## 4. Emitters
 
-We now support four different emitters; sync, socket, curl and an out of band file emitter.
-The most basic emitter only requires you to specify the type of emitter to be used and the collectors URI as parameters.
+We now support four different emitters: sync, socket, curl and an out-of-band file emitter. The most basic emitter only requires you to specify the type of emitter to be used and the collectors URI as parameters.
 
-All emitters support both <b>GET</b> and <b>POST</b> collectors.  However for the sake of speed we recommend using <b>POST</b>.
+All emitters support both `GET` and `POST` as methods for sending events to Snowplow collectors. For the sake of speed we recommend using `POST`.
 
 Constructor:
-```PHP
+```php
 public function __construct($emitter_type, $emitter_options, $debug = false)
 ```
 
@@ -361,12 +365,13 @@ Arguments:
 <a name="sync-emitter" />
 ### 4.1 Sync
 
-The Sync Emitter is a very basic synchronous emitter which supports both GET and POST Request types.
+The Sync emitter is a very basic synchronous emitter which supports both `GET` and `POST` request types.
 
-By default this emitter uses the Request type POST, HTTP and a buffer size of 50.  GET defaults to a buffer size of 1.
+By default this emitter uses the Request type POST, HTTP and a buffer size of 50. `GET` defaults to a buffer size of 1.
 
-Example Emitter creation:
-```PHP
+Example emitter creation:
+
+```php
 $emitter = new Emitter("sync", array(
                 "uri" => $collector_uri,
                 "type" => "POST",
@@ -379,7 +384,8 @@ $emitter = new Emitter("sync", array(
 Whilst you can force the buffer size to be greater than 1 for a GET Request; it will not yield any performance changes as we can still only send 1 event at a time.
 
 Constructor:
-```PHP
+
+```php
 public function __construct($uri, $protocol = NULL, $type = NULL, $debug = NULL)
 ```
 
@@ -396,10 +402,11 @@ Arguments:
 <a name="socket-emitter" />
 ### 4.2 Socket
 
-The Socket Emitter allows for much faster transmission of Requests to the collector by allowing us to write data directly to the HTTP socket.  However this solution is still in essence a synchronous process and will block the execution of the main script.
+The Socket emitter allows for much faster transmission of Requests to the collector by allowing us to write data directly to the HTTP socket.  However this solution is still in essence a synchronous process and will block the execution of the main script.
 
 Example Emitter creation:
-```PHP
+
+```php
 $emitter = new Emitter("socket", array(
                 "uri" => $collector_uri,
                 "ssl" => NULL, # Defaults to False
@@ -413,7 +420,7 @@ $emitter = new Emitter("socket", array(
 Whilst you can force the buffer size to be greater than 1 for a GET Request; it will not yield any performance changes as we can still only send 1 event at a time.
 
 Constructor:
-```PHP
+```php
 public function __construct($uri, $ssl = NULL, $timeout = NULL, $debug = NULL)
 ```
 
@@ -430,7 +437,7 @@ Arguments:
 <a name="curl-emitter" />
 ### 4.3 Curl
 
-The Curl Emitter allows us to have the closest thing to native asynchronous Requests in PHP.  The curl emitter uses the `curl_multi_init` resource which allows us to send any amount of Requests asynchronously. This garners quite a performance gain over the sync and socket emitters as we can now send more than one Request at a time.
+The Curl Emitter allows us to have the closest thing to native asynchronous Requests in php.  The curl emitter uses the `curl_multi_init` resource which allows us to send any amount of Requests asynchronously. This garners quite a performance gain over the sync and socket emitters as we can now send more than one Request at a time.
 
 On top of this we are also using a modified version of this **[Rolling Curl library][rolling-curl]** for the actual sending of the curl requests.  This allows for a more efficient implementation of asynchronous curl requests as we can now not only have multiple requests sending at the same time, but as soon as one is done a new request is started.
 
@@ -438,12 +445,12 @@ On top of this we are also using a modified version of this **[Rolling Curl libr
 
 As the curl emitter has a secondary buffer within it; we need to ensure that we force send the emitter for cases where we have not reached the threshold.  More information can be found [here](#flush-emitters).
 
-```PHP
+```php
 $tracker->flushEmitters(true); # This will force flush all emitters associated with the Tracker instance.
 ```
 
 Example Emitter creation:
-```PHP
+```php
 $emitter = new Emitter("curl", array(
                 "uri" => $collector_uri,
                 "ssl" => NULL, # Defaults to False
@@ -456,7 +463,7 @@ $emitter = new Emitter("curl", array(
 Whilst you can force the buffer size to be greater than 1 for a GET Request; it will not yield any performance changes as we can still only send 1 event at a time.
 
 Constructor:
-```PHP
+```php
 public function __construct($uri, $ssl = NULL, $debug = NULL)
 ```
 
@@ -493,7 +500,7 @@ All of the worker processes are created as background processes so none of them 
 If the worker for any reason fails to successfully send a curl request it will rename the file to `failed` and leave it in the `/temp/failed-logs/` folder.
 
 Example Emitter creation:
-```PHP
+```php
 $emitter = new Emitter("file", array(
                 "uri" => $collector_uri,
                 "ssl" => NULL, # Defaults to False
@@ -508,7 +515,7 @@ $emitter = new Emitter("file", array(
 The buffer for the file emitter works a bit differently to the other emitters in that here it is referring to the amount of events needed before an `events-random.log` is produced for a worker.  If you are anticipating it taking a long time to reach the buffer be aware that the worker will kill itself after 15 seconds by default.  Adjust your timeout accordingly.
 
 Constructor:
-```PHP
+```php
 public function __construct($uri, $ssl = false, $workers = NULL, $timeout = NULL)
 ```
 
@@ -527,7 +534,7 @@ Arguments:
 
 Currently only Sync, Socket and Curl have any level of debugging available to them.  To enable debug mode for these emitters append a boolean to the end of the emitter construction argument like so:
 
-```PHP
+```php
 $emitter = new Emitter("sync", array(
                 "uri" => $collector_uri,
                 "type" => "POST",
@@ -549,7 +556,7 @@ Due to the nature of the File Emitter being a background process it is harder to
 
 Debug Mode if enabled will also have the emitter begin storing information internally.  It will store the HTTP Response code and the payload for every Request made by the emitter.
 
-```PHP
+```php
 array(
     "code" => 200,
     "data" => "{"e":"pv","url":"www.example.com","page":"example","refr":"www.referrer.com"}"
@@ -558,7 +565,7 @@ array(
 
 The `data` is stored as a json encoded string.  To locally test whether or not your emitters are successfully sending we can retrieve this information with the following commands:
 
-```PHP
+```php
 $emitters = $tracker->returnEmitters(); # Will store all of the emitters as an array.
 $emitter = $emitters[0]; # Get the first emitter stored by the tracker
 $real_emitter = $emitter->returnEmitter(); # Get the real emitter; aka sync or socket.
@@ -571,13 +578,13 @@ print("Data: ".$results[0]["data"]);
 
 As this does store quite a lot of information and can become quite heavy overtime we can end debug mode whenever we wish.
 
-```PHP
+```php
 $tracker->turnOfDebug();
 ```
 
 This will stop all logging activity; both to the files and to the local arrays.  We can go one step further though and pass a `true` boolean to the function.  This will delete all of the associated debug log files aswell as emptying the local arrays.
 
-```PHP
+```php
 $tracker->turnOfDebug(true);
 ```
 
@@ -586,7 +593,7 @@ $tracker->turnOfDebug(true);
 
 Snowplow has been built to enable you to track a wide range of events that occur when users interact with your websites and apps. We are constantly growing the range of functions available so as to capture that data more richly.
 
-Tracking methods supported by the PHP Tracker:
+Tracking methods supported by the php Tracker:
 
 | **Function**                                  | **Description**                                        |
 |----------------------------------------------:|:-------------------------------------------------------|
@@ -602,15 +609,15 @@ Tracking methods supported by the PHP Tracker:
 <a name="custom-context" />
 #### 5.1.1 Custom Context
 
-Custom contexts let you add additional information about any circumstances surrounding an event in the form of a PHP Array of name-value pairs. Each tracking method accepts an additional optional contexts parameter after all the parameters specific to that method:
+Custom contexts let you add additional information about any circumstances surrounding an event in the form of a php Array of name-value pairs. Each tracking method accepts an additional optional contexts parameter after all the parameters specific to that method:
 
-```PHP
+```php
 public function trackPageView($page_url, $page_title = NULL, $referrer = NULL, $context = NULL, $tstamp = NULL)
 ```
 
 An example of a Context Array Structure:
 
-```PHP
+```php
 array(
     "schema" => "iglu:com.acme_company/movie_poster/jsonschema/2.1.1",
     "data" => array(
@@ -622,7 +629,7 @@ array(
 
 This is how to fire a page view event with the above custom context:
 
-```PHP
+```php
 $tracker->trackPageView(
     "http://www.films.com", 
     "Homepage", 
@@ -642,11 +649,11 @@ $tracker->trackPageView(
 
 Each tracking method supports an optional timestamp as its final argument; this allows you to manually override the timestamp attached to this event. The timestamp should be in <b>milliseconds</b> since the Unix epoch.
 
-If you do not pass this timestamp in as an argument, then the PHP Tracker will use the current time to be the timestamp for the event.
+If you do not pass this timestamp in as an argument, then the php Tracker will use the current time to be the timestamp for the event.
 
 Here is an example tracking a structured event and supplying the optional timestamp argument. We can explicitly supply a `NULL` for the intervening arguments which are empty:
 
-```PHP
+```php
 $tracker->trackStructEvent("some cat", "save action", NULL, NULL, NULL, 1368725287000);
 ```
 
@@ -659,7 +666,7 @@ $tracker->trackStructEvent("some cat", "save action", NULL, NULL, NULL, 13687252
 Track a user viewing a page within your app.
 
 Function:
-```PHP
+```php
 public function trackPageView($page_url, $page_title = NULL, $referrer = NULL, $context = NULL, $tstamp = NULL)
 ```
 
@@ -675,7 +682,7 @@ Arguments:
 
 Example Usage:
 
-```PHP
+```php
 $tracker->trackPageView("www.example.com", NULL, NULL, NULL, 123123132132);
 ```
 
@@ -686,7 +693,7 @@ Track an ecommerce transaction.
 
 Function:
 
-```PHP
+```php
 public function trackEcommerceTransaction($order_id, $total_value, $currency = NULL, $affiliation = NULL,
                                           $tax_value = NULL, $shipping = NULL, $city = NULL, $state = NULL,
                                           $country = NULL, $items, $context = NULL, $tstamp = NULL)
@@ -711,7 +718,7 @@ Arguments:
 
 Example Usage:
 
-```PHP
+```php
 $tracker->trackEcommerceTransaction(
     "test_order_id_1", 200, "GBP", "affiliation_1", "tax_value_1","shipping_1", "city_1", "state_1", "country_1",
     array(
@@ -742,7 +749,7 @@ Arguments:
 
 Example Item:
 
-```PHP
+```php
 array(
     array("name" => NULL,
           "category" => NULL,
@@ -761,7 +768,7 @@ Track a user viewing a screen (or equivalent) within your app.
 
 Function:
 
-```PHP
+```php
 public function trackScreenView($name = NULL, $id = NULL, $context = NULL, $tstamp = NULL)
 ```
 
@@ -778,7 +785,7 @@ Although `$name` and `$id` are not individually required, at least one must be p
 
 Example:
 
-```PHP
+```php
 $tracker->trackScreenView("HUD > Save Game", NULL, NULL, 1368725287000);
 ```
 
@@ -788,7 +795,7 @@ $tracker->trackScreenView("HUD > Save Game", NULL, NULL, 1368725287000);
 Track a custom event happening in your app which fits the Google Analytics-style structure of having up to five fields (with only the first two required).
 
 Function:
-```PHP
+```php
 public function trackStructEvent($category, $action, $label = NULL, $property = NULL, $value = NULL, 
                                  $context = NULL, $tstamp = NULL)
 ```
@@ -807,7 +814,7 @@ Arguments:
 
 Example:
 
-```PHP
+```php
 $tracker->trackStructEvent("shop", "add-to-basket", NULL, "pcs", 2);
 ```
 
@@ -821,7 +828,7 @@ Track a custom event which consists of a name and an unstructured set of propert
 
 Function:
 
-```PHP
+```php
 public function trackUnstructEvent($event_json, $context = NULL, $tstamp = NULL)
 ```
 
@@ -835,7 +842,7 @@ Arguments:
 
 Example:
 
-```PHP
+```php
 $tracker->trackUnstructEvent(
     array(
         "schema" => "com.example_company/save-game/jsonschema/1.0.2",
@@ -861,7 +868,7 @@ The `$event_json` must be an array with two fields: `schema` and `data`. `data` 
 
 The `flushEmitters` function can be called after you have successfully created a Tracker with the following function call:
 
-```PHP
+```php
 $tracker->flushEmitters();
 ```
 
@@ -869,7 +876,7 @@ This will tell the tracker to send any remaining events that are left in the buf
 
 This function has a second form whereby we can `force' flush the events buffer regardless of if there are events or not.  This is useful only for the asynchronous [curl emitter](#curl-emitter) which has a secondary buffer; the curl buffer.  If the curl buffer limit is not reached no events will be sent.  Therefore this function must be passed to ensure that they are sent.
 
-```PHP
+```php
 $tracker->flushEmitters(true);
 ```
 
@@ -882,10 +889,10 @@ On Tracker creation we can now also set a Network User ID.  This will be passed 
 
 The function expects a string to be passed.
 
-```PHP
+```php
 $tracker->setNetworkUserId("nuid");
 ```
 
 [base64]: https://en.wikipedia.org/wiki/Base64
 [rolling-curl]: https://github.com/joshfraser/rolling-curl
-[version-0.1.0]: https://github.com/snowplow/snowplow/wiki/PHP-Tracker-v0.1.0
+[version-0.1.0]: https://github.com/snowplow/snowplow/wiki/php-Tracker-v0.1.0
