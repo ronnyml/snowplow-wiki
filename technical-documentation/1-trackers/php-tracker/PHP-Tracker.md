@@ -54,7 +54,7 @@ The [Snowplow PHP Tracker](https://github.com/snowplow/snowplow-php-tracker) all
 
 There are three basic types of object you will create when using the Snowplow PHP Tracker: subjects, emitters, and trackers.
 
-A subject represents a user whose events are tracked. A tracker constructs events and sends them to one or more emitters. Each emitter then sends the event to the endpoint you configure, a Snowplow Collector.
+A subject represents a user whose events are tracked. A tracker constructs events and sends them to one or more emitters. Each emitter then sends the event to the endpoint you configure, a Snowplow collector.
 
 <a name="init" />
 ## 2. Initialize
