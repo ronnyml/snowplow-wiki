@@ -24,6 +24,7 @@
   - 3.7 [`setLanguage`](#set-lang)
   - 3.8 [`setIpAddress`](#set-ip-address)
   - 3.9 [`setUseragent`](#set-user-agent)
+  - 3.10 [`setNetworkUserId`](#set-network-user-id)
 - 4. [Emitters](#emitter-class)
   - 4.1 [Sync](#sync-emitter)
   - 4.2 [Socket](#socket-emitter)
@@ -45,7 +46,6 @@
     - 5.2.5 [`trackUnstructEvent`](#unstruct-event)
   - 5.3 [Extra Functions](#extra-functions)
     - 5.3.1 [`flushEmitters`](#flush-emitters)
-    - 5.3.2 [`setNetworkUserId`](#set-network-user-id)
 
 <a name="overview" />
 ## 1. Overview
@@ -65,8 +65,8 @@ Include these class aliases in your project.
 
 ```php
 use Snowplow\Tracker\Tracker;
-use Snowplow\Tracker\Emitter;
 use Snowplow\Tracker\Subject;
+use Snowplow\Tracker\Emitters\SyncEmitter; # If you want to use the sync emitter
 ```
 
 We can now create our Emitter, Subject and Tracker objects.
@@ -77,13 +77,7 @@ We can now create our Emitter, Subject and Tracker objects.
 The most basic Tracker instance will only require you to provide the type of emitter and the URI of the collector to which the Tracker will log events.
 
 ```php
-$emitter = new Emitter("sync", array(
-                "uri" => $collector_uri,
-                "type" => NULL, # Defaults to POST
-                "protocol" => NULL, # Defaults to HTTP
-                "buffer" => NULL # Defaults to 50
-            )
-        );
+$emitter = new SyncEmitter($collector_uri, "http", "POST", 10, false);
 $subject = new Subject();
 $tracker = new Tracker($emitter, $subject);
 ```
@@ -109,23 +103,9 @@ $tracker = new Tracker($emitter, $subject, "cf", "cf29ea", true);
 
 This can be either a single emitter or an array of emitters. The tracker will send events to all of these emitters, which will in turn send them on to a collector.
 
-###  TODO: update when we no longer have this Emitter factory
-
 ```php
-$emitter1 = new Emitter("sync", array(
-                "uri" => $collector_uri,
-                "type" => NULL,
-                "protocol" => NULL,
-                "buffer" => NULL
-            )
-        );
-$emitter2 = new Emitter("curl", array(
-                "uri" => $collector_uri,
-                "ssl" => NULL,
-                "type" => "POST",
-                "buffer" => NULL
-            )
-        );
+$emitter1 = new SyncEmitter($collector_uri);
+$emitter2 = new CurlEmitter($collector_uri, false, "GET", 2);
 
 $emitter_array = array($emitter1, $emitter2);
 
@@ -332,7 +312,21 @@ The useragent should be a string:
 $subject->setUseragent('Agent Smith');
 ```
 
-### TODO: add in setUserNetworkId
+<a name="set-network-user-id" />
+### 3.10 `setNetworkUserId`
+
+This method lets you pass a Network User ID in to Snowplow
+
+The function expects a string to be passed.
+
+```php
+$subject->setNetworkUserId($networkUserId);
+```
+The network user id should be a string:
+
+```php
+$subject->setNetworkUserId("network-id");
+```
 
 <a name="emitter-class" />
 ## 4. Emitters
@@ -340,19 +334,6 @@ $subject->setUseragent('Agent Smith');
 We now support four different emitters: sync, socket, curl and an out-of-band file emitter. The most basic emitter only requires you to specify the type of emitter to be used and the collectors URI as parameters.
 
 All emitters support both `GET` and `POST` as methods for sending events to Snowplow collectors. For the sake of speed we recommend using `POST`.
-
-Constructor:
-```php
-public function __construct($emitter_type, $emitter_options, $debug = false)
-```
-
-Arguments:
-
-| **Argument** | **Description**                     | **Required?** | **Validation**          |
-|-------------:|:------------------------------------|:--------------|:------------------------|
-| `$emitter_type`    | Type of Emitter to use        | Yes           | Non-empty string  |
-| `$emitter_options` | Emitter Options and Settings  | Yes           | Array             |
-| `$debug`           | Whether or not to log errors  | No            | Boolean           |
 
 <a name="sync-emitter" />
 ### 4.1 Sync
@@ -364,13 +345,7 @@ By default this emitter uses the Request type POST, HTTP and a buffer size of 50
 Example emitter creation:
 
 ```php
-$emitter = new Emitter("sync", array(
-                "uri" => $collector_uri,
-                "type" => "POST",
-                "protocol" => NULL, # Defaults to HTTP
-                "buffer" => NULL # Defaults to 50
-            )
-        );
+$emitter = new SyncEmitter($collector_uri, "http", "POST", 50);
 ```
 
 Whilst you can force the buffer size to be greater than 1 for a GET Request; it will not yield any performance changes as we can still only send 1 event at a time.
@@ -378,7 +353,7 @@ Whilst you can force the buffer size to be greater than 1 for a GET Request; it 
 Constructor:
 
 ```php
-public function __construct($uri, $protocol = NULL, $type = NULL, $debug = NULL)
+public function __construct($uri, $protocol = NULL, $type = NULL, $buffer_size = NULL, $debug = false)
 ```
 
 Arguments:
@@ -388,7 +363,7 @@ Arguments:
 | `$uri`          | Collector URI                          | Yes           | Non-empty string  |
 | `$protocol`     | Collector Protocol (HTTP or HTTPS)     | No            | String            |
 | `$type`         | Request Type (POST or GET)             | No            | String            |
-| `$buffer`       | Amount of events to store before flush | No            | Int               |
+| `$buffer_size`  | Amount of events to store before flush | No            | Int               |
 | `$debug`        | Whether or not to log errors           | No            | Boolean           |
 
 <a name="socket-emitter" />
@@ -399,21 +374,14 @@ The Socket emitter allows for much faster transmission of Requests to the collec
 Example Emitter creation:
 
 ```php
-$emitter = new Emitter("socket", array(
-                "uri" => $collector_uri,
-                "ssl" => NULL, # Defaults to False
-                "type" => "POST",
-                "timeout" => NULL, # Defaults to 30 seconds
-                "buffer" => NULL # Defaults to 50
-            )
-        );
+$emitter = new SocketEmitter($collector_uri, NULL, "GET", NULL, NULL);
 ```
 
 Whilst you can force the buffer size to be greater than 1 for a GET Request; it will not yield any performance changes as we can still only send 1 event at a time.
 
 Constructor:
 ```php
-public function __construct($uri, $ssl = NULL, $timeout = NULL, $debug = NULL)
+public function __construct($uri, $ssl = NULL, $type = NULL, $timeout = NULL, $buffer_size = NULL, $debug = NULL)
 ```
 
 Arguments:
@@ -424,6 +392,7 @@ Arguments:
 | `$ssl`          | Whether to use SSL encryption          | No            | Boolean           |
 | `$type`         | Request Type (POST or GET)             | No            | String            |
 | `$timeout`      | Socket Timeout Limit                   | No            | Int or Float      |
+| `$buffer_size`  | Amount of events to store before flush | No            | Int               |
 | `$debug`        | Whether or not to log errors           | No            | Boolean           |
 
 <a name="curl-emitter" />
@@ -443,20 +412,14 @@ $tracker->flushEmitters(true); # This will force flush all emitters associated w
 
 Example Emitter creation:
 ```php
-$emitter = new Emitter("curl", array(
-                "uri" => $collector_uri,
-                "ssl" => NULL, # Defaults to False
-                "type" => "POST",
-                "buffer" => NULL # Defaults to 50
-            )
-        );
+$emitter = new CurlEmitter($collector_uri, false, "GET", 2);
 ```
 
 Whilst you can force the buffer size to be greater than 1 for a GET Request; it will not yield any performance changes as we can still only send 1 event at a time.
 
 Constructor:
 ```php
-public function __construct($uri, $ssl = NULL, $debug = NULL)
+public function __construct($uri, $ssl = NULL, $type = NULL, $buffer_size = NULL, $debug = false)
 ```
 
 Arguments:
@@ -466,6 +429,7 @@ Arguments:
 | `$uri`          | Collector URI                          | Yes           | Non-empty string  |
 | `$ssl`          | Whether to use SSL encryption          | No            | Boolean           |
 | `$type`         | Request Type (POST or GET)             | No            | String            |
+| `$buffer_size`  | Amount of events to store before flush | No            | Int               |
 | `$debug`        | Whether or not to log errors           | No            | Boolean           |
 
 <a name="curl-emitter-defaults">
@@ -493,22 +457,14 @@ If the worker for any reason fails to successfully send a curl request it will r
 
 Example Emitter creation:
 ```php
-$emitter = new Emitter("file", array(
-                "uri" => $collector_uri,
-                "ssl" => NULL, # Defaults to False
-                "type" => "POST",
-                "workers" => NULL, # Defaults to 1
-                "timeout" => NULL, # Defaults to 15
-                "buffer" => NULL # Defaults to 250
-            )
-        );
+$emitter = new FileEmitter($collector_uri, false, "POST", 2, 15, 100);
 ```
 
 The buffer for the file emitter works a bit differently to the other emitters in that here it is referring to the amount of events needed before an `events-random.log` is produced for a worker.  If you are anticipating it taking a long time to reach the buffer be aware that the worker will kill itself after 15 seconds by default.  Adjust your timeout accordingly.
 
 Constructor:
 ```php
-public function __construct($uri, $ssl = false, $workers = NULL, $timeout = NULL)
+public function __construct($uri, $ssl = NULL, $type = NULL, $workers = NULL, $timeout = NULL, $buffer_size)
 ```
 
 Arguments:
@@ -520,6 +476,7 @@ Arguments:
 | `$type`         | Request Type (POST or GET)             | No            | String            |
 | `$workers`      | Amount of background workers           | No            | Int               |
 | `$timeout`      | Worker Timeout                         | No            | Int or Float      |
+| `$buffer_size`  | Amount of events to store before flush | No            | Int               |
 
 <a name="emitter-debug">
 ### 4.5 Emitter Debug Mode
@@ -527,14 +484,7 @@ Arguments:
 Currently only Sync, Socket and Curl have any level of debugging available to them.  To enable debug mode for these emitters append a boolean to the end of the emitter construction argument like so:
 
 ```php
-$emitter = new Emitter("sync", array(
-                "uri" => $collector_uri,
-                "type" => "POST",
-                "protocol" => NULL,
-                "buffer" => NULL
-            ),
-            true # Simply add the debug truth here! Will otherwise default to false.
-        );
+$emitter = new SyncEmitter($collector_uri, "http", "POST", 50, true); # Add true as the last argument!
 ```
 
 The debug mode will do two things.  Firstly it will create a new directory called `/debug/` in the root of the Trackers directory.  It will then create a log file with the following structure; `sync-events-log-random.log`.  Essentially the type of emitter and a randomized number to prevent it from being incorrectly overwritten.
@@ -873,17 +823,6 @@ $tracker->flushEmitters(true);
 ```
 
 Regardless of how sure you are that all of your events have sent pass this command to ensure that everything gets sent!
-
-<a name="set-network-user-id" />
-#### 5.3.2 `setNetworkUserId`
-
-On Tracker creation we can now also set a Network User ID.  This will be passed along with every event that is sent to the collectors.
-
-The function expects a string to be passed.
-
-```php
-$tracker->setNetworkUserId("nuid");
-```
 
 [base64]: https://en.wikipedia.org/wiki/Base64
 [rolling-curl]: https://github.com/joshfraser/rolling-curl
