@@ -317,8 +317,6 @@ $subject->setUseragent('Agent Smith');
 
 This method lets you pass a Network User ID in to Snowplow
 
-The function expects a string to be passed.
-
 ```php
 $subject->setNetworkUserId($networkUserId);
 ```
