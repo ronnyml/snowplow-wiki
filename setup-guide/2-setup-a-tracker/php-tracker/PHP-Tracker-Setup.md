@@ -38,15 +38,9 @@ This will install the Snowplow Tracker and allow you to initialize a Tracker obj
  
 use Snowplow\Tracker\Tracker;
 use Snowplow\Tracker\Subject;
-use Snowplow\Tracker\Emitter;
+use Snowplow\Tracker\Emitters\SyncEmitter;
 
-$emitter = new Emitter("sync", array(
-                "uri" => $collector_uri,
-                "type" => NULL, # Defaults to POST
-                "protocol" => NULL, # Defaults to HTTP
-                "buffer" => NULL # Defaults to 50
-            )
-        );
+$emitter = new SyncEmitter("collector_uri");
 $subject = new Subject();
 $tracker = new Tracker($emitter, $subject);
 ```
