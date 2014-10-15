@@ -101,16 +101,8 @@ Other Tracker arguments:
 Another example using all allowed arguments:
 
 ```php
-$tracker = new Tracker($emitter, $subject, "cf", "cf29ea", "1");
+$tracker = new Tracker($emitter, $subject, "cf", "cf29ea", true);
 ```
-
-### TODO: fix boolean support
-
-The `encode_base64` argument is always a string:
-- "1" for True
-- "0" for False
-
-The default setting is True.
 
 <a name="emitters" />
 #### 2.1.1 `emitters`
