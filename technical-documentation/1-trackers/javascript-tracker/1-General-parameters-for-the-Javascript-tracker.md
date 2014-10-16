@@ -29,9 +29,11 @@
       - 2.3.1.4 [`setUserIdFromCookie`](#set-user-id-from-cookie)
     - 2.3.2 [Setting a custom URL with `setCustomUrl`](#custom-url)
     - 2.3.3 [Setting the pause time before leaving a page with `setLinkTrackingTimer`](#tracker-pause)
-  - 2.4 [Managing multiple trackers](#multiple-trackers)
-  - 2.5 [How the Tracker uses cookies](#cookies)
-  - 2.6 [How the Tracker uses localStorage](#local-storage)
+  - 2.4 [Setting onload callbacks](#callback)
+  - 2.5 [Managing multiple trackers](#multiple-trackers)
+  - 2.6 [How the Tracker uses cookies](#cookies)
+  - 2.7 [Getting the user ID from the first-party cookie](#get-id)
+  - 2.8 [How the Tracker uses localStorage](#local-storage)
 
 <a name="loading"/>
 ### 2.1 Loading Snowplow.js
@@ -263,8 +265,25 @@ The above code would cause the session cookie to last for one hour.
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
 
+<a name="callback" />
+### 2.4 Setting onload callbacks
+
+If you call `snowplow_name_here` with a function as the argument, the function will be executed when sp.js loads:
+
+```javascript
+snowplow_name_here(function () {
+  console.log("sp.js has loaded");
+});
+```
+
+Or equivalently:
+
+```javascript
+snowplow_name_here(console.log, "sp.js has loaded");
+```
+
 <a name="multiple-trackers" />
-### 2.4 Managing multiple trackers
+### 2.5 Managing multiple trackers
 
 You have more than one tracker instance running on the same page at once. This may be useful if you want to log events to different collectors. By default, any Snowplow method you call will be executed by every tracker you have created so far:
 
@@ -310,7 +329,7 @@ snowplow_name_here('trackPageView:cf1;cf2');
 ```
 
 <a name="cookies" />
-### 2.5 How the Tracker uses cookies
+### 2.6 How the Tracker uses cookies
 
 Unless you have enabled `respectDoNotTrack` in the configuration argmap, the tracker will use cookies to persist information. There are two first party cookies: the session cookie and the ID cookie. By default their names are prefixed with "_sp_", but you can change this using the "cookieName" field in the argmap.
 
@@ -335,8 +354,36 @@ It expires after 2 years.
 
 There is a third sort of Snowplow-related cookie: the cookie set by the [Clojure Collector][clojure-collector], independently of the JavaScript Tracker. If you are using another type of collector, this cookie will not be set. The Clojure Collector cookie is called "sp". It is a third-party cookie used to track users over multiple domains. It expires after one year.
 
+<a name="get-id" />
+### 2.7 Getting the user ID from the Snowplow cookie
+
+You can use the following function to extract the user ID from the ID cookie:
+
+```javascript
+/*
+* Function to extract the Snowplow user ID from the first-party cookie set by the Snowplow JavaScript Tracker
+*
+* @param string cookieName (optional) The value used for "cookieName" in the tracker constructor argmap
+* (leave blank if you did not set a custom cookie name)
+*
+* @return string or bool The ID string if the cookie exists or false if the cookie has not been set yet
+*/
+function getSnowplowDuid(cookieName) {
+  cookieName = cookieName || '_sp_';
+  var c = document.cookie.split(';');
+  for (var i = 0; i < c.length; i++) {
+    if (c[i].substr(0, 6) === cookieName + 'id') {
+     return c[i].split('=')[1].split('.')[0];
+    }
+  }
+  return false;
+}
+```
+
+If you set a custom `cookieName` field in the argmap, pass that name into the function; otherwise call the function without arguments. Note that if the function is called before the cookie exists (i.e. when the user is visiting the page for the first time and sp.js has not yet loaded) if will return `false`.
+
 <a name="local-storage" />
-### 2.6 How the Tracker uses localStorage
+### 2.8 How the Tracker uses localStorage
 
 The Snowplow JavaScript Tracker uses `window.localStorage` to store events in case the user goes offline. Whenever the Tracker tries to fire an event, it first appends it to the queue in `localStorage`, and then sends events from the front of the queue until the queue is empty or an event fails to send.
 
