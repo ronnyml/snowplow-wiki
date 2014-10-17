@@ -2,7 +2,7 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > [**JavaScript Tracker**](Javascript-Tracker) > General parameters
 
-*This page refers to version 2.1.0 of the Snowplow JavaScript Tracker, which has not yet been published.**  
+**This page refers to version 2.1.0 of the Snowplow JavaScript Tracker, which has not yet been published.**  
 **Click [here] [general-parameters-v1] for the corresponding documentation for version 1.**  
 **Click [here] [general-parameters-v2.0] for the corresponding documentation for version 2.0.0.**
 
