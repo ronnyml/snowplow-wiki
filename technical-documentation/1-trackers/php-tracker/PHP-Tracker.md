@@ -528,8 +528,7 @@ The `data` is stored as a json encoded string.  To locally test whether or not y
 ```php
 $emitters = $tracker->returnEmitters(); # Will store all of the emitters as an array.
 $emitter = $emitters[0]; # Get the first emitter stored by the tracker
-$real_emitter = $emitter->returnEmitter(); # Get the real emitter; aka sync or socket.
-$results = $real_emitter->returnRequestResults();  # Return the stored results.
+$results = $emitter->returnRequestResults();  # Return the stored results.
 
 # Now that we have results we can work with...
 print("Code: ".$results[0]["code"]);
