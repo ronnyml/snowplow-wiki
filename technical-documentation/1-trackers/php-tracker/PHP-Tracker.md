@@ -33,7 +33,8 @@
     - 4.3.1 [Defaults](#curl-emitter-defaults)
   - 4.4 [File](#file-emitter)
   - 4.5 [Debug Mode](#emitter-debug)
-    - 4.5.1 [Non-logged Information](#non-logged-info)
+    - 4.5.1 [Event Specific Information](#non-logged-info)
+    - 4.5.2 [Turning Debug Off](#turn-it-off)
 - 5. [Tracking an Event](#track-an-event)
   - 5.1 [Optional Tracking Arguments](#tracking-options)
     - 5.1.1 [Custom Context](#custom-context)
@@ -511,7 +512,7 @@ Every time the events buffer is flushed we can now check and log if the sending 
 Due to the nature of the File Emitter being a background process it is harder to access what is happening and log it accordingly.  For the moment it simply dumps the `events.log` file into a failed folder.  However as the File Emitter uses the same emitter structure as the curl emitter, if one works the other will.
 
 <a name="non-logged-info" />
-#### 4.5.1 Non-logged Information
+#### 4.5.1 Event Specific Information
 
 Debug Mode if enabled will also have the emitter begin storing information internally.  It will store the HTTP Response code and the payload for every Request made by the emitter.
 
@@ -535,13 +536,18 @@ print("Code: ".$results[0]["code"]);
 print("Data: ".$results[0]["data"]);
 ```
 
-As this does store quite a lot of information and can become quite heavy overtime we can end debug mode whenever we wish.
+This allows you to debug on a request by request basis to ensure that everything is being sent properly.
+
+<a name="turn-it-off" />
+### Turn Debug Off
+
+As debugging does store quite a lot of information and can become quite heavy overtime we can end debug mode whenever we wish by calling the following command.
 
 ```php
 $tracker->turnOfDebug();
 ```
 
-This will stop all logging activity; both to the files and to the local arrays.  We can go one step further though and pass a `true` boolean to the function.  This will delete all of the associated debug log files aswell as emptying the local arrays.
+This will stop all logging activity; both to the files and to the local arrays.  We can go one step further though and pass a `true` boolean to the function.  This will delete all of the trackers associated debug log files as well as emptying the local arrays within each linked emitter.
 
 ```php
 $tracker->turnOfDebug(true);
