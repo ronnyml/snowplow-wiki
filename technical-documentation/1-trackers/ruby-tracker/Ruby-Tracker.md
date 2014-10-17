@@ -266,7 +266,7 @@ If you have access to the user's useragent (sometimes called "browser string"), 
 tracker.set_useragent('Mozilla/5.0 (Windows NT 5.1; rv:23.0) Gecko/20100101 Firefox/23.0')
 ```
 
-<a name="set-useragent" />
+<a name="set-domain-user-id" />
 ### 3.10 Setting the domain user ID with `set_domain_user_id`
 
 The `domain_userid` field of the Snowplow event model corresponds to the ID stored in the first party cookie set by the Snowplow JavaScript Tracker. If you want to match up server-side events with client-side events, you can set the domain user ID for server-side events like this:
@@ -275,7 +275,28 @@ The `domain_userid` field of the Snowplow event model corresponds to the ID stor
 tracker.set_domain_user_id('c7aadf5c60a5dff9')
 ```
 
-<a name="set-useragent" />
+You can extract the domain user ID from the Ruby on Rails `cookies` object like this:
+
+```ruby
+def extract_duid(cookie, snowplow_cookie_name="_sp_")
+  cookie_names = cookie.keys.grep(/#{snowplow_cookie_name}id/)
+  if cookie_names.size == 0
+    return nil
+  end
+  cookie_string = cookie[cookie_names[0]]
+  if cookie_string.nil?
+    nil
+  else
+    cookie_string.split('.')[0]
+  end
+end
+```
+
+The first argument is the cookies object (see the [documentation][http://api.rubyonrails.org/classes/ActionDispatch/Cookies.html]).
+
+If you used the "cookieName" configuration option of the Snowplow JavaScript Tracker, pass the same string to the `extract_duid` function as the second argument.
+
+<a name="set-network-user-id" />
 ### 3.11 Setting the network user ID with `set_network_user_id`
 
 The `network_user_id` field of the Snowplow event model corresponds to the ID stored in the third party cookie set by the Snowplow Clojure Collector. You can set the network user ID for server-side events like this:
