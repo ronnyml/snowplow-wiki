@@ -25,6 +25,7 @@
   - 3.8 [`setIpAddress`](#set-ip-address)
   - 3.9 [`setUseragent`](#set-user-agent)
   - 3.10 [`setNetworkUserId`](#set-network-user-id)
+  - 3.11 [`setDomainUserId`](#set-domain-user-id)
 - 4. [Emitters](#emitter-class)
   - 4.1 [Sync](#sync-emitter)
   - 4.2 [Socket](#socket-emitter)
@@ -324,6 +325,20 @@ The network user id should be a string:
 
 ```php
 $subject->setNetworkUserId("network-id");
+```
+
+<a name="set-domain-user-id" />
+### 3.11 `setDomainUserId`
+
+This method lets you pass a Domain User ID in to Snowplow
+
+```php
+$subject->setDomainUserId($domainUserId);
+```
+The domain user id should be a string:
+
+```php
+$subject->setDomainUserId("domain-id");
 ```
 
 <a name="emitter-class" />
