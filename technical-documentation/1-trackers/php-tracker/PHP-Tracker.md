@@ -173,7 +173,7 @@ $subject->setPlatform("tv");
 Or they can be called through the tracker object:
 
 ```php
-$tracker->subject->setPlatform("tv");
+$tracker->returnSubject()->setPlatform("tv");
 ```
 
 <a name="set-platform" />
