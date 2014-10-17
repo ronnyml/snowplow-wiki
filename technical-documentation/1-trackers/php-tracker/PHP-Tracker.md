@@ -162,6 +162,10 @@ The Subject class contains a variety of 'set' methods to attach extra data to yo
 * [`setColorDepth`](#set-color-depth)
 * [`setTimezone`](#set-timezone)
 * [`setLang`](#set-lang)
+* [`setIpAddress`](#set-ip-address)
+* [`setUseragent`](#set-user-agent)
+* [`setNetworkUserId`](#set-network-user-id)
+* [`setDomainUserId`](#set-domain-user-id)
 
 These set methods can be called either directly onto a subject object:
 
