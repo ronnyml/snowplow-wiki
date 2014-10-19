@@ -538,7 +538,7 @@ print("Data: ".$results[0]["data"]);
 This allows you to debug on a request by request basis to ensure that everything is being sent properly.
 
 <a name="turn-it-off" />
-### Turn Debug Off
+#### 4.5.2 Turn Debug Off
 
 As debugging does store quite a lot of information and can become quite heavy overtime we can end debug mode whenever we wish by calling the following command.
 
