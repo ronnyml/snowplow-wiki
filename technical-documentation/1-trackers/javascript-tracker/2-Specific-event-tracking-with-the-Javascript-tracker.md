@@ -212,7 +212,7 @@ snowplow_name_here('addItem',
 Once the transaction object has been created (using `addTrans`) and the relevant item data added to it using the `addItem` method, we are ready to send the data to the collector. This is initiated using the `trackTrans` method:
 
 ```javascript
-snowplow_name_here(['trackTrans']);
+snowplow_name_here('trackTrans');
 ```
 
 <a name="ecomm-example" />
@@ -259,7 +259,7 @@ snowplow_name_here(['trackTrans']);
 
   // trackTrans sends the transaction to Snowplow tracking servers.
   // Must be called last to commit the transaction.
-  snowplow_name_here(['trackTrans']); //submits transaction to the collector
+  snowplow_name_here('trackTrans'); //submits transaction to the collector
 
 </script>
 </head>
