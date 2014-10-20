@@ -279,7 +279,24 @@ snowplow_name_here(function () {
 Or equivalently:
 
 ```javascript
+snowplow_name_here(function (x) {
+  console.log(x);
+}, "sp.js has loaded");
+```
+
+The callback function should not be a method:
+
+```javascript
+// TypeError: Illegal invocation
 snowplow_name_here(console.log, "sp.js has loaded");
+```
+
+will not work, because the value of `this` in the `console.log` function will be `window` rather than `console`.
+
+You can get around this problem using `Function.prototoype.bind` as follows:
+
+```javascript
+snowplow_name_here(console.log.bind(console), "sp.js has loaded");
 ```
 
 <a name="multiple-trackers" />
@@ -331,17 +348,17 @@ snowplow_name_here('trackPageView:cf1;cf2');
 <a name="cookies" />
 ### 2.6 How the Tracker uses cookies
 
-Unless you have enabled `respectDoNotTrack` in the configuration argmap, the tracker will use cookies to persist information. There are two first party cookies: the session cookie and the ID cookie. By default their names are prefixed with "_sp_", but you can change this using the "cookieName" field in the argmap.
+Unless you have enabled `respectDoNotTrack` in the configuration argmap, the tracker will use cookies to persist information. There are two first party cookies: the session cookie and the ID cookie. By default their names are prefixed with "_sp_", but you can change this using the "cookieName" field in the argmap. Their names are suffixed with a hash of the current domain, so the full cookie names might look something like _sp_ses.4209 and _sp_id.4209.
 
 #### The session cookie
 
-Called _sp_ses by default, the only purpose of this cookie is to differentiate between different visits. Whenever an event is fired, the session cookie is set to expire in 30 minutes. (This value can be altered using `setSessionCookieTimeout`.) 
+Called _sp_ses.{{DOMAIN HASH}} by default, the only purpose of this cookie is to differentiate between different visits. Whenever an event is fired, the session cookie is set to expire in 30 minutes. (This value can be altered using `setSessionCookieTimeout`.)
 
 If no session cookie is already present when an event fires, the tracker treats this as an indication that long enough has passed since the user last visited that this session should be treated as a new session rather than a continuation of the previous session. The `visitCount` (how many times the user has visited) is increased by one and the `lastVisitTs` (the timestamp for the last session) is updated.
 
 #### The ID cookie
 
-This cookie is called _sp_id by default. It is used to persist information about a user's activity on the domain between sessions. It contains the following information:
+This cookie is called _sp_id.{{DOMAIN HASH}} by default. It is used to persist information about a user's activity on the domain between sessions. It contains the following information:
 
 * An ID for the user based on a hash of various browser attributes
 * How many times the user has visited the domain
