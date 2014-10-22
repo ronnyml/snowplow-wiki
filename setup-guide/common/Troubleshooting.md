@@ -7,6 +7,7 @@ This is a page of hints, tips and explanations to help you work with Snowplow. I
 5. [I want to recompute my Snowplow events, how?](#recompute-events)
 6. [My database load process died during an S3 file copy, help!](#s3-filecopy)
 7. [Shredding is failing with File does not exist: hdfs:/local/snowplow/shredded-events](#shred-fail)
+8. [How do I terminate a Clojure Collector instance without losing event logs?](#clj-logs)
 
 <a name="etl-failure"/>
 ### EmrEtlRunner failed. What do I do now?
@@ -108,6 +109,13 @@ The Hadoop job step that is failing is the copy (using Amazon's S3DistCp utility
 1. You are not generating any custom contexts, nor unstructured events and have not enabled link click tracking. **Solution:** run EmrEtlRunner with `--skip shred`. Remove this `--skip` as/when you know that you do have JSONs to shred.
 2. You are trying to send contexts/unstructured events from your tracker, but something is going wrong. You can validate that this is the case by doing a text search on your collector logs and confirming you can't see the query string parameters 'ue_pr' or 'ue_px', and 'co' or 'cx'. **Solution:** review your tracker implementation to fix
 3. You are sending contexts/unstructured events from your tracker, but the JSONs are failing schema validation for some reason. In this case you should be able to find the data in your shredded bad rows bucket, along with the reason(s) for the validation failure. **Solution:** update your JSON Schemas in Iglu, or your JSON instances, so that they pass validation
+
+<a name="clj-logs"/>
+### How do I terminate a Clojure Collector instance without losing event logs?
+
+The Clojure Collector is configured to upload logs of raw events to Amazon S3 every hour (typically at 10 minutes past the hour). If you want to terminate an instance running the Clojure Collector, you need to follow a strict process to ensure the most recent event logs are not lost when the instance is terminated.
+
+For the process to follow, please see our dedicated [[Terminating Clojure Collector instances without data loss]] wiki page.
 
 [sluice]: https://github.com/snowplow/sluice
 
