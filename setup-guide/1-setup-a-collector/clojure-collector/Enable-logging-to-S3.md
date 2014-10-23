@@ -36,5 +36,5 @@ Write this path down somewhere as you will need it later to configure [EmrEtlRun
 
 Note - if you cannot find the logs as described above, it may be because Amazon has not written any yet. You may need to wait an hour for the logs to appear.
 
-Next: [[enable support for HTTPS]]
+Next: [configure the Clojure collector](Configuring the Clojure collector)
 

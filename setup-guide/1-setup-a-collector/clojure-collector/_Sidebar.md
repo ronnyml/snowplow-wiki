@@ -7,6 +7,7 @@
     - [Download the Clojure collector WAR file](Download-the-Clojure-collector-WAR-file-or-compile-it-from-source)  
     - [Create a new application in Elastic Beanstalk, and upload the WAR file into it](Create-a-new-application-in-Elastic-Beanstalk-and-upload-the-WAR-file-into-it) 
     - [Enable logging to S3](Enable logging to S3) 
+    - [Confgiuring the Clojure collector](Configuring the Clojure collector)  
     - [Enable support for HTTPS](Enable-support-for-HTTPS) 
     - [Additional configuration options (optional)](additional configuration options) 
 2. [Step 2: Setup a Tracker] (setting-up-a-tracker)  
