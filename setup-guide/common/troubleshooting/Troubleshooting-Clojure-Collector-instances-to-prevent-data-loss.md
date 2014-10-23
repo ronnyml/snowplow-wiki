@@ -7,7 +7,7 @@ In this troubleshooting guide we will look at each failure scenario in turn.
 
 ### Prerequisites
 
-Please ensure you have setup your Elastic Beanstalk environment as follows:
+To help prevent accidental data loss, please ensure you have setup your Elastic Beanstalk environment as follows:
 
 #### SSH access to your Elastic Beanstalk environment is enabled
 
