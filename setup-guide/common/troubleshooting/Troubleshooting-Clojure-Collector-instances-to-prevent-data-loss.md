@@ -19,6 +19,10 @@ This can be found under Configuration section for the environment within the Loa
 
 http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#conn-drain
 
+#### Instances should be Elastic Block Store-backed at root
+
+This should (untested) allow you to safely bounce Clojure Collector instances without losing the logs.
+
 ### Failure scenario 1: automatic log rotation fails
 
 The solution is to log into the instance and manually force the push of the remaining logs. If you ssh into the instance, you can run the following three commands to capture the current logs and upload them to S3:
