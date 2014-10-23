@@ -1,8 +1,14 @@
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 1: setup a Collector**](Setting-up-a-Collector) > [**Clojure collector setup**](setting-up-the-clojure-collector) > [[Enable logging to S3]]
 
-## Enable SSH access to your Elastic Beanstalk environment and set your instances to have EBS backed root devices
+There are several settings to configure for your Clojure collector application:
 
-### Enable SSH access
+1. [Enable SSH access to your Elastic Beanstalk environment and set your instances to have EBS backed root devices](#enable-ssh-access-to-your-elastic-beanstalk-environment-and-set-your-instances-to-have-ebs-backed-root-devices)
+2. [Enable connection draining for your Elastic Beanstalk instance](#enable-connection-draining-for-your-elastic-beanstalk-instance)
+3. [Configuring autoscaling settings](#configure-autoscaling-settings)
+
+### Enable SSH access to your Elastic Beanstalk environment and set your instances to have EBS backed root devices
+
+#### Enable SSH access
 
 This will enable you to SSH into one or more of you instances in the unlikely event that the rotation of collector logs from the bucket to S3 fails.
 
@@ -22,7 +28,7 @@ From the **Root volume type** dropdown select **General Purpose (SSD)**
 
 When you are done, click the **Save** button. 
 
-## Enable connection draining for your Elastic Beanstalk instance
+### Enable connection draining for your Elastic Beanstalk instance
 
 Enabling this will enable us to make sure that in the event you want to scale down your cluster, you do not lose any log files generated on machines that will be terminated.
 
@@ -33,7 +39,7 @@ To do this, navigate to the EC2 section of the AWS console adn select **Load Bal
 [[/setup-guide/images/clojure-collector-setup-guide/24.png]]
 
 
-## Configure autoscaling settings
+### Configure autoscaling settings
 
 Now that we've configured our cluster so that in the event of a problem we don't lose any data, we now need to set it up so it gracefully scales up to handle spikes in traffic.
 
