@@ -3,11 +3,7 @@ The Clojure Collector is configured to upload logs of raw events to Amazon S3 ev
 1. Automatic log rotation fails, leaving logs building up on the collector instances
 2. A collector instance is terminated, leading to the loss of the logs still contained on the instance (i.e. not yet uploaded to S3)
 
-In this troubleshooting guide we will look at each failure scenario in turn
-
- If you want to terminate an instance running the Clojure Collector, you need to follow a strict process to ensure the most recent event logs are not lost when the instance is terminated.
-
-The issue here is that currently terminating an instance will lose any remaining logs still contained on the instance. You would also want to keep everything running while changing over to another instance so that there is no loss of requests during the changeover, but having the instance you want to remove stop requests so that you can get hold of the consistent last logs. The last issue here is reducing the number of instances that make up the AutoScaling group, and making sure that the remaining instance is the new one rather than the older one.
+In this troubleshooting guide we will look at each failure scenario in turn.
 
 ### Prerequisites
 
@@ -25,9 +21,7 @@ http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/Terminolog
 
 ### Failure scenario 1: automatic log rotation fails
 
-Log into the instance and force the push of remaining logs.
-
-If you ssh into the instance, you can run the following three commands to capture the current logs and upload them to S3. This process is normally performed by cron and you can find the relevant entries under /etc/cron.hourly and /etc/cron.d if you're interested in taking a look. Essentially, we're forcing the normal log rotate instead of waiting for the normal parameters. Make sure that you check that the logs make it to S3 and are collected correctly though.
+The solution is to log into the instance and manually force the push of the remaining logs. If you ssh into the instance, you can run the following three commands to capture the current logs and upload them to S3:
 
 ```
 sudo logrotate -f /etc/logrotate.conf.elasticbeanstalk
@@ -35,9 +29,13 @@ sudo logrotate -f /etc/logrotate.conf.elasticbeanstalk.httpd
 sudo publishLogs.py --de-dupe --conf-path '/opt/elasticbeanstalk/tasks/publishlogs.d/*' --location-prefix resources/environments/logs/publish/ --num-concurrent 2
 ```
 
+Note that this process is normally performed by cron and you can find the relevant entries under `/etc/cron.hourly` and `/etc/cron.d` if you're interested in taking a look.
+
+Make sure that you check that the manually-pushed logs make it to S3 and are collected correctly.
+
 ### Failure scenario 2: a collector instance is terminated
 
-There is currently no workaround for the accidental termination of a Clojure Collector instance, for example in the scenario where an instance has a hardware or software failure and gets replaced by AutoScaling.
+There is currently no workaround for the accidental termination of a Clojure Collector instance, for example when an instance has a hardware or software failure and gets replaced by AutoScaling.
 
 In the case that you need to deliberately terminate a Clojure Collector instance, the AWS team have compiled a set of steps which should prevent data loss. For simplicity, the following guide assumes that you have a single instance environment and wish to replace that instance with a new instance (terminating the old one) without either:
 
