@@ -46,7 +46,7 @@ Let's get started:
 
 #### Step 1. Change the AutoScaling termination policy
 
-In the EC2 section of the AWS Management Console, under AutoScaling Groups, find the AutoScaling group for your environment (awseb-e-xxx-stack-AWSEBAutoScalingGroup-xxx). In the details section, select edit and change Termination Policies to OldestInstance only, removing Default. The reason for this and the next step is due to the way AutoScaling works. If there are an equal number of instances in Availability Zones, then an AZ would first be selected at random, then the relevant termination policy applied. In your case, if we want to remove the oldest instance when we scale down, we need to ensure they are both in the same AZ so that it can evaluate the two instances correctly. You can find more information on how it all works here:
+In the EC2 section of the AWS Management Console, under AutoScaling Groups, find the AutoScaling group for your environment (`awseb-e-xxx-stack-AWSEBAutoScalingGroup-xxx`). In the details section, select edit and change Termination Policies to OldestInstance only, removing Default. The reason for this and the next step is due to the way AutoScaling works. If there are an equal number of instances in Availability Zones, then an AZ would first be selected at random, then the relevant termination policy applied. In your case, if we want to remove the oldest instance when we scale down, we need to ensure they are both in the same AZ so that it can evaluate the two instances correctly. You can find more information on how it all works here:
 
 http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/us-termination-policy.html#your-termination-policy
 
@@ -60,11 +60,11 @@ Once done, you would then need to monitor the environment and wait for the insta
 
 #### Step 4. De-register the instance you want to remove from the ELB manually
 
-Within the EC2 management console, under Load Balancers, find the ELB for your environment (awseb-e-b-xxx-xxx) and manually remove your target instance (i-ecxxx) from the ELB within the instances section. With connection draining turned on, incoming connections will as much as possible gracefully moved over to the other instance before the instance is removed. The instance will still be part of the environment and AutoScaling group and remain available, but it will not be responding to requests because it has been removed. This means that the logs should be in a consistent state at this point.
+Within the EC2 management console, under Load Balancers, find the ELB for your environment (`awseb-e-b-xxx-xxx`) and manually remove your target instance (i-ecxxx) from the ELB within the instances section. With connection draining turned on, incoming connections will as much as possible gracefully moved over to the other instance before the instance is removed. The instance will still be part of the environment and AutoScaling group and remain available, but it will not be responding to requests because it has been removed. This means that the logs should be in a consistent state at this point.
 
 #### Step 5. Decrease your minimum instance count to 1
 
-Now that you have the logs in S3, this will terminate the instance. As the termination policy is for the AutoScaling group is to remove the Oldest Instance, it will then terminate i-ec19d9af.
+Now that you have the logs in S3, this will terminate the instance. As the termination policy is for the AutoScaling group is to remove the Oldest Instance, it will then terminate the correct instance.
 
 #### Step 6. Change the AutoScaling termination policy back to Default
 
