@@ -23,6 +23,10 @@ http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/Terminolog
 
 This should (untested) allow you to safely bounce Clojure Collector instances without losing the logs.
 
+#### Automatic downscaling should be disabled
+
+In the Elastic Beanstalk UI, under Scaling and then Scaling Trigger, make sure that the Lower breach scale increment is set to 0, not -1 or similar. 
+
 ### Failure scenario 1: automatic log rotation fails
 
 The solution is to log into the instance and manually force the push of the remaining logs. If you ssh into the instance, you can run the following three commands to capture the current logs and upload them to S3:
@@ -39,9 +43,15 @@ Make sure that you check that the manually-pushed logs make it to S3 and are col
 
 ### Failure scenario 2: a collector instance is terminated
 
-There is currently no workaround for the accidental termination of a Clojure Collector instance, for example when an instance has a hardware or software failure and gets replaced by AutoScaling.
+There are three scenarios in which a collector instance can be terminated:
 
-In the case that you need to deliberately terminate a Clojure Collector instance, the AWS team have compiled a set of steps which should prevent data loss. For simplicity, the following guide assumes that you have a single instance environment and wish to replace that instance with a new instance (terminating the old one) without either:
+1. An instance has a hardware or software failure and gets replaced by AutoScaling
+2. AutoScaling spins up multiple instances for a load spike and they scale back down during a less busy time
+3. You or one of your team manually terminate an instance (e.g. because it has become unresponsive)
+
+There is currently no workaround for scenario 1. We avoid scenario 2 by configuring our Elastic Beanstalk environment to never automatically scale down.
+
+For scenario 3, the case where you need to manually terminate a Clojure Collector instance, the AWS team have compiled a set of steps which should prevent data loss. For simplicity, the following guide assumes that you have a single instance environment and wish to replace that instance with a new instance (terminating the old one) without either:
 
 1. Losing any logs of raw events contained on the Clojure Collector instance and not uploaded to S3
 2. Dropping any events being sent by the trackers (i.e. switchover has no downtime)
