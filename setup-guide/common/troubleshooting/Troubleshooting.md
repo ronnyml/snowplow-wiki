@@ -115,7 +115,7 @@ The Hadoop job step that is failing is the copy (using Amazon's S3DistCp utility
 
 The Clojure Collector is configured to upload logs of raw events to Amazon S3 every hour (typically at 10 minutes past the hour). If you want to terminate an instance running the Clojure Collector, you need to follow a strict process to ensure the most recent event logs are not lost when the instance is terminated.
 
-For the process to follow, please see our dedicated [[Terminating Clojure Collector instances without data loss]] wiki page.
+For the process to follow, please see our dedicated [[Troubleshooting Clojure Collector instances to prevent data loss]] wiki page.
 
 [sluice]: https://github.com/snowplow/sluice
 
