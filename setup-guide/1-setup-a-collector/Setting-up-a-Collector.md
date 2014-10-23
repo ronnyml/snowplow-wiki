@@ -20,11 +20,15 @@ There are currently three collectors available:
 | [Clojure Collector] [clojure-collector]        | A Clojure-based collector that enables user tracking across domains. Powered by Amazon Elastic Beanstalk | Production-ready |
 | [Scala Stream Collector] [scala-stream-collector]        | A Scala-based collector that enables user tracking across domains. Powered by Amazon Kinesis | Beta |
 
+### Do you want to track data from mobile apps, application servers and/or 3rd party webhooks?
+
+If so we recommend setting up the [Clojure collector] [clojure-collector] as this supports POST requests as well as GET requests.
+
 ### Are you setting up Snowplow to track users across a single domain, or multiple domains?
 
-If you are tracking users across a single domain, we recommend setting up the [Cloudfront collector] [cloudfront-collector]. 
-
 If you are tracking users across multiple domains, we recommending setting up the [Clojure collector] [clojure-collector] or [Scala Stream Collector] [scala-stream-collector]. This sets `user_id`s server side, so you can reliably track user journeys across multiple domains. (In contrast, the [Cloudfront collector] [cloudfront-collector] sets them client side, so users get assigned different `user_id`s on different domains.)
+
+If you are tracking users across a single domain and don't require mobile app or server side tracking, we recommend setting up the [Cloudfront collector] [cloudfront-collector]. 
 
 ### Do you want to experiment with real-time event analytics?
 

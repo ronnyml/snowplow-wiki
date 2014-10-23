@@ -300,7 +300,7 @@ Lastly, we may want to let create a schema in Redshift where the read-only user 
 
 ```sql
 CREATE SCHEMA scratchpad;
-GRANT ALL ON SCHEMA scratchpad TO read-only;
+GRANT ALL ON SCHEMA scratchpad TO read_only;
 ```
 
 <a name="power-user" />

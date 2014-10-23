@@ -2,10 +2,10 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > Ruby Tracker
 
-*This page refers to version 0.2.0 of the Snowplow Python Tracker. Documentation for the latest version, 0.3.0, is available:*
+*This page refers to version 0.3.0 of the Snowplow Ruby Tracker. Documentation for other versions is available:*
 
-*[Version 0.3][ruby-0.3]*
-*[Version 0.4][ruby-latest]*
+*[Version 0.2][ruby-0.2]*
+*[Version 0.4][ruby-0.4] (not yet released)*
 
 ## Contents
 
@@ -33,7 +33,13 @@
   - 4.4 [`track_ecommerce_transaction`](#ecommerce-transaction)
   - 4.5 [`track_struct_event`](#struct-event)
   - 4.6 [`track_unstruct_event`](#unstruct-event)
-
+- 5. [Emitters](#emitters)
+  - 5.1 [Overview](#emitters-overview)
+  - 5.2 [The AsyncEmitter class](#async-emitter)
+  - 5.3 [Multiple emitters](#multiple-emitters)
+  - 5.4 [Manual flushing](#flushing)
+- 6 [Contracts](#contracts)
+- 7 [Logging](#logging)
 
 <a name="overview" />
 ## 1. Overview
@@ -43,6 +49,12 @@ The Snowplow Ruby Tracker allows you to track Snowplow events in your Ruby appli
 The tracker should be straightforward to use if you are comfortable with Ruby development; any prior experience with Snowplow"s [[Python Tracker]], [[JavaScript Tracker]], [[Lua Tracker]], Google Analytics or Mixpanel (which have similar APIs to Snowplow) is helpful but not necessary.
 
 The Ruby Tracker and Python Tracker have very similiar functionality and APIs.
+
+There are three main classes which the Ruby Tracker uses: subjects, emitters, and trackers.
+
+A subject represents a single user whose events are tracked, and holds data specific to that user. If your tracker will only be tracking a single user, you don't have to create a subject - it will be done automatically.
+
+A tracker always has one active subject at a time associated with it. It constructs events with that subject and sends them to one or more emitters, which sends them on to a Snowplow collector.
 
 <a name="init" />
 ## 2. Initialization
@@ -66,29 +78,57 @@ You can now initialize tracker instances.
 Initialize a tracker instance like this:
 
 ```ruby
-tracker = SnowplowTracker::Tracker.new('d3rkrsqld9gmqf.cloudfront.net')
+emitter = SnowplowTracker::Emitter.new("d3rkrsqld9gmqf.cloudfront.net")
+tracker = SnowplowTracker::Tracker.new(e)
 ```
 
-This tracker will log events to http://d3rkrsqld9gmqf.cloudfront.net/i. There are three other optional parameters:
+If you wish to send events to more than one emitter, you can provide an array of emitters to the tracker constructor.
+
+This tracker will log events to http://d3rkrsqld9gmqf.cloudfront.net/i. There are four other optional parameters:
 
 ```ruby
-def initialize(endpoint, namespace=nil, app_id=nil, encode_base64=true)
+def initialize(endpoint, subject=nil, namespace=nil, app_id=nil, encode_base64=true)
 ```
+
+`subject` is a subject with which the tracker is initialized.
 
 `namespace` is a name for the tracker which will be added to every event the tracker fires. This is useful if you have initialized more than one tracker. `app_id` is the unique ID for the Ruby application. `encode_base64` determines whether JSONs in the querystring for an event will be base64-encoded.
 
 So a more complete tracker initialization example might look like this:
 
 ```ruby
-tracker = SnowplowTracker::Tracker.new('d3rkrsqld9gmqf.cloudfront.net', 'cf', 'ID-ap00035', false)
+initial_subject = SnowplowTracker::Subject.new
+emitter = SnowplowTracker::Emitter.new("d3rkrsqld9gmqf.cloudfront.net")
+tracker = SnowplowTracker::Tracker.new(emitter, initial_subject, 'cf', 'ID-ap00035', false)
 ```
+
+<a name="multi-tracker" />
+### 2.3 Creating multiple trackers
+
+Each tracker instance is completely sandboxed, so you can create multiple trackers as you see fit.
+
+Here is an example of instantiating two separate trackers:
+
+```ruby
+t1 = SnowplowTracker::Tracker.new(SnowplowTracker::AsyncEmitter.new("d3rkrsqld9gmqf.cloudfront.net"), nil, "t1")
+t1.set_platform("cnsl")
+t1.track_page_view("http://www.example.com")
+
+t2 = SnowplowTracker::Tracker.new(SnowplowTracker::AsyncEmitter.new("my-company.c.snplow.com"), nil, "t2")
+t2.set_platform("cnsl")
+t2.track_screen_view("Game HUD", "23")
+
+t1.track_screen_view("Test", "23") # Back to first tracker 
+```
+
+[Back to top](#top)
 
 [Back to top](#top)
 
 <a name="add-data" />
 ## 3. Adding extra data
 
-You can configure the a tracker instance with additional information about your application's environment or current user. This data will be attached to every event the tracker fires. Here are the available methods:
+You can configure the a tracker instance with additional information about your application's environment or current user. This data will be attached to every event the tracker fires regarding the subject. Here are the available methods:
 
 | **Function**                                      | **Description**                                        |
 |--------------------------------------------------:|:-------------------------------------------------------|
@@ -100,10 +140,53 @@ You can configure the a tracker instance with additional information about your 
 | [`set_timezone`](#set-timezone)                   | Set the timezone               |
 | [`set_lang`](#set-language)                       | Set the language             |
 
+There are two ways to call these methods:
+
+* Call them on a Subject instance. They will update the data associated with that subject and return the subject.
+* Call them on the Tracker instance. They will update the data associated with the currently active subject for that tracker and return the tracker.
+
+For example:
+
+```ruby
+s0 = SnowplowTracker::Subject.new
+emitter = SnowplowTracker::Emitter.new("d3rkrsqld9gmqf.cloudfront.net")
+my_tracker = SnowplowTracker::Tracker.new(emitter, s0)
+
+# The following two lines are equivalent, except that the first returns s0 and the second returns my_tracker
+s0.set_platform('mob')
+my_tracker.set_platform('mob')
+```
+
+If you are using multiple subjects, you can use the `set_subject` tracker method to change which Subject instance is active:
+
+```ruby
+s0 = SnowplowTracker::Subject.new
+emitter = SnowplowTracker::Emitter.new("d3rkrsqld9gmqf.cloudfront.net")
+my_tracker = SnowplowTracker::Tracker.new(emitter, s0)
+
+# Set the viewport for the active subject, s0
+my_tracker.set_viewport(300, 500)
+
+# The data associated with s0 will be sent with this event
+my_tracker.track_screen_view('title page')
+
+# Create a new subject
+s1 = SnowplowTracker::Subject.new
+
+# Make s1 the active subject and set its viewport
+my_tracker.set_subject(s1).set_viewport(600,1000)
+
+# The data associated with s0 will be sent with this event
+my_tracker.track_screen_view('another page')
+
+# Change the subject back to s0 and track another event
+my_tracker.set_subject(s0).track_screen_view('final page')
+```
+
 <a name="set-platform" />
 ### 3.1 Set the tracker's platform with `set_platform`
 
-The platform can be any on of `'pc'`, `'tv'`, `'mob'`, `'cnsl'`, or `'iot'`. The default platform is `'pc'`.
+The platform can be any on of `'pc'`, `'tv'`, `'mob'`, `'cnsl'`, or `'iot'`. The default platform is `'srv'`.
 
 tracker.set_platform('mob')
 
@@ -133,7 +216,6 @@ Similarly, you can pass the viewport dimensions in to Snowplow. Again, both numb
 ```ruby
 tracker.set_screen_resolution(300, 200)
 ```
-
 
 <a name="set-color-depth" />
 ### 3.5 Set the color depth with `set_color_depth`
@@ -183,6 +265,8 @@ Tracking methods supported by the Ruby Tracker at a glance:
 ### 4.1 Common
 
 All events are tracked with specific methods on the tracker instance, of the form `track_XXX()`, where `XXX` is the name of the event to track.
+
+All tracker methods return the tracker instance, and so are chainable.
 
 <a name="validation" />
 #### 4.1.1 Argument validation
@@ -446,8 +530,125 @@ The keys of the `event_json` hash can be either strings or Ruby symbols.
 
 [Back to top](#top)
 
-[ruby-0.3]: https://github.com/snowplow/snowplow/wiki/Ruby-Tracker-v0.3
+<a name="emitters" />
+## 5. Emitters
+
+Tracker instances must be initialized with an emitter. This section will go into more depth about the Emitter and AsyncEmitter classes.
+
+<a name="emitters-overview" />
+### 5.1. Overview
+
+Each tracker instance must now be initialized with an Emitter which is responsible for firing events to a Collector. An Emitter instance is initialized with two arguments: an endpoint and an optional configuration hash. 
+
+A simple example with just an endpoint:
+
+
+```ruby
+# Create an emitter
+my_emitter = Snowplow::Emitter.new('d3rkrsqld9gmqf.cloudfront.net')
+```
+
+A complicated example using every setting:
+
+```ruby
+# Create an emitter
+my_emitter = Snowplow::Emitter.new('d3rkrsqld9gmqf.cloudfront.net', {
+  :protocol => 'https',
+  :method => 'post',
+  :port => 80,
+  :buffer_size => 0,
+  :on_success => lambda { |success_count| 
+    puts '#{success_count} events sent successfully'
+  },
+  :on_failure => lambda { |success_count, failures| 
+    puts '#{success_count} events sent successfully, #{failures.size} events sent unsuccessfully'
+  }
+})
+```
+
+Every setting in the configuration hash is optional. Here is what they do:
+
+* `:protocol` determines whether events will be sent using HTTP or HTTPS. It defaults to "http".
+* `:method` determines whether events will be sent using GET or POST. It defaults to "get".
+* `:port` determines the port to use
+* `:buffer_size` is the number of events which will be queued before they are all sent, a process called "flushing". When using GET, it defaults to 0 because each event has its own request. When using POST, it defaults to 10, and the buffered events are all sent together in a single request.
+* `:on_success` is a callback which is called every time the buffer is flushed and every event in it is sent successfully (meaning with status code 200). It should accept one argument: the number of requests sent this way.
+* `on_failure` is a callback which is called if the buffer is flushed but not every event is sent successfully. It should accept two arguments: the number of successfully sent events and an array containing the unsuccessful events.
+
+<a name="async-emitter" />
+### 5.2. The AsyncEmitter class
+
+AsyncEmitter is a subclass of Emitter. It's API is exactly the same. It's advantage is that it always creates a new thread to flush its buffer, so requests are sent asynchronously.
+
+<a name="multiple-emitters" />
+### 5.3. Multiple emitters
+
+It is possible to initialize a tracker with an array of emitters, in which case events will be sent to all of them:
+
+```ruby
+# Create a tracker with multiple emitters
+my_tracker = Snowplow::Tracker.new([my_sync_emitter, my_async_emitter], 'my_tracker_name', 'my_app_id')
+```
+
+You can also add new emitters after creating a tracker with the `add_emitter` method:
+
+```ruby
+# Create a tracker with multiple emitters
+my_tracker.add_emitter(another_emitter)
+```
+
+<a name="flushing" />
+### 5.4. Flushing manually
+
+You may want to force an emitter to send all events in its buffer, even if the buffer is not full. The `Tracker` class has a `flush` method which flushes all its emitters. It accepts one argument, `sync`, which defaults to false. If you set `sync` to `true`, the flush will be synchronous: it will block until all flushing threads are finished.
+
+```ruby
+# Asynchronous flush
+my_tracker.flush
+
+# Synchronous flush
+my_tracker.flush(true)
+```
+
+<a name="contracts" />
+### 6. Contracts
+
+The Snowplow Ruby Tracker uses the [Ruby Contracts gem][contracts] for typechecking. Contracts are enabled by default but can be turned on or off:
+
+```ruby
+# Turn contracts off
+SnowplowTracker::disable_contracts
+
+# Turn contracts back on
+SnowplowTracker::enable_contracts
+```
+
+<a name="logging" />
+## 7. Logging
+
+The emitters.rb module has Ruby logging enabled to give you information about requests being sent. The logger prints messages about what emitters are doing. By default, only messages with priority "INFO" or higher will be logged.
+
+To change this:
+
+```ruby
+require 'logger'
+SnowplowTracker::LOGGER.level = Logger::DEBUG
+```
+
+The levels are:
+
+| **Level**      | **Description** |
+|---------------:|:----------------|
+| `FATAL`  | Nothing logged     |
+| `WARN`   | Notification for requests with status code not equal to 200  |
+| `INFO`   | Notification for all requests |
+| `DEBUG`  | Contents of all requests     |
+
+[Back to top](#top)
+
+[ruby-0.2]: https://github.com/snowplow/snowplow/wiki/Ruby-Tracker-v0.2
 [ruby-latest]: https://github.com/snowplow/snowplow/wiki/Ruby-Tracker
 
 [contexts]: http://snowplowanalytics.com/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#contexts
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
+[contracts]: https://github.com/egonSchiele/contracts.ruby

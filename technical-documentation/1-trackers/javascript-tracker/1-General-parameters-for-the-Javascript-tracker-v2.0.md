@@ -2,9 +2,9 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > [**JavaScript Tracker**](Javascript-Tracker) > General parameters
 
-**This page refers to version 2.1.0 of the Snowplow JavaScript Tracker, which has not yet been published.**  
-**Click [here] [general-parameters-v1] for the corresponding documentation for version 1.**  
-**Click [here] [general-parameters-v2.0] for the corresponding documentation for version 2.0.0.**
+*This page refers to version 2.0.0 of the Snowplow JavaScript Tracker.*  
+*Click [here] [general-parameters-v1] for the corresponding documentation for version 1.*  
+*Click [here] [general-parameters] for the corresponding documentation for version 2.1.0.*
 
 <a name="general" />
 ## 2. General parameters
@@ -19,8 +19,7 @@
     - 2.2.7 [User fingerprinting](#user-fingerprint)
     - 2.2.8 [Setting the user fingerprint seed](#user-fingerprint-seed)
     - 2.2.9 [Setting the page unload pause](#page-unload-timer)
-    - 2.2.10 [Setting the event request protocol](#force-secure-tracker)
-    - 2.2.11 [Altering cookies](#write-cookies)
+    - 2.2.10 [Altering cookies](#write-cookies)
   - 2.3 [Other parameters](#other-methods)
     - 2.3.1 [Setting the user id](#user-id)
       - 2.3.1.1 [`setUserId`](#set-user-id)
@@ -29,11 +28,8 @@
       - 2.3.1.4 [`setUserIdFromCookie`](#set-user-id-from-cookie)
     - 2.3.2 [Setting a custom URL with `setCustomUrl`](#custom-url)
     - 2.3.3 [Setting the pause time before leaving a page with `setLinkTrackingTimer`](#tracker-pause)
-  - 2.4 [Setting onload callbacks](#callback)
-  - 2.5 [Managing multiple trackers](#multiple-trackers)
-  - 2.6 [How the Tracker uses cookies](#cookies)
-  - 2.7 [Getting the user ID from the first-party cookie](#get-id)
-  - 2.8 [How the Tracker uses localStorage](#local-storage)
+  - 2.4 [Managing multiple trackers](#multiple-trackers)
+  - 2.5 [How the Tracker uses cookies](#cookies)
 
 <a name="loading"/>
 ### 2.1 Loading Snowplow.js
@@ -45,11 +41,11 @@ Use the following tag to your page to load Snowplow.js:
 ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
 p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
 };p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.1.0/sp.js","snowplow_name_here"));
+n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.0.0/sp.js","snowplow_name_here"));
 </script>
 ```
 
-*Important note regarding testing:* `"//d1fc8wv8zag5ca.cloudfront.net/2.1.0/sp.js"` is the URL from which sp.js should be fetched, and will automatically be prepended with "http:" or "https:" depending on the page's protocol. But if you wish to try out Snowplow locally, using an HTML file on disk whose URI starts with "file://", you should manually insert "http:", changing it to `"http://d1fc8wv8zag5ca.cloudfront.net/2.1.0/sp.js"`.
+*Important note regarding testing:* `"//d1fc8wv8zag5ca.cloudfront.net/2.0.0/sp.js"` is the URL from which sp.js should be fetched, and will automatically be prepended with "http:" or "https:" depending on the page's protocol. But if you wish to try out Snowplow locally, using an HTML file on disk whose URI starts with "file://", you should manually insert "http:", changing it to `"http://d1fc8wv8zag5ca.cloudfront.net/2.0.0/sp.js"`.
 
 As well as loading Snowplow, this tag creates a global function called "snowplow_name_here" which you use to access the Tracker. You can replace the string "snowplow_name_here" with the function name of your choice. This is encouraged: if there are two Snowplow users on the same page, there won't be any conflict between them as long as they have chosen different function names. The rest of the documentation will assume that the function is called "snowplow_name_here".
 
@@ -109,7 +105,6 @@ snowplow_name_here("newTracker", "cf", "d3rkrsqld9gmqf.cloudfront.net", {
   userFingerprint: true,
   userFingerprintSeed: 6385926734,
   pageUnloadTimer: 0,
-  forceSecureTracker: true,
   writeCookies: true
 });
 ```
@@ -165,19 +160,12 @@ The `userFingerprintSeed` field of the the argmap lets you choose the hash seed 
 <a name="page-unload-timer" />
 #### 2.2.9 Setting the page unload pause
 
-Whenever the Snowplow Javascript Tracker fires an event, it automatically starts a 500 millisecond timer running. If the user clicks on a link or refreshes the page during this period (or, more likely, if the event was triggered by the user clicking a link), the page will wait until either the event is sent or the timer is finished before unloading. 500 milliseconds is usually enough to ensure the event has time to be sent.
+Whenever the Snowplow Javascript Tracker fires an event, it automatically starts a 500 millisecond timer running. If the user clicks on a link or refreshes the page during this period (or, more likely, if the event was triggered by the user clicking a link), the page will wait until the timer is finished before unloading. 500 milliseconds is usually enough to ensure the event has time to be sent.
 
 You can change the pause length (in milliseconds) using the `pageUnloadTimer` of the argmap. The above example completely eliminates the pause. This does make it unlikely that events triggered by link clicks will be sent.
 
-See also [How the Tracker uses `localStorage`](#local-storage) for an explanation of how the tracker can later recover and send unsent events.
-
-<a name="force-secure-tracker" />
-#### 2.2.10 Setting the event request protocol
-
-Normally the protocol (http or https) used by the Tracker to send events to a collector is the same as the protocol of the current page. You can force it to use https by setting the `forceSecureTracker` field of the argmap to `true`.
-
 <a name="write-cookies" />
-#### 2.2.11 Altering cookies
+#### 2.2.10 Altering cookies
 
 The `writeCookies` argument is a boolean value which determines whether the tracker instance will be able to alter cookies or add new ones. It does not affect whether the tracker instance will read cookies, so if it is turned off but Snowplow cookies with the tracker's configured cookie name already exist for the page, the tracker will continue to report those cookies' values. If you do use this argument, be careful - if two trackers on the same page are both initialised with the same cookie name and with `writeCookies` turned on, inaccurate data will result from them both trying to alter the same cookies. Note that you will always be fine if the `writeCookies` argument is not set - because the default behaviour avoids these problems.
 
@@ -221,6 +209,7 @@ snowplow_name_here('setUserIdFromLocation', 'id');
 
 `setUserIdFromReferrer functions in the same way as `setUserIdFromLocation`, except that it uses the referrer querystring rather than the querystring of the current page.
 
+
 ```javascript
 snowplow_name_here('setUserIdFromReferrer', 'id');
 ```
@@ -233,6 +222,7 @@ Use `setUserIdFromCookie` to set the value of a cookie as the user ID. For examp
 ```javascript
 snowplow_name_here('setUserIdFromCookie', 'cookieid');
 ```
+
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
 
@@ -265,42 +255,8 @@ The above code would cause the session cookie to last for one hour.
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
 
-<a name="callback" />
-### 2.4 Setting onload callbacks
-
-If you call `snowplow_name_here` with a function as the argument, the function will be executed when sp.js loads:
-
-```javascript
-snowplow_name_here(function () {
-  console.log("sp.js has loaded");
-});
-```
-
-Or equivalently:
-
-```javascript
-snowplow_name_here(function (x) {
-  console.log(x);
-}, "sp.js has loaded");
-```
-
-The callback function should not be a method:
-
-```javascript
-// TypeError: Illegal invocation
-snowplow_name_here(console.log, "sp.js has loaded");
-```
-
-will not work, because the value of `this` in the `console.log` function will be `window` rather than `console`.
-
-You can get around this problem using `Function.prototoype.bind` as follows:
-
-```javascript
-snowplow_name_here(console.log.bind(console), "sp.js has loaded");
-```
-
 <a name="multiple-trackers" />
-### 2.5 Managing multiple trackers
+### 2.4 Managing multiple trackers
 
 You have more than one tracker instance running on the same page at once. This may be useful if you want to log events to different collectors. By default, any Snowplow method you call will be executed by every tracker you have created so far:
 
@@ -346,19 +302,19 @@ snowplow_name_here('trackPageView:cf1;cf2');
 ```
 
 <a name="cookies" />
-### 2.6 How the Tracker uses cookies
+### 2.5 How the Tracker uses cookies
 
-Unless you have enabled `respectDoNotTrack` in the configuration argmap, the tracker will use cookies to persist information. There are two first party cookies: the session cookie and the ID cookie. By default their names are prefixed with "_sp_", but you can change this using the "cookieName" field in the argmap. Their names are suffixed with a hash of the current domain, so the full cookie names might look something like _sp_ses.4209 and _sp_id.4209.
+Unless you have enabled `respectDoNotTrack` in the configuration argmap, the tracker will use cookies to persist information. There are two first party cookies: the session cookie and the ID cookie. By default their names are prefixed with "_sp_", but you can change this using the "cookieName" field in the argmap.
 
 #### The session cookie
 
-Called _sp_ses.{{DOMAIN HASH}} by default, the only purpose of this cookie is to differentiate between different visits. Whenever an event is fired, the session cookie is set to expire in 30 minutes. (This value can be altered using `setSessionCookieTimeout`.)
+Called _sp_ses by default, the only purpose of this cookie is to differentiate between different visits. Whenever an event is fired, the session cookie is set to expire in 30 minutes. (This value can be altered using `setSessionCookieTimeout`.) 
 
 If no session cookie is already present when an event fires, the tracker treats this as an indication that long enough has passed since the user last visited that this session should be treated as a new session rather than a continuation of the previous session. The `visitCount` (how many times the user has visited) is increased by one and the `lastVisitTs` (the timestamp for the last session) is updated.
 
 #### The ID cookie
 
-This cookie is called _sp_id.{{DOMAIN HASH}} by default. It is used to persist information about a user's activity on the domain between sessions. It contains the following information:
+This cookie is called _sp_id by default. It is used to persist information about a user's activity on the domain between sessions. It contains the following information:
 
 * An ID for the user based on a hash of various browser attributes
 * How many times the user has visited the domain
@@ -371,44 +327,9 @@ It expires after 2 years.
 
 There is a third sort of Snowplow-related cookie: the cookie set by the [Clojure Collector][clojure-collector], independently of the JavaScript Tracker. If you are using another type of collector, this cookie will not be set. The Clojure Collector cookie is called "sp". It is a third-party cookie used to track users over multiple domains. It expires after one year.
 
-<a name="get-id" />
-### 2.7 Getting the user ID from the Snowplow cookie
-
-You can use the following function to extract the user ID from the ID cookie:
-
-```javascript
-/*
-* Function to extract the Snowplow user ID from the first-party cookie set by the Snowplow JavaScript Tracker
-*
-* @param string cookieName (optional) The value used for "cookieName" in the tracker constructor argmap
-* (leave blank if you did not set a custom cookie name)
-*
-* @return string or bool The ID string if the cookie exists or false if the cookie has not been set yet
-*/
-function getSnowplowDuid(cookieName) {
-  cookieName = cookieName || '_sp_';
-  var c = document.cookie.split(';');
-  for (var i = 0; i < c.length; i++) {
-    if (c[i].substr(0, 6) === cookieName + 'id') {
-     return c[i].split('=')[1].split('.')[0];
-    }
-  }
-  return false;
-}
-```
-
-If you set a custom `cookieName` field in the argmap, pass that name into the function; otherwise call the function without arguments. Note that if the function is called before the cookie exists (i.e. when the user is visiting the page for the first time and sp.js has not yet loaded) if will return `false`.
-
-<a name="local-storage" />
-### 2.8 How the Tracker uses localStorage
-
-The Snowplow JavaScript Tracker uses `window.localStorage` to store events in case the user goes offline. Whenever the Tracker tries to fire an event, it first appends it to the queue in `localStorage`, and then sends events from the front of the queue until the queue is empty or an event fails to send.
-
-`localStorage` is only shared between pages with the exact same domain. So if a user clicks on an internal link to another page in the same domain but the link click event fails to send before the page unloads, the event will be available in `localStorage` to the destination page, and if sp.js is also loaded on that page, it will send the request. Note that the tracker on the second page must have the same Snowplow function name (e.g. "snowplow_name_here") and the same tracker namespace (e.g. "cf") as the tracker on the first page for this to work.
-
 [contents]: Javascript-Tracker
 [general-parameters-v1]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker-v1
-[general-parameters-v2.0]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker-v2.0
+[general-parameters]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker
 [snowplow-tracker-protocol]: https://github.com/snowplow/snowplow/wiki/SnowPlow-Tracker-Protocol
 [contexts]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker-v1#custom-contexts
 [clojure-collector]: https://github.com/snowplow/snowplow/wiki/Clojure-collector

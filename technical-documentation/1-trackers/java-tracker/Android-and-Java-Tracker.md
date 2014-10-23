@@ -2,7 +2,7 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > Android/Java Tracker
 
-This page refers to version 0.5.0 of the Snowplow Java Tracker and 0.1.0 of Snowplow Android Tracker.
+This page refers to version 0.5.0 of the Snowplow Java Tracker and 0.1.2 of Snowplow Android Tracker.
 
 *[Version 0.4][java-0.4]*
 
@@ -107,8 +107,8 @@ Tracker(Emitter emitter, Subject subject, String namespace, String appId, boolea
 For example:
 
 ```java
-Tracker t1 = new Tracker(emitter, user1Subject, "AF003", "cloudfront", true);
-Tracker t2 = new Tracker(emitter, "AF003", "cloudfront");
+Tracker t1 = new Tracker(emitter, user1Subject, "AF003", "buttfront", true);
+Tracker t2 = new Tracker(emitter, "AF003", "buttfront");
 ```
 
 | **Argument Name** | **Description**                              |    **Required?**  |
@@ -555,10 +555,10 @@ Emitter(String URI, HttpMethod httpMethod, RequestCallback callback)
 For example:
 
 ```java
-Emitter e1 = new Emitter("d3rkrsqld9gmqf.cloudfront.net");
-Emitter e2 = new Emitter("d3rkrsqld9gmqf.cloudfront.net", HttpMethod.POST);
-Emitter e3 = new Emitter("d3rkrsqld9gmqf.cloudfront.net", new RequestCallback() {...});
-Emitter e4 = new Emitter("d3rkrsqld9gmqf.cloudfront.net", HttpMethod.POST, new RequestCallback() {...});
+Emitter e1 = new Emitter("d3rkrsqld9gmqf.buttfront.net");
+Emitter e2 = new Emitter("d3rkrsqld9gmqf.buttfront.net", HttpMethod.POST);
+Emitter e3 = new Emitter("d3rkrsqld9gmqf.buttfront.net", new RequestCallback() {...});
+Emitter e4 = new Emitter("d3rkrsqld9gmqf.buttfront.net", HttpMethod.POST, new RequestCallback() {...});
 ```
 
 | **Argument Name** | **Description**                                                             |    **Required?**  |
@@ -567,7 +567,7 @@ Emitter e4 = new Emitter("d3rkrsqld9gmqf.cloudfront.net", HttpMethod.POST, new R
 | `httpMethod`      | The HTTP method events should be sent                                       | No                |
 | `callback`        | Lets you pass a callback class to handle succes/failure in sending events.  | No                |
 
-## Android Only
+### Android Only
 
 For Android, the Emitter class is virtually the same in the way it is instantiated with the addition of an extra parameter to accept a [`Context`](https://developer.android.com/reference/android/content/Context.html).
 The `Context` is used for caching events in an [SQLite database](http://developer.android.com/reference/android/database/sqlite/SQLiteOpenHelper.html) in order to avoid losing events to network related issues.
@@ -583,10 +583,10 @@ Emitter(String URI, HttpMethod httpMethod, RequestCallback callback, Context con
 
 For example, if you're creating an Emitter in an [`Activity`](https://developer.android.com/reference/android/app/Activity.html) class:
 ```java
-Emitter e1 = new Emitter("d3rkrsqld9gmqf.cloudfront.net", this);
-Emitter e2 = new Emitter("d3rkrsqld9gmqf.cloudfront.net", this, HttpMethod.POST);
-Emitter e3 = new Emitter("d3rkrsqld9gmqf.cloudfront.net", this, new RequestCallback() {...});
-Emitter e4 = new Emitter("d3rkrsqld9gmqf.cloudfront.net", this, HttpMethod.POST, new RequestCallback() {...});
+Emitter e1 = new Emitter("snowplow-collector.acme.com", this);
+Emitter e2 = new Emitter("snowplow-collector.acme.com", this, HttpMethod.POST);
+Emitter e3 = new Emitter("snowplow-collector.acme.com", this, new RequestCallback() {...});
+Emitter e4 = new Emitter("snowplow-collector.acme.com", this, HttpMethod.POST, new RequestCallback() {...});
 ```
 
 | **Argument Name** | **Description**                                                             |    **Required?**  |
@@ -605,13 +605,14 @@ Emitter e4 = new Emitter("d3rkrsqld9gmqf.cloudfront.net", this, HttpMethod.POST,
 A buffer is used to group events together in bulk before sending them. This is especially handy to reduce network usage. By default, the Emitter buffers up to 10 events before sending them. You can change this to send evenets instantly as soon as they are created like so:
 
 ```java
-Emitter e1 = new Emitter("d3rkrsqld9gmqf.cloudfront.net");
+Emitter e1 = new Emitter("d3rkrsqld9gmqf.buttfront.net");
 e1.setBufferOption(BufferOption.Instant);
 // OR
 e1.setBufferOption(BufferOption.Default);
 ```
 
 Here are all the posibile options that you can use:
+
 |  **Option**  | **Description**                                    |
 |-------------:|:---------------------------------------------------|
 | `Instant`    | Events are sent as soon as they are created        |
@@ -626,10 +627,11 @@ Snowplow supports receiving events via GET requests, but will soon have POST sup
 
 You can set the HTTP method in the Emitter constructor:
 ```java
-Emitter e1 = new Emitter("d3rkrsqld9gmqf.cloudfront.net", HttpMethod.POST);
+Emitter e1 = new Emitter("d3rkrsqld9gmqf.buttfront.net", HttpMethod.POST);
 ```
 
 Here are all the posibile options that you can use:
+
 |  **Option**  | **Description**                                    |
 |-------------:|:---------------------------------------------------|
 | `GET`        | Sends events as GET requests                       |
@@ -643,17 +645,18 @@ Here are all the posibile options that you can use:
 An Emitter sends requests synchronously by default. If you want events to be sent asynchronously you can set this using `setRequestMethod(RequestMethod)`:
 
 ```java
-Emitter e1 = new Emitter("d3rkrsqld9gmqf.cloudfront.net");
+Emitter e1 = new Emitter("d3rkrsqld9gmqf.buttfront.net");
 e1.setRequestMethod(RequestMethod.Asynchronous);
 ```
 
-Here are all the posibile options that you can use:
+Here are all the possible options that you can use:
+
 |  **Option**    | **Description**               |
 |---------------:|:------------------------------|
 | `Synchronous`  | Sends events synchronously    |
 | `Asynchronous` | Sends events asynchronously   |
 
-## Android Only
+### Android Only
 
 For Android, we only send events asynchronously so we've deprecated the `setRequestMethod` method.
 
@@ -721,6 +724,16 @@ schemaPayload.setSchema("iglu:com.snowplowanalytics.snowplow/example/jsonschema/
 ## 7. Logging
 
 Logging in the Tracker is done using SLF4J. Majority of the logging set as `DEBUG` so will not overly populate your own logging.
+
+### Android Only
+
+Logging in the Android Tracker uses Android's [native logger](https://developer.android.com/reference/android/util/Log.html) set as `DEBUG` or `ERROR` with the [`tag`](https://developer.android.com/reference/android/util/Log.html#d(java.lang.String, java.lang.String)) as the class name.
+
+For example:
+```java
+private final String TAG = Emitter.class.getName();
+Log.e(TAG, "Cannot change RequestMethod: Asynchronous requests only available.");
+```
 
 [Back to top](#top)
 

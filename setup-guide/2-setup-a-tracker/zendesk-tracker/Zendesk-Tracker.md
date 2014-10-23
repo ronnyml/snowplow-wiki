@@ -4,7 +4,7 @@
 
 This guide will explain how to configure your Zendesk account so that whenever a ticket is created, closed, or commented on, Zendesk will send the relevant information to your Snowplow collector in the form of an unstructured event.
 
-1. [Setting up a Cloudfron collector as a Zendesk extension](#extension)
+1. [Setting up a Cloudfront collector as a Zendesk extension](#extension)
 2. [Setting up a trigger to track ticket creation](#ticket-creation)
 3. [Setting up a trigger to track comment creation](#comment-creation)
 4. [Setting up an automation to track tickets being closed](#ticket-resolution)

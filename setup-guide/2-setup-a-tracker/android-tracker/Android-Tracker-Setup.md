@@ -12,6 +12,7 @@
   - 3.1 [Hosting](#hosting)
   - 3.2 [Maven](#maven)
   - 3.3 [Gradle](#gradle)
+  - 3.4 [Permissions](#permissions)
 
 <a name="overview" />
 ## 1. Overview
@@ -49,7 +50,7 @@ To minimize jar bloat, we have tried to keep external dependencies to a minimum.
 
 The Tracker is published to Snowplow's [hosted Maven repository] [maven-snplow], which should make it easy to add it as a dependency into your own Android app.
 
-The current version of the Snowplow Android Tracker is 0.1.0.
+The current version of the Snowplow Android Tracker is 0.1.2.
 
 <a name="maven" />
 ### 3.2 Maven
@@ -85,7 +86,12 @@ Then add into your project's `pom.xml`:
 <dependency>
     <groupId>com.snowplowanalytics</groupId>
     <artifactId>snowplow-android-tracker</artifactId>
-    <version>0.1.0</version>
+    <version>[0.1.2, 0.2.0)</version>
+</dependency>
+<dependency>
+    <groupId>com.snowplowanalytics</groupId>
+    <artifactId>snowplow-java-tracker-core</artifactId>
+    <version>[0.1.3,0.2.0)</version>
 </dependency>
 ```
 
@@ -109,8 +115,25 @@ Then add into the same file:
 dependencies {
     ...
     // Snowplow Android Tracker
-    compile 'com.snowplowanalytics:snowplow-android-tracker:0.1.0'
+    compile 'com.snowplowanalytics:snowplow-android-tracker:0.1.*'
+    compile 'com.snowplowanalytics:snowplow-java-tracker-core:0.1.*'
 }
+```
+
+<a name="permissions" />
+### 3.4 Permissions
+
+To send the events, you need to update your `AndroidManifest.xml` with the internet access permission:
+
+```xml
+<uses-permission android:name="android.permission.INTERNET" /> 
+```
+
+If you want to send location information with each event you will need to add the following permissons to your `AndroidManifest.xml`:
+
+```xml
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 ```
 
 Done? Now read the [Java/Android Tracker API](Android-and-Java-Tracker) to start tracking events.

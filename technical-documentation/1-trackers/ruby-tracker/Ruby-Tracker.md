@@ -2,9 +2,10 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > Ruby Tracker
 
-*This page refers to version 0.3.0 of the Snowplow Ruby Tracker. Documentation for the previous version, 0.2.0, is available:*
+**This page refers to version 0.4.0 of the Snowplow JavaScript Tracker, which has not yet been published. Documentation for other versions is available:**
 
 *[Version 0.2][ruby-0.2]*
+*[Version 0.3][ruby-0.3]*
 
 ## Contents
 
@@ -21,6 +22,10 @@
   - 3.5 [`set_color_depth`](#set-color-depth)
   - 3.6 [`set_timezone`](#set-timezone)
   - 3.7 [`set_lang`](#set-language)
+  - 3.8 [`set_ip_address`](#set-ip-address)
+  - 3.9 [`set_useragent`](#set-useragent)
+  - 3.10 [`set_domain_user_id`](#set-domain-user-id)
+  - 3.11 [`set_network_user_id`](#set-network-user-id)
 - 4. [Tracking specific events](#events)
   - 4.1 [Common](#common)
     - 4.1.1 [Argument validation](#validation)
@@ -241,6 +246,63 @@ You can set the language field like this:
 
 ```ruby
 tracker.set_lang('en')
+```
+
+<a name="set-ip-address" />
+### 3.8 Setting the IP address with `set_ip_address`
+
+If you have access to the user's IP address, you can set it like this:
+
+```ruby
+tracker.set_ip_address('34.633.11.139')
+```
+
+<a name="set-useragent" />
+### 3.9 Setting the useragent with `set_ip_address`
+
+If you have access to the user's useragent (sometimes called "browser string"), you can set it like this:
+
+```ruby
+tracker.set_useragent('Mozilla/5.0 (Windows NT 5.1; rv:23.0) Gecko/20100101 Firefox/23.0')
+```
+
+<a name="set-domain-user-id" />
+### 3.10 Setting the domain user ID with `set_domain_user_id`
+
+The `domain_userid` field of the Snowplow event model corresponds to the ID stored in the first party cookie set by the Snowplow JavaScript Tracker. If you want to match up server-side events with client-side events, you can set the domain user ID for server-side events like this:
+
+```ruby
+tracker.set_domain_user_id('c7aadf5c60a5dff9')
+```
+
+You can extract the domain user ID from the Ruby on Rails `cookies` object like this:
+
+```ruby
+def extract_duid(cookie, snowplow_cookie_name="_sp_")
+  cookie_names = cookie.keys.grep(/#{snowplow_cookie_name}id/)
+  if cookie_names.size == 0
+    return nil
+  end
+  cookie_string = cookie[cookie_names[0]]
+  if cookie_string.nil?
+    nil
+  else
+    cookie_string.split('.')[0]
+  end
+end
+```
+
+The first argument is the cookies object (see the [documentation][http://api.rubyonrails.org/classes/ActionDispatch/Cookies.html]).
+
+If you used the "cookieName" configuration option of the Snowplow JavaScript Tracker, pass the same string to the `extract_duid` function as the second argument.
+
+<a name="set-network-user-id" />
+### 3.11 Setting the network user ID with `set_network_user_id`
+
+The `network_user_id` field of the Snowplow event model corresponds to the ID stored in the third party cookie set by the Snowplow Clojure Collector. You can set the network user ID for server-side events like this:
+
+```ruby
+tracker.set_network_user_id('ecdff4d0-9175-40ac-a8bb-325c49733607')
 ```
 
 [Back to top](#top)
@@ -646,6 +708,7 @@ The levels are:
 [Back to top](#top)
 
 [ruby-0.2]: https://github.com/snowplow/snowplow/wiki/Ruby-Tracker-v0.2
+[ruby-0.3]: https://github.com/snowplow/snowplow/wiki/Ruby-Tracker-v0.3
 
 [contexts]: http://snowplowanalytics.com/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#contexts
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/

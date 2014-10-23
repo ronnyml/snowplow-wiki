@@ -33,6 +33,7 @@ For the Snowplow batch (Hadoop) flow:
 * CloudFront
 * CloudFormation
 * EC2
+* Elastic Beanstalk
 * Elastic MapReduce
 * S3
 * Redshift
