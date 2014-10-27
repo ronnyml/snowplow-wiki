@@ -1,8 +1,8 @@
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 1: setup a Collector**](Setting-up-a-Collector) > [**Scala Stream Collector setup**](setting-up-the-Scala-Stream-Collector) > [[Configure the Scala Stream Collector]]
 
-**This documentation refers to version 0.2.0 of the Scala Stream Collector, which has not yet been released.**
+*This documentation refers to version 0.1.0 of the Scala Stream Collector.*
 
-**[Version 0.1.0][v0.1]**
+*[Version 0.2.0][v0.2]*
 
 The Scala Stream Collector has a number of configuration options available.
 
@@ -21,16 +21,12 @@ Values that must be configured are:
 + `collector.aws.access-key`
 + `collector.aws.secret-key`
 
-You can insert your actual credentials in these fields. Alternatively, if you set both fields to "env", your credentials will be taken from the environment variables AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY.
-
 ### Stream configuration
 
 We also recommend changing the default stream options:
 
 + `collector.stream.name`
 + `collector.stream.size`
-
-If your stream's AWS region is not us-east-1, you should also change `collector.stream.region` correspondingly.
 
 ### HTTP settings
 
@@ -82,5 +78,5 @@ If no value is provided, cookies set default to expiring after one year (i.e. 36
 
 Next: [[Run the Scala Stream collector]]
 
-[v0.1]: [https://github.com/snowplow/snowplow/wiki/Configure-the-Scala-Stream-Collector-v0.1]
+[v0.2]: [https://github.com/snowplow/snowplow/wiki/Configure-the-Scala-Stream-Collector]
 [app-conf]: https://github.com/snowplow/snowplow/blob/master/2-collectors/scala-stream-collector/src/main/resources/application.conf.example
