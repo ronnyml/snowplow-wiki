@@ -275,7 +275,7 @@ The `domain_userid` field of the Snowplow event model corresponds to the ID stor
 tracker.set_domain_user_id('c7aadf5c60a5dff9')
 ```
 
-You can extract the domain user ID from the Ruby on Rails `cookies` object like this:
+You can extract the domain user ID from the Ruby on Rails `cookies` object like this (note that this function has not yet been tested):
 
 ```ruby
 def extract_duid(cookie, snowplow_cookie_name="_sp_")
