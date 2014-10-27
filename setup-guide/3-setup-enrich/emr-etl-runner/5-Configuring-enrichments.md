@@ -211,8 +211,6 @@ In this example, if an event's referer URL is either "subdomain1.mysite.com" or 
 <a name="campaign_attribution"/>
 ### 4.4 campaign_attribution enrichment
 
-**This enrichment is not currently supported but will be added in Snowplow version 0.9.8.**
-
 This enrichment lets you choose which querystring parameters will be used to generate the marketing campaign fields `mkt_medium`, `mkt_source`, `mkt_term`, `mkt_content`, and `mkt_campaign`. If you do not enable the campaign_attribution enrichment, those fields will not be populated.
 
 Its JSON schema can be found [here][campaign_attribution].
