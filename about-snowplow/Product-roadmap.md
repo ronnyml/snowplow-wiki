@@ -18,7 +18,7 @@ The planned releases are as follows:
 | Release   | Tickets                     | Objective(s)                           |
 |------------|----------------------------|----------------------------------------|
 | **0.9.10**  | TBC  | Initial webhook support           |
-| **0.9.11** | [See GitHub] [issues-099] | Improvements to Kinesis flow                        |
+| **0.9.11** | [See GitHub] [issues-0911] | Improvements to Kinesis flow                        |
 
 ## Longer-term: approximate schedule
 
@@ -28,8 +28,7 @@ In this section we set out an approximate map of the new components and capabili
 
 [milestones]: https://github.com/snowplow/snowplow/issues/milestones
 
-[issues-099]: https://github.com/snowplow/snowplow/issues?milestone=29&state=open
-[issues-0910]: https://github.com/snowplow/snowplow/issues?milestone=30&state=open
+[issues-0911]: https://github.com/snowplow/snowplow/milestones/Fred%20Kinesis%201
 
 [scalding]: https://github.com/twitter/scalding
 [redshift]: http://aws.amazon.com/redshift/
