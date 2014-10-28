@@ -17,7 +17,7 @@ To get a local copy, you can download the jarfile directly from our hosted asset
 
 You will need to add the executable flag onto the file:
 
-    $ chmod +x snowplow-scala-collector-0.1.0
+    $ chmod +x snowplow-scala-collector-0.[version].0
 
 ## 2.2 Compile from source
 
@@ -35,7 +35,7 @@ Use `sbt` to resolve dependencies, compile the source, and build an [assembled][
 
 	$ sbt assembly
 
-The `jar` file will be saved as `snowplow-scala-collector-0.1.0` in the `target/scala-2.10` subdirectory - it is now ready to be deployed.
+The `jar` file will be saved as `snowplow-scala-collector-0.[version].0` in the `target/scala-2.10` subdirectory - it is now ready to be deployed.
 
 Next: [[Configure the Scala Stream Collector]]
 
