@@ -2,7 +2,7 @@
 
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 3: Setting up Enrich](Setting-up-enrich) > [**Step 3.2: setting up Scala Kinesis Enrich**](Setting-up-Scala-Kinesis-Enrich) > [3: Running](Running-Scala-Kinesis-Enrich)
 
-*This page refers to version 0.3.0 of the Snowplow Ruby Tracker. Documentation for other versions is available:*
+*This page refers to version 0.1.0 of Scala Kinesis Enrich. Documentation for other versions is available:*
 
 *[Version 0.2][v0.2] (not yet released)*
 
