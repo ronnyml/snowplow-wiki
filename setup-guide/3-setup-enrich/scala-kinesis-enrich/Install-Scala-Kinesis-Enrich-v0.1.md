@@ -2,9 +2,9 @@
 
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 3: Setting up Enrich](Setting-up-enrich) > [**Step 3.2: setting up Scala Kinesis Enrich**](Setting-up-Scala-Kinesis-Enrich) > [1: Installing ](Install-Scala-Kinesis-Enrich)
 
-**This documentation is for version 0.2.0 of Scala Kinesis Enrich, which has not yet been released. Documentation for other versions is available:**
+*This page refers to version 0.1.0 of Scala Kinesis Enrich. Documentation for other versions is available:*
 
-**[Version 0.1.0][v0.1]**
+*[Version 0.2][v0.2] (not yet released)*
 
 ## 1. Dependencies
 
@@ -27,7 +27,7 @@ To get a local copy, you can download the executable jarfile directly from our H
 
 You will need to add the executable flag onto the file:
 
-    $ chmod +x snowplow-kinesis-enrich-0.2.0
+    $ chmod +x snowplow-kinesis-enrich-0.1.0
 
 ### 3.2 Compile from source
 
@@ -45,7 +45,7 @@ Use `sbt` to resolve dependencies, compile the source, and build an [assembled][
 
 	$ sbt assembly
 
-The `jar` file will be saved as `snowplow-kinesis-enrich-0.2.0` in the `target/scala-2.10` subdirectory - it is now ready to be deployed.
+The `jar` file will be saved as `snowplow-kinesis-enrich-0.1.0` in the `target/scala-2.10` subdirectory - it is now ready to be deployed.
 
 Next: [[Configure Scala Kinesis Enrich]]
 
@@ -54,4 +54,4 @@ Next: [[Configure Scala Kinesis Enrich]]
 [assembly]: https://github.com/softprops/assembly-sbt
 
 [geolite]: http://dev.maxmind.com/geoip/legacy/geolite/?rld=snowplow
-[v0.1]: https://github.com/snowplow/snowplow/wiki/Install-Scala-Kinesis-Enrich-v0.1
+[v0.1]: https://github.com/snowplow/snowplow/wiki/Install-Scala-Kinesis-Enrich
