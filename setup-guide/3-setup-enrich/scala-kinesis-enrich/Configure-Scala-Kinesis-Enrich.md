@@ -58,9 +58,13 @@ Note that the Scala Kinesis Enrich does not yet support writing out bad rows to 
 
 You may wish to use Snowplow's configurable enrichments. To do this, create a directory of enrichment JSONs. For each configurable enrichment you wish to use, the enrichments directory should contain a .json file with a configuration JSON for that enrichment. When you come to run Scala Kinesis Enrich you can then pass in the filepath to this directory using the --enrichments option.
 
-See the documentation on [configuring enrichments](5-Configuring-enrichments) for details on the available enrichments.
+Sensible default configuration enrichments are available on GitHub: [3-enrich/emr-etl-runner/config/enrichments][enrichment-json-examples].
+
+See the documentation on [configuring enrichments][configuring-enrichments] for details on the available enrichments.
 
 Next: [[Run Scala Kinesis Enrich]]
 
-[app-conf]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-kinesis-enrich/src/main/resources/default.conf
 [v0.1]: https://github.com/snowplow/snowplow/wiki/Configure-Scala-Kinesis-Enrich-v0.1
+[app-conf]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-kinesis-enrich/src/main/resources/default.conf
+[enrichment-json-examples]: https://github.com/snowplow/snowplow/tree/master/3-enrich/emr-etl-runner/config/enrichments
+[configuring-enrichments]: https://github.com/snowplow/snowplow/wiki/5-Configuring-enrichments#template
