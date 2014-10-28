@@ -50,6 +50,6 @@ The Scala Stream Collector is built on top of [Spray][spray] and [Akka][akka] ac
 
 [spray]: http://spray.io/
 [akka]: http://akka.io/
-[thrift]: thrift.apache.org/
+[thrift]: http://thrift.apache.org/
 
 [kinesis]: http://aws.amazon.com/kinesis/
