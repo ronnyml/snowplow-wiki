@@ -20,4 +20,4 @@ You have setup Scala Kinesis Enrich! You are now ready to [setup alternative dat
 
 Return to the [setup guide](Setting-up-Snowplow).
 
-[v0.2][https://github.com/snowplow/snowplow/wiki/Run-Scala-Kinesis-Enrich]
+[v0.2]: https://github.com/snowplow/snowplow/wiki/Run-Scala-Kinesis-Enrich

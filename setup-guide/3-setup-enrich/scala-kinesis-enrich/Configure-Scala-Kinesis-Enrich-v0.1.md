@@ -67,4 +67,4 @@ Next, make sure that the `enrich.enrichments.geo_ip.maxmind_file` configuration 
 Next: [[Run Scala Kinesis Enrich]]
 
 [app-conf]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-kinesis-enrich/src/main/resources/default.conf
-[v0.2][https://github.com/snowplow/snowplow/wiki/Run-Scala-Kinesis-Enrich]
+[v0.2]: https://github.com/snowplow/snowplow/wiki/Configure-Scala-Kinesis-Enrich

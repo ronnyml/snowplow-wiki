@@ -63,4 +63,4 @@ See the documentation on [configuring enrichments](5-Configuring-enrichments) fo
 Next: [[Run Scala Kinesis Enrich]]
 
 [app-conf]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-kinesis-enrich/src/main/resources/default.conf
-[v0.1][https://github.com/snowplow/snowplow/wiki/Configure-Scala-Kinesis-Enrich-v0.1]
+[v0.1]: https://github.com/snowplow/snowplow/wiki/Configure-Scala-Kinesis-Enrich-v0.1
