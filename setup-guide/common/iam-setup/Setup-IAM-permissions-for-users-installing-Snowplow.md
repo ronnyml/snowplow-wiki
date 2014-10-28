@@ -51,6 +51,7 @@ Now we need to give permissions on:
 * Amazon Redshift (required for Redshift)
 * Amazon Cloudformation (required if the Snowplow team setup your Snowplow data pipeline, as we use Cloudformation)
 * Amazon IAM (required as part of the Clojure collector setup, as a role is created for the Clojure collector application)
+* Amazon RDS (PostgreSQL server required by Iglu Server)
 
 
 
@@ -78,6 +79,7 @@ Now paste the following JSON into the _Policy Document_ text area:
         "elasticloadbalancing:*",
         "elasticmapreduce:*",
         "iam:*",
+        "rds:*",
         "redshift:*",
         "s3:*",
         "sns:*" 
