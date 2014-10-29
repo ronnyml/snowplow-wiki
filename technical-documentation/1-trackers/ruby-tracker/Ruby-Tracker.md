@@ -631,7 +631,7 @@ Every setting in the configuration hash is optional. Here is what they do:
 
 * `:protocol` determines whether events will be sent using HTTP or HTTPS. It defaults to "http".
 * `:method` determines whether events will be sent using GET or POST. It defaults to "get".
-* `:port` determines the port to use
+* `:port` determines the port to use. If you wish to set events over HTTPS, you should usually set it to 443.
 * `:buffer_size` is the number of events which will be queued before they are all sent, a process called "flushing". When using GET, it defaults to 0 because each event has its own request. When using POST, it defaults to 10, and the buffered events are all sent together in a single request.
 * `:on_success` is a callback which is called every time the buffer is flushed and every event in it is sent successfully (meaning with status code 200). It should accept one argument: the number of requests sent this way.
 * `on_failure` is a callback which is called if the buffer is flushed but not every event is sent successfully. It should accept two arguments: the number of successfully sent events and an array containing the unsuccessful events.
