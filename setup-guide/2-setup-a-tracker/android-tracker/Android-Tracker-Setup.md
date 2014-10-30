@@ -12,6 +12,7 @@
   - 3.1 [Hosting](#hosting)
   - 3.2 [Maven](#maven)
   - 3.3 [Gradle](#gradle)
+    - 3.3.1 [Android Archive](#aar)
   - 3.4 [Permissions](#permissions)
 
 <a name="overview" />
@@ -119,6 +120,19 @@ dependencies {
     compile 'com.snowplowanalytics:snowplow-java-tracker-core:0.1.*'
 }
 ```
+
+<a name="aar" />
+#### 3.3.1 Android Archive
+
+You can also add the Android Tracker using the Android ARchive (aar) package in your gradle file in a similar way to the Gradle version while appending '@aar' to the end:
+```groovy
+dependencies {
+    ...
+    // Snowplow Android Tracker
+    compile 'com.snowplowanalytics:snowplow-android-tracker:0.1.*@aar'
+}
+```
+
 
 <a name="permissions" />
 ### 3.4 Permissions
