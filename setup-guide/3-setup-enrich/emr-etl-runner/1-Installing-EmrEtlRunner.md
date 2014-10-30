@@ -39,22 +39,17 @@ You will also need an **EC2 key pair** setup in your Amazon EMR account.
 For details on how to do this, please see the section "Configuring the client" in the [[Setting up EMR command line tools]] wiki page. Make sure that you setup the EC2 key pair inside the region in which you will be running your ETL jobs.
 
 <a name="s3-buckets"/>
-### 2.4 S3 buckets
+### 2.4 S3 locations
 
-EmrEtlRunner moves the Snowplow event data through six distinct buckets (or rather, folders within S3 buckets) during the ETL process. These buckets are as follows:
+EmrEtlRunner processes data through three distinct states:
 
-1. **In Bucket** - contains the raw Snowplow event logs to process
-2. **Processing Bucket** - where EmrEtlRunner moves the raw event logs for processing
-3. **Out Bucket** - where EmrEtlRunner stores the processed Snowplow-format event files
-4. **Bad Rows Bucket** - where EmrEtlRunner stores any raw event lines which fail validation
-5. **Errors Bucket** - optional. Where EmrEtlRunner stores any raw event lines which caused an unexpected error
-6. **Archive Bucket** - where EmrEtlRunner moves the raw Snowplow event logs after successful processing
+1. **:raw** - raw Snowplow event logs are the input to the EmrEtlRunner process
+2. **:enriched** - EmrEtlRunner validates and enriches the raw event logs into enriched events
+3. **:shredded** - EmrEtlRunner shreds JSONs found in enriched events ready for loading into dedicated Redshift tables
 
-You will have already set up the **In Bucket** when you were configuring your Snowplow collector - but the other five buckets do not exist yet.
+For `:raw:in`, specify the Amazon S3 path you configured for your Snowplow collector.
 
-**Important:** Please note that currently Redshift can only load from buckets in the same region as the Redshift instance, so you will need to locate your **Out Bucket** and Redshift clusters in the same region.
-
-So, create the other five buckets in the same AWS region as your **In Bucket**. Take a note of the buckets' names as you will need to use these buckets shortly.
+For all other S3 locations, you can specify paths within a single S3 bucket that you setup now. This bucket must be in the same AWS region as your `:raw:in` bucket.
 
 Done? Right, now we can install EmrEtlRunner.
 
@@ -161,9 +156,9 @@ Within the `s3` section, the `buckets` variables are as follows:
 
 * `:assets:` holds the ETL job's static assets (HiveQL script plus Hive deserializer). You can leave this as-is (pointing to Snowplow   Analytics' [own public bucket containing these assets](Hosted-assets)) or replace this with your own private bucket containing the assets
 * `:log:` is the bucket in which Amazon EMR will record processing information for this job run, including logging any errors  
-* `:raw:` is where you specify the buckets through which your raw Snowplow events will flow. For `:processing:`, **always include a sub-folder on this variable (see below for why)**. `:archive:` is where your raw Snowplow events will be moved after they have been successfully processed by Elastic MapReduce
-* `:enriched:` is where you specify the buckets through which your enriched Snowplow events will flow.
-* `:shredded:` is where you specify the buckets through which your shredded types will flow
+* `:raw:` is where you specify the paths through which your raw Snowplow events will flow. For `:processing:`, **always include a sub-folder on this variable (see below for why)**. `:archive:` is where your raw Snowplow events will be moved after they have been successfully processed by Elastic MapReduce
+* `:enriched:` is where you specify the paths through which your enriched Snowplow events will flow.
+* `:shredded:` is where you specify the paths through which your shredded types will flow
 
 For `:good:`, **always include a sub-folder on this variable (see below for why)**. If you are loading data into Redshift, the `:good:` specified here **must** be located in a region where Amazon has launched Redshift, because Redshift can only bulk load data from S3 that is located in the same region as the Redshift instance, and Redshift has not, to-date, been launched across all Amazon regions
 
@@ -171,19 +166,17 @@ Each of the bucket variables must start with an S3 protocol - either `s3://` or 
 
 The `:bad:` entries will store any raw Snowplow log lines which did not pass the enrichment or JSON validation, along with their validation errors. The `:errors:` entries will contain any raw Snowplow log lines which caused an unexpected error, but only if you set continue_on_unexpected_error to true (see below).
 
-**Important 1:** there is a bug in Hive on Amazon EMR where Hive dies if you attempt to read or write data to the root of an S3 bucket. **Therefore always specify a sub-folder (e.g. `/events/`) for the `processing` and all three `out` bucket variables.**
+**Important 1:** there is a bug in Hive on Amazon EMR where Hive dies if you attempt to read or write data to the root of an S3 bucket. **Therefore always specify a sub-folder (e.g. `/events/`) for the `:raw:processing`, `:enriched:good` and `:shredded:good` locations.**
 
-**Important 2:** do not put your Processing Path inside your In Path, or your Out Path inside your Processing Path, or you will create circular references which EmrEtlRunner cannot resolve when moving files.
+**Important 2:** do not put your `:raw:processing` inside your `:raw:in` bucket, or your `:enriched:good` inside your `:raw:processing`, or you will create circular references which EmrEtlRunner cannot resolve when moving files.
 
-**Important 3:** if you are using the **Clojure collector**, the path to your `in` bucket will be of the format: 
+**Important 3:** if you are using the **Clojure collector**, the path to your `:raw:in` path will be of the format: 
 
 	s3://elasticbeanstalk-{{REGION NAME}}-{{UUID}}/resources/environments/logs/publish/{{SECURITY GROUP IDENTIFIER}}
 
 Replace all of these `{{x}}` variables with the appropriate ones for your environment (which you should have written down in the [Enable logging to S3](Enable-logging-to-S3) stage of the Clojure Collector setup).
 
-Also - Clojure collector uses should be sure not include an `{{INSTANCE IDENTIFIER}}` at the end of your path. This is because your Clojure Collector may end up logging into multiple `{{INSTANCE IDENTIFIER}}` folders. (If e.g. Elastic Beanstalk spins up more instances to run the Clojure collector, to cope with a spike in traffic.) By specifying your In Bucket only to the level of the Security Group identifier, you make sure that Snowplow can process all logs from all instances. (Because the EmrEtlRunner will process all logs in all subfolders.)
-
-**Important 4:** if you are loading Snowplow data into Redshift, you need to make sure that the bucket specified in `:out:` is located in a region where Amazon has launched Redshift. That is because currently Redshift is only available in some Regions, and Amazon only supports bulk loading of data from S3 into Redshift from within the same region. 
+Also - Clojure Collector usees should be sure not include an `{{INSTANCE IDENTIFIER}}` at the end of your path. This is because your Clojure Collector may end up logging into multiple `{{INSTANCE IDENTIFIER}}` folders. (If e.g. Elastic Beanstalk spins up more instances to run the Clojure collector, to cope with a spike in traffic.) By specifying your In Bucket only to the level of the Security Group identifier, you make sure that Snowplow can process all logs from all instances. (Because the EmrEtlRunner will process all logs in all subfolders.)
 
 **Example bucket settings**
 
@@ -199,13 +192,13 @@ Here is an example configuration:
     :processing: s3n://my-snowplow-etl/processing/
     :archive: s3://my-archive-bucket/raw
   :enriched:
-    :good: s3://my-out-bucket/enriched/good
-    :bad: s3://my-out-bucket/enriched/bad
-    :errors: s3://my-out-bucket/enriched/errors
+    :good: s3://my-data-bucket/enriched/good
+    :bad: s3://my-data-bucket/enriched/bad
+    :errors: s3://my-data-bucket/enriched/errors
   :shredded:
-    :good: s3://my-out-bucket/shredded/good
-    :bad: s3://my-out-bucket/shredded/bad
-    :errors: s3://my-out-bucket/shredded/errors
+    :good: s3://my-data-bucket/shredded/good
+    :bad: s3://my-data-bucket/shredded/bad
+    :errors: s3://my-data-bucket/shredded/errors
 ```
 
 Please note that all buckets must exist prior to running EmrEtlRunner; trailing slashes are optional.
