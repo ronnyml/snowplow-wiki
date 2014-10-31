@@ -3,7 +3,8 @@
 [**Setup Snowplow**](Setting-up-Snowplow)  
 
 - [Step 1: Setup a Collector] (setting-up-a-collector)  
-- [Step 2: Setup a Tracker] (setting-up-a-tracker)  
+- [Step 2a: Setup a Tracker](Setting-up-a-Tracker)  
+- [Step 2b: Setup a Webhook](Setting-up-a-Webhook)  
 - [Step 3: Setup Enrich] (setting-up-enrich)  
 - [Step 4: Setup the StorageLoader] (setting-up-storageloader)  
 - [Step 5: Analyze your data!] (Getting started analyzing Snowplow data) 

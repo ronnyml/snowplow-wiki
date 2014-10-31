@@ -4,7 +4,8 @@
 [**Setup Snowplow**](Setting-up-Snowplow)  
 
 - [Step 1: Setup a Collector] (setting-up-a-collector)  
-- [Step 2: Setup a Tracker] (setting-up-a-tracker)  
+- [Step 2a: Setup a Tracker](Setting-up-a-Tracker)  
+- [Step 2b: Setup a Webhook](Setting-up-a-Webhook)  
 - [Step 3: Setup Enrich] (setting-up-enrich)  
   - [3.1: Setup EmrEtlRunner] (setting-up-EmrEtlrunner)
   - [3.2: Setup Scala Kinesis Enrich] (setting-up-scala-kinesis-enrich)
