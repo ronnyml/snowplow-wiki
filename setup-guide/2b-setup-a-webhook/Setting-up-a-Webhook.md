@@ -2,9 +2,9 @@
 
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 2b: setup a Webhook](Setting-up-a-webhook)
 
-Snowplow allows you to collect events from supported third-party webhooks.
+Snowplow allows you to collect events via the [webhooks] [webhooks-defn] of supported third-party software.
 
-These third-party applications (typically Software-as-a-Service) are then responsible for sending their own event streams to [Snowplow Collectors](Setting-up-a-Collector) for further processing.
+Webhooks allow this third-party software to send their own internal event streams to [Snowplow Collectors](Setting-up-a-Collector) for further processing. Webhooks are sometimes referred to as "streaming APIs" or "HTTP response APIs".
 
 1. [Choose and configure a Webhook](#choose-configure)
 
@@ -24,6 +24,8 @@ The following Webhooks are currently available for setup:
 **If you are interested in sponsoring a new webhook integration for Snowplow, please [talk to us](Talk-to-us).**
 
 Back to [Snowplow setup](Setting-up-Snowplow).
+
+[webhooks-defn]: http://en.wikipedia.org/wiki/Webhook
 
 [adxtracking-website]: http://adxtracking.com/	
 [callrail-website]: http://www.callrail.com/

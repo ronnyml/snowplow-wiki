@@ -3,7 +3,7 @@
 Setting up Snowplow is a five step process:
 
 1. [Setup a Snowplow Collector](#step1)
-2. [Setup a Snowplow Tracker](#step2)
+2. [Setup a Snowplow Tracker](#step2a) and/or [Setup a Third-Party Webhook](#step2b)
 3. [Setup Enrich](#step3)
 4. [Setting up alternative data stores (e.g. Redshift, PostgreSQL)](#step4)
 5. [Analyze your data!](#step5)
@@ -22,15 +22,27 @@ Setup your collector? Then proceed to [step 2: setup a tracker](#step2).
 <a name="step2" />
 ## Step 2: Setup a Snowplow Tracker
 
+### Step 2a: Setup a Snowplow Tracker
+
 [[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/1-trackers.png]] 
 
-Snowplow trackers generate event data and send that data to Snowplow collectors to be captured. The most common Snowplow tracker used is the Javascript tracker, which is integrated in websites (either directly or via a tag management solution) the same way that any web analytics tracker (e.g. Google Analytics or Omniture tags) is integrated.
+Snowplow trackers generate event data and send that data to Snowplow collectors to be captured. The most popular Snowplow tracker to-date is the JavaScript Tracker, which is integrated in websites (either directly or via a tag management solution) the same way that any web analytics tracker (e.g. Google Analytics or Omniture tags) is integrated.
 
 [Setup a tracker now!](Setting-up-a-Tracker)
 
-**Note: once you have setup a collector and tracker, you can pause and perform the remainder of the setup steps later**. That is because your data is being successfully generated and logged. When you eventually proceed to [step 3: Setup Enrich](#step3), you will be able to process all the data you have logged since setup.
+### Step 2b: Setup a Third-party Webhook
 
-Setup your tracker? Now proceed to [step 3: Setup Enrich](#step3).
+Snowplow allows you to collect events via the [webhooks] [webhooks-defn] of supported third-party software.
+
+Webhooks allow this third-party software to send their own internal event streams to Snowplow collectors to be captured. Webhooks are sometimes referred to as "streaming APIs" or "HTTP response APIs".
+
+[Setup a webhook now!](Setting-up-a-Webhook)
+
+### A note
+
+**Note: once you have setup a collector and tracker or webhook, you can pause and perform the remainder of the setup steps later**. That is because your data is being successfully generated and logged. When you eventually proceed to [step 3: Setup Enrich](#step3), you will be able to process all the data you have logged since setup.
+
+Setup your tracker(s) and/or webhook(s)? Now proceed to [step 3: Setup Enrich](#step3).
 
 <a name="step3" />
 ## Step 3: Setup Enrich
@@ -78,3 +90,4 @@ Once your data is stored in S3 and Redshift, setup is complete and you are in a 
 You now have all five Snowplow subsystems working!
 
 [conceptual-architecture]: https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/conceptual-architecture.png
+[webhooks-defn]: http://en.wikipedia.org/wiki/Webhook
