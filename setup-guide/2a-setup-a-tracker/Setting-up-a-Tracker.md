@@ -1,6 +1,6 @@
 <a name="top" />
 
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 2: setup a Tracker](Setting-up-a-tracker)
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 2a: setup a Tracker](Setting-up-a-tracker)
 
 [[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/1-trackers.png]]
 
