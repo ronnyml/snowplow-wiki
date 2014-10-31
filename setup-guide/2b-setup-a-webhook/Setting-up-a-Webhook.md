@@ -15,11 +15,11 @@ These third-party applications (typically Software-as-a-Service) are then respon
 
 The following Webhooks are currently available for setup:
 
-| **Webhook** (click for setup)                | **Description**                                                                          | **Support in Snowplow**     |
-|:---------------------------------------------|:-----------------------------------------------------------------------------------------|:----------------------------|
-| **[AD-X Tracking](adxtracking-webhook-setup) | For tracking application and game installs via [AD-X Tracking] [adxtracking-website]**   | [0.9.10] [snowplow-0.9.10]+ |
-| **[CallRail](callrail-webhook-setup)**       | For tracking completed telephone calls logged by [CallRail] [callrail-website]           | [0.9.10] [snowplow-0.9.10]+ |
-| **[MailChimp](mailchimp-webhook-setup)**     | For tracking email and email-related events delivered by [MailChimp] [mailchimp-website] | [0.9.10] [snowplow-0.9.10]+ |
+| **Webhook** (click for setup)                  | **Description**                                                                          | **Support in Snowplow**     |
+|:-----------------------------------------------|:-----------------------------------------------------------------------------------------|:----------------------------|
+| **[AD-X Tracking](adxtracking-webhook-setup)** | For tracking application and game installs via [AD-X Tracking] [adxtracking-website]     | [0.9.10] [snowplow-0.9.10]+ |
+| **[CallRail](callrail-webhook-setup)**         | For tracking completed telephone calls logged by [CallRail] [callrail-website]           | [0.9.10] [snowplow-0.9.10]+ |
+| **[MailChimp](mailchimp-webhook-setup)**       | For tracking email and email-related events delivered by [MailChimp] [mailchimp-website] | [0.9.10] [snowplow-0.9.10]+ |
 
 **If you are interested in sponsoring a new webhook integration for Snowplow, please [talk to us](Talk-to-us).**
 
