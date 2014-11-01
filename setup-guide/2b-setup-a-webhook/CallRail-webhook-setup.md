@@ -5,6 +5,34 @@
 ## Contents
 
 - 1. [Overview](#overview)  
-  - 1.1 [Compatibility](#compatibility)
-  - 1.2 [Event support](#supported-events)
+  - 1.1 [Compatibility](#compat)
+  - 1.2 [Event support](#supported)
 - 2. [Setup](#setup)
+  - 2.1 [CallRail UI](#)
+  - 2.2 [Snowplow Redshift](#)
+
+<a name="overview" />
+## 1. Overview
+
+This webhook integration lets you track completed telephone calls logged by [CallRail] [callrail-website].
+
+<a name="compat" />
+### 1.1 Compatibility
+
+* [Snowplow 0.9.10] [snowplow-0.9.10]+
+* [CallRail webhook API] [callrail-webhooks] as of 1 November 2014
+
+<a name="support" />
+### 1.2 Event support
+
+Supported events:
+
+* Call complete (aka post-call webhook)
+
+Unsupported events:
+
+* Call commenced (aka pre-call webhook)
+
+[callrail-website]: http://www.callrail.com/
+[callrail-webhooks]: https://support.callrail.com/hc/en-us/articles/201211133-Webhooks
+[snowplow-0.9.10]: https://github.com/snowplow/snowplow/releases/tag/0.9.10
