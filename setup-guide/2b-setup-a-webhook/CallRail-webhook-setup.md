@@ -19,7 +19,7 @@ This webhook integration lets you track completed telephone calls logged by [Cal
 <a name="compat" />
 ### 1.1 Compatibility
 
-* [Snowplow 0.9.10] [snowplow-0.9.10]+
+* [Snowplow 0.9.10] [snowplow-0.9.10]+ (POST-compatible collectors only)
 * [CallRail webhook API] [callrail-webhooks] as of 1 November 2014
 
 <a name="support" />
