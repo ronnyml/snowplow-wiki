@@ -11,10 +11,10 @@
 [[Arduino Tracker]]
 [[.NET Tracker]]
 
-**1B. Webhooks**
-[[AD-X Tracking Webhook]]  
-[[CallRail Webhook]]  
-[[MailChimp Webhook]]  
+**1B. Webhooks**  
+[[AD-X Tracking webhook adapter]]  
+[[CallRail webhook adapter]]  
+[[MailChimp webhook adapter]]  
 
 **[A. Snowplow Tracker Protocol](snowplow-tracker-protocol)**  
 

@@ -15,7 +15,7 @@
 
 This webhook integration lets you track completed telephone calls logged by [CallRail] [callrail-website].
 
-For technical implementation, see [[Callrail webhook adapter]].
+For the technical implementation, see [[Callrail webhook adapter]].
 
 <a name="compat" />
 ### 1.1 Compatibility
