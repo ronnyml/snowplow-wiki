@@ -36,7 +36,17 @@ Integrating CallRail's webhooks into Snowplow is a two-stage process:
 
 Configuration in CallRail is on a per-company basis, therefore you will need to configure the CallRail webhook for each customer that you want to track calls for.
 
-ADD REST OF GUIDE
+First login to CallRail:
+
+XXX
+
+Select a company from the dropdown list in the CallRail administrative UI.
+
+Select "Integrations" -> "Webhooks" in the submenu and you should see a screen like this:
+
+<<TODO>>
+
+You can safely ignore the XXX input box. For the XXX, you need to provide
 
 <a name="setup-redshift" />
 ## 2.2 Redshift
