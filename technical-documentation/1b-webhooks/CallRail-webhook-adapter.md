@@ -1,4 +1,4 @@
-[**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Webhooks**](Webhooks)
+[**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Webhooks**](Webhooks) > CallRail Webhook adapter
 
 ## Contents
 
@@ -12,7 +12,7 @@
 <a name="overview" />
 ## 1. Overview
 
-This webhook integration lets you track completed telephone calls logged by [CallRail] [callrail-website].
+This webhook adapter lets you track completed telephone calls logged by [CallRail] [callrail-website].
 
 <a name="implementation" />
 ## 2. Implementation
@@ -27,7 +27,7 @@ CallRail sends events as a body- and content-type-less POST request with all inf
 <a name="adapter" />
 ### 2.2 Snowplow adapter
 
-Implementation: [CallRailAdapter] [callrail-adapter]
+Implementation: [CallrailAdapter] [callrail-adapter]
 
 CallRail webhook support was implemented in [Snowplow 0.9.10] [snowplow-0.9.10].
 
