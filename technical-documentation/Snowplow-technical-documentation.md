@@ -4,7 +4,7 @@ The technical documentation reflects the Snowplow architecture, with five loosel
 
 ![architecture] [technical-architecture]
 
-## 1. Trackers
+## 1A. Trackers
 
 [Trackers overview](trackers)  
 [JavaScript Tracker](javascript-tracker)  
@@ -14,6 +14,12 @@ The technical documentation reflects the Snowplow architecture, with five loosel
 [[Java Tracker]]  
 [[Lua Tracker]]  
 [[Arduino Tracker]] 
+
+## 1B. Webhooks
+
+[[AD-X Tracking webhook adapter]]  
+[[CallRail webhook adapter]]  
+[[MailChimp webhook adapter]]  
 
 ### A. [Snowplow tracker protocol](snowplow-tracker-protocol)  
 
