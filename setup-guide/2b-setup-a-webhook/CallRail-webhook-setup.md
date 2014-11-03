@@ -50,7 +50,7 @@ For the **Post-Call Webhook URL**, you need to provide the URI to your Snowplow 
 http://<collector host>/com.callrail/v1?aid=<company code>
 ```
 
-The `&aid=` name-value pair in your URI's querystring is optional; this is the `app_id` parameter taken from the [Snowplow Tracker Protocol] [tracker-protocol]. You can use it to specify which company in CallRail these call complete events belong to. Putting it all together, our screen looks like this:
+The `&aid=` name-value pair in your URI's querystring is optional; this is the `app_id` parameter taken from the [Snowplow Tracker Protocol] [tracker-protocol]. You can use it to specify which company in CallRail these call complete events belong to. Putting it all together, our setup screen now looks like this:
 
 ADD IMAGE
 
