@@ -18,15 +18,15 @@ Log in to Zendesk. Click the cogwheel-shaped "Admin" icon located at the bottom-
 
 In the "SETTINGS" menu, click on "Extensions":
 
-[[/setup-guide/images/zendesk/extensions-button.png]]
+[[/setup-guide/images/webhooks/zendesk/extensions-button.png]]
 
 Click "add target":
 
-[[/setup-guide/images/zendesk/add-extension.png]]
+[[/setup-guide/images/webhooks/zendesk/add-extension.png]]
 
 Choose "URL target" from the list of target types to add:
 
-[[/setup-guide/images/zendesk/extension-form.png]]
+[[/setup-guide/images/webhooks/zendesk/extension-form.png]]
 
 Name the new extension something like "Cloudfront-Collector".
 
@@ -38,7 +38,7 @@ Set the Attribute Name field to "ue_pr". Whenever a trigger uses the extension t
 
 Select "Create Target" from the drop-down menu and click the Submit button.
 
-[[/setup-guide/images/zendesk/url-target.png]]
+[[/setup-guide/images/webhooks/zendesk/url-target.png]]
 
 We have set up our collector as a Zendesk extension. We can now add triggers or automations which send GET requests to the collector whenever certain events occur.
 
@@ -47,11 +47,11 @@ We have set up our collector as a Zendesk extension. We can now add triggers or 
 
 From the Admin page, select "Triggers" from the "BUSINESS RULES" menu:
 
-[[/setup-guide/images/zendesk/business-rules.png]]
+[[/setup-guide/images/webhooks/zendesk/business-rules.png]]
 
 Click "add trigger": 
 
-[[/setup-guide/images/zendesk/add-trigger-button.png]]
+[[/setup-guide/images/webhooks/zendesk/add-trigger-button.png]]
 
 Name the trigger something like "Ticket-Creation-Trigger".
 
@@ -67,7 +67,7 @@ In the Message box, paste the following:
 
 Submit the new trigger. It should look something like this:
 
-[[/setup-guide/images/zendesk/ticket-creation-trigger.png]]
+[[/setup-guide/images/webhooks/zendesk/ticket-creation-trigger.png]]
 
 <a name="comment-creation" />
 # Set up a trigger to track ticket comment creation
@@ -90,18 +90,18 @@ In the Message box, paste the following:
 
 Submit the new trigger. It should look something like this:
 
-[[/setup-guide/images/zendesk/comment-creation-trigger.png]]
+[[/setup-guide/images/webhooks/zendesk/comment-creation-trigger.png]]
 
 <a name="ticket-resolution" />
 ## 4. Setting up an automation to track tickets being closed
 
 From the Admin page, select "Automations" from the "BUSINESS RULES" menu:
 
-[[/setup-guide/images/zendesk/business-rules.png]]
+[[/setup-guide/images/webhooks/zendesk/business-rules.png]]
 
 You should have an automation which closes tickets. By default it will be called something like "Close ticket 4 days after status is set to solved":
 
-[[/setup-guide/images/zendesk/automation.png]]
+[[/setup-guide/images/webhooks/zendesk/automation.png]]
 
 As before, in the "Perform these actions" section, choose "Notifications: Notify target" and "Cloudfront-Collector" from the drop-down menus.
 
@@ -113,7 +113,7 @@ Copy and paste the following into the Message box:
 
 The result should look something like this:
 
-[[/setup-guide/images/zendesk/ticket-closed-automation.png]]
+[[/setup-guide/images/webhooks/zendesk/ticket-closed-automation.png]]
 
 [Back to top](#top)
 

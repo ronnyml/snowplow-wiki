@@ -40,7 +40,7 @@ First login to CallRail. Now select a **Company** from the dropdown list in the 
 
 Select **Integrations** -> **Webhooks** in the submenu and you should see a screen like this:
 
-ADD IMAGE
+[[/setup-guide/images/webhooks/callrail/callrail-1.png]]
 
 You can safely ignore the **Pre-Call Webhook URL** input box; we are only going to track call complete events.
 
@@ -52,7 +52,7 @@ http://<collector host>/com.callrail/v1?aid=<company code>
 
 The `&aid=` name-value pair in your URI's querystring is optional; this is the `app_id` parameter taken from the [Snowplow Tracker Protocol] [tracker-protocol]. You can use it to specify which company in CallRail these call complete events belong to. Putting it all together, our setup screen now looks like this:
 
-ADD IMAGE
+[[/setup-guide/images/webhooks/callrail/callrail-2.png]]
 
 If you want, you can also manually override the event's `platform` parameter like so:
 
