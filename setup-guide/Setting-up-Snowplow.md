@@ -30,7 +30,7 @@ Snowplow trackers generate event data and send that data to Snowplow collectors 
 
 [Setup a tracker now!](Setting-up-a-Tracker)
 
-### Step 2b: Setup a Third-party Webhook
+### Step 2b: Setup a Third-Party Webhook
 
 Snowplow allows you to collect events via the [webhooks] [webhooks-defn] of supported third-party software.
 
