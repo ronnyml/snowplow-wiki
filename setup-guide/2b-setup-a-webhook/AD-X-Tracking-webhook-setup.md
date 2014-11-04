@@ -26,7 +26,7 @@ For the technical implementation, see [[AD-X Tracking webhook adapter]].
 <a name="setup" />
 ## 2. Setup
 
-Integrating AD'X Tracking's webhooks into Snowplow is a two-stage process:
+Integrating AD-X Tracking's webhooks into Snowplow is a two-stage process:
 
 1. Configure AD-X Tracking to send events to Snowplow
 2. (Optional) Create the AD-X Tracking event table into Amazon Redshift
