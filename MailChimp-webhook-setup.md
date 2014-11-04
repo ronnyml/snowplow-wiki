@@ -94,9 +94,9 @@ That's it - with this table deployed, your CallRail call complete events should 
 [snowplow-0.9.10]: https://github.com/snowplow/snowplow/releases/tag/0.9.10
 [tracker-protocol]: https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol#1-common-parameters-platform-and-event-independent
 
-[subscribe-sql]: xxx
-[unsubscribe-sql]: xxx
-[profile-sql]: xxx
-[email-change-sql]: xxx
-[email-clean-sql]: xxx
-[campaign-sql]: xxx
+[subscribe-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.mailchimp/subscribe.sql
+[unsubscribe-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.mailchimp/unsubscribe.sql
+[profile-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.mailchimp/profile_update.sql
+[email-change-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.mailchimp/email_address_change.sql
+[email-clean-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.mailchimp/cleaned_email.sql
+[campaign-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.mailchimp/campaign_sending_status.sql
