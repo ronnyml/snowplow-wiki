@@ -50,7 +50,7 @@ http://<collector host>/com.mailchimp/v1
 
 Our Webhooks setup page now looks like this:
 
-[[/setup-guide/images/webhooks/mailchimp/mailchimp-3.png]]
+[[/setup-guide/images/webhooks/mailchimp/mailchimp-2.png]]
 
 If you want, you can also manually override the event's `platform` parameter by appending a query string to the end of the URL so:
 
@@ -62,7 +62,7 @@ Supported platform codes can again be found in the [Snowplow Tracker Protocol] [
 
 Before we save our MailChimp webhook we can configure what types of events MailChimp will send to our webhook and what channels will trigger these events.
 
-[[/setup-guide/images/webhooks/mailchimp/mailchimp-2.png]]
+[[/setup-guide/images/webhooks/mailchimp/mailchimp-3.png]]
 
 <a name="setup-redshift" />
 ## 2.2 Redshift
