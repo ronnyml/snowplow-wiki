@@ -13,7 +13,7 @@
 <a name="overview" />
 ## 1. Overview
 
-This webhook integration lets you track completed telephone calls logged by [Mailchimp] [mailchimp-website].
+This webhook integration lets you track a variety of events logged by [Mailchimp] [mailchimp-website].
 
 For the technical implementation, see [[Mailchimp webhook adapter]].
 
