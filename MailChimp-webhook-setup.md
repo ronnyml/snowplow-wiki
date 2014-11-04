@@ -30,18 +30,18 @@ For the technical implementation, see [[Mailchimp webhook adapter]].
 ### 1.1 Compatibility
 
 * [Snowplow 0.9.10] [snowplow-0.9.10]+ (`POST`-capable collectors for event processing, will require `GET` for initial Webhook validation)
-* [Mailchimp webhook API] [mailchimp-webhooks]
+* [MailChimp webhook API] [mailchimp-webhooks]
 
 <a name="setup" />
 ## 2. Setup
 
-Integrating Mailchimp's webhooks into Snowplow is a two-stage process:
+Integrating MailChimp's webhooks into Snowplow is a two-stage process:
 
-1. Configure Mailchimp to send events to Snowplow
-2. (Optional) Create the Mailchimp event table into Amazon Redshift
+1. Configure MailChimp to send events to Snowplow
+2. (Optional) Create the MailChimp events tables into Amazon Redshift
 
 <a name="setup-mailchimp" />
-## 2.1 Mailchimp
+## 2.1 MailChimp
 
 First login to MailChimp. Select **Lists** from the menu panel along the left handside of the screen.  
 
@@ -74,8 +74,29 @@ Before we save our MailChimp webhook we can configure what types of events MailC
 <a name="setup-redshift" />
 ## 2.2 Redshift
 
+If you are running the Snowplow batch (Hadoop) flow with Amazon Redshift, then you should deploy the relevent event tables into your Amazon Redshift.
+
+You can find the table definitions here:
+
+* Subscribe - [com_mailchimp_subscribe_1.sql] [subscribe-sql]
+* Unsubscribe - [com_mailchimp_unsubscribe_1.sql] [unsubscribe-sql]
+* Profile Update - [com_mailchimp_profile_update_1.sql] [profile-sql]
+* Email Address Change - [com_mailchimp_email_address_change_1.sql] [email-change-sql]
+* Cleaned Email - [com_mailchimp_cleaned_email_1.sql] [email-clean-sql]
+* Campaign Sending Status - [com_mailchimp_campaign_sending_status_1.sql] [campaign-sql]
+
+Make sure to deploy this table into the same schema as your `events` table.
+
+That's it - with this table deployed, your CallRail call complete events should automatically flow through into Redshift.
 
 [mailchimp-website]: http://mailchimp.com/
 [mailchimp-webhooks]: http://apidocs.mailchimp.com/webhooks/
 [snowplow-0.9.10]: https://github.com/snowplow/snowplow/releases/tag/0.9.10
 [tracker-protocol]: https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol#1-common-parameters-platform-and-event-independent
+
+[subscribe-sql]: xxx
+[unsubscribe-sql]: xxx
+[profile-sql]: xxx
+[email-change-sql]: xxx
+[email-clean-sql]: xxx
+[campaign-sql]: xxx
