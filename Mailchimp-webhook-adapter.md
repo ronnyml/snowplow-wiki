@@ -26,8 +26,6 @@ Details of the MailChimp webhook format as of 1 November 2014.
 
 MailChimp sends events as a `POST` request with all information in the body, formatted as a HTTP Query String.
 
-MailChimp requires the ability to send a single successful `GET` request as a way of validating that the webhook callback URL is valid.
-
 <a name="adapter" />
 ### 2.2 MailChimp adapter
 
