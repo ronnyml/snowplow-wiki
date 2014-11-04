@@ -57,7 +57,7 @@ For the **Callback URL** field you will need to provide the URI to your Snowplow
 http://<collector host>/com.mailchimp/v1
 ```
 
-Our Webhooks setup page now looks like this:
+Our Webhooks setup page should look like this after we have added our **Callback URL**:
 
 [[/setup-guide/images/webhooks/mailchimp/mailchimp-2.png]]
 
@@ -78,12 +78,12 @@ If you are running the Snowplow batch (Hadoop) flow with Amazon Redshift, then y
 
 You can find the table definitions here:
 
-* Subscribe - [com_mailchimp_subscribe_1.sql] [subscribe-sql]
-* Unsubscribe - [com_mailchimp_unsubscribe_1.sql] [unsubscribe-sql]
-* Profile Update - [com_mailchimp_profile_update_1.sql] [profile-sql]
-* Email Address Change - [com_mailchimp_email_address_change_1.sql] [email-change-sql]
-* Cleaned Email - [com_mailchimp_cleaned_email_1.sql] [email-clean-sql]
-* Campaign Sending Status - [com_mailchimp_campaign_sending_status_1.sql] [campaign-sql]
+* [com_mailchimp_subscribe_1.sql] [subscribe-sql]
+* [com_mailchimp_unsubscribe_1.sql] [unsubscribe-sql]
+* [com_mailchimp_profile_update_1.sql] [profile-sql]
+* [com_mailchimp_email_address_change_1.sql] [email-change-sql]
+* [com_mailchimp_cleaned_email_1.sql] [email-clean-sql]
+* [com_mailchimp_campaign_sending_status_1.sql] [campaign-sql]
 
 Make sure to deploy this table into the same schema as your `events` table.
 
