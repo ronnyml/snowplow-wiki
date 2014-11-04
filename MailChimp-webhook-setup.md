@@ -15,12 +15,21 @@
 
 This webhook integration lets you track a variety of events logged by [Mailchimp] [mailchimp-website].
 
+Available events include:
+
+- Subscribes
+- Unsubscribes
+- Profile Updates
+- Email Address Changes
+- Cleaned Emails
+- Campaign Sending Status
+
 For the technical implementation, see [[Mailchimp webhook adapter]].
 
 <a name="compat" />
 ### 1.1 Compatibility
 
-* [Snowplow 0.9.10] [snowplow-0.9.10]+ (`POST`-capable collectors only)
+* [Snowplow 0.9.10] [snowplow-0.9.10]+ (`POST`-capable collectors for event processing, will require `GET` for initial Webhook validation)
 * [Mailchimp webhook API] [mailchimp-webhooks]
 
 <a name="setup" />
@@ -36,7 +45,7 @@ Integrating Mailchimp's webhooks into Snowplow is a two-stage process:
 
 First login to MailChimp. Select **Lists** from the menu panel along the left handside of the screen.  
 
-Then select **Create List** in the top right hand corner and fill in the required fields to create the list.
+Then select **Create List** in the top right hand corner and fill in the required fields to create a new list.
 
 Once we have a new list navigate to the **Settings** dropdown option and select **Webhooks** from the menu.
 
@@ -60,9 +69,7 @@ http://<collector host>/com.callrail/v1?p=<platform code>
 
 Supported platform codes can again be found in the [Snowplow Tracker Protocol] [tracker-protocol]; if not set, then the value for `platform` will default to `srv` for a server-side application.
 
-Before we save our MailChimp webhook we can configure what types of events MailChimp will send to our webhook and what channels will trigger these events.
-
-[[/setup-guide/images/webhooks/mailchimp/mailchimp-3.png]]
+Before we save our MailChimp webhook we can configure what types of events MailChimp will send to our webhook and what channels will trigger these events.  Simply select the boxes that are applicable to you and MailChimp will send these events to our webhook.
 
 <a name="setup-redshift" />
 ## 2.2 Redshift
