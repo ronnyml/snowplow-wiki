@@ -80,13 +80,13 @@ If you wish, you can override the title with a custom value:
 snowplow_name_here('trackPageView', 'my custom page title');
 ```
 
-The optional third parameter is a boolean (which defaults to false) indicating whether to attach a PerformanceTiming context to the page view event. This context contains all data in the `window.performance.timing` object and can be used to calculate page performance metrics. Add it like this:
+The optional third parameter is a boolean (which defaults to false) indicating whether to attach a PerformanceTiming context to the page view event. This context contains all data in the `window.performance.timing` object, along with the Chrome `firstPaintTime` field (renamed to `"chromeFirstPaint"`) if it exists and can be used to calculate page performance metrics. Add it like this:
 
 ```javascript
 snowplow_name_here('trackPageView', null, true);
 ```
 
-Note that if you fire a page view event as soon as the page loads, the `domComplete`, `loadEventStart`, and `loadEventEnd` metrics in the Navigation Timing API may be set to zero. This is because those properties are only known once all scripts on the page have finished executing.
+Note that if you fire a page view event as soon as the page loads, the `domComplete`, `loadEventStart`, `loadEventEnd`, and `chromeFirstPaint` metrics in the Navigation Timing API may be set to zero. This is because those properties are only known once all scripts on the page have finished executing. Additionally the `redirectStart`, `redirectEnd`, and `secureConnectionStart` are set to 0 if there is no redirect or a secure connection is not requested.
 
 For more information on the Navigation Timing API, see [the specification][performance-spec].
 
