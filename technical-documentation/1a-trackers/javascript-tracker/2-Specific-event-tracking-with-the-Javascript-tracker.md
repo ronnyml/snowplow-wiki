@@ -786,6 +786,8 @@ When a user changes the value of a `textarea`, `input`, or `select` element insi
 
 When a user submits a form, a [`submit_form`][submit_form] event will be fired. It will capture the id and classes of the form and the name, type, and value of all `textarea`, `input`, and `select` elements inside the form.
 
+Note that this will only work if the original form submission event is actually fired. If you prevent it from firing, for example by using a jQuery event handler which returns `false` to handle clicks on the form's submission button, the Snowplow `submit_form` event will not be fired.
+
 <a name="enableFormTracking" />
 #### 3.10.1 `enableFormTracking`
 
