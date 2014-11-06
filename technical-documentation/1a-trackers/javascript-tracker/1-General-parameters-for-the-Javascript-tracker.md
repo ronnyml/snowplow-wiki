@@ -2,9 +2,9 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > [**JavaScript Tracker**](Javascript-Tracker) > General parameters
 
-**This page refers to version 2.1.0 of the Snowplow JavaScript Tracker, which has not yet been published.**  
-**Click [here] [general-parameters-v1] for the corresponding documentation for version 1.**  
-**Click [here] [general-parameters-v2.0] for the corresponding documentation for version 2.0.0.**
+*This page refers to version 2.1.1 of the Snowplow JavaScript Tracker.*
+*Click [here] [general-parameters-v1] for the corresponding documentation for version 1.*
+*Click [here] [general-parameters-v2.0] for the corresponding documentation for version 2.0.0.*
 
 <a name="general" />
 ## 2. General parameters
@@ -45,11 +45,11 @@ Use the following tag to your page to load Snowplow.js:
 ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
 p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
 };p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.1.0/sp.js","snowplow_name_here"));
+n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.1.1/sp.js","snowplow_name_here"));
 </script>
 ```
 
-*Important note regarding testing:* `"//d1fc8wv8zag5ca.cloudfront.net/2.1.0/sp.js"` is the URL from which sp.js should be fetched, and will automatically be prepended with "http:" or "https:" depending on the page's protocol. But if you wish to try out Snowplow locally, using an HTML file on disk whose URI starts with "file://", you should manually insert "http:", changing it to `"http://d1fc8wv8zag5ca.cloudfront.net/2.1.0/sp.js"`.
+*Important note regarding testing:* `"//d1fc8wv8zag5ca.cloudfront.net/2.1.1/sp.js"` is the URL from which sp.js should be fetched, and will automatically be prepended with "http:" or "https:" depending on the page's protocol. But if you wish to try out Snowplow locally, using an HTML file on disk whose URI starts with "file://", you should manually insert "http:", changing it to `"http://d1fc8wv8zag5ca.cloudfront.net/2.1.1/sp.js"`.
 
 As well as loading Snowplow, this tag creates a global function called "snowplow_name_here" which you use to access the Tracker. You can replace the string "snowplow_name_here" with the function name of your choice. This is encouraged: if there are two Snowplow users on the same page, there won't be any conflict between them as long as they have chosen different function names. The rest of the documentation will assume that the function is called "snowplow_name_here".
 
