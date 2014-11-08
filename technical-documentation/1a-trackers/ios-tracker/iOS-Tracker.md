@@ -139,12 +139,12 @@ Example:
 <a name="sending-ifa" />
 ### 3.2 Sending IFA
 
-Apps that do not display advertisements are not allowed to access Apple's Identifier For Advertisers (IFA). For this reason, the Snowplow iOS Tracker will only send IFA as part of the `mobile_context` if you have the `AdSupport.framework` included (and are thus intending to serve ads).
+Apps that do not display advertisements are not allowed to access Apple's Identifier For Advertisers (IFA). For this reason, the Snowplow iOS Tracker will only send IFA as part of the `mobile_context` if you have the `AdSupport.framework` included (and are therefore intending to serve ads).
 
 For the avoidance of doubt, you can also avoid sending IFA regardless of your advertising situation, thus:
 
 * Click on **Build Settings** to your app's project in Xcode
-* Search for "Preprocessor Macros"
+* Search for **Preprocessor Macros**
 * Add a macro defined as`MIXPANEL_NO_IFA = 1`
 
 <a name="events" />
