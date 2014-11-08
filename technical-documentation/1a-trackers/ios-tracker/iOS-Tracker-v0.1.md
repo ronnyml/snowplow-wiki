@@ -2,9 +2,9 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > iOS Tracker
 
-This page refers to version 0.2.0 of the Snowplow iOS Tracker, which is the latest version. Documentation for earlier versions is available:*
+This page refers to version 0.1.0 of the Snowplow iOS Tracker. Documentation for more recent versions is available:*
 
-*[Version 0.1][ios-0.2]*
+*[Version 0.2][ios-latest]*
 
 ## Contents
 
@@ -113,17 +113,20 @@ By default, unstructured events and custom contexts are encoded into Base64 to e
 <a name="add-data" />
 ## 3. Adding extra data
 
-Unlike the other Trackers, the iOS tracker automatically collects your platform, screen resolution, viewport, color depth, timezone and language from the device. You can still however, set your user ID to properly track different users if you require it.
+The iOS Tracker automatically collects your platform, screen resolution, viewport, color depth, timezone and language from the device. 
+
+You can set additional information using the following methods:
 
 * [`setUserId`](#set-user-id)
-* [Sending IFA](#sending-ifa)
 
 [Back to top](#top)
 
 <a name="set-user-id" />
 ### 3.1 Set user ID with `setUserId`
 
-You can set the user ID to any string:
+You can track a given user of your app by setting their user IDt to any string:
+
+You can set the user ID :
 
 ```objective-c
 s1.setUserId( "{{USER ID}}" )
@@ -134,17 +137,6 @@ Example:
 ```objective-c
 [tracker setUserId:@"alexd"];
 ```
-
-<a name="sending-ifa" />
-### 3.2 Sending IFA
-
-Apps that do not display advertisements are not allowed to access Apple's Identifier For Advertisers (IFA). For this reason, the Snowplow iOS Tracker will only send IFA as part of the `mobile_context` if you have the `AdSupport.framework` included (and are thus intending to serve ads).
-
-For the avoidance of doubt, you can also avoid sending IFA regardless of your advertising situation, thus:
-
-* Click on **Build Settings** to your app's project in Xcode
-* Search for "Preprocessor Macros"
-* Add a macro defined as`MIXPANEL_NO_IFA = 1`
 
 <a name="events" />
 ## 4. Tracking specific events
@@ -474,7 +466,7 @@ SnowplowRequest emitter2 = [[SnowplowRequest alloc] initWithURLRequest:url
 
 [Back to top](#top)
 
-[ios-0.1]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker-v0.1
+[ios-latest]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker
 
 [base64]: https://en.wikipedia.org/wiki/Base64
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
