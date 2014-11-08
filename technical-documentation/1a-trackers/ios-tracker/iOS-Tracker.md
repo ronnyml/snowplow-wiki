@@ -18,6 +18,7 @@ This page refers to version 0.2.0 of the Snowplow iOS Tracker, which is the late
     - 2.2.4 [`base64Encoded`](#base64)
 - 3. [Adding extra data](#add-data)
   - 3.1 [`setUserId`](#set-user-id)
+  - 3.2 [Sending IFA](#sending-ifa)
 - 4. [Tracking specific events](#events)
   - 4.1 [Common](#common)
     - 4.1.1 [Custom contexts](#custom-contexts)
