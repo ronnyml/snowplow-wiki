@@ -4,7 +4,7 @@
 
 This page refers to version 0.2.0 of the Snowplow iOS Tracker, which is the latest version. Documentation for earlier versions is available:*
 
-*[Version 0.1][ios-0.2]*
+*[Version 0.1][ios-0.1]*
 
 ## Contents
 
