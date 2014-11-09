@@ -13,7 +13,7 @@
 [[.NET Tracker]]
 
 **1B. Webhooks**  
-[[AD-X Tracking webhook adapter]]  
+[[Iglu webhook adapter]]  
 [[CallRail webhook adapter]]  
 [[MailChimp webhook adapter]]  
 

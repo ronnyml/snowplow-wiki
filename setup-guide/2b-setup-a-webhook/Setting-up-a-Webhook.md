@@ -17,7 +17,7 @@ The following Webhooks are currently available for setup:
 
 | **Webhook** (click for setup)                  | **Description**                                                                          | **Support in Snowplow**     |
 |:-----------------------------------------------|:-----------------------------------------------------------------------------------------|:----------------------------|
-| **[AD-X Tracking](AD-X-Tracking-webhook-setup)** | For tracking application and game installs via [AD-X Tracking] [adxtracking-website]     | [0.9.10] [snowplow-0.9.10]+ |
+| **Iglu](Iglu-webhook-setup)** | For tracking [Iglu] [iglu]-compatible self-describing events | [0.9.10] [snowplow-0.9.10]+ |
 | **[CallRail](CallRail-webhook-setup)**         | For tracking completed telephone calls logged by [CallRail] [callrail-website]           | [0.9.10] [snowplow-0.9.10]+ |
 | **[MailChimp](MailChimp-webhook-setup)**       | For tracking email and email-related events delivered by [MailChimp] [mailchimp-website] | [0.9.10] [snowplow-0.9.10]+ |
 
@@ -27,7 +27,7 @@ Back to [Snowplow setup](Setting-up-Snowplow).
 
 [webhooks-defn]: http://en.wikipedia.org/wiki/Webhook
 
-[adxtracking-website]: http://adxtracking.com/	
+[iglu]: xxx	
 [callrail-website]: http://www.callrail.com/
 [mailchimp-website]: http://mailchimp.com/
 

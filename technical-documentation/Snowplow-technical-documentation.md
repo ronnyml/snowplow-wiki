@@ -17,7 +17,7 @@ The technical documentation reflects the Snowplow architecture, with five loosel
 
 ## 1B. Webhooks
 
-[[AD-X Tracking webhook adapter]]  
+[[Iglu webhook adapter]]  
 [[CallRail webhook adapter]]  
 [[MailChimp webhook adapter]]  
 
