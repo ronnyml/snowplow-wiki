@@ -13,15 +13,17 @@
 <a name="overview" />
 ## 1. Overview
 
-This webhook integration lets you track application installation events logged by [AD-X Tracking] [adxtracking-website].
+This webhook adapter lets you track events sent via a `GET` request containing an [Iglu] [iglu]-compatible event payload.
 
-For the technical implementation, see [[AD-X Tracking webhook adapter]].
+You can use this adapter with vendors who allow you define your own event types for "postback". An example of a vendor who does this is [AD-X Tracking] [adxtracking-website].
+
+For the technical implementation, see [[Iglu webhook adapter]].
 
 <a name="compat" />
 ### 1.1 Compatibility
 
-* [Snowplow 0.9.10] [snowplow-0.9.10]+ (all collectors)
-* AD-X Tracking webhook format as of 1 November 2014
+* [Snowplow 0.9.11] [snowplow-0.9.11]+ (all collectors)
+* Iglu self-describing JSON
 
 <a name="setup" />
 ## 2. Setup
@@ -63,8 +65,10 @@ Make sure to deploy this table into the same schema as your `events` table.
 
 That's it - with this table deployed, your AD-X Tracking app install events should automatically flow through into Redshift.
 
+[iglu]: https://github.com/snowplow/iglu
+
 [adxtracking-website]: http://adxtracking.com/
-[snowplow-0.9.10]: https://github.com/snowplow/snowplow/releases/tag/0.9.10
+[snowplow-0.9.11]: https://github.com/snowplow/snowplow/releases/tag/0.9.11
 
 [app-install-sql]: xxx 
 [tracker-protocol]: https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol#1-common-parameters-platform-and-event-independent

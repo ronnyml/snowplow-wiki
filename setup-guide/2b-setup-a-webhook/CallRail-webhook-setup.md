@@ -20,7 +20,7 @@ For the technical implementation, see [[Callrail webhook adapter]].
 <a name="compat" />
 ### 1.1 Compatibility
 
-* [Snowplow 0.9.10] [snowplow-0.9.10]+ (`POST`-capable collectors only)
+* [Snowplow 0.9.11] [snowplow-0.9.11]+ (`POST`-capable collectors only)
 * [CallRail webhook API] [callrail-webhooks] as of 1 November 2014
 
 <a name="setup" />
@@ -77,7 +77,7 @@ That's it - with this table deployed, your CallRail call complete events should 
 
 [callrail-website]: http://www.callrail.com/
 [callrail-webhooks]: https://support.callrail.com/hc/en-us/articles/201211133-Webhooks
-[snowplow-0.9.10]: https://github.com/snowplow/snowplow/releases/tag/0.9.10
+[snowplow-0.9.11]: https://github.com/snowplow/snowplow/releases/tag/0.9.11
 
 [call-complete-sql]: xxx 
 [tracker-protocol]: https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol#1-common-parameters-platform-and-event-independent

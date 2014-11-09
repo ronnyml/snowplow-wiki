@@ -37,10 +37,8 @@ iglu:com.acme.postbacks/install_error/jsonschema/1-0-0
 Here is an example of an Iglu-compatible event sent as a `GET` request:
 
 ```
-http://snplow.acme.com/com.snowplowanalytics.iglu/v1?schema=xxx
-```
-&schema=         -> "iglu:com.acme/campaign/jsonschema/1-0-0",
-&user=6353af9b-e288-4cf3-9f1c-b377a9c84dac&name=download&publisher_name=Organic&source=&tracking_id=&ad_unit=
+http://snplow.acme.com/com.snowplowanalytics.iglu/v1?schema=iglu%3Acom.acme%2Fcampaign%2Fjsonschema%2F1-0-0
+  &user=6353af9b-e288-4cf3-9f1c-b377a9c84dac&name=download&publisher_name=Organic&source=&tracking_id=&ad_unit=
 ```
 
 This will be converted by the Iglu webhook adapter into a self-describing JSON looking like this:
@@ -65,7 +63,7 @@ Note that successful processing through into Amazon Redshift will depend on the 
 
 Implementation: [IgluAdapter] [iglu-adapter]
 
-Iglu webhook support was implemented in [Snowplow 0.9.10] [snowplow-0.9.10].
+Iglu webhook support was implemented in [Snowplow 0.9.11] [snowplow-0.9.11].
 
 <a name="events" />
 ## 3. Events
@@ -81,10 +79,6 @@ Note that a limitation of this adapter is that all event properties will end up 
 
 [adxtracking-website]: http://adxtracking.com/
 
-[iglu]: xxx
+[iglu]: https://github.com/snowplow/iglu
 [iglu-adapter]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/adapters/registry/IgluAdapter.scala
-[snowplow-0.9.10]: https://github.com/snowplow/snowplow/releases/tag/0.9.10
-
-[app-install-json-schema]: xxx
-[app-install-json-paths]: xxx
-[app-install-sql]: xxx
+[snowplow-0.9.11]: https://github.com/snowplow/snowplow/releases/tag/0.9.11

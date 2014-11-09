@@ -29,7 +29,7 @@ For the technical implementation, see [[Mailchimp webhook adapter]].
 <a name="compat" />
 ### 1.1 Compatibility
 
-* [Snowplow 0.9.10] [snowplow-0.9.10]+ (`POST`-capable collectors for event processing, will require `GET` for initial Webhook validation)
+* [Snowplow 0.9.11] [snowplow-0.9.11]+ (`POST`-capable collectors for event processing, will require `GET` for initial Webhook validation)
 * [MailChimp webhook API] [mailchimp-webhooks]
 
 <a name="setup" />
@@ -91,7 +91,7 @@ That's it - with this table deployed, your CallRail call complete events should 
 
 [mailchimp-website]: http://mailchimp.com/
 [mailchimp-webhooks]: http://apidocs.mailchimp.com/webhooks/
-[snowplow-0.9.10]: https://github.com/snowplow/snowplow/releases/tag/0.9.10
+[snowplow-0.9.11]: https://github.com/snowplow/snowplow/releases/tag/0.9.11
 [tracker-protocol]: https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol#1-common-parameters-platform-and-event-independent
 
 [subscribe-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.mailchimp/subscribe.sql
