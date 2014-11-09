@@ -145,7 +145,7 @@ For the avoidance of doubt, you can also avoid sending IFA regardless of your ad
 
 * Click on **Build Settings** to your app's project in Xcode
 * Search for **Preprocessor Macros**
-* Add a macro defined as`MIXPANEL_NO_IFA = 1`
+* Add a macro defined as`SNOWPLOW_NO_IFA = 1`
 
 <a name="events" />
 ## 4. Tracking specific events
