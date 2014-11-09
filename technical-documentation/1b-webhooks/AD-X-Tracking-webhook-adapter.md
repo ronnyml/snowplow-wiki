@@ -1,18 +1,21 @@
-[**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Webhooks**](Webhooks) > AD-X Tracking webhook adapter
+[**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Webhooks**](Webhooks) > Iglu webhook adapter
 
 ## Contents
 
 - 1. [Overview](#overview)  
 - 2. [Implementation](#implementation)  
   - 2.1 [Event source](#source)  
-  - 2.2 [Snowplow adapter](#adapter)  
+  - 2.2 [Example](#example)  
+  - 2.3 [Snowplow adapter](#adapter)  
 - 3. [Events](#events)  
 - 4. [See also](#see-also)
 
 <a name="overview" />
 ## 1. Overview
 
-This webhook adapter lets you track application installation events logged by [AD-X Tracking] [adxtracking-website].
+This webhook adapter lets you track events sent via a `GET` request containing an [Iglu] [iglu]-compatible event payload.
+
+You can use this adapter with vendors who allow you define your own event types for "postback". An example of a vendor who does this is [AD-X Tracking] [adxtracking-website].
 
 <a name="implementation" />
 ## 2. Implementation
@@ -20,34 +23,66 @@ This webhook adapter lets you track application installation events logged by [A
 <a name="source" />
 ### 2.1 Event source
 
-Details of the AD-X Tracking webhook format as of 1 November 2014.
+This adapter assumes that events are sent via a `GET` request with all information on the querystring.
 
-AD-X Tracking sends events as a `GET` request with all information on the querystring.
+The querystring's name-value pairs **must** include a `schema` parameter, which is set to a valid Iglu self-describing schema URI, such as:
+
+```
+iglu:com.acme.postbacks/install_error/jsonschema/1-0-0
+```
+
+<a name="example" />
+### 2.2 Example
+
+Here is an example of an Iglu-compatible event sent as a `GET` request:
+
+```
+http://snplow.acme.com/com.snowplowanalytics.iglu/v1?schema=xxx
+```
+&schema=         -> "iglu:com.acme/campaign/jsonschema/1-0-0",
+&user=6353af9b-e288-4cf3-9f1c-b377a9c84dac&name=download&publisher_name=Organic&source=&tracking_id=&ad_unit=
+```
+
+This will be converted by the Iglu webhook adapter into a self-describing JSON looking like this:
+
+```json
+{
+  "schema":"iglu:com.acme/campaign/jsonschema/1-0-0",
+  "data": {
+    "name":"download",
+    "source":null,
+    "ad_unit":null,
+    "tracking_id":null,
+    "publisher_name":"Organic",
+    "user":"6353af9b-e288-4cf3-9f1c-b377a9c84dac"
+}
+```
+
+Note that successful processing through into Amazon Redshift will depend on the appropriate JSON Schema, JSON Paths file and Redshift table definition all being defined correctly.
 
 <a name="adapter" />
-### 2.2 Snowplow adapter
+### 2.3 Snowplow adapter
 
-Implementation: [AdxtrackingAdapter] [adxtracking-adapter]
+Implementation: [IgluAdapter] [iglu-adapter]
 
-CallRail webhook support was implemented in [Snowplow 0.9.10] [snowplow-0.9.10].
+Iglu webhook support was implemented in [Snowplow 0.9.10] [snowplow-0.9.10].
 
 <a name="events" />
 ## 3. Events
 
-All resources for this webhook's events:
+This webhook adapter supports any event, as long as it is a valid [Iglu] [iglu] self-describing event.
 
-| **Event**      | **JSON Schema**                                  | **JSON Paths**                                    | **Redshift Table**                                     |
-|:---------------|:-------------------------------------------------|:--------------------------------------------------|:-------------------------------------------------------|
-| App install  | [app_install.json] [app-install-json-schema] | [app_install_1.json] [app-install-json-paths] | [com_adxtracking_app_install.sql] [app-install-sql] |
+Note that a limitation of this adapter is that all event properties will end up being "stringly typed" - the adapter has no way of knowing which parameters should be converted into numbers, booleans, date-times or similar.
 
 <a name="see-also" />
 ## 4. See also
 
-[[AD-X Tracking webhook setup]]
+[[Iglu webhook setup]]
 
 [adxtracking-website]: http://adxtracking.com/
 
-[adxtracking-adapter]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/adapters/registry/AdxtrackingAdapter.scala
+[iglu]: xxx
+[iglu-adapter]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/adapters/registry/IgluAdapter.scala
 [snowplow-0.9.10]: https://github.com/snowplow/snowplow/releases/tag/0.9.10
 
 [app-install-json-schema]: xxx
