@@ -7,7 +7,7 @@
 - 1. [Overview](#overview)  
 - 2. [Implementation](#implementation)  
   - 2.1 [Event source](#source)  
-  - 2.2 [MailChimp adapter](#adapter)  
+  - 2.2 [Snowplow adapter](#adapter)  
 - 3. [Events](#events)  
 - 4. [See also](#see-also)
 
@@ -24,14 +24,14 @@ This webhook adapter lets you track a variety of events logged by [MailChimp] [m
 
 Details of the MailChimp webhook format as of 1 November 2014.
 
-MailChimp sends events as a `POST` request with all information in the body, formatted as a HTTP Query String.
+MailChimp sends events as a `POST` request with all information in the body, with `application/x-www-form-urlencoded` as the content type.
 
 <a name="adapter" />
-### 2.2 MailChimp adapter
+### 2.2 Snowplow adapter
 
 Implementation: [MailChimpAdapter] [mailchimp-adapter]
 
-MailChimp webhook support was implemented in [Snowplow 0.9.10] [snowplow-0.9.10].
+MailChimp webhook support was implemented in [Snowplow 0.9.11] [snowplow-0.9.11].
 
 <a name="events" />
 ## 3. Events
@@ -50,12 +50,12 @@ All resources for this webhook's events:
 <a name="see-also" />
 ## 4. See also
 
-[[Mailchimp webhook setup]]
+[[MailChimp webhook setup]]
 
 [mailchimp-website]: http://mailchimp.com/
 
 [mailchimp-adapter]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/adapters/registry/MailchimpAdapter.scala
-[snowplow-0.9.10]: https://github.com/snowplow/snowplow/releases/tag/0.9.10
+[snowplow-0.9.11]: https://github.com/snowplow/snowplow/releases/tag/0.9.11
 
 [subscribe-json-schema]: https://github.com/snowplow/iglu-central/tree/master/schemas/com.mailchimp/subscribe/jsonschema/1-0-0
 [subscribe-json-paths]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/jsonpaths/com.mailchimp/subscribe_1.json
