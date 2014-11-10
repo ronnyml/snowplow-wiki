@@ -292,7 +292,7 @@ def extract_duid(cookie, snowplow_cookie_name="_sp_")
 end
 ```
 
-The first argument is the cookies object (see the [documentation][http://api.rubyonrails.org/classes/ActionDispatch/Cookies.html]).
+The first argument is the cookies object (see the [documentation](http://api.rubyonrails.org/classes/ActionDispatch/Cookies.html)).
 
 If you used the "cookieName" configuration option of the Snowplow JavaScript Tracker, pass the same string to the `extract_duid` function as the second argument.
 
