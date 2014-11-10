@@ -13,9 +13,9 @@
 <a name="overview" />
 ## 1. Overview
 
-This webhook integration lets you track a variety of events logged by [Mailchimp] [mailchimp-website].
+This webhook integration lets you track a variety of events logged by [MailChimp] [mailchimp-website].
 
-Available events include:
+Available events are:
 
 - Subscribes
 - Unsubscribes
@@ -24,7 +24,7 @@ Available events include:
 - Cleaned Emails
 - Campaign Sending Status
 
-For the technical implementation, see [[Mailchimp webhook adapter]].
+For the technical implementation, see [[MailChimp webhook adapter]].
 
 <a name="compat" />
 ### 1.1 Compatibility
