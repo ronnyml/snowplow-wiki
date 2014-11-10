@@ -87,7 +87,7 @@ You can find the table definitions here:
 
 Make sure to deploy this table into the same schema as your `events` table.
 
-That's it - with this table deployed, your CallRail call complete events should automatically flow through into Redshift.
+That's it - with this table deployed, your MailChimp events should automatically flow through into Redshift.
 
 [mailchimp-website]: http://mailchimp.com/
 [mailchimp-webhooks]: http://apidocs.mailchimp.com/webhooks/
