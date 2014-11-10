@@ -107,7 +107,7 @@ If you are running the Snowplow batch (Hadoop) flow with Amazon Redshift, then y
 * A JSON Paths file
 * A Redshift table definition
 
-Creating and publishing these artifacts is out of scope for this setup page - for details please see XXX.
+Creating and publishing these artifacts is out of scope for this setup page - for details please see the wiki page on [[Shredding]].
 
 Please note that a limitation of this adapter is that all event properties will end up being "stringly typed" - the adapter has no way of knowing which parameters should be converted into numbers, booleans, date-times or similar. When defining your JSON Schema and Redshift table definition, please remember that specifying non-string types for any of the fields will cause shredding to fail.
 
