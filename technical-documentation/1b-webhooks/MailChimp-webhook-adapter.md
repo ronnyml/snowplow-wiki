@@ -40,12 +40,12 @@ All resources for this webhook's events:
 
 | **Event**      | **JSON Schema**                                  | **JSON Paths**                                    | **Redshift Table**                                     |
 |:---------------|:-------------------------------------------------|:--------------------------------------------------|:-------------------------------------------------------|
-| Subscribe               | [subscribe.json] [subscribe-json-schema]               | [subscribe_1.json] [subscribe-json-paths]               | [com_mailchimp_subscribe.sql] [subscribe-sql]               |
-| Unsubscribe             | [unsubscribe.json] [unsubscribe-json-schema]           | [unsubscribe_1.json] [unsubscribe-json-paths]           | [com_mailchimp_unsubscribe.sql] [unsubscribe-sql]           |
-| Profile Update          | [profile_update.json] [profile-json-schema]            | [profile_update_1.json] [profile-json-paths]            | [com_mailchimp_profile_update.sql] [profile-sql]            |
-| Email Address Change    | [email_address_change.json] [email-change-json-schema] | [email_address_change_1.json] [email-change-json-paths] | [com_mailchimp_email_address_change.sql] [email-change-sql] |
-| Cleaned Email           | [cleaned_email.json] [email-clean-json-schema]         | [cleaned_email_1.json] [email-clean-json-paths]         | [com_mailchimp_cleaned_email.sql] [email-clean-sql]         |
-| Campaign Sending Status | [campaign_sending_status.json] [campaign-json-schema]  | [campaign_sending_status_1.json] [campaign-json-paths]  | [com_mailchimp_campaign_sending_status.sql] [campaign-sql]  |
+| Subscribe               | [subscribe 1-0-1] [subscribe-json-schema]               | [subscribe_1.json] [subscribe-json-paths]               | [com_mailchimp_subscribe_1.sql] [subscribe-sql]               |
+| Unsubscribe             | [unsubscribe 1-0-1] [unsubscribe-json-schema]           | [unsubscribe_1.json] [unsubscribe-json-paths]           | [com_mailchimp_unsubscribe_1.sql] [unsubscribe-sql]           |
+| Profile Update          | [profile_update 1-0-1] [profile-json-schema]            | [profile_update_1.json] [profile-json-paths]            | [com_mailchimp_profile_update_1.sql] [profile-sql]            |
+| Email Address Change    | [email_address_change 1-0-1] [email-change-json-schema] | [email_address_change_1.json] [email-change-json-paths] | [com_mailchimp_email_address_change_1.sql] [email-change-sql] |
+| Cleaned Email           | [cleaned_email 1-0-1] [email-clean-json-schema]         | [cleaned_email_1.json] [email-clean-json-paths]         | [com_mailchimp_cleaned_email.sql] [email-clean-sql]         |
+| Campaign Sending Status | [campaign_sending_status 1-0-1] [campaign-json-schema]  | [campaign_sending_status_1.json] [campaign-json-paths]  | [com_mailchimp_campaign_sending_status_1.sql] [campaign-sql]  |
 
 <a name="see-also" />
 ## 4. See also
@@ -59,24 +59,24 @@ All resources for this webhook's events:
 
 [subscribe-json-schema]: https://github.com/snowplow/iglu-central/tree/master/schemas/com.mailchimp/subscribe/jsonschema/1-0-0
 [subscribe-json-paths]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/jsonpaths/com.mailchimp/subscribe_1.json
-[subscribe-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.mailchimp/subscribe.sql
+[subscribe-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.mailchimp/subscribe_1.sql
 
 [unsubscribe-json-schema]: https://github.com/snowplow/iglu-central/tree/master/schemas/com.mailchimp/unsubscribe/jsonschema/1-0-0
 [unsubscribe-json-paths]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/jsonpaths/com.mailchimp/unsubscribe_1.json
-[unsubscribe-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.mailchimp/unsubscribe.sql
+[unsubscribe-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.mailchimp/unsubscribe_1.sql
 
 [profile-json-schema]: https://github.com/snowplow/iglu-central/tree/master/schemas/com.mailchimp/profile_update/jsonschema/1-0-0
 [profile-json-paths]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/jsonpaths/com.mailchimp/profile_update_1.json
-[profile-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.mailchimp/profile_update.sql
+[profile-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.mailchimp/profile_update_1.sql
 
 [email-change-json-schema]: https://github.com/snowplow/iglu-central/tree/master/schemas/com.mailchimp/email_address_change/jsonschema/1-0-0
 [email-change-json-paths]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/jsonpaths/com.mailchimp/email_address_change_1.json
-[email-change-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.mailchimp/email_address_change.sql
+[email-change-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.mailchimp/email_address_change_1.sql
 
 [email-clean-json-schema]: https://github.com/snowplow/iglu-central/tree/master/schemas/com.mailchimp/cleaned_email/jsonschema/1-0-0
 [email-clean-json-paths]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/jsonpaths/com.mailchimp/cleaned_email_1.json
-[email-clean-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.mailchimp/cleaned_email.sql
+[email-clean-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.mailchimp/cleaned_email_1.sql
 
 [campaign-json-schema]: https://github.com/snowplow/iglu-central/tree/master/schemas/com.mailchimp/campaign_sending_status/jsonschema/1-0-0
 [campaign-json-paths]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/jsonpaths/com.mailchimp/campaign_sending_status_1.json
-[campaign-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.mailchimp/campaign_sending_status.sql
+[campaign-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.mailchimp/campaign_sending_status_1.sql

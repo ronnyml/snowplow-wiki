@@ -38,8 +38,8 @@ All resources for this webhook's events:
 
 | **Event**      | **JSON Schema**                                  | **JSON Paths**                                    | **Redshift Table**                                     |
 |:---------------|:-------------------------------------------------|:--------------------------------------------------|:-------------------------------------------------------|
-| Call complete  | [call_complete.json] [call-complete-json-schema] | [call_complete_1.json] [call-complete-json-paths] | [com_callrail_call_complete_1.sql] [call-complete-sql] |
-| Call commenced | Unsupported                                      | Unsupported                                       | Unsupported                                            |
+| Call complete  | [call_complete 1-0-1] [call-complete-json-schema] | [call_complete_1.json] [call-complete-json-paths] | [com_callrail_call_complete_1.sql] [call-complete-sql] |
+| Call start     | Unsupported                                      | Unsupported                                       | Unsupported                                            |
 
 <a name="see-also" />
 ## 4. See also
@@ -52,6 +52,6 @@ All resources for this webhook's events:
 [callrail-adapter]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/adapters/registry/CallrailAdapter.scala
 [snowplow-0.9.10]: https://github.com/snowplow/snowplow/releases/tag/0.9.10
 
-[call-complete-json-schema]: xxx
-[call-complete-json-paths]: xxx
-[call-complete-sql]: xxx 
+[call-complete-json-schema]: https://github.com/snowplow/iglu-central/tree/master/schemas/com.callrail/call_complete/jsonschema/1-0-0
+[call-complete-json-paths]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/jsonpaths/com.callrail/call_complete_1.json
+[call-complete-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.callrail/call_complete_1.sql 
