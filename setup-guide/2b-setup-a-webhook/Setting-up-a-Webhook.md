@@ -27,7 +27,7 @@ Back to [Snowplow setup](Setting-up-Snowplow).
 
 [webhooks-defn]: http://en.wikipedia.org/wiki/Webhook
 
-[iglu]: xxx	
+[iglu]: https://github.com/snowplow/iglu	
 [callrail-website]: http://www.callrail.com/
 [mailchimp-website]: http://mailchimp.com/
 
