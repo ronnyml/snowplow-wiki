@@ -14,7 +14,7 @@
 <a name="introduction"/>
 ## 1. Introduction
 
-Snowplow offers the option to configure certain enrichments. This is done using configuration JSONs. The config.yml file which the [EmrEtlRunner](1-Installing-EmrEtlRunner) requires has an "enrichments" field which should be populated with the filepath of a directory containing your configuration JSONs.
+Snowplow offers the option to configure certain enrichments. This is done using configuration JSONs. When running EmrEtlRunner, the `--enrichments` argument should be populated with the filepath of a directory containing your configuration JSONs.
 
 <a name="template"/>
 ## 2. Configuration template
