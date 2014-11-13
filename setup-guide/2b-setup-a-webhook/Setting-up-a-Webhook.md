@@ -17,7 +17,7 @@ The following Webhooks are currently available for setup:
 
 | **Webhook** (click for setup)                  | **Description**                                                                          | **Support in Snowplow**     |
 |:-----------------------------------------------|:-----------------------------------------------------------------------------------------|:----------------------------|
-| **Iglu](Iglu-webhook-setup)** | For tracking [Iglu] [iglu]-compatible self-describing events | [0.9.11] [snowplow-0.9.11]+ |
+| **[Iglu](Iglu-webhook-setup)** | For tracking [Iglu] [iglu]-compatible self-describing events | [0.9.11] [snowplow-0.9.11]+ |
 | **[CallRail](CallRail-webhook-setup)**         | For tracking completed telephone calls logged by [CallRail] [callrail-website]           | [0.9.11] [snowplow-0.9.11]+ |
 | **[MailChimp](MailChimp-webhook-setup)**       | For tracking email and email-related events delivered by [MailChimp] [mailchimp-website] | [0.9.11] [snowplow-0.9.11]+ |
 
