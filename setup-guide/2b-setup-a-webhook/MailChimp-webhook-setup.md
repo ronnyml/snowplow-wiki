@@ -29,7 +29,7 @@ For the technical implementation, see [[MailChimp webhook adapter]].
 <a name="compat" />
 ### 1.1 Compatibility
 
-* [Snowplow 0.9.11] [snowplow-0.9.11]+ (`POST`-capable collectors for event processing, will require `GET` for initial Webhook validation)
+* [Snowplow 0.9.11] [snowplow-0.9.11]+ (`POST`-capable collectors for event processing, will require `GET` for initial webhook validation)
 * [MailChimp webhook API] [mailchimp-webhooks]
 
 <a name="setup" />
