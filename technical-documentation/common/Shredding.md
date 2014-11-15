@@ -29,7 +29,7 @@ Scala Hadoop Shred is a dedicated Scalding job to perform the JSON validation an
 4. Adds metadata to these JSONs to track their origins
 5. Writes these JSONs out to nested folders dependent on their schema
 
-Configuring this is covered in [Configuring shredding](5-Configuring-shredding).
+Configuring this is covered in [Configuring shredding](6-Configuring-shredding).
 
 ### 2. StorageLoader
 
