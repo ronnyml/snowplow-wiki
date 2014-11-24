@@ -417,7 +417,7 @@ Events created by the Tracker are sent to a collector using a `SnowplowRequest` 
 For example:
 
 ```objective-c
-NSURL *url = [[NSURL alloc] initWithString:@"collector.acme.net"];
+NSURL *url = [[NSURL alloc] initWithString:@"https://collector.acme.net"];
 SnowplowRequest emitter = [[SnowplowRequest alloc] initWithURLRequest:url
                                                            httpMethod:@"POST"
                                                          bufferOption:SnowplowBufferInstant];
@@ -432,7 +432,7 @@ A buffer is used to group events together in bulk before sending them. This is e
 You can set this during the creation of a `SnowplowRequest` object or using the setter `-(void)setBufferOption:`
 
 ```objective-c
-NSURL *url = [[NSURL alloc] initWithString:@"collector.acme.net"];
+NSURL *url = [[NSURL alloc] initWithString:@"https://collector.acme.net"];
 SnowplowRequest emitter = [[SnowplowRequest alloc] initWithURLRequest:url
                                                            httpMethod:@"POST"
                                                          bufferOption:SnowplowBufferInstant];
@@ -464,7 +464,7 @@ Here are all the posibile options that you can use:
 
 You can set this during the creation of a `SnowplowRequest` object:
 ```objective-c
-NSURL *url = [[NSURL alloc] initWithString:@"collector.acme.net"];
+NSURL *url = [[NSURL alloc] initWithString:@"https://collector.acme.net"];
 SnowplowRequest emitter = [[SnowplowRequest alloc] initWithURLRequest:url
                                                            httpMethod:@"POST"
                                                          bufferOption:SnowplowBufferInstant];
