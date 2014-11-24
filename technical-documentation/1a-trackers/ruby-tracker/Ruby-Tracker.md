@@ -4,7 +4,7 @@
 
 **This page refers to version 0.4.0 of the Snowplow JavaScript Tracker, which has not yet been published. Documentation for other versions is available:**
 
-*[Version 0.2][ruby-0.2]*
+*[Version 0.2][ruby-0.2]*  
 *[Version 0.3][ruby-0.3]*
 
 ## Contents
@@ -275,26 +275,23 @@ The `domain_userid` field of the Snowplow event model corresponds to the ID stor
 tracker.set_domain_user_id('c7aadf5c60a5dff9')
 ```
 
-You can extract the domain user ID from the Ruby on Rails `cookies` object like this (note that this function has not yet been tested):
+You can extract the domain user ID from the Ruby on Rails `cookies` object like this:
 
 ```ruby
-def extract_duid(cookie, snowplow_cookie_name="_sp_")
-  cookie_names = cookie.keys.grep(/#{snowplow_cookie_name}id/)
-  if cookie_names.size == 0
-    return nil
-  end
-  cookie_string = cookie[cookie_names[0]]
-  if cookie_string.nil?
-    nil
-  else
-    cookie_string.split('.')[0]
+def snowplow_cookie
+  cookies.find { |(key, value)| key =~ /^_sp_id/ }.last
+end
+
+def domain_user_id
+  if snowplow_cookie.present?
+    snowplow_cookie.split('.').first
   end
 end
 ```
 
 The first argument is the cookies object (see the [documentation](http://api.rubyonrails.org/classes/ActionDispatch/Cookies.html)).
 
-If you used the "cookieName" configuration option of the Snowplow JavaScript Tracker, pass the same string to the `extract_duid` function as the second argument.
+If you used the "cookieName" configuration option of the Snowplow JavaScript Tracker, replace "_sp_" with the same string you passed as the cookieName.
 
 <a name="set-network-user-id" />
 ### 3.11 Setting the network user ID with `set_network_user_id`
