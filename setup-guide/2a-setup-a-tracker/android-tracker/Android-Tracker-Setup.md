@@ -92,7 +92,7 @@ Then add into your project's `pom.xml`:
 <dependency>
     <groupId>com.snowplowanalytics</groupId>
     <artifactId>snowplow-java-tracker-core</artifactId>
-    <version>[0.1.4,0.2.0)</version>
+    <version>[0.1.4, 0.2.0)</version>
 </dependency>
 ```
 
