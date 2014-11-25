@@ -334,9 +334,11 @@ Each `track_XXX` method expects arguments of a certain type. The types are valid
 <a name="context-arg" />
 #### 4.1.2 Optional context argument
 
-Each `track_XXX` method has `context` as its penultimate optional parameter. This is for an optional array of [self-describing custom context JSONs][self-describing-jsons] attached to the event. Each element of the `context` argument should be a hash whose keys are "schema", containing a pointer to the JSON schema against which the context will be validated, and "data", containing the context data itself. The "data" field should contain a flat hash of key-value pairs. 
+Each `track_XXX` method has `context` as its penultimate optional parameter. This is for an optional nonempty array of [self-describing custom context JSONs][self-describing-jsons] attached to the event. Each element of the `context` argument should be a hash whose keys are "schema", containing a pointer to the JSON schema against which the context will be validated, and "data", containing the context data itself. The "data" field should contain a flat hash of key-value pairs. 
 
-**Important:** Even if only one custom context is being attached to an event, it still needs to be wrapped in an array.
+**Important:**
+* Even if only one custom context is being attached to an event, it still needs to be wrapped in an array.
+* If you do provide the argument it shouldn't be an empty array. Pass in `nil` instead of an empty array. Otherwise the context will fail validation.
 
 For example, an array containing two custom contexts relating to the event of a movie poster being viewed:
 
