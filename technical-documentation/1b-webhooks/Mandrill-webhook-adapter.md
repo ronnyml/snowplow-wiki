@@ -44,7 +44,7 @@ All resources for this webhook's events:
 | Hard Bounce            | [message_bounced 1-0-0] [bounced-json-schema]           | [message_bounced_1.json] [bounced-json-paths]           | [com_mandrill_message_bounced_1.sql] [bounced-sql]           |
 | Soft Bounce            | [message_soft_bounced 1-0-0] [soft-bounced-json-schema] | [message_soft_bounced_1.json] [soft-bounced-json-paths] | [com_mandrill_message_soft_bounced_1.sql] [soft-bounced-sql] |
 | Opened                 | [message_opened 1-0-0] [opened-json-schema]             | [message_opened_1.json] [opened-json-paths]             | [com_mandrill_message_opened_1.sql] [opened-sql]             |
-| Marked as Spam         | [message_marked_as_spam 1-0-0] [spam-schema]            | [message_marked_as_spam_1.json] [spam-json-paths]       | [com_mandrill_message_marked_as_spam.sql] [spam-sql]         |
+| Marked as Spam         | [message_marked_as_spam 1-0-0] [spam-json-schema]            | [message_marked_as_spam_1.json] [spam-json-paths]       | [com_mandrill_message_marked_as_spam.sql] [spam-sql]         |
 | Rejected               | [message_rejected 1-0-0] [rejected-json-schema]         | [message_rejected_1.json] [rejected-json-paths]         | [com_mandrill_message_rejected_1.sql] [rejected-sql]         |
 | Delayed                | [message_delayed 1-0-0] [delayed-json-schema]           | [message_delayed_1.json] [delayed-json-paths]           | [com_mandrill_message_delayed_1.sql] [delayed-sql]           |
 | Clicked                | [message_clicked 1-0-0] [clicked-json-schema]           | [message_clicked_1.json] [clicked-json-paths]           | [com_mandrill_message_clicked_1.sql] [clicked-sql]           |
