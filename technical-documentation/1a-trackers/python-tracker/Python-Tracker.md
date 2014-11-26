@@ -398,6 +398,8 @@ t.track_page_view("http://www.films.com", "Homepage", context=[{
 
 Note that even though there is only one custom context attached to the event, it still needs to be placed in an array.
 
+Note also that you should not pass in an empty array of contexts as this will fail validation. Instead of an empty array you can pass in `None`.
+
 <a name="tstamp-arg" />
 ### 4.1.2 Optional timestamp argument
 
