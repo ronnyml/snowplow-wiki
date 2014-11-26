@@ -8,6 +8,10 @@ If you are using [Snowplow Kinesis Enrich][ske] to write enriched Snowplow event
 
 ## Configuring Elasticsearch
 
+### Getting started
+
+First off, install and set up Elasticsearch. For more information check out the [definitive guide][definitive-guide].
+
 ### Raising the file limit
 
 Elasticsearch keeps a lot of files open simultaneously so you will need to increase the maximum number of files a user can have open. To do this:
@@ -131,6 +135,7 @@ This will start the process of reading events from Kinesis and writing them to a
 
 [ske]: Scala-Kinesis-Enrich
 [elasticsearch]: http://www.elasticsearch.org/overview/
+[definitive-guide]: http://www.elasticsearch.org/guide/en/elasticsearch/guide/current/index.html
 [DefaultAWSCredentialsProviderChain]: http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/auth/DefaultAWSCredentialsProviderChain.html
 [scala-kinesis-enrich]: https://github.com/snowplow/snowplow/wiki/Scala-Kinesis-Enrich
 [conf-example]: https://github.com/snowplow/snowplow/blob/master/4-storage/kinesis-elasticsearch-sink/src/main/resources/application.conf.example
