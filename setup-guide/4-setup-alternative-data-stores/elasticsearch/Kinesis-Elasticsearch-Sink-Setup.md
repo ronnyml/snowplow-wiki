@@ -25,6 +25,7 @@ where {{USERNAME}} is the name of the user running Elasticsearch. You may need t
 
 Use the following request to create the mapping for the enriched event type:
 
+```
 curl -XPUT 'http://localhost:9200/snowplow' -d '{
     "mappings": {
         "enriched": {
@@ -44,6 +45,7 @@ curl -XPUT 'http://localhost:9200/snowplow' -d '{
         }
     }
 }'
+```
 
 Elasticsearch will then treat the collector_tstamp field as the timestamp and the geo_location field as a "geo_point". Documents will be automatically deleted one week (604800000 milliseconds) after their collector_tstamp.
 
