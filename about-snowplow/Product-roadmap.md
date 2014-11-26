@@ -1,6 +1,6 @@
 ## Overview
 
-The current release of Snowplow is **0.9.11**. The planned roadmap for Snowplow is divided in two:
+The current release of Snowplow is **0.9.12**. The planned roadmap for Snowplow is divided in two:
 
 1. **Short term: a series of planned point releases** - adding specific, mostly incremental features, tweaks and bug fixes to the core platform
 2. **Longer term: an approximate schedule for new components and capabilities** - setting out priorities and approximate timings for all-new Snowplow components and other ambitious new developments
@@ -17,7 +17,7 @@ The planned releases are as follows:
 
 | Release   | Tickets                     | Objective(s)                           |
 |------------|----------------------------|----------------------------------------|
-| **0.9.12** | [See GitHub] [issues-0912] | Improvements to Kinesis flow                        |
+| **0.9.13** | [See GitHub] [issues-0913] | Addition of further webhooks           |
 
 ## Longer-term: approximate schedule
 
@@ -27,7 +27,7 @@ In this section we set out an approximate map of the new components and capabili
 
 [milestones]: https://github.com/snowplow/snowplow/issues/milestones
 
-[issues-0912]: https://github.com/snowplow/snowplow/issues?q=is%3Aopen+is%3Aissue+milestone%3A%22Version+0.9.12%22
+[issues-0913]: https://github.com/snowplow/snowplow/milestones/Version%200.9.13
 
 [scalding]: https://github.com/twitter/scalding
 [redshift]: http://aws.amazon.com/redshift/
