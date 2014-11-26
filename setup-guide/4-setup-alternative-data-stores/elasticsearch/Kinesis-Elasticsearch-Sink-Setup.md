@@ -2,6 +2,10 @@
 
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 4: setting up alternative data stores**](Setting-up-alternative-data-stores) > [Kinesis-Elasticsearch-Sink-Setup](Kinesis-Elasticsearch-Sink-Setup)
 
+## Overview
+
+If you are using [Snowplow Kinesis Enrich][ske] to write enriched Snowplow events to one stream and bad events to another, you can use the Kinesis Elasticsearch Sink to read events from either of those streams and write them to [Elasticsearch][elasticsearch].
+
 ## Configuring Elasticsearch
 
 ### Raising the file limit
@@ -125,6 +129,8 @@ $ ./kinesis-Elasticsearch-sink-0.1.0 --config my.conf
 
 This will start the process of reading events from Kinesis and writing them to an Elasticsearch cluster.
 
+[ske]: Scala-Kinesis-Enrich
+[elasticsearch]: http://www.elasticsearch.org/overview/
 [DefaultAWSCredentialsProviderChain]: http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/auth/DefaultAWSCredentialsProviderChain.html
 [scala-kinesis-enrich]: https://github.com/snowplow/snowplow/wiki/Scala-Kinesis-Enrich
 [conf-example]: https://github.com/snowplow/snowplow/blob/master/4-storage/kinesis-elasticsearch-sink/src/main/resources/application.conf.example
