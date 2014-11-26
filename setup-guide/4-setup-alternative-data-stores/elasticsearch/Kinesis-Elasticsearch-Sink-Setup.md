@@ -10,7 +10,7 @@ If you are using [Snowplow Kinesis Enrich][ske] to write enriched Snowplow event
 
 ### Getting started
 
-First off, install and set up Elasticsearch. For more information check out the [definitive guide][definitive-guide].
+First off, install and set up Elasticsearch version 1.4.0. For more information check out the [definitive guide][definitive-guide].
 
 ### Raising the file limit
 
