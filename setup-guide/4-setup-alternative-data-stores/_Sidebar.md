@@ -12,7 +12,8 @@
   - [4.3: installing the StorageLoader] (1-installing-the-storageloader)  
   - [4.4: using the StorageLoader] (2-using-the-storageloader)  
   - [4.5: scheduling the StorageLoader] (3-scheduling-the-storageloader)  
-  - [4.6: loading shredded types] (4-Loading-shredded-types)
+  - [4.6: loading shredded types] (4-Loading-shredded-types)  
+  - [4.7: Setup Elasticsearch] (kinesis-elasticsearch-sink-setup)
 - [Step 5: Analyze your data!] (Getting started analyzing Snowplow data)   
 
 **Useful resources**  
