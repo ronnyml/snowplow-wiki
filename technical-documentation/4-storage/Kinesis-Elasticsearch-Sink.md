@@ -52,7 +52,7 @@ Each custom context in an array is similarly expanded to a JSON with its own fie
         }
     }
     {
-        "schema": "iglu:com.acme/contextTwo/jsonschema/2-0-0",
+        "schema": "iglu:com.acme/contextTwo/jsonschema/3-0-0",
         "data": {
             "name": "second"
         }
@@ -67,7 +67,7 @@ would be converted to
     "contexts_com_acme_context_one_1": {
         "key": "value"
     },
-    "contexts_com_acme_context_two_1": {
+    "contexts_com_acme_context_two_3": {
         "name": "second"
     }    
 }
