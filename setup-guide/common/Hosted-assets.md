@@ -26,7 +26,7 @@ Right-click on this [Download link] [cc-download] to save it down locally via Cl
 
 The Scala Stream Collector is packaged as an executable jarfile:
 
-    s3://snowplow-hosted-assets/2-collectors/scala-stream-collector/snowplow-stream-collector-0.1.0
+    s3://snowplow-hosted-assets/2-collectors/scala-stream-collector/snowplow-stream-collector-0.2.0
 
 Right-click on this [Download link] [ssc-download] to save it down locally via CloudFront CDN.
 
@@ -36,7 +36,7 @@ Right-click on this [Download link] [ssc-download] to save it down locally via C
 
 The Scala Hadoop Enrich process uses a single jarfile containing the MapReduce job. This is made available in a public Amazon S3 bucket, for Snowplowers who are running their Hadoop Enrich process on Amazon EMR:
 
-    s3://snowplow-hosted-assets/3-enrich/hadoop-etl/snowplow-hadoop-etl-0.9.0.jar
+    s3://snowplow-hosted-assets/3-enrich/hadoop-etl/snowplow-hadoop-etl-0.10.0.jar
 
 Right-click on this [Download link] [hadoop-enrich-download] to save it down locally via CloudFront CDN.
 
@@ -60,7 +60,7 @@ Right-click on this [Download link] [hadoop-bad-rows-download] to save it down l
 
 The Scala Kinesis Enrich process is packaged as an executable jarfile:
 
-    s3://snowplow-hosted-assets/3-enrich/scala-kinesis-enrich/snowplow-kinesis-enrich-0.1.0
+    s3://snowplow-hosted-assets/3-enrich/scala-kinesis-enrich/snowplow-kinesis-enrich-0.2.0
 
 Right-click on this [Download link] [kinesis-enrich-download] to save it down locally via CloudFront CDN.
 
