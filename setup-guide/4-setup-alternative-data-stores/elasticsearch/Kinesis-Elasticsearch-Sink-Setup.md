@@ -104,7 +104,7 @@ The `jar` file will be saved as `snowplow-Elasticsearch-sink-0.1.0` in the `targ
 The sink is configured using a HOCON file. These are the fields:
 
 * source: Change this from "kinesis" to "stdin" to run the sink in local mode. You can pipe in the output of [Scala Kinesis Enrich][scala-kinesis-enrich] and the sink will log the resulting JSONs to stdout and any events which couldn't be converted to JSON to stderr.
-* sink: Change this from "kinesis" to "stdouterr" to write to stdout rather than Elasticsearch and stderr rather than Kinesis.
+* sink: Change this from "kinesis" to "stdouterr" to write to stdout rather than Elasticsearch and stderr rather than Kinesis. Log messages will still be logged to stdout, so make sure to filter them out if you intend to pipe the output of the sink to another process.
 * aws/access-key and aws/secret-key: Change these to your AWS credentials. You can alternatively leave them as "default", in which case the [DefaultAWSCredentialsProviderChain][DefaultAWSCredentialsProviderChain] will be used.
 * kinesis/in/stream-name: The name of the input Kinesis stream
 * kinesis/in/stream-type: "good" if the input stream contains successfully enriched events; "bad" if it contains bad rows.
