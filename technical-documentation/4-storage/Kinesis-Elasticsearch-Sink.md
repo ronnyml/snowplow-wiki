@@ -28,6 +28,7 @@ Unstructured events are expanded into full JSONs. For example, the event
 
 would be converted to the field
 
+```
 {
     "unstruct_com_snowplowanalytics_snowplow_link_click_1": {
         "targetUrl": "http://snowplowanalytics.com/analytics/index.html",
@@ -36,11 +37,13 @@ would be converted to the field
         "elementTarget": ""
     }
 }
+```
 
 ### Custom contexts
 
 Each custom context in an array is similarly expanded to a JSON with its own field. For example, the array
 
+```
 [
     {
         "schema": "iglu:com.acme/contextOne/jsonschema/1-0-0",
@@ -55,9 +58,11 @@ Each custom context in an array is similarly expanded to a JSON with its own fie
         }
     }
 ]
+```
 
 would be converted to
 
+```
 {
     "contexts_com_acme_context_one_1": {
         "key": "value"
@@ -66,6 +71,7 @@ would be converted to
         "name": "second"
     }    
 }
+```
 
 See also the [setup guide][setup-guide].
 
