@@ -78,7 +78,7 @@ If you are running Scala Kinesis Enrich, you will need a local copy of this file
 
 ## 4. Storage
 
-### 4.1 Redshift storage resources
+### 4.1 Redshift Storage resources
 
 Our shredding process for loading JSONs into Redshift uses a standard set of JSON Path files, available here:
 
