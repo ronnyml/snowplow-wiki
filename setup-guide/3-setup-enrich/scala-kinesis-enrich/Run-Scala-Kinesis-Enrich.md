@@ -10,13 +10,13 @@
 
 Scala Kinesis Enrich is an executable jarfile which should be runnable from any Unix-like shell environment. Simply provide the configuration file as a parameter:
 
-    $ ./scala-kinesis-enrich-0.1.0 --config my.conf
+    $ ./scala-kinesis-enrich-0.2.0 --config my.conf
 
 This will start the Scala Kinesis Enrich app to read raw events from Kinesis and write enriched events back to Kinesis.
 
 If you are using configurable enrichments, provide the path to your enrichments directory as a parameter:
 
-    $ ./scala-kinesis-enrich-0.1.0 --config my.conf --enrichments path/to/enrichments
+    $ ./scala-kinesis-enrich-0.2.0 --config my.conf --enrichments path/to/enrichments
 
 ## All done?
 
