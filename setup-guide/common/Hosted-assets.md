@@ -78,11 +78,19 @@ If you are running Scala Kinesis Enrich, you will need a local copy of this file
 
 ## 4. Storage
 
+### 4.1 Redshift storage resources
+
 Our shredding process for loading JSONs into Redshift uses a standard set of JSON Path files, available here:
 
     s3://snowplow-hosted-assets/4-storage/redshift-storage/jsonpaths
 
 If you are running StorageLoader, these files will automatically be used for loading corresponding JSONs into Redshift.
+
+### 4.2 Kinesis Elasticsearch Sink resources
+
+The Kinesis Elasticsearch Sink is packaged as an executable jarfile. It is available in a public Amazon S3 bucket:
+
+	s3://snowplow-hosted-assets/4-storage/kinesis-elasticsearch-sink/snowplow-elasticsearch-sink-0.1.0
 
 ## 5. Analytics
 
