@@ -127,7 +127,7 @@ Back to [common field types](#common).
 |:--------------|:-----------------|:---------|:------------------------------|:-----------------|:--------------------------|
 | `duid`        | `domain_userid`  | text     | Unique identifier for a user, based on a first party cookie (so domain specific) | Yes | `aeb1691c5a0ee5a6` |
 | `nuid`        | `network_userid` | text     | Unique identifier for a user, based on a third party cookie (so set at a network level) | Yes | `ecdff4d0-9175-40ac-a8bb-325c49733607` |
-| `tnuid`       | `network_userid` | text     | Can be used be a tracker to overwrite the nuid | No | `ecdff4d0-9175-40ac-a8bb-325c49733607` |
+| `tnuid`       | `network_userid` | text     | Can be used be a tracker to overwrite the nuid | Yes | `ecdff4d0-9175-40ac-a8bb-325c49733607` |
 | `uid`         | `user_id`        | text     | Unique identifier for user, set by the business using `setUserId`    | Yes              | `jon.doe@email.com`  |
 | `vid`         | `domain_sessionidx`| int    | Index of number of visits that this user_id has made to this domain e.g. `1` is first visit | Yes       | `1`, `2`...|
 | `ip`          | `user_ipaddress` | text     | IP address                    | Yes              | `37.157.33.178` |
