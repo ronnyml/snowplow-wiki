@@ -41,6 +41,8 @@ Navigate into the Scala Kinesis Enrich folder:
 
 	$ cd 3-enrich/scala-kinesis-enrich
 
+Edit the `project/Dependencies.scala` file to change the specs2 version from 2.3.6 to 2.2 (this is prevents a dependency conflict).
+
 Use `sbt` to resolve dependencies, compile the source, and build an [assembled][assembly] fat JAR file with all dependencies.
 
 	$ sbt assembly
