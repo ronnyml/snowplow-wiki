@@ -358,7 +358,7 @@ All emitters support both `GET` and `POST` as methods for sending events to Snow
 
 The Sync emitter is a very basic synchronous emitter which supports both `GET` and `POST` request types.
 
-By default this emitter uses the Request type POST, HTTP and a buffer size of 50. `GET` defaults to a buffer size of 1.
+By default this emitter uses the Request type POST, HTTP and a buffer size of 50.
 
 Example emitter creation:
 
