@@ -8,6 +8,7 @@
 This page covers the more advanced elements of the Snowplow JavaScript Tracker API.
 
   - 4.1 [Callbacks](#callbacks)
+  - 4.2 [Extracting the Google Analytics cookie ID](#ga)
 
 <a name="callbacks" />
 ### 4.1 Callbacks
@@ -134,6 +135,31 @@ snowplow(function () {
 	var userId = cf.getUserId();
 	doSomethingWith(userId);
 })
+```
+
+<a name="callbacks" />
+### 4.2 Extracting the Google Analytics cookie ID
+
+Use the following function to extract ID stored in GA's first-party cookie:
+
+```javascript
+// Find the utma cookie and extract the unique user ID
+function getGoogleId() {
+	var id, a, c = document.cookie.split('; ');
+	for (var i in c) {
+		a = c[i].split('=');
+		if (a[0]==='__utma') {
+			id = a[1].split('.')[1];
+		}
+	}
+	return id || 'unknown';
+}
+```
+
+You can then set a user's Snowplow business user ID to be equal to the user's GA ID:
+
+```javascript
+snowplow('setUserId', getGoogleId());
 ```
 
 [execution-context]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this
