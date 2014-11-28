@@ -60,6 +60,8 @@ You can get around this problem using `Function.prototoype.bind` as follows:
 snowplow_name_here(console.log.bind(console), "sp.js has loaded");
 ```
 
+For more on execution context in JavaScript, see the [MDN page][execution-context].
+
 <a name="return-methods" />
 ### 4.2 Methods which can be used from inside a callback
 
@@ -134,3 +136,4 @@ snowplow(function () {
 })
 ```
 
+[execution-context]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this
