@@ -2,6 +2,8 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > [**JavaScript Tracker**](Javascript-Tracker) > Specific event tracking
 
+**Warning: this page refers to version 2.2.0 of the JavaScript Tracker, which has not yet been released.**
+
 <a name="tracking-specific-events" />
 ## 4. Advanced usage
 
