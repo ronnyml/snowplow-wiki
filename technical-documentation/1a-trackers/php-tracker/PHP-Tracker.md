@@ -351,7 +351,15 @@ $subject->setDomainUserId("domain-id");
 
 We now support four different emitters: sync, socket, curl and an out-of-band file emitter. The most basic emitter only requires you to specify the type of emitter to be used and the collectors URI as parameters.
 
-All emitters support both `GET` and `POST` as methods for sending events to Snowplow collectors. For the sake of speed we recommend using `POST`.
+All emitters support both `GET` and `POST` as methods for sending events to Snowplow collectors. For the sake of speed we recommend using `POST` as we can then bundle many events together into a single Request.
+
+It is recommended that after you have finished logging all of your events to run the following command:
+
+```php
+$tracker->flushEmitters(true);
+```
+
+This will empty the event buffers of all emitters associated with your tracker object and force send any leftovers.  In future releases this will be an automatic process but for now it remains manual.
 
 <a name="sync-emitter" />
 ### 4.1 Sync
@@ -437,7 +445,7 @@ Whilst you can force the buffer size to be greater than 1 for a GET Request; it 
 
 Constructor:
 ```php
-public function __construct($uri, $ssl = NULL, $type = NULL, $buffer_size = NULL, $debug = false)
+public function __construct($uri, $protocol = NULL, $type = NULL, $buffer_size = NULL, $debug = false)
 ```
 
 Arguments:
@@ -445,7 +453,7 @@ Arguments:
 | **Argument** | **Description**                     | **Required?** | **Validation**          |
 |-------------:|:------------------------------------|:--------------|:------------------------|
 | `$uri`          | Collector URI                          | Yes           | Non-empty string  |
-| `$ssl`          | Whether to use SSL encryption          | No            | Boolean           |
+| `$protocol`     | Collector Protocol (HTTP or HTTPS)     | No            | String            |
 | `$type`         | Request Type (POST or GET)             | No            | String            |
 | `$buffer_size`  | Amount of events to store before flush | No            | Int               |
 | `$debug`        | Whether or not to log errors           | No            | Boolean           |
@@ -462,27 +470,27 @@ The internal emitter default settings are as follows:
   - POST: 50
   - GET: 250
 
-These settings are currently not editable from the constructor; however the values are stored at the top of the `CurlEmitter.php` file.
+These settings are currently not editable from the constructor; however the values are stored within a `Constants.class` if you must make changes.
 
 <a name="file-emitter" />
 ### 4.4 File
 
 The File Emitter is the only true non-blocking solution.  The File Emitter works via spawning workers which grab created event files from a local temporary folder.  The workers then load the events using the same asynchronous curl properties from the above emitter.
 
-All of the worker processes are created as background processes so none of them will delay the execution of the main script.  Currently they are configured to look for files until they hit their `timeout` limit, at which point the process will kill itself.
+All of the worker processes are created as background processes so none of them will delay the execution of the main script.  Currently they are configured to look for files inside created worker folders until there is nothing left and they hit their `timeout` limit, at which point the process will kill itself.
 
-If the worker for any reason fails to successfully send a curl request it will rename the file to `failed` and leave it in the `/temp/failed-logs/` folder.
+If the worker for any reason fails to successfully send a request it will rename the entire file to `failed` and leave it in the `/temp/failed-logs/` folder.
 
 Example Emitter creation:
 ```php
 $emitter = new FileEmitter($collector_uri, false, "POST", 2, 15, 100);
 ```
 
-The buffer for the file emitter works a bit differently to the other emitters in that here it is referring to the amount of events needed before an `events-random.log` is produced for a worker.  If you are anticipating it taking a long time to reach the buffer be aware that the worker will kill itself after 15 seconds by default.  Adjust your timeout accordingly.
+The buffer for the file emitter works a bit differently to the other emitters in that here it is referring to the amount of events needed before an `events-random.log` is produced for a worker.  If you are anticipating it taking a long time to reach the buffer be aware that the worker will kill itself after 75 seconds by default (15 x 5).  You can adjust this timeout in the `Constants.class`.
 
 Constructor:
 ```php
-public function __construct($uri, $ssl = NULL, $type = NULL, $workers = NULL, $timeout = NULL, $buffer_size)
+public function __construct($uri, $protocol = NULL, $type = NULL, $workers = NULL, $timeout = NULL, $buffer_size)
 ```
 
 Arguments:
@@ -490,7 +498,7 @@ Arguments:
 | **Argument** | **Description**                     | **Required?** | **Validation**          |
 |-------------:|:------------------------------------|:--------------|:------------------------|
 | `$uri`          | Collector URI                          | Yes           | Non-empty string  |
-| `$ssl`          | Whether to use SSL encryption          | No            | Boolean           |
+| `$protocol`     | Collector Protocol (HTTP or HTTPS)     | No            | String            |
 | `$type`         | Request Type (POST or GET)             | No            | String            |
 | `$workers`      | Amount of background workers           | No            | Int               |
 | `$timeout`      | Worker Timeout                         | No            | Int or Float      |
@@ -509,7 +517,7 @@ The debug mode will do two things.  Firstly it will create a new directory calle
 
 Every time the events buffer is flushed we can now check and log if the sending was a success or if there was an error.  In the case of an error it records the entire event payload we were trying to send along with the error code.
 
-Due to the nature of the File Emitter being a background process it is harder to access what is happening and log it accordingly.  For the moment it simply dumps the `events.log` file into a failed folder.  However as the File Emitter uses the same emitter structure as the curl emitter, if one works the other will.
+Due to the nature of the File Emitter being a background process it is harder to access what is happening and log it accordingly.  For the moment it simply dumps the `events.log` file into a failed folder.  However as the File Emitter uses the same emitter structure as the curl emitter, if one works the other should.
 
 <a name="non-logged-info" />
 #### 4.5.1 Event Specific Information
@@ -546,7 +554,7 @@ As debugging does store quite a lot of information and can become quite heavy ov
 $tracker->turnOfDebug();
 ```
 
-This will stop all logging activity; both to the files and to the local arrays.  We can go one step further though and pass a `true` boolean to the function.  This will delete all of the trackers associated debug log files as well as emptying the local arrays within each linked emitter.
+This will stop all logging activity; both to the external files and to the local arrays.  We can go one step further though and pass a `true` boolean to the function.  This will delete all of the trackers associated debug log files as well as emptying the local arrays within each linked emitter.
 
 ```php
 $tracker->turnOfDebug(true);
@@ -561,11 +569,11 @@ Tracking methods supported by the php Tracker:
 
 | **Function**                                  | **Description**                                        |
 |----------------------------------------------:|:-------------------------------------------------------|
-| [`trackPageView`](#page-view)             | Track and record views of web pages.                   |
-| [`trackEcommerceTransaction`](#ecommerce-transaction)   | Track an ecommerce transaction           |
-| [`trackScreenView`](#screen-view)         | Track the user viewing a screen within the application |
-| [`trackStructEvent`](#struct-event)       | Track a Snowplow custom structured event               |
-| [`trackUnstructEvent`](#unstruct-event)   | Track a Snowplow custom unstructured event             |
+| [`trackPageView`](#page-view)                         | Track and record views of web pages.                   |
+| [`trackEcommerceTransaction`](#ecommerce-transaction) | Track an ecommerce transaction                         |
+| [`trackScreenView`](#screen-view)                     | Track the user viewing a screen within the application |
+| [`trackStructEvent`](#struct-event)                   | Track a Snowplow custom structured event               |
+| [`trackUnstructEvent`](#unstruct-event)               | Track a Snowplow custom unstructured event             |
 
 <a name="tracking-options">
 ### 5.1 Optional Tracking Arguments
@@ -768,13 +776,13 @@ Arguments:
 
 | **Argument** | **Description**                                                  | **Required?** | **Validation**           |
 |-------------:|:---------------------------------------------------------------  |:--------------|:-------------------------|
-| `$category`   | The grouping of structured events which this `action` belongs to | Yes           | Non-empty string         |
-| `$action`     | Defines the type of user interaction which this event involves   | Yes           | Non-empty string         |
-| `$label`      | A string to provide additional dimensions to the event data      | No            | String                   |
-| `$property`   | A string describing the object or the action performed on it     | No            | String                   |
-| `$value`      | A value to provide numerical data about the event                | No            | Int or Float             |
-| `$context`    | Custom context for the event                                     | No            | Array                      |
-| `$tstamp`     | When the structured event occurred                               | No            | Positive integer         |
+| `$category`  | The grouping of structured events which this `action` belongs to | Yes           | Non-empty string         |
+| `$action`    | Defines the type of user interaction which this event involves   | Yes           | Non-empty string         |
+| `$label`     | A string to provide additional dimensions to the event data      | No            | String                   |
+| `$property`  | A string describing the object or the action performed on it     | No            | String                   |
+| `$value`     | A value to provide numerical data about the event                | No            | Int or Float             |
+| `$context`   | Custom context for the event                                     | No            | Array                    |
+| `$tstamp`    | When the structured event occurred                               | No            | Positive integer         |
 
 Example:
 
@@ -800,9 +808,9 @@ Arguments:
 
 | **Argument**   | **Description**                      | **Required?** | **Validation**          |
 |---------------:|:-------------------------------------|:--------------|:------------------------|
-| `$event_json`   | The properties of the event          | Yes          | Array                   |
-| `$context`      | Custom context for the event         | No           | Array                   |
-| `$tstamp`       | When the unstructured event occurred | No           | Positive integer        |
+| `$event_json`  | The properties of the event          | Yes           | Array                   |
+| `$context`     | Custom context for the event         | No            | Array                   |
+| `$tstamp`      | When the unstructured event occurred | No            | Positive integer        |
 
 Example:
 
