@@ -2,7 +2,7 @@
 
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 3: Setting up Enrich](Setting-up-enrich) > [**Step 3.2: setting up Scala Kinesis Enrich**](Setting-up-Scala-Kinesis-Enrich) > [1: Installing ](Install-Scala-Kinesis-Enrich)
 
-**This documentation is for version 0.2.0 of Scala Kinesis Enrich, which has not yet been released. Documentation for other versions is available:**
+**This documentation is for version 0.2.1 of Scala Kinesis Enrich. Documentation for other versions is available:**
 
 **[Version 0.1.0][v0.1]**
 
@@ -27,7 +27,7 @@ To get a local copy, you can download the executable jarfile directly from our H
 
 You will need to add the executable flag onto the file:
 
-    $ chmod +x snowplow-kinesis-enrich-0.2.0
+    $ chmod +x snowplow-kinesis-enrich-0.2.1
 
 ### 3.2 Compile from source
 
@@ -41,13 +41,11 @@ Navigate into the Scala Kinesis Enrich folder:
 
 	$ cd 3-enrich/scala-kinesis-enrich
 
-Edit the `project/Dependencies.scala` file to change the specs2 version from 2.3.6 to 2.2 (this is prevents a dependency conflict).
-
 Use `sbt` to resolve dependencies, compile the source, and build an [assembled][assembly] fat JAR file with all dependencies.
 
 	$ sbt assembly
 
-The `jar` file will be saved as `snowplow-kinesis-enrich-0.2.0` in the `target/scala-2.10` subdirectory - it is now ready to be deployed.
+The `jar` file will be saved as `snowplow-kinesis-enrich-0.2.1` in the `target/scala-2.10` subdirectory - it is now ready to be deployed.
 
 Next: [[Configure Scala Kinesis Enrich]]
 

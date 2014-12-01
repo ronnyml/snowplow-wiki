@@ -1,6 +1,6 @@
 <a name="top" />
 
-*This page refers to version 0.2.0 of the Snowplow php Tracker, which has not yet been released. Documentation for the current version is available:*
+*This page refers to version 0.2.0 of the Snowplow PHP Tracker, which has not yet been released. Documentation for the current version is available:*
 
 *[Version 0.1.0][version-0.1.0]*
 
