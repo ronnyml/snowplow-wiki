@@ -356,10 +356,10 @@ All emitters support both `GET` and `POST` as methods for sending events to Snow
 It is recommended that after you have finished logging all of your events to run the following command:
 
 ```php
-$tracker->flushEmitters(true);
+$tracker->flushEmitters();
 ```
 
-This will empty the event buffers of all emitters associated with your tracker object and force-send any left over events. In future releases this will be an automatic process but for now it remains manual.
+This will empty the event buffers of all emitters associated with your tracker object and send any left over events. In future releases this will be an automatic process but for now it remains manual.
 
 <a name="sync-emitter" />
 ### 4.1 Sync
@@ -427,14 +427,6 @@ Arguments:
 The Curl Emitter allows us to have the closest thing to native asynchronous requests in php. The curl emitter uses the `curl_multi_init` resource which allows us to send any number of requests asynchronously. This garners quite a performance gain over the sync and socket emitters as we can now send more than one request at a time.
 
 On top of this we are also using a modified version of this **[Rolling Curl library][rolling-curl]** for the actual sending of the curl requests.  This allows for a more efficient implementation of asynchronous curl requests as we can now have multiple requests sending at the same time, and in addition as soon as one is done a new request is started.
-
-**IMPORTANT**
-
-As the curl emitter has a secondary buffer within it, we need to ensure that we force-send the emitter for cases where we have not reached the threshold. More information can be found [here](#flush-emitters):
-
-```php
-$tracker->flushEmitters(true); # This will force flush all emitters associated with the Tracker instance.
-```
 
 Example Emitter creation:
 ```php
@@ -846,11 +838,6 @@ $tracker->flushEmitters();
 
 This will tell the tracker to send any remaining events that are left in the buffer to the collector(s).
 
-This function can take a boolean argument to force-flush the secondary buffer, which applies only to the asynchronous [curl emitter](#curl-emitter):
-
-```php
-$tracker->flushEmitters(true);
-```
 
 [base64]: https://en.wikipedia.org/wiki/Base64
 [rolling-curl]: https://github.com/joshfraser/rolling-curl
