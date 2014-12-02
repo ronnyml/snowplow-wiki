@@ -486,7 +486,7 @@ The buffer for the file emitter works a bit differently to the other emitters in
 
 Constructor:
 ```php
-public function __construct($uri, $protocol = NULL, $type = NULL, $workers = NULL, $timeout = NULL, $buffer_size)
+public function __construct($uri, $protocol = NULL, $type = NULL, $workers = NULL, $timeout = NULL, $buffer_size = NULL, $debug = false)
 ```
 
 Arguments:
