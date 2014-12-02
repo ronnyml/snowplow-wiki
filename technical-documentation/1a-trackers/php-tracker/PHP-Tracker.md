@@ -513,11 +513,11 @@ Currently only Sync, Socket and Curl have any level of debugging available to th
 $emitter = new SyncEmitter($collector_uri, "http", "POST", 50, true); # Add true as the last argument!
 ```
 
-The debug mode will do two things. Firstly it will create a new directory called `/debug/` in the root of the Trackers directory.  It will then create a log file with the following structure; `sync-events-log-random.log`.  Essentially the type of emitter and a randomized number to prevent it from being incorrectly overwritten.
+The debug mode will create a new directory called `/debug/` in the root of the tracker's directory. It will then create a log file with the following structure; `sync-events-log-[[random number]].log`: i.e. the type of emitter and a randomized number to prevent it from being accidentally overwritten.
 
-Every time the events buffer is flushed we can now check and log if the sending was a success or if there was an error.  In the case of an error it records the entire event payload we were trying to send along with the error code.
+Every time the events buffer is flushed we can now check this file to see if the flush was successful. In the case of an error it records the entire event payload the tracker was trying to send, along with the error code.
 
-Due to the nature of the File Emitter being a background process it is harder to access what is happening and log it accordingly.  For the moment it simply dumps the `events.log` file into a failed folder.  However as the File Emitter uses the same emitter structure as the curl emitter, if one works the other should.
+Due to the nature of the File Emitter being a background process it is harder to access what is happening and log it accordingly. For the moment it simply dumps the `events.log` file into a failed folder.
 
 <a name="non-logged-info" />
 #### 4.5.1 Event Specific Information
