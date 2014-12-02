@@ -495,21 +495,28 @@ Arguments:
 | `$workers`      | Amount of background workers           | No            | Int               |
 | `$timeout`      | Worker Timeout                         | No            | Int or Float      |
 | `$buffer_size`  | Amount of events to store before flush | No            | Int               |
+| `$debug`        | Whether or not to log errors           | No            | Boolean           |
 
 <a name="emitter-debug">
 ### 4.5 Emitter Debug Mode
 
-Currently only Sync, Socket and Curl have any level of debugging available to them. To enable debug mode for these emitters, append a boolean to the end of the emitter construction argument like so:
+To enable debug mode for any of the emitters, append a boolean to the end of the emitter construction argument like so:
 
 ```php
 $emitter = new SyncEmitter($collector_uri, "http", "POST", 50, true); # Add true as the last argument!
 ```
 
-The debug mode will create a new directory called `/debug/` in the root of the tracker's directory. It will then create a log file with the following structure; `sync-events-log-[[random number]].log`: i.e. the type of emitter and a randomized number to prevent it from being accidentally overwritten.
+By default, debug mode will create a new directory called `/debug/` in the root of the tracker's directory. It will then create a log file with the following structure; `sync-events-log-[[random number]].log`: i.e. the type of emitter and a randomized number to prevent it from being accidentally overwritten.  
 
-Every time the events buffer is flushed we can now check this file to see if the flush was successful. In the case of an error it records the entire event payload the tracker was trying to send, along with the error code.
+If physically storing the information is not possible due to not having the correct write permissions or simply not wanted it can be turned off by updating the following value in the Constants class:
 
-Due to the nature of the File Emitter being a background process it is harder to access what is happening and log it accordingly. For the moment it simply dumps the `events.log` file into a failed folder.
+```php
+const DEBUG_LOG_FILES = false;
+```
+
+Now all debugging information will be printed to the console.
+
+Every time the events buffer is flushed we will be able to see if the flush was successful. In the case of an error it records the entire event payload the tracker was trying to send, along with the error code.
 
 <a name="non-logged-info" />
 #### 4.5.1 Event Specific Information
@@ -546,7 +553,7 @@ As debugging stores a lot of information, we can end debug mode by calling the f
 $tracker->turnOffDebug();
 ```
 
-This will stop all logging activity, both to the external files and to the local arrays. We can go one step further though and pass a `true` boolean to the function. This will delete all of the tracker's associated debug log files as well as emptying the local arrays within each linked emitter.
+This will stop all logging activity, both to the external files and to the local arrays. We can go one step further though and pass a `true` boolean to the function. This will delete all of the tracker's associated physical debug log files as well as emptying the local arrays within each linked emitter.
 
 ```php
 $tracker->turnOffDebug(true);
