@@ -32,7 +32,7 @@ For the technical implementation, see [[Mandrill webhook adapter]].
 <a name="compat" />
 ### 1.1 Compatibility
 
-* [Snowplow 0.9.13] [snowplow-0.9.13]+ (`POST`-capable collectors for event processing)
+* [Snowplow 0.9.14] [snowplow-0.9.14]+ (`POST`-capable collectors only)
 * [Mandrill webhook API] [mandrill-webhooks]
 
 <a name="setup" />
@@ -99,7 +99,7 @@ That's it - with this table deployed, your Mandrill events should automatically 
 
 [mandrill-website]: https://mandrill.com/
 [mandrill-webhooks]: http://help.mandrill.com/entries/21738186-Introduction-to-Webhooks
-[snowplow-0.9.13]: https://github.com/snowplow/snowplow/releases/tag/0.9.13
+[snowplow-0.9.14]: https://github.com/snowplow/snowplow/releases/tag/0.9.14
 [tracker-protocol]: https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol#1-common-parameters-platform-and-event-independent
 
 [sent-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.mandrill/message_sent_1.sql
