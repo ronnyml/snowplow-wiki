@@ -25,7 +25,7 @@ For the technical implementation, see [[Pingdom webhook adapter]].
 <a name="compat" />
 ### 1.1 Compatibility
 
-* [Snowplow 0.9.13] [snowplow-0.9.13]+ (`POST`-capable collectors for event processing)
+* [Snowplow 0.9.14] [snowplow-0.9.14]+ (`POST`-capable collectors only)
 * [Pingdom webhook API] [pingdom-webhooks]
 
 <a name="setup" />
@@ -97,7 +97,7 @@ That's it - with this table deployed, your Pingdom events should automatically f
 
 [pingdom-website]: https://www.pingdom.com/
 [pingdom-webhooks]: https://support.pingdom.com/Knowledgebase/Article/View/94/0/users-and-alerting-end-points
-[snowplow-0.9.13]: https://github.com/snowplow/snowplow/releases/tag/0.9.13
+[snowplow-0.9.14]: https://github.com/snowplow/snowplow/releases/tag/0.9.14
 [tracker-protocol]: https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol#1-common-parameters-platform-and-event-independent
 
 [assign]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.pingdom/incident_assign_1.sql
