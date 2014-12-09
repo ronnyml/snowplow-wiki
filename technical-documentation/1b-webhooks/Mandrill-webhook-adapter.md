@@ -57,7 +57,7 @@ All resources for this webhook's events:
 
 [mandrill-website]: https://mandrill.com/
 [mandrill-adapter]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/adapters/registry/MandrillAdapter.scala
-[snowplow-0.9.13]: https://github.com/snowplow/snowplow/releases/tag/0.9.14
+[snowplow-0.9.14]: https://github.com/snowplow/snowplow/releases/tag/0.9.14
 
 [sent-json-schema]: https://github.com/snowplow/iglu-central/tree/master/schemas/com.mandrill/message_sent/jsonschema/1-0-0
 [bounced-json-schema]: https://github.com/snowplow/iglu-central/tree/master/schemas/com.mandrill/message_bounced/jsonschema/1-0-0
