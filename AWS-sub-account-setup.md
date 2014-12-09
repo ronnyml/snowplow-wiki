@@ -14,15 +14,19 @@ https://portal.aws.amazon.com/gp/aws/developer/account?ie=UTF8...
 
 #### 2. Create a new account
 
-2. From a non-logged in browser, you will then want to sign up again to AWS again like this:
+From a non-logged in browser, you will then want to sign up again to AWS again like this:
 
 https://portal.aws.amazon.com/gp/aws/developer/registration/in...
 
-Call this new account `snowplow-acme` (where Acme is your company name).
+Call this new account `snowplow-acme` (where Acme is your company name). Note the email address you signed up with.
 
-#### 3. Set up billing
+#### 3. Link the accounts
 
-Link this new account into your Consolidated Billing in your main account, and add billing information. This will allow us to spin up instances, create new S3 buckets etc.
+In your main account, head back to ConsolidatedBilling and click the Send a Request button. Provide the email address for your new sub-account. 
+
+You should receive an email to the email address for your new sub-account. Copy the activation link and paste it into your browser logged in to the sub-account.
+
+Your accounts are now linked! This will allow us to spin up instances, create new S3 buckets etc.
 
 #### 4. Enable the services that Snowplow requires
 
