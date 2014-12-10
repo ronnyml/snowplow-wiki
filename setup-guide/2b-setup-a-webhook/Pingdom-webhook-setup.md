@@ -49,7 +49,7 @@ You should now see the following screen:
 
 Fill in the name of your new **Alerting Endpoint**; for example: 'Snowplow Pingdom Webhook'.
 
-Now click add **Add Contact Method**:
+Now click **Add Contact Method**:
 * Select Url/Webhook for the **How should we contact you?** dropdown menu.
 * Fill in your Collector URL in the **Webhook URL** field.
 
@@ -73,18 +73,22 @@ Supported platform codes can again be found in the [Snowplow Tracker Protocol] [
 
 After we have finished adding the contact method simply click **Save Settings**.
 
+[[/setup-guide/images/webhooks/pingdom/pingdom-3.png]]
+
 You will now need to add this endpoint to your **Alert Policies** for the webhook to be used.
 
 Navigate to the **Alert Policies** page by clicking the **Alert Policies** button in the **Alerting** submenu.
-* If you have not set up an **Alert Policy** before please consult this guide before continuing: [Settingup Pingdom Alerts] [pingdom-alerts]
+* If you have not set up an **Alert Policy** before please consult this guide before continuing: [Setting up Pingdom Alerts] [pingdom-alerts]
 
-Now select the policy for which you want to include the webhook (click anywhere on the row with the policy).
+Now select the policy which you want the webhook to be activated from (click anywhere on the row with the policy), or create an entirely new policy for the webhook.
 
-Select the small dropdown arrow at the end of the row that is describing what will happen when the incident occurs for this policy and click **Edit**.
+Select the small dropdown arrow at the end of the description of what is currently occuring for this policy and click **Edit**.
 
-[[/setup-guide/images/webhooks/pingdom/pingdom-2.png]]
+[[/setup-guide/images/webhooks/pingdom/pingdom-4.png]]
 
 Now click in the **Add more people (cc)** field and type in the name that you gave to your webhook endpoint.
+
+[[/setup-guide/images/webhooks/pingdom/pingdom-5.png]]
 
 Save the changes you have made to the policy, anything being monitored that has this policy assigned will now trigger the webhook as well!
 
