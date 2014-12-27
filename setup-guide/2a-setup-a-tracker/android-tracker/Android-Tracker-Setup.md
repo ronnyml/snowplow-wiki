@@ -51,7 +51,7 @@ To minimize jar bloat, we have tried to keep external dependencies to a minimum.
 
 The Tracker is published to Snowplow's [hosted Maven repository] [maven-snplow], which should make it easy to add it as a dependency into your own Android app.
 
-The current version of the Snowplow Android Tracker is 0.1.3.
+The current version of the Snowplow Android Tracker is 0.2.0.
 
 <a name="maven" />
 ### 3.2 Maven
@@ -87,12 +87,12 @@ Then add into your project's `pom.xml`:
 <dependency>
     <groupId>com.snowplowanalytics</groupId>
     <artifactId>snowplow-android-tracker</artifactId>
-    <version>[0.1.3, 0.2.0)</version>
+    <version>0.2.0</version>
 </dependency>
 <dependency>
     <groupId>com.snowplowanalytics</groupId>
     <artifactId>snowplow-java-tracker-core</artifactId>
-    <version>[0.1.4, 0.2.0)</version>
+    <version>0.2.0</version>
 </dependency>
 ```
 
@@ -116,8 +116,8 @@ Then add into the same file:
 dependencies {
     ...
     // Snowplow Android Tracker
-    compile 'com.snowplowanalytics:snowplow-android-tracker:0.1.*'
-    compile 'com.snowplowanalytics:snowplow-java-tracker-core:0.1.*'
+    compile 'com.snowplowanalytics:snowplow-android-tracker:0.2.*'
+    compile 'com.snowplowanalytics:snowplow-java-tracker-core:0.2.*'
 }
 ```
 
@@ -129,7 +129,7 @@ You can also add the Android Tracker using the Android ARchive (aar) package in 
 dependencies {
     ...
     // Snowplow Android Tracker
-    compile 'com.snowplowanalytics:snowplow-android-tracker:0.1.*@aar'
+    compile 'com.snowplowanalytics:snowplow-android-tracker:0.2.*@aar'
 }
 ```
 
