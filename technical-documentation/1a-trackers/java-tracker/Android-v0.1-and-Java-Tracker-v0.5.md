@@ -2,10 +2,9 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > Android/Java Tracker
 
-This page refers to version 0.6.0 of the Snowplow Java Tracker and 0.2.0 of Snowplow Android Tracker.
+This page refers to version 0.5.2 of the Snowplow Java Tracker and 0.1.3 of Snowplow Android Tracker.
 
-*[Java v0.5.* and Android v0.1.*][java-0.5]*
-*[Java v0.4.*][java-0.4]*
+*[Version 0.4][java-0.4]*
 
 ## Contents
 
@@ -20,8 +19,8 @@ This page refers to version 0.6.0 of the Snowplow Java Tracker and 0.2.0 of Snow
     - 2.3.3 [`namespace`](#namespace)
     - 2.3.4 [`appId`](#app-id)
     - 2.3.5 [`base64Encoded`](#base64)
-    - 2.3.6 [`setPlatform`](#set-platform)
 - 3. [Adding extra data: the Subject class](#add-data)
+  - 3.1 [`setPlatform`](#set-platform)
   - 3.2 [`setUserId`](#set-user-id)
   - 3.3 [`setScreenResolution`](#set-screen-resolution)
   - 3.4 [`setViewport`](#set-viewport-dimensions)
@@ -148,19 +147,6 @@ By default, unstructured events and custom contexts are encoded into Base64 to e
 
 [Back to top](#top)
 
-<a name="set-platform" />
-### 2.3.6 Change the tracker's platform with `setPlatform`
-
-You can change the platform by calling:
-
-```java
-tracker.setPlatform("cnsl");
-```
-
-For a full list of supported platforms, please see the [[Snowplow Tracker Protocol]].
-
-[Back to top](#top)
-
 <a name="add-data" />
 ## 3. Adding extra data: the Subject class
 
@@ -168,6 +154,7 @@ You may have additional information about your application's environment, curren
 
 The Subject class has a set of `set...()` methods to attach extra data relating to the user to all tracked events:
 
+* [`setPlatform`](#set-platform)
 * [`setUserId`](#set-user-id)
 * [`setScreenResolution`](#set-screen-resolution)
 * [`setViewport`](#set-viewport)
@@ -180,6 +167,7 @@ Here are some examples:
 ```java
 s1.setUserID("Kevin Gleason"); 
 s1.setLanguage("en-gb");
+s1.setPlatform("cnsl");
 s1.setScreenResolution(1920, 1080);
 ```
 
@@ -189,6 +177,19 @@ Tracker(emitter, s1, namespace, appId);
 // OR
 t1.setSubject(s1);
 ```
+
+[Back to top](#top)
+
+<a name="set-platform" />
+### 3.1 Change the tracker's platform with `setPlatform`
+
+You can change the platform the subject is using by calling:
+
+```java
+s1.setPlatform("cnsl");
+```
+
+For a full list of supported platforms, please see the [[Snowplow Tracker Protocol]].
 
 [Back to top](#top)
 
@@ -381,7 +382,7 @@ Use `trackScreenView()` to track a user viewing a screen (or equivalent) within 
 |-------------:|:------------------------------------|:--------------|:------------------------|
 | `name`       | Human-readable name for this screen | No            | String                  |
 | `id`         | Unique identifier for this screen   | No            | String                  |
-| `context`    | Custom context for the event        | No            | List<SchemaPayload>      |
+| `context`    | Custom context for the event        | No            | Map<SchemaPayload>      |
 | `timestamp`  | Optional timestamp for the event    | No            | Long                    |
 
 Example:
@@ -405,7 +406,7 @@ Arguments are:
 | `page_url`   | The URL of the page                  | Yes           | String                  |
 | `page_title` | The title of the page                | Yes           | String                  |
 | `referrer`   | The address which linked to the page | Yes           | String                  |
-| `context`    | Custom context for the event         | No            | List<SchemaPayload>      |
+| `context`    | Custom context for the event         | No            | Map<SchemaPayload>      |
 | `timestamp`  | Optional timestamp for the event     | No            | Long                    |
 
 Example:
@@ -463,14 +464,14 @@ These are the fields that can appear as elements in each `TransactionItem` eleme
 | `name`     | Item name                           | No            | String                   |
 | `category` | Item category                       | No            | String                   |
 | `currency` | Item currency                       | No            | String                   |
-| `context`  | Item context                        | No            | List<SchemaPayload>       |
+| `context`  | Item context                        | No            | Map<SchemaPayload>       |
 | `timestamp`| Optional timestamp for the event    | No            | Long                     |
 
 Example of tracking a transaction containing two items:
 
 ```java
 // Example to come, in the meantime here is the type signature:
-t1.trackEcommerceTransaction(String order_id, Double total_value, String affiliation, Double tax_value,Double shipping, String city, String state, String country, String currency, List<TransactionItem> items, List<SchemaPayload> context);
+t1.trackEcommerceTransaction(String order_id, Double total_value, String affiliation, Double tax_value,Double shipping, String city, String state, String country, String currency, List<TransactionItem> items, Map<SchemaPayload> context);
 t1.trackEcommerceTransaction("6a8078be", 300, "my_affiliate", 30, 10, "Boston", "Massachusetts", "USA", "USD", items, context);
 ```
 
@@ -488,7 +489,7 @@ Use `trackStructuredEvent()` to track a custom event happening in your app which
 | `label`      | A string to provide additional dimensions to the event data      | Yes           | String            |
 | `property`   | A string describing the object or the action performed on it     | Yes           | String            |
 | `value`      | A value to provide numerical data about the event                | Yes           | Int               |
-| `context`    | Custom context for the event                                     | No            | List<SchemaPayload>|
+| `context`    | Custom context for the event                                     | No            | Map<SchemaPayload>|
 | `timestamp`  | Optional timestamp for the event                                 | No            | Long              |
 
 Example:
@@ -516,14 +517,22 @@ The arguments are as follows:
 
 | **Argument**   | **Description**                   |  **Required?** |    **Validation**   |
 |---------------:|:----------------------------------|:---------------|:--------------------|
-| `eventData`    | The properties of the event       | Yes            | SchemaPayload       |
-| `context`      | Custom context for the event      | No             | List<SchemaPayload>  |
+| `eventData`    | The properties of the event       | Yes            | Map<String, Object> |
+| `context`      | Custom context for the event      | No             | Map<SchemaPayload>  |
 | `timestamp`    | Optional timestamp for the event  | No             | Long                |
 
 Example:
 
 ```java
-t1.trackUnstructuredEvent(eventData, contextList);
+t1.trackUnstructuredEvent(String eventVendor, String eventName, String eventData, String context);
+```
+
+If you supply a `Map<String, Object>`, make sure that this top-level contains your `schema` and `data` keys, and then store your `data` properties as a child `Map<String, Object>`.
+
+Example:
+
+```java
+t1.trackUnstructuredEvent(String eventVendor, String eventName, Map<String, Object> eventData, String context);
 ```
 
 For more on JSON schema, see the [blog post] [self-describing-jsons].
@@ -731,6 +740,5 @@ Log.e(TAG, "Cannot change RequestMethod: Asynchronous requests only available.")
 
 [jsonschema]: http://snowplowanalytics.com/blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
-[java-0.5]: https://github.com/snowplow/snowplow/wiki/Android-v0.1-and-Java-Tracker-v0.5
 [java-0.4]: https://github.com/snowplow/snowplow/wiki/Java-Tracker-v0.4
 [base64]: https://en.wikipedia.org/wiki/Base64
