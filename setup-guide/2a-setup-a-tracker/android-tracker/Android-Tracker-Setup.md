@@ -32,7 +32,7 @@ Ready? Let's get started.
 <a name="compatibility" />
 ### 2.1 Tracker compatibility
 
-The Snowplow Android Tracker has been built and tested using the Android SDK version 19, but uses a minimum SDK version of 11, so should work within any Android application built using SDK version 11 upwards.
+The Snowplow Android Tracker has been built and tested using the Android SDK version 21, but uses a minimum SDK version of 11, so should work within any Android application built using SDK version 11 upwards.
 
 [Back to top](#top)
 
