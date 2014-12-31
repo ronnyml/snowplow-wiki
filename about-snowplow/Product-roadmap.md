@@ -1,6 +1,6 @@
 ## Overview
 
-The current release of Snowplow is **0.9.13**. The planned roadmap for Snowplow is divided in two:
+The current release of Snowplow is **0.9.14**. The planned roadmap for Snowplow is divided in two:
 
 1. **Short term: a series of planned point releases** - adding specific, mostly incremental features, tweaks and bug fixes to the core platform
 2. **Longer term: an approximate schedule for new components and capabilities** - setting out priorities and approximate timings for all-new Snowplow components and other ambitious new developments
@@ -13,11 +13,7 @@ In this section we list out the series of 'point' releases (0.9.x, 0.9.y etc) th
 
 **Warning:** we may change this schedule as new priorities are identified and the community feeds back on our current plans. If you are particularly interested in a given task being completed per schedule (or even accelerated), please 'vote' for the ticket by leaving a "+1" comment or similar on the relevant ticket.
 
-The planned releases are as follows:
-
-| Release   | Tickets                     | Objective(s)                           |
-|------------|----------------------------|----------------------------------------|
-| **0.9.14** | [See GitHub] [issues-0914] | Addition of further webhooks           |
+**Update** this section has been removed because it was not current.
 
 ## Longer-term: approximate schedule
 
