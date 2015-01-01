@@ -152,7 +152,7 @@ This example uses the free GeoLiteCity database hosted by Snowplow.
 <a name="anonip"/>
 ### 4.2 anon_ip enrichment
 
-This enrichment lets you anonymize the IP addresses found in the `user_ipaddress` field by replacing a certain number of octets with "X"s. For example, anonymizing one octet would change the address `255.255.255.255` to `255.255.255.XXX`, and anonymizing three octets would change it to `255.XXX.XXX.XXX`.
+This enrichment lets you anonymize the IP addresses found in the `user_ipaddress` field by replacing a certain number of octets with "x"s. For example, anonymizing one octet would change the address `255.255.255.255` to `255.255.255.x`, and anonymizing three octets would change it to `255.x.x.x`.
 
 Its JSON schema can be found [here][anon-ip]
 
