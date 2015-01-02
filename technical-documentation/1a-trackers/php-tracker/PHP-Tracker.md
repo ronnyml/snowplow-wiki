@@ -4,6 +4,8 @@
 
 *[Version 0.1.0][version-0.1.0]*
 
+**Please note** that this version of the PHP Tracker is dependent upon the [Snowplow 0.9.14 release][snowplow-0.9.14], you will need to be running this version of Snowplow for the tracker to successfully send events.  This update is required due to updates made to Hadoop Enrich and Scala Hadoop Shred jobs which have been adjusted to allow newer self-describing JSON versions.  For more information, please refer to tickets [#1220][issue-1220] and [#1231][issue-1231].
+
 ## Contents
 
 - 1. [Overview](#overview)
@@ -57,8 +59,6 @@ The [Snowplow PHP Tracker](https://github.com/snowplow/snowplow-php-tracker) all
 There are three basic types of object you will create when using the Snowplow PHP Tracker: Trackers, Subjects and Emitters.
 
 A subject represents a user whose events are tracked. A tracker constructs events and sends them to one or more emitters. Each emitter then sends the event to the endpoint you configure, a Snowplow collector.
-
-**Please note** that this version of the PHP Tracker is dependent upon the [Snowplow 0.9.14 release][snowplow-0.9.14]; you will need to be running this version of Snowplow for the tracker to successfully send events.  This update is required due to updates made to Hadoop Enrich and Scala Hadoop Shred jobs which have been adjusted to allow newer self-describing JSON versions.  This in turn also relates to bumps in the versions of the custom_context schema and the payload_data schema. For more information, please check out tickets [#1220] [issue-1220] and [#1231] [issue-1231].
 
 The current flow of the PHP Tracker is illustrated below:
 
