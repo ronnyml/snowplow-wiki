@@ -20,6 +20,9 @@ The technical documentation reflects the Snowplow architecture, with five loosel
 [[Iglu webhook adapter]]  
 [[CallRail webhook adapter]]  
 [[MailChimp webhook adapter]]  
+[[Mandrill webhook adapter]]  
+[[Pagerduty webhook adapter]]  
+[[Pingdom webhook adapter]]  
 
 ### A. [Snowplow tracker protocol](snowplow-tracker-protocol)  
 
