@@ -58,6 +58,8 @@ There are three basic types of object you will create when using the Snowplow PH
 
 A subject represents a user whose events are tracked. A tracker constructs events and sends them to one or more emitters. Each emitter then sends the event to the endpoint you configure, a Snowplow collector.
 
+**Please note** that this version of the PHP Tracker is dependent upon the [Snowplow 0.9.14 release][snowplow-0.9.14]; you will need to be running this version of Snowplow for the tracker to successfully send events.  This update is required due to updates made to Hadoop Enrich and Scala Hadoop Shred jobs which have been adjusted to allow newer self-describing JSON versions.  This in turn also relates to bumps in the versions of the custom_context schema and the payload_data schema. For more information, please check out tickets [#1220] [issue-1220] and [#1231] [issue-1231].
+
 The current flow of the PHP Tracker is illustrated below:
 
 [[/technical-documentation/images/php-tracker-flow.png]]
@@ -72,7 +74,7 @@ Include these class aliases in your project:
 ```php
 use Snowplow\Tracker\Tracker;
 use Snowplow\Tracker\Subject;
-use Snowplow\Tracker\Emitters\SyncEmitter; # If you want to use the sync emitter
+use Snowplow\Tracker\Emitters\SyncEmitter;
 ```
 
 We can now create our Emitter, Subject and Tracker objects.
@@ -462,7 +464,7 @@ The internal emitter default settings are as follows:
 - Rolling Window (Number of concurrent requests)
   - POST: 10
   - GET: 30
-- Curl Buffer (Number of times we need to hit the emitters buffer size)
+- Curl Buffer (Number of times we need to hit the emitters buffer size before sending)
   - POST: 50
   - GET: 250
 
@@ -482,7 +484,7 @@ Example Emitter creation:
 $emitter = new FileEmitter($collector_uri, false, "POST", 2, 15, 100);
 ```
 
-The buffer for the file emitter works a bit differently to the other emitters in that here it refers to the number of events needed before an `events-random.log` is produced for a worker.  If you are anticipating it taking a long time to reach the buffer be aware that the worker will kill itself after 75 seconds by default (15 x 5). You can adjust this timeout in the `Constants.class`.
+The buffer for the file emitter works a bit differently to the other emitters in that here it refers to the number of events needed before an `events-random.log` is produced for a worker.  If you are anticipating it taking a long time to reach the buffer be aware that the worker will kill itself after 75 seconds by default (15 x 5). Adjust the timeout amount in the construction of the FileEmitter if the default is not suitable.
 
 Constructor:
 ```php
@@ -849,7 +851,9 @@ $tracker->flushEmitters();
 
 This will tell the tracker to send any remaining events that are left in the buffer to the collector(s).
 
-
 [base64]: https://en.wikipedia.org/wiki/Base64
 [rolling-curl]: https://github.com/joshfraser/rolling-curl
 [version-0.1.0]: https://github.com/snowplow/snowplow/wiki/PHP-Tracker-v0.1.0
+[snowplow-0.9.14]: https://github.com/snowplow/snowplow/releases/tag/0.9.14
+[issue-1220]: https://github.com/snowplow/snowplow/issues/1220
+[issue-1231]: https://github.com/snowplow/snowplow/issues/1231
