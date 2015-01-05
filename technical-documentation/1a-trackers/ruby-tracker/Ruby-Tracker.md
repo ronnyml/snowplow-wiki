@@ -2,10 +2,12 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > Ruby Tracker
 
-**This page refers to version 0.4.0 of the Snowplow JavaScript Tracker, which has not yet been published. Documentation for other versions is available:**
+**This page refers to version 0.4.1 of the Snowplow Ruby Tracker. Documentation for other versions is available:**
 
 *[Version 0.2][ruby-0.2]*  
 *[Version 0.3][ruby-0.3]*
+
+**Please note** that this version of the Ruby Tracker is dependent upon the [Snowplow 0.9.14 release][snowplow-0.9.14]. You will need to be running version 0.9.14 or later of Snowplow for events sent by the tracker to be successfully processed. Snowplow 0.9.14 contains updates to the Hadoop Enrich and Scala Hadoop Shred jobs to allow the newer self-describing JSON versions which the Ruby Tracker sends. For more information, please refer to tickets [#1220][issue-1220] and [#1231][issue-1231].
 
 ## Contents
 
@@ -712,3 +714,7 @@ The levels are:
 [contexts]: http://snowplowanalytics.com/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#contexts
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
 [contracts]: https://github.com/egonSchiele/contracts.ruby
+
+[snowplow-0.9.14]: https://github.com/snowplow/snowplow/releases/tag/0.9.14
+[issue-1220]: https://github.com/snowplow/snowplow/issues/1220
+[issue-1231]: https://github.com/snowplow/snowplow/issues/1231
