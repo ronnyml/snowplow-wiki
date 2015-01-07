@@ -642,6 +642,8 @@ Every setting in the configuration hash is optional. Here is what they do:
 
 AsyncEmitter is a subclass of Emitter. It's API is exactly the same. It's advantage is that it always creates a new thread to flush its buffer, so requests are sent asynchronously.
 
+**A note on testing:** if you test the AsyncEmitter by using a short script to send an event, you may find that the event fails to send. This is because the process exits before the flushing thread is finished. You can get round this either by adding a `sleep(10)` to the end of your script, or by using the [synchronous flush](#flushing).
+
 <a name="multiple-emitters" />
 ### 5.3. Multiple emitters
 
