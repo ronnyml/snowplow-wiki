@@ -13,6 +13,7 @@
   - [2.7: Setup the Lua Tracker](Lua-tracker-setup)  
   - [2.8: Setup the Arduino Tracker](Arduino-tracker-setup)  
   - [2.9: Setup the .NET Tracker](.NET-tracker-setup)  
+  - [2.10: Setup the ActionScript 3.0 Tracker](ActionScript3-Tracker-Setup)
 - [Step 2b: Setup a Webhook](Setting-up-a-Webhook)  
 - [Step 3: Setup Enrich](setting-up-enrich)  
 - [Step 4: Setup alternative data stores](setting-up-alternative-data-stores)  

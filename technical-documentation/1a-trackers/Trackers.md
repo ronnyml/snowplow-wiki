@@ -19,6 +19,7 @@
 * [[Android and Java Tracker]] - for tracking events in your Java-based desktop and server apps, servlets and games
 * [[Lua Tracker]] - track events in your Lua-based applications, Lua web servers/frameworks, or from the Lua scripting layer within your games or apps
 * [[Arduino Tracker]] - for tracking events from an IP-connected Arduino board
+* [[ActionScript3 Tracker]] - for tracking events in your Flash Player 9+, Flash Lite 4 and AIR games, apps and widgets
 
 For other trackers (e.g. iOS, Android) and their approximate timelines, please see the [Product roadmap](Product-roadmap).
 
