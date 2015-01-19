@@ -79,6 +79,15 @@ Note that setting the "bucket" field to a nested bucket (like "mybucket/myinnerb
 com.amazonaws.services.s3.model.AmazonS3Exception: The bucket you are attempting to access must be addressed using the specified endpoint.
 ```
 
+To get around this, include your bucket's S3 region in the endpoint field:
+
+```
+  s3 {
+    endpoint: "http://s3-eu-west-1.amazonaws.com" # Rather than "http://s3.amazonaws.com"
+    bucket: "outer-bucket/inner-bucket"
+  }
+```
+
 ## Execution
 
 The Kinesis LZO S3 Sink is an executable jarfile which should be runnable from any Unix-like shell environment. Simply provide the configuration file as a parameter:
