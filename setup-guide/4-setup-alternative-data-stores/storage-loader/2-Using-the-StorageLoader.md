@@ -55,7 +55,9 @@ As per the above, running StorageLoader is a matter of populating
 your configuration file, let's call it `my-config.yml` for this
 example, and then invoking StorageLoader like so: 
 
-    $ bundle exec snowplow-storage-loader --config my-config.yml
+    $ bundle exec snowplow-storage-loader --config my-config.yml --skip analyze
+
+The `--skip analyze` is required because in Redshift only the table owner or superuser can ANALYZE a table, not our `storageloader` user.
 
 <a name="troubleshooting" />
 ## 4. Troubleshooting
