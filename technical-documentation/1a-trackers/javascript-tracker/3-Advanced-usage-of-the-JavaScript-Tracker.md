@@ -2,8 +2,6 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > [**JavaScript Tracker**](Javascript-Tracker) > Specific event tracking
 
-**Warning: this page refers to version 2.2.0 of the JavaScript Tracker, which has not yet been released.**
-
 <a name="tracking-specific-events" />
 ## 4. Advanced usage
 
@@ -89,7 +87,7 @@ snowplow(function () {
 ```
 
 <a name="get-domain-user-id" />
-#### 4.2.1 `getDomainUserId`
+#### 4.2.2 `getDomainUserId`
 
 The `getDomainUserId` method returns the user ID stored in the first-party cookie:
 
@@ -103,7 +101,7 @@ snowplow(function () {
 ```
 
 <a name="get-domain-user-info" />
-#### 4.2.1 `getDomainUserInfo`
+#### 4.2.3 `getDomainUserInfo`
 
 The `getDomainUserInfo` method returns all the information stored in first-party cookie in an array:
 
@@ -126,7 +124,7 @@ The `domainUserInfo` variable will contain an array with 6 elements:
 5. The timestamp of the last visit
 
 <a name="get-user-id" />
-#### 4.2.1 `getUserId`
+#### 4.2.4 `getUserId`
 
 The `getUserId` method returns the user ID which you configured using `setUserId()`:
 
@@ -139,8 +137,8 @@ snowplow(function () {
 })
 ```
 
-<a name="callbacks" />
-### 4.2 Extracting the Google Analytics cookie ID
+<a name="ga" />
+### 4.3 Extracting the Google Analytics cookie ID
 
 Use the following function to extract ID stored in GA's first-party cookie:
 
