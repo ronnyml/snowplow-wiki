@@ -73,6 +73,7 @@ You will need to add the executable flag onto the file:
 ```
 $ chmod +x snowplow-elasticsearch-sink-0.1.0
 ```
+
 ### Compiling from source
 
 Alternatively, you can build it from the source files. To do so, you will need [scala][scala] and [sbt][sbt] installed. 
@@ -86,7 +87,7 @@ $ git clone https://github.com/snowplow/snowplow.git
 Navigate into the Kinesis Elasticsearch Sink folder:
 
 ```
-$ cd 4-storage/kinesis-Elasticsearch-sink
+$ cd 4-storage/kinesis-elasticsearch-sink
 ```
 
 Use `sbt` to resolve dependencies, compile the source, and build an [assembled][assembly] fat JAR file with all dependencies.
@@ -95,7 +96,7 @@ Use `sbt` to resolve dependencies, compile the source, and build an [assembled][
 $ sbt assembly
 ```
 
-The `jar` file will be saved as `snowplow-Elasticsearch-sink-0.1.0` in the `target/scala-2.10` subdirectory. It is now ready to be deployed.
+The `jar` file will be saved as `snowplow-elasticsearch-sink-0.1.0` in the `target/scala-2.10` subdirectory. It is now ready to be deployed.
 
 ## Using the Kinesis Elasticsearch Sink
 
