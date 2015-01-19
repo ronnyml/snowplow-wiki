@@ -14,6 +14,7 @@
   - [4.5: scheduling the StorageLoader] (3-scheduling-the-storageloader)  
   - [4.6: loading shredded types] (4-Loading-shredded-types)  
   - [4.7: setup Elasticsearch] (kinesis-elasticsearch-sink-setup)
+  - [4.8: setup the Kinesis LZO S3 Sink] (kinesis-lzo-s3-sink-setup)
 - [Step 5: Analyze your data!] (Getting started analyzing Snowplow data)   
 
 **Useful resources**  
