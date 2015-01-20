@@ -362,8 +362,9 @@ This cookie is called _sp_id.{{DOMAIN HASH}} by default. It is used to persist i
 
 * An ID for the user based on a hash of various browser attributes
 * How many times the user has visited the domain
-* The time of the current visit
-* The time of the last visit
+* The timestamp of the user's first visit
+* The timestamp of the current visit
+* The timestamp of the last visit
 
 It expires after 2 years.
 
