@@ -104,7 +104,7 @@ Please see the [[Artifact repositories]] wiki page for more information.
 
 [snowplow-repo]: https://github.com/snowplow/snowplow
 [cc-download]: http://d2io1hx8u877l0.cloudfront.net/2-collectors/clojure-collector/clojure-collector-0.9.1-standalone.war
-[ssc-download]: http://d2io1hx8u877l0.cloudfront.net/2-collectors/scala-stream-collector/snowplow-stream-collector-0.1.0
+[ssc-download]: http://d2io1hx8u877l0.cloudfront.net/2-collectors/scala-stream-collector/snowplow-stream-collector-0.2.0
 [hadoop-enrich-download]: http://d2io1hx8u877l0.cloudfront.net/3-enrich/hadoop-etl/snowplow-hadoop-etl-0.11.0.jar
 [hadoop-shred-download]: http://d2io1hx8u877l0.cloudfront.net/3-enrich/scala-hadoop-shred/snowplow-hadoop-shred-0.3.0.jar
 [hadoop-bad-rows-download]: http://d2io1hx8u877l0.cloudfront.net/3-enrich/scala-bad-rows/snowplow-bad-rows-0.1.0.jar
