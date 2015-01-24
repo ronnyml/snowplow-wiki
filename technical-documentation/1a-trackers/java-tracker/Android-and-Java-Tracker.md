@@ -2,7 +2,7 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > Android/Java Tracker
 
-This page refers to version 0.6.0 of the Snowplow Java Tracker and 0.2.0 of Snowplow Android Tracker.
+This page refers to version 0.6.0-0.7.0 of the Snowplow Java Tracker and 0.2.0 of Snowplow Android Tracker.
 
 * [Java v0.5.* and Android v0.1.*][java-0.5]
 * [Java v0.4.*][java-0.4]
