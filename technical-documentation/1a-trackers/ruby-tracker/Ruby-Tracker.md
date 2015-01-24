@@ -46,6 +46,8 @@
   - 5.4 [Manual flushing](#flushing)
 - 6 [Contracts](#contracts)
 - 7 [Logging](#logging)
+- 8 [Advanced usage](#advanced)
+  - 8.1 [snowplow_ruby_duid](#snowplow-ruby-duid)
 
 <a name="overview" />
 ## 1. Overview
@@ -707,6 +709,18 @@ The levels are:
 | `WARN`   | Notification for requests with status code not equal to 200  |
 | `INFO`   | Notification for all requests |
 | `DEBUG`  | Contents of all requests     |
+
+[Back to top](#top)
+
+<a name="advanced" />
+## 8. Advanced usage
+
+This section covers more advanced techniques with the Snowplow Ruby Tracker.
+
+<a name="snowplow-ruby-duid" />
+### 8.1. snowplow_ruby_duid
+
+[snowplow_ruby_duid](https://github.com/simplybusiness/snowplow_ruby_duid/) is a Ruby gem that allows you to populate Snowplow's `domain_userid` cookie server-side from any Rack-based framework. This is useful if you want to fire an event on the user's initial request with the `domain_userid` already populated.
 
 [Back to top](#top)
 
