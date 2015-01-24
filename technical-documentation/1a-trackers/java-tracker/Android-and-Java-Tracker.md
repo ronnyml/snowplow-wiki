@@ -63,7 +63,7 @@ The tracker should be straightforward to use if you are comfortable with Java de
 <a name="android-specific" />
 ### 1.1 Android specific
 
-The Android Tracker is based off of the Java Tracker core library which is the same library used by the Java Tracker. Hence, they both very similar in features and with a few differences in them. For sections of this documentation which only apply to Android, we will flag with a sub-section, **Android Only**.
+The Android Tracker is based off of the Java Tracker core library which was also used by the Java Tracker up to version 0.6.0. Hence, they both very similar in features and with a few differences in them. For sections of this documentation which only apply to Android, we will flag with a sub-section, **Android Only**.
 
 [Back to top](#top)
 
@@ -86,10 +86,9 @@ That's it - you are now ready to initialize a Tracker instance.
 [Back to top](#top)
 
 <a name="structure" />
-### 2.2 Understanding the module structure
+### 2.2 Understanding the module structure for Android
 
-As we've mentioned in the setup guides, the Android and Java Tracker are based off a Java core library. This means that you'll find a set the core libraries in `com.snowplowanalytics.snowplow.tracker.core.*`. 
-For example, if you're using the Android Tracker you would use the classes in `com.snowplowanalytics.snowplow.tracker.android.*`, since it would contain class overrides specific to Android. If the class doesn't exist in that module (mostly enums), you can use the ones in the `core` package instead.
+As we've mentioned in the setup guides, the Android Tracker is still based off a Java core library (which was part of the Java Tracker until version 0.6.0 inclusive). This means that for the Android Tracker you'll find a set the core libraries in `com.snowplowanalytics.snowplow.tracker.core.*`. If you're using the Android Tracker you would use the classes in `com.snowplowanalytics.snowplow.tracker.android.*`, since it contains class overrides specific to Android. If the class doesn't exist in that module (mostly enums), you can use the ones in the `core` package instead.
 
 [Back to top](#top)
 
