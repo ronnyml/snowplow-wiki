@@ -310,7 +310,7 @@ The "mapping" field is currently not implemented. In the future, setting it to "
 [referer-parser]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/referer_parser/jsonschema/1-0-0
 [campaign_attribution]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/campaign_attribution/jsonschema/1-0-0
 [referer-parser-repo]: https://github.com/snowplow/referer-parser
-[geoipcity]: http://dev.maxmind.com/geoip/legacy/install/city/?rld=snowplow
+[geoipcity]: https://www.maxmind.com/en/geoip2-city/?rld=snowplow
 [geolitecity]: http://dev.maxmind.com/geoip/legacy/geolite/?rld=snowplow
 [geoipisp]: https://www.maxmind.com/en/isp?rld=snowplow
 [geoiporg]: https://www.maxmind.com/en/organization?rld=snowplow
