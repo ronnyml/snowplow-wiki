@@ -108,7 +108,7 @@ This table contains describes the five types of lookup:
 
 | **Field name**   | **MaxMind Database name**     | **Lookup description**                             | **Accepted database filenames**                   | **Fields populated** |
 |-----------------:|:------------------------------|:---------------------------------------------------|:--------------------------------------------------|:---------------------|
-| `"geo"`          | [GeoIPCity][geolitecity] or [GeoLiteCity][geolitecity] | Information related to geographic location         | `"GeoLiteCity.dat"` or `"GeoIPCity.dat"`           | `geo_country`, `geo_region`, `geo_city`, `geo_zipcode`, `geo_latitude`, `geo_longitude`, and `geo_region_name` |
+| `"geo"`          | [GeoIPCity][geoipcity] or [GeoLiteCity][geolitecity] | Information related to geographic location         | `"GeoLiteCity.dat"` or `"GeoIPCity.dat"`           | `geo_country`, `geo_region`, `geo_city`, `geo_zipcode`, `geo_latitude`, `geo_longitude`, and `geo_region_name` |
 | `"isp"`          | [GeoIP ISP][geoipisp]                   | Internet Service Provider                          | `"GeoIPISP.dat"`                                  | `ip_isp`          |
 | `"organization"` | [GeoIP Organization][geoiporg]          | Organization name for larger networks              | `"GeoIPOrg.dat"`                                  | `ip_organization` |
 | `"domain"`       | [GeoIP Domain][geoipdomain]                | Second level domain name associated with IP address | `"GeoIPDomain.dat"`                               | `ip_domain`       |
