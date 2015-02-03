@@ -278,7 +278,7 @@ snowplow_name_here('setCustomUrl', 'http://mysite.com/checkout-page');
 snowplow_name_here('trackStructEvent', 'Mixes', 'Play', 'MrC/fabric-0503-mix', '', '0.0');
 ```
 
-You can override this behaviour and specify which trackers will execute a Snowplow method. To do this, change the method name by adding a colon followed by a list of tracker names separated by semicolons:
+You can override this behaviour and specify which tracker instances will execute a Snowplow method. To do this, change the method name by adding a colon followed by a list of tracker namespaces separated by semicolons. The namespace of a tracker instance is the first argument to the "newTracker" method. In our example, the tracker instances have namespaces "cf1" and "cf2".
 
 ```javascript
 // Only the first tracker will fire this structured event
