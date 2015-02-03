@@ -120,7 +120,7 @@ EmrEtlRunner requires a YAML format configuration file to run. There is a config
 :etl:
   :job_name: Snowplow ETL # Give your job a name
   :versions:
-    :hadoop_enrich: 0.11.0 # Version of the Hadoop Enrichment process
+    :hadoop_enrich: 0.12.0 # Version of the Hadoop Enrichment process
     :hadoop_shred: 0.3.0 # Version of the Hadoop Shredding process
   :collector_format: cloudfront # Or 'clj-tomcat' for the Clojure Collector
   :continue_on_unexpected_error: false # Set to 'true' (and set :out_errors: above) if you don't want any exceptions thrown from ETL
@@ -243,7 +243,7 @@ This section is where we configure exactly how we want our ETL process to operat
 
 1. `job_name`, the name to give our ETL job. This makes it easier to identify your ETL job in the Elastic MapReduce console
 2. `hadoop_etl_version` is the version of the Hadoop ETL process to run. This variable lets you upgrade the ETL process without having to update the EmrEtlRunner application itself
-3. `collector_format`, what format is our collector saving data in? Currently three formats are supported: "cloudfront" (if you are running the Cloudfront collector), "clj-tomcat" if you are running the Clojure collector, or "raw-thrift" if you are using the Scala Stream Collector.
+3. `collector_format`, what format is our collector saving data in? Currently three formats are supported: "cloudfront" (if you are running the Cloudfront collector), "clj-tomcat" if you are running the Clojure collector, or "thrift" if you are using the Scala Stream Collector plus Kinesis LZO S3 Sink
 4. `continue_on_unexpected_error`, continue processing even on unexpected row-level errors, e.g. an input file not matching the expected CloudFront format. Off ("false") by default
 
 <a name="enrichments" />
