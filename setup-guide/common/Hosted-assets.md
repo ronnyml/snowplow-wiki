@@ -82,6 +82,10 @@ If you are running StorageLoader, these files will automatically be used for loa
 
 See _6. Kinesis resources_ below.
 
+### 4.4 Kinesis LZO S3 Sink resources
+
+See _6. Kinesis resources_ below.
+
 ## 5. Analytics
 
 No hosted assets currently.
