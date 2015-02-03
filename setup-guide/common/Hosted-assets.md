@@ -24,11 +24,7 @@ Right-click on this [Download link] [cc-download] to save it down locally via Cl
 
 ### 2.2 Scala Stream Collector resources
 
-The Scala Stream Collector is packaged as an executable jarfile:
-
-    s3://snowplow-hosted-assets/2-collectors/scala-stream-collector/snowplow-stream-collector-0.2.0
-
-Right-click on this [Download link] [ssc-download] to save it down locally via CloudFront CDN.
+See _6. Kinesis resources_ below.
 
 ## 3. Enrich
 
@@ -58,11 +54,7 @@ Right-click on this [Download link] [hadoop-bad-rows-download] to save it down l
 
 ### 3.4 Scala Kinesis Enrich resources
 
-The Scala Kinesis Enrich process is packaged as an executable jarfile:
-
-    s3://snowplow-hosted-assets/3-enrich/scala-kinesis-enrich/snowplow-kinesis-enrich-0.2.1
-
-Right-click on this [Download link] [kinesis-enrich-download] to save it down locally via CloudFront CDN.
+See _6. Kinesis resources_ below.
 
 ### 3.3 Shared resources
 
@@ -88,13 +80,21 @@ If you are running StorageLoader, these files will automatically be used for loa
 
 ### 4.2 Kinesis Elasticsearch Sink resources
 
-The Kinesis Elasticsearch Sink is packaged as an executable jarfile. It is available in a public Amazon S3 bucket:
-
-	s3://snowplow-hosted-assets/4-storage/kinesis-elasticsearch-sink/snowplow-elasticsearch-sink-0.1.0
+See _6. Kinesis resources_ below.
 
 ## 5. Analytics
 
 No hosted assets currently.
+
+## 6. Kinesis resources
+
+We are steadily moving over to [Bintray][bintray] for hosting binaries and artifacts which don't have to be hosted on S3.
+
+To make deployment easier, the Kinesis apps (Scala Stream Collector, Scala Kinesis Enrich, Kinesis Elasticsearch Sink, and Kinesis S3 Sink) are now all available in a single zip file here:
+
+    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r60_bee_hummingbird.zip
+
+Right-click on this [Download link] [kinesis-enrich-download] to save it down locally via CloudFront CDN.
 
 ## See also
 
