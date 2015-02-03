@@ -79,9 +79,9 @@ Empty strings are provided for the label and value arguments to pad them out. (`
 <a name="initialisation" />
 ### 2.2 Initialising a tracker
 
-Tracker initialisation takes three arguments:
+Tracker initialization is indicated with the `"newTracker"` string and takes three arguments:
 
-1. The tracker name
+1. The tracker namespace
 2. The collector endpoint
 3. An optional argmap containing other settings
 
