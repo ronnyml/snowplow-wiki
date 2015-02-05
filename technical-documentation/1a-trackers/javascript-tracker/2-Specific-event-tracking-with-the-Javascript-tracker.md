@@ -40,7 +40,9 @@ Snowplow has been built to enable users to track a wide range of events that occ
     - 3.9.3 [`trackLinkClick`](#trackLinkClick)
   - 3.10 [Form tracking](#form-tracking)
     - 3.10.1 [`enableFormTracking`](#enableFormTracking)
-  - 3.11 [Custom contexts](#custom-contexts)
+  - 3.11 [`trackAddToCart` and `trackRemoveFromCart`](#cart)
+  - 3.12 [`trackSiteSearch`](#siteSearch)
+  - 3.13 [Custom contexts](#custom-contexts)
 
 <a name="page" />
 ### 3.1 Pageviews
@@ -584,6 +586,7 @@ Our philosophy in creating Snowplow is that users should capture "every" consume
 
 As part of a Snowplow implementation, therefore, we recommend that you identify every type of AJAX interaction that a user might have with your site: each one of these is an event that will not be captured as part of the standard page view tracking. All of them are candidates to track using `trackStructEvent`, if none of the other event-specific methods outlined above are appropriate.
 
+<a name="trackStructEvent" />
 #### 3.7.1 `trackStructEvent`
 
 There are five parameters can be associated with each structured event. Of them, only the first two are required:
@@ -852,7 +855,7 @@ Site search events are implemented as Snowplow unstructured events. [Here][site_
 `trackSiteSearch` can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
 
 <a name="custom-contexts" />
-### 3.11 Custom contexts
+### 3.13 Custom contexts
 
 Custom contexts can be used to augment any standard Snowplow event type, including unstructured events, with additional data.
 
