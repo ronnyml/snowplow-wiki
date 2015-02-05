@@ -816,8 +816,8 @@ These methods let you track users adding and removing items from a cart on an ec
 An example:
 
 ```javascript
-window.snowplow_name_here('addToCart', '000345', 'blue tie', 'clothing', 3.49, 2, 'GBP');
-window.snowplow_name_here('removeFromCart', '000345', 'blue tie', 'clothing', 3.49, 1, 'GBP');
+window.snowplow_name_here('trackAddToCart', '000345', 'blue tie', 'clothing', 3.49, 2, 'GBP');
+window.snowplow_name_here('trackRemoveFromCart', '000345', 'blue tie', 'clothing', 3.49, 1, 'GBP');
 ```
 
 Both methods are implemented as Snowplow unstructured events. You can see schemas for the [`add_to_cart`][add_to_cart] and [`remove_from_cart`][remove_from_cart] events.
