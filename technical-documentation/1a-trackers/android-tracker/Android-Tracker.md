@@ -4,9 +4,8 @@
 
 This page refers to version 0.3.0 of the Snowplow Android Tracker. [UNRELEASED]
 
-*[Java v0.6.* and Android v0.2.*][android-0.2]*
+*[Java v0.6.* and Android v0.2.*][java-0.6]*
 *[Java v0.5.* and Android v0.1.*][java-0.5]*
-*[Java v0.4.*][java-0.4]*
 
 ## Contents
 
@@ -65,7 +64,7 @@ The tracker should be straightforward to use if you are comfortable with Java de
 Assuming you have completed the [[Android Tracker Setup]] for your project, you are now ready to initialize the Android Tracker.
 
 <a name="importing" />
-### 2.1 Importing the module
+#### 2.1 Importing the module
 
 Import the Android Tracker's classes into your Android code like so:
 
@@ -78,7 +77,7 @@ That's it - you are now ready to initialize a Tracker instance.
 [Back to top](#top)
 
 <a name="create-tracker" />
-### 2.2 Creating a Tracker
+#### 2.2 Creating a Tracker
 
 To instantiate a tracker in your code (can be global or local to the process being tracked) simply instantiate the `Tracker` interface with one of the following:
 
@@ -128,7 +127,7 @@ Tracker t2 = new Tracker
 
 As you can see there is a fair amount of modularity to the Trackers creation.
 
-| **Argument Name** | **Description**                              |    **Required?**  | ** Default ** |
+| **Argument Name** | **Description**                              |    **Required?**  | **Default**   |
 |------------------:|:---------------------------------------------|:------------------|:--------------|
 | `emitter`         | The emitter which sends the events           | Yes               |               |
 | `subject`         | The subject that defines a user              | No                | null          |
@@ -138,39 +137,39 @@ As you can see there is a fair amount of modularity to the Trackers creation.
 | `platform`        | The platform that the Tracker is on          | No                | Mobile        |
 
 <a name="emitter" />
-#### 2.3.1 `emitter`
+##### 2.3.1 `emitter`
 
 The emitter to which the tracker will send events. See [Emitters](#emitter) for more on emitter configuration.
 
 <a name="subject" />
-#### 2.3.2 `subject`
+##### 2.3.2 `subject`
 
 The user which the Tracker will track. This should be an instance of the [Subject](#subject) class. You don't need to set this during Tracker construction; you can use the `Tracker.setSubject` method afterwards. In fact, you don't need to create a subject at all. If you don't, though, your events won't contain user-specific data such as timezone and language.
 
 <a name="namespace" />
-#### 2.3.3 `namespace`
+##### 2.3.3 `namespace`
 
 If provided, the `namespace` argument will be attached to every event fired by the new tracker. This allows you to later identify which tracker fired which event if you have multiple trackers running.
 
 <a name="app-id" />
-#### 2.3.4 `appId`
+##### 2.3.4 `appId`
 
 The `appId` argument lets you set the application ID to any string.
 
 <a name="base64" />
-#### 2.3.5 `base64`
+##### 2.3.5 `base64`
 
 By default, unstructured events and custom contexts are encoded into Base64 to ensure that no data is lost or corrupted. You can turn encoding on or off using the Boolean `base64Encoded` argument.
 
 <a name="platform" />
-#### 2.3.6 `platform`
+##### 2.3.6 `platform`
 
 The 'platform' allows you to pick from a list of allowed platforms which define what type of device/service the event is being sent from.
 
 [Back to top](#top)
 
 <a name="set-platform" />
-### 2.3.7 Change the tracker's platform with `setPlatform`
+#### 2.3.7 Change the tracker's platform with `setPlatform`
 
 You can change the platform by calling:
 
@@ -183,7 +182,7 @@ For a full list of supported platforms, please see the [[Snowplow Tracker Protoc
 [Back to top](#top)
 
 <a name="set-subject" />
-### 2.3.8 Change the tracker's subject with `setSubject`
+#### 2.3.8 Change the tracker's subject with `setSubject`
 
 You can change the subject by creating a new Subject object and then calling:
 
@@ -194,7 +193,7 @@ tracker.setSubject(newSubject);
 [Back to top](#top)
 
 <a name="set-emitter" />
-### 2.3.9 Change the tracker's emitter with `setEmitter`
+#### 2.3.9 Change the tracker's emitter with `setEmitter`
 
 You can change the emitter by creating a new Emitter object and then calling:
 
@@ -238,7 +237,7 @@ t1.getSubject().setUserId("Gleason Kevin");
 [Back to top](#top)
 
 <a name="set-user-id" />
-### 3.2 Set user ID with `setUserId`
+#### 3.2 Set user ID with `setUserId`
 
 You can set the user ID to any string:
 
@@ -255,7 +254,7 @@ s1.setUserId("alexd")
 [Back to top](#top)
 
 <a name="set-screen-resolution" />
-### 3.3 Set screen resolution with `setScreenResolution`
+#### 3.3 Set screen resolution with `setScreenResolution`
 
 If your Java code has access to the device's screen resolution, then you can pass this in to Snowplow too:
 
@@ -272,7 +271,7 @@ t1.setScreenResolution(1366, 768)
 [Back to top](#top)
 
 <a name="set-viewport-dimensions" />
-### 3.4 Set viewport dimensions with `setViewport`
+#### 3.4 Set viewport dimensions with `setViewport`
 
 If your Java code has access to the viewport dimensions, then you can pass this in to Snowplow too:
 
@@ -289,7 +288,7 @@ s.setViewport(300, 200)
 [Back to top](#top)
 
 <a name="set-color-depth" />
-### 3.5 Set color depth with `setColorDepth`
+#### 3.5 Set color depth with `setColorDepth`
 
 If your Java code has access to the bit depth of the device's color palette for displaying images, then you can pass this in to Snowplow too:
 
@@ -306,7 +305,7 @@ s.setColorDepth(32)
 [Back to top](#top)
 
 <a name="set-timezone" />
-### 3.6 Set timezone with `setTimezone`
+#### 3.6 Set timezone with `setTimezone`
 
 This method lets you pass a user's timezone in to Snowplow:
 
@@ -323,7 +322,7 @@ s.setTimezone("Europe/London")
 [Back to top](#top)
 
 <a name="set-lang" />
-### 3.7 Set the language with `setLanguage`
+#### 3.7 Set the language with `setLanguage`
 
 This method lets you pass a user's language in to Snowplow:
 
@@ -358,14 +357,14 @@ Tracking methods supported by the Java Tracker at a glance:
 [Back to top](#top)
 
 <a name="common" />
-### 4.1 Common
+#### 4.1 Common
 
 All events are tracked with specific methods on the tracker instance, of the form `trackXXX()`, where `XXX` is the name of the event to track.
 
 [Back to top](#top)
 
 <a name="custom-contexts" />
-### 4.1.1 Custom contexts
+#### 4.1.1 Custom contexts
 
 In short, custom contexts let you add additional information about the circumstances surrounding an event in the form of a Map object. Each tracking method accepts an additional optional contexts parameter after all the parameters specific to that method:
 
@@ -396,7 +395,7 @@ Note that even if there is only one custom context attached to the event, it sti
 [Back to top](#top)
 
 <a name="tstamp-arg" />
-### 4.1.2 Optional timestamp & context argument
+#### 4.1.2 Optional timestamp & context argument
 
 In all the trackers, we offer a way to set the timestamp if you want the event to show as tracked at a specific time. If you don't, we create a timestamp while the event is being tracked.
 
@@ -411,14 +410,14 @@ t1.trackPageView("www.page.com", "Example Page", "www.referrer.com", 12348567890
 [Back to top](#top)
 
 <a name="return-value" />
-### 4.1.3 Tracker method return values
+#### 4.1.3 Tracker method return values
 
 To be confirmed. As of now, trackers do not return anything.
 
 [Back to top](#top)
 
 <a name="screen-view" />
-### 4.2 Track screen views with `trackScreenView()`
+#### 4.2 Track screen views with `trackScreenView()`
 
 Use `trackScreenView()` to track a user viewing a screen (or equivalent) within your app. Arguments are:
 
@@ -439,7 +438,7 @@ t1.trackScreenView("HUD > Save Game", contextList, 123456);
 [Back to top](#top)
 
 <a name="page-view" />
-### 4.3 Track pageviews with `trackPageView()`
+#### 4.3 Track pageviews with `trackPageView()`
 
 If you are using Java servlet technology or similar to serve webpages to a browser, you can use `trackPageView()` to track a user viewing a page within your app.
 
@@ -463,7 +462,7 @@ t1.trackPageView("www.example.com", "example", "www.referrer.com");
 [Back to top](#top)
 
 <a name="ecommerce-transaction" />
-### 4.4 Track ecommerce transactions with `trackEcommerceTransaction()`
+#### 4.4 Track ecommerce transactions with `trackEcommerceTransaction()`
 
 Use `trackEcommerceTransaction()` to track an ecommerce transaction.
 
@@ -489,7 +488,7 @@ The `items` argument is a `List` of individual `TransactionItem` elements repres
 [Back to top](#top)
 
 <a name="ecommerce-transactionitem" />
-### 4.4.1 Ecommerce TransactionItem with `trackEcommerceTransaction()`
+#### 4.4.1 Ecommerce TransactionItem with `trackEcommerceTransaction()`
 
 To instantiate a TransactionItem in your code, simply use the following constructor signature:
 
@@ -522,7 +521,7 @@ t1.trackEcommerceTransaction("6a8078be", 300, "my_affiliate", 30, 10, "Boston", 
 [Back to top](#top)
 
 <a name="struct-event" />
-### 4.5 Track structured events with `trackStructuredEvent()`
+#### 4.5 Track structured events with `trackStructuredEvent()`
 
 Use `trackStructuredEvent()` to track a custom event happening in your app which fits the Google Analytics-style structure of having up to five fields (with only the first two required):
 
@@ -546,7 +545,7 @@ t1.trackStructuredEvent("shop", "add-to-basket", "Add To Basket", "pcs", 2, 1234
 [Back to top](#top)
 
 <a name="unstruct-event" />
-### 4.6 Track unstructured events with `trackUnstructuredEvent()`
+#### 4.6 Track unstructured events with `trackUnstructuredEvent()`
 
 Custom unstructured events are a flexible tool that enable Snowplow users to define their own event types and send them into Snowplow.
 
@@ -593,7 +592,7 @@ Emitter e2 = new Emitter
 
 The `Context` is used for caching events in a [SQLite database](http://developer.android.com/reference/android/database/sqlite/SQLiteOpenHelper.html) in order to avoid losing events to network related issues.
 
-| **Argument Name** | **Description**                                                             |    **Required?**  |  ** Default **  |
+| **Argument Name** | **Description**                                                             |    **Required?**  |  **Default**    |
 |------------------:|:----------------------------------------------------------------------------|:------------------|:----------------|
 | `URI`             | The collector endpoint URI events will be sent to                           | Yes               |                 |
 | `context`         | Used to use to open or create an SQLite database                            | Yes               |                 |
@@ -605,7 +604,7 @@ The `Context` is used for caching events in a [SQLite database](http://developer
 [Back to top](#top)
 
 <a name="how-it-works" />
-### 5.1 How the Emitter works?
+#### 5.1 How the Emitter works?
 
 The Emitter is configured and setup to run as a background process so it never blocks on the Main Thread or on the UI Thread of the device it is on.
 
@@ -628,7 +627,7 @@ All configurable options can be found in the 'constants/TrackerConstants.java' c
 - EMITTER_EMPTY_EVENTS_LIMIT
 
 <a name="buffer" />
-### 5.2 Using a buffer
+#### 5.2 Using a buffer
 
 A buffer is used to group events together in bulk before sending them. This is especially handy to reduce network usage. By default, the Emitter buffers up to 10 events before sending them. You can change this to send evenets instantly as soon as they are created like so:
 
@@ -652,7 +651,7 @@ Buffer options will only ever influence how POST request are sent however.  All 
 [Back to top](#top)
 
 <a name="http-method" />
-###  5.3 Choosing the HTTP method
+####  5.3 Choosing the HTTP method
 
 Snowplow supports receiving events via both GET and POST requests. In a GET request, each event is sent in individual request. With POST requests, events are bundled together in one request.
 
@@ -675,7 +674,7 @@ Here are all the posibile options that you can use:
 [Back to top](#top)
 
 <a name="http-callback" />
-###  5.4 Emitter callback
+####  5.4 Emitter callback
 
 If an event fails to send because of a network issue, you can choose to handle the failure case with a callback class to react accordingly. The callback class needs to implement the `EmitterCallback` interface in order to do so. Here is a sample bit of code to show how it could work:
 
@@ -707,14 +706,14 @@ The Payload interface is used for implementing a [TrackerPayload](#tracker-paylo
 [Back to top](#top)
 
 <a name="tracker-payload" />
-### 6.1 Tracker Payload
+#### 6.1 Tracker Payload
 
 A TrackerPayload is used internally within the Android Tracker to create the tracking event payloads that are passed to an Emitter to be sent accordingly.
 
 [Back to top](#top)
 
 <a name="schema-payload" />
-### 6.2 Schema Payload
+#### 6.2 Schema Payload
 
 A SchemaPayload is used primarily as a wrapper around a TrackerPayload. After creating a TrackerPayload, you create a SchemaPayload and use `setData` with the Payload, followed by, `setSchema` to set the schema that the payload will be used against.
 
@@ -745,7 +744,6 @@ To turn off Tracker logging simply change this boolean to false.
 
 [jsonschema]: http://snowplowanalytics.com/blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
-[android-0.2]: https://github.com/snowplow/snowplow/wiki/Android-and-Java-Tracker
+[java-0.6]: https://github.com/snowplow/snowplow/wiki/Android-and-Java-Tracker
 [java-0.5]: https://github.com/snowplow/snowplow/wiki/Android-v0.1-and-Java-Tracker-v0.5
-[java-0.4]: https://github.com/snowplow/snowplow/wiki/Java-Tracker-v0.4
 [base64]: https://en.wikipedia.org/wiki/Base64
