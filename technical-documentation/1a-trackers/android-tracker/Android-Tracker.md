@@ -610,7 +610,7 @@ The current Emitter flow goes as follows:
 5. Once it has finished sending it will again check for events.
 6. If there are no events to be sent 5 times in a row, it will shut itself down. (# Configurable-3)
 7. On receiving a new event the Emitter checks again if it is online and will then begin sending again.
-8. If there are ever any errors in sending the events will not be deleted from the database and the emitter will also be shutdown.
+8. If there are ever any errors in sending; the events will not be deleted from the database and the emitter will then be shutdown.
 
 All configurable options can be found in the 'constants/TrackerConstants.java' class with the following names:
 
