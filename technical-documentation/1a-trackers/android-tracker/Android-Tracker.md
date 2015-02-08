@@ -4,8 +4,8 @@
 
 This page refers to version 0.3.0 of the Snowplow Android Tracker. [UNRELEASED]
 
-*[Java v0.6.* and Android v0.2.*][java-0.6]*
-*[Java v0.5.* and Android v0.1.*][java-0.5]*
+- *[Java v0.6.* and Android v0.2.*][java-0.6]*
+- *[Java v0.5.* and Android v0.1.*][java-0.5]*
 
 ## Contents
 
@@ -33,7 +33,6 @@ This page refers to version 0.3.0 of the Snowplow Android Tracker. [UNRELEASED]
   - 4.1 [Common](#common)
     - 4.1.1 [Custom contexts](#custom-contexts)
     - 4.1.2 [Optional timestamp argument](#tstamp-arg)
-    - 4.1.3 [Tracker method return values](#return-values)
   - 4.2 [`trackScreenView()`](#screen-view)
   - 4.3 [`trackPageView()`](#page-view)
   - 4.4 [`trackEcommerceTransaction()`](#ecommerce-transaction)
@@ -406,13 +405,6 @@ t1.trackPageView("www.page.com", "Example Page", "www.referrer.com", contextArra
 t1.trackPageView("www.page.com", "Example Page", "www.referrer.com", contextArray, 12348567890);
 t1.trackPageView("www.page.com", "Example Page", "www.referrer.com", 12348567890);
 ```
-
-[Back to top](#top)
-
-<a name="return-value" />
-#### 4.1.3 Tracker method return values
-
-To be confirmed. As of now, trackers do not return anything.
 
 [Back to top](#top)
 
