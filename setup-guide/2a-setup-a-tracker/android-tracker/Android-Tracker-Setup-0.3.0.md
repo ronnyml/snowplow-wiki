@@ -154,5 +154,5 @@ Done? Now read the [Android Tracker API](Android-Tracker) to start tracking even
 
 [android]: http://www.android.com/
 
-[gradle-build]: https://github.com/snowplow/snowplow-android-tracker/blob/master/android-tracker/build.gradle
+[gradle-build]: https://github.com/snowplow/snowplow-android-tracker/blob/master/snowplow-android-tracker/build.gradle
 [maven-snplow]: http://maven.snplow.com
