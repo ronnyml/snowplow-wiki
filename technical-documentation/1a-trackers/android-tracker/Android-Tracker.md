@@ -98,10 +98,10 @@ This is the most basic Tracker creation possible.  You can expand on this creati
 // Create an Emitter with all options
 Emitter e2 = new Emitter
         .EmitterBuilder("com.collector.acme", getContext()) // Required
-        .method(EmitterMethod.GET) // Optional - Defines how we send the request
-        .option(EmitterOption.Single) // Optional - Defines how many events we bundle in a POST
-        .security(EmitterSecurity.HTTPS) // Optional - Defines what protocol used to send events
-        .callback(new EmitterCallback() { // Optional - Defines custom callback methods
+        .method(HttpMethod.GET) // Optional - Defines how we send the request
+        .option(BufferOption.Single) // Optional - Defines how many events we bundle in a POST
+        .security(RequestSecurity.HTTPS) // Optional - Defines what protocol used to send events
+        .callback(new RequestCallback() { // Optional - Defines custom callback methods
                     @Override
                     public void onSuccess(int successCount) {
                         // Your custom onSuccess callback
@@ -671,7 +671,7 @@ Here are all the posibile options that you can use:
 If an event fails to send because of a network issue, you can choose to handle the failure case with a callback class to react accordingly. The callback class needs to implement the `EmitterCallback` interface in order to do so. Here is a sample bit of code to show how it could work:
 
 ```java
-EmitterCallback callback = new EmitterCallback() {
+RequestCallback callback = new RequestCallback() {
   @Override
   public void onSuccess(int successCount) {
     Log.d("Tracker", "Buffer length for POST/GET:" + successCount);
