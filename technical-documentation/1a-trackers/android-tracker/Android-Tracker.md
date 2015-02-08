@@ -23,12 +23,16 @@ This page refers to version 0.3.0 of the Snowplow Android Tracker. [UNRELEASED]
     - 2.2.8 [`setSubject`](#set-subject)
     - 2.2.9 [`setEmitter`](#set-emitter)
 - 3. [Adding extra data: the Subject class](#add-data)
-  - 3.2 [`setUserId`](#set-user-id)
-  - 3.3 [`setScreenResolution`](#set-screen-resolution)
-  - 3.4 [`setViewport`](#set-viewport-dimensions)
-  - 3.5 [`setColorDepth`](#set-color-depth)
-  - 3.6 [`setTimezone`](#set-timezone)
-  - 3.7 [`setLanguage`](#set-lang)
+  - 3.1 [`setUserId`](#set-user-id)
+  - 3.2 [`setScreenResolution`](#set-screen-resolution)
+  - 3.3 [`setViewport`](#set-viewport-dimensions)
+  - 3.4 [`setColorDepth`](#set-color-depth)
+  - 3.5 [`setTimezone`](#set-timezone)
+  - 3.6 [`setLanguage`](#set-lang)
+  - 3.7 [`setIpAddress`](#set-ip-address)
+  - 3.8 [`setUseragent`](#set-user-agent)
+  - 3.9 [`setNetworkUserId`](#set-network-user-id)
+  - 3.10 [`setDomainUserId`](#set-domain-user-id)
 - 4. [Tracking specific events](#events)
   - 4.1 [Common](#common)
     - 4.1.1 [Custom contexts](#custom-contexts)
@@ -236,7 +240,7 @@ t1.getSubject().setUserId("Gleason Kevin");
 [Back to top](#top)
 
 <a name="set-user-id" />
-#### 3.2 Set user ID with `setUserId`
+#### 3.1 Set user ID with `setUserId`
 
 You can set the user ID to any string:
 
@@ -253,7 +257,7 @@ s1.setUserId("alexd")
 [Back to top](#top)
 
 <a name="set-screen-resolution" />
-#### 3.3 Set screen resolution with `setScreenResolution`
+#### 3.2 Set screen resolution with `setScreenResolution`
 
 If your Java code has access to the device's screen resolution, then you can pass this in to Snowplow too:
 
@@ -270,7 +274,7 @@ t1.setScreenResolution(1366, 768)
 [Back to top](#top)
 
 <a name="set-viewport-dimensions" />
-#### 3.4 Set viewport dimensions with `setViewport`
+#### 3.3 Set viewport dimensions with `setViewport`
 
 If your Java code has access to the viewport dimensions, then you can pass this in to Snowplow too:
 
@@ -287,7 +291,7 @@ s.setViewport(300, 200)
 [Back to top](#top)
 
 <a name="set-color-depth" />
-#### 3.5 Set color depth with `setColorDepth`
+#### 3.4 Set color depth with `setColorDepth`
 
 If your Java code has access to the bit depth of the device's color palette for displaying images, then you can pass this in to Snowplow too:
 
@@ -304,7 +308,7 @@ s.setColorDepth(32)
 [Back to top](#top)
 
 <a name="set-timezone" />
-#### 3.6 Set timezone with `setTimezone`
+#### 3.5 Set timezone with `setTimezone`
 
 This method lets you pass a user's timezone in to Snowplow:
 
@@ -321,7 +325,7 @@ s.setTimezone("Europe/London")
 [Back to top](#top)
 
 <a name="set-lang" />
-#### 3.7 Set the language with `setLanguage`
+#### 3.6 Set the language with `setLanguage`
 
 This method lets you pass a user's language in to Snowplow:
 
@@ -337,6 +341,71 @@ s.setLanguage('en')
 
 [Back to top](#top)
 
+<a name="set-ip-address" />
+### 3.7 `setIpAddress`
+
+This method lets you pass a user's IP Address in to Snowplow:
+
+```java
+s.setIpAddress( {{ip}} );
+```
+
+The IP Address should be a string:
+
+```java
+s.setIpAddress('127.0.0.1');
+```
+
+[Back to top](#top)
+
+<a name="set-user-agent" />
+### 3.8 `setUseragent`
+
+This method lets you pass a useragent in to Snowplow:
+
+```java
+s.setUseragent( {{useragent}} );
+```
+
+The useragent should be a string:
+
+```java
+s.setUseragent('Agent Smith');
+```
+
+[Back to top](#top)
+
+<a name="set-network-user-id" />
+### 3.9 `setNetworkUserId`
+
+This method lets you pass a Network User ID in to Snowplow:
+
+```java
+s.setNetworkUserId( {{networkUserId}} );
+```
+The network user id should be a string:
+
+```java
+s.setNetworkUserId("network-id");
+```
+
+[Back to top](#top)
+
+<a name="set-domain-user-id" />
+### 3.10 `setDomainUserId`
+
+This method lets you pass a Domain User ID in to Snowplow:
+
+```java
+s.setDomainUserId( {{domainUserId}} );
+```
+The domain user id should be a string:
+
+```java
+s.setDomainUserId("domain-id");
+```
+
+[Back to top](#top)
 
 <a name="events" />
 ## 4. Tracking specific events
