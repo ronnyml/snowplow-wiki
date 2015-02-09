@@ -12,9 +12,9 @@ The Scala Stream Collector has a number of configuration options available.
 
 ### Template
 
-Download a template configuration file from GitHub: [default.conf] [app-conf].
+Download a template configuration file from GitHub: [config.hocon.sample] [app-conf].
 
-Now open the `default.conf` file in your editor of choice.
+Now open the `config.hocon.sample` file in your editor of choice.
 
 ### AWS settings
 
@@ -66,5 +66,5 @@ Next, make sure that the `enrich.enrichments.geo_ip.maxmind_file` configuration 
 
 Next: [[Run Scala Kinesis Enrich]]
 
-[app-conf]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-kinesis-enrich/src/main/resources/default.conf
+[app-conf]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-kinesis-enrich/src/main/resources/config.hocon.sample
 [v0.2]: https://github.com/snowplow/snowplow/wiki/Configure-Scala-Kinesis-Enrich

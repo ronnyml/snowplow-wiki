@@ -12,9 +12,9 @@ The Scala Stream Collector has a number of configuration options available.
 
 ### Template
 
-Download a template configuration file from GitHub: [default.conf] [app-conf].
+Download a template configuration file from GitHub: [config.hocon.sample] [app-conf].
 
-Now open the `default.conf` file in your editor of choice.
+Now open the `config.hocon.sample` file in your editor of choice.
 
 ### AWS settings
 
@@ -65,6 +65,6 @@ See the documentation on [configuring enrichments][configuring-enrichments] for 
 Next: [[Run Scala Kinesis Enrich]]
 
 [v0.1]: https://github.com/snowplow/snowplow/wiki/Configure-Scala-Kinesis-Enrich-v0.1
-[app-conf]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-kinesis-enrich/src/main/resources/default.conf
+[app-conf]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-kinesis-enrich/src/main/resources/config.hocon.sample
 [enrichment-json-examples]: https://github.com/snowplow/snowplow/tree/master/3-enrich/emr-etl-runner/config/enrichments
 [configuring-enrichments]: https://github.com/snowplow/snowplow/wiki/5-Configuring-enrichments#template

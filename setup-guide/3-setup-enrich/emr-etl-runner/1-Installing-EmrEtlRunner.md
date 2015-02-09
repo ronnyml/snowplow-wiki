@@ -122,7 +122,7 @@ EmrEtlRunner requires a YAML format configuration file to run. There is a config
   :versions:
     :hadoop_enrich: 0.12.0 # Version of the Hadoop Enrichment process
     :hadoop_shred: 0.3.0 # Version of the Hadoop Shredding process
-  :collector_format: cloudfront # Or 'clj-tomcat' for the Clojure Collector
+  :collector_format: cloudfront # Or 'clj-tomcat' for the Clojure Collector, or 'thrift' for the Scala Stream Collector
   :continue_on_unexpected_error: false # Set to 'true' (and set :out_errors: above) if you don't want any exceptions thrown from ETL
 :iglu:
   :schema: iglu:com.snowplowanalytics.iglu/resolver-config/jsonschema/1-0-0

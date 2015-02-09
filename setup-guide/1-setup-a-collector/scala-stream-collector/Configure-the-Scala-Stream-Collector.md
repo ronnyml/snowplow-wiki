@@ -10,9 +10,9 @@ The Scala Stream Collector has a number of configuration options available.
 
 ### Template
 
-Download a template configuration file from GitHub: [application.conf.example] [app-conf].
+Download a template configuration file from GitHub: [config.hocon.sample] [app-conf].
 
-Now open the `application.conf.example` file in your editor of choice.
+Now open the `config.hocon.sample` file in your editor of choice.
 
 ### AWS settings
 
@@ -83,4 +83,4 @@ If no value is provided, cookies set default to expiring after one year (i.e. 36
 Next: [[Run the Scala Stream collector]]
 
 [v0.1]: [https://github.com/snowplow/snowplow/wiki/Configure-the-Scala-Stream-Collector-v0.1]
-[app-conf]: https://github.com/snowplow/snowplow/blob/master/2-collectors/scala-stream-collector/src/main/resources/application.conf.example
+[app-conf]: https://github.com/snowplow/snowplow/blob/master/2-collectors/scala-stream-collector/src/main/resources/config.hocon.sample
