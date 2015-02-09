@@ -694,7 +694,7 @@ All configurable options can be found in the 'constants/TrackerConstants.java' c
 <a name="buffer" />
 #### 5.2 Using a buffer
 
-A buffer is used to group events together in bulk before sending them. This is especially handy to reduce network usage. By default, the Emitter buffers up to 10 events before sending them. You can change this to send events instantly as soon as they are created like so:
+A buffer is used to group events together in bulk before sending them. This is especially handy to reduce network usage. By default, the Emitter buffers up to 10 events together before sending them; only available if you are using POST as your request type.
 
 ```java
 e1.setBufferOption(BufferOption.Single); // 1
