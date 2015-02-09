@@ -219,6 +219,10 @@ The Subject class has a set of `set...()` methods to attach extra data relating 
 * [`setColorDepth`](#set-color-depth)
 * [`setTimezone`](#set-timezone)
 * [`setLanguage`](#set-lang)
+* [`setIpAddress`](#set-ip-address)
+* [`setUseragent`](#set-user-agent)
+* [`setNetworkUserId`](#set-network-user-id)
+* [`setDomainUserId`](#set-domain-user-id)
 
 Here are some examples:
 
