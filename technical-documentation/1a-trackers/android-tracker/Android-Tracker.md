@@ -481,10 +481,7 @@ data.put("poster_country", "JP");
 data.put("poster_year", "1978");
 
 // Now create your SelfDescribingJson object...
-SelfDescribingJson json = new SelfDescribingJson
-    .Builder("iglu:com.acme_company/movie_poster/jsonschema/2.1.1")
-    .data(dataMap)
-    .build();
+SelfDescribingJson json = new SelfDescribingJson("iglu:com.acme_company/movie_poster/jsonschema/2.1.1", dataMap);
 
 // Now add this JSON into a list of SelfDescribingJsons...
 List<SelfDescribingJson> contexts = new ArrayList<>();
@@ -511,10 +508,7 @@ Simply use the previously created Json in the data field of the builder:
 
 ```java
 // Create a nested SelfDescribingJson
-SelfDescribingJson json = new SelfDescribingJson()
-    .Builder("iglu:com.acme_company/nested_example/jsonschema/1-0-0")
-    .data(json)
-    .build();
+SelfDescribingJson json = new SelfDescribingJson("iglu:com.acme_company/nested_example/jsonschema/1-0-0", json)
 ```
 
 Note that even if there is only one custom context attached to the event, it still needs to be placed in an array.
@@ -712,10 +706,7 @@ Map<String, String> eventData = new HashMap<>();
 eventData.put("Schema Level", "1");
 
 // Create your event data
-SelfDescribingJson eventJson = new SelfDescribingJson
-  .Builder("iglu:com.snowplowanalytics.snowplow/schema_level/jsonschema/1-0-0")
-  .data(eventData)
-  .build();
+SelfDescribingJson eventJson = new SelfDescribingJson("iglu:com.snowplowanalytics.snowplow/schema_level/jsonschema/1-0-0", eventData);
 
 // Track your event with your custom event data
 t1.trackUnstructuredEvent(eventData, contextList);
@@ -876,10 +867,7 @@ Map<String, String> eventData = new HashMap<>();
 data.put("Event", "Data")
 
 // We wrap that map in a SelfDescribingJson before sending it
-SelfDescribingJson json = new SelfDescribingJson
-    .Builder("iglu:com.snowplowanalytics.snowplow/example/jsonschema/1-0-0")
-    .data(eventData)
-    .build();
+SelfDescribingJson json = new SelfDescribingJson("iglu:com.snowplowanalytics.snowplow/example/jsonschema/1-0-0", eventData);
 ```
 
 [Back to top](#top)
