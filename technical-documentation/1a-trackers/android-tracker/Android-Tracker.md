@@ -702,11 +702,11 @@ How to set it up?
 
 ```java
 // Create a Map of your event data
-Map<String, String> eventData = new HashMap<>();
+Map<String, String> eventMap = new HashMap<>();
 eventData.put("Schema Level", "1");
 
 // Create your event data
-SelfDescribingJson eventJson = new SelfDescribingJson("iglu:com.snowplowanalytics.snowplow/schema_level/jsonschema/1-0-0", eventData);
+SelfDescribingJson eventData = new SelfDescribingJson("iglu:com.snowplowanalytics.snowplow/schema_level/jsonschema/1-0-0", eventMap);
 
 // Track your event with your custom event data
 t1.trackUnstructuredEvent(eventData, contextList);
