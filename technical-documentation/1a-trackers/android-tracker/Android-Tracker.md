@@ -22,7 +22,7 @@ This page refers to version 0.3.0 of the Snowplow Android Tracker. [UNRELEASED]
     - 2.2.7 [`setPlatform`](#set-platform)
     - 2.2.8 [`setSubject`](#set-subject)
     - 2.2.9 [`setEmitter`](#set-emitter)
-- 3. [Adding extra data: the Subject class](#add-data)
+- 3. [Adding extra data: the Subject class](#add-data-subject)
   - 3.1 [`setUserId`](#set-user-id)
   - 3.2 [`setScreenResolution`](#set-screen-resolution)
   - 3.3 [`setViewport`](#set-viewport-dimensions)
@@ -36,7 +36,7 @@ This page refers to version 0.3.0 of the Snowplow Android Tracker. [UNRELEASED]
 - 4. [Tracking specific events](#events)
   - 4.1 [Common](#common)
     - 4.1.1 [Custom contexts](#custom-contexts)
-    - 4.1.2 [Optional timestamp argument](#tstamp-arg)
+    - 4.1.2 [Optional timestamp argument](#tstamp-context-args)
   - 4.2 [`trackScreenView()`](#screen-view)
   - 4.3 [`trackPageView()`](#page-view)
   - 4.4 [`trackEcommerceTransaction()`](#ecommerce-transaction)
@@ -44,9 +44,10 @@ This page refers to version 0.3.0 of the Snowplow Android Tracker. [UNRELEASED]
   - 4.5 [`trackStructuredEvent()`](#struct-event)
   - 4.6 [`trackUnstructuredEvent()`](#unstruct-event)
 - 5 [Sending event: `Emitter`](#emitters)
-  - 5.1 [Using a buffer](#buffer)
-  - 5.2 [Choosing the HTTP method](#http-method)
-  - 5.3 [Emitter callback](#http-callback)
+  - 5.1 [How the `Emitter` works](#emitter-works)
+  - 5.2 [Using a buffer](#buffer)
+  - 5.3 [Choosing the HTTP method](#http-method)
+  - 5.4 [Emitter callback](#http-callback)
 - 6 [Payload](#payload)
   - 6.1 [Tracker Payload](#tracker-payload)
   - 6.2 [Schema Payload](#schema-payload)
@@ -96,7 +97,7 @@ Tracker t1 = new Tracker
         .build();
 ```
 
-This is the most basic Tracker creation possible.  You can expand on this creation with the following builder options:
+This is the most basic Tracker creation possible. Note that `getContext()` is an Android global function. You can expand on this creation with the following builder options:
 
 ```java
 // Create an Emitter with all options
@@ -116,9 +117,7 @@ Emitter e2 = new Emitter
                     }
                 })
         .build();
-```
 
-```java
 // Create a Tracker with all options
 Tracker t2 = new Tracker
         .TrackerBuilder(e2, "myNamespace", "myAppId")
@@ -130,14 +129,14 @@ Tracker t2 = new Tracker
 
 As you can see there is a fair amount of modularity to the Trackers creation.
 
-| **Argument Name** | **Description**                              |    **Required?**  | **Default**   |
-|------------------:|:---------------------------------------------|:------------------|:--------------|
-| `emitter`         | The emitter which sends the events           | Yes               |               |
-| `subject`         | The subject that defines a user              | No                | null          |
-| `namespace`       | The name of the tracker instance             | Yes               |               |
-| `appId`           | The application ID                           | Yes               |               |
-| `base64`          | Whether to enable [base 64 encoding][base64] | No                | true          |
-| `platform`        | The platform that the Tracker is on          | No                | Mobile        |
+| **Argument Name** | **Description**                             |    **Required?**  | **Default**   |
+|------------------:|:--------------------------------------------|:------------------|:--------------|
+| `emitter`         | The emitter which sends the events          | Yes               |               |
+| `subject`         | The subject that defines a user             | No                | null          |
+| `namespace`       | The name of the tracker instance            | Yes               |               |
+| `appId`           | The application ID                          | Yes               |               |
+| `base64`          | Whether to enable [Base64 encoding][base64] | No                | true          |
+| `platform`        | The platform that the Tracker is on         | No                | Mobile        |
 
 <a name="emitter" />
 ##### 2.3.1 `emitter`
@@ -180,6 +179,8 @@ You can change the platform by calling:
 tracker.setPlatform(DevicePlatforms.'SomeOption');
 ```
 
+TODO: clarify enum and enum options.
+
 For a full list of supported platforms, please see the [[Snowplow Tracker Protocol]].
 
 [Back to top](#top)
@@ -187,18 +188,20 @@ For a full list of supported platforms, please see the [[Snowplow Tracker Protoc
 <a name="set-subject" />
 #### 2.3.8 Change the tracker's subject with `setSubject`
 
-You can change the subject by creating a new Subject object and then calling:
+You can change the subject by creating a new `Subject` object and then calling:
 
 ```java
 tracker.setSubject(newSubject);
 ```
+
+See [Adding extra data: the Subject class](#add-data-subject) for more information on the `Subject`.
 
 [Back to top](#top)
 
 <a name="set-emitter" />
 #### 2.3.9 Change the tracker's emitter with `setEmitter`
 
-You can change the emitter by creating a new Emitter object and then calling:
+You can change the emitter by creating a new `Emitter` object and then calling:
 
 ```java
 tracker.setEmitter(newEmitter);
@@ -206,7 +209,7 @@ tracker.setEmitter(newEmitter);
 
 [Back to top](#top)
 
-<a name="add-data" />
+<a name="add-data-subject" />
 ## 3. Adding extra data: the Subject class
 
 You may have additional information about your application's environment, current user and so on, which you want to send to Snowplow with each event.
@@ -238,7 +241,7 @@ Tracker(emitter, s1, namespace, appId);
 // OR
 t1.setSubject(s1);
 // OR
-t1.getSubject().setUserId("Gleason Kevin");
+t1.getSubject().setUserId("Gleason Kevin"); // Because object references are passed by value in Java
 ```
 
 [Back to top](#top)
@@ -354,7 +357,7 @@ This method lets you pass a user's IP Address in to Snowplow:
 s.setIpAddress( {{ip}} );
 ```
 
-The IP Address should be a string:
+The IP address should be a string:
 
 ```java
 s.setIpAddress('127.0.0.1');
@@ -387,6 +390,7 @@ This method lets you pass a Network User ID in to Snowplow:
 ```java
 s.setNetworkUserId( {{networkUserId}} );
 ```
+
 The network user id should be a string:
 
 ```java
@@ -403,6 +407,7 @@ This method lets you pass a Domain User ID in to Snowplow:
 ```java
 s.setDomainUserId( {{domainUserId}} );
 ```
+
 The domain user id should be a string:
 
 ```java
@@ -416,7 +421,7 @@ s.setDomainUserId("domain-id");
 
 Snowplow has been built to enable you to track a wide range of events that occur when users interact with your websites and apps. We are constantly growing the range of functions available in order to capture that data more richly.
 
-Tracking methods supported by the Java Tracker at a glance:
+Tracking methods supported by the Android Tracker at a glance:
 
 | **Function**                                                | **Description*                                         |
 |------------------------------------------------------------:|:-------------------------------------------------------|
@@ -462,22 +467,27 @@ If a visitor arrives on a page advertising a movie, the context dictionary might
 }
 ```
 
+TODO: can you show how you would construct the `SchemaPayload` for the above JSON.
+
 Note that even if there is only one custom context attached to the event, it still needs to be placed in an array.
 
 [Back to top](#top)
 
-<a name="tstamp-arg" />
-#### 4.1.2 Optional timestamp & context argument
+<a name="tstamp-context-args" />
+#### 4.1.2 Optional timestamp & context arguments
 
 In all the trackers, we offer a way to set the timestamp if you want the event to show as tracked at a specific time. If you don't, we create a timestamp while the event is being tracked.
 
-Here is an example:
+Here are some example:
+
 ```java
 t1.trackPageView("www.page.com", "Example Page", "www.referrer.com");
 t1.trackPageView("www.page.com", "Example Page", "www.referrer.com", contextArray);
 t1.trackPageView("www.page.com", "Example Page", "www.referrer.com", contextArray, 12348567890);
 t1.trackPageView("www.page.com", "Example Page", "www.referrer.com", 12348567890);
 ```
+
+TODO: define timestamp: ms since Unix epoch?
 
 [Back to top](#top)
 
@@ -490,22 +500,24 @@ Use `trackScreenView()` to track a user viewing a screen (or equivalent) within 
 |-------------:|:------------------------------------|:--------------|:------------------------|
 | `name`       | Human-readable name for this screen | No            | String                  |
 | `id`         | Unique identifier for this screen   | No            | String                  |
-| `context`    | Custom context for the event        | No            | List<SchemaPayload>      |
+| `context`    | Custom context for the event        | No            | List<SchemaPayload>     |
 | `timestamp`  | Optional timestamp for the event    | No            | Long                    |
 
-Example:
+Examples:
 
 ```java
 t1.trackScreenView("HUD > Save Game", "screen23");
 t1.trackScreenView("HUD > Save Game", contextList, 123456);
 ```
 
+TODO: timestamp ^^ looks invalid
+
 [Back to top](#top)
 
 <a name="page-view" />
 #### 4.3 Track pageviews with `trackPageView()`
 
-If you are using Java servlet technology or similar to serve webpages to a browser, you can use `trackPageView()` to track a user viewing a page within your app.
+You can use `trackPageView()` to track a user viewing a web page within your app.
 
 Arguments are:
 
@@ -514,10 +526,10 @@ Arguments are:
 | `page_url`   | The URL of the page                  | Yes           | String                  |
 | `page_title` | The title of the page                | Yes           | String                  |
 | `referrer`   | The address which linked to the page | Yes           | String                  |
-| `context`    | Custom context for the event         | No            | List<SchemaPayload>      |
+| `context`    | Custom context for the event         | No            | List<SchemaPayload>     |
 | `timestamp`  | Optional timestamp for the event     | No            | Long                    |
 
-Example:
+Examples:
 
 ```java
 t1.trackPageView("www.example.com", "example", "www.referrer.com", contextList);
@@ -583,6 +595,8 @@ t1.trackEcommerceTransaction(String order_id, Double total_value, String affilia
 t1.trackEcommerceTransaction("6a8078be", 300, "my_affiliate", 30, 10, "Boston", "Massachusetts", "USA", "USD", items, context);
 ```
 
+TODO: this section ^^ doesn't make much sense to me. Can I see examples of how I construct the TransactionItems, and then how I fire the event?
+
 [Back to top](#top)
 
 <a name="struct-event" />
@@ -600,7 +614,7 @@ Use `trackStructuredEvent()` to track a custom event happening in your app which
 | `context`    | Custom context for the event                                     | No            | List<SchemaPayload>|
 | `timestamp`  | Optional timestamp for the event                                 | No            | Long              |
 
-Example:
+Examples:
 
 ```java
 t1.trackStructuredEvent("shop", "add-to-basket", "Add To Basket", "pcs", 2);
@@ -635,6 +649,8 @@ Example:
 t1.trackUnstructuredEvent(eventData, contextList);
 ```
 
+TODO: Can we get an example of an unstructured event first in JSON, and then being constructed as a `SchemaPayload`?
+
 For more on JSON schema, see the [blog post] [self-describing-jsons].
 
 [Back to top](#top)
@@ -643,7 +659,7 @@ For more on JSON schema, see the [blog post] [self-describing-jsons].
 ## 5. Sending event: `Emitter`
 
 Events are sent using an `Emitter` class. You can initialize a class with a collector endpoint URL with various options to choose how these events should be sent.
-Here are the Emitter interfaces that can be used:
+Here are the `Emitter` interfaces that can be used:
 
 ```java
 Emitter e2 = new Emitter
@@ -657,6 +673,10 @@ Emitter e2 = new Emitter
 
 The `Context` is used for caching events in a [SQLite database](http://developer.android.com/reference/android/database/sqlite/SQLiteOpenHelper.html) in order to avoid losing events to network related issues.
 
+Don't confuse the Android context with Snowplow's own custom contexts - they are completely separate things.
+
+TODO: is the below table arguments you can send to an Emitter? Or do you have to use the Builder pattern?
+
 | **Argument Name** | **Description**                                                             |    **Required?**  |  **Default**    |
 |------------------:|:----------------------------------------------------------------------------|:------------------|:----------------|
 | `URI`             | The collector endpoint URI events will be sent to                           | Yes               |                 |
@@ -666,10 +686,12 @@ The `Context` is used for caching events in a [SQLite database](http://developer
 | `security`        | Whether to use HTTP or HTTPS to send request                                | No                | HTTP            |
 | `callback`        | Lets you pass a callback class to handle succes/failure in sending events.  | No                | null            |
 
+TODO: is this table ^^ up-to-date? I thought we had `.HEAVY` and similar...
+
 [Back to top](#top)
 
-<a name="how-it-works" />
-#### 5.1 How the Emitter works?
+<a name="emitter-works" />
+#### 5.1 How the Emitter works
 
 The Emitter is configured and setup to run as a background process so it never blocks on the Main Thread or on the UI Thread of the device it is on.
 
@@ -775,10 +797,12 @@ The Payload interface is used for implementing a [TrackerPayload](#tracker-paylo
 
 A TrackerPayload is used internally within the Android Tracker to create the tracking event payloads that are passed to an Emitter to be sent accordingly.
 
+TODO: can we delete this section? (See comments below)
+
 [Back to top](#top)
 
 <a name="schema-payload" />
-#### 6.2 Schema Payload
+#### 6.2 SchemaPayload
 
 A SchemaPayload is used primarily as a wrapper around a TrackerPayload. After creating a TrackerPayload, you create a SchemaPayload and use `setData` with the Payload, followed by, `setSchema` to set the schema that the payload will be used against.
 
@@ -796,6 +820,8 @@ schemaPayload.setData(trackerPayload);
 schemaPayload.setSchema("iglu:com.snowplowanalytics.snowplow/example/jsonschema/1-0-0");
 ```
 
+^^ TODO: Josh this API seems too complicated... Why can't we just SchemaPayload.setData to a given Map? This would seem easier to explain...
+
 [Back to top](#top)
 
 <a name="logging" />
@@ -804,6 +830,8 @@ schemaPayload.setSchema("iglu:com.snowplowanalytics.snowplow/example/jsonschema/
 Logging in the Tracker is done using our own Logger class: '/utils/Logger.java'. All logging is actioned based on whether or not the 'DEBUG_MODE' constant is set to true in the 'constants/TrackerConstants.java' class.
 
 To turn off Tracker logging simply change this boolean to false.
+
+TODO^^ is this up-to-date? I seem to remember us moving to standard Android logging...
 
 [Back to top](#top)
 
