@@ -50,7 +50,7 @@ This page refers to version 0.3.0 of the Snowplow Android Tracker. [UNRELEASED]
   - 5.4 [Emitter callback](#http-callback)
 - 6 [Payload](#payload)
   - 6.1 [Tracker Payload](#tracker-payload)
-  - 6.2 [Schema Payload](#schema-payload)
+  - 6.2 [Schema Payload](#self-describing-json)
 - 7 [Logging](#logging)
 
 <a name="overview" />
@@ -176,10 +176,14 @@ The 'platform' allows you to pick from a list of allowed platforms which define 
 You can change the platform by calling:
 
 ```java
-tracker.setPlatform(DevicePlatforms.'SomeOption');
+tracker.setPlatform(DevicePlatforms.Mobile);
+// OR
+tracker.setPlatform(DevicePlatforms.Desktop);
+// OR
+tracker.setPlatform(DevicePlatforms.{{ Valid Enum Option }})
 ```
 
-TODO: clarify enum and enum options.
+There are several different DevicePlatforms options to choose from.
 
 For a full list of supported platforms, please see the [[Snowplow Tracker Protocol]].
 
@@ -447,12 +451,12 @@ In short, custom contexts let you add additional information about the circumsta
 
 ```java
 t1.trackPageView(String pageUrl, String pageTitle, String referrer);
-t1.trackPageView(String pageUrl, String pageTitle, String referrer, List<SchemaPayload> context);
+t1.trackPageView(String pageUrl, String pageTitle, String referrer, List<SelfDescribingJson> context);
 t1.trackPageView(String pageUrl, String pageTitle, String referrer, double timestamp);
-t1.trackPageView(String pageUrl, String pageTitle, String referrer, List<SchemaPayload> context, double timestamp);
+t1.trackPageView(String pageUrl, String pageTitle, String referrer, List<SelfDescribingJson> context, double timestamp);
 ```
 
-The `context` argument should consist of a `List` of `SchemaPayload` representing an array of one or more contexts. The format of each individual context element is the same as for an [unstructured event](#unstruct-event).
+The `context` argument should consist of a `List` of `SelfDescribingJson` representing an array of one or more contexts. The format of each individual context element is the same as for an [unstructured event](#unstruct-event).
 
 If a visitor arrives on a page advertising a movie, the context dictionary might look like this:
 
@@ -467,7 +471,51 @@ If a visitor arrives on a page advertising a movie, the context dictionary might
 }
 ```
 
-TODO: can you show how you would construct the `SchemaPayload` for the above JSON.
+To construct this as a SelfDescribingJson:
+
+```java
+// Create a Map of the data you want to include...
+Map<String, String> dataMap = new HashMap<>();
+data.put("movie_name", "solaris");
+data.put("poster_country", "JP");
+data.put("poster_year", "1978");
+
+// Now create your SelfDescribingJson object...
+SelfDescribingJson json = new SelfDescribingJson
+    .Builder("iglu:com.acme_company/movie_poster/jsonschema/2.1.1")
+    .data(dataMap)
+    .build();
+
+// Now add this JSON into a list of SelfDescribingJsons...
+List<SelfDescribingJson> contexts = new ArrayList<>();
+contexts.add(json);
+```
+
+To create a SelfDescribingJson which contains another SelfDescribingJson:
+
+```json
+{ 
+  "schema": "iglu:com.acme_company/nested_example/jsonschema/1-0-0",
+  "data": {
+    "schema": "iglu:com.acme_company/movie_poster/jsonschema/2.1.1",
+    "data": {
+      "movie_name": "Solaris", 
+      "poster_country": "JP", 
+      "poster_year": "1978"
+    }
+  }
+}
+```
+
+Simply use the previously created Json in the data field of the builder:
+
+```java
+// Create a nested SelfDescribingJson
+SelfDescribingJson json = new SelfDescribingJson()
+    .Builder("iglu:com.acme_company/nested_example/jsonschema/1-0-0")
+    .data(json)
+    .build();
+```
 
 Note that even if there is only one custom context attached to the event, it still needs to be placed in an array.
 
@@ -483,11 +531,9 @@ Here are some example:
 ```java
 t1.trackPageView("www.page.com", "Example Page", "www.referrer.com");
 t1.trackPageView("www.page.com", "Example Page", "www.referrer.com", contextArray);
-t1.trackPageView("www.page.com", "Example Page", "www.referrer.com", contextArray, 12348567890);
-t1.trackPageView("www.page.com", "Example Page", "www.referrer.com", 12348567890);
+t1.trackPageView("www.page.com", "Example Page", "www.referrer.com", contextArray, 1423583655);
+t1.trackPageView("www.page.com", "Example Page", "www.referrer.com", 1423583655);
 ```
-
-TODO: define timestamp: ms since Unix epoch?
 
 [Back to top](#top)
 
@@ -500,17 +546,15 @@ Use `trackScreenView()` to track a user viewing a screen (or equivalent) within 
 |-------------:|:------------------------------------|:--------------|:------------------------|
 | `name`       | Human-readable name for this screen | No            | String                  |
 | `id`         | Unique identifier for this screen   | No            | String                  |
-| `context`    | Custom context for the event        | No            | List<SchemaPayload>     |
+| `context`    | Custom context for the event        | No            | List<SelfDescribingJson>     |
 | `timestamp`  | Optional timestamp for the event    | No            | Long                    |
 
 Examples:
 
 ```java
 t1.trackScreenView("HUD > Save Game", "screen23");
-t1.trackScreenView("HUD > Save Game", contextList, 123456);
+t1.trackScreenView("HUD > Save Game", contextList, 1423583655);
 ```
-
-TODO: timestamp ^^ looks invalid
 
 [Back to top](#top)
 
@@ -526,7 +570,7 @@ Arguments are:
 | `page_url`   | The URL of the page                  | Yes           | String                  |
 | `page_title` | The title of the page                | Yes           | String                  |
 | `referrer`   | The address which linked to the page | Yes           | String                  |
-| `context`    | Custom context for the event         | No            | List<SchemaPayload>     |
+| `context`    | Custom context for the event         | No            | List<SelfDescribingJson>     |
 | `timestamp`  | Optional timestamp for the event     | No            | Long                    |
 
 Examples:
@@ -584,18 +628,24 @@ These are the fields that can appear as elements in each `TransactionItem` eleme
 | `name`     | Item name                           | No            | String                   |
 | `category` | Item category                       | No            | String                   |
 | `currency` | Item currency                       | No            | String                   |
-| `context`  | Item context                        | No            | List<SchemaPayload>       |
+| `context`  | Item context                        | No            | List<SelfDescribingJson> |
 | `timestamp`| Optional timestamp for the event    | No            | Long                     |
 
 Example of tracking a transaction containing two items:
 
 ```java
-// Example to come, in the meantime here is the type signature:
-t1.trackEcommerceTransaction(String order_id, Double total_value, String affiliation, Double tax_value,Double shipping, String city, String state, String country, String currency, List<TransactionItem> items, List<SchemaPayload> context);
+// Create some Transaction Items
+TransactionItem item1 = new TransactionItem("order_id_1", "item_sku", 1.00, 1, "item_name", "item_category", "currency");
+TransactionItem item2 = new TransactionItem("order_id_2", "item_sku", 1.00, 1, "item_name", "item_category", "currency");
+
+// Add these items to a List
+List<TransactionItem> items = new ArrayList<>();
+items.add(item1);
+items.add(item2);
+
+// Now Track the Transaction by using this list of items as an argument
 t1.trackEcommerceTransaction("6a8078be", 300, "my_affiliate", 30, 10, "Boston", "Massachusetts", "USA", "USD", items, context);
 ```
-
-TODO: this section ^^ doesn't make much sense to me. Can I see examples of how I construct the TransactionItems, and then how I fire the event?
 
 [Back to top](#top)
 
@@ -611,7 +661,7 @@ Use `trackStructuredEvent()` to track a custom event happening in your app which
 | `label`      | A string to provide additional dimensions to the event data      | Yes           | String            |
 | `property`   | A string describing the object or the action performed on it     | Yes           | String            |
 | `value`      | A value to provide numerical data about the event                | Yes           | Int               |
-| `context`    | Custom context for the event                                     | No            | List<SchemaPayload>|
+| `context`    | Custom context for the event                                     | No            | List<SelfDescribingJson>|
 | `timestamp`  | Optional timestamp for the event                                 | No            | Long              |
 
 Examples:
@@ -637,19 +687,39 @@ Use `trackUnstructuredEvent()` to track a custom event which consists of a name 
 
 The arguments are as follows:
 
-| **Argument**   | **Description**                   |  **Required?** |    **Validation**   |
-|---------------:|:----------------------------------|:---------------|:--------------------|
-| `eventData`    | The properties of the event       | Yes            | SchemaPayload       |
-| `context`      | Custom context for the event      | No             | List<SchemaPayload>  |
-| `timestamp`    | Optional timestamp for the event  | No             | Long                |
+| **Argument**   | **Description**                   |  **Required?** |    **Validation**        |
+|---------------:|:----------------------------------|:---------------|:-------------------------|
+| `eventData`    | The properties of the event       | Yes            | SelfDescribingJson       |
+| `context`      | Custom context for the event      | No             | List<SelfDescribingJson> |
+| `timestamp`    | Optional timestamp for the event  | No             | Long                     |
 
-Example:
+Example event json to track:
 
-```java
-t1.trackUnstructuredEvent(eventData, contextList);
+```json
+{
+  "schema": "iglu:com.snowplowanalytics.snowplow/schema_level/jsonschema/1-0-0",
+  "data": {
+    "Schema Level": "1"
+  }
+}
 ```
 
-TODO: Can we get an example of an unstructured event first in JSON, and then being constructed as a `SchemaPayload`?
+How to set it up?
+
+```java
+// Create a Map of your event data
+Map<String, String> eventData = new HashMap<>();
+eventData.put("Schema Level", "1");
+
+// Create your event data
+SelfDescribingJson eventJson = new SelfDescribingJson
+  .Builder("iglu:com.snowplowanalytics.snowplow/schema_level/jsonschema/1-0-0")
+  .data(eventData)
+  .build();
+
+// Track your event with your custom event data
+t1.trackUnstructuredEvent(eventData, contextList);
+```
 
 For more on JSON schema, see the [blog post] [self-describing-jsons].
 
@@ -675,18 +745,21 @@ The `Context` is used for caching events in a [SQLite database](http://developer
 
 Don't confuse the Android context with Snowplow's own custom contexts - they are completely separate things.
 
-TODO: is the below table arguments you can send to an Emitter? Or do you have to use the Builder pattern?
+The below are required arguments for the 'EmitterBuilder({{ ... }})' segment of the constructor:
 
-| **Argument Name** | **Description**                                                             |    **Required?**  |  **Default**    |
-|------------------:|:----------------------------------------------------------------------------|:------------------|:----------------|
-| `URI`             | The collector endpoint URI events will be sent to                           | Yes               |                 |
-| `context`         | Used to use to open or create an SQLite database                            | Yes               |                 |
-| `method`          | The HTTP method events should be sent with                                  | No                | POST            |
-| `option`          | The amount of events to send in a POST (GET is always one)                  | No                | 10              |
-| `security`        | Whether to use HTTP or HTTPS to send request                                | No                | HTTP            |
-| `callback`        | Lets you pass a callback class to handle succes/failure in sending events.  | No                | null            |
+| **Argument Name** | **Description**                                                             |    **Required?**  |
+|------------------:|:----------------------------------------------------------------------------|:------------------|
+| `URI`             | The collector endpoint URI events will be sent to                           | Yes               |
+| `context`         | Used to use to open or create an SQLite database                            | Yes               |
 
-TODO: is this table ^^ up-to-date? I thought we had `.HEAVY` and similar...
+We also have several extra builder options such as:
+
+| **Function Name** | **Description**                                     |    **Options**                                      |
+|------------------:|:----------------------------------------------------|:----------------------------------------------------|
+| `method`          | The method via which it send requests               | HttpMethod.GET or .POST                             |
+| `option`          | The amount of events it can send in a POST request  | BufferOption.Single or .DefaultGroup or .HeavyGroup |
+| `security`        | Over what connection type it sends the request      | RequestSecurity.HTTP or .HTTPS                      |
+| `callback`        | An extra mechanism to output successes and failures | new RequestCallback{ ... }                          |
 
 [Back to top](#top)
 
@@ -788,39 +861,26 @@ Emitter emitter = new Emitter
 <a name="payload" />
 ## 6. Payload
 
-The Payload interface is used for implementing a [TrackerPayload](#tracker-payload) and [SchemaPayload](#schema-payload).
+The Payload interface is used for implementing a [TrackerPayload](#tracker-payload) and [SelfDescribingJson](#self-describing-json).
 
 [Back to top](#top)
 
-<a name="tracker-payload" />
-#### 6.1 Tracker Payload
+<a name="self-describing-json" />
+#### 6.1 SelfDescribingJson
 
-A TrackerPayload is used internally within the Android Tracker to create the tracking event payloads that are passed to an Emitter to be sent accordingly.
+A SelfDescribingJson is used as a wrapper around either a TrackerPayload, another SelfDescribingJson or a Map object. After creating the object you want to wrap, you can create a SelfDescribingJson using the following:
 
-TODO: can we delete this section? (See comments below)
-
-[Back to top](#top)
-
-<a name="schema-payload" />
-#### 6.2 SchemaPayload
-
-A SchemaPayload is used primarily as a wrapper around a TrackerPayload. After creating a TrackerPayload, you create a SchemaPayload and use `setData` with the Payload, followed by, `setSchema` to set the schema that the payload will be used against.
-
-This is mainly used under the hood, in the Tracker class but is useful to know if you want to create your own Tracker class.
-
-Here's a short example:
 ```java
-// This is our TrackerPayload that we created
-TrackerPayload trackerPayload = new TrackerPayload();
-trackerPayload.add("key", "value");
+// This is the Map we have created
+Map<String, String> eventData = new HashMap<>();
+data.put("Event", "Data")
 
-// We wrap that payload in a SchemaPayload before sending it.
-SchemaPayload schemaPayload = new SchemaPayload();
-schemaPayload.setData(trackerPayload);
-schemaPayload.setSchema("iglu:com.snowplowanalytics.snowplow/example/jsonschema/1-0-0");
+// We wrap that map in a SelfDescribingJson before sending it
+SelfDescribingJson json = new SelfDescribingJson
+    .Builder("iglu:com.snowplowanalytics.snowplow/example/jsonschema/1-0-0")
+    .data(eventData)
+    .build();
 ```
-
-^^ TODO: Josh this API seems too complicated... Why can't we just SchemaPayload.setData to a given Map? This would seem easier to explain...
 
 [Back to top](#top)
 
@@ -830,8 +890,6 @@ schemaPayload.setSchema("iglu:com.snowplowanalytics.snowplow/example/jsonschema/
 Logging in the Tracker is done using our own Logger class: '/utils/Logger.java'. All logging is actioned based on whether or not the 'DEBUG_MODE' constant is set to true in the 'constants/TrackerConstants.java' class.
 
 To turn off Tracker logging simply change this boolean to false.
-
-TODO^^ is this up-to-date? I seem to remember us moving to standard Android logging...
 
 [Back to top](#top)
 
