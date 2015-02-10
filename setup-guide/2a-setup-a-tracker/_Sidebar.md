@@ -14,6 +14,8 @@
   - [2.8: Setup the Arduino Tracker](Arduino-tracker-setup)  
   - [2.9: Setup the .NET Tracker](.NET-tracker-setup)  
   - [2.10: Setup the ActionScript 3.0 Tracker](ActionScript3-Tracker-Setup)
+  - [2.11: Setup the Android Tracker](Android-Tracker-Setup)
+  - [2.12: Setup the iOS Tracker](iOS-Tracker-Setup)
 - [Step 2b: Setup a Webhook](Setting-up-a-Webhook)  
 - [Step 3: Setup Enrich](setting-up-enrich)  
 - [Step 4: Setup alternative data stores](setting-up-alternative-data-stores)  
