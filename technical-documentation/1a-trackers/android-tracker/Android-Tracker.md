@@ -4,6 +4,8 @@
 
 This page refers to version 0.3.0 of the Snowplow Android Tracker. [UNRELEASED]
 
+**Please note** that this version of the Android Tracker is dependent upon the [Snowplow 0.9.14 release][snowplow-0.9.14], you will need to be running this version or higher of Snowplow for events sent by the tracker to be successfully processed. Snowplow 0.9.14+ contains updates to the Hadoop Enrich and Scala Hadoop Shred jobs to allow newer self-describing JSON versions, as sent by Android Tracker 0.3.0. For more information, please refer to tickets [#1220][issue-1220] and [#1231][issue-1231].
+
 * [Java v0.6.* and Android v0.2.*][java-0.6]
 * [Java v0.5.* and Android v0.1.*][java-0.5]
 
@@ -476,9 +478,9 @@ To construct this as a SelfDescribingJson:
 ```java
 // Create a Map of the data you want to include...
 Map<String, String> dataMap = new HashMap<>();
-data.put("movie_name", "solaris");
-data.put("poster_country", "JP");
-data.put("poster_year", "1978");
+dataMap.put("movie_name", "solaris");
+dataMap.put("poster_country", "JP");
+dataMap.put("poster_year", "1978");
 
 // Now create your SelfDescribingJson object...
 SelfDescribingJson json = new SelfDescribingJson("iglu:com.acme_company/movie_poster/jsonschema/2.1.1", dataMap);
@@ -615,7 +617,7 @@ These are the fields that can appear as elements in each `TransactionItem` eleme
 
 | **Field**  | **Description**                     | **Required?** | **Validation**           |
 |-----------:|:------------------------------------|:--------------|:-------------------------|
-| `order_id` | Order ID                            | Yes           | String                   |
+| `item_id`  | Item ID                             | Yes           | String                   |
 | `sku`      | Item SKU                            | No            | String                   |
 | `price`    | Item price                          | No            | double                   |
 | `quantity` | Item quantity                       | No            | int                      |
@@ -629,8 +631,8 @@ Example of tracking a transaction containing two items:
 
 ```java
 // Create some Transaction Items
-TransactionItem item1 = new TransactionItem("order_id_1", "item_sku", 1.00, 1, "item_name", "item_category", "currency");
-TransactionItem item2 = new TransactionItem("order_id_2", "item_sku", 1.00, 1, "item_name", "item_category", "currency");
+TransactionItem item1 = new TransactionItem("item_id_1", "item_sku", 1.00, 1, "item_name", "item_category", "currency");
+TransactionItem item2 = new TransactionItem("item_id_2", "item_sku", 1.00, 1, "item_name", "item_category", "currency");
 
 // Add these items to a List
 List<TransactionItem> items = new ArrayList<>();
@@ -662,7 +664,7 @@ Examples:
 
 ```java
 t1.trackStructuredEvent("shop", "add-to-basket", "Add To Basket", "pcs", 2);
-t1.trackStructuredEvent("shop", "add-to-basket", "Add To Basket", "pcs", 2, 123456.7);
+t1.trackStructuredEvent("shop", "add-to-basket", "Add To Basket", "pcs", 2, 1423653510);
 ```
 
 [Back to top](#top)
@@ -703,7 +705,7 @@ How to set it up?
 ```java
 // Create a Map of your event data
 Map<String, String> eventMap = new HashMap<>();
-eventData.put("Schema Level", "1");
+eventMap.put("Schema Level", "1");
 
 // Create your event data
 SelfDescribingJson eventData = new SelfDescribingJson("iglu:com.snowplowanalytics.snowplow/schema_level/jsonschema/1-0-0", eventMap);
@@ -747,7 +749,7 @@ We also have several extra builder options such as:
 
 | **Function Name** | **Description**                                     |    **Options**                                      |
 |------------------:|:----------------------------------------------------|:----------------------------------------------------|
-| `method`          | The method via which it send requests               | HttpMethod.GET or .POST                             |
+| `method`          | The method via which it sends requests              | HttpMethod.GET or .POST                             |
 | `option`          | The amount of events it can send in a POST request  | BufferOption.Single or .DefaultGroup or .HeavyGroup |
 | `security`        | Over what connection type it sends the request      | RequestSecurity.HTTP or .HTTPS                      |
 | `callback`        | An extra mechanism to output successes and failures | new RequestCallback{ ... }                          |
@@ -864,7 +866,7 @@ A SelfDescribingJson is used as a wrapper around either a TrackerPayload, anothe
 ```java
 // This is the Map we have created
 Map<String, String> eventData = new HashMap<>();
-data.put("Event", "Data")
+eventData.put("Event", "Data")
 
 // We wrap that map in a SelfDescribingJson before sending it
 SelfDescribingJson json = new SelfDescribingJson("iglu:com.snowplowanalytics.snowplow/example/jsonschema/1-0-0", eventData);
@@ -886,3 +888,6 @@ To turn off Tracker logging simply change this boolean to false.
 [java-0.6]: https://github.com/snowplow/snowplow/wiki/Android-and-Java-Tracker
 [java-0.5]: https://github.com/snowplow/snowplow/wiki/Android-v0.1-and-Java-Tracker-v0.5
 [base64]: https://en.wikipedia.org/wiki/Base64
+[snowplow-0.9.14]: https://github.com/snowplow/snowplow/releases/tag/0.9.14
+[issue-1220]: https://github.com/snowplow/snowplow/issues/1220
+[issue-1231]: https://github.com/snowplow/snowplow/issues/1231
