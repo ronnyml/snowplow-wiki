@@ -2,13 +2,13 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > Python Tracker
 
-*This page refers to version 0.4.0 of the Snowplow Python Tracker. Documentation for more recent versions is available:*
+*This page refers to version 0.5.0 of the Snowplow Python Tracker. Documentation for other versions is available:*
 
 *[Version 0.2][python-0.2]*
 
 *[Version 0.3][python-0.3]*
 
-*[Version 0.5][python-0.5]*
+*[Version 0.4][python-0.4]*
 
 *[Version 0.6][python-latest]*
 
@@ -18,7 +18,7 @@
 - 2. [Initialization](#init)  
   - 2.1 [Importing the module](#importing)
   - 2.2 [Creating a tracker](#create-tracker)
-    - 2.2.1 [`emitter`](#emitter)  
+    - 2.2.1 [`emitters`](#emitter)  
     - 2.2.2 [`subject`](#subject)
     - 2.2.3 [`namespace`](#namespace)
     - 2.2.4 [`app_id`](#app-id)
@@ -42,13 +42,14 @@
   - 4.5 [`track_ecommerce_transaction_item()`](#ecommerce-transaction-item)
   - 4.6 [`track_struct_event()`](#struct-event)
   - 4.7 [`track_unstruct_event()`](#unstruct-event)
-- 5. [Emitters](#emitters)
+- 5. [Emitters](#emitter)
   - 5.1 [The basic Emitter class](#base-emitter)
   - 5.2 [The AsyncEmitter class](#async-emitter)
   - 5.3 [The CeleryEmitter class](#celery-emitter)
-  - 5.4 [The RedisEmitter class](#redis-emitter)()
+  - 5.4 [The RedisEmitter class](#redis-emitter)
   - 5.5 [Manual flushing](#manual-flushing)
-  - 5.6 [Custom emitters](#custom-emitters)
+  - 5.6 [Multiple emitters](#multiple-emitters)
+  - 5.7 [Custom emitters](#custom-emitters)
 - 6 [Contracts](#contracts)
 - 7 [Logging](#logging)
 - 8 [The RedisWorker class](#redis-worker)
@@ -65,7 +66,7 @@ Note that this tracker has access to a more restricted set of Snowplow events th
 
 There are three basic types of object you will create when using the Snowplow Python Tracker: subjects, emitters, and trackers.
 
-A subject represents a user whose events are tracked. A tracker constructs events and sends them to an emitter. The emitter then sends the event to the endpoint you configure. This will usually be a Snowplow collector, but could also be a Redis database or Celery task queue.
+A subject represents a user whose events are tracked. A tracker constructs events and sends them to one or more emitters. Each emitter then sends the event to the endpoint you configure. This will usually be a Snowplow collector, but could also be a Redis database or Celery task queue.
 
 <a name="init" />
 ## 2 Initialization
@@ -92,14 +93,14 @@ The simplest tracker initialization only requires you to provide the URI of the 
 
 ```python
 e = Emitter("d3rkrsqld9gmqf.cloudfront.net")
-t = Tracker("d3rkrsqld9gmqf.cloudfront.net")
+t = Tracker(e)
 ```
 
 There are other optional keyword arguments:
 
 | **Argument Name** | **Description**                      | **Required?** | **Default**          |
 |-------------:|:-------------------------------------|:--------------|:------------------------|
-| `emitter`      | The emitter to which events are sent       | Yes           | `None`        |
+| `emitters`      | The emitter to which events are sent       | Yes           | `None`        |
 | `subject`   | The user being tracked               |         No            | `subject.Subject()` |
 | `namespace`  | The name of the tracker instance     |  No           |  `None` |
 | `app_id` | The application ID          | No           | `None`         |
@@ -114,15 +115,14 @@ tracker = Tracker( Emitter("d3rkrsqld9gmqf.cloudfront.net") , namespace="cf", ap
 [Back to top](#top)
 
 <a name="emitter" />
-#### 2.2.1 `emitter`
+#### 2.2.1 `emitters`
 
-The emitter to which the tracker will send events. See [Emitters](#emitters) for more on emitter configuration.
+This can be a single emitter or an array containing at least one emitter. The tracker will send events to these emitters, which will in turn send them to a collector. See [Emitters](#emitters) for more on emitter configuration.
 
 <a name="subject" />
 #### 2.2.2 `subject`
 
 The user which the Tracker will track. This should be an instance of the [Subject](#subject) class. You don't need to set this during Tracker construction; you can use the `Tracker.set_subject` method afterwards. In fact, you don't need to create a subject at all. If you don't, though, your events won't contain user-specific data such as timezone and language.
-
 
 <a name="namespace" />
 #### 2.2.3 `namespace`
@@ -305,7 +305,7 @@ from snowplow_tracker import Subject, Emitter, Tracker
 e = Emitter("d3rkrsqld9gmqf.cloudfront.net")
 
 # Create a Tracker instance
-t = Tracker(emitter=e, namespace="cf", app_id="CF63A")
+t = Tracker(emitters=e, namespace="cf", app_id="CF63A")
 
 # Create a Subject corresponding to a pc user
 s1 = Subject()
@@ -400,6 +400,8 @@ t.track_page_view("http://www.films.com", "Homepage", context=[{
 
 Note that even though there is only one custom context attached to the event, it still needs to be placed in an array.
 
+Note also that you should not pass in an empty array of contexts as this will fail validation. Instead of an empty array you can pass in `None`.
+
 <a name="tstamp-arg" />
 ### 4.1.2 Optional timestamp argument
 
@@ -424,18 +426,7 @@ Timestamp is counted in milliseconds since the Unix epoch - the same format as g
 <a name="return-values" />
 ### 4.1.3 Tracker method return values
 
-If you are using the synchronous Emitter and call a tracker method which causes the emitter to send a request, that tracker method will return the status code for the request:
-
-```python
-e = Emitter("d3rkrsqld9gmqf.cloudfront.net")
-t = Tracker(e)
-
-print(t.track_page_view("http://www.example.com"))   # should print 200
-```
-
-This is useful for initial testing, to verify that requests are being sent successfully.
-
-Otherwise, the tracker method will return the tracker instance, allowing tracker methods to be chained:
+All tracker methods will return the tracker instance, allowing tracker methods to be chained:
 
 ```python
 e = AsyncEmitter("d3rkrsqld9gmqf.cloudfront.net")
@@ -443,8 +434,6 @@ t = Tracker(e)
 
 t.track_page_view("http://www.example.com").track_screen_view("title screen")
 ```
-
-The `set_subject` method will always return the Tracker instance.
 
 [Back to top](#top)
 
@@ -455,10 +444,12 @@ Use `track_screen_view()` to track a user viewing a screen (or equivalent) withi
 
 | **Argument** | **Description**                     | **Required?** | **Validation**          |
 |-------------:|:------------------------------------|:--------------|:------------------------|
-| `name`       | Human-readable name for this screen | Yes           | Non-empty string        |
-| `id_`         | Unique identifier for this screen   | No            | String                  |
+| `name`       | Human-readable name for this screen | No           | Non-empty string         |
+| `id_`         | Unique identifier for this screen  | No            | String                  |
 | `context`    | Custom context for the event        | No            | List                    |
 | `tstamp`     | When the screen was viewed          | No            | Positive integer        |
+
+Although name and id_ are not individually required, at least one must be provided or the event will fail validation.
 
 Example:
 
@@ -625,7 +616,7 @@ The `event_json` must be a Python dictionary with two fields: `schema` and `data
 
 For more on JSON schema, see the [blog post] [self-describing-jsons].
 
-<a name="emitters" />
+<a name="emitter" />
 ## 5. Emitters
 
 Tracker instances must be initialized with an emitter. This section will go into more depth about the Emitter class and its subclasses.
@@ -713,11 +704,11 @@ The `AsyncEmitter` class works just like the Emitter class. It has one advantage
 <a name="celery-emitter" />
 ## 5.3 The CeleryEmitter class
 
-The `CeleryEmitter` class works just like the base `Emitter` class, but it registers sending requests as a task for a [Celery][celery] worker. If there is a module named snowplow_celery_config.py on your PYTHONPATH, it will be used as the Celery configuration file; otherwise, a default configuration will be used. You can un the worker using this command:
+The `CeleryEmitter` class works just like the base `Emitter` class, but it registers sending requests as a task for a [Celery][celery] worker. If there is a module named snowplow_celery_config.py on your PYTHONPATH, it will be used as the Celery configuration file; otherwise, a default configuration will be used. You can run the worker using this command:
 
-{% highlight bash %}
+```bash
 celery -A snowplow_tracker.emitters worker --loglevel=debug
-{% endhighlight %
+```
 
 Note that `on_success` and `on_failure` callbacks cannot be supplied to this emitter.
 
@@ -761,8 +752,29 @@ You can flush the emitter manually using the `flush` method of the `Tracker` ins
 t.flush()
 ```
 
-<a name="custom-emitter" />
-### 5.6 Custom emitters
+<a name="multiple-emitters" />
+### 5.6 Multiple emitters
+
+You can configure a tracker instance to send events to multiple emitters by passing the `Tracker` constructor function an array of emitters instead of a single emitter, or by using the `addEmitter` method:
+
+```python
+from snowplow_tracker import Subject, Tracker, AsyncEmitter, RedisEmitter
+import redis
+
+e1 = AsyncEmitter("collector1.cloudfront.net", method="get")
+e1 = AsyncEmitter("collector2.cloudfront.net", method="post")
+
+t = Tracker([e1, e2])
+
+rdb = redis.StrictRedis(db=2)
+
+e3 = RedisEmitter(rdb, "my_snowplow_key")
+
+t.addEmitter(e3)
+```
+
+<a name="custom-emitters" />
+### 5.7 Custom emitters
 
 You can create your own custom emitter class, either from scratch or by subclassing one of the existing classes (with the exception of `CeleryEmitter`, since it uses the `pickle` module which doesn't work correctly with a class subclassed from a class located in a different module). The only requirement for compatibility is that is must have an `input` method which accepts a Python dictionary of name-value pairs.
 
@@ -854,11 +866,12 @@ This will set up a worker which will run indefinitely, taking events from the Re
 
 [python-0.2]: https://github.com/snowplow/snowplow/wiki/Python-Tracker-v0.2
 [python-0.3]: https://github.com/snowplow/snowplow/wiki/Python-Tracker-v0.3
-[python-0.5]: https://github.com/snowplow/snowplow/wiki/Python-Tracker-v0.5
+[python-0.4]: https://github.com/snowplow/snowplow/wiki/Python-Tracker-v0.4
 [python-latest]: https://github.com/snowplow/snowplow/wiki/Python-Tracker
 [pycontracts]: http://andreacensi.github.io/contracts/
 
 [jsonschema]: http://snowplowanalytics.com/blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
+[base64]: https://en.wikipedia.org/wiki/Base64
 [celery]: http://www.celeryproject.org/
 [redis]: http://redis.io/
