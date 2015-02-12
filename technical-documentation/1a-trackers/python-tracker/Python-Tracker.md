@@ -702,11 +702,11 @@ The `AsyncEmitter` class works just like the Emitter class. It has one advantage
 <a name="celery-emitter" />
 ## 5.3 The CeleryEmitter class
 
-The `CeleryEmitter` class works just like the base `Emitter` class, but it registers sending requests as a task for a [Celery][celery] worker. If there is a module named snowplow_celery_config.py on your PYTHONPATH, it will be used as the Celery configuration file; otherwise, a default configuration will be used. You can un the worker using this command:
+The `CeleryEmitter` class works just like the base `Emitter` class, but it registers sending requests as a task for a [Celery][celery] worker. If there is a module named snowplow_celery_config.py on your PYTHONPATH, it will be used as the Celery configuration file; otherwise, a default configuration will be used. You can run the worker using this command:
 
-{% highlight bash %}
+```bash
 celery -A snowplow_tracker.emitters worker --loglevel=debug
-{% endhighlight %
+```
 
 Note that `on_success` and `on_failure` callbacks cannot be supplied to this emitter.
 
