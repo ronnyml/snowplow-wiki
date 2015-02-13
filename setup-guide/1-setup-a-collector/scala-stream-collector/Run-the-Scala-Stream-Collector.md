@@ -8,6 +8,12 @@ The Scala Stream Collector is an executable jarfile which should be runnable fro
 
 This will start the collector as a HTTP service and write serialized Thrift records to either `stdout` or Kinesis, depending on your configuration.
 
+## Healthcheck
+
+Pinging the collector on the /health path should return a 200 OK response:
+
+    $ curl http://localhost:8080/health
+
 ## All done?
 
 You have setup the Scala Stream collector! You are now ready to [setup a tracker](Setting-up-a-Tracker).
