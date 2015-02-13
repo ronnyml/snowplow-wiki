@@ -2,10 +2,9 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > [**JavaScript Tracker**](Javascript-Tracker) > General parameters
 
-*This page refers to version 2.3.0 of the Snowplow JavaScript Tracker.*
+*This page refers to version 2.2.1 of the Snowplow JavaScript Tracker.*
 *Click [here] [general-parameters-v1] for the corresponding documentation for version 1.*
-*Click [here] [general-parameters-v2.0] for the corresponding documentation for version 2.1.1.*
-*Click [here] [general-parameters-v2.2] for the corresponding documentation for version 2.2.0.*
+*Click [here] [general-parameters-v2.0] for the corresponding documentation for version 2.0.0.*
 
 <a name="general" />
 ## 2. General parameters
@@ -23,11 +22,6 @@
     - 2.2.10 [Setting the event request protocol](#force-secure-tracker)
     - 2.2.11 [Altering cookies](#write-cookies)
     - 2.2.12 [Configuring localStorage](#configuring-local-storage)
-    - 2.2.13 [Adding predefined contexts](#predefined-contexts)
-      - 2.2.13.1 [performanceTiming context](#performanceTiming)
-      - 2.2.13.2 [gaCookies context](#gaCookies)
-      - 2.2.13.3 [geolocation contexts](#geolocation)
-    - 2.2.14 [POST support](#post)
   - 2.3 [Other parameters](#other-methods)
     - 2.3.1 [Setting the user id](#user-id)
       - 2.3.1.1 [`setUserId`](#set-user-id)
@@ -117,13 +111,7 @@ snowplow_name_here("newTracker", "cf", "d3rkrsqld9gmqf.cloudfront.net", {
   userFingerprintSeed: 6385926734,
   pageUnloadTimer: 0,
   forceSecureTracker: true,
-  writeCookies: true,
-  post: true,
-  contexts: {
-    performanceTiming: true,
-    gaCookies: true,
-    geolocation: false
-  }
+  writeCookies: true
 });
 ```
 
@@ -198,45 +186,6 @@ The `writeCookies` argument is a boolean value which determines whether the trac
 #### 2.2.12 Configuring localStorage
 
 By default the Tracker will [store events in `localStorage`](#local-storage) before sending them so that they can be recovered if the user leaves the page before they are sent. You can disable this feature by setting a `useLocalStorage: false` field in the argmap.
-
-<a name="predefined-contexts" />
-#### 2.2.13 Adding predefined contexts
-
-The JavaScript Tracker comes with three predefined contexts which you can automatically add to every event you send. To enable them, simply add them to the `contexts` field of the argmap as above.
-
-<a name="performanceTiming" />
-##### 2.2.13.1 performanceTiming context
-
-If this context is enabled, the JavaScript Tracker will use the create a context JSON from the `window.performance.timing` object, along with the Chrome `firstPaintTime` field (renamed to `"chromeFirstPaint"`) if it exists. This data can be used to calculate page performance metrics.
-
-Note that if you fire a page view event as soon as the page loads, the `domComplete`, `loadEventStart`, `loadEventEnd`, and `chromeFirstPaint` metrics in the Navigation Timing API may be set to zero. This is because those properties are only known once all scripts on the page have finished executing. Additionally the `redirectStart`, `redirectEnd`, and `secureConnectionStart` are set to 0 if there is no redirect or a secure connection is not requested.
-
-For more information on the Navigation Timing API, see [the specification][performance-spec].
-
-<a name="gaCookies" />
-##### 2.2.13.2 gaCookies context
-
-If this context is enabled, the JavaScript Tracker will look for Google Analytics cookies (specifically the "__utma", "__utmb", "__utmc", "__utmv", "__utmz", and "_ga" cookies) and combine their values into a JSON which gets sent with every event.
-
-<a name="geolocation" />
-##### 2.2.13.3 geolocation context
-
-If this context is enabled, the JavaScript Tracker will attempt to create a context from the visitor's geolocation information. If the visitor has not already given or denied the website permission to use their geolocation information, a prompt will appear. If they give permission, then all events from that moment on will include their geolocation information.
-
-For more information on the geolocation AIP, see [the specification][geolocation-spec].
-
-<a name="post" />
-#### 2.2.14 POST support
-
-If you set the `post` field of the argmap to `true`, the tracker will send events using POST requests rather than GET requests. In browsers such as Internet Explorer 9 which do not support cross-origin XMLHttpRequests, the tracker will fall back to using GET.
-
-The main advantage of POST requests is that they circumvent Internet Explorer's maximum URL length of 2083 characters by storing the event data in the body of the request rather than the querystring.
-
-Note that at present, only the [Clojure Collector][clojure-collector] accepts events sent by POST.
-
-You can also batch events sent by POST by setting a numeric `bufferSize` field in the argmap. This is the number of events to buffer before sending them all in a single POST. If the user navigates away from the page while the buffer is only partially full, the tracker will attempt to send all stored events immediately, but this often doesn't happen before the page unloads. Normally the tracker will store unsent events in `localStorage`, meaning that unsent events will be resent when the user next visits a page on the same domain.
-
-Note that if `localStorage` is inaccessible or you are not using it to store data, the buffer size will always be 1 to prevent losing events when the user leaves the page.
 
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
@@ -467,10 +416,6 @@ The Snowplow JavaScript Tracker uses `window.localStorage` to store events in ca
 [contents]: Javascript-Tracker
 [general-parameters-v1]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker-v1
 [general-parameters-v2.0]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker-v2.0
-[general-parameters-v2.2]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker-v2.2
 [snowplow-tracker-protocol]: https://github.com/snowplow/snowplow/wiki/SnowPlow-Tracker-Protocol
 [contexts]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker-v1#custom-contexts
 [clojure-collector]: https://github.com/snowplow/snowplow/wiki/Clojure-collector
-[performancetiming]: https://github.com/snowplow/iglu-central/blob/master/schemas/org.w3/PerformanceTiming/jsonschema/1-0-0
-[performance-spec]: http://www.w3.org/TR/2012/REC-navigation-timing-20121217/#sec-window.performance-attribute
-[geolocation-spec]: http://dev.w3.org/geo/api/spec-source.html

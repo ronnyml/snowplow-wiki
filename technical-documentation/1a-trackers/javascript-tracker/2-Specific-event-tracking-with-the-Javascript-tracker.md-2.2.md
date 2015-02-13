@@ -2,7 +2,7 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > [**JavaScript Tracker**](Javascript-Tracker) > Specific event tracking
 
-*This page refers to version 2.3.0 of the Snowplow JavaScript Tracker.*
+*This page refers to version 2.2.1 of the Snowplow JavaScript Tracker.*
 *Click [here] [specific-events-v2.0] for the corresponding documentation for version 2.0.0.*
 Click [here] [specific-events-v1] for the corresponding documentation for version 1.*
 
@@ -81,6 +81,16 @@ If you wish, you can override the title with a custom value:
 ```javascript
 snowplow_name_here('trackPageView', 'my custom page title');
 ```
+
+The optional third parameter is a boolean (which defaults to false) indicating whether to attach a PerformanceTiming context to the page view event. This context contains all data in the `window.performance.timing` object, along with the Chrome `firstPaintTime` field (renamed to `"chromeFirstPaint"`) if it exists and can be used to calculate page performance metrics. Add it like this:
+
+```javascript
+snowplow_name_here('trackPageView', null, true);
+```
+
+Note that if you fire a page view event as soon as the page loads, the `domComplete`, `loadEventStart`, `loadEventEnd`, and `chromeFirstPaint` metrics in the Navigation Timing API may be set to zero. This is because those properties are only known once all scripts on the page have finished executing. Additionally the `redirectStart`, `redirectEnd`, and `secureConnectionStart` are set to 0 if there is no redirect or a secure connection is not requested.
+
+For more information on the Navigation Timing API, see [the specification][performance-spec].
 
 `trackPageView` can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
 
@@ -792,57 +802,6 @@ snowplow('enableFormTracking');
 
 This will only work for form elements which exist when it is called. If you are creating a form programatically, call `enableFormTracking` again after adding it to the document to track it. (You can call `enableFormTracking` multiple times without risk of duplicated events.)
 
-<a name="custom-form-tracking" />
-#### 3.10.2 Custom form tracking
-
-It may be that you do not want to track every field in a form, or every form on a page. You can customize form tracking by passing a configuration argument to the `enableFormTracking` method. This argument should be an object with two elements named "forms" and "fields". The "forms" element determines which forms will be tracked; the "fields" element determines which fields inside the tracked forms will be tracked. As with link click tracking, there are three ways to configure each field: a blacklist, a whitelist, or a filter function. You do not have to use the same method for both fields.
-
-__Blacklists__
-
-This is an array of strings used to prevent certain elements from being tracked. Any form with a CSS class in the array will be ignored. Any field whose name property is in the array will be ignored. All other elements will be tracked.
-
-__Whitelists__
-
-This is an array of strings used to turn on certail. Any form with a CSS class in the array will be tracked. Any field in a tracked form whose name property is in the array will be tracked. All other elements will be ignored.
-
-__Filter functions__
-
-This is a function used to determine which elements are tracked. The element is passed as the argument to the function and is tracked if and only if the value returned by the function is truthy.
-
-__Examples__
-
-To track every form element and every field except those fields named "password":
-
-```javascript
-var config = {
-  forms: {
-    blacklist: []
-  },
-  fields: {
-    blacklist: ['password']
-  }
-};
-
-snowplow('enableFormTracking', config);
-```
-
-To track only the forms with CSS class "tracked", and only those fields whose ID is not "private":
-
-```javascript
-var config = {
-  forms: {
-    whitelist: ["tracked"]
-  },
-  fields: {
-    filter: function (elt) {
-      return elt.id !== "private";
-    }
-  }
-};
-
-snowplow('enableFormTracking', config);
-```
-
 <a name="cart" />
 ### 3.11 `trackAddToCart` and `trackRemoveFromCart`
 
@@ -982,5 +941,3 @@ For more information on custom contexts, see [this][contexts] blog post.
 [add_to_cart]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/add_to_cart/jsonschema/1-0-0
 [remove_from_cart]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/remove_from_cart/jsonschema/1-0-0
 [site_search]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/site_search/jsonschema/1-0-0
-[performancetiming]: https://github.com/snowplow/iglu-central/blob/master/schemas/org.w3/PerformanceTiming/jsonschema/1-0-0
-[performance-spec]: http://www.w3.org/TR/2012/REC-navigation-timing-20121217/#sec-window.performance-attribute
