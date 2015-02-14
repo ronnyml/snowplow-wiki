@@ -71,7 +71,7 @@ To install the Snowplow Python Tracker locally, assuming you already have Pip in
 To add the Snowplow Tracker as a dependency to your own Python app, edit your `requirements.txt` and add:
 
 ```python
-snowplow-tracker ~> 0.1.0
+snowplow-tracker ~> 0.6.0.post1
 ```
 
 <a name="easy_install" />
