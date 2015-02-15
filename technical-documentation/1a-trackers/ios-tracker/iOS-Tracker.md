@@ -4,8 +4,8 @@
 
 This page refers to version 0.3.0 of the Snowplow Objective-C Tracker, which is the latest version. Documentation for earlier versions is available:*
 
-*[Version 0.2][ios-0.2]*
-*[Version 0.1][ios-0.1]*
+* *[Version 0.2][ios-0.2]*
+* *[Version 0.1][ios-0.1]*
 
 ## Contents
 
