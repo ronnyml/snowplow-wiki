@@ -127,6 +127,8 @@ Tracker t2 = new Tracker
         .build();
 ```
 
+TODO: I think it doesn't make sense to introduce all these Emitter ^^ options here. Better to leave this detail for the dedicated section on Emitters later.
+
 As you can see there is a fair amount of modularity to the Trackers creation.
 
 | **Argument Name** | **Description**                             |    **Required?**  | **Default**   |
