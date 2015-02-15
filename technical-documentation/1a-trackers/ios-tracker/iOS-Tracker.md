@@ -297,38 +297,50 @@ Arguments:
 | `city`        | Delivery address city                | No            | NSString*       |
 | `state`       | Delivery address state               | No            | NSString*       |
 | `country`     | Delivery address country             | No            | NSString*       | 
-| `currency     | Transaction currency                 | No            | NSString*       |
+| `currency`    | Transaction currency                 | No            | NSString*       |
 | `items`       | Items in the transaction             | Yes           | NSMutableArray* |
 | `context`     | Custom context for the event         | No            | NSMutableArray* |
 | `tstamp`      | When the transaction event occurred  | No            | double          |
 
-The `items` argument is an `NSArray` of `SnowplowPayload*` representing dictionaries of the items in the transaction created using `trackEcommerceTransactionItem:`. `trackEcommerceTransaction:` fires multiple events: one "transaction" event for the transaction as a whole, and one "transaction item" event for each element of the `items` array. Each transaction item event will have the same timestamp, orderId, and currency as the main transaction event. 
+`trackEcommerceTransaction:` fires multiple events: one "transaction" event for the transaction as a whole, and one "transaction item" event for each element of the `items` array. Each transaction item event will have the same timestamp, orderId, and currency as the main transaction event. 
 
-These are the fields that can appear in a transaction item dictionary:
+The `items` argument is an `NSMutableArray` containing an `NSDictionary` for each item in the transaction. There is a convenience constructor for each item called `trackEcommerceTransactionItem:`. Arguments:
 
 | **Field**       | **Description**                     | **Required?** | **Validation**  |
 |----------------:|:------------------------------------|:--------------|:----------------|
-| `"sku"`         | Item SKU                            | Yes           | NSString*       |
-| `"price"`       | Item price                          | Yes           | float           |
-| `"quantity"`    | Item quantity                       | Yes           | float           |
-| `"name"`        | Item name                           | No            | NSString*       |
-| `"category"`    | Item category                       | No            | NSString*       |
-| `"context"`     | Custom context for the event        | No            | NSMutableArray* |
+| `sku`           | Item SKU                            | Yes           | NSString*       |
+| `price`         | Item price                          | Yes           | float           |
+| `quantity`      | Item quantity                       | Yes           | float           |
+| `name`          | Item name                           | No            | NSString*       |
+| `category`      | Item category                       | No            | NSString*       |
+| `context`       | Custom context for the event        | No            | NSMutableArray* |
+| `currency`      | Transaction currency                | No            | NSString*       |
+| `context`       | Custom context for the event        | No            | NSMutableArray* |
+| `tstamp`        | When the transaction event occurred | No            | double          |
 
-Example of tracking a transaction containing two items:
+Example of tracking a transaction containing one item:
 
 ```objective-c
+NSString *transactionID = @"6a8078be";
 NSMutableArray *itemArray = [NSMutableArray array];
-[itemArray addObject:[t trackEcommerceTransaction:@"6a8078be" sku:@"pbz0026" name:"Hot Chocolate" category:@"Drink" price:50 quantity:1 currency:@"USD"]];
-[t trackEcommerceTransaction:@"6a8078be" 
-                 totalValue:350 
-                affiliation:@"no_affiliate"
-                   taxValue:10
-                   shipping:15
-                   city:@"Boston"
-                   state:@"Massachusetts"
-                   country:@"USA"
-                   items=itemArray];
+  
+[itemArray addObject:[t trackEcommerceTransactionItem:transactionID
+                                                  sku:@"pbz0026"
+                                                 name:@"Hot Chocolate"
+                                             category:@"Drink"
+                                                price:0.75F
+                                             quantity:1
+                                             currency:@"USD"]];
+[t trackEcommerceTransaction:transactionID 
+                  totalValue:350 
+                 affiliation:@"no_affiliate"
+                    taxValue:10
+                    shipping:15
+                        city:@"Boston"
+                       state:@"Massachusetts"
+                     country:@"USA"
+                    currency:@"USD"
+                       items:itemArray];
 ```
 
 [Back to top](#top)
