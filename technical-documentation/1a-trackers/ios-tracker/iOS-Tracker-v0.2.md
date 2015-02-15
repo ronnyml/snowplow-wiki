@@ -2,10 +2,9 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > iOS Tracker
 
-This page refers to version 0.3.0 of the Snowplow Objective-C Tracker, which is the latest version. Documentation for earlier versions is available:*
+This page refers to version 0.2.1 of the Snowplow iOS Tracker. Documentation for more recent versions is available:*
 
-*[Version 0.2][ios-0.2]*
-*[Version 0.1][ios-0.1]*
+*[Version 0.3.0][ios-latest]*
 
 ## Contents
 
@@ -13,7 +12,7 @@ This page refers to version 0.3.0 of the Snowplow Objective-C Tracker, which is 
 - 2. [Initialization](#init)
   - 2.1 [Importing the library](#importing)
   - 2.2 [Creating a tracker](#create-tracker)
-    - 2.2.1 [`SnowplowEmitter`](#emitter)  
+    - 2.2.1 [`SnowplowRequest`](#emitter)  
     - 2.2.2 [`namespace`](#namespace)
     - 2.2.3 [`appId`](#app-id)
     - 2.2.4 [`base64Encoded`](#base64)
@@ -30,8 +29,7 @@ This page refers to version 0.3.0 of the Snowplow Objective-C Tracker, which is 
   - 4.4 [`trackEcommerceTransaction:`](#ecommerce-transaction)
   - 4.5 [`trackStructuredEvent:`](#struct-event)
   - 4.6 [`trackUnstructuredEvent:`](#unstruct-event)
-  - 4.7 [`trackTimingWithCategory:`](#timing)
-- 5. [Sending events: `SnowplowEmitter`](#emitters)
+- 5. [Sending events: `SnowplowRequest`](#emitters)
   - 5.1 [Using a buffer](#buffer)
   - 5.2 [Choosing the HTTP method](#http-method)
   - 5.3 [Sending HTTP requests](#http-request)
@@ -56,17 +54,9 @@ Assuming you have completed the [[iOS Tracker Setup]] for your project, you are 
 ## 2.1 Importing the library
 
 Adding the library into your project is as simple as adding the headers into your class file:
-
 ```objective-c
 #import <SnowplowTracker.h>
-#import <SnowplowEmitter.h>
-```
-
-If you have manually copied the library into your project, don't forget to change your import syntax:
-
-```objective-c
-#import SnowplowTracker.h"
-#import SnowplowEmitter.h"
+#import <SnowplowRequest.h>
 ```
 
 That's it - you are now ready to initialize a tracker instance. 
@@ -78,7 +68,7 @@ That's it - you are now ready to initialize a tracker instance.
 
 To instantiate a tracker in your code simply instantiate the `SnowplowTracker` class with the constructor:
 ```objective-c
-- (id) initWithCollector:(SnowplowEmitter *)collector_
+- (id) initWithCollector:(SnowplowRequest *)collector_
                    appId:(NSString *)appId_
            base64Encoded:(Boolean)encoded
                namespace:(NSString *)namespace_
@@ -91,7 +81,7 @@ SnowplowTracker *t1 = [[SnowplowTracker alloc] initWithCollector:collector appId
 
 | **Argument Name** | **Description**                              |
 |------------------:|:---------------------------------------------|
-| `collector`       | The SnowplowEmitter object you create        |
+| `collector`       | The SnowplowRequest object you create        |
 | `namespace`       | The name of the tracker instance             |
 | `appId`           | The application ID                           |
 | `base64Encoded`   | Whether to enable [base 64 encoding][base64] |
@@ -101,7 +91,7 @@ SnowplowTracker *t1 = [[SnowplowTracker alloc] initWithCollector:collector appId
 <a name="emitter" />
 #### 2.2.1 `collector`
 
-This is a single `SnowplowEmitter` object that will be used to send all the tracking events created by the `SnowplowTracker` to a collector. See [Sending events](#emitters) for more on its configuration.
+This is a single `SnowplowRequest` object that will be used to send all the tracking events created by the `SnowplowTracker` to a collector. See [Sending events](#emitters) for more on its configuration.
 
 <a name="namespace" />
 #### 2.2.2 `namespace`
@@ -170,7 +160,7 @@ Tracking methods supported by the iOS Tracker at a glance:
 | [`trackEcommerceTransaction:`](#ecommerce-transaction) | Track an ecommerce transaction and its items           |
 | [`trackStructuredEvent:`](#struct-event)               | Track a Snowplow custom structured event               |
 | [`trackUnstructuredEvent:`](#unstruct-event)           | Track a Snowplow custom unstructured event             |
-| [`trackTiming:`](#timing)                              | Track a Snowplow user timing event                     |
+
 
 [Back to top](#top)
 <a name="common" />
@@ -424,42 +414,9 @@ For more on JSON schema, see the [blog post] [self-describing-jsons].
 
 [Back to top](#top)
 
-<a name="timing" />
-### 4.7 Track user timings with `trackTimingWithCategory:`
-
-Use `trackTiming:` to track a user timing in your app - for example, how long a game took to load, or how long an in-app purchase took to download. The fields are as follows:
-
-| **Argument** | **Description**                                                  | **Required?** | **Validation**   |
-|-------------:|:-----------------------------------------------------------------|:--------------|:-----------------|
-| `category`   | Categorizing timing variables into logical groups (e.g API calls, asset loading) | Yes | NSString*  |
-| `variable`   | Identify the timing being recorded                               | Yes           | NSString*        |
-| `timing`     | The number of milliseconds in elapsed time to report             | Yes           | NSUInteger       |
-| `label`      | Optional description of this timing                              | Yes           | NSString*        |
-| `context`    | Custom context for the event                                     | No            | NSMutableArray*  |
-| `timestamp`  | Optional timestamp for the event                                 | No            | double           |
-
-Example:
-
-```objective-c
-[t1 trackTimingWithCategory:@"Application"
-                   variable:@"Background"
-                     timing:324
-                      label:@"5231804123"];
-
-[t1 trackTimingWithCategory:@"Application"
-                   variable:@"Background"
-                     timing:324
-                      label:@"5231804123"
-                  timestamp:1234569];
-```
-
-[Back to top](#top)
-
 <a name="emitters" />
-## 5. Sending events: `SnowplowEmitter`
-
-Events created by the Tracker are sent to a collector using a `SnowplowEmitter` instance. You can create one using one of the init methods:
-
+## 5. Sending events: `SnowplowRequest`
+Events created by the Tracker are sent to a collector using a `SnowplowRequest` instance. You can create one using one of the init methods:
 ```objective-c
 - (id) initWithURLRequest:(NSURL *)url 
                httpMethod:(NSString *)method
@@ -472,26 +429,25 @@ For example:
 
 ```objective-c
 NSURL *url = [[NSURL alloc] initWithString:@"https://collector.acme.net"];
-SnowplowEmitter emitter = [[SnowplowEmitter alloc] initWithURLRequest:url
+SnowplowRequest emitter = [[SnowplowRequest alloc] initWithURLRequest:url
                                                            httpMethod:@"POST"
                                                          bufferOption:SnowplowBufferInstant];
-SnowplowEmitter emitter2 = [[SnowplowEmitter alloc] initWithURLRequest:url
+SnowplowRequest emitter2 = [[SnowplowRequest alloc] initWithURLRequest:url
                                                             httpMethod:@"GET"];
 ```
 
 <a name="buffer" />
 ### 5.1 Using a buffer
+A buffer is used to group events together in bulk before sending them. This is especially handy to reduce network usage. By default, the SnowplowRequest buffers up to 10 events before sending them.
 
-A buffer is used to group events together in bulk before sending them. This is especially handy to reduce network usage. By default, the SnowplowEmitter buffers up to 10 events before sending them.
-
-You can set this during the creation of a `SnowplowEmitter` object or using the setter `-(void)setBufferOption:`
+You can set this during the creation of a `SnowplowRequest` object or using the setter `-(void)setBufferOption:`
 
 ```objective-c
 NSURL *url = [[NSURL alloc] initWithString:@"https://collector.acme.net"];
-SnowplowEmitter emitter = [[SnowplowEmitter alloc] initWithURLRequest:url
+SnowplowRequest emitter = [[SnowplowRequest alloc] initWithURLRequest:url
                                                            httpMethod:@"POST"
                                                          bufferOption:SnowplowBufferInstant];
-SnowplowEmitter emitter2 = [[SnowplowEmitter alloc] initWithURLRequest:url
+SnowplowRequest emitter2 = [[SnowplowRequest alloc] initWithURLRequest:url
                                                            httpMethod:@"POST"
                                                          bufferOption:SnowplowBufferDefault];
 [emitter setBufferOption:SnowplowBufferInstant];
@@ -517,13 +473,13 @@ Here are all the posibile options that you can use:
 <a name="http-request" />
 ### 5.3 Sending HTTP requests
 
-You can set this during the creation of a `SnowplowEmitter` object:
+You can set this during the creation of a `SnowplowRequest` object:
 ```objective-c
 NSURL *url = [[NSURL alloc] initWithString:@"https://collector.acme.net"];
-SnowplowEmitter emitter = [[SnowplowEmitter alloc] initWithURLRequest:url
+SnowplowRequest emitter = [[SnowplowRequest alloc] initWithURLRequest:url
                                                            httpMethod:@"POST"
                                                          bufferOption:SnowplowBufferInstant];
-SnowplowEmitter emitter2 = [[SnowplowEmitter alloc] initWithURLRequest:url
+SnowplowRequest emitter2 = [[SnowplowRequest alloc] initWithURLRequest:url
                                                            httpMethod:@"GET"
                                                          bufferOption:SnowplowBufferDefault];
 ```
@@ -531,7 +487,7 @@ SnowplowEmitter emitter2 = [[SnowplowEmitter alloc] initWithURLRequest:url
 [Back to top](#top)
 
 [ios-0.1]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker-v0.1
-[ios-0.2]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker-v0.2
+[ios-latest]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker
 
 [base64]: https://en.wikipedia.org/wiki/Base64
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
