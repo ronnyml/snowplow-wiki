@@ -454,6 +454,7 @@ SnowplowRequest emitter2 = [[SnowplowRequest alloc] initWithURLRequest:url
 ```
 
 Here are all the posibile options that you can use:
+
 |         **Option**         | **Description**                                    |
 |---------------------------:|:---------------------------------------------------|
 | `SnowplowBufferInstant`    | Events are sent as soon as they are created        |

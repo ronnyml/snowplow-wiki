@@ -435,6 +435,7 @@ SnowplowRequest emitter2 = [[SnowplowRequest alloc] initWithURLRequest:url
 ```
 
 Here are all the posibile options that you can use:
+
 |         **Option**         | **Description**                                    |
 |---------------------------:|:---------------------------------------------------|
 | `SnowplowBufferInstant`    | Events are sent as soon as they are created        |
@@ -446,6 +447,7 @@ Here are all the posibile options that you can use:
 Snowplow supports receiving events via GET requests, but will soon have POST support. In a GET request, each event is sent in individual request. With POST requests, events are bundled together in one request.
 
 Here are all the posibile options that you can use:
+
 | **Option**  | **Description**                                                            |
 |------------:|:---------------------------------------------------------------------------|
 | `@"GET"`    | Events are sent individually as GET requests                               |
