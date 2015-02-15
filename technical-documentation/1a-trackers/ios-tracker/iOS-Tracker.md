@@ -212,11 +212,35 @@ If a visitor arrives on a page advertising a movie, the context dictionary might
 { 
   "schema": "iglu:com.acme_company/movie_poster/jsonschema/2.1.1",
   "data": {
-    "movie_name": "The Guns of Navarone", 
-    "poster_country": "US", 
-    "poster_year": "1961"
+    "movieName": "The Guns of Navarone",
+    "posterCountry": "US",
+    "posterYear": "1961"
   }
 }
+```
+
+The corresponding `NSDictionary` would look like this:
+
+```objective-c
+NSDictionary *poster = @{
+                         @"schema":@"iglu:com.acme_company/movie_poster/jsonschema/1-0-0",
+                         @"data": @{
+                                 @"movieName": @"The Guns of Navarone",
+                                 @"posterCountry": @"US",
+                                 @"posterYear": @"1961"
+                                 }
+                         };
+```
+
+Sending the movie poster context with an event looks like this:
+
+```objective-c
+[tracker trackStructuredEvent:@"Product"
+                       action:@"View"
+                        label:nil
+                     property:nil
+                        value:0
+                      context:[NSMutableArray arrayWithArray:@[poster]]];
 ```
 
 *Note that even if there is only one custom context attached to the event, it still needs to be placed in an array.*
