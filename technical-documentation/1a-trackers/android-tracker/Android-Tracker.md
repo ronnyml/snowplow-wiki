@@ -37,12 +37,13 @@ This page refers to version 0.3.0 of the Snowplow Android Tracker. [UNRELEASED]
   - 3.10 [`setDomainUserId`](#set-domain-user-id)
 - 4. [Tracking specific events](#events)
   - 4.1 [Common](#common)
-    - 4.1.1 [Custom contexts](#custom-contexts)
-    - 4.1.2 [Optional timestamp argument](#tstamp-context-args)
+    - 4.1.1 [Self-describing JSON](#self-describing-json)
+    - 4.1.2 [Custom contexts](#custom-contexts)
+    - 4.1.3 [Timestamp override](#timestamp)
   - 4.2 [`trackScreenView()`](#screen-view)
   - 4.3 [`trackPageView()`](#page-view)
   - 4.4 [`trackEcommerceTransaction()`](#ecommerce-transaction)
-    - 4.4.1 [`TransactionItem`](#ecommerce-transactionitem)
+    - 4.4.1 [`TransactionItem`](#ecommerce-transaction-item)
   - 4.5 [`trackStructuredEvent()`](#struct-event)
   - 4.6 [`trackUnstructuredEvent()`](#unstruct-event)
 - 5 [Sending event: `Emitter`](#emitters)
@@ -50,10 +51,7 @@ This page refers to version 0.3.0 of the Snowplow Android Tracker. [UNRELEASED]
   - 5.2 [Using a buffer](#buffer)
   - 5.3 [Choosing the HTTP method](#http-method)
   - 5.4 [Emitter callback](#http-callback)
-- 6 [Payload](#payload)
-  - 6.1 [Tracker Payload](#tracker-payload)
-  - 6.2 [Schema Payload](#self-describing-json)
-- 7 [Logging](#logging)
+- 6 [Logging](#logging)
 
 <a name="overview" />
 ## 1. Overview
@@ -105,10 +103,10 @@ This is the most basic Tracker creation possible. Note that `getContext()` is an
 // Create an Emitter with all options
 Emitter e2 = new Emitter
         .EmitterBuilder("com.collector.acme", getContext()) // Required
-        .method(HttpMethod.GET) // Optional - Defines how we send the request
-        .option(BufferOption.Single) // Optional - Defines how many events we bundle in a POST
-        .security(RequestSecurity.HTTPS) // Optional - Defines what protocol used to send events
-        .callback(new RequestCallback() { // Optional - Defines custom callback methods
+        .method(HttpMethod.GET) // Optional - defines how we send the request
+        .option(BufferOption.Single) // Optional - defines how many events we bundle in a POST
+        .security(RequestSecurity.HTTPS) // Optional - defines what protocol used to send events
+        .callback(new RequestCallback() { // Optional - defines custom callback methods
                     @Override
                     public void onSuccess(int successCount) {
                         // Your custom onSuccess callback
@@ -123,9 +121,9 @@ Emitter e2 = new Emitter
 // Create a Tracker with all options
 Tracker t2 = new Tracker
         .TrackerBuilder(e2, "myNamespace", "myAppId")
-        .base64(false) // Optional - Defines if we use base64 encoding
-        .platform(DevicePlatforms.Mobile) // Optional - Defines what platform the event will report to be on
-        .subject(new Subject()) // Optional - A subject which contains values appended to every event
+        .base64(false) // Optional - defines if we use base64 encoding
+        .platform(DevicePlatforms.Mobile) // Optional - defines what platform the event will report to be on
+        .subject(new Subject()) // Optional - a subject which contains values appended to every event
         .build();
 ```
 
@@ -261,6 +259,8 @@ You can set the user ID to any string:
 s1.setUserId( "{{USER ID}}" )
 ```
 
+TODO: replace above with actual sig. "{{}}" is a bit unusual
+
 Example:
 
 ```java
@@ -277,6 +277,8 @@ If your Java code has access to the device's screen resolution, then you can pas
 ```java
 t1.setScreenResolution( {{WIDTH}}, {{HEIGHT}} )
 ```
+
+TODO: replace above with actual sig. "{{}}" is a bit unusual
 
 Both numbers should be positive integers; note the order is width followed by height. Example:
 
@@ -295,6 +297,8 @@ If your Java code has access to the viewport dimensions, then you can pass this 
 s.setViewport( {{WIDTH}}, {{HEIGHT}} )
 ```
 
+TODO: replace above with actual sig. "{{}}" is a bit unusual
+
 Both numbers should be positive integers; note the order is width followed by height. Example:
 
 ```java
@@ -311,6 +315,8 @@ If your Java code has access to the bit depth of the device's color palette for 
 ```java
 s.setColorDepth( {{BITS PER PIXEL}} )
 ```
+
+TODO: replace above with actual sig. "{{}}" is a bit unusual
 
 The number should be a positive integer, in bits per pixel. Example:
 
@@ -329,6 +335,8 @@ This method lets you pass a user's timezone in to Snowplow:
 s.setTimezone( {{TIMEZONE}} )
 ```
 
+TODO: replace above with actual sig. "{{}}" is a bit unusual
+
 The timezone should be a string:
 
 ```java
@@ -345,6 +353,8 @@ This method lets you pass a user's language in to Snowplow:
 ```java
 s.setLanguage( {{LANGUAGE}} )
 ```
+
+TODO: replace above with actual sig. "{{}}" is a bit unusual
 
 The language should be a string:
 
@@ -363,6 +373,8 @@ This method lets you pass a user's IP Address in to Snowplow:
 s.setIpAddress( {{ip}} );
 ```
 
+TODO: replace above with actual sig. "{{}}" is a bit unusual
+
 The IP address should be a string:
 
 ```java
@@ -379,6 +391,8 @@ This method lets you pass a useragent in to Snowplow:
 ```java
 s.setUseragent( {{useragent}} );
 ```
+
+TODO: replace above with actual sig. "{{}}" is a bit unusual
 
 The useragent should be a string:
 
@@ -397,6 +411,8 @@ This method lets you pass a Network User ID in to Snowplow:
 s.setNetworkUserId( {{networkUserId}} );
 ```
 
+TODO: replace above with actual sig. "{{}}" is a bit unusual
+
 The network user id should be a string:
 
 ```java
@@ -413,6 +429,8 @@ This method lets you pass a Domain User ID in to Snowplow:
 ```java
 s.setDomainUserId( {{domainUserId}} );
 ```
+
+TODO: replace above with actual sig. "{{}}" is a bit unusual
 
 The domain user id should be a string:
 
@@ -446,8 +464,26 @@ All events are tracked with specific methods on the tracker instance, of the for
 
 [Back to top](#top)
 
+<a name="self-describing-json" />
+#### 4.1.1 SelfDescribingJson
+
+A `SelfDescribingJson` is used as a wrapper around either a `TrackerPayload`, another `SelfDescribingJson` or a `Map` object. After creating the object you want to wrap, you can create a `SelfDescribingJson` using the following:
+
+```java
+// This is the Map we have created
+Map<String, String> eventData = new HashMap<>();
+eventData.put("Event", "Data")
+
+// We wrap that map in a SelfDescribingJson before sending it
+SelfDescribingJson json = new SelfDescribingJson("iglu:com.snowplowanalytics.snowplow/example/jsonschema/1-0-0", eventData);
+```
+
+`SelfDescribingJson` is used for recording [custom contexts](#custom-contexts) and [unstructured events](#unstruct-event).
+
+[Back to top](#top)
+
 <a name="custom-contexts" />
-#### 4.1.1 Custom contexts
+#### 4.1.2 Custom contexts
 
 In short, custom contexts let you add additional information about the circumstances surrounding an event in the form of a Map object. Each tracking method accepts an additional optional contexts parameter after all the parameters specific to that method:
 
@@ -473,7 +509,7 @@ If a visitor arrives on a page advertising a movie, the context dictionary might
 }
 ```
 
-To construct this as a SelfDescribingJson:
+To construct this as a `SelfDescribingJson`:
 
 ```java
 // Create a Map of the data you want to include...
@@ -490,46 +526,25 @@ List<SelfDescribingJson> contexts = new ArrayList<>();
 contexts.add(json);
 ```
 
-To create a SelfDescribingJson which contains another SelfDescribingJson:
-
-```json
-{ 
-  "schema": "iglu:com.acme_company/nested_example/jsonschema/1-0-0",
-  "data": {
-    "schema": "iglu:com.acme_company/movie_poster/jsonschema/2.1.1",
-    "data": {
-      "movie_name": "Solaris", 
-      "poster_country": "JP", 
-      "poster_year": "1978"
-    }
-  }
-}
-```
-
-Simply use the previously created Json in the data field of the builder:
-
-```java
-// Create a nested SelfDescribingJson
-SelfDescribingJson json = new SelfDescribingJson("iglu:com.acme_company/nested_example/jsonschema/1-0-0", json)
-```
-
 Note that even if there is only one custom context attached to the event, it still needs to be placed in an array.
 
 [Back to top](#top)
 
-<a name="tstamp-context-args" />
-#### 4.1.2 Optional timestamp & context arguments
+<a name="timestamp" />
+#### 4.1.3 Timestamp override
 
-In all the trackers, we offer a way to set the timestamp if you want the event to show as tracked at a specific time. If you don't, we create a timestamp while the event is being tracked.
+In all the trackers, we offer a way to override the timestamp if you want the event to show as tracked at a specific time. If you don't, we create a timestamp while the event is being tracked.
 
 Here are some example:
 
 ```java
 t1.trackPageView("www.page.com", "Example Page", "www.referrer.com");
-t1.trackPageView("www.page.com", "Example Page", "www.referrer.com", contextArray);
-t1.trackPageView("www.page.com", "Example Page", "www.referrer.com", contextArray, 1423583655);
+t1.trackPageView("www.page.com", "Example Page", "www.referrer.com", contexts);
+t1.trackPageView("www.page.com", "Example Page", "www.referrer.com", contexts, 1423583655);
 t1.trackPageView("www.page.com", "Example Page", "www.referrer.com", 1423583655);
 ```
+
+TODO: what is the timestamp format? ms since epoch or what?
 
 [Back to top](#top)
 
@@ -566,7 +581,7 @@ Arguments are:
 | `page_url`   | The URL of the page                  | Yes           | String                  |
 | `page_title` | The title of the page                | Yes           | String                  |
 | `referrer`   | The address which linked to the page | Yes           | String                  |
-| `context`    | Custom context for the event         | No            | List<SelfDescribingJson>     |
+| `context`    | Custom context for the event         | No            | List<SelfDescribingJson> |
 | `timestamp`  | Optional timestamp for the event     | No            | Long                    |
 
 Examples:
@@ -600,18 +615,22 @@ Arguments:
 | `context`     | Custom context for the event         | No            | Map                      |
 | `timestamp`   | Optional timestamp for the event     | No            | Long                     |
 
+TODO: `Map` for `context` above should be `List<TransactionItem>` no?
+
 The `items` argument is a `List` of individual `TransactionItem` elements representing the items in the e-commerce transaction. Note that `trackEcommerceTransaction` fires multiple events: one transaction event for the transaction as a whole, and one transaction item event for each element of the `items` `List`. Each transaction item event will have the same timestamp, order_id, and currency as the main transaction event.
 
 [Back to top](#top)
 
-<a name="ecommerce-transactionitem" />
-#### 4.4.1 Ecommerce TransactionItem with `trackEcommerceTransaction()`
+<a name="ecommerce-transaction-item" />
+#### 4.4.1 `TransactionItem`
 
-To instantiate a TransactionItem in your code, simply use the following constructor signature:
+To instantiate a `TransactionItem` in your code, simply use the following constructor signature:
 
 ```java
 trackEcommerceTransactionItem(String order_id, String sku, Double price, Integer quantity, String name, String category, String currency, Map context, long transaction_id)
 ```
+
+TODO: the above doesn't exist anymore does it? I think you want to introduce the `TransactionItem` class and list the arguments that its _constructor_ takes.
 
 These are the fields that can appear as elements in each `TransactionItem` element of the transaction item `List`:
 
@@ -640,7 +659,7 @@ items.add(item1);
 items.add(item2);
 
 // Now Track the Transaction by using this list of items as an argument
-t1.trackEcommerceTransaction("6a8078be", 300, "my_affiliate", 30, 10, "Boston", "Massachusetts", "USA", "USD", items, context);
+t1.trackEcommerceTransaction("6a8078be", 300, "my_affiliate", 30, 10, "Boston", "Massachusetts", "USA", "USD", items);
 ```
 
 [Back to top](#top)
@@ -693,26 +712,32 @@ Example event json to track:
 
 ```json
 {
-  "schema": "iglu:com.snowplowanalytics.snowplow/schema_level/jsonschema/1-0-0",
+  "schema": "iglu:com.acme/save_game/jsonschema/1-0-0",
   "data": {
-    "Schema Level": "1"
+    "levelName": "Barrels o' Fun"
+    "levelIndex": 23
   }
 }
 ```
+
+TODO: note: never create example fictitious schemas on com.snowplowanalytics.*. And never create examples that sound like they might be something real (like schema_level)! A client just wasted an hour trying to find com.snowplowanalytics.snowplow/schema_level in Iglu.
 
 How to set it up?
 
 ```java
 // Create a Map of your event data
-Map<String, String> eventMap = new HashMap<>();
-eventMap.put("Schema Level", "1");
+Map<String, Object> eventMap = new HashMap<>();
+eventMap.put("levelName", "Barrels o' Fun")
+eventMap.put("levelIndex", 23);
 
 // Create your event data
-SelfDescribingJson eventData = new SelfDescribingJson("iglu:com.snowplowanalytics.snowplow/schema_level/jsonschema/1-0-0", eventMap);
+SelfDescribingJson eventData = new SelfDescribingJson("iglu:com.acme/save_game/jsonschema/1-0-0", eventMap);
 
 // Track your event with your custom event data
 t1.trackUnstructuredEvent(eventData, contextList);
 ```
+
+TODO: Josh I updated the above example to be a Map<String, Object>. Can you confirm that works okay?
 
 For more on JSON schema, see the [blog post] [self-describing-jsons].
 
@@ -763,21 +788,23 @@ The Emitter is configured and setup to run as a background process so it never b
 
 The current Emitter flow goes as follows:
 
-1. Emitter is created.
-2. Emitter will check if it has access to the internet.
-3. If it is it will begin a recurring check for events to send to the configured collector.
+1. Emitter is created
+2. Emitter will check if it has access to the internet
+3. If it is it will begin a recurring check for events to send to the configured collector
    - This is currently set to be every 5 seconds. (# Configurable-1)
 4. If there are events in the SQlite database the emitter will grab up to 250 events from the database and begin sending. (# Configurable-2)
-5. Once it has finished sending it will again check for events.
-6. If there are no events to be sent 5 times in a row, it will shut itself down. (# Configurable-3)
-7. On receiving a new event the Emitter checks again if it is online and will then begin sending again.
-8. If there are ever any errors in sending; the events will not be deleted from the database and the emitter will then be shutdown.
+5. Once it has finished sending it will again check for events
+6. If there are no events to be sent 5 times in a row, it will shut itself down (# Configurable-3)
+7. On receiving a new event the Emitter checks again if it is online and will then begin sending again
+8. If there are any errors in sending, the events will not be deleted from the database and the emitter will then be shutdown
 
 All configurable options can be found in the 'constants/TrackerConstants.java' class with the following names:
 
 - EMITTER_TICK
 - EMITTER_SEND_LIMIT
 - EMITTER_EMPTY_EVENTS_LIMIT
+
+TODO: I'm confused - are the configurable options configurable or are they tracker constants? They can't be both...
 
 <a name="buffer" />
 #### 5.2 Using a buffer
@@ -799,7 +826,7 @@ Here are all the posibile options that you can use:
 | `DefaultGroup` | Sends events in groups of 10 events or less        |
 | `HeavyGroup`   | Sends events in groups of 25 events or less        |
 
-Buffer options will only ever influence how POST request are sent however.  All GET requests will be sent individually.
+Buffer options will only ever influence how POST request are sent however. All GET requests will be sent individually.
 
 [Back to top](#top)
 
@@ -851,35 +878,16 @@ Emitter emitter = new Emitter
 
 [Back to top](#top)
 
-<a name="payload" />
-## 6. Payload
-
-The Payload interface is used for implementing a [TrackerPayload](#tracker-payload) and [SelfDescribingJson](#self-describing-json).
-
-[Back to top](#top)
-
-<a name="self-describing-json" />
-#### 6.1 SelfDescribingJson
-
-A SelfDescribingJson is used as a wrapper around either a TrackerPayload, another SelfDescribingJson or a Map object. After creating the object you want to wrap, you can create a SelfDescribingJson using the following:
-
-```java
-// This is the Map we have created
-Map<String, String> eventData = new HashMap<>();
-eventData.put("Event", "Data")
-
-// We wrap that map in a SelfDescribingJson before sending it
-SelfDescribingJson json = new SelfDescribingJson("iglu:com.snowplowanalytics.snowplow/example/jsonschema/1-0-0", eventData);
-```
-
-[Back to top](#top)
-
 <a name="logging" />
-## 7. Logging
+## 6. Logging
 
 Logging in the Tracker is done using our own Logger class: '/utils/Logger.java'. All logging is actioned based on whether or not the 'DEBUG_MODE' constant is set to true in the 'constants/TrackerConstants.java' class.
 
+TODO: add a note that this wraps standard Android logging (doesn't introduce a new dep).
+
 To turn off Tracker logging simply change this boolean to false.
+
+TODO: I don't get this section. Are you saying a user should edit the tracker source and manually embed that forked source into their own app?
 
 [Back to top](#top)
 
