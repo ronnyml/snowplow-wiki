@@ -460,10 +460,10 @@ SelfDescribingJson json = new SelfDescribingJson("iglu:com.acme/example/jsonsche
 
 You can create a SelfDescribingJson with the following arguments:
 
-| **Argument** | **Description**                           | **Required?** | **Validation**           |
+| **Argument** | **Description**                           | **Required?** | **Type**                 |
 |-------------:|:------------------------------------------|:--------------|:-------------------------|
-| `schema`     | JsonSchema that describes the data        | Yes           | String                   |
-| `data`       | Data that will be validated by the schema | No            | Map< String, String >, Map< String, Object >, TrackerPayload, SelfDescribingJson |
+| `schema`     | JsonSchema that describes the data        | Yes           | `String`                 |
+| `data`       | Data that will be validated by the schema | No            | `Map<String, String>, Map<String, Object>, TrackerPayload, SelfDescribingJson` |
 
 `SelfDescribingJson` is used for recording [custom contexts](#custom-contexts) and [unstructured events](#unstruct-event).
 
@@ -538,12 +538,12 @@ t1.trackPageView("www.page.com", "Example Page", "www.referrer.com", 14235836550
 
 Use `trackScreenView()` to track a user viewing a screen (or equivalent) within your app. Arguments are:
 
-| **Argument** | **Description**                     | **Required?** | **Validation**           |
-|-------------:|:------------------------------------|:--------------|:-------------------------|
-| `name`       | Human-readable name for this screen | No            | String                   |
-| `id`         | Unique identifier for this screen   | No            | String                   |
-| `context`    | Custom context for the event        | No            | List<SelfDescribingJson> |
-| `timestamp`  | Optional timestamp for the event    | No            | Long                     |
+| **Argument** | **Description**                     | **Required?** | **Type**                   |
+|-------------:|:------------------------------------|:--------------|:---------------------------|
+| `name`       | Human-readable name for this screen | No            | `String`                   |
+| `id`         | Unique identifier for this screen   | No            | `String`                   |
+| `context`    | Custom context for the event        | No            | `List<SelfDescribingJson>` |
+| `timestamp`  | Optional timestamp for the event    | No            | `Long`                     |
 
 Examples:
 
@@ -561,13 +561,13 @@ You can use `trackPageView()` to track a user viewing a web page within your app
 
 Arguments are:
 
-| **Argument** | **Description**                      | **Required?** | **Validation**          |
-|-------------:|:-------------------------------------|:--------------|:------------------------|
-| `page_url`   | The URL of the page                  | Yes           | String                  |
-| `page_title` | The title of the page                | Yes           | String                  |
-| `referrer`   | The address which linked to the page | Yes           | String                  |
-| `context`    | Custom context for the event         | No            | List<SelfDescribingJson> |
-| `timestamp`  | Optional timestamp for the event     | No            | Long                    |
+| **Argument** | **Description**                      | **Required?** | **Type**                   |
+|-------------:|:-------------------------------------|:--------------|:---------------------------|
+| `page_url`   | The URL of the page                  | Yes           | `String`                   |
+| `page_title` | The title of the page                | Yes           | `String`                   |
+| `referrer`   | The address which linked to the page | Yes           | `String`                   |
+| `context`    | Custom context for the event         | No            | `List<SelfDescribingJson>` |
+| `timestamp`  | Optional timestamp for the event     | No            | `Long`                     |
 
 Examples:
 
@@ -585,20 +585,20 @@ Use `trackEcommerceTransaction()` to track an ecommerce transaction.
 
 Arguments:
 
-| **Argument**  | **Description**                      | **Required?** | **Validation**           |
-|--------------:|:-------------------------------------|:--------------|:-------------------------|
-| `order_id`    | ID of the eCommerce transaction      | Yes           | String                   |
-| `total_value` | Total transaction value              | Yes           | Double                   |
-| `affiliation` | Transaction affiliation              | Yes           | String                   |
-| `tax_value`   | Transaction tax value                | Yes           | Double                   |
-| `shipping`    | Delivery cost charged                | Yes           | Double                   |
-| `city`        | Delivery address city                | Yes           | String                   |
-| `state`       | Delivery address state               | Yes           | String                   |
-| `country`     | Delivery address country             | Yes           | String                   | 
-| `currency`    | Transaction currency                 | Yes           | String                   |
-| `items`       | Items in the transaction             | Yes           | List<TransactionItem>    |
-| `context`     | Custom context for the event         | No            | List<SelfDescribingJson> |
-| `timestamp`   | Optional timestamp for the event     | No            | Long                     |
+| **Argument**  | **Description**                      | **Required?** | **Type**                   |
+|--------------:|:-------------------------------------|:--------------|:---------------------------|
+| `order_id`    | ID of the eCommerce transaction      | Yes           | `String`                   |
+| `total_value` | Total transaction value              | Yes           | `Double`                   |
+| `affiliation` | Transaction affiliation              | Yes           | `String`                   |
+| `tax_value`   | Transaction tax value                | Yes           | `Double`                   |
+| `shipping`    | Delivery cost charged                | Yes           | `Double`                   |
+| `city`        | Delivery address city                | Yes           | `String`                   |
+| `state`       | Delivery address state               | Yes           | `String`                   |
+| `country`     | Delivery address country             | Yes           | `String`                   | 
+| `currency`    | Transaction currency                 | Yes           | `String`                   |
+| `items`       | Items in the transaction             | Yes           | `List<TransactionItem>`    |
+| `context`     | Custom context for the event         | No            | `List<SelfDescribingJson>` |
+| `timestamp`   | Optional timestamp for the event     | No            | `Long`                     |
 
 The `items` argument is a `List` of individual `TransactionItem` elements representing the items in the e-commerce transaction. Note that `trackEcommerceTransaction` fires multiple events: one transaction event for the transaction as a whole, and one transaction item event for each element of the `items` `List`. Each transaction item event will have the same timestamp, order_id, and currency as the main transaction event.
 
@@ -615,17 +615,17 @@ TransactionItem item = new TransactionItem("item_id", "item_sku", 1.00, 1, "item
 
 These are the fields that can appear as elements in each `TransactionItem` element of the transaction item's `List`:
 
-| **Field**  | **Description**                     | **Required?** | **Validation**           |
-|-----------:|:------------------------------------|:--------------|:-------------------------|
-| `item_id`  | Item ID                             | Yes           | String                   |
-| `sku`      | Item SKU                            | No            | String                   |
-| `price`    | Item price                          | No            | double                   |
-| `quantity` | Item quantity                       | No            | int                      |
-| `name`     | Item name                           | No            | String                   |
-| `category` | Item category                       | No            | String                   |
-| `currency` | Item currency                       | No            | String                   |
-| `context`  | Item context                        | No            | List<SelfDescribingJson> |
-| `timestamp`| Optional timestamp for the event    | No            | Long                     |
+| **Field**  | **Description**                     | **Required?** | **Type**                   |
+|-----------:|:------------------------------------|:--------------|:---------------------------|
+| `item_id`  | Item ID                             | Yes           | `String`                   |
+| `sku`      | Item SKU                            | No            | `String`                   |
+| `price`    | Item price                          | No            | `double`                   |
+| `quantity` | Item quantity                       | No            | `int`                      |
+| `name`     | Item name                           | No            | `String`                   |
+| `category` | Item category                       | No            | `String`                   |
+| `currency` | Item currency                       | No            | `String`                   |
+| `context`  | Item context                        | No            | `List<SelfDescribingJson>` |
+| `timestamp`| Optional timestamp for the event    | No            | `Long`                     |
 
 Example of tracking a transaction containing two items:
 
@@ -650,15 +650,15 @@ t1.trackEcommerceTransaction("6a8078be", 300, "my_affiliate", 30, 10, "Boston", 
 
 Use `trackStructuredEvent()` to track a custom event happening in your app which fits the Google Analytics-style structure of having up to five fields (with only the first two required):
 
-| **Argument** | **Description**                                                  | **Required?** | **Validation**    |
+| **Argument** | **Description**                                                  | **Required?** | **Type**    |
 |-------------:|:---------------------------------------------------------------  |:--------------|:------------------|
-| `category`   | The grouping of structured events which this `action` belongs to | Yes           | String            |
-| `action`     | Defines the type of user interaction which this event involves   | Yes           | String            |
-| `label`      | A string to provide additional dimensions to the event data      | Yes           | String            |
-| `property`   | A string describing the object or the action performed on it     | Yes           | String            |
-| `value`      | A value to provide numerical data about the event                | Yes           | Int               |
-| `context`    | Custom context for the event                                     | No            | List<SelfDescribingJson>|
-| `timestamp`  | Optional timestamp for the event                                 | No            | Long              |
+| `category`   | The grouping of structured events which this `action` belongs to | Yes           | `String`            |
+| `action`     | Defines the type of user interaction which this event involves   | Yes           | `String`            |
+| `label`      | A string to provide additional dimensions to the event data      | Yes           | `String`            |
+| `property`   | A string describing the object or the action performed on it     | Yes           | `String`            |
+| `value`      | A value to provide numerical data about the event                | Yes           | `int`               |
+| `context`    | Custom context for the event                                     | No            | `List<SelfDescribingJson>` |
+| `timestamp`  | Optional timestamp for the event                                 | No            | `Long`              |
 
 Examples:
 
@@ -683,11 +683,11 @@ Use `trackUnstructuredEvent()` to track a custom event which consists of a name 
 
 The arguments are as follows:
 
-| **Argument**   | **Description**                   |  **Required?** |    **Validation**        |
+| **Argument**   | **Description**                   |  **Required?** |    **Type**        |
 |---------------:|:----------------------------------|:---------------|:-------------------------|
-| `eventData`    | The properties of the event       | Yes            | SelfDescribingJson       |
-| `context`      | Custom context for the event      | No             | List<SelfDescribingJson> |
-| `timestamp`    | Optional timestamp for the event  | No             | Long                     |
+| `eventData`    | The properties of the event       | Yes            | `SelfDescribingJson`       |
+| `context`      | Custom context for the event      | No             | `List<SelfDescribingJson>` |
+| `timestamp`    | Optional timestamp for the event  | No             | `Long`                     |
 
 Example event json to track:
 
