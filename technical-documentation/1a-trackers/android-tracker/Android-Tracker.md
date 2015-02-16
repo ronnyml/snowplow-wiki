@@ -116,14 +116,21 @@ Tracker t2 = new Tracker
 
 As you can see there is a fair amount of modularity to the Trackers creation.
 
-| **Argument Name** | **Description**                             |    **Required?**  | **Default**   |
-|------------------:|:--------------------------------------------|:------------------|:--------------|
-| `emitter`         | The emitter which sends the events          | Yes               |               |
-| `subject`         | The subject that defines a user             | No                | null          |
-| `namespace`       | The name of the tracker instance            | Yes               |               |
-| `appId`           | The application ID                          | Yes               |               |
-| `base64`          | Whether to enable [Base64 encoding][base64] | No                | true          |
-| `platform`        | The platform that the Tracker is on         | No                | Mobile        |
+The below are required arguments for the 'TrackerBuilder({{ ... }})' segment of the constructor:
+
+| **Argument Name** | **Description**                             |    **Required?**  |
+|------------------:|:--------------------------------------------|:------------------|
+| `emitter`         | The emitter which sends the events          | Yes               |
+| `namespace`       | The name of the tracker instance            | Yes               |
+| `appId`           | The application ID                          | Yes               |
+
+We also have several extra builder options:
+
+| **Function Name** | **Description**                             | **Options**                        | **Default** |
+|------------------:|:--------------------------------------------|:-----------------------------------|:------------|
+| `subject`         | The subject that defines a user             | `Subject, null`                    | `null`      |
+| `platform`        | The platform that the Tracker is running on | `DevicePlatforms.{{ Enum Option }} | `DevicePlatforms.Mobile` |
+| `base64`          | Whether to enable [Base64 encoding][base64] | `True, False`                      | `True`      |
 
 <a name="emitter" />
 ##### 2.3.1 `emitter`
@@ -749,12 +756,12 @@ The below are required arguments for the 'EmitterBuilder({{ ... }})' segment of 
 
 We also have several extra builder options such as:
 
-| **Function Name** | **Description**                                     |    **Options**                                      |
-|------------------:|:----------------------------------------------------|:----------------------------------------------------|
-| `method`          | The method via which it sends requests              | HttpMethod.GET or .POST                             |
-| `option`          | The amount of events it can send in a POST request  | BufferOption.Single or .DefaultGroup or .HeavyGroup |
-| `security`        | Over what connection type it sends the request      | RequestSecurity.HTTP or .HTTPS                      |
-| `callback`        | An extra mechanism to output successes and failures | new RequestCallback{ ... }                          |
+| **Function Name** | **Description**                                     |    **Options**                  | **Default**       |
+|------------------:|:----------------------------------------------------|:--------------------------------|:------------------|
+| `method`          | The method via which it sends requests              | `HttpMethod.GET, .POST`         | `HttpMethod.POST` |
+| `option`          | The amount of events it can send in a POST request  | `BufferOption.{{ Enum Option}}` | `BufferOption.DefaultGroup `|
+| `security`        | Over what connection type it sends the request      | `RequestSecurity.HTTP, .HTTPS`  | `RequestSecurity.HTTP` |
+| `callback`        | An extra mechanism to output successes and failures | `new RequestCallback{ ... }`    | `null`            |
 
 [Back to top](#top)
 
