@@ -263,13 +263,13 @@ t1.getSubject().setUserId("Gleason Kevin"); // Because object references are pas
 You can set the user ID to any string:
 
 ```java
-s1.setUserId(String userId)
+setUserId(String userId)
 ```
 
 Example:
 
 ```java
-s1.setUserId("alexd")
+subj.setUserId("alexd");
 ```
 
 [Back to top](#top)
@@ -280,13 +280,13 @@ s1.setUserId("alexd")
 If your Java code has access to the device's screen resolution, then you can pass this in to Snowplow too:
 
 ```java
-t1.setScreenResolution(int width, int height)
+setScreenResolution(int width, int height)
 ```
 
 Both numbers should be positive integers; note the order is width followed by height. Example:
 
 ```java
-t1.setScreenResolution(1366, 768)
+subj.setScreenResolution(1366, 768);
 ```
 
 [Back to top](#top)
@@ -297,13 +297,13 @@ t1.setScreenResolution(1366, 768)
 If your Java code has access to the viewport dimensions, then you can pass this in to Snowplow too:
 
 ```java
-s.setViewport(int width, int height)
+setViewport(int width, int height)
 ```
 
 Both numbers should be positive integers; note the order is width followed by height. Example:
 
 ```java
-s.setViewport(300, 200)
+subj.setViewport(300, 200);
 ```
 
 [Back to top](#top)
@@ -314,13 +314,13 @@ s.setViewport(300, 200)
 If your Java code has access to the bit depth of the device's color palette for displaying images, then you can pass this in to Snowplow too:
 
 ```java
-s.setColorDepth(int depth)
+setColorDepth(int depth)
 ```
 
 The number should be a positive integer, measured in bits per pixel. Example:
 
 ```java
-s.setColorDepth(32)
+subj.setColorDepth(32);
 ```
 
 [Back to top](#top)
@@ -331,13 +331,13 @@ s.setColorDepth(32)
 This method lets you pass a user's timezone in to Snowplow:
 
 ```java
-s.setTimezone(String timezone)
+setTimezone(String timezone)
 ```
 
 The timezone should be a string:
 
 ```java
-s.setTimezone("Europe/London")
+subj.setTimezone("Europe/London");
 ```
 
 [Back to top](#top)
@@ -348,13 +348,13 @@ s.setTimezone("Europe/London")
 This method lets you pass a user's language in to Snowplow:
 
 ```java
-s.setLanguage(String language)
+setLanguage(String language)
 ```
 
 The language should be a string:
 
 ```java
-s.setLanguage("en")
+subj.setLanguage("en");
 ```
 
 [Back to top](#top)
@@ -365,13 +365,13 @@ s.setLanguage("en")
 This method lets you pass a user's IP Address in to Snowplow:
 
 ```java
-s.setIpAddress(String ipAddress);
+setIpAddress(String ipAddress)
 ```
 
 The IP address should be a string:
 
 ```java
-s.setIpAddress("127.0.0.1");
+subj.setIpAddress("127.0.0.1");
 ```
 
 [Back to top](#top)
@@ -382,13 +382,13 @@ s.setIpAddress("127.0.0.1");
 This method lets you pass a useragent in to Snowplow:
 
 ```java
-s.setUseragent(String useragent);
+setUseragent(String useragent)
 ```
 
 The useragent should be a string:
 
 ```java
-s.setUseragent("Agent Smith");
+subj.setUseragent("Agent Smith");
 ```
 
 [Back to top](#top)
@@ -399,13 +399,13 @@ s.setUseragent("Agent Smith");
 This method lets you pass a Network User ID in to Snowplow:
 
 ```java
-s.setNetworkUserId(String networkUserId);
+setNetworkUserId(String networkUserId)
 ```
 
 The network user id should be a string:
 
 ```java
-s.setNetworkUserId("network-id");
+subj.setNetworkUserId("network-id");
 ```
 
 [Back to top](#top)
@@ -416,13 +416,13 @@ s.setNetworkUserId("network-id");
 This method lets you pass a Domain User ID in to Snowplow:
 
 ```java
-s.setDomainUserId(String domainUserId);
+setDomainUserId(String domainUserId)
 ```
 
 The domain user id should be a string:
 
 ```java
-s.setDomainUserId("domain-id");
+subj.setDomainUserId("domain-id");
 ```
 
 [Back to top](#top)
