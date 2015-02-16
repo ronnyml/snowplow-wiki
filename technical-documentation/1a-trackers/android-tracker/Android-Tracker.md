@@ -221,6 +221,8 @@ The Subject class has a set of `set...()` methods to attach extra data relating 
 Here are some examples:
 
 ```java
+Subject s1 = new Subject();
+
 s1.setUserID("Kevin Gleason"); 
 s1.setLanguage("en-gb");
 s1.setScreenResolution(1920, 1080);
@@ -461,7 +463,7 @@ You can create a SelfDescribingJson with the following arguments:
 | **Argument** | **Description**                           | **Required?** | **Validation**           |
 |-------------:|:------------------------------------------|:--------------|:-------------------------|
 | `schema`     | JsonSchema that describes the data        | Yes           | String                   |
-| `data`       | Data that will be validated by the schema | No            | Map<String, String>, Map<String, Object>, TrackerPayload, SelfDescribingJson |
+| `data`       | Data that will be validated by the schema | No            | Map< String, String >, Map< String, Object >, TrackerPayload, SelfDescribingJson |
 
 `SelfDescribingJson` is used for recording [custom contexts](#custom-contexts) and [unstructured events](#unstruct-event).
 
@@ -693,7 +695,7 @@ Example event json to track:
 {
   "schema": "iglu:com.acme/save_game/jsonschema/1-0-0",
   "data": {
-    "levelName": "Barrels o' Fun"
+    "levelName": "Barrels o' Fun",
     "levelIndex": 23
   }
 }
