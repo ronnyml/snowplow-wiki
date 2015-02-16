@@ -126,11 +126,11 @@ The below are required arguments for the 'TrackerBuilder({{ ... }})' segment of 
 
 We also have several extra builder options:
 
-| **Function Name** | **Description**                             | **Options**                        | **Default** |
-|------------------:|:--------------------------------------------|:-----------------------------------|:------------|
-| `subject`         | The subject that defines a user             | `Subject, null`                    | `null`      |
-| `platform`        | The platform that the Tracker is running on | `DevicePlatforms.{{ Enum Option }} | `DevicePlatforms.Mobile` |
-| `base64`          | Whether to enable [Base64 encoding][base64] | `True, False`                      | `True`      |
+| **Function** | **Description**                             | **Options**                         | **Default** |
+|------------------:|:--------------------------------------------|:-------------------------------|:------------|
+| `subject`         | The subject that defines a user             | `Subject, null`                     | `null`      |
+| `platform`        | The platform that the Tracker is running on | `DevicePlatforms.{{ Enum Option }}` | `DevicePlatforms.Mobile` |
+| `base64`          | Whether to enable [Base64 encoding][base64] | `True, False`                       | `True`      |
 
 <a name="emitter" />
 ##### 2.3.1 `emitter`
