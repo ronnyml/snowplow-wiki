@@ -756,12 +756,12 @@ The below are required arguments for the 'EmitterBuilder({{ ... }})' segment of 
 
 We also have several extra builder options such as:
 
-| **Function Name** | **Description**                                     |    **Options**                  | **Default**       |
-|------------------:|:----------------------------------------------------|:--------------------------------|:------------------|
-| `method`          | The method via which it sends requests              | `HttpMethod.GET, .POST`         | `HttpMethod.POST` |
-| `option`          | The amount of events it can send in a POST request  | `BufferOption.{{ Enum Option}}` | `BufferOption.DefaultGroup `|
-| `security`        | Over what connection type it sends the request      | `RequestSecurity.HTTP, .HTTPS`  | `RequestSecurity.HTTP` |
-| `callback`        | An extra mechanism to output successes and failures | `new RequestCallback{ ... }`    | `null`            |
+| **Function** | **Description**                                 | **Options**                     | **Default**       |
+|-------------:|:------------------------------------------------|:--------------------------------|:------------------|
+| `method`     | The request method to use                       | `HttpMethod.GET, .POST`         | `HttpMethod.POST` |
+| `option`     | The amount of events sent in a POST request     | `BufferOption.{{ Enum Option}}` | `BufferOption.DefaultGroup `|
+| `security`   | Whether to send over HTTP or HTTPS              | `RequestSecurity.HTTP, .HTTPS`  | `RequestSecurity.HTTP` |
+| `callback`   | A callback to output successes and failures     | `new RequestCallback{ ... }`    | `null`            |
 
 [Back to top](#top)
 
