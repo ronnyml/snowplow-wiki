@@ -219,7 +219,7 @@ You may have additional information about your application's environment, curren
 [Back to top](#top)
 
 <a name="subject-setters" />
-### 3.2 Subject setter functions
+### 3.1 Subject setter functions
 
 The Subject class has a set of `set...()` methods to attach extra data relating to the user to all tracked events:
 
