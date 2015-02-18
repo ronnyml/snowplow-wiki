@@ -2,9 +2,11 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > Android Tracker
 
-This page refers to version 0.3.0 of the Snowplow Android Tracker. [UNRELEASED]
+This page refers to version 0.3.0 of the Snowplow Android Tracker.
 
 **Please note** that this version of the Android Tracker is dependent upon the [Snowplow 0.9.14 release][snowplow-0.9.14], you will need to be running this version or higher of Snowplow for events sent by the tracker to be successfully processed. Snowplow 0.9.14+ contains updates to the Hadoop Enrich and Scala Hadoop Shred jobs to allow newer self-describing JSON versions, as sent by Android Tracker 0.3.0. For more information, please refer to tickets [#1220][issue-1220] and [#1231][issue-1231].
+
+Documentation for older version of this tracker is available:
 
 * [Java v0.6.* and Android v0.2.*][java-0.6]
 * [Java v0.5.* and Android v0.1.*][java-0.5]
@@ -458,7 +460,7 @@ The `mobile_context` is comprised of the following fields:
 To ensure you gather all of this information you will need to create your Subject with the following argument:
 
 ```java
-Subject subject = new Subject(getContext())
+Subject subject = new Subject(getContext());
 ```
 
 Note that `getContext()` is an Android global function.  It is needed to grab information that is related to the client specifically.
@@ -480,7 +482,7 @@ The `geolocation_context` is comprised of the following fields:
 To ensure you gather all of this information you will need to create your Subject with the following argument:
 
 ```java
-Subject subject = new Subject(getContext())
+Subject subject = new Subject(getContext());
 ```
 
 Note that `getContext()` is an Android global function.
