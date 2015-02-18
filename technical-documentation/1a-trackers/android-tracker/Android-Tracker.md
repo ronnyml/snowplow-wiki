@@ -25,16 +25,20 @@ This page refers to version 0.3.0 of the Snowplow Android Tracker. [UNRELEASED]
     - 2.2.8 [`setSubject`](#set-subject)
     - 2.2.9 [`setEmitter`](#set-emitter)
 - 3. [Adding extra data: the Subject class](#add-data-subject)
-  - 3.1 [`setUserId`](#set-user-id)
-  - 3.2 [`setScreenResolution`](#set-screen-resolution)
-  - 3.3 [`setViewport`](#set-viewport-dimensions)
-  - 3.4 [`setColorDepth`](#set-color-depth)
-  - 3.5 [`setTimezone`](#set-timezone)
-  - 3.6 [`setLanguage`](#set-lang)
-  - 3.7 [`setIpAddress`](#set-ip-address)
-  - 3.8 [`setUseragent`](#set-user-agent)
-  - 3.9 [`setNetworkUserId`](#set-network-user-id)
-  - 3.10 [`setDomainUserId`](#set-domain-user-id)
+  - 3.1 [Subject setter functions](#subject-setters)
+    - 3.1.1 [`setUserId`](#set-user-id)
+    - 3.1.2 [`setScreenResolution`](#set-screen-resolution)
+    - 3.1.3 [`setViewport`](#set-viewport-dimensions)
+    - 3.1.4 [`setColorDepth`](#set-color-depth)
+    - 3.1.5 [`setTimezone`](#set-timezone)
+    - 3.1.6 [`setLanguage`](#set-lang)
+    - 3.1.7 [`setIpAddress`](#set-ip-address)
+    - 3.1.8 [`setUseragent`](#set-user-agent)
+    - 3.1.9 [`setNetworkUserId`](#set-network-user-id)
+    - 3.1.10 [`setDomainUserId`](#set-domain-user-id)
+  - 3.2 [Additional contexts sent by this tracker](#additional-contexts)
+    - 3.2.1 [`mobile_context`](#mobile-context)
+    - 3.2.2 [`geolocation_context`](#geo-context)
 - 4. [Tracking specific events](#events)
   - 4.1 [Common](#common)
     - 4.1.1 [Self-describing JSON](#self-describing-json)
@@ -46,7 +50,7 @@ This page refers to version 0.3.0 of the Snowplow Android Tracker. [UNRELEASED]
     - 4.4.1 [`TransactionItem`](#ecommerce-transaction-item)
   - 4.5 [`trackStructuredEvent()`](#struct-event)
   - 4.6 [`trackUnstructuredEvent()`](#unstruct-event)
-- 5 [Sending event: `Emitter`](#emitters)
+- 5 [Sending events: `Emitter`](#emitters)
   - 5.1 [How the `Emitter` works](#emitter-works)
   - 5.2 [Using a buffer](#buffer)
   - 5.3 [Choosing the HTTP method](#http-method)
@@ -210,7 +214,12 @@ tracker.setEmitter(newEmitter);
 <a name="add-data-subject" />
 ## 3. Adding extra data: the Subject class
 
-You may have additional information about your application's environment, current user and so on, which you want to send to Snowplow with each event.
+You may have additional information about your application's environment, current user and so on, which you want to send to Snowplow with each event.  The Subject appended to the Tracker allows you to easily add information to each event that is sent from the Tracker.
+
+[Back to top](#top)
+
+<a name="subject-setters" />
+### 3.2 Subject setter functions
 
 The Subject class has a set of `set...()` methods to attach extra data relating to the user to all tracked events:
 
@@ -258,7 +267,7 @@ t1.getSubject().setUserId("Gleason Kevin"); // Because object references are pas
 [Back to top](#top)
 
 <a name="set-user-id" />
-#### 3.1 Set user ID with `setUserId`
+#### 3.1.1 Set user ID with `setUserId`
 
 You can set the user ID to any string:
 
@@ -275,7 +284,7 @@ subj.setUserId("alexd");
 [Back to top](#top)
 
 <a name="set-screen-resolution" />
-#### 3.2 Set screen resolution with `setScreenResolution`
+#### 3.1.2 Set screen resolution with `setScreenResolution`
 
 If your Java code has access to the device's screen resolution, then you can pass this in to Snowplow too:
 
@@ -292,7 +301,7 @@ subj.setScreenResolution(1366, 768);
 [Back to top](#top)
 
 <a name="set-viewport-dimensions" />
-#### 3.3 Set viewport dimensions with `setViewport`
+#### 3.1.3 Set viewport dimensions with `setViewport`
 
 If your Java code has access to the viewport dimensions, then you can pass this in to Snowplow too:
 
@@ -309,7 +318,7 @@ subj.setViewport(300, 200);
 [Back to top](#top)
 
 <a name="set-color-depth" />
-#### 3.4 Set color depth with `setColorDepth`
+#### 3.1.4 Set color depth with `setColorDepth`
 
 If your Java code has access to the bit depth of the device's color palette for displaying images, then you can pass this in to Snowplow too:
 
@@ -326,7 +335,7 @@ subj.setColorDepth(32);
 [Back to top](#top)
 
 <a name="set-timezone" />
-#### 3.5 Set timezone with `setTimezone`
+#### 3.1.5 Set timezone with `setTimezone`
 
 This method lets you pass a user's timezone in to Snowplow:
 
@@ -343,7 +352,7 @@ subj.setTimezone("Europe/London");
 [Back to top](#top)
 
 <a name="set-lang" />
-#### 3.6 Set the language with `setLanguage`
+#### 3.1.6 Set the language with `setLanguage`
 
 This method lets you pass a user's language in to Snowplow:
 
@@ -360,7 +369,7 @@ subj.setLanguage("en");
 [Back to top](#top)
 
 <a name="set-ip-address" />
-### 3.7 `setIpAddress`
+### 3.1.7 `setIpAddress`
 
 This method lets you pass a user's IP Address in to Snowplow:
 
@@ -377,7 +386,7 @@ subj.setIpAddress("127.0.0.1");
 [Back to top](#top)
 
 <a name="set-user-agent" />
-### 3.8 `setUseragent`
+### 3.1.8 `setUseragent`
 
 This method lets you pass a useragent in to Snowplow:
 
@@ -394,7 +403,7 @@ subj.setUseragent("Agent Smith");
 [Back to top](#top)
 
 <a name="set-network-user-id" />
-### 3.9 `setNetworkUserId`
+### 3.1.9 `setNetworkUserId`
 
 This method lets you pass a Network User ID in to Snowplow:
 
@@ -411,7 +420,7 @@ subj.setNetworkUserId("network-id");
 [Back to top](#top)
 
 <a name="set-domain-user-id" />
-### 3.10 `setDomainUserId`
+### 3.1.10 `setDomainUserId`
 
 This method lets you pass a Domain User ID in to Snowplow:
 
@@ -424,6 +433,66 @@ The domain user id should be a string:
 ```java
 subj.setDomainUserId("domain-id");
 ```
+
+[Back to top](#top)
+
+<a name="additional-contexts" />
+### 3.2 Additional contexts sent by this tracker
+
+This Tracker not only appends the [generic](#subject-setters) subject information to each event; it will also attempt to gather more specific information about the mobile it is hosted on.
+
+[Back to top](#top)
+
+<a name="mobile-context" />
+### 3.2.1 `mobile_context`
+
+The `mobile_context` is comprised of the following fields:
+
+* `androidIdfa` -> The host phones unique AdvertisingId
+* `carrier` -> The host phones  phones network carrier
+* `deviceModel` -> The host phones  phones model
+* `deviceManufacturer` -> The host phones  phones manufacturer
+* `osVersion` -> The host phones  phones operating system version
+* `osType` -> The host phones  phones operating system type
+
+To ensure you gather all of this information you will need to create your Subject with the following argument:
+
+```java
+Subject subject = new Subject(getContext())
+```
+
+Note that `getContext()` is an Android global function.  It is needed to grab information that is related to the client specifically.
+
+[Back to top](#top)
+
+<a name="geo-context" />
+### 3.2.2 `geolocation_context`
+
+The `geolocation_context` is comprised of the following fields:
+
+* `latitude` -> The host phones latitude measure
+* `longitude` -> The host phones longitude measure
+* `altitude` -> The host phones altitude measure
+* `latitudeLongitudeAccuracy` -> The host phones position accuracy
+* `speed` -> The host phones speed
+* `bearing` -> The host phones current bearing
+
+To ensure you gather all of this information you will need to create your Subject with the following argument:
+
+```java
+Subject subject = new Subject(getContext())
+```
+
+Note that `getContext()` is an Android global function.
+
+You will also need to include the following in your `AndroidManifest.xml` file:
+
+```xml
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+```
+
+This will make the functions for checking these metrics available for the tracker to use.
 
 [Back to top](#top)
 
