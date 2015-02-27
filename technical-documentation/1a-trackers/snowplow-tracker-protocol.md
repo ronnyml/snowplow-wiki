@@ -674,7 +674,7 @@ All custom contexts to be attached to an event will be wrapped in an array by th
 }
 ```
 
-The tracker can be configured to encode the context into Base64 to ensure that no data is lost or corrupted. The downside is that the data will be bigger and less readable. Otherwise the data will be percent-encoded.
+The tracker can be configured to encode the context into URL-safe Base64 to ensure that no data is lost or corrupted. The downside is that the data will be bigger and less readable. Otherwise the data will be percent-encoded.
 
 | **Parameter** | **Maps to**      | **Type** |**Description**                                     | **Implemented?** | **Example values**| 
 |:--------------|:-----------------|:---------|:---------------------------------------------------|:-----------------|:------------------|
