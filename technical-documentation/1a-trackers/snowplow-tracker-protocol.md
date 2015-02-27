@@ -580,9 +580,9 @@ As well as setting `e=ue`, there are two custom event specific parameters that c
 | **Parameter** | **Maps to**      | **Type** |**Description**                                     | **Implemented?** | **Example values**| 
 |:--------------|:-----------------|:---------|:---------------------------------------------------|:-----------------|:------------------|
 | `ue_pr`       | `unstruct_event`        | JSON     | The properties of the event                        | Yes               | `{ "product_id": "ASO01043", "price": 49.95 }` |
-| `ue_px`       | `unstruct_event`        | JSON (Base64 encoded)   | The properties of the event         | Yes               | `eyAicHJvZHVjdF9pZCI6ICJBU08wMTA0MyIsICJwcmljZSI6IDQ5Ljk1IH0=` |
+| `ue_px`       | `unstruct_event`        | JSON (URL-safe Base64 encoded)   | The properties of the event         | Yes               | `eyAicHJvZHVjdF9pZCI6ICJBU08wMTA0MyIsICJwcmljZSI6IDQ5Ljk1IH0=` |
 
-The tracker can decide to pass the `ue_pr` or the `ue_px` parameter depending on configuration. Encoding properties into Base64 allows for more data while sacrificing readability.
+The tracker can decide to pass the `ue_pr` or the `ue_px` parameter depending on configuration. Encoding properties into URL-safe Base64 allows for more data while sacrificing readability.
 
 *viewed_product* example (using percent encoding and the key `ue_pr`):
 
@@ -680,7 +680,7 @@ The tracker can be configured to encode the context into Base64 to ensure that n
 |:--------------|:-----------------|:---------|:---------------------------------------------------|:-----------------|:------------------|
 | `cv`       | `context_vendor` (deprecated)        | String     | Vendor for the custom contexts  | deprecated       | `com.acme`        |
 | `co`       | `context`        | JSON     | An array of custom contexts                        | Yes         | `%7B%22schema%22:%22iglu:com.snowplowanalytics.snowplow/contexts/jsonschema/1-0-0%22,%22data%22:%5B%7B%22schema%22:%22iglu:com.my_company/user/jsonschema/1-0-0%22,%22data%22:%7B%22fb_uid%22:%229999xyz%22%7D%7D%5D%7D` |
-| `cx`       | `context`        | JSON (Base64 encoded)   | An array of custom contexts         | Yes         | `ew0KICBzY2hlbWE6ICdpZ2x1OmNvbS5zbm93cGxvd2FuYWx5dGljcy5zbm93cGxvdy9jb250ZXh0cy9qc29uc2NoZW1hLzEtMC0wJyANCiAgZGF0YToge1sNCiAgICB7DQogICAgICBzY2hlbWE6ICdpZ2x1OmNvbS5teV9jb21wYW55L3VzZXIvanNvbnNjaGVtYS8xLTAtMCcgDQogICAgICBkYXRhOiB7DQogICAgICAgIGZiX3VpZDogJzk5OTl4eXonDQogICAgICB9DQogICAgfQ0KICBdfQ0KfQ==` |
+| `cx`       | `context`        | JSON (URL-safe Base64 encoded)   | An array of custom contexts         | Yes         | `ew0KICBzY2hlbWE6ICdpZ2x1OmNvbS5zbm93cGxvd2FuYWx5dGljcy5zbm93cGxvdy9jb250ZXh0cy9qc29uc2NoZW1hLzEtMC0wJyANCiAgZGF0YToge1sNCiAgICB7DQogICAgICBzY2hlbWE6ICdpZ2x1OmNvbS5teV9jb21wYW55L3VzZXIvanNvbnNjaGVtYS8xLTAtMCcgDQogICAgICBkYXRhOiB7DQogICAgICAgIGZiX3VpZDogJzk5OTl4eXonDQogICAgICB9DQogICAgfQ0KICBdfQ0KfQ==` |
 
 Example of a custom context attached to the _watch-video-clip_ structured event from above using percent encoding and the key `co`:
 
@@ -712,7 +712,7 @@ uid=aeb1691c5a0ee5a6    // User ID
                                       }
 ```
 
-Example of a custom context attached to the _watch-video-clip_ structured event from above using base 64 encoding and the key `cx`:
+Example of a custom context attached to the _watch-video-clip_ structured event from above using URL-safe Base64 encoding and the key `cx`:
 
 ```
 uid=aeb1691c5a0ee5a6    // User ID  
