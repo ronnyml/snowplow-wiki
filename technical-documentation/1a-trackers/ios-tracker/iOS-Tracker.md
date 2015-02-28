@@ -65,8 +65,8 @@ Adding the library into your project is as simple as adding the headers into you
 If you have manually copied the library into your project, don't forget to change your import syntax:
 
 ```objective-c
-#import SnowplowTracker.h"
-#import SnowplowEmitter.h"
+#import "SnowplowTracker.h"
+#import "SnowplowEmitter.h"
 ```
 
 That's it - you are now ready to initialize a tracker instance. 

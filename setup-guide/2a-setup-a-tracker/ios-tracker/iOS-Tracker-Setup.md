@@ -122,12 +122,12 @@ $ grep 'frameworks' ../snowplow-objc-tracker/SnowplowTracker.podspec
   s.osx.frameworks = 'AppKit', 'Foundation'
 ```
 
-Go to **Target** > **General** tab > **Linked Frameworks and Libraries** and add:
+Go to **Target** > **General** tab > **Linked Frameworks and Libraries** section and add:
 
-1. All of the frameworks for your target platform returned by the `grep`
+1. All of the frameworks for your target platform, as returned by the `grep` above
 2. `libsqlite3.dylib`
 
-Here is an example adding the frameworks for an OS-X application:
+This is what adding the frameworks to an OS-X application looks like:
 
 [[/setup-guide/images/setup-objc-tracker-manual-3.png]]
 
@@ -137,11 +137,13 @@ Until 0.4.0, you should find all `DLog(@` in the `Snowplow` sub-folder and repla
 
 #### Building
 
-Now **Build** your project and you should see **Build Succeeded**. You are now ready to proceed to instrumenting your app. Just remember to use quotation marks when importing the tracker:
+Now **Build** your project and you should see **Build Succeeded**.
+
+You are now ready to proceed to instrumenting your app. Just remember to use quotation marks not angle brackets when importing the tracker:
 
 ```objective-c
-#import SnowplowTracker.h"
-#import SnowplowEmitter.h"
+#import "SnowplowTracker.h"
+#import "SnowplowEmitter.h"
 ```
 
 [ios]: https://developer.apple.com/technologies/ios/
