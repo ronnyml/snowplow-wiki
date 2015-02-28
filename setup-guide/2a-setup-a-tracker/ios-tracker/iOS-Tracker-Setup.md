@@ -59,10 +59,70 @@ pod 'SnowplowTracker'
 
 <a name="manual_setup" />
 ### 3.2 Manual Setup
+
 If you prefer not to use CocoaPods, you can grab the tracker from our [GitHub repo][ios-tracker-github] and import it into your project.
+
+#### 3.2.1 Clone the tracker
+
+First, git clone the latest version of the tracker to your local machine:
+
+    git clone https://github.com/snowplow/snowplow-objc-tracker.git
+
+If you don't have git installed locally, [install it] [git] first.
+
+#### 3.2.2 Copy the tracker into your project
+
+You only need to copy the tracker's `Snowplow` sub-folder into your XCode project's folder. The command will look something like this:
+
+    cp -r snowplow-objc-tracker/Snowplow MyObjcApp/MyObjcApp/
+
+Replace `MyObjcApp` with the name of your own app, and tweak the source code sub-folder accordingly.
+
+Next, drag and drop the sub-folder `MyObjcApp/MyObjcApp/Snowplow` into your XCode project's workspace:
+
+[[/setup-guide/images/setup-objc-tracker-manual-1.png]]
+
+The suggested defaults for adding `Snowplow` are fine, so click **Finish**:
+
+[[/setup-guide/images/setup-objc-tracker-manual-2.png]]
+
+#### 3.2.1 Add the FMDB dependency
+
+The tracker is dependent on [FMDB] [fmdb] version 2.3, an Objective-C wrapper around SQLite.
+
+As before, git clone it and copy the source into your XCode project's folder:
+
+```
+git clone https://github.com/ccgus/fmdb.git
+cd fmdb && git checkout v2.3
+cp -r src/fmdb ../MyObjcApp/MyObjcApp/
+```
+
+As before, drag and drop the sub-folder `MyObjcApp/MyObjcApp/fmdb` into your XCode project's workspace.
+
+Finally, you will need to edit `Snowplow/SnowplowEmitter.m` and `Snowplow/SnowplowEventStore.m` in X-Code and change:
+
+```objective-c
+#import <FMDB.h>
+```
+
+to:
+
+```objective-c
+#import "FMDB.h"
+```
+
+#### 3.2.2
+
+#### Reminder
+
+That's it! Remember when 
 
 [ios]: https://developer.apple.com/technologies/ios/
 [ios-tracker-github]: https://github.com/snowplow/snowplow-ios-tracker
 
 [afnetworking]: https://github.com/AFNetworking/AFNetworking
+[fmdb]: https://github.com/ccgus/fmdb
+
+[git]: http://git-scm.com/downloads
 [fmdb]: https://github.com/ccgus/fmdb
