@@ -38,6 +38,8 @@ This can be entered into the same dialogue box as the [environment name](#3bi), 
 
 If no value is provided, cookies set default to expiring after one year (i.e. 365 days).
 
+If you set the value to `0`, the cookie will not be set at all.
+
 #### 5. Auto scaling
 
 Elastic Beanstalk can scale up the number of webservers running the collector to handle spikes in traffic.
