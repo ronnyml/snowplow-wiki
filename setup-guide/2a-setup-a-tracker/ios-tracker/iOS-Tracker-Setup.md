@@ -133,7 +133,7 @@ This is what adding the frameworks to an OS-X application looks like:
 
 #### 3.2.3 (Temporary) Comment out DLogs
 
-Until 0.4.0, you should find all `DLog(@` in the `Snowplow` sub-folder and replace with `// DLog(@`. You will have to manually comment out `DLog`s which span multiple lines.
+Until v0.4.0 of the tracker, you need to find all `DLog(@` in the `Snowplow` sub-folder and replace with `// DLog(@`. You will have to manually comment out `DLog`s which span multiple lines.
 
 #### Building
 
