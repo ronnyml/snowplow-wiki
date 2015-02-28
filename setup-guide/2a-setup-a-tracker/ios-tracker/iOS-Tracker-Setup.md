@@ -90,7 +90,7 @@ The suggested defaults for adding `Snowplow` are fine, so click **Finish**:
 
 The tracker is dependent on [FMDB] [fmdb] version 2.3, an Objective-C wrapper around SQLite.
 
-As before, git clone it and copy the source into your XCode project's folder:
+As before, git clone the dependency and copy the source into your XCode project's folder:
 
 ```
 git clone https://github.com/ccgus/fmdb.git
@@ -112,11 +112,37 @@ to:
 #import "FMDB.h"
 ```
 
-#### 3.2.2
+#### 3.2.2 Import all required frameworks
 
-#### Reminder
+The tracker also depends on various frameworks:
 
-That's it! Remember when 
+```
+$ grep 'frameworks' ../snowplow-objc-tracker/SnowplowTracker.podspec
+  s.ios.frameworks = 'CoreTelephony', 'UIKit', 'Foundation'
+  s.osx.frameworks = 'AppKit', 'Foundation'
+```
+
+Go to **Target** > **General** tab > **Linked Frameworks and Libraries** and add:
+
+1. All of the frameworks for your target platform returned by the `grep`
+2. `libsqlite3.dylib`
+
+Here is an example adding the frameworks for an OS-X application:
+
+[[/setup-guide/images/setup-objc-tracker-manual-3.png]]
+
+#### 3.2.3 (Temporary) Comment out DLogs
+
+Until 0.4.0, you should find all `DLog(@` in the `Snowplow` sub-folder and replace with `// DLog(@`. You will have to manually comment out `DLog`s which span multiple lines.
+
+#### Building
+
+Now **Build** your project and you should see **Build Succeeded**. You are now ready to proceed to instrumenting your app. Just remember to use quotation marks when importing the tracker:
+
+```objective-c
+#import SnowplowTracker.h"
+#import SnowplowEmitter.h"
+```
 
 [ios]: https://developer.apple.com/technologies/ios/
 [ios-tracker-github]: https://github.com/snowplow/snowplow-ios-tracker
