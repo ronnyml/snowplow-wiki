@@ -20,6 +20,9 @@ The following Webhooks are currently available for setup:
 | **[Iglu](Iglu-webhook-setup)** | For tracking [Iglu] [iglu]-compatible self-describing events | [0.9.11] [snowplow-0.9.11]+ |
 | **[CallRail](CallRail-webhook-setup)**         | For tracking completed telephone calls logged by [CallRail] [callrail-website]           | [0.9.11] [snowplow-0.9.11]+ |
 | **[MailChimp](MailChimp-webhook-setup)**       | For tracking email and email-related events delivered by [MailChimp] [mailchimp-website] | [0.9.11] [snowplow-0.9.11]+ |
+| **[Mandrill](Mandrill-webhook-setup)**       | For tracking email and email-related events delivered by [Mandrill] [mandrill-website] | [0.9.14] [snowplow-0.9.14]+ |
+| **[PagerDuty](PagerDuty-webhook-setup)**       | For tracking incidents reported to [PagerDuty] [pagerduty-website] | [0.9.14] [snowplow-0.9.14]+ |
+| **[PagerDuty](Pingdom-webhook-setup)**       | For tracking incidents detected by [Pingdom] [pingdom-website] | [0.9.14] [snowplow-0.9.14]+ |
 
 **If you are interested in sponsoring a new webhook integration for Snowplow, please [talk to us](Talk-to-us).**
 
@@ -30,5 +33,9 @@ Back to [Snowplow setup](Setting-up-Snowplow).
 [iglu]: https://github.com/snowplow/iglu	
 [callrail-website]: http://www.callrail.com/
 [mailchimp-website]: http://mailchimp.com/
+[mandrill-website]: https://mandrill.com/
+[pagerduty-website]: http://www.pagerduty.com/
+[pingdom-website]: https://www.pingdom.com/
 
 [snowplow-0.9.11]: https://github.com/snowplow/snowplow/releases/tag/0.9.11
+[snowplow-0.9.14]: https://github.com/snowplow/snowplow/releases/tag/0.9.14
