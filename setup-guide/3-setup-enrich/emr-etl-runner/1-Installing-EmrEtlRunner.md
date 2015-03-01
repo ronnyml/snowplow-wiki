@@ -185,7 +185,6 @@ Here is an example configuration:
 ```yaml
 :buckets:
   :assets: s3://snowplow-hosted-assets
-  :in: s3n://my-snowplow-logs/
   :log: s3n://my-snowplow-etl/logs/
   :raw:
     :in: s3n://my-snowplow-logs/
