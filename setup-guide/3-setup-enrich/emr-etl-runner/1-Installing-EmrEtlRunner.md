@@ -122,7 +122,7 @@ EmrEtlRunner requires a YAML format configuration file to run. There is a config
   :versions:
     :hadoop_enrich: 0.12.0 # Version of the Hadoop Enrichment process
     :hadoop_shred: 0.3.0 # Version of the Hadoop Shredding process
-  :collector_format: cloudfront # Or 'clj-tomcat' for the Clojure Collector, or 'thrift' for the Scala Stream Collector
+  :collector_format: cloudfront # Or 'clj-tomcat' for the Clojure Collector, or 'thrift' for Thrift records, or 'tsv/com.amazon.aws.cloudfront/wd_access_log' for Cloudfront access logs
   :continue_on_unexpected_error: false # Set to 'true' (and set :out_errors: above) if you don't want any exceptions thrown from ETL
 :iglu:
   :schema: iglu:com.snowplowanalytics.iglu/resolver-config/jsonschema/1-0-0
@@ -242,8 +242,17 @@ This section is where we configure exactly how we want our ETL process to operat
 
 1. `job_name`, the name to give our ETL job. This makes it easier to identify your ETL job in the Elastic MapReduce console
 2. `hadoop_etl_version` is the version of the Hadoop ETL process to run. This variable lets you upgrade the ETL process without having to update the EmrEtlRunner application itself
-3. `collector_format`, what format is our collector saving data in? Currently three formats are supported: "cloudfront" (if you are running the Cloudfront collector), "clj-tomcat" if you are running the Clojure collector, or "thrift" if you are using the Scala Stream Collector plus Kinesis LZO S3 Sink
+3. `collector_format`, what format is our collector saving data in? See the table of supported formats below
 4. `continue_on_unexpected_error`, continue processing even on unexpected row-level errors, e.g. an input file not matching the expected CloudFront format. Off ("false") by default
+
+ Currently three formats are supported: "cloudfront" (if you are running the Cloudfront collector), "clj-tomcat" , or "thrift" if you are using the Scala Stream Collector plus Kinesis LZO S3 Sink
+
+| **Input format**                              | **Description**                                                      |
+|:----------------------------------------------|:---------------------------------------------------------------------|
+| `cloudfront`                                  | If you are running the Cloudfront collector                          |
+| `clj-tomcat`                                  | If you are running the Clojure collector on Elastic Beanstalk        |
+| `thrift`                                      | If you are using the Scala Stream Collector plus Kinesis LZO S3 Sink |
+| `tsv/com.amazon.aws.cloudfront/wd_access_log` | If you are analyzing Amazon CloudFront access logs                   |
 
 <a name="enrichments" />
 ## 5. Configuring enrichments
