@@ -22,7 +22,7 @@ The following Webhooks are currently available for setup:
 | **[MailChimp](MailChimp-webhook-setup)**       | For tracking email and email-related events delivered by [MailChimp] [mailchimp-website] | [0.9.11] [snowplow-0.9.11]+ |
 | **[Mandrill](Mandrill-webhook-setup)**       | For tracking email and email-related events delivered by [Mandrill] [mandrill-website] | [0.9.14] [snowplow-0.9.14]+ |
 | **[PagerDuty](PagerDuty-webhook-setup)**       | For tracking incidents reported to [PagerDuty] [pagerduty-website] | [0.9.14] [snowplow-0.9.14]+ |
-| **[PagerDuty](Pingdom-webhook-setup)**       | For tracking incidents detected by [Pingdom] [pingdom-website] | [0.9.14] [snowplow-0.9.14]+ |
+| **[Pingdom](Pingdom-webhook-setup)**       | For tracking incidents detected by [Pingdom] [pingdom-website] | [0.9.14] [snowplow-0.9.14]+ |
 
 **If you are interested in sponsoring a new webhook integration for Snowplow, please [talk to us](Talk-to-us).**
 
