@@ -22,13 +22,7 @@ $ sudo apt-get install lzop liblzo2-dev
 
 ### Option 1: download the executable jar file
 
-To get a local copy, you can download the executable jarfile directly from our Hosted Assets bucket on Amazon S3 - please see our [[Hosted assets]] page for details.
-
-You will need to add the executable flag onto the file:
-
-```
-$ chmod +x snowplow-lzo-s3-sink-0.1.0
-```
+See [[Hosted assets]] for the zipfile to download.
 
 ### Option 2: compile from source
 

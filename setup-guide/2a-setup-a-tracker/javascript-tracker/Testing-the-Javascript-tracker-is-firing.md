@@ -45,7 +45,7 @@ If you are running the Clojure collector, you again need to check the S3 bucket 
 
 [[/setup-guide/images/test-tracker/4.png]]
 
-It is the log files with name format corresponding to `_var_log_tomcat7_localhost_access_log.txt-XXXXXXXXXX.gz` that contain the Snowplow data.
+It is the log files with name format corresponding to `_var_log_tomcat8_localhost_access_log.txt-XXXXXXXXXX.gz` that contain the Snowplow data.
 
 In either case (whether your are running the Clojure or Cloudfront collector), download one of the logs, unzip it, and inspect it. You should find records for requests to the `i` pixel you saw in the browser e.g. 
 

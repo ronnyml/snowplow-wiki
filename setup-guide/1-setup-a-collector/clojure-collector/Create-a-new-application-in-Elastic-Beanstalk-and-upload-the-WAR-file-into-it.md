@@ -12,7 +12,7 @@ Once you've selected your region, you're ready to create your application. Click
 
 [[/setup-guide/images/clojure-collector-setup-guide/1.png]]
 
-Give your application a suitable name and description. Select **32bit Amazon Linux running Tomcat 7** for the container type. For the **Application Source**, select **Upload your Existing Application**. Use the **Choose File** button to point Elastic Beanstalk at the `war` file from [part 1](#war-file).
+Give your application a suitable name and description. Select **64bit Amazon Linux running Tomcat 8** for the container type. For the **Application Source**, select **Upload your Existing Application**. Use the **Choose File** button to point Elastic Beanstalk at the `war` file from [part 1](#war-file).
 
 [[/setup-guide/images/clojure-collector-setup-guide/2.png]]
 
