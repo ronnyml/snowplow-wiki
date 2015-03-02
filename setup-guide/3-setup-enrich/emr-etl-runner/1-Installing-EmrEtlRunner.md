@@ -245,14 +245,14 @@ This section is where we configure exactly how we want our ETL process to operat
 3. `collector_format`, what format is our collector saving data in? See the table of supported formats below
 4. `continue_on_unexpected_error`, continue processing even on unexpected row-level errors, e.g. an input file not matching the expected CloudFront format. Off ("false") by default
 
- Currently three formats are supported: "cloudfront" (if you are running the Cloudfront collector), "clj-tomcat" , or "thrift" if you are using the Scala Stream Collector plus Kinesis LZO S3 Sink
+Supported input formats:
 
-| **Input format**                              | **Description**                                                      |
-|:----------------------------------------------|:---------------------------------------------------------------------|
-| `cloudfront`                                  | If you are running the Cloudfront collector                          |
-| `clj-tomcat`                                  | If you are running the Clojure collector on Elastic Beanstalk        |
-| `thrift`                                      | If you are using the Scala Stream Collector plus Kinesis LZO S3 Sink |
-| `tsv/com.amazon.aws.cloudfront/wd_access_log` | If you are analyzing Amazon CloudFront access logs                   |
+| **Input format**                              | **Use this when**                                                 |
+|:----------------------------------------------|:------------------------------------------------------------------|
+| `cloudfront`                                  | You are running the CloudFront Collector                          |
+| `clj-tomcat`                                  | You are running the Clojure Collector on Elastic Beanstalk        |
+| `thrift`                                      | You are using the Scala Stream Collector plus Kinesis LZO S3 Sink |
+| `tsv/com.amazon.aws.cloudfront/wd_access_log` | You are analyzing Amazon CloudFront access logs                   |
 
 <a name="enrichments" />
 ## 5. Configuring enrichments
