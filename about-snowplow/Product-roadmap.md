@@ -1,6 +1,6 @@
 ## Overview
 
-The current release of Snowplow is **Release 60 Bee Hummingbird**. The planned roadmap for Snowplow is divided in two:
+The current release of Snowplow is **Release 61 Pygmy Parrot**. The planned roadmap for Snowplow is divided in two:
 
 1. **Short term: a series of planned point releases** - adding specific, mostly incremental features, tweaks and bug fixes to the core platform
 2. **Longer term: an approximate schedule for new components and capabilities** - setting out priorities and approximate timings for all-new Snowplow components and other ambitious new developments
@@ -22,8 +22,6 @@ In this section we set out an approximate map of the new components and capabili
 **Update** this section has been removed because it was not current.
 
 [milestones]: https://github.com/snowplow/snowplow/issues/milestones
-
-[issues-0914]: https://github.com/snowplow/snowplow/milestones/Version%200.9.14
 
 [scalding]: https://github.com/twitter/scalding
 [redshift]: http://aws.amazon.com/redshift/
