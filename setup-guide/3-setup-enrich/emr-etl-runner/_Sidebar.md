@@ -7,6 +7,7 @@
 - [Step 3: Setup Enrich](setting-up-enrich)  
   - [3.1: Setup EmrEtlRunner](setting-up-EmrEtlrunner)  
     - [3.1.1: Install EmrEtlRunner](1-Installing-EmrEtlRunner)  
+      - [3.1.1: Input formats](EmrEtlRunner-Input-Formats)
     - [3.1.2: Use EmrEtlRunner](2-Using-EmrEtlRunner)  
     - [3.1.3: Schedule EmrEtlRunner](3-Scheduling-EmrEtlRunner)  
     - [3.1.4: Self-host Hadoop Enrich](4-Self-hosting-Hadoop-Enrich)  
