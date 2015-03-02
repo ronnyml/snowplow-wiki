@@ -8,7 +8,7 @@
 Supported input formats for the EmrEtlRunner are as follows:
 
 <a name="cloudfront"/>
-### 2. `cloudfront`
+### 1.1 `cloudfront`
 
 Use this when you are running the CloudFront Collector.
 
@@ -17,7 +17,7 @@ Documentation:
 * [[Setting up the Cloudfront collector]]
 
 <a name="clj-tomcat"/>
-### 2. `clj-tomcat`
+### 1.2 `clj-tomcat`
 
 Use this when you are running the Clojure Collector on Elastic Beanstalk.
 
@@ -26,7 +26,7 @@ Documentation:
 * [[Setting up the Clojure collector]]
 
 <a name="thrift"/>
-### 3. `thrift`
+### 1.3 `thrift`
 
 Use this when you are using the Scala Stream Collector plus Kinesis LZO S3 Sink.
 
@@ -36,7 +36,7 @@ Documentation:
 * [[Kinesis LZO S3 Sink Setup]]
 
 <a name="tsv/com.amazon.aws.cloudfront/wd_access_log"/>
-### 4. `tsv/com.amazon.aws.cloudfront/wd_access_log`
+### 1.4 `tsv/com.amazon.aws.cloudfront/wd_access_log`
 
 Use this when you are analyzing Amazon CloudFront access logs (web distribution format only).
 
