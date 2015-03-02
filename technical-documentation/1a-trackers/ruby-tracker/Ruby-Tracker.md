@@ -196,7 +196,9 @@ my_tracker.set_subject(s0).track_screen_view('final page')
 
 The platform can be any on of `'pc'`, `'tv'`, `'mob'`, `'cnsl'`, or `'iot'`. The default platform is `'srv'`.
 
+```ruby
 tracker.set_platform('mob')
+```
 
 <a name="set-user-id" />
 ### 3.2 Set the user ID with `set_user_id`
