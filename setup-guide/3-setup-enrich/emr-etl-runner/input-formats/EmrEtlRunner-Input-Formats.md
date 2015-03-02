@@ -3,7 +3,7 @@
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 3: Setting up Enrich](Setting-up-enrich) > [**Step 3.1: setting up EmrEtlRunner**](Setting-up-EmrEtlRunner) > [**1: Installing EmrEtlRunner**](1-Installing-EmrEtlRunner) > [EmrEtlRunner input formats](EmrEtlRunner-Input-Formats)
 
 <a name="overview"/>
-## 1. Overview
+## 1. Supported input formats
 
 Supported input formats for the EmrEtlRunner are as follows:
 
