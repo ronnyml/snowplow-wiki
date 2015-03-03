@@ -611,14 +611,14 @@ A simple example with just an endpoint:
 
 ```ruby
 # Create an emitter
-my_emitter = Snowplow::Emitter.new('d3rkrsqld9gmqf.cloudfront.net')
+my_emitter = SnowplowTracker::Emitter.new('d3rkrsqld9gmqf.cloudfront.net')
 ```
 
 A complicated example using every setting:
 
 ```ruby
 # Create an emitter
-my_emitter = Snowplow::Emitter.new('d3rkrsqld9gmqf.cloudfront.net', {
+my_emitter = SnowplowTracker::Emitter.new('d3rkrsqld9gmqf.cloudfront.net', {
   :protocol => 'https',
   :method => 'post',
   :port => 80,
@@ -655,7 +655,7 @@ It is possible to initialize a tracker with an array of emitters, in which case 
 
 ```ruby
 # Create a tracker with multiple emitters
-my_tracker = Snowplow::Tracker.new([my_sync_emitter, my_async_emitter], 'my_tracker_name', 'my_app_id')
+my_tracker = SnowplowTracker::Tracker.new([my_sync_emitter, my_async_emitter], 'my_tracker_name', 'my_app_id')
 ```
 
 You can also add new emitters after creating a tracker with the `add_emitter` method:
