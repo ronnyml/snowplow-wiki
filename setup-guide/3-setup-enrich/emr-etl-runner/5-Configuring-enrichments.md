@@ -219,7 +219,7 @@ An example config JSON corresponding to the standard Google parameter names:
 
 ```json
 {
-	"schema": "iglu:com.snowplowanalytics.snowplow/campaign_attribution/jsonschema/1-0-0",
+	"schema": "iglu:com.snowplowanalytics.snowplow/campaign_attribution/jsonschema/1-0-1",
 
 	"data": {
 
@@ -233,7 +233,7 @@ An example config JSON corresponding to the standard Google parameter names:
 				"mktSource": ["utm_source"],
 				"mktTerm": ["utm_term"],
 				"mktContent": ["utm_content"],
-				"mktCampaign": ["utm_campaign"],
+				"mktCampaign": ["utm_campaign"]
 			}
 		}
 	}
@@ -246,7 +246,7 @@ The Omniture version, in which only the `mkt_campaign` field can be populated:
 
 ```json
 {
-	"schema": "iglu:com.snowplowanalytics.snowplow/campaign_attribution/jsonschema/1-0-0",
+	"schema": "iglu:com.snowplowanalytics.snowplow/campaign_attribution/jsonschema/1-0-1",
 
 	"data": {
 
@@ -260,7 +260,7 @@ The Omniture version, in which only the `mkt_campaign` field can be populated:
 				"mktSource": [],
 				"mktTerm": [],
 				"mktContent": [],
-				"mktCampaign": ["cid"],
+				"mktCampaign": ["cid"]
 			}
 		}
 	}
@@ -271,7 +271,7 @@ It is possible to have more than one parameter name in each array, for example:
 
 ```json
 {
-    "schema": "iglu:com.snowplowanalytics.snowplow/campaign_attribution/jsonschema/1-0-0",
+    "schema": "iglu:com.snowplowanalytics.snowplow/campaign_attribution/jsonschema/1-0-1",
 
     "data": {
 
@@ -285,7 +285,7 @@ It is possible to have more than one parameter name in each array, for example:
                 "mktSource": ["utm_source", "source"],
                 "mktTerm": ["utm_term", "legacy_term"],
                 "mktContent": ["utm_content"],
-                "mktCampaign": ["utm_campaign", "cid", "legacy_campaign"],
+                "mktCampaign": ["utm_campaign", "cid", "legacy_campaign"]
             }
         }
     }
@@ -300,6 +300,40 @@ If multiple acceptable parameter names for the same field are found in the query
 
 then the `mkt_campaign` field would be populated with "my_campaign".
 
+The enrichment will also search the querystring for a name-value pair based on which it can populate the `mkt_clickid` and `mkt_network` fields, which correspond to the click ID and the network responsible for the click. The enrichment automatically knows about Google (corresponding to the "gclid" querystring parameter), Microsoft ("msclkid"), and DoubleClick ("dclid").
+
+For example, if the querystring contained `...&gclid=abc&...` then the `mkt_clickid` field would be populated with `"abc"` and the `mkt_network` field would be populated with `"Google"`.
+
+You can add other networks using the `mktClickId` field like this:
+
+```json
+{
+    "schema": "iglu:com.snowplowanalytics.snowplow/campaign_attribution/jsonschema/1-0-1",
+
+    "data": {
+
+        "name": "campaign_attribution",
+        "vendor": "com.snowplowanalytics.snowplow",     
+        "enabled": false,
+        "parameters": {
+            "mapping": "static",
+            "fields": {
+                "mktMedium": ["utm_medium", "medium"],
+                "mktSource": ["utm_source", "source"],
+                "mktTerm": ["utm_term", "legacy_term"],
+                "mktContent": ["utm_content"],
+                "mktCampaign": ["utm_campaign", "cid", "legacy_campaign"],
+                "mktClickId": {
+                    "customclid": "MyNetwork"
+                }
+            }
+        }
+    }
+}
+```
+
+Then for a querystring containing `...&customclid=abc&...` the `mkt_clickid` field would be populated with `"abc"` and the `mkt_network` field would be populated with `"MyNetwork"`.
+
 The "mapping" field is currently not implemented. In the future, setting it to "script" will indicate that the enrichment uses custom JavaScript to extract the campaign fields from the querystring.
 
 [enrichment-json-examples]: https://github.com/snowplow/snowplow/tree/master/3-enrich/emr-etl-runner/config/enrichments
@@ -308,7 +342,7 @@ The "mapping" field is currently not implemented. In the future, setting it to "
 [anon-ip]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/anon_ip/jsonschema/1-0-0
 [ip-lookups]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/ip_lookups/jsonschema/1-0-0
 [referer-parser]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/referer_parser/jsonschema/1-0-0
-[campaign_attribution]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/campaign_attribution/jsonschema/1-0-0
+[campaign_attribution]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/campaign_attribution/jsonschema/1-0-1
 [referer-parser-repo]: https://github.com/snowplow/referer-parser
 [geoipcity]: https://www.maxmind.com/en/geoip2-city?rld=snowplow
 [geolitecity]: http://dev.maxmind.com/geoip/legacy/geolite/?rld=snowplow
