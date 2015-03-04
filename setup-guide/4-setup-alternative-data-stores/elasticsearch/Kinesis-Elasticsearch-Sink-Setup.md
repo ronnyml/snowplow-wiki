@@ -147,4 +147,4 @@ This will start the process of reading events from Kinesis and writing them to a
 [installation-guide]: http://www.elastic.co/guide/en/elasticsearch/guide/current/_installing_elasticsearch.html
 [DefaultAWSCredentialsProviderChain]: http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/auth/DefaultAWSCredentialsProviderChain.html
 [scala-kinesis-enrich]: https://github.com/snowplow/snowplow/wiki/Scala-Kinesis-Enrich
-[conf-example]: https://github.com/snowplow/snowplow/blob/master/4-storage/kinesis-elasticsearch-sink/src/main/resources/application.conf.example
+[conf-example]: https://github.com/snowplow/snowplow/blob/master/4-storage/kinesis-elasticsearch-sink/src/main/resources/config.hocon.sample
