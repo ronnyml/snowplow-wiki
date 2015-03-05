@@ -10,7 +10,7 @@ You can set an environment mode in the collector to "development" or "production
 
 [[/setup-guide/images/clojure-collector-setup-guide/10.png]]
 
-Setting the environment to 'development' means you can view the status of the collector on `http://{{COLLECTOR URL}}/status`. It is set to production by default.
+Setting the environment to 'production' will hide the status of the collector on `http://{{COLLECTOR URL}}/status`. It is set to 'development' by default.
 
 <a name="3bii" ></a>
 
