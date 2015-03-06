@@ -2,10 +2,8 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > [**JavaScript Tracker**](Javascript-Tracker) > Specific event tracking
 
-*This page refers to version 2.4.0 of the Snowplow JavaScript Tracker.*  
-*Click [here] [specific-events-v2.0] for the corresponding documentation for version 2.0.*  
-*Click [here] [specific-events-v2.2] for the corresponding documentation for version 2.2.*  
-*Click [here] [specific-events-v2.3] for the corresponding documentation for version 2.3.*  
+*This page refers to version 2.3.0 of the Snowplow JavaScript Tracker.*  
+*Click [here] [specific-events-v2.0] for the corresponding documentation for version 2.0.0.*  
 *Click [here] [specific-events-v1] for the corresponding documentation for version 1.*
 
 <a name="tracking-specific-events" />
@@ -44,8 +42,7 @@ Snowplow has been built to enable users to track a wide range of events that occ
     - 3.10.1 [`enableFormTracking`](#enableFormTracking)
   - 3.11 [`trackAddToCart` and `trackRemoveFromCart`](#cart)
   - 3.12 [`trackSiteSearch`](#siteSearch)
-  - 3.13 [`trackTiming`](#timign)
-  - 3.14 [Custom contexts](#custom-contexts)
+  - 3.13 [Custom contexts](#custom-contexts)
 
 <a name="page" />
 ### 3.1 Pageviews
@@ -898,35 +895,8 @@ Site search events are implemented as Snowplow unstructured events. [Here][site_
 
 `trackSiteSearch` can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
 
-<a name="timing" />
-### 3.13 `trackTiming`
-
-Use the `trackTiming` method to track user timing events such as how long resources take to load. Here are its arguments:
-
-| **Name**   | **Required?** | **Description**                | **Type**             |
-|-----------:|:--------------|:-------------------------------|:---------------------|
-| `category` | Yes           | Timing category                | string     |
-| `variable` | Yes           | Timed variable                 | string |
-| `timing`   | Yes           | Number of milliseconds elapsed | number    |
-| `label`    | No            | Label for the event            | string            |
-
-An example:
-
-```javascript
-window.snowplow('trackTiming',
-  'load',            // Category of the timing variable
-  'map_loaded',      // Variable being recorded
-  50,                // Milliseconds taken
-  'Map loading time' // Optional label
-);
-```
-
-Site search events are implemented as Snowplow unstructured events. [Here][timing] is the schema for a `site_search` event.
-
-`trackTiming` can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
-
 <a name="custom-contexts" />
-### 3.14 Custom contexts
+### 3.13 Custom contexts
 
 Custom contexts can be used to augment any standard Snowplow event type, including unstructured events, with additional data.
 
@@ -985,8 +955,6 @@ For more information on custom contexts, see [this][contexts] blog post.
 [contents]: Javascript-Tracker
 [specific-events-v1]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker-v1
 [specific-events-v2.0]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker-v2.0
-[specific-events-v2.2]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker-v2.2
-[specific-events-v2.3]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker-v2.3
 [multiple-trackers]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker#24-managing-multiple-trackers
 [json-schema]: http://json-schema.org/
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
@@ -1014,6 +982,5 @@ For more information on custom contexts, see [this][contexts] blog post.
 [add_to_cart]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/add_to_cart/jsonschema/1-0-0
 [remove_from_cart]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/remove_from_cart/jsonschema/1-0-0
 [site_search]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/site_search/jsonschema/1-0-0
-[timing]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/timing/jsonschema/1-0-0
 [performancetiming]: https://github.com/snowplow/iglu-central/blob/master/schemas/org.w3/PerformanceTiming/jsonschema/1-0-0
 [performance-spec]: http://www.w3.org/TR/2012/REC-navigation-timing-20121217/#sec-window.performance-attribute
