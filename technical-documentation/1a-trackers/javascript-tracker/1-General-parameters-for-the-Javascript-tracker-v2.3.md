@@ -2,11 +2,10 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > [**JavaScript Tracker**](Javascript-Tracker) > General parameters
 
-*This page refers to version 2.4.0 of the Snowplow JavaScript Tracker.*
+*This page refers to version 2.3.0 of the Snowplow JavaScript Tracker.*
 *Click [here] [general-parameters-v1] for the corresponding documentation for version 1.*
 *Click [here] [general-parameters-v2.0] for the corresponding documentation for version 2.1.1.*
 *Click [here] [general-parameters-v2.2] for the corresponding documentation for version 2.2.0.*
-*Click [here] [general-parameters-v2.3] for the corresponding documentation for version 2.3.0.*
 
 <a name="general" />
 ## 2. General parameters
@@ -29,16 +28,14 @@
       - 2.2.13.2 [gaCookies context](#gaCookies)
       - 2.2.13.3 [geolocation contexts](#geolocation)
     - 2.2.14 [POST support](#post)
-    - 2.2.15 [Disabling cookies](#write-cookies)
-    - 2.2.16 [Configuring cross-domain tracking](#cross-domain)
   - 2.3 [Other parameters](#other-methods)
     - 2.3.1 [Setting the user id](#user-id)
       - 2.3.1.1 [`setUserId`](#set-user-id)
       - 2.3.1.2 [`setUserIdFromLocation`](#set-user-id-from-location)
       - 2.3.1.3 [`setUserIdFromReferrer`](#set-user-id-from-referrer)
       - 2.3.1.4 [`setUserIdFromCookie`](#set-user-id-from-cookie)
-    - 2.3.2 [Setting a custom page URL and referrer URL](#custom-url)
-    - 2.3.3 [Configuring cookie timeouts using `setSessionCookieTimeout`](#cookie-timeouts)
+    - 2.3.2 [Setting a custom URL with `setCustomUrl`](#custom-url)
+    - 2.3.3 [Setting the pause time before leaving a page with `setLinkTrackingTimer`](#tracker-pause)
   - 2.4 [Setting onload callbacks](#callback)
   - 2.5 [Managing multiple trackers](#multiple-trackers)
   - 2.6 [How the Tracker uses cookies](#cookies)
@@ -120,12 +117,8 @@ snowplow_name_here("newTracker", "cf", "d3rkrsqld9gmqf.cloudfront.net", {
   userFingerprintSeed: 6385926734,
   pageUnloadTimer: 0,
   forceSecureTracker: true,
-  useCookies: true,
   writeCookies: true,
   post: true,
-  crossDomainLinker: function (linkElement) {
-    return (linkElement.href === "http://acme.de" || linkElement.id === "crossDomainLink"); 
-  },
   contexts: {
     performanceTiming: true,
     gaCookies: true,
@@ -216,7 +209,7 @@ The JavaScript Tracker comes with three predefined contexts which you can automa
 
 If this context is enabled, the JavaScript Tracker will use the create a context JSON from the `window.performance.timing` object, along with the Chrome `firstPaintTime` field (renamed to `"chromeFirstPaint"`) if it exists. This data can be used to calculate page performance metrics.
 
-Note that if you fire a page view event as soon as the page loads, the `domComplete`, `loadEventStart`, `loadEventEnd`, and `chromeFirstPaint` metrics in the Navigation Timing API may be set to zero. This is because those properties are only known once all scripts on the page have finished executing. See the [Advanced Usage](3-Advanced-usage-of-the-JavaScript-tracker#timing) page for more information on circumventing this limitation. Additionally the `redirectStart`, `redirectEnd`, and `secureConnectionStart` are set to 0 if there is no redirect or a secure connection is not requested.
+Note that if you fire a page view event as soon as the page loads, the `domComplete`, `loadEventStart`, `loadEventEnd`, and `chromeFirstPaint` metrics in the Navigation Timing API may be set to zero. This is because those properties are only known once all scripts on the page have finished executing. Additionally the `redirectStart`, `redirectEnd`, and `secureConnectionStart` are set to 0 if there is no redirect or a secure connection is not requested.
 
 For more information on the Navigation Timing API, see [the specification][performance-spec].
 
@@ -244,56 +237,6 @@ Note that at present, only the [Clojure Collector][clojure-collector] accepts ev
 You can also batch events sent by POST by setting a numeric `bufferSize` field in the argmap. This is the number of events to buffer before sending them all in a single POST. If the user navigates away from the page while the buffer is only partially full, the tracker will attempt to send all stored events immediately, but this often doesn't happen before the page unloads. Normally the tracker will store unsent events in `localStorage`, meaning that unsent events will be resent when the user next visits a page on the same domain.
 
 Note that if `localStorage` is inaccessible or you are not using it to store data, the buffer size will always be 1 to prevent losing events when the user leaves the page.
-
-<a name="use-cookies" />
-#### 2.2.15 Disabling cookies
-
-You can prevent the Tracker from setting or reading first-party cookies by adding `useCookies: false` to the argmap.
-
-<a name="cross-domain" />
-#### 2.2.16 Configuring cross-domain tracking
-
-The JavaScript Tracker can add an additional parameter named "_sp" to the querystring of outbound links. Its value includes the domain user ID for the current page and the time at which the link was clicked. This makes these values visible in the "url" field of events sent by an instance of the JavaScript Tracker on the destination page.
-
-You can configure which links get decorated this way using the `crossDomainLinker` field of the argmap. This field should be a function taking one argument (the link element) and return `true` if the link element should be decorated and false otherwise. For example, this function would only decorate those links whose destination is "http://acme.de" or whose HTML id is "crossDomainLink":
-
-```javascript
-{
-  crossDomainLinker: function (linkElement) {
-    return (linkElement.href === "http://acme.de" || linkElement.id === "crossDomainLink"); 
-  }
-}
-```
-
-If you want to decorate every link to the domain github.com:
-
-```javascript
-{
-  crossDomainLinker: function (linkElement) {
-    return /^https:\/\/github\.com/.test(linkElement.href);
-  }
-}
-```
-
-If you want to decorate every link, regardless of its destination:
-
-```javascript
-{
-  crossDomainLinker: function (linkElement) {
-    return true;
-  }
-}
-```
-
-Note that when the tracker loads, it does not immediately decorate links. Instead it adds event listeners to links which decorate them as soon as a user clicks on them or navigates to them using the keyboard. This ensures that the timestamp added to the querystring is fresh.
-
-If further links get added to the page after the tracker has loaded, you can use the tracker's `crossDomainLinker` method to add listeners again. (Listeners won't be added to links which already have them.)
-
-```javascript
-snowplow_name_here('crossDomainLinker', function () {
-  return (linkElement.href === "http://acme.de" || linkElement.id === "crossDomainLink"); 
-});
-```
 
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
@@ -351,25 +294,18 @@ snowplow_name_here('setUserIdFromCookie', 'cookieid');
 [Back to JavaScript technical documentation contents][contents]
 
 <a name="custom-url" />
-#### 2.3.2 Setting a custom page URL and referrer URL
+#### 2.3.2 Setting a custom URL with `setCustomUrl`
 
-The Snowplow JavaScript Tracker automatically tracks the page URL and referrerURL on any event tracked. However, in certain situations, you may want to override the one or bo
-th of these URLs with a custom value. (For example, this might be desirable if your CMS spits out particularly ugly URLs that are hard to unpick at analysis time.)
+The Snowplow JavaScript Tracker automatically tracks the page URL on any event tracked. However, in certain situations, you may want to override the actual URL with a custom value. (For example, this might be desirable if your CMS spits out particularly ugly URLs that are hard to unpick at analysis time.) In that case, you can override the default value using the `setCustomUrl` function.
 
-To set a custom page URL, use the `setCustomUrl` method:
+To set a custom URL, use the `setCustomUrl` method:
 
 ```javascript
 snowplow_name_here('setCustomUrl', 'http://mysite.com/checkout-page');
 ```
 
-To set a custom referrer, use the `setReferrerUrl` method:
-
-```javascript
-snowplow_name_here('setCustomUrl', 'http://custom-referrer.com');
-```
-
-<a name="cookie-timeouts" />
-#### 2.3.3 Configuring cookie timeouts using `setSessionCookieTimeout`
+<a name="custom-url" />
+#### 2.3.4 Configuring cookie timeouts using `setSessionCookieTimeout`
 
 The JavaScript Tracker sets two cookies: a visitor cookie and a session cookie. The visitor cookie contains all persistent information about the user, including a visit count (the number of times the user has visited the site). It lasts for two years. The session cookie is specific to an individual session. By default, it expires after 30 minutes pass with no event fired. Whenever a Snowplow event is fired, if no session cookie is found, the Tracker takes this to mean that a new session has started. It therefore increments the visitor cookie's visit count. If the user leaves the site and returns before the 30 minutes is up, the visit count is not incremented.
 
@@ -532,7 +468,6 @@ The Snowplow JavaScript Tracker uses `window.localStorage` to store events in ca
 [general-parameters-v1]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker-v1
 [general-parameters-v2.0]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker-v2.0
 [general-parameters-v2.2]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker-v2.2
-[general-parameters-v2.3]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker-v2.3
 [snowplow-tracker-protocol]: https://github.com/snowplow/snowplow/wiki/SnowPlow-Tracker-Protocol
 [contexts]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker-v1#custom-contexts
 [clojure-collector]: https://github.com/snowplow/snowplow/wiki/Clojure-collector
