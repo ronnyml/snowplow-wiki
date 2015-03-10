@@ -353,8 +353,7 @@ snowplow_name_here('setUserIdFromCookie', 'cookieid');
 <a name="custom-url" />
 #### 2.3.2 Setting a custom page URL and referrer URL
 
-The Snowplow JavaScript Tracker automatically tracks the page URL and referrerURL on any event tracked. However, in certain situations, you may want to override the one or bo
-th of these URLs with a custom value. (For example, this might be desirable if your CMS spits out particularly ugly URLs that are hard to unpick at analysis time.)
+The Snowplow JavaScript Tracker automatically tracks the page URL and referrerURL on any event tracked. However, in certain situations, you may want to override the one or both of these URLs with a custom value. (For example, this might be desirable if your CMS spits out particularly ugly URLs that are hard to unpick at analysis time.)
 
 To set a custom page URL, use the `setCustomUrl` method:
 
@@ -368,7 +367,9 @@ To set a custom referrer, use the `setReferrerUrl` method:
 snowplow_name_here('setCustomUrl', 'http://custom-referrer.com');
 ```
 
-<a name="cookie-timeouts" />
+On a single-page app, the page URL might change without the page being reloaded. Whenever an event is fired, the Tracker checks whether the page URL has changed since the last event. If it has, the page URL is updated and the URL at the time of the last event is used as the referrer. If you use `setCustomUrl`, the page URL will no longer be updated in this way. If you use `setReferrerUrl`, the referrer URL will no longer be updated in this way.
+
+<a name="custom-url" />
 #### 2.3.3 Configuring cookie timeouts using `setSessionCookieTimeout`
 
 The JavaScript Tracker sets two cookies: a visitor cookie and a session cookie. The visitor cookie contains all persistent information about the user, including a visit count (the number of times the user has visited the site). It lasts for two years. The session cookie is specific to an individual session. By default, it expires after 30 minutes pass with no event fired. Whenever a Snowplow event is fired, if no session cookie is found, the Tracker takes this to mean that a new session has started. It therefore increments the visitor cookie's visit count. If the user leaves the site and returns before the 30 minutes is up, the visit count is not incremented.
