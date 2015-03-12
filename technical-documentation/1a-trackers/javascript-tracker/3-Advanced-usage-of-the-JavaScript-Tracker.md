@@ -8,7 +8,9 @@
 This page covers the more advanced elements of the Snowplow JavaScript Tracker API.
 
   - 4.1 [Callbacks](#callbacks)
-  - 4.2 [Extracting the Google Analytics cookie ID](#ga)
+  - 4.1 [Methods which can be used from inside a callback](#return-methods)
+  - 4.3 [Extracting the Google Analytics cookie ID](#ga)
+  - 4.4 [Getting the most out of the PerformanceTiming context](#timing)
 
 <a name="callbacks" />
 ### 4.1 Callbacks
@@ -161,5 +163,19 @@ You can then set a user's Snowplow business user ID to be equal to the user's GA
 ```javascript
 snowplow('setUserId', getGoogleId());
 ```
+<a name="timing" />
+### 4.4 Getting the most out of the PerformanceTiming context
+
+The `domComplete`, `loadEventStart`, and `loadEventEnd` metrics in the NavigationTiming API are set to 0 until after every script on the page has finished executing, including sp.js. This means that the corresponding fields in the PerformanceTiming reported by the tracker will be 0. To get around this limitation, you can wrap all Snowplow code in a `setTimeout` call:
+
+```javascript
+setTimeout(function () {
+	
+	// Load Snowplow and call tracking methods here
+
+}, 0);
+```
+
+This delays its execution until after those NavigationTiming fields are set.
 
 [execution-context]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this

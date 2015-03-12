@@ -209,7 +209,7 @@ The JavaScript Tracker comes with three predefined contexts which you can automa
 
 If this context is enabled, the JavaScript Tracker will use the create a context JSON from the `window.performance.timing` object, along with the Chrome `firstPaintTime` field (renamed to `"chromeFirstPaint"`) if it exists. This data can be used to calculate page performance metrics.
 
-Note that if you fire a page view event as soon as the page loads, the `domComplete`, `loadEventStart`, `loadEventEnd`, and `chromeFirstPaint` metrics in the Navigation Timing API may be set to zero. This is because those properties are only known once all scripts on the page have finished executing. Additionally the `redirectStart`, `redirectEnd`, and `secureConnectionStart` are set to 0 if there is no redirect or a secure connection is not requested.
+Note that if you fire a page view event as soon as the page loads, the `domComplete`, `loadEventStart`, `loadEventEnd`, and `chromeFirstPaint` metrics in the Navigation Timing API may be set to zero. This is because those properties are only known once all scripts on the page have finished executing. See the [Advanced Usage](3-Advanced-usage-of-the-JavaScript-tracker#timing) page for more information on circumventing this limitation. Additionally the `redirectStart`, `redirectEnd`, and `secureConnectionStart` are set to 0 if there is no redirect or a secure connection is not requested.
 
 For more information on the Navigation Timing API, see [the specification][performance-spec].
 
