@@ -2,7 +2,7 @@
 
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 3: Setting up Enrich**](Setting-up-enrich) > [**Step 3.2: setting up Scala Kinesis Enrich**](Setting-up-Scala-Kinesis-Enrich) > [2: Configuring](Configuring-Scala-Kinesis-Enrich)
 
-This documentation is for version 0.2.0-1 of Scala Kinesis Enrich. Documentation for other versions is available:
+This documentation is for version 0.3.0 of Scala Kinesis Enrich. Documentation for other versions is available:
 
 **[Version 0.1.0][v0.1]**
 
@@ -41,7 +41,7 @@ The `enrich.sink` setting determines which of the supported sinks to write enric
 + `"kinesis"` for writing enriched Snowplow events to a named Amazon Kinesis stream
 + `"stdouterr"` for writing enriched Snowplow events records to the app's own `stdout` I/O stream
 
-If you select `"kinesis"`, you need to also update the `enrich.streams.out` section:
+If you select `"kinesis"`, you will also need to update the `enrich.streams.out` section:
 
 ```
 out: {
@@ -52,8 +52,6 @@ out: {
 }
 ```
 
-Note that the Scala Kinesis Enrich does not yet support writing out bad rows to a dedicated Kinesis stream - so for now you can ignore those settings and simply configure the `enriched` and `enriched_shards` fields.
-
 ## Configuring enrichments
 
 You may wish to use Snowplow's configurable enrichments. To do this, create a directory of enrichment JSONs. For each configurable enrichment you wish to use, the enrichments directory should contain a .json file with a configuration JSON for that enrichment. When you come to run Scala Kinesis Enrich you can then pass in the filepath to this directory using the --enrichments option.
@@ -62,9 +60,16 @@ Sensible default configuration enrichments are available on GitHub: [3-enrich/em
 
 See the documentation on [configuring enrichments][configuring-enrichments] for details on the available enrichments.
 
+### GeoLiteCity databases
+
+For the `ip_lookups` enrichment you can manually download the latest version of the [MaxMind GeoLiteCity database][geolite] jarfile directly from our Hosted Assets bucket on Amazon S3 - please see our [[Hosted assets]] page for details.
+
+If you do not have the databases downloaded prior to running but still have the `ip_lookups` enrichment activated these databases will be downloaded automatically and loaded into the working directory.
+
 Next: [[Run Scala Kinesis Enrich]]
 
 [v0.1]: https://github.com/snowplow/snowplow/wiki/Configure-Scala-Kinesis-Enrich-v0.1
+[geolite]: http://dev.maxmind.com/geoip/legacy/geolite/?rld=snowplow
 [app-conf]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-kinesis-enrich/src/main/resources/config.hocon.sample
 [enrichment-json-examples]: https://github.com/snowplow/snowplow/tree/master/3-enrich/emr-etl-runner/config/enrichments
 [configuring-enrichments]: https://github.com/snowplow/snowplow/wiki/5-Configuring-enrichments#template

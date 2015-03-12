@@ -2,7 +2,7 @@
 
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 3: Setting up Enrich](Setting-up-enrich) > [**Step 3.2: setting up Scala Kinesis Enrich**](Setting-up-Scala-Kinesis-Enrich) > [3: Running](Running-Scala-Kinesis-Enrich)
 
-**This documentation is for version 0.2.1 of Scala Kinesis Enrich, which has not yet been released. Documentation for other versions is available:**
+**This documentation is for version 0.3.0 of Scala Kinesis Enrich. Documentation for other versions is available:**
 
 **[Version 0.1.0][v0.1]**
 
@@ -10,13 +10,13 @@
 
 Scala Kinesis Enrich is an executable jarfile which should be runnable from any Unix-like shell environment. Simply provide the configuration file as a parameter:
 
-    $ ./scala-kinesis-enrich-0.2.1 --config my.conf
+    $ ./scala-kinesis-enrich-0.3.0 --config my.conf
 
 This will start the Scala Kinesis Enrich app to read raw events from Kinesis and write enriched events back to Kinesis.
 
 If you are using configurable enrichments, provide the path to your enrichments directory as a parameter:
 
-    $ ./scala-kinesis-enrich-0.2.1 --config my.conf --enrichments path/to/enrichments
+    $ ./scala-kinesis-enrich-0.3.0 --config my.conf --enrichments path/to/enrichments
 
 ## All done?
 
