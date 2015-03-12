@@ -10,7 +10,7 @@ If you are using [Snowplow Kinesis Enrich][ske] to write enriched Snowplow event
 
 ### Getting started
 
-First off, install and set up Elasticsearch version 1.4.0. For more information check out the [definitive guide][definitive-guide].
+First off, install and set up Elasticsearch version 1.4.0. For more information check out the [installation guide][installation-guide].
 
 ### Raising the file limit
 
@@ -27,7 +27,15 @@ Append the following lines to the file:
 {{USERNAME}} hard nofile 32000
 ```
 
-where {{USERNAME}} is the name of the user running Elasticsearch. You may need to restart Elasticsearch and log out before the new file limit takes effect.
+Where {{USERNAME}} is the name of the user running Elasticsearch. You will need to logout and restart Elasticsearch before the new file limit takes effect.
+
+To check that this new limit has taken effect you can run the following command from the terminal:
+
+```
+curl localhost:9200/_nodes/process?pretty
+```
+
+If the `max_file_descriptors` equals 32000 it is running with the new limit.
 
 ### Defining the mapping
 
@@ -136,7 +144,7 @@ This will start the process of reading events from Kinesis and writing them to a
 
 [ske]: Scala-Kinesis-Enrich
 [elasticsearch]: http://www.elasticsearch.org/overview/
-[definitive-guide]: http://www.elasticsearch.org/guide/en/elasticsearch/guide/current/index.html
+[installation-guide]: http://www.elastic.co/guide/en/elasticsearch/guide/current/_installing_elasticsearch.html
 [DefaultAWSCredentialsProviderChain]: http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/auth/DefaultAWSCredentialsProviderChain.html
 [scala-kinesis-enrich]: https://github.com/snowplow/snowplow/wiki/Scala-Kinesis-Enrich
 [conf-example]: https://github.com/snowplow/snowplow/blob/master/4-storage/kinesis-elasticsearch-sink/src/main/resources/application.conf.example
