@@ -28,6 +28,7 @@
       - 2.2.13.2 [gaCookies context](#gaCookies)
       - 2.2.13.3 [geolocation contexts](#geolocation)
     - 2.2.14 [POST support](#post)
+    - 2.2.15 [Disabling cookies](#write-cookies)
   - 2.3 [Other parameters](#other-methods)
     - 2.3.1 [Setting the user id](#user-id)
       - 2.3.1.1 [`setUserId`](#set-user-id)
@@ -117,6 +118,7 @@ snowplow_name_here("newTracker", "cf", "d3rkrsqld9gmqf.cloudfront.net", {
   userFingerprintSeed: 6385926734,
   pageUnloadTimer: 0,
   forceSecureTracker: true,
+  useCookies: true,
   writeCookies: true,
   post: true,
   contexts: {
@@ -237,6 +239,11 @@ Note that at present, only the [Clojure Collector][clojure-collector] accepts ev
 You can also batch events sent by POST by setting a numeric `bufferSize` field in the argmap. This is the number of events to buffer before sending them all in a single POST. If the user navigates away from the page while the buffer is only partially full, the tracker will attempt to send all stored events immediately, but this often doesn't happen before the page unloads. Normally the tracker will store unsent events in `localStorage`, meaning that unsent events will be resent when the user next visits a page on the same domain.
 
 Note that if `localStorage` is inaccessible or you are not using it to store data, the buffer size will always be 1 to prevent losing events when the user leaves the page.
+
+<a name="use-cookies" />
+#### 2.2.15 Disabling cookies
+
+You can prevent the Tracker from setting or reading first-party cookies by adding `useCookies: false` to the argmap.
 
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
