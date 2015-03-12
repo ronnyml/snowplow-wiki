@@ -8,10 +8,10 @@ Snowplow supports storing your data into four different data stores:
 
 | **Storage**               | **Description**                                     | **Status**       |
 |:--------------------------|:----------------------------------------------------|:-----------------|
-| S3                        | Data is stored in the S3 file system where it can be analysed using [EMR] [emr] (e.g. Hive, Pig, Mahout) | Production-ready |
+| S3 (EMR, [Kinesis][kinesis]) | Data is stored in the S3 file system where it can be analysed using [EMR][emr] (e.g. Hive, Pig, Mahout) | Production-ready |
 | [Redshift] [setup-redshift]| A columnar database offered as a service on EMR. Optimized for performing OLAP analysis. Scales to Petabytes | Production-ready |
 | [PostgreSQL] [setup-postgres]| A popular, open source, RDBMS database              | Production-ready | 
-| [Elasticsearch][setup-elasticsearch] | A search server for JSON documents          | Beta
+| [Elasticsearch][setup-elasticsearch] | A search server for JSON documents          | Beta |
 
 By [setting up the EmrEtlRunner](setting-up-EmrEtlRunner) (in the previous step), you are already successfully loading your Snowplow event data into S3 where it is accessible to EMR for analysis.
 
@@ -31,6 +31,7 @@ All done? Then [start analysing your data][analyse].
 **Note**: We recommend running all Snowplow AWS operations through an IAM user with the bare minimum permissions required to run Snowplow. Please see our [IAM user setup page](IAM-setup) for more information on doing this.
 
 [emr]: http://aws.amazon.com/elasticmapreduce/
+[kinesis]: kinesis-lzo-s3-sink-setup
 [infobright]: http://www.infobright.org/
 [redshift]: http://aws.amazon.com/redshift/
 [skydb]: http://skydb.io/
