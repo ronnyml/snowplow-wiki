@@ -36,7 +36,7 @@
       - 2.3.1.3 [`setUserIdFromReferrer`](#set-user-id-from-referrer)
       - 2.3.1.4 [`setUserIdFromCookie`](#set-user-id-from-cookie)
     - 2.3.2 [Setting a custom page URL and referrer URL](#custom-url)
-    - 2.3.3 [Setting the pause time before leaving a page with `setLinkTrackingTimer`](#tracker-pause)
+    - 2.3.3 [Configuring cookie timeouts using `setSessionCookieTimeout`](#cookie-timeouts)
   - 2.4 [Setting onload callbacks](#callback)
   - 2.5 [Managing multiple trackers](#multiple-trackers)
   - 2.6 [How the Tracker uses cookies](#cookies)
@@ -318,8 +318,8 @@ To set a custom referrer, use the `setReferrerUrl` method:
 snowplow_name_here('setCustomUrl', 'http://custom-referrer.com');
 ```
 
-<a name="custom-url" />
-#### 2.3.4 Configuring cookie timeouts using `setSessionCookieTimeout`
+<a name="cookie-timeouts" />
+#### 2.3.3 Configuring cookie timeouts using `setSessionCookieTimeout`
 
 The JavaScript Tracker sets two cookies: a visitor cookie and a session cookie. The visitor cookie contains all persistent information about the user, including a visit count (the number of times the user has visited the site). It lasts for two years. The session cookie is specific to an individual session. By default, it expires after 30 minutes pass with no event fired. Whenever a Snowplow event is fired, if no session cookie is found, the Tracker takes this to mean that a new session has started. It therefore increments the visitor cookie's visit count. If the user leaves the site and returns before the 30 minutes is up, the visit count is not incremented.
 
