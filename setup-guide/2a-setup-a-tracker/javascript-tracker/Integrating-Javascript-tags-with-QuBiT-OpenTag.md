@@ -150,7 +150,7 @@ Now we need to enter the Snowplow page tracking code:
 ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
 p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
 };p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net2.3.0/sp.js","snowplow"));
+n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.4.0/sp.js","snowplow"));
 
 window.snowplow('newTracker', 'cf', '{{MY-COLLECTOR-URI}}', { // Initialise a tracker
   appId: '{{MY-SITE-ID}}',
@@ -187,7 +187,7 @@ In addition, you can optionally set a cookie domain to change your cookie domain
 
 #### Updating the reference to `sp.js`
 
-The reference to `://d1fc8wv8zag5ca.cloudfront.net2.3.0/sp.js` loads `sp.js`, the Snowplow JavaScript Tracker. The version loaded is the version [hosted by the Snowplow team from our own Cloudfront subdomain](https://github.com/snowplow/snowplow/wiki/hosted-assets).
+The reference to `://d1fc8wv8zag5ca.cloudfront.net/2.4.0/sp.js` loads `sp.js`, the Snowplow JavaScript Tracker. The version loaded is the version [hosted by the Snowplow team from our own Cloudfront subdomain](https://github.com/snowplow/snowplow/wiki/hosted-assets).
 
 If you are hosting your own Snowplow JavaScript file (see the guide to [self-hosting snowplow.js](self hosting snowplow js)), then you need to update the tag above, swapping your own Cloudfront `{{SUBDOMAIN}}` (the one from which you serve `sp.js`) in for ours:
 
@@ -195,7 +195,7 @@ If you are hosting your own Snowplow JavaScript file (see the guide to [self-hos
 ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
 p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
 };p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//://{{SUBDOMAIN}}.cloudfront.net/sp.js.cloudfront.net2.3.0/sp.js","snowplow"));
+n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//://{{SUBDOMAIN}}.cloudfront.net/sp.js.cloudfront.net/2.4.0/sp.js","snowplow"));
 ```
 
 When you've entered the page tracking code, your page will look as follows:
