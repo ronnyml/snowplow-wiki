@@ -48,8 +48,8 @@ The tracker has dependencies limited to the [AFNetworking][afnetworking] and [FM
 We support installing the iOS Tracker via CocoaPods since it's the easiest way to install the tracker. Doing so is simple:
 
 1. Install CocoaPods using `gem install cocoapods`
-2. Create the file `Podfile` in your XCode project directory, if you haven't created one already
-3. Add the followinling line into it:
+2. Create the file `Podfile` in the root of your XCode project directory, if you don't have one already
+3. Add the following line into it:
 ```
 pod 'SnowplowTracker'
 ```
