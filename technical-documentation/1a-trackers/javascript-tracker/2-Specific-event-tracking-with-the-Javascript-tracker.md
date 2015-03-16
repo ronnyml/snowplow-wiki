@@ -44,7 +44,7 @@ Snowplow has been built to enable users to track a wide range of events that occ
     - 3.10.1 [`enableFormTracking`](#enableFormTracking)
   - 3.11 [`trackAddToCart` and `trackRemoveFromCart`](#cart)
   - 3.12 [`trackSiteSearch`](#siteSearch)
-  - 3.13 [`trackTiming`](#timign)
+  - 3.13 [`trackTiming`](#timing)
   - 3.14 [Custom contexts](#custom-contexts)
 
 <a name="page" />
