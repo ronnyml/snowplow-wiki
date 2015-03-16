@@ -35,7 +35,7 @@
       - 2.3.1.2 [`setUserIdFromLocation`](#set-user-id-from-location)
       - 2.3.1.3 [`setUserIdFromReferrer`](#set-user-id-from-referrer)
       - 2.3.1.4 [`setUserIdFromCookie`](#set-user-id-from-cookie)
-    - 2.3.2 [Setting a custom URL with `setCustomUrl`](#custom-url)
+    - 2.3.2 [Setting a custom page URL and referrer URL](#custom-url)
     - 2.3.3 [Setting the pause time before leaving a page with `setLinkTrackingTimer`](#tracker-pause)
   - 2.4 [Setting onload callbacks](#callback)
   - 2.5 [Managing multiple trackers](#multiple-trackers)
@@ -301,14 +301,21 @@ snowplow_name_here('setUserIdFromCookie', 'cookieid');
 [Back to JavaScript technical documentation contents][contents]
 
 <a name="custom-url" />
-#### 2.3.2 Setting a custom URL with `setCustomUrl`
+#### 2.3.2 Setting a custom page URL and referrer URL
 
-The Snowplow JavaScript Tracker automatically tracks the page URL on any event tracked. However, in certain situations, you may want to override the actual URL with a custom value. (For example, this might be desirable if your CMS spits out particularly ugly URLs that are hard to unpick at analysis time.) In that case, you can override the default value using the `setCustomUrl` function.
+The Snowplow JavaScript Tracker automatically tracks the page URL and referrerURL on any event tracked. However, in certain situations, you may want to override the one or bo
+th of these URLs with a custom value. (For example, this might be desirable if your CMS spits out particularly ugly URLs that are hard to unpick at analysis time.)
 
-To set a custom URL, use the `setCustomUrl` method:
+To set a custom page URL, use the `setCustomUrl` method:
 
 ```javascript
 snowplow_name_here('setCustomUrl', 'http://mysite.com/checkout-page');
+```
+
+To set a custom referrer, use the `setReferrerUrl` method:
+
+```javascript
+snowplow_name_here('setCustomUrl', 'http://custom-referrer.com');
 ```
 
 <a name="custom-url" />
