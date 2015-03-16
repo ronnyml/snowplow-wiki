@@ -436,10 +436,14 @@ If you supply a `NSDictionary*`, make sure that this top-level contains your `sc
 Example:
 
 ```objective-c
-NSDictionary* eventJson = [NSDictionary dictionaryWithObjectsAndKeys:
-                            "iglu:com.snowplowanalytics.snowplow/example/jsonschema/1-0-0", "schema",
-                            "data", "{\"src\": \"Images\/Sun.png\", \"name\": \"sun1\", \"hOffset\": 250, \"vOffset\": 250, \"alignment\": \"center\"}"];
-tracker trackUnstructuredEvent:eventJson
+NSDictionary *event = @{
+                          @"schema":@"iglu:com.acme/save_game/jsonschema/1-0-0",
+                          @"data": @{
+                                  @"level": @23,
+                                  @"score": @56473
+                                  }
+                          };
+tracker trackUnstructuredEvent:event
                         context:nil
                       timestamp:12345678;
 ```
