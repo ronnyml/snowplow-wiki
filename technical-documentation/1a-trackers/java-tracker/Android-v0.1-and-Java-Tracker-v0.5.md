@@ -107,8 +107,8 @@ Tracker(Emitter emitter, Subject subject, String namespace, String appId, boolea
 For example:
 
 ```java
-Tracker t1 = new Tracker(emitter, user1Subject, "AF003", "buttfront", true);
-Tracker t2 = new Tracker(emitter, "AF003", "buttfront");
+Tracker t1 = new Tracker(emitter, user1Subject, "AF003", "cf", true);
+Tracker t2 = new Tracker(emitter, "AF003", "cf");
 ```
 
 | **Argument Name** | **Description**                              |    **Required?**  |

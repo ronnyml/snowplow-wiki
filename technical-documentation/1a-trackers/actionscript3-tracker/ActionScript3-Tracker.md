@@ -82,7 +82,7 @@ Tracker(emitter:Emitter, namespace:String, appId:String, subject:Subject, stage:
 For example:
 
 ```java
-var t1:Tracker = new Tracker(emitter, "AF003", "buttfront", user1Subject, this.stage, true);
+var t1:Tracker = new Tracker(emitter, "AF003", "cf", user1Subject, this.stage, true);
 ```
 
 | **Argument Name** | **Description**                              |    **Required?**  |
