@@ -61,14 +61,25 @@ The current version of the Snowplow AS3 Tracker is 0.1.0.
 
 If you are using FlashBuilder for building your Flash application, then either:
 
-1. Download the binary (.SWC) file and include it in your project under "Properties > Build Path > Library Path > Add SWC..."  
+#### 3.2.1 Install using binary
 
-or 
+The binary is available for download from our public BinTray repository. Installation steps as follows:
 
-2. Download the project source code and import the FlashBuilder project using "Import > Other... > Existing Projects into Workspace". Then link this new project to your project using "Properties > Build Path > Library Path > Add Project..."
+1. Download the [snowplow_actionscript3_tracker_0.1.0.zip] [bintray-snowplow-as3] file
+2. Unzip the binary (.SWC) file
+3. Include it in your project under "Properties > Build Path > Library Path > Add SWC..."
+
+#### 3.2.2 Install from source
+
+You can also install this Flash analytics SDK from source:
+
+1. Download the project source code from GitHub under the [0.1.0 tag] [source-snowplow-as3]
+2. Import the source into your FlashBuilder project using "Import > Other... > Existing Projects into Workspace"
+3. Link this new project to your project using "Properties > Build Path > Library Path > Add Project..."
 
 Done? Now read the [Actionscript 3 Tracker API](./ActionScript3-Tracker) to start tracking events.
 
 [flash]: http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/
 [github-snowplow-as3]: https://github.com/snowplow/snowplow-actionscript3-tracker
 [bintray-snowplow-as3]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_actionscript3_tracker_0.1.0.zip
+[source-snowplow-as3]: https://github.com/snowplow/snowplow-actionscript3-tracker/tree/0.1.0
