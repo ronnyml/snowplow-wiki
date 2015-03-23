@@ -474,3 +474,4 @@ The Snowplow JavaScript Tracker uses `window.localStorage` to store events in ca
 [performancetiming]: https://github.com/snowplow/iglu-central/blob/master/schemas/org.w3/PerformanceTiming/jsonschema/1-0-0
 [performance-spec]: http://www.w3.org/TR/2012/REC-navigation-timing-20121217/#sec-window.performance-attribute
 [geolocation-spec]: http://dev.w3.org/geo/api/spec-source.html
+[snowplow-tracker-protcol]: https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol#11-application-parameters
