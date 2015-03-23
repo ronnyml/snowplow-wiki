@@ -99,7 +99,7 @@ Back to [common field types](#common).
 |:--------------|:-----------------|:---------|:------------------------------|:-----------------|:--------------------------|
 | `e`           | `event`          | text     | Event type                    | Yes              | (See table [below](#events))|
 | `tid`         | `txn_id`         | text     | Transaction ID                | Yes              | `352583`                    |
-| `eid`         | `event`          | text     | Event UUID                    | Not fully        | `606adff6-9ccc-41f4-8807-db8fdb600df8` |
+| `eid`         | `event`          | text     | Event UUID                    | Yes              | `606adff6-9ccc-41f4-8807-db8fdb600df8` |
 
 Every line of data passed from the tracker should contain an event field (`e`) to denote the type of event being tracked. For details about the potential values that `e` can take, and the corresponding event types that they refer to, see the section detailing [Snowplow events](#events).
 
