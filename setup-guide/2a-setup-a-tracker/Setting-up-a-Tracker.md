@@ -11,7 +11,7 @@ Snowplow Trackers generate event-data and send that data to [Snowplow Collectors
 <a name="choose-setup" />
 ## 1. Choose and setup a Tracker
 
-There are currently 12 trackers available for setup:
+There are currently 13 trackers available for setup:
 
 | **Tracker**                                    | **Description**                                     | **Status**       |
 |:-----------------------------------------------|:----------------------------------------------------|:-----------------|
@@ -22,6 +22,6 @@ There are currently 12 trackers available for setup:
 
 TODO: complete this list
 
-For other possible trackers (e.g. Go, Haskell) and their approximate timelines, please see the [Product roadmap](Product-roadmap).
+For other possible trackers (e.g. Go, Erlang, C++) and their approximate timelines, please see the [Product roadmap](Product-roadmap).
 
 Back to [Snowplow setup](Setting-up-Snowplow).
