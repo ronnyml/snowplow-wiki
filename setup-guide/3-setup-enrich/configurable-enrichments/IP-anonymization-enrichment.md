@@ -4,8 +4,8 @@
 
 ### Compatibility
 
-JSON Schema   [iglu:com.snowplowanalytics.snowplow/anon_ip/jsonschema/1-0-0][schema]
-Compatibility 0.9.6+
+JSON Schema   [iglu:com.snowplowanalytics.snowplow/anon_ip/jsonschema/1-0-0][schema]  
+Compatibility 0.9.6+  
 
 ### Overview
 

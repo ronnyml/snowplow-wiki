@@ -4,9 +4,9 @@
 
 ### Compatibility
 
-JSON Schema   [iglu:com.snowplowanalytics.snowplow/user_agent_utils_config/jsonschema/1-0-0][schema]
-Compatibility r63+
-Data provider [user-agent-utils][user-agent-utils]
+JSON Schema   [iglu:com.snowplowanalytics.snowplow/user_agent_utils_config/jsonschema/1-0-0][schema]  
+Compatibility r63+  
+Data provider [user-agent-utils][user-agent-utils]  
 
 ### Overview
 

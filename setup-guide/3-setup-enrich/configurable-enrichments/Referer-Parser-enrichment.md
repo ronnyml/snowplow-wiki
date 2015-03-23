@@ -4,9 +4,9 @@
 
 ### Compatibility
 
-JSON Schema   [iglu:com.snowplowanalytics.snowplow/referer_parser/jsonschema/1-0-0][schema]
-Compatibility 0.9.6+
-Data provider [Snowplow Referer-Parser][referer-parser-repo]
+JSON Schema   [iglu:com.snowplowanalytics.snowplow/referer_parser/jsonschema/1-0-0][schema]  
+Compatibility 0.9.6+  
+Data provider [Snowplow Referer-Parser][referer-parser-repo]  
 
 ### Overview
 

@@ -4,9 +4,9 @@
 
 ### Compatibility
 
-JSON Schema   [iglu:com.snowplowanalytics.snowplow/currency_conversion/jsonschema/1-0-0][schema]
-Compatibility 0.9.6+
-Data provider [Open Exchange Rates][openexchangerates]
+JSON Schema   [iglu:com.snowplowanalytics.snowplow/currency_conversion/jsonschema/1-0-0][schema]  
+Compatibility 0.9.6+  
+Data provider [Open Exchange Rates][openexchangerates]  
 
 ### Overview
 
