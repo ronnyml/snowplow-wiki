@@ -32,17 +32,15 @@ The `enabled` and `parameters` fields are the ones which you may wish to customi
 
 These are the available configurable enrichments:
 
-[[IP anonymization enrichment]]
-[[IP lookups enrichment]]
-[[Campaign attribution enrichment]]
-[[Currency conversion enrichment]]
-[[Referer-Parser enrichment]]
-[[ua-parser enrichment]]
-[[user-agent-utils enrichment]]
+[[IP anonymization enrichment]]  
+[[IP lookups enrichment]]  
+[[Campaign attribution enrichment]]  
+[[Currency conversion enrichment]]  
+[[Referer-Parser enrichment]]  
+[[ua-parser enrichment]]  
+[[user-agent-utils enrichment]]  
 
 Snowplow ships with a set of sensible default configurations for the configurable enrichments. The folder is browsable on GitHub, it is available as [3-enrich/emr-etl-runner/config/enrichments][enrichment-json-examples].
-
-See the sidebar for more detail on individual configurable enrichments.
 
 [enrichment-json-examples]: https://github.com/snowplow/snowplow/tree/master/3-enrich/emr-etl-runner/config/enrichments
 [snowplow-schemas]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
