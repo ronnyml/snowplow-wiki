@@ -11,7 +11,7 @@ Compatibility 0.9.6+
 
 The IP anonymization enrichment lets you anonymize the IP addresses found in the `user_ipaddress` field by replacing a certain number of octets with "x"s. For example, anonymizing one octet would change the address `255.255.255.255` to `255.255.255.x`, and anonymizing three octets would change it to `255.x.x.x`.
 
-An example configuration JSON:
+### Example
 
 ```json
 {

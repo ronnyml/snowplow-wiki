@@ -12,7 +12,8 @@ Data provider [Snowplow referer-parser][referer-parser-repo]
 
 The IP anonymization enrichment uses the [Snowplow referer-parser][referer-parser-repo] to extract attribution data from referer URLs. You can provide a list of internal subdomains which will be treated as "internal" rather than unknown.
 
-An example configuration JSON:
+### Example
+
 
 ```json
 {

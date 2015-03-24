@@ -17,6 +17,30 @@ There are five possible fields you can add to the "parameters" section of the en
 * The `database` field contains the name of the database file.
 * The `uri` field contains the URI of the bucket in which the database file is found. Can have either http: (for publically available MaxMind files) or s3: (for commercial MaxMind files) as the scheme. Must *not* end with a trailing slash.
 
+This table contains describes the five types of lookup:
+
+| **Field name**   | **MaxMind Database name**     | **Lookup description**                             | **Accepted database filenames**                   | **Fields populated** |
+|-----------------:|:------------------------------|:---------------------------------------------------|:--------------------------------------------------|:---------------------|
+| `"geo"`          | [GeoIPCity][geoipcity] or [GeoLiteCity][geolitecity] | Information related to geographic location         | `"GeoLiteCity.dat"` or `"GeoIPCity.dat"`           | `geo_country`, `geo_region`, `geo_city`, `geo_zipcode`, `geo_latitude`, `geo_longitude`, and `geo_region_name` |
+| `"isp"`          | [GeoIP ISP][geoipisp]                   | Internet Service Provider                          | `"GeoIPISP.dat"`                                  | `ip_isp`          |
+| `"organization"` | [GeoIP Organization][geoiporg]          | Organization name for larger networks              | `"GeoIPOrg.dat"`                                  | `ip_organization` |
+| `"domain"`       | [GeoIP Domain][geoipdomain]                | Second level domain name associated with IP address | `"GeoIPDomain.dat"`                               | `ip_domain`       |
+| `"netspeed"`     | [GeoIP Netspeed][geoipnetspeed]              | Estimated connection speed                         | `"GeoIPNetSpeed.dat"` or `"GeoIPNetSpeedCell.dat"` | `ip_netspeed`     |
+
+**Field name** is the name of the field in the ip_lookups enrichment configuration JSON which you should include if you wish to use that type of lookup. That field should have two subfields: "uri" and "database".
+
+**MaxMind Database name** is the name of the database which that lookup uses.
+
+**Lookup description** describes the lookup.
+
+**Accepted database filenames** are the strings which are allowed in the "database" subfield. If the file name you provide is not one of these, the enrichment JSON will fail validation.
+
+**Fields populated** are the names of the database fields which the lookup fills.
+
+For each of these services you wish to use, add a corresponding field to the enrichment JSON. The fields names you should use are "geo", "isp", "organization", "domain", and "netspeed".
+
+### Examples
+
 Here is a maximalist example configuration JSON, which performs all five types of lookup using the MaxMind commercial files:
 
 ```json
@@ -53,28 +77,6 @@ Here is a maximalist example configuration JSON, which performs all five types o
 	}
 }
 ```
-
-This table contains describes the five types of lookup:
-
-| **Field name**   | **MaxMind Database name**     | **Lookup description**                             | **Accepted database filenames**                   | **Fields populated** |
-|-----------------:|:------------------------------|:---------------------------------------------------|:--------------------------------------------------|:---------------------|
-| `"geo"`          | [GeoIPCity][geoipcity] or [GeoLiteCity][geolitecity] | Information related to geographic location         | `"GeoLiteCity.dat"` or `"GeoIPCity.dat"`           | `geo_country`, `geo_region`, `geo_city`, `geo_zipcode`, `geo_latitude`, `geo_longitude`, and `geo_region_name` |
-| `"isp"`          | [GeoIP ISP][geoipisp]                   | Internet Service Provider                          | `"GeoIPISP.dat"`                                  | `ip_isp`          |
-| `"organization"` | [GeoIP Organization][geoiporg]          | Organization name for larger networks              | `"GeoIPOrg.dat"`                                  | `ip_organization` |
-| `"domain"`       | [GeoIP Domain][geoipdomain]                | Second level domain name associated with IP address | `"GeoIPDomain.dat"`                               | `ip_domain`       |
-| `"netspeed"`     | [GeoIP Netspeed][geoipnetspeed]              | Estimated connection speed                         | `"GeoIPNetSpeed.dat"` or `"GeoIPNetSpeedCell.dat"` | `ip_netspeed`     |
-
-**Field name** is the name of the field in the ip_lookups enrichment configuration JSON which you should include if you wish to use that type of lookup. That field should have two subfields: "uri" and "database".
-
-**MaxMind Database name** is the name of the database which that lookup uses.
-
-**Lookup description** describes the lookup.
-
-**Accepted database filenames** are the strings which are allowed in the "database" subfield. If the file name you provide is not one of these, the enrichment JSON will fail validation.
-
-**Fields populated** are the names of the database fields which the lookup fills.
-
-For each of these services you wish to use, add a corresponding field to the enrichment JSON. The fields names you should use are "geo", "isp", "organization", "domain", and "netspeed".
 
 Here is a simpler example configuration (which exactly duplicates the behaviour of Snowplow 0.9.5):
 

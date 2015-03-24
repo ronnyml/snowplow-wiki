@@ -10,7 +10,9 @@ Data provider [user-agent-utils][ua-parser]
 
 ### Overview
 
-This enrichment uses the [ua-parser][ua-parser] library to parse the useragent and attach a ua_parser_context to each event. It can be used alongside or instead of the user_agent_utils enrichment. Enable it with the following JSON:
+This enrichment uses the [ua-parser][ua-parser] library to parse the useragent and attach a ua_parser_context to each event. It can be used alongside or instead of the user_agent_utils enrichment.
+
+### Example
 
 ```json
 {

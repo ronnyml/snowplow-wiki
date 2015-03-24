@@ -16,7 +16,7 @@ Data provider [MaxMind][maxmind]
 
 The original version of the campaign attribution enrichment lets you choose which querystring parameters will be used to generate the marketing campaign fields `mkt_medium`, `mkt_source`, `mkt_term`, `mkt_content`, and `mkt_campaign`. If you do not enable the campaign_attribution enrichment, those fields will not be populated.
 
-Its JSON schema can be found [here][campaign_attribution].
+##### Examples
 
 An example config JSON corresponding to the standard Google parameter names:
 
@@ -108,6 +108,8 @@ then the `mkt_campaign` field would be populated with "my_campaign".
 Version 1-0-1 of the enrichment will also search the querystring for a name-value pair based on which it can populate the `mkt_clickid` and `mkt_network` fields, which correspond to the click ID and the network responsible for the click. The enrichment automatically knows about Google (corresponding to the "gclid" querystring parameter), Microsoft ("msclkid"), and DoubleClick ("dclid").
 
 For example, if the querystring contained `...&gclid=abc&...` then the `mkt_clickid` field would be populated with `"abc"` and the `mkt_network` field would be populated with `"Google"`.
+
+##### Example
 
 You can add other networks using the `mktClickId` field like this:
 

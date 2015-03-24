@@ -23,6 +23,8 @@ os_manufacturer
 dvce_type
 dvce_ismobile
 
+### Example
+
 This enrichment has no special configuration: it is either off or on. Enable it with the following JSON:
 
 ```json

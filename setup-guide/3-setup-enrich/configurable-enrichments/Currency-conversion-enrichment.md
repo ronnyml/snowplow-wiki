@@ -20,7 +20,7 @@ tr_tax_base
 tr_shipping_base
 ti_price_base
 
-A simple example configuration:
+### Example
 
 ```json
 {
