@@ -12,7 +12,7 @@
     - [IP lookups enrichment] (IP-lookups-enrichment)
     - [Campaign attribution enrichment] (campaign-attribution-enrichment)
     - [Currency conversion enrichment] (currency-conversion-enrichment)
-    - [Referer-Parser enrichment] (referer-parser-enrichment)
+    - [referer-rarser enrichment] (referer-parser-enrichment)
     - [ua-parser enrichment] (ua-parser-enrichment)
     - [user-agent-utils enrichment] (user-agent-utils-enrichment)
 - [Step 4: Setup alternative data stores] (setting-up-alternative-data-stores)  
