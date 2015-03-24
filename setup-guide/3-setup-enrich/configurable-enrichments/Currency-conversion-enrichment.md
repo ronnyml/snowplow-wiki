@@ -47,4 +47,4 @@ The fields are as follows:
 * "rateAt": Determines which exchange rate will be used. Currently only "EOD_PRIOR" is supported, meaning that the enrichment uses the exchange rate from the end of the previous day.
 
 [schema]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/currency_conversion/jsonschema/1-0-0
-[openexchangerates]: https://openexchangerates.org/
+[openexchangerates]: https://openexchangerates.org/signup?r=snowplow
