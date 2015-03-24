@@ -14,7 +14,6 @@ The IP anonymization enrichment uses the [Snowplow referer-parser][referer-parse
 
 ### Example
 
-
 ```json
 {
 	"schema": "iglu:com.snowplowanalytics.snowplow/referer_parser/jsonschema/1-0-0",

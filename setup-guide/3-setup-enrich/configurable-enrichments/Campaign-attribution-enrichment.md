@@ -8,7 +8,6 @@ JSON Schema   [iglu:com.snowplowanalytics.snowplow/campaign_attribution/jsonsche
 Compatibility 0.9.6+  
 JSON Schema   [iglu:com.snowplowanalytics.snowplow/campaign_attribution/jsonschema/1-0-1][schema-2]  
 Compatibility r63+  
-Data provider [MaxMind][maxmind]  
 
 ### Overview
 
