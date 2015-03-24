@@ -455,7 +455,7 @@ for(i=0; i<{{transactionProducts}}.length; i++) {
 }
 
 // Finally fire the 'trackTrans' event to commit the transaction
-window.snowplow['trackTrans']
+window.snowplow('trackTrans');
 </script>
 ```
 
