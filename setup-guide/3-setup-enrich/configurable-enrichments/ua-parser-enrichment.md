@@ -6,7 +6,7 @@
 
 JSON Schema   [iglu:com.snowplowanalytics.snowplow/ua_parser_config/jsonschema/1-0-0][schema]  
 Compatibility r63+  
-Data provider [user-agent-utils][ua-parser]  
+Data provider [ua-parser][ua-parser]  
 
 ### Overview
 

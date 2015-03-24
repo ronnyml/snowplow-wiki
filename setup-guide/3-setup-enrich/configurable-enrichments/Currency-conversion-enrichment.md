@@ -26,7 +26,7 @@ ti_price_base
 {
     "schema": "iglu:com.snowplowanalytics.snowplow/currency_conversion_config/jsonschema/1-0-0",
     "data": {
-        "enabled": %s,
+        "enabled": true,
         "vendor": "com.snowplowanalytics.snowplow",
         "name": "currency_conversion_config",
         "parameters": {
