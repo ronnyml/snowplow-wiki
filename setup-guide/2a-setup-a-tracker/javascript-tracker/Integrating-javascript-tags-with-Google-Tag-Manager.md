@@ -431,7 +431,7 @@ We then need to create a Snowplow ecommerce tracking tag in GTM that passes the 
 ```html
 <script type="text/javascript">
 // 1st, fire 'addTrans' event for the new transaction
-window.snowplow('addTran',
+window.snowplow('addTrans',
     {{transactionId}},
     {{transactionAffiliation}},
     {{transactionTotal}},
