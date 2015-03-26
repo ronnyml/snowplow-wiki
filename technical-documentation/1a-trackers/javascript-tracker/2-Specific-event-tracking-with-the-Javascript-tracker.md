@@ -960,7 +960,7 @@ Here are two example custom context JSONs. One describes a page, and the other d
 How to track a page view with both these contexts attached:
 
 ```javascript
-window.snowplow_name_here('trackPageView', null , false, [{
+window.snowplow_name_here('trackPageView', null, [{
     schema: "iglu:com.example_company/page/jsonschema/1-2-1",
     data: {
         pageType: 'test',
