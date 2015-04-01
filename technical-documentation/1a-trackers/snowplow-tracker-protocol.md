@@ -81,10 +81,11 @@ Back to [common field types](#common).
 <a name="timestamp" />
 #### 1.2 Date / time parameter
 
-| **Parameter** | **Maps to**      | **Type** | **Description**               | **Implemented?** | **Example values**        | 
-|:--------------|:-----------------|:---------|:------------------------------|:-----------------|:--------------------------|
-| `dtm`         | `dvce_epoch` | int |Timestamp when event occurred, as recorded by client device | Yes  | `1361553733313` |                         |
-| `tz`          | `os_timezone`    | text     | Operating system time zone    | Yes              | `Europe%2FLondon`
+| **Parameter** | **Maps to**        | **Type** | **Description**               | **Implemented?** | **Example values**        | 
+|:--------------|:-------------------|:---------|:------------------------------|:-----------------|:-----------------------------|
+| `dtm`         | `dvce_tstamp`      | int      | Timestamp when event occurred, as recorded by client device | Yes  | `1361553733313`   |
+| `stm`         | `dvce_sent_tstamp` | int      | Timestamp when event was sent by client device to collector | Yes  | `1361553733371`   |
+| `tz`          | `os_timezone`      | text     | Time zone of client device's OS                             | Yes  | `Europe%2FLondon` |
 
 It is possible to record the time that an event occurs on the clients-side (i.e. in the tracker), or server side (i.e. by the collector). When using the JavaScript tracker to track web events, it makes sense to rely on the collector logs to identify the time that events occured, as Snowplow tracking tags are fired as events happen, and so the time they are received server-side should be an accurate representation of the time the event being tracked occured. In other situations (e.g. when using mobile trackers), the time the collector receives the data may be sometime after an event occurred, and so it makes sense to record the timestamp on the client-side, in which case this is handled by the tracker.
 
@@ -114,7 +115,7 @@ Back to [common field types](#common).
 
 | **Parameter** | **Maps to**      | **Type** | **Description**               | **Implemented?** | **Example values**        | 
 |:--------------|:-----------------|:---------|:------------------------------|:-----------------|:--------------------------|
-| `tv`          | `v_tracker`      | text     | Identifier for Snowplow tracker | No             | `js-0.5.1`                |
+| `tv`          | `v_tracker`      | text     | Identifier for Snowplow tracker | Yes             | `js-0.5.1`                |
 
 For deployments where multiple trackers are used (e.g. for businesses that use the [JavaScript tracker] (javascript-tracker) to track events on their domains alongside the [No-JS tracker] (no-js-tracker) to track events on 3rd party domains), it is useful to be able to distinguish data generated from each tracker. It can also be useful when tracker versions are updated, so that it is easier to see if an update in tracker accounts for a feature of the data at analysis time.
 
@@ -130,6 +131,7 @@ Back to [common field types](#common).
 | `tnuid`       | `network_userid` | text     | Can be used be a tracker to overwrite the nuid | Yes | `ecdff4d0-9175-40ac-a8bb-325c49733607` |
 | `uid`         | `user_id`        | text     | Unique identifier for user, set by the business using `setUserId`    | Yes              | `jon.doe@email.com`  |
 | `vid`         | `domain_sessionidx`| int    | Index of number of visits that this user_id has made to this domain e.g. `1` is first visit | Yes       | `1`, `2`...|
+| `sid`         | `domain_sessionid`| text    | Unique identifier (UUID) for this visit of this user_id to this domain | Yes       | `9c65e7f3-8e8e-470d-b243-910b5b300da0` |
 | `ip`          | `user_ipaddress` | text     | IP address                    | Yes              | `37.157.33.178` |
 
 We recommend **always** setting the `uid` / `user_id` parameter: as this is the cornerstone of all customer-centric analytics.
