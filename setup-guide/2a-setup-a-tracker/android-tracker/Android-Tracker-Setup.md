@@ -111,10 +111,21 @@ Then add into the same file:
 dependencies {
     ...
     // Snowplow Android Tracker
-    compile 'com.snowplowanalytics:snowplow-android-tracker:0.3.*'
+    compile 'com.snowplowanalytics:snowplow-android-tracker:0.3.0'
 }
 ```
 
+This will install version `0.3.0` of the android tracker.  However if you would like to ensure that all bug fixes and patches for version `0.3.0` are installed, simply change `0.3.0` into `0.3.+`.  
+
+Please note that no breaking changes will occur in the '0.3.x' space.
+
+```groovy
+dependencies {
+    ...
+    // Snowplow Android Tracker
+    compile 'com.snowplowanalytics:snowplow-android-tracker:0.3.+'
+}
+```
 <a name="aar" />
 #### 3.3.1 Android Archive
 
@@ -123,7 +134,7 @@ You can also add the Android Tracker using the Android ARchive (aar) package in 
 dependencies {
     ...
     // Snowplow Android Tracker
-    compile 'com.snowplowanalytics:snowplow-android-tracker:0.3.*@aar'
+    compile 'com.snowplowanalytics:snowplow-android-tracker:0.3.+@aar'
 }
 ```
 
