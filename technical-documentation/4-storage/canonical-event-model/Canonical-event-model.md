@@ -111,6 +111,7 @@ Back to [top](#top).
 | `v_collector`   | text     | Collector version | Yes     | Yes       | 'clj-tomcat-0.1.0', 'cf' |
 | `v_etl`         | text     | ETL version     | Yes       | Yes       | 'serde-0.5.2'  |
 | `name_tracker`  | text     | Tracker namespace     | No        | Yes       | 'cloudfront-1' |
+| `etl_tags`      | text     | JSON of tags for this ETL run | No | Yes | "['prod']" |
 
 Some Snowplow Trackers allow the user to name each specific Tracker instance. `name_tracker` corresponds to this name, and can be used to distinguish which tracker generated which events.
 
