@@ -32,7 +32,7 @@ See _6. Kinesis resources_ below.
 
 The Scala Hadoop Enrich process uses a single jarfile containing the MapReduce job. This is made available in a public Amazon S3 bucket, for Snowplowers who are running their Hadoop Enrich process on Amazon EMR:
 
-    s3://snowplow-hosted-assets/3-enrich/hadoop-etl/snowplow-hadoop-etl-0.13.0.jar
+    s3://snowplow-hosted-assets/3-enrich/hadoop-etl/snowplow-hadoop-etl-0.14.0.jar
 
 Right-click on this [Download link] [hadoop-enrich-download] to save it down locally via CloudFront CDN.
 
@@ -40,7 +40,7 @@ Right-click on this [Download link] [hadoop-enrich-download] to save it down loc
 
 The Scala Hadoop Shred process uses a single jarfile containing the MapReduce job. This is made available in a public Amazon S3 bucket, for Snowplowers who are running their Hadoop Enrich & Shred process on Amazon EMR:
 
-    s3://snowplow-hosted-assets/3-enrich/scala-hadoop-shred/snowplow-hadoop-shred-0.3.0.jar
+    s3://snowplow-hosted-assets/3-enrich/scala-hadoop-shred/snowplow-hadoop-shred-0.4.0.jar
 
 Right-click on this [Download link] [hadoop-shred-download] to save it down locally via CloudFront CDN.
 
