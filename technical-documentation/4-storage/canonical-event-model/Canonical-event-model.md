@@ -1,17 +1,18 @@
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Storage**](storage documentation) > Canonical Event Model
 
 <a name="top" />
-# Canonical data structure  
+# Canonical event model
 
 This relates to the Canonical Event Model from Snowplow Release 63 Red-Cheeked Cordon-Bleu onwards. For previous versions:
 
-* [Canonical Event Model pre-Release 63][Canonical-event-model-pre-r63] 
+* [Canonical Event Model pre-Release 63](Canonical-event-model-pre-r63)
 
 Table of contents:
 
 1. [Overview](#overview)  
 2. [The Snowplow canonical data structure: understanding the individual fields](#model)  
 3. [A note about data storage formats](#note)  
+4. [Specific unstructured events and custom contexts](#specific-unstruct-events-contexts)  
 
 <a name="overview" />
 ## 1. Overview
@@ -389,7 +390,7 @@ In addition, for users running on Redshift, Snowplow will shred each context JSO
 
 Back to [top](#top).
 
-<a name="specific-unstruct" />
+<a name="specific-unstruct-events-contexts" />
 ### 2.4 Specific unstructured events and custom contexts
 
 These are also a variety of unstructured events and custom contexts defined by Snowplow. You can find their schemas [here][snowplow-schemas].
