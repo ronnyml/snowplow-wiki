@@ -215,7 +215,7 @@ This section of the config file is where we configure the operation of EMR. The 
 
 Make sure that the EC2 key you specify belongs in the region you specify, or else EMR won't be able to find the key. **It's strongly recommended that you choose the same Amazon region as your S3 buckets are located in.**
 
-Additionally, fill in one of these two:
+Additionally, fill in **one** of these two:
 
 *  `placement`, which is the Amazon EC2 region **and** availability zone
    in which the job should run, e.g. "us-east-1a" or "eu-west-1b"
