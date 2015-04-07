@@ -1,5 +1,7 @@
 # Snowplow Segment.io Integration Settings
 
+**Progress on this documentation is waiting on the merging of Snowplow's pull requests into Segment's [integrations](https://github.com/segmentio/integrations/pull/221) and [analytics.js-integrations](https://github.com/segmentio/analytics.js-integrations/pull/431) repositories.**
+
 ## Settings relevant to both the client-side and server-side integrations
 
 ### collectorUrl
