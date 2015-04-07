@@ -209,8 +209,7 @@ The EmrEtlRunner makes use of Amazon Elastic Mapreduce (EMR) to process the raw 
 
 This section of the config file is where we configure the operation of EMR. The variables with defaults can typically be left as-is, but you will need to set:
 
-1. `region`, which is the Amazon EC2 region **and** availability zone
-   in which the job should run, e.g. "us-east-1a" or "eu-west-1b"
+1. `region`, which is the Amazon EC2 region in which the job should run, e.g. "us-east-1" or "eu-west-1"
 2. `ec2_key_name`, which is the name of the Amazon EC2 key that you
    set up in the [Dependencies](#dependencies) above
 
