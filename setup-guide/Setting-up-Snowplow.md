@@ -12,7 +12,7 @@ Setting up Snowplow is a six step process:
 <a name="step1" />
 ## Step 1: Setup a Snowplow Collector
 
-[[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/2-collectors.png]] 
+[[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-architecture-2-collectors.png]]
 
 The Snowplow collector receives data from Snowplow trackers and logs that data to S3 for storage and further processing. Setting up a collector is the first step in the Snowplow setup process.
 
@@ -25,13 +25,15 @@ Setup your collector? Then proceed to [step 2: setup a tracker](#step2).
 
 ### Step 2a: Setup a Snowplow Tracker
 
-[[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/1-trackers.png]] 
+[[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-architecture-1a-trackers.png]]
 
 Snowplow trackers generate event data and send that data to Snowplow collectors to be captured. The most popular Snowplow tracker to-date is the JavaScript Tracker, which is integrated in websites (either directly or via a tag management solution) the same way that any web analytics tracker (e.g. Google Analytics or Omniture tags) is integrated.
 
 [Setup a tracker now!](Setting-up-a-Tracker)
 
 ### Step 2b: Setup a Third-Party Webhook
+
+[[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-architecture-1b-webhooks.png]]
 
 Snowplow allows you to collect events via the [webhooks] [webhooks-defn] of supported third-party software.
 
@@ -48,7 +50,7 @@ Setup your tracker(s) and/or webhook(s)? Now proceed to [step 3: setup Enrich](#
 <a name="step3" />
 ## Step 3: Setup Enrich
 
-[[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/3-enrich.png]] 
+[[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-architecture-3-enrichment.png]] 
 
 The Snowplow enrichment process processes raw events from a collector and
 
@@ -65,7 +67,7 @@ Setup Enrich? Proceed to [step 4: setup the StorageLoader](#step4).
 <a name="step4" />
 ## Step 4: Setup alternative data stores (e.g. Redshift, PostgreSQL)
 
-[[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/4-storage.png]] 
+[[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-architecture-4-storage.png]]
 
 Most Snowplow users store their web event data in at least two places: S3 for processing in Hadoop (e.g. to enable machine learning via Mahout) and a database (e.g. Redshift or PostgreSQL) for more traditional OLAP analysis.
 
@@ -77,6 +79,8 @@ Setup the alternative data stores? Then proceed to [step 5: data modeling](#step
 
 <a name="step5" />
 ## Step 5: Data modeling
+
+[[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-architecture-5-data-modeling.png]] 
 
 Once your data is stored in S3 and Redshift, you have access to the event stream. While it is possible to do analysis directly on this event stream, it is common to:
 
@@ -93,7 +97,7 @@ Done with the data modeling? Then proceed to [step 6: analyse your data](#step6)
 <a name="step6" />
 ## Step 6: Analyse your data!
 
-[[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/5-analytics.png]] 
+[[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-architecture-6-analytics.png]]
 
 Once your data is stored in S3 and Redshift, and a data model has been built, the setup is complete and you are in a position to start analysing it. As part of the setup guide we run through the steps necessary to perform some initial analysis and plugin a couple of analytics tools, to get you started.
 
