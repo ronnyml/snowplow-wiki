@@ -1,5 +1,7 @@
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow)
 
+![architecture] [conceptual-architecture]
+
 Setting up Snowplow is a six step process:
 
 1. [Setup a Snowplow Collector](#step1)
