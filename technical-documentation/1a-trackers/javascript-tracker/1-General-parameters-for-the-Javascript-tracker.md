@@ -31,6 +31,7 @@
     - 2.2.14 [POST support](#post)
     - 2.2.15 [Disabling cookies](#write-cookies)
     - 2.2.16 [Configuring cross-domain tracking](#cross-domain)
+    - 2.2.17 [Configuring the maximum payload size in bytes](#maxPostBytes)
   - 2.3 [Other parameters](#other-methods)
     - 2.3.1 [Setting the user id](#user-id)
       - 2.3.1.1 [`setUserId`](#set-user-id)
@@ -123,6 +124,8 @@ snowplow_name_here("newTracker", "cf", "d3rkrsqld9gmqf.cloudfront.net", {
   useCookies: true,
   writeCookies: true,
   post: true,
+  bufferSize: 5,
+  maxPostBytes: 45000,
   crossDomainLinker: function (linkElement) {
     return (linkElement.href === "http://acme.de" || linkElement.id === "crossDomainLink"); 
   },
@@ -239,9 +242,9 @@ If you set the `post` field of the argmap to `true`, the tracker will send event
 
 The main advantage of POST requests is that they circumvent Internet Explorer's maximum URL length of 2083 characters by storing the event data in the body of the request rather than the querystring.
 
-Note that at present, only the [Clojure Collector][clojure-collector] accepts events sent by POST.
+The [Clojure Collector][clojure-collector] and [Scala Stream Collector][ssc] accept events sent by POST; the [Cloudfront Collector][cloudfront-collector] does not..
 
-You can also batch events sent by POST by setting a numeric `bufferSize` field in the argmap. This is the number of events to buffer before sending them all in a single POST. If the user navigates away from the page while the buffer is only partially full, the tracker will attempt to send all stored events immediately, but this often doesn't happen before the page unloads. Normally the tracker will store unsent events in `localStorage`, meaning that unsent events will be resent when the user next visits a page on the same domain.
+You can also batch events sent by POST by setting a numeric `bufferSize` field in the argmap. This is the number of events to buffer before sending them all in a single POST. If the user navigates away from the page while the buffer is only partially full, the tracker will attempt to send all stored events immediately, but this often doesn't happen before the page unloads. Normally the tracker will store unsent events in `localStorage`, meaning that unsent events will be resent when the user next visits a page on the same domain. The `bufferSize` defaults to 1, meaning events are sent as soon as they are created.
 
 Note that if `localStorage` is inaccessible or you are not using it to store data, the buffer size will always be 1 to prevent losing events when the user leaves the page.
 
@@ -296,6 +299,13 @@ snowplow_name_here('crossDomainLinker', function () {
 ```
 
 *Warning*: If you enable link decoration, you should also make sure that at least one event is fired on the page. Firing an event causes the tracker to write the domain_userid to a cookie. If the cookie doesn't exist when the user leaves the page, the tracker will generate a new ID for them when they return rather than keeping the old ID.
+
+<a name="maxPostBytes" />
+#### 2.2.17 Configuring the maximum payload size in bytes
+
+Because the Clojure Collector and the Scala Stream Collector both have a maximum request size, the Tracker limits POST requests to 40000 bytes. If the combined size of the events in `localStorage` is greater than this limit, they will be split into multiple POST requests. You can override this decault using a `maxPostBytes` in the argmap.
+
+The Clojure Collector can't handle requests bigger than 64kB. For the Scala Stream Collector, the limit i
 
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
@@ -539,6 +549,8 @@ The Snowplow JavaScript Tracker uses `window.localStorage` to store events in ca
 [snowplow-tracker-protocol]: https://github.com/snowplow/snowplow/wiki/SnowPlow-Tracker-Protocol
 [contexts]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker-v1#custom-contexts
 [clojure-collector]: https://github.com/snowplow/snowplow/wiki/Clojure-collector
+[ssc]: https://github.com/snowplow/snowplow/wiki/scala-stream-collector
+[cloudfront-collector]: https://github.com/snowplow/snowplow/wiki/Setting-up-the-Cloudfront-collector
 [performancetiming]: https://github.com/snowplow/iglu-central/blob/master/schemas/org.w3/PerformanceTiming/jsonschema/1-0-0
 [performance-spec]: http://www.w3.org/TR/2012/REC-navigation-timing-20121217/#sec-window.performance-attribute
 [geolocation-spec]: http://dev.w3.org/geo/api/spec-source.html
