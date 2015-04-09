@@ -80,7 +80,7 @@ Setup the alternative data stores? Then proceed to [step 5: data modeling](#step
 <a name="step5" />
 ## Step 5: Data modeling
 
-[[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-architecture-5-data-modeling.png]] 
+[[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-architecture-5-data-modeling.png]]
 
 Once your data is stored in S3 and Redshift, you have access to the event stream. While it is possible to do analysis directly on this event stream, it is common to:
 
