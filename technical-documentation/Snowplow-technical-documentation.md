@@ -1,6 +1,6 @@
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow-technical-documentation)
 
-The technical documentation reflects the Snowplow architecture, with five loosely-coupled sub-systems connected by four standardised data protocols/formats:
+The technical documentation reflects the Snowplow architecture, with six loosely-coupled sub-systems connected by four standardised data protocols/formats:
 
 ![architecture] [technical-architecture]
 
@@ -55,9 +55,10 @@ The technical documentation reflects the Snowplow architecture, with five loosel
 
 ### D. Snowplow storage formats (to write)
 
-## 5. Analytics
+## 5. Data modeling (to write)
+
+## 6. Analytics
 
 [Analytics overview](analytics documentation)
-
 
 [technical-architecture]: https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/technical-architecture.png
