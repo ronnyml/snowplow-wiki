@@ -78,7 +78,10 @@ Setup the alternative data stores? Then proceed to [step 5: data modeling](#step
 <a name="step5" />
 ## Step 5: Data modeling
 
+[Get started with data modeling in Snowplow](Setting-up-data-modeling)!
+
 Done with the data modeling? Then proceed to [step 6: analyse your data](#step6).
+
 <a name="step6" />
 ## Step 6: Analyse your data!
 
