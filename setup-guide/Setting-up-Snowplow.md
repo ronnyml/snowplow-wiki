@@ -109,5 +109,5 @@ Once your data is stored in S3 and Redshift, and a data model has been built, th
 
 You now have all six Snowplow subsystems working!
 
-[conceptual-architecture]: https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/conceptual-architecture.png
+[conceptual-architecture]: https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-architecture.png.png
 [webhooks-defn]: http://en.wikipedia.org/wiki/Webhook
