@@ -1,6 +1,6 @@
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Analytics**](analytics documentation)
 
-[[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/5-analytics.png]] 
+[[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-architecture-6-analytics.png]]
 
 ## Overview
 
