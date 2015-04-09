@@ -2,7 +2,7 @@
 
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 4: setting up alternative data stores**](Setting-up-alternative-data-stores)
 
-[[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/4-storage.png]] 
+[[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-architecture-4-storage.png]]
 
 Snowplow supports storing your data into four different data stores:
 
@@ -20,7 +20,7 @@ If you wish to analyse your data using a wider range of tools (e.g. BI tools lik
 The [StorageLoader] [storage-loader-setup] is an application to make it simple to keep an updated copy of your data in Redshift. To setup Snowplow to automatically populate a PostgreSQL and / or Redshift database with Snowplow data, you need to first:
 
 1. [Create a database and table for Snowplow data in Redshift] [setup-redshift] and / or
-2. [Create a database adn table for Snowplow data in PostgreSQL] [setup-postgres]
+2. [Create a database and table for Snowplow data in PostgreSQL] [setup-postgres]
 
 *Then*, afterwards, you will need to [set up the StorageLoader to regularly transfer Snowplow data into your new store(s)] [storage-loader-setup]
 
