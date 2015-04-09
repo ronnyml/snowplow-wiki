@@ -2,6 +2,8 @@
 
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 2b: setup a Webhook](Setting-up-a-webhook)
 
+[[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-architecture-1b-webhooks.png]]
+
 Snowplow allows you to collect events via the [webhooks] [webhooks-defn] of supported third-party software.
 
 Webhooks allow this third-party software to send their own internal event streams to [Snowplow Collectors](Setting-up-a-Collector) for further processing. Webhooks are sometimes referred to as "streaming APIs" or "HTTP response APIs".
