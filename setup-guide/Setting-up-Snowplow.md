@@ -1,12 +1,13 @@
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow)
 
-Setting up Snowplow is a five step process:
+Setting up Snowplow is a six step process:
 
 1. [Setup a Snowplow Collector](#step1)
 2. [Setup a Snowplow Tracker](#step2a) and/or [Setup a Third-Party Webhook](#step2b)
 3. [Setup Enrich](#step3)
 4. [Setting up alternative data stores (e.g. Redshift, PostgreSQL)](#step4)
-5. [Analyze your data!](#step5)
+5. [Data modeling](#step5)
+6. [Analyze your data!](#step6)
 
 <a name="step1" />
 ## Step 1: Setup a Snowplow Collector
@@ -72,10 +73,14 @@ The StorageLoader is an application to regularly transfer data from S3 into othe
 
 [Setup alternative data stores](Setting-up-alternative-data-stores).
 
-Setup the alternative data stores? Then proceed to [step 5: analyse your data](#step5).
+Setup the alternative data stores? Then proceed to [step 5: data modeling](#step5).
 
 <a name="step5" />
-## Step 5: Analyse your data!
+## Step 5: Data modeling
+
+Done with the data modeling? Then proceed to [step 6: analyse your data](#step6).
+<a name="step6" />
+## Step 6: Analyse your data!
 
 [[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/5-analytics.png]] 
 
@@ -87,7 +92,7 @@ Once your data is stored in S3 and Redshift, setup is complete and you are in a 
 
 ![architecture] [conceptual-architecture]
 
-You now have all five Snowplow subsystems working!
+You now have all six Snowplow subsystems working!
 
 [conceptual-architecture]: https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/conceptual-architecture.png
 [webhooks-defn]: http://en.wikipedia.org/wiki/Webhook
