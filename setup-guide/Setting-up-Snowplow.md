@@ -95,7 +95,7 @@ Done with the data modeling? Then proceed to [step 6: analyse your data](#step6)
 
 [[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/5-analytics.png]] 
 
-Once your data is stored in S3 and Redshift, setup is complete and you are in a position to start analysing it. As part of the setup guide we run through the steps necessary to perform some initial analysis and plugin a couple of analytics tools, to get you started.
+Once your data is stored in S3 and Redshift, and the data model has been built, the setup is complete and you are in a position to start analysing it. As part of the setup guide we run through the steps necessary to perform some initial analysis and plugin a couple of analytics tools, to get you started.
 
 [Get started analysing Snowplow data!](Getting-started-analyzing-Snowplow-data)
 
