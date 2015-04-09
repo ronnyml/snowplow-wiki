@@ -26,7 +26,7 @@ Then, *afterwards*, you will need to [set up the StorageLoader to regularly tran
 
 Note that instructions on setting up both Redshift and PostreSQL on EC2 are included in this setup guide and referenced from the links above.
 
-All done? Then get started with [data modeling][modeling] or [start analysing your data][analyse].
+All done? Then get started with [data modeling][modeling] or [start analysing your event-level data][analyse].
 
 **Note**: We recommend running all Snowplow AWS operations through an IAM user with the bare minimum permissions required to run Snowplow. Please see our [IAM user setup page](IAM-setup) for more information on doing this.
 
