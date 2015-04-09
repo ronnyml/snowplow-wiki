@@ -88,7 +88,7 @@ Once your data is stored in S3 and Redshift, setup is complete and you are in a 
 
 [Get started analysing Snowplow data](Getting-started-analyzing-Snowplow-data)
 
-## Setup is complete!
+## The Snowplow setup is complete!
 
 ![architecture] [conceptual-architecture]
 
