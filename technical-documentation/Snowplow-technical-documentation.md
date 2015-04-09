@@ -1,6 +1,6 @@
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow-technical-documentation)
 
-The technical documentation reflects the Snowplow architecture, with six loosely-coupled sub-systems connected by four standardised data protocols/formats:
+The technical documentation reflects the Snowplow architecture, with six loosely-coupled sub-systems connected by five standardised data protocols/formats:
 
 ![architecture] [technical-architecture]
 
