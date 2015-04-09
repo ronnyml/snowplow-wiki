@@ -2,7 +2,7 @@
 
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 1: setup a Collector](Setting-up-a-collector)
 
-[[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/2-collectors.png]]
+[[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-architecture-2-collectors.png]]
 
 The Snowplow collector receives data from Snowplow trackers and logs that data to S3 for storage and further processing. Setting up a collector is the first step in the Snowplow setup process.
 
