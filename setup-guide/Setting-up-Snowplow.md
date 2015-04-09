@@ -80,7 +80,7 @@ Setup the alternative data stores? Then proceed to [step 5: data modeling](#step
 
 Once your data is stored in S3 and Redshift, you have access to the event stream. While it is possible to do analysis directly on this event stream, it is common to:
 
-1. Join the event stream with other data sets (e.g. customer data)
+1. Join event-level data with other data sets (e.g. customer data)
 2. Aggregate event-level data into smaller data sets (e.g. sessions)
 3. Apply business logic (e.g. user segmentation)
 
@@ -95,7 +95,7 @@ Done with the data modeling? Then proceed to [step 6: analyse your data](#step6)
 
 [[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/5-analytics.png]] 
 
-Once your data is stored in S3 and Redshift, and the data model has been built, the setup is complete and you are in a position to start analysing it. As part of the setup guide we run through the steps necessary to perform some initial analysis and plugin a couple of analytics tools, to get you started.
+Once your data is stored in S3 and Redshift, and a data model has been built, the setup is complete and you are in a position to start analysing it. As part of the setup guide we run through the steps necessary to perform some initial analysis and plugin a couple of analytics tools, to get you started.
 
 [Get started analysing Snowplow data!](Getting-started-analyzing-Snowplow-data)
 
