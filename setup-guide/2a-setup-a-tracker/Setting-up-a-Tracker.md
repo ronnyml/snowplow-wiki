@@ -2,7 +2,7 @@
 
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 2a: setup a Tracker](Setting-up-a-tracker)
 
-[[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/1-trackers.png]]
+[[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-architecture-1a-trackers.png]]
 
 Snowplow Trackers generate event-data and send that data to [Snowplow Collectors](Setting-up-a-Collector) to log to S3.
 
