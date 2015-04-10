@@ -1,9 +1,9 @@
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2: Setup a Tracker**](setting-up-a-tracker)  
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](setting-up-snowplow) > [**Step 2: Setup a Tracker**](setting-up-a-tracker)
 
-[**Setup Snowplow**](Setting-up-Snowplow)  
+[**Setup Snowplow**](setting-up-snowplow)
 
-- [Step 1: Setup a Collector](setting-up-a-collector)  
-- [Step 2a: Setup a Tracker](setting-up-a-tracker)  
+- [Step 1: Setup a Collector] (setting-up-a-collector)
+- [Step 2a: Setup a Tracker] (Setting-up-a-tracker)
   - [2.1: Setup the JavaScript Tracker](Javascript-tracker-setup)  
   - [2.2: Setup the No-JS (pixel) Tracker](No-JS-tracker-setup)  
   - [2.3: Setup the Python Tracker](Python-Tracker-Setup)  
@@ -16,10 +16,11 @@
   - [2.10: Setup the ActionScript 3.0 Tracker](ActionScript3-Tracker-Setup)
   - [2.11: Setup the Android Tracker](Android-Tracker-Setup)
   - [2.12: Setup the iOS Tracker](iOS-Tracker-Setup)
-- [Step 2b: Setup a Webhook](Setting-up-a-Webhook)  
-- [Step 3: Setup Enrich](setting-up-enrich)  
-- [Step 4: Setup alternative data stores](setting-up-alternative-data-stores)  
-- [Step 5: Analyze your data!](Getting started analyzing Snowplow data)  
+- [Step 2b: Setup a Webhook] (Setting-up-a-webhook)
+- [Step 3: Setup Enrich] (setting-up-enrich)
+- [Step 4: Setup alternative data stores] (setting-up-alternative-data-stores)
+- [Step 5: Data modeling] (setting-up-data-modeling)
+- [Step 6: Analyze your data!] (getting-started-analyzing-snowplow-data)
 
 **Useful resources**  
 

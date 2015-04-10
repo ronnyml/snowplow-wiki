@@ -1,12 +1,12 @@
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 4: Setting up alternative data stores**](setting-up-alternative-data-stores)  
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](setting-up-snowplow) > [**Step 4: Setting up alternative data stores**](setting-up-alternative-data-stores)
 
-[**Setup Snowplow**](Setting-up-Snowplow)  
+[**Setup Snowplow**](setting-up-snowplow)
 
-- [Step 1: Setup a Collector] (setting-up-a-collector)  
-- [Step 2a: Setup a Tracker](Setting-up-a-Tracker)  
-- [Step 2b: Setup a Webhook](Setting-up-a-Webhook)  
-- [Step 3: Setup Enrich] (setting-up-enrich)  
-- [Step 4: Setup alternative data stores] (setting-up-alternative-data-stores)  
+- [Step 1: Setup a Collector] (setting-up-a-collector)
+- [Step 2a: Setup a Tracker] (Setting-up-a-tracker)
+- [Step 2b: Setup a Webhook] (Setting-up-a-webhook)
+- [Step 3: Setup Enrich] (setting-up-enrich)
+- [Step 4: Setup alternative data stores] (setting-up-alternative-data-stores)
   - [4.1: setup Redshift] (setting-up-redshift)  
   - [4.2: setup PostgreSQL] (setting-up-postgresql)  
   - [4.3: installing the StorageLoader] (1-installing-the-storageloader)  
@@ -15,7 +15,8 @@
   - [4.6: loading shredded types] (4-Loading-shredded-types)  
   - [4.7: setup Elasticsearch] (kinesis-elasticsearch-sink-setup)
   - [4.8: setup the Kinesis LZO S3 Sink] (kinesis-lzo-s3-sink-setup)
-- [Step 5: Analyze your data!] (Getting started analyzing Snowplow data)   
+- [Step 5: Data modeling] (setting-up-data-modeling)
+- [Step 6: Analyze your data!] (getting-started-analyzing-snowplow-data)
 
 **Useful resources**  
 
