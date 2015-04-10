@@ -8,7 +8,7 @@ This wiki is the main source of documentation for **developers** working with (o
 |----------------------------|---------------------------------|-------------------------------|---------------------------|
 | [[/images/help.png]] | [[/images/users.png]] | [[/images/tools.png]] | [[/images/database.png]] |
 | [[About Snowplow|Snowplow-overview]] | [[Project & Community|Snowplow-project-and-community]]       | [[Setup Guide|Setting-up-Snowplow]] | [[Technical Documentation|Snowplow-technical-documentation]]|
-| Introducing Snowplow - why we built it and what it does | About the open-source project, our community and how to contribute | A step-by-step guide to running Snowplow | Detailed technical documentation on Snowplow and its five sub-systems |
+| Introducing Snowplow - why we built it and what it does | About the open-source project, our community and how to contribute | A step-by-step guide to running Snowplow | Detailed technical documentation on Snowplow and its six sub-systems |
 
 ## Questions or need help?
 
