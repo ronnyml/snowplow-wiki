@@ -1,4 +1,4 @@
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](setting-up-snowplow) > [**Step 5: Getting started with data modeling**](getting-started-with-data-modeling)
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](setting-up-snowplow) > [**Step 5: Get started with data modeling**](getting-started-with-data-modeling)
 
 [**Setup Snowplow**](setting-up-snowplow)
 

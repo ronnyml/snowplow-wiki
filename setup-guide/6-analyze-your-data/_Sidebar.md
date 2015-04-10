@@ -1,4 +1,4 @@
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](setting-up-snowplow) > [**Step 6: Getting started analysing Snowplow data**](getting-started-analyzing-snowplow-data)
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](setting-up-snowplow) > [**Step 6: Get started analysing Snowplow data**](getting-started-analyzing-snowplow-data)
 
 [**Setup Snowplow**](setting-up-snowplow)
 
