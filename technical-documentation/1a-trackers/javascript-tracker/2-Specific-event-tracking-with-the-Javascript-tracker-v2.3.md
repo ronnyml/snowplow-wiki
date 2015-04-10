@@ -269,16 +269,13 @@ snowplow_name_here('trackTrans');
 <a name="social" />
 ### 3.4 Social tracking
 
-Social tracking has not been implemented yet. However, the intention is to use a similar tracking function to that employed by Google Analytics.
 
 Social tracking will be used to track the way users interact with Facebook, Twitter and Google + widgets, e.g. to capture "like this" or "tweet this" events.
 
 <a name="trackSocial" />
 #### 3.4.1 `trackSocialInteraction`
 
-*This method has not yet been implemented.*
-
-The `trackSocial` method takes four parameters:
+The `trackSocial` method takes three parameters:
 
 | **Parameter** | **Description** | **Required?** | **Example value**     | 
 |:--------------|:----------------|:--------------|:----------------------|
