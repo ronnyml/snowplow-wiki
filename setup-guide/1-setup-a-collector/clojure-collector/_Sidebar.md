@@ -1,4 +1,4 @@
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Collectors**](Setting-up-a-Collector) > [**Clojure collector setup**](setting-up-the-clojure-collector)
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](setting-up-snowplow) > [**Collectors**](Setting-up-a-Collector) > [**Clojure collector setup**](setting-up-the-clojure-collector)
 
 [**Setup Snowplow**](Setting-up-Snowplow)  
 

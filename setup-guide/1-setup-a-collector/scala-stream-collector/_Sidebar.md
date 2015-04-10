@@ -1,4 +1,4 @@
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Collectors**](Setting-up-a-Collector) > [**Scala Stream Collector setup**](Setting-up-the-Scala-Stream-Collector)
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](setting-up-snowplow) > [**Collectors**](Setting-up-a-Collector) > [**Scala Stream Collector setup**](Setting-up-the-Scala-Stream-Collector)
 
 [**Setup Snowplow**](Setting-up-Snowplow)  
 

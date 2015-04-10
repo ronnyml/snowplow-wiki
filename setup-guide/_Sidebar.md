@@ -8,7 +8,7 @@
 - [Step 3: Setup Enrich] (setting-up-enrich)
 - [Step 4: Setup alternative data stores] (setting-up-alternative-data-stores)
 - [Step 5: Data modeling] (setting-up-data-modeling)
-- [Step 5: Analyze your data!] (getting-started-analyzing-snowplow-data)
+- [Step 6: Analyze your data!] (getting-started-analyzing-snowplow-data)
 
 **Useful resources**  
 
