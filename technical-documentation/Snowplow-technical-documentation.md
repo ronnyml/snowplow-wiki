@@ -55,10 +55,12 @@ The technical documentation reflects the Snowplow architecture, with six loosely
 
 ### D. Snowplow storage formats (to write)
 
-## 5. Data modeling (to write)
+## 5. Data modeling
+
+[Data modeling overview](data-modeling-documentation)
 
 ## 6. Analytics
 
-[Analytics overview](analytics documentation)
+[Analytics overview](analytics-documentation)
 
 [technical-architecture]: https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-architecture.png
