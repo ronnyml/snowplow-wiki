@@ -103,7 +103,7 @@ Done with the data modeling? Then proceed to [step 6: analyse your data](#step6)
 
 [[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-architecture-6-analytics.png]]
 
-Now that data is stored in S3 and Redshift, and a data model has been built, you are in a position to start analysing it. As part of the setup guide we run through the steps necessary to perform some initial analysis and plugin a couple of analytics tools, to get you started.
+Now that data is stored in S3 and Redshift, you are in a position to start analyzing the event stream or data from the derived tables, if a data model has been built. As part of the setup guide we run through the steps necessary to perform some initial analysis and plugin a couple of analytics tools, to get you started.
 
 [Get started analysing Snowplow data!](getting-started-analyzing-snowplow-data)
 
