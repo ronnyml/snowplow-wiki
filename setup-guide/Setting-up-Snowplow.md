@@ -8,7 +8,7 @@ Setting up Snowplow is a six step process:
 2. [Setup a Snowplow Tracker](#step2a) and/or [Setup a Third-Party Webhook](#step2b)
 3. [Setup Enrich](#step3)
 4. [Setup alternative data stores (e.g. Redshift, PostgreSQL)](#step4)
-5. [Data modeling](#step5)
+5. [Data modeling in Redshift](#step5)
 6. [Analyze your data!](#step6)
 
 <a name="step1" />
