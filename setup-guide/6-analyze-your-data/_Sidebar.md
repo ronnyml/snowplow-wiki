@@ -7,7 +7,7 @@
 - [Step 2b: Setup a Webhook] (Setting-up-a-webhook)
 - [Step 3: Setup Enrich] (setting-up-enrich)
 - [Step 4: Setup alternative data stores] (setting-up-alternative-data-stores)
-- [Step 5: Data modeling] (setting-up-data-modeling)
+- [Step 5: Data modeling] (getting-started-with-data-modeling)
 - [Step 6: Analyze your data!] (getting-started-analyzing-snowplow-data)
   - [6.1: setting up the default recipes and cubes] [views]   
   - [6.2: setting up Looker to visualize your data] [looker]

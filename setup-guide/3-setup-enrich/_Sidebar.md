@@ -10,7 +10,7 @@
   - [3.2: Setup Scala Kinesis Enrich] (setting-up-scala-kinesis-enrich)
   - [Configurable enrichments] (configurable-enrichments)
 - [Step 4: Setup alternative data stores] (setting-up-alternative-data-stores)
-- [Step 5: Data modeling] (setting-up-data-modeling)
+- [Step 5: Data modeling] (getting-started-with-data-modeling)
 - [Step 6: Analyze your data!] (getting-started-analyzing-snowplow-data)
 
 **Useful resources**  

@@ -94,7 +94,7 @@ Once your data is stored in S3 and Redshift, the basic setup is complete. You no
 
 We call this process *data modeling*.
 
-[Get started with data modeling in Snowplow!](setting-up-data-modeling)
+[Get started with data modeling in Snowplow!](getting-started-with-data-modeling)
 
 Done with the data modeling? Then proceed to [step 6: analyse your data](#step6).
 

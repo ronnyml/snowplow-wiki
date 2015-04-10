@@ -15,7 +15,7 @@
   - [4.6: loading shredded types] (4-Loading-shredded-types)  
   - [4.7: setup Elasticsearch] (kinesis-elasticsearch-sink-setup)
   - [4.8: setup the Kinesis LZO S3 Sink] (kinesis-lzo-s3-sink-setup)
-- [Step 5: Data modeling] (setting-up-data-modeling)
+- [Step 5: Data modeling] (getting-started-with-data-modeling)
 - [Step 6: Analyze your data!] (getting-started-analyzing-snowplow-data)
 
 **Useful resources**  
