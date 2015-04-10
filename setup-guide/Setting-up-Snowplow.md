@@ -25,6 +25,7 @@ Setup your collector? Then proceed to [step 2: setup a tracker](#step2).
 <a name="step2" />
 ## Step 2: Setup a Snowplow Tracker
 
+<a name="step2a" />
 ### Step 2a: Setup a Snowplow Tracker
 
 [[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-architecture-1a-trackers.png]]
@@ -33,6 +34,7 @@ Snowplow trackers generate event data and send that data to Snowplow collectors 
 
 [Setup a tracker now!](Setting-up-a-Tracker)
 
+<a name="step2b" />
 ### Step 2b: Setup a Third-Party Webhook
 
 [[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-architecture-1b-webhooks.png]]
