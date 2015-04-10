@@ -12,7 +12,7 @@ Once your data is stored in S3 and Redshift, the basic setup is complete. You no
 
 We call this process *data modeling*. The data model is usually developed in three stages.
 
-## Step 1: Implement the standard SQL data model
+## Step 1: Implement the standard data model
 
 In a first step, the basic Snowplow data model is set up in so-called *full mode*. This creates a set of dervied tables in Redshift which are recomputed each time the pipeline runs, which allows for rapid iteration as long as date volumes are relatively small. The basic data model can be downloaded from [GitHub] [github-data-models] and the underlying logic explained in more detail in the [Analytics Cookbook] [analytics-cookbook] on the [Snowplow website] [snowplow-website].
 
