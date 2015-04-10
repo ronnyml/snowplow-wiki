@@ -1,13 +1,14 @@
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow)
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](setting-up-snowplow)
 
-[**Setup Snowplow**](Setting-up-Snowplow)    
+[**Setup Snowplow**](setting-up-snowplow)
 
-- [Step 1: Setup a Collector] (setting-up-a-collector)  
-- [Step 2a: Setup a Tracker] (Setting-up-a-Tracker)  
-- [Step 2b: Setup a Webhook] (Setting-up-a-Webhook) 
-- [Step 3: Setup Enrich] (setting-up-enrich)  
-- [Step 4: Setup alternative data stores] (setting-up-alternative-data-stores)  
-- [Step 5: Analyze your data!] (getting-started-analyzing-Snowplow-data)  
+- [Step 1: Setup a Collector] (setting-up-a-collector)
+- [Step 2a: Setup a Tracker] (Setting-up-a-tracker)
+- [Step 2b: Setup a Webhook] (Setting-up-a-webhook)
+- [Step 3: Setup Enrich] (setting-up-enrich)
+- [Step 4: Setup alternative data stores] (setting-up-alternative-data-stores)
+- [Step 5: Data modeling] (setting-up-data-modeling)
+- [Step 5: Analyze your data!] (getting-started-analyzing-snowplow-data)
 
 **Useful resources**  
 
