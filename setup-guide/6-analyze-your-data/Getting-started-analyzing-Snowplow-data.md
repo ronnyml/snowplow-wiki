@@ -4,11 +4,11 @@
 
 [[https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-architecture-6-analytics.png]]
 
-Now you have your Snowplow data being generated and loaded into S3 and potentially also Amazon Redshift, you can start to analyse that data.
+Now you have your Snowplow data being generated and loaded into S3 and potentially also Amazon Redshift, you are in a position to start analyzing the event stream or data from the derived tables in Redshift, if a data model has been built.
 
-Because Snowplow gives you access to incredibly granular, event-level and customer-level data, the possible analyses you can perform on that data is endless.
+Because Snowplow gives you access to incredibly granular, event-level and customer-level data, the possible analyses you can perform on that data are endless.
 
-As part of this setup guide, we provide details on how to get started analysing that data. There are many other resources we are building out (notably the [Analytics Cookbook] [analyst-cookbook]) that go into much more detail.
+As part of this setup guide, we provide details on how to get started analyzing that data. There are many other resources we are building out (notably the [Analytics Cookbook] [analyst-cookbook]) that go into much more detail.
 
 The first guide covers creating schemas with prebuilt recipes and cubes in Redshift or PostgreSQL. These can help you get started analyzing Snowplow data faster. 
 
