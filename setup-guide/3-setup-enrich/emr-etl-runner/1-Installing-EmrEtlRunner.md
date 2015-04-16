@@ -217,6 +217,10 @@ This section of the config file is where we configure the operation of EMR. The 
 
 Make sure that the EC2 key you specify belongs in the region you specify, or else EMR won't be able to find the key. **It's strongly recommended that you choose the same Amazon region as your S3 buckets are located in.**
 
+Since 6th April 2015, all new Elastic MapReduce users have been required to use IAM roles with EMR. You can leave the two `..._role` fields as they are, however you must first create these default EMR roles using the AWS Command Line Interface ([installation-instructions] [http://docs.aws.amazon.com/cli/latest/userguide/installing.html]), like so:
+
+    $ aws emr create-default-roles
+
 Additionally, fill in **one** of these two:
 
 *  `placement`, which is the Amazon EC2 region **and** availability zone
