@@ -621,6 +621,8 @@ Back to [top](#top).
 
 Our Kinesis Applications are designed so that you can launch them all with IAM Roles so you will never have to store your AWS Access/Secret Keys on the instance itself. Lock down your permissions as far as possible, and remember that assigning permissions to specific instances of autoscaling groups is better than assigning them to users.
 
+Back to [top](#top).
+
 <a name="user" />
 ## 3. Create a new user
 
