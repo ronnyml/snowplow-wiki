@@ -5,12 +5,13 @@ These are instructions for setting up the IAM permissions for the "user(s)" that
 
 Setting up the credentials is an 5 step process:
 
-1. [Create a new IAM group] (#create-group)
-2. [Set the permissions for the group] (#permissions)
-3. [Create a new user] (#user)
-4. [Add the new user to your new group] (#add-to-group)
-5. [Update the EmrEtlRunner and StorageLoader config files with the new credentials] (#update-configs)
-6. [Delete the user created to setup Snowplow] (#delete)
+- 1. [Create a new IAM group](#create-group)
+- 2. [Set the permissions for the group](#permissions)
+  - 2.1 [Running Kinesis Applications](#kinesis-apps)
+- 3. [Create a new user](#user)
+- 4. [Add the new user to your new group](#add-to-group)
+- 5. [Update the EmrEtlRunner and StorageLoader config files with the new credentials](#update-configs)
+- 6. [Delete the user created to setup Snowplow](#delete)
 
 **Disclaimer: Snowplow Analytics Ltd will not be liable for any problems caused by the full or partial implementation of these instructions on your Amazon Web Services account. If in doubt, please consult an independent AWS security expert.**
 
@@ -111,7 +112,7 @@ We now need to create the Amazon policy document to define *just* the user permi
 	}	
 ```
 
-The above statement grants gruop members all the permissions required to run Elastic Mapreduce. Note that this includes a number of permissions for EC2 (on which EMR runs), Cloudwatch and Simple DB (which EMR uses for job monitoring and debugging).
+The above statement grants group members all the permissions required to run Elastic Mapreduce. Note that this includes a number of permissions for EC2 (on which EMR runs), Cloudwatch and Simple DB (which EMR uses for job monitoring and debugging).
 
 We need to add additional permissinons to give the user the required access to S3 to read, write and delete files (as part of file moves) as required. We want to restrict these permissions to just those locations that are used by the Snowplow data pipeline. You can identify these locations by referring to the `config.yml` files for EmrEtlRunner and StorageLoader. (They can be found on the repo [here] [emretlrunner.config]) and [here] [storageloader.config].)
 
@@ -615,6 +616,11 @@ Review the final settings before pressing *Continue* to complete the process. Yo
 
 Back to [top](#top).
 
+<a name="kinesis-apps" />
+### 2.1 Running Kinesis Applications
+
+Our Kinesis Applications are designed so that you can launch them all with IAM Roles so you will never have to store your AWS Access/Secret Keys on the instance itself. Lock down your permissions as far as possible, and remember that assigning permissions to specific instances of autoscaling groups is better than assigning them to users.
+
 <a name="user" />
 ## 3. Create a new user
 
@@ -632,7 +638,7 @@ Give your new user a suitable name e.g. `snowplow-operator`. Click *Create*:
 
 [[/setup-guide/images/iam/operating-snowplow-permissions/download-credentials.png]]
 
-AWS gives you the chance to either show or download the credentials. Whichever you do, make sure you **store these credentials safely**. You will need them in [step 5] (#update-configs) of this guide.
+AWS gives you the chance to either show or download the credentials. Whichever you do, make sure you **store these credentials safely**. You will need them in [step 5](#update-configs) of this guide.
 
 Now close the window: your new user is setup.
 
