@@ -3,8 +3,11 @@
 
 Setting up permissions in IAM for the user(s) installing Snowplow is an 3 step process:
 
-1. [Create an IAM group (incl. creating a user and setting permissions)] (#create-group)
-2. [Enable users to log into AWS] (#enable-login)
+- 1. [Create an IAM group (incl. creating a user and setting permissions)](#create-group)
+  - 1.1 [Batch Permissions](#batch-perms)
+  - 1.2 [Kinesis Permissions](#kinesis-perms)
+  - 1.3 [Kinesis & Batch](#combined-perms)
+- 2. [Enable users to log into AWS](#enable-login)
 
 
 **Disclaimer: Snowplow Analytics Ltd will not be liable for any problems caused by the full or partial implementation of these instructions on your Amazon Web Services account. If in doubt, please consult an independent AWS security expert.**
@@ -40,7 +43,14 @@ Let's give it a _Policy Name_ of `snowplow-policy-setup-infrastructure`:
 
 [[/setup-guide/images/iam/new-iam-group-policy-name.png]]
 
-Now we need to give permissions on:
+### Permissions Outline:
+
+Depending on what Pipeline needs to be setup you will need slightly varying permissions.
+
+<a name="batch-perms" />
+#### Batch Permissions
+
+The following permissions are needed for all batch proccessing operations:
 
 * Amazon S3
 * Amazon EMR
@@ -53,12 +63,9 @@ Now we need to give permissions on:
 * Amazon IAM (required as part of the Clojure collector setup, as a role is created for the Clojure collector application)
 * Amazon RDS (PostgreSQL server required by Iglu Server)
 
+**If you are not using the Clojure Collector, you can remove the Elastic Beanstalk section.**
 
-
-
-These permissions are set out in the following policy document. **If you are not using the Clojure Collector, you can remove the Elastic Beanstalk section.**
-
-Now paste the following JSON into the _Policy Document_ text area:
+Paste the following JSON into the _Policy Document_ text area:
 
 ```javascript
 {
@@ -90,7 +97,105 @@ Now paste the following JSON into the _Policy Document_ text area:
 }
 ```
 
-Now click _Continue_:
+<a name="kinesis-perms" />
+#### Kinesis Permissions
+
+For the Kinesis Pipeline ending in an Elasticsearch Cluster you will need these permissions:
+
+* Amazon EC2
+* Amazon Cloudformation (required if the Snowplow team setup your Snowplow data pipeline, as we use Cloudformation)
+* Amazon IAM (required as each Application for the Kinesis Pipeline has its own IAM Policy)
+* Amazon Kinesis (required for Kinesis Streams to be created)
+* Amazon DynamoDB (required for Kinesis Applications to work with Kinesis Streams)
+* Amazon CloudWatch/Logs
+* Amazon AutoScaling (required for all Kinesis Applications to work effectively)
+* Amazon ElasticLoadBalancing (required for the Kinesis Collector)
+
+Paste the following JSON into the _Policy Document_ text area:
+
+```javascript
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "autoscaling:*",
+        "elasticloadbalancing:*",
+        "kinesis:*",
+        "iam:*",
+        "cloudwatch:*",
+        "ec2:*",
+        "cloudformation:*",
+        "logs:*",
+        "dynamodb:*"
+      ],
+      "Resource": [
+        "*"
+      ]
+    }
+  ]
+}
+```
+
+<a name="combined-perms" />
+#### Kinesis & Batch Permissions
+
+For the Kinesis Pipeline ending in the LZO S3 Sink with events from this sink then being processed in batches you will need these permissions:
+
+* Amazon S3
+* Amazon EMR
+* Amazon EC2
+* Amazon Marketplaces (required for EmrEtlRunner / StorageLoader)
+* Amazon Redshift (required for Redshift)
+* Amazon Cloudformation (required if the Snowplow team setup your Snowplow data pipeline, as we use Cloudformation)
+* Amazon IAM (required as each Application for the Kinesis Pipeline has its own IAM Policy)
+* Amazon RDS (PostgreSQL server required by Iglu Server)
+* Amazon Kinesis (required for Kinesis Streams to be created)
+* Amazon DynamoDB (required for Kinesis Applications to work with Kinesis Streams)
+* Amazon CloudWatch/Logs
+* Amazon AutoScaling (required for all Kinesis Applications to work effectively)
+* Amazon ElasticLoadBalancing (required for the Kinesis Collector)
+
+Paste the following JSON into the _Policy Document_ text area:
+
+```javascript
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "autoscaling:*",
+        "elasticloadbalancing:*",
+        "kinesis:*",
+        "iam:*",
+        "cloudwatch:*",
+        "ec2:*",
+        "cloudformation:*",
+        "logs:*",
+        "dynamodb:*",
+        "aws-marketplace:ViewSubscriptions",
+        "aws-marketplace:Subscribe",
+        "aws-marketplace:Unsubscribe",
+        "cloudformation:*",
+        "elasticmapreduce:*",
+        "rds:*",
+        "redshift:*",
+        "s3:*",
+        "sns:*"
+      ],
+      "Resource": [
+        "*"
+      ]
+    }
+  ]
+}
+```
+
+### After Policy Selection
+
+Once you have selected the correct _Policy Document_ click _Continue_:
 
 [[/setup-guide/images/iam/new-iam-group-policy-continue.png]]
 
