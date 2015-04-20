@@ -43,6 +43,15 @@ Use the following request to create the mapping for the enriched event type:
 
 ```
 curl -XPUT 'http://localhost:9200/snowplow' -d '{
+    "settings": {
+        "analysis": {
+            "analyzer": {
+                "default": {
+                    "type": "keyword"
+                }
+            }
+        }
+    },
     "mappings": {
         "enriched": {
             "_timestamp" : {
@@ -64,6 +73,45 @@ curl -XPUT 'http://localhost:9200/snowplow' -d '{
 ```
 
 Elasticsearch will then treat the collector_tstamp field as the timestamp and the geo_location field as a "geo_point". Documents will be automatically deleted one week (604800000 milliseconds) after their collector_tstamp.
+
+This initialization sets the default analyzer to "keyword". This means that string fields will not be split into separate tokens for the purposes of searching. This saves space and ensures that URL fields are handled correctly.
+
+If you want to tokenize specific string fields, you can change the "properties" field in the mapping like this:
+
+```
+curl -XPUT 'http://localhost:9200/snowplow' -d '{
+    "settings": {
+        "analysis": {
+            "analyzer": {
+                "default": {
+                    "type": "keyword"
+                }
+            }
+        }
+    },
+    "mappings": {
+        "enriched": {
+            "_timestamp" : {
+                "enabled" : "yes",
+                "path" : "collector_tstamp"
+            },
+            "_ttl": {
+              "enabled":true,
+              "default": "604800000"
+            },
+            "properties": {
+                "geo_location": {
+                    "type": "geo_point"
+                },
+                "field_to_tokenize": {
+                    "type": "string",
+                    "analyzer": "english"
+                }
+            }
+        }
+    }
+}'
+```
 
 ## Installing the Kinesis Elasticsearch Sink
 
