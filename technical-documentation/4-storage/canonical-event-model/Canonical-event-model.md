@@ -185,7 +185,7 @@ Currently the only platform supported is `web`. However, as we build trackers fo
 | **Field**       | **Type** | **Description** | **Reqd?** | **Impl?** | **Example**    |
 |:----------------|:---------|:----------------|:----------|:----------|:---------------|
 | **Page fields** |          |                 |           |           |                |
-| `page_url'      | text     | The page URL    | Yes       | Yes       | 'http://www.example.com'|
+| `page_url`      | text     | The page URL    | Yes       | Yes       | 'http://www.example.com'|
 | `page_urlscheme`| text     | Scheme aka protocol | Yes   | Yes       | 'https'        |
 | `page_urlhost`  | text     | Host aka domain | Yes       | yes       | '“www.snowplowanalytics.com' |
 | `page_urlport`  | int      | Port if specified, 80 if not| Yes       | 80             |
