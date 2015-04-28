@@ -13,11 +13,7 @@ You can choose to either:
 
 ## 2.1 Download the executable jarfile
 
-To get a local copy, you can download the jarfile directly from our hosted assets bucket on Amazon S3 - please see our [[Hosted assets]] page for details.
-
-You will need to add the executable flag onto the file:
-
-    $ chmod +x snowplow-scala-collector-0.[version].0
+To get a local copy, you can download the jarfile directly from our hosted assets bucket on Amazon S3 - please see Section 6 in our [[Hosted assets]] page for details.
 
 ## 2.2 Compile from source
 
