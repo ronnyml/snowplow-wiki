@@ -128,7 +128,8 @@ Paste the following JSON into the _Policy Document_ text area:
         "ec2:*",
         "cloudformation:*",
         "logs:*",
-        "dynamodb:*"
+        "dynamodb:*",
+        "sns:*"
       ],
       "Resource": [
         "*"
