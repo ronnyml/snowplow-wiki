@@ -305,7 +305,7 @@ snowplow_name_here('crossDomainLinker', function () {
 
 Because the Clojure Collector and the Scala Stream Collector both have a maximum request size, the Tracker limits POST requests to 40000 bytes. If the combined size of the events in `localStorage` is greater than this limit, they will be split into multiple POST requests. You can override this decault using a `maxPostBytes` in the argmap.
 
-The Clojure Collector can't handle requests bigger than 64kB. For the Scala Stream Collector, the limit i
+The Clojure Collector can't handle requests bigger than 64kB. The Scala Stream Collector cannot process requests bigger than 50kB because that is the maximum size of a Kinesis record.
 
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
