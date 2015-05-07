@@ -58,7 +58,7 @@ You may wish to use Snowplow's configurable enrichments. To do this, create a di
 
 Sensible default configuration enrichments are available on GitHub: [3-enrich/emr-etl-runner/config/enrichments][enrichment-json-examples].
 
-See the documentation on [configuring enrichments][configurable-enrichments] for details on the available enrichments.
+See the documentation on [configuring enrichments][configuring-enrichments] for details on the available enrichments.
 
 ### GeoLiteCity databases
 
