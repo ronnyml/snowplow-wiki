@@ -79,6 +79,7 @@ Setting the domain name in `collector.cookie.domain` can be useful if you want t
 
 The cookie expiration duration is set in `collector.cookie.expiration`.
 If no value is provided, cookies set default to expiring after one year (i.e. 365 days).
+From version 0.4.0 forwards, if `collector.cookie.expiration` is set to 0, no cookie will be set.
 
 Next: [[Run the Scala Stream collector]]
 
