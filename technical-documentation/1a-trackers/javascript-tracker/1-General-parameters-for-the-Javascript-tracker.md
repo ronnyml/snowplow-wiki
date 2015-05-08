@@ -246,6 +246,14 @@ The [Clojure Collector][clojure-collector] and [Scala Stream Collector][ssc] acc
 
 You can also batch events sent by POST by setting a numeric `bufferSize` field in the argmap. This is the number of events to buffer before sending them all in a single POST. If the user navigates away from the page while the buffer is only partially full, the tracker will attempt to send all stored events immediately, but this often doesn't happen before the page unloads. Normally the tracker will store unsent events in `localStorage`, meaning that unsent events will be resent when the user next visits a page on the same domain. The `bufferSize` defaults to 1, meaning events are sent as soon as they are created.
 
+If you have set `bufferSize` to greater than 1, you can flush the buffer using the `flushBuffer` method:
+
+```
+snowplow("flushBuffer");
+```
+
+For instance, if you wish to send several events at once, you might make the API calls to create the events and store them and then and call `flushBuffer` afterwards to ensure they are all sent before the user leaves the page.
+
 Note that if `localStorage` is inaccessible or you are not using it to store data, the buffer size will always be 1 to prevent losing events when the user leaves the page.
 
 <a name="use-cookies" />
