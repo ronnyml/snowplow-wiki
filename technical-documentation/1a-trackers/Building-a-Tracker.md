@@ -78,7 +78,7 @@ This class will contain API methods for the various types of Snowplow event (`tr
 
 The purpose of each of these methods is to take arguments provided by the user and assemble them into a map (using the Payload class) which then gets passed to the Emitter's `input` function to be sent to the collector.
 
-Unless the user specifies the timestamp for an event, a timestamp should be attached automatically. A v4 UUID (http://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_.28random.29) should also be attached to each event to help with deduplication.
+Unless the user specifies the timestamp for an event, a timestamp should be attached automatically. A [v4 UUID](http://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_.28random.29) should also be attached to each event to help with deduplication.
 
 As well as these methods for sending individual events, it should be possible to configure the tracker with persistent data which gets sent with every event - like the platform and the user ID and the user's timezone. (In more advanced Snowplow Trackers, there is a Subject class representing a single user which can be configured with these sorts of properties.)
 
