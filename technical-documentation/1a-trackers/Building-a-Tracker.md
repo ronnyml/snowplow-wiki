@@ -6,7 +6,7 @@
 
 This guide is intended to help build a Snowplow Tracker from scratch. The best source of guidance is the source code for existing trackers, all of which are available on GitHub. But several of those trackers are in a fairly advanced state, so it may helpful to get an explanation of how to get started. (It is also worth checking out the early versions of those trackers, and looking at their GitHub issues labelled "Bug" to see common pitfalls.)
 
-The [[Tracker Specification]] provides a list of tracker features.
+The [[Tracker Specification]] provides a list of possible tracker features.
 
 ### Create a Payload class
 

@@ -13,6 +13,8 @@
 [[Arduino Tracker]]  
 [[.NET Tracker]]  
 [[ActionScript3 Tracker]]
+[[Tracker Specification]]
+[[Building a Tracker]]
 
 **1B. Webhooks**  
 [[Iglu webhook adapter]]  
