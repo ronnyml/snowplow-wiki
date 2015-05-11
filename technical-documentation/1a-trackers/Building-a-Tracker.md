@@ -50,7 +50,7 @@ The "/i" collector path is specific to GET requests - when the tracker comes to 
 
 POST requests should have a content type header of `application/json; charset=utf-8`.
 
-The body of the POST request should be a self-describing JSON (http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/) looking something like this:
+The body of the POST request should be a [self-describing JSON](http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/) looking something like this:
 
 ```
 {
@@ -74,9 +74,7 @@ The inner `data` field is an array of JSONs, each corresponding to a single indi
 
 ### Create a Tracker class
 
-This class will contain API methods for the various types of Snowplow event (`trackStructEvent`, `trackUnstructEvent`, `trackPageView`, and so on). These methods don't change much between implementations in different languages so the existing trackers and the Snowplow Tracker Protocol should be a good guide:
-
-https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol
+This class will contain API methods for the various types of Snowplow event (`trackStructEvent`, `trackUnstructEvent`, `trackPageView`, and so on). These methods don't change much between implementations in different languages so the existing trackers and the [Snowplow Tracker Protocol](https://github.com/snowplow/snowplow/wiki/snowplow-tracker-protocol) should be a good guide.
 
 The purpose of each of these methods is to take arguments provided by the user and assemble them into a map (using the Payload class) which then gets passed to the Emitter's `input` function to be sent to the collector.
 
@@ -88,7 +86,7 @@ In addition, the tracker should be initialized with a user-configured applicatio
 
 ### Unstructured events and custom contexts
 
-Snowplow lets you send an array of custom contexts with each event, so each tracker method which fires an event should have an optional `contexts` argument for this array. The elements of this array should be self-describing JSONs (http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/). Before being attached to the payload, these JSONs should be stringified and (if the user has enabled base 64 encoding) base 64 encoded. If encoding is turned on, the querystring parameter for the array of contexts is `co`; otherwise it is `cx`. This difference is so that the enrichment process knows whether to attempt to base 64 decode the field.
+Snowplow lets you send an array of custom contexts with each event, so each tracker method which fires an event should have an optional `contexts` argument for this array. The elements of this array should be [self-describing JSONs](http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/). Before being attached to the payload, these JSONs should be stringified and (if the user has enabled base 64 encoding) base 64 encoded. If encoding is turned on, the querystring parameter for the array of contexts is `co`; otherwise it is `cx`. This difference is so that the enrichment process knows whether to attempt to base 64 decode the field.
 
 The `trackUnstructEvent` tracker method follows similar principles, but it takes a single self-describing JSON rather than an array. If encoding is turned on, the querystring parameter for the unstructured event JSON is `ue_pr`; otherwise it is `ue_px`.
 
@@ -117,7 +115,7 @@ The command you use will look something like this:
 ./snowplow-stream-collector-0.x.0 --config collector-config.conf | ./snowplow-kinesis-enrich-0.x.0 --config enrichment-config.conf --resolver file:resolver.json
 ```
 
-where the "x"s stand in for the latest version o
+where the "x"s stand in for the latest versions of the two apps.
 
 You can now run your tracker sending events to localhost:8080 (assuming you configured the Scala Stream Collector to listen on port 8080). Successfully enriched events will be printed to stdout in TSV form; failed events will be logged to stderr with list of messages describing what was unexpected about the input. For example, if you make a typo so that the querystring your tracker generates for a structured event contains `e=seZ` rather than `e=se`, you will see a JSON like this:
 
