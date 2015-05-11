@@ -2,7 +2,7 @@
 
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 3: Setting up Enrich**](Setting-up-enrich) > [**Step 3.2: setting up Scala Kinesis Enrich**](Setting-up-Scala-Kinesis-Enrich) > [2: Configuring](Configuring-Scala-Kinesis-Enrich)
 
-This documentation is for version 0.5.0 of Scala Kinesis Enrich. This version has not yet been released. Documentation for other versions is available:
+This documentation is for version 0.5.0 of Scala Kinesis Enrich. Documentation for other versions is available:
 
 **[Version 0.1.0][v0.1]**
 **[Version 0.3.0][v0.3]**
