@@ -96,7 +96,7 @@ We are steadily moving over to [Bintray][bintray] for hosting binaries and artif
 
 To make deployment easier, the Kinesis apps (Scala Stream Collector, Scala Kinesis Enrich, Kinesis Elasticsearch Sink, and Kinesis S3 Sink) are now all available in a single zip file here:
 
-    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r60_bee_hummingbird.zip
+    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r65_scarlet_rosefinch.zip
 
 Right-click on this [Download link] [kinesis-download] to save it down locally.
 
