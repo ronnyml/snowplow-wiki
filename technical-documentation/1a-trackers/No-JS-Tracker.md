@@ -10,7 +10,7 @@ This guide covers:
 <a name="what" />
 ## 1. What is the No-JS tracker?
 
-The No-JS tracker is a wizard that generates an HTML-only tracking tag (no JavaScript) to track opens / views of HTML content that does not support JavaScript. Examples of use cases include HTML emails or views of Github wiki pages.
+The No-JS tracker is a wizard that generates an HTML-only tracking tag (no JavaScript) to track opens / views of HTML content that does not support JavaScript. Examples of use cases include HTML emails.
 
 In a normal JavaScript tag, the name-value pairs of data that are sent through to the Snowplow collector via the querystring are calculated on the fly by the JavaScript. (Examples of data points that are calculated on the fly include `user_id`, or `browser_features`.)
 
