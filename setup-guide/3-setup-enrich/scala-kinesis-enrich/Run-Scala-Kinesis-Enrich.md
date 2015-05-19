@@ -4,7 +4,7 @@
 
 **This documentation is for version 0.5.0 of Scala Kinesis Enrich. Documentation for other versions is available:**
 
-**[Version 0.1.0][v0.1]**
+**[Version 0.1.0][v0.1]**  
 **[Version 0.3.0][v0.3]**
 
 ## Running
