@@ -29,7 +29,7 @@ The above command that the enrichments and resolver are stored in a table named 
 
 Scala Kinesis Enrich uses [slf4j logging][logging]. If you run the executable jarfile using the `java -jar` command, you can set the log level as a system property:
 
-    $ java -jar --Dorg.slf4j.simpleLogger.defaultLogLevel=debug \
+    $ java -jar -Dorg.slf4j.simpleLogger.defaultLogLevel=debug \
         scala-kinesis-enrich-0.3.0 --config my.conf --resolver file:resolver.json
 
 This will also affect messages logged by the [Kinesis Client Library][kcl] (which Scala Kinesis Enrich uses to read from Kinesis.)
