@@ -127,6 +127,7 @@ Paste the following JSON into the _Policy Document_ text area:
         "cloudwatch:*",
         "ec2:*",
         "cloudformation:*",
+        "cloudfront:*",
         "logs:*",
         "dynamodb:*",
         "sns:*"
