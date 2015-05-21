@@ -274,7 +274,7 @@ Now that PostgreSQL has been setup, we need to create the table for the Snowplow
 First, let's create the `atomic.events` table, where the actual Snowplow data will live. The SQL for creating the atomic schema and table can be found [here] [postgres-table-def]. Either copy and paste that SQL into PSQL / Navicat, or you can run that file into PSQL at the command line. To do this, navigate to your Snowplow repo, then:
 
 	$ cd 4-storage/postgres-storage/sql
-	$ psql -h <HOSTNAME> -U power_user -d snowplow -p <PORT> -f atomoic-def.sql
+	$ psql -h <HOSTNAME> -U power_user -d snowplow -p <PORT> -f atomic-def.sql
 
 You'll need to substitute in your credentials for `<HOSTNAME>` and `<PORT>`. Make sure you use the `power_user` credentials to create new tables etc.
 
