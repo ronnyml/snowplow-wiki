@@ -49,7 +49,7 @@ tracker.setSubject(subject)
 <a name="events" />
 ## 3. Sending events
 
-Create a Snowplow unstructured event [[self describing JSON]] using the [json4s DSL][json4s-dsl]:
+Create a Snowplow unstructured event [self describing JSON][self-describing-jsons] using the [json4s DSL][json4s-dsl]:
 
 ```scala
 import org.json4s.JsonDSL._
