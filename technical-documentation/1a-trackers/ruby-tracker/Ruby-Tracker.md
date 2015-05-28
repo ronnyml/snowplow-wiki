@@ -54,7 +54,7 @@
 
 The Snowplow Ruby Tracker allows you to track Snowplow events in your Ruby applications and gems and Ruby on Rails web applications.
 
-The tracker should be straightforward to use if you are comfortable with Ruby development; any prior experience with Snowplow"s [[Python Tracker]], [[JavaScript Tracker]], [[Lua Tracker]], Google Analytics or Mixpanel (which have similar APIs to Snowplow) is helpful but not necessary.
+The tracker should be straightforward to use if you are comfortable with Ruby development; any prior experience with Snowplow's [[Python Tracker]], [[JavaScript Tracker]], [[Lua Tracker]], Google Analytics or Mixpanel (which have similar APIs to Snowplow) is helpful but not necessary.
 
 The Ruby Tracker and Python Tracker have very similiar functionality and APIs.
 
