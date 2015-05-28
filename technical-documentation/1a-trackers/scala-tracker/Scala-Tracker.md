@@ -121,7 +121,7 @@ subject.setPlatform(Tv)
 You can make the user ID a string of your choice:
 
 ```scala
-subject.setUserId('user-000563456')
+subject.setUserId("user-000563456")
 ```
 
 <a name="set-screen-resolution" />
@@ -157,7 +157,7 @@ subject.setColorDepth(24)
 If your Scala code has access to the timezone of the device, you can pass it in to Snowplow:
 
 ```scala
-subject.setTimezone('Europe London')
+subject.setTimezone("Europe London")
 ```
 
 <a name="set-language" />
@@ -166,7 +166,7 @@ subject.setTimezone('Europe London')
 You can set the language field like this:
 
 ```scala
-subject.setLang('en')
+subject.setLang("en")
 ```
 
 <a name="set-ip-address" />
@@ -175,7 +175,7 @@ subject.setLang('en')
 If you have access to the user's IP address, you can set it like this:
 
 ```scala
-subject.setIpAddresss('34.634.11.139')
+subject.setIpAddresss("34.634.11.139")
 ```
 
 <a name="set-useragent" />
@@ -184,7 +184,7 @@ subject.setIpAddresss('34.634.11.139')
 If you have access to the user's useragent (sometimes called "browser string"), you can set it like this:
 
 ```scala
-subject.setUseragent('Mozilla/5.0 (Windows NT 5.1; rv:24.0) Gecko/20100101 Firefox/24.0')
+subject.setUseragent("Mozilla/5.0 (Windows NT 5.1; rv:24.0) Gecko/20100101 Firefox/24.0")
 ```
 
 <a name="set-domain-user-id" />
@@ -193,7 +193,7 @@ subject.setUseragent('Mozilla/5.0 (Windows NT 5.1; rv:24.0) Gecko/20100101 Firef
 The `domain_userid` field of the Snowplow event model corresponds to the ID stored in the first party cookie set by the Snowplow JavaScript Tracker. If you want to match up server-side events with client-side events, you can set the domain user ID for server-side events like this:
 
 ```scala
-subject.setDomainUserId('c7aadf5c60a5dff9')
+subject.setDomainUserId("c7aadf5c60a5dff9")
 ```
 
 <a name="set-network-user-id" />
@@ -202,7 +202,7 @@ subject.setDomainUserId('c7aadf5c60a5dff9')
 The `network_user_id` field of the Snowplow event model corresponds to the ID stored in the third party cookie set by the Snowplow Clojure Collector and Scala Stream Collector. You can set the network user ID for server-side events like this:
 
 ```scala
-subject.setNetworkUserId('ecdff4d0-9175-40ac-a8bb-325c49733607')
+subject.setNetworkUserId("ecdff4d0-9175-40ac-a8bb-325c49733607")
 ```
 
 [Back to top](#top)
