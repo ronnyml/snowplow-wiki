@@ -22,7 +22,7 @@ Setting up the tracker should be relatively straightforward if you are familiar 
 Add the Scala Tracker to your build.sbt like this:
 
 ```scala
-libraryDependencies += "com.snowplowanalytics.snowplow" % "snowplow-scala-tracker" % "0.1.0"
+libraryDependencies += "com.snowplowanalytics.snowplow" %% "snowplow-scala-tracker" % "0.1.0"
 ```
 
 Done? Now read the [Scala Tracker API](Scala-Tracker) to start tracking events.
