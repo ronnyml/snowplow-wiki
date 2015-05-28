@@ -49,7 +49,7 @@ tracker.setSubject(subject)
 <a name="events" />
 ## 3. Sending events
 
-Create a Snowplow unstructured event [self describing JSON][self-describing-jsons] using the [json4s DSL][json4s-dsl]:
+Create a Snowplow unstructured event [self-describing JSON][self-describing-jsons] using the [json4s DSL][json4s-dsl]:
 
 ```scala
 import org.json4s.JsonDSL._
@@ -112,11 +112,11 @@ General
 Example usage
 
 ```scala
-subject.set_platform('mob')
+subject.setPlatform(Tv)
 ```
 
 <a name="set-user-id" />
-### 4.2 Set the user ID with `set_user_id`
+### 4.2 Set the user ID with `setUserId`
 
 You can make the user ID a string of your choice:
 
@@ -143,7 +143,7 @@ subject.setViewport(300, 200)
 ```
 
 <a name="set-color-depth" />
-### 4.5 Set the color depth with `set_color_depth`
+### 4.5 Set the color depth with `setColorDepth`
 
 If your Scala code has access to the bit depth of the device's color palette for displaying images, you can pass it in to Snowplow. The number should be a positive integer, in bits per pixel.
 
@@ -152,7 +152,7 @@ subject.setColorDepth(24)
 ```
 
 <a name="set-timezone" />
-### 4.6 Setting the timezone with `set_timezone`
+### 4.6 Setting the timezone with `setTimezone`
 
 If your Scala code has access to the timezone of the device, you can pass it in to Snowplow:
 
@@ -161,7 +161,7 @@ subject.setTimezone('Europe London')
 ```
 
 <a name="set-language" />
-### 4.7 Setting the language with `set_lang`
+### 4.7 Setting the language with `setLang`
 
 You can set the language field like this:
 
@@ -170,7 +170,7 @@ subject.setLang('en')
 ```
 
 <a name="set-ip-address" />
-### 4.8 Setting the IP address with `set_ip_address`
+### 4.8 Setting the IP address with `setIpAddress`
 
 If you have access to the user's IP address, you can set it like this:
 
@@ -179,7 +179,7 @@ subject.setIpAddresss('34.634.11.139')
 ```
 
 <a name="set-useragent" />
-### 4.9 Setting the useragent with `set_ip_address`
+### 4.9 Setting the useragent with `setUseragent`
 
 If you have access to the user's useragent (sometimes called "browser string"), you can set it like this:
 
@@ -188,7 +188,7 @@ subject.setUseragent('Mozilla/5.0 (Windows NT 5.1; rv:24.0) Gecko/20100101 Firef
 ```
 
 <a name="set-domain-user-id" />
-### 4.10 Setting the domain user ID with `set_domain_user_id`
+### 4.10 Setting the domain user ID with `setDomainUserId`
 
 The `domain_userid` field of the Snowplow event model corresponds to the ID stored in the first party cookie set by the Snowplow JavaScript Tracker. If you want to match up server-side events with client-side events, you can set the domain user ID for server-side events like this:
 
@@ -197,7 +197,7 @@ subject.setDomainUserId('c7aadf5c60a5dff9')
 ```
 
 <a name="set-network-user-id" />
-### 4.11 Setting the network user ID with `set_network_user_id`
+### 4.11 Setting the network user ID with `setNetworkUserId`
 
 The `network_user_id` field of the Snowplow event model corresponds to the ID stored in the third party cookie set by the Snowplow Clojure Collector and Scala Stream Collector. You can set the network user ID for server-side events like this:
 
@@ -209,3 +209,5 @@ subject.setNetworkUserId('ecdff4d0-9175-40ac-a8bb-325c49733607')
 
 [json4s]: https://github.com/json4s/json4s
 [json4s-dsl]: https://github.com/json4s/json4s#dsl-rules
+
+[self-describing-jsons]: https://github.com/snowplow/iglu/wiki/Self-describing-JSONs
