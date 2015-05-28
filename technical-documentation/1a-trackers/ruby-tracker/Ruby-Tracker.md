@@ -194,7 +194,7 @@ my_tracker.set_subject(s0).track_screen_view('final page')
 <a name="set-platform" />
 ### 3.1 Set the tracker's platform with `set_platform`
 
-The platform can be any on of `'pc'`, `'tv'`, `'mob'`, `'cnsl'`, or `'iot'`. The default platform is `'srv'`.
+The platform can be any one of `'pc'`, `'tv'`, `'mob'`, `'cnsl'`, or `'iot'`. The default platform is `'srv'`.
 
 ```ruby
 tracker.set_platform('mob')
