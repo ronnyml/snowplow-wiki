@@ -219,12 +219,12 @@ tracker.set_screen_resolution(1366, 768)
 ```
 
 <a name="set-viewport" />
-### 3.4 Set the viewport dimensions with `set_screen_resolution`
+### 3.4 Set the viewport dimensions with `set_viewport`
 
 Similarly, you can pass the viewport dimensions in to Snowplow. Again, both numbers should be positive integers and the order is width followed by height. Example:
 
 ```ruby
-tracker.set_screen_resolution(300, 200)
+tracker.set_viewport(300, 200)
 ```
 
 <a name="set-color-depth" />
