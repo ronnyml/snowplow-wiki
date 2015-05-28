@@ -4,6 +4,13 @@
 
 **Warning: the Scala Tracker has not yet been released.**
 
+## Contents
+
+- 1. [Overview](#overview)  
+- 2. [Initialization](#init)
+- 3. [Sending events](#events)
+- 4. [Subject methods](#subject)
+
 <a name="overview" />
 ## 1. Overview
 
