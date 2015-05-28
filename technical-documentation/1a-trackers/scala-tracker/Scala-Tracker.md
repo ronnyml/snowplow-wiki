@@ -2,8 +2,6 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > Scala Tracker
 
-**Warning: the Scala Tracker has not yet been released.**
-
 ## Contents
 
 - 1. [Overview](#overview)  
