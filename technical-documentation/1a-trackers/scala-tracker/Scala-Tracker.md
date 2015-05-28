@@ -14,7 +14,7 @@
 
 The Snowplow Scala Tracker allows you to track Snowplow events in your Scala apps and servers.
 
-The tracker should be straightforward to use if you are comfortable with Scala development; any prior experience with Snowplow's [[Python Tracker]], [[JavaScript Tracker]], [[Lua Tracker]], Google Analytics or Mixpanel (which have similar APIs to Snowplow) is helpful but not necessary.
+The tracker should be straightforward to use if you are comfortable with Scala development; any prior experience with Snowplow's [[Python Tracker]], [[JavaScript Tracker]], [[Java Tracker]], Google Analytics or Mixpanel (which have similar APIs to Snowplow) is helpful but not necessary.
 
 There are three main classes which the Scala Tracker uses: subjects, emitters, and trackers.
 
