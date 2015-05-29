@@ -22,6 +22,10 @@ Setting up the tracker should be relatively straightforward if you are familiar 
 Add the Scala Tracker to your build.sbt like this:
 
 ```scala
+// Resolvers
+val snowplowRepo = "Snowplow Releases" at "http://maven.snplow.com/releases/"
+
+// Libraries
 libraryDependencies += "com.snowplowanalytics.snowplow" %% "snowplow-scala-tracker" % "0.1.0"
 ```
 
