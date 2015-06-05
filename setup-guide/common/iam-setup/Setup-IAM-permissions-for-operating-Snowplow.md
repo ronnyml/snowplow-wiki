@@ -56,6 +56,7 @@ We now need to create the Amazon policy document to define *just* the user permi
 	    {
 	      "Sid": "PermissionsForEmrPt1",
 	      "Action": [
+                "iam:PassRole",
 	        "elasticmapreduce:AddInstanceGroups",
 	        "elasticmapreduce:AddJobFlowSteps",
 	        "elasticmapreduce:DescribeJobFlows",
@@ -114,7 +115,7 @@ We now need to create the Amazon policy document to define *just* the user permi
 
 The above statement grants group members all the permissions required to run Elastic Mapreduce. Note that this includes a number of permissions for EC2 (on which EMR runs), Cloudwatch and Simple DB (which EMR uses for job monitoring and debugging).
 
-We need to add additional permissinons to give the user the required access to S3 to read, write and delete files (as part of file moves) as required. We want to restrict these permissions to just those locations that are used by the Snowplow data pipeline. You can identify these locations by referring to the `config.yml` files for EmrEtlRunner and StorageLoader. (They can be found on the repo [here] [emretlrunner.config]) and [here] [storageloader.config].)
+We need to add additional permissions to give the user the required access to S3 to read, write and delete files (as part of file moves) as required. We want to restrict these permissions to just those locations that are used by the Snowplow data pipeline. You can identify these locations by referring to the `config.yml` files for EmrEtlRunner and StorageLoader. (They can be found on the repo [here] [emretlrunner.config]) and [here] [storageloader.config].)
 
 Start with your EmrEtlRunner config.yml file. If you view the file, you should see several locations in S3 defined, for different stages of the Snowplow data pipeline - that look something like this (your locations on S3 will be different, of course):
 
