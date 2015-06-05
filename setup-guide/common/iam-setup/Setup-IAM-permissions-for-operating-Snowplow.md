@@ -546,6 +546,7 @@ Your completed permissions file should look something like this:
 	    {
 	      "Sid": "PermissionsForEmrPt1",
 	      "Action": [
+                "iam:PassRole",
 	        "elasticmapreduce:AddInstanceGroups",
 	        "elasticmapreduce:AddJobFlowSteps",
 	        "elasticmapreduce:DescribeJobFlows",
