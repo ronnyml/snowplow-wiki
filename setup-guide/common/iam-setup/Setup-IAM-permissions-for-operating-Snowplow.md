@@ -56,7 +56,7 @@ We now need to create the Amazon policy document to define *just* the user permi
 	    {
 	      "Sid": "PermissionsForEmrPt1",
 	      "Action": [
-                "iam:PassRole",
+	        "iam:PassRole",
 	        "elasticmapreduce:AddInstanceGroups",
 	        "elasticmapreduce:AddJobFlowSteps",
 	        "elasticmapreduce:DescribeJobFlows",
