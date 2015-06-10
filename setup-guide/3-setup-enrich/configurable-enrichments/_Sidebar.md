@@ -12,6 +12,7 @@
     - [IP lookups enrichment] (IP-lookups-enrichment)
     - [Campaign attribution enrichment] (campaign-attribution-enrichment)
     - [Currency conversion enrichment] (currency-conversion-enrichment)
+    - [JavaScript script enrichment] (JavaScript-script-enrichment)
     - [referer-rarser enrichment] (referer-parser-enrichment)
     - [ua-parser enrichment] (ua-parser-enrichment)
     - [user-agent-utils enrichment] (user-agent-utils-enrichment)

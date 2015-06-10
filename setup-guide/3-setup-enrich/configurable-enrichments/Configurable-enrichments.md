@@ -36,6 +36,7 @@ These are the available configurable enrichments:
 [[IP lookups enrichment]]  
 [[Campaign attribution enrichment]]  
 [[Currency conversion enrichment]]  
+[[JavaScript script enrichment]]  
 [[referer-parser enrichment]]  
 [[ua-parser enrichment]]  
 [[user-agent-utils enrichment]]  
