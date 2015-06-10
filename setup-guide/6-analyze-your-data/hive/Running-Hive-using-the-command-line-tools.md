@@ -1,5 +1,7 @@
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 5: Get started analysing Snowplow data**](Getting-started-analysing-Snowplow-data) > [**Getting started with EMR and Hive**](Getting-started-with-EMR) > [Getting started querying your data with Hive](Running-Hive-using-the-command-line-tools)
 
+**This page is very out of date - it needs to be updated to reflect the AWS CLI and the latest Snowplow enriched event format.**
+
 Many of the analyses we perform in Snowplow use Hive. We tend to use Hive Interactive Sessions to develop queries and analyses. Once a set of queries has been developed in the interactive sessions, they can be stored as a text file in S3 and run as a batch process directly from the Elastic Mapreduce Command Line tools.
 
 This part of the guide walks through the process of launching and running a Hive Interactive session. The steps involved are:
