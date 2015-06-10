@@ -25,7 +25,7 @@ This is the field which this enrichment will augment:
 Your JavaScript must include a function, `process(event)`, which:
 
 * Takes a [Snowplow enriched event POJO] [enriched-event-pojo] (Plain Old Java Object) as its sole argument
-* Returns an array of valid self-describing JSONs, which will be added to the `derived_contexts` field in the enriched event
+* Returns a JavaScript array of valid self-describing JSONs, which will be added to the `derived_contexts` field in the enriched event
 * Returns `[]` or `null` if there are no contexts to add to this event
 * Can `throw` exceptions but note that throwing an exception will cause the entire enriched event to end up in the Bad Bucket
 
@@ -107,7 +107,7 @@ Don't:
 [rhino]: https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino
 [enriched-event-pojo]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/outputs/EnrichedEvent.scala
 
-[enrichment-scala]: xxx
+[enrichment-scala]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/enrichments/registry/JavascriptScriptEnrichment.scala
 
 [string-gotcha]: http://nelsonwells.net/2012/02/json-stringify-with-mapped-variables/
 [rhino-experiments]: http://snowplowanalytics.com/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript/
