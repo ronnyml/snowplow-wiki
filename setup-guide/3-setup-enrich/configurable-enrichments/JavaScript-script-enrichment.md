@@ -80,7 +80,7 @@ The "parameters" fields are as follows:
 
 This enrichment uses the [Rhino JavaScript engine] [rhino] to execute your JavaScript. Your JavaScript is pre-compiled so your code should approach Java speeds.
 
-The `process` function is passed the exact [Snowplow enriched event POJO] [enriched-event-pojo]. The return value from the `process` function is converted into a JSON string (using `JSON.stringify) before being retrieved in our Scala code.
+The `process` function is passed the exact [Snowplow enriched event POJO] [enriched-event-pojo]. The return value from the `process` function is converted into a JSON string (using `JSON.stringify`) in JavaScript before being retrieved in our Scala code.
 
 You can review the exact code which executes your JavaScript script in this Scala file: [.scala] [enrichment-scala].
 
@@ -106,6 +106,8 @@ Don't:
 
 [rhino]: https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino
 [enriched-event-pojo]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/outputs/EnrichedEvent.scala
+
+[enrichment-scala]: xxx
 
 [string-gotcha]: http://nelsonwells.net/2012/02/json-stringify-with-mapped-variables/
 [rhino-experiments]: http://snowplowanalytics.com/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript/
