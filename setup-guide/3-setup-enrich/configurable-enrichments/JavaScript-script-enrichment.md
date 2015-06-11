@@ -34,17 +34,31 @@ Note that you can also include other top-level functions and variables in your J
 Here is an example:
 
 ```javascript
-var xxx = xxx;
+const SECRET_APP_ID = "Joshua";
 
+/**
+ * Performs two roles:
+ * 1. If this is a server-side event, we
+ *    validate that the app_id is our
+ *    valid secret. Prevents spoofing of
+ *    our server-side events
+ * 2. If app_id is not null, return a new
+ *    Acme context, derived_app_id, which
+ *    contains the upper-cased app_id
+ */
 function process(event) {
     var appId = event.getApp_id();
+
+    if (platform == "server" && appId != SECRET_APP_ID) {
+        throw "Server-side event has invalid app_id: " + appId;
+    }
 
     if (appId == null) {
         return [];
     }
 
     var appIdUpper = new String(appId.toUpperCase());
-    return [ { schema: "iglu:com.acme/updated_app_id/jsonschema/1-0-0",
+    return [ { schema: "iglu:com.acme/derived_app_id/jsonschema/1-0-0",
                data:  { appIdUpper: appIdUpper } } ];
 }
 ```
@@ -66,7 +80,7 @@ The self-describing JSON to configure this enrichment is as follows:
         "name": "javascript_script_config",
         "enabled": true,
         "parameters": {
-            "script": "ZnVuY3Rpb24gcHJvY2VzcyhldmVudCkgew0KDQogIHZhciBhcHBJZCA9IGV2ZW50LmdldEFwcF9pZCgpOw0KICANCiAgaWYgKGFwcElkID09IG51bGwpIHsNCiAgICByZXR1cm4gW107DQogIH0NCg0KICAvLyBVc2UgbmV3IFN0cmluZygpIGJlY2F1c2UgaHR0cDovL25lbHNvbndlbGxzLm5ldC8yMDEyLzAyL2pzb24tc3RyaW5naWZ5LXdpdGgtbWFwcGVkLXZhcmlhYmxlcy8NCiAgdmFyIGFwcElkVXBwZXIgPSBuZXcgU3RyaW5nKGFwcElkLnRvVXBwZXJDYXNlKCkpOw0KDQogIHJldHVybiBbIHsgc2NoZW1hOiAiaWdsdTpjb20uc25vd3Bsb3dhbmFseXRpY3Muc25vd3Bsb3cvcmVtb3ZlX2Zyb21fY2FydC9qc29uc2NoZW1hLzEtMC0wIiwNCiAgICAgICAgICAgICAgIGRhdGE6IHsgc2t1OiBhcHBJZFVwcGVyLCBxdWFudGl0eTogMiB9DQogICAgICAgICAgIH0gXTsNCn0NCg=="
+            "script": "Y29uc3QgU0VDUkVUX0FQUF9JRCA9ICJKb3NodWEiOw0KDQovKioNCiAqIFBlcmZvcm1zIHR3byByb2xlczoNCiAqIDEuIElmIHRoaXMgaXMgYSBzZXJ2ZXItc2lkZSBldmVudCwgd2UNCiAqICAgIHZhbGlkYXRlIHRoYXQgdGhlIGFwcF9pZCBpcyBvdXINCiAqICAgIHZhbGlkIHNlY3JldC4gUHJldmVudHMgc3Bvb2Zpbmcgb2YNCiAqICAgIG91ciBzZXJ2ZXItc2lkZSBldmVudHMNCiAqIDIuIElmIGFwcF9pZCBpcyBub3QgbnVsbCwgcmV0dXJuIGEgbmV3DQogKiAgICBBY21lIGNvbnRleHQsIGRlcml2ZWRfYXBwX2lkLCB3aGljaA0KICogICAgY29udGFpbnMgdGhlIHVwcGVyLWNhc2VkIGFwcF9pZA0KICovDQpmdW5jdGlvbiBwcm9jZXNzKGV2ZW50KSB7DQogICAgdmFyIGFwcElkID0gZXZlbnQuZ2V0QXBwX2lkKCk7DQoNCiAgICBpZiAocGxhdGZvcm0gPT0gInNlcnZlciIgJiYgYXBwSWQgIT0gU0VDUkVUX0FQUF9JRCkgew0KICAgICAgICB0aHJvdyAiU2VydmVyLXNpZGUgZXZlbnQgaGFzIGludmFsaWQgYXBwX2lkOiAiICsgYXBwSWQ7DQogICAgfQ0KDQogICAgaWYgKGFwcElkID09IG51bGwpIHsNCiAgICAgICAgcmV0dXJuIFtdOw0KICAgIH0NCg0KICAgIHZhciBhcHBJZFVwcGVyID0gbmV3IFN0cmluZyhhcHBJZC50b1VwcGVyQ2FzZSgpKTsNCiAgICByZXR1cm4gWyB7IHNjaGVtYTogImlnbHU6Y29tLmFjbWUvZGVyaXZlZF9hcHBfaWQvanNvbnNjaGVtYS8xLTAtMCIsDQogICAgICAgICAgICAgICBkYXRhOiAgeyBhcHBJZFVwcGVyOiBhcHBJZFVwcGVyIH0gfSBdOw0KfQ=="
         }
     }
 }
@@ -78,11 +92,11 @@ The "parameters" fields are as follows:
 
 ### How this enrichment works
 
-This enrichment uses the [Rhino JavaScript engine] [rhino] to execute your JavaScript. Your JavaScript is pre-compiled so your code should approach Java speeds.
+This enrichment uses the [Rhino JavaScript engine] [rhino] to execute your JavaScript. Your JavaScript is pre-compiled so that your code should approach native Java speeds.
 
 The `process` function is passed the exact [Snowplow enriched event POJO] [enriched-event-pojo]. The return value from the `process` function is converted into a JSON string (using `JSON.stringify`) in JavaScript before being retrieved in our Scala code.
 
-You can review the exact code which executes your JavaScript script in this Scala file: [.scala] [enrichment-scala].
+You can review the exact Scala code which executes your JavaScript script in the [JavascriptScriptEnrichment.scala] [enrichment-scala] file.
 
 ### Do's and Don'ts
 
@@ -90,6 +104,7 @@ This is our most powerful enrichment yet - here are some do's and don'ts to avoi
 
 Do:
 
+* use [Snowplow version tags] [snowplow-tags] to confirm the fields available in your Snowplow version's enriched event POJO
 * return as many contexts as you want
 * throw an exception if you want this enriched event to end up in the Bad Bucket
 * include **minified, self-contained** JavaScript libraries that your `process(event)` function needs
@@ -111,3 +126,5 @@ Don't:
 
 [string-gotcha]: http://nelsonwells.net/2012/02/json-stringify-with-mapped-variables/
 [rhino-experiments]: http://snowplowanalytics.com/blog/2013/10/21/scripting-hadoop-part-1-adventures-with-scala-rhino-and-javascript/
+
+[snowplow-tags]: https://github.com/snowplow/snowplow/tags
