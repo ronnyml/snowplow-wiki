@@ -5,14 +5,14 @@
 ### Compatibility
 
 JSON Schema   [iglu:com.snowplowanalytics.snowplow/javascript_script_config/jsonschema/1-0-0][schema]  
-Compatibility r66+
+Compatibility r66+  
 Data provider None
 
 ### Overview
 
 This enrichment lets you write a JavaScript function which is executed in the Enrichment process for each enriched event, and returns one or more _derived contexts_ which are attached to the final enriched event.
 
-Use this enrichment to apply your own business logic to your enriched events at the row-level (JavaScript functions across multiple rows are not supported). Because your JavaScript function can throw exceptions which are gracefully handled by the calling Enrichment process, you can also use this enrichment to provide simple filtering of events.
+Use this enrichment to apply your own business logic to your enriched events at the row-level; JavaScript functions across multiple rows are not supported. Because your JavaScript function can throw exceptions which are gracefully handled by the calling Enrichment process, you can also use this enrichment to provide simple filtering of events.
 
 This is the field which this enrichment will augment:
 
@@ -27,7 +27,7 @@ Your JavaScript must include a function, `process(event)`, which:
 * Takes a [Snowplow enriched event POJO] [enriched-event-pojo] (Plain Old Java Object) as its sole argument
 * Returns a JavaScript array of valid self-describing JSONs, which will be added to the `derived_contexts` field in the enriched event
 * Returns `[]` or `null` if there are no contexts to add to this event
-* Can `throw` exceptions but note that throwing an exception will cause the entire enriched event to end up in the Bad Bucket
+* Can `throw` exceptions but note that throwing an exception will cause the entire enriched event to end up in the Bad Bucket or Bad Stream
 
 Note that you can also include other top-level functions and variables in your JavaScript script - but you must include a `process(event)` function somewhere in your script.
 
@@ -70,7 +70,7 @@ Please note:
 
 #### JSON configuration file
 
-The self-describing JSON to configure this enrichment is as follows:
+The self-describing JSON to configure this enrichment with the above JavaScript script is as follows:
 
 ```json
 {
@@ -94,7 +94,7 @@ The "parameters" fields are as follows:
 
 This enrichment uses the [Rhino JavaScript engine] [rhino] to execute your JavaScript. Your JavaScript is pre-compiled so that your code should approach native Java speeds.
 
-The `process` function is passed the exact [Snowplow enriched event POJO] [enriched-event-pojo]. The return value from the `process` function is converted into a JSON string (using `JSON.stringify`) in JavaScript before being retrieved in our Scala code.
+The `process` function is passed the exact [Snowplow enriched event POJO] [enriched-event-pojo]. The return value from the `process` function is converted into a JSON string (using `JSON.stringify`) in JavaScript before being retrieved in our Scala code. Our Scala code confirms that the return value is either null or an empty or non-empty array of Objects. No validation of the self-describing JSONs is performed.
 
 You can review the exact Scala code which executes your JavaScript script in the [JavascriptScriptEnrichment.scala] [enrichment-scala] file.
 
@@ -106,8 +106,8 @@ Do:
 
 * use [Snowplow version tags] [snowplow-tags] to confirm the fields available in your Snowplow version's enriched event POJO
 * return as many contexts as you want
-* throw an exception if you want this enriched event to end up in the Bad Bucket
-* include **minified, self-contained** JavaScript libraries that your `process(event)` function needs
+* throw an exception if you want this enriched event to end up in the Bad Bucket or Bad Stream
+* include minified, self-contained JavaScript libraries that your `process(event)` function needs
 * test this enrichment on sample sets of events before putting it into production
 * ensure your new contexts are defined in Iglu, Redshift, JSON Paths etc
 
