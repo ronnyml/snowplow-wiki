@@ -2,8 +2,6 @@
 
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2: setup a Tracker**](Setting-up-a-Tracker) > [**Scala tracker**](Scala-tracker-setup)
 
-**Warning: the Scala Tracker has not yet been released.**
-
 ## Contents
 
 - 1. [Overview](#overview)  
