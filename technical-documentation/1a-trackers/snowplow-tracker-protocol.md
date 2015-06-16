@@ -99,12 +99,12 @@ Back to [common field types](#common).
 | **Parameter** | **Maps to**      | **Type** | **Description**               | **Implemented?** | **Example values**        | 
 |:--------------|:-----------------|:---------|:------------------------------|:-----------------|:--------------------------|
 | `e`           | `event`          | text     | Event type                    | Yes              | (See table [below](#events))|
-| `tid`         | `txn_id`         | text     | Transaction ID                | Yes              | `352583`                    |
+| `tid`         | `txn_id` (deprecated)         | text     | Transaction ID                | Yes              | `352583`                    |
 | `eid`         | `event`          | text     | Event UUID                    | Yes              | `606adff6-9ccc-41f4-8807-db8fdb600df8` |
 
 Every line of data passed from the tracker should contain an event field (`e`) to denote the type of event being tracked. For details about the potential values that `e` can take, and the corresponding event types that they refer to, see the section detailing [Snowplow events](#events).
 
-The transaction ID (`tid`) can be used in situations where there is a risk of duplicate records for the same event. In this case, the transaction ID can be used to aid deduping of records.
+The transaction ID (`tid`) can be used in situations where there is a risk of duplicate records for the same event. In this case, the transaction ID can be used to aid deduping of records. This field has been deprecated in favour of the event ID.
 
 The event ID (`eid`) is the unique identifier (UUID) for this row. Historically we generated this in the Enrichment process but where possible we are migrating this to being generated in the trackers.
 
