@@ -13,7 +13,7 @@ These instuctions are aimed at version 0.4.0 of the Android Tracker.
 
 To test the Android Tracker locally we use a combination of two softwares: [Mountebank][mountebank] and [Ngrok][ngrok].
 
-Mountebank provides a local webserver which we can apply `imposters` to on different ports.  An `imposter` in this context is just a mock which, for our purposes, does some light validation to ensure that the event it receives is indeed a valid Snowplow Event.  This is the [imposter][imposter-link] that we use for validating our events.
+Mountebank provides a local webserver which we can apply `imposters` to run on different ports.  An `imposter` in this context is just a mock which, for our purposes, does some light validation to ensure that the event it receives is indeed a valid Snowplow Event.  This is the [imposter][imposter-link] that we use for validating our events.
 
 We then get Ngrok to listen on the same port as the `imposter` port.  This provides two things:
 
