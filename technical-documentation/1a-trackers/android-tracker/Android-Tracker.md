@@ -996,4 +996,4 @@ Logging in the Tracker is done using our own Logger class: '/utils/Logger.java'.
 [issue-1231]: https://github.com/snowplow/snowplow/issues/1231
 
 [android-unknown]: http://developer.android.com/distribute/tools/open-distribution.html
-[demo-app-link]: http://dl.bintray.com/snowplow/snowplow/snowplow-generic/snowplow-demo-app-release-0.1.0.apk
+[demo-app-link]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow-demo-app-release-0.1.0.apk
