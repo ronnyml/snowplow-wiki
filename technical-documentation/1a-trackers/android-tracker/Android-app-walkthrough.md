@@ -64,7 +64,13 @@ In the last frame you will now notice that we have successfully sent all of our 
 <a name="review" />
 ## 3. Code Review
 
-Now that we have seen the application in action we can walkthrough what's happening and work on how to integrate it into your codebase.  For some example classes please have a look [here][integration].
+Now that we have seen the application in action we can walkthrough what's happening and work on how to integrate it into your codebase.  For some example classes please have a look at the [integration guide][integration].  In the integration guide you will see some very bare-bones implementations of both the Classic and RxJava Trackers, these both use all of the default settings however you are encouraged to test the settings until you have something that works for you!
+
+One thing to note here is that all aspects, apart from initial creation, of the Tracker are performed in background threads.  So you do not need to worry about running a `tracker.trackXXX` function from your UI/Main Thread, the Tracker should never block the main thread.  As you can see [here][calling-from-ui] the demo app calls all of the track functions whilst on the UI Thread with zero impact on the actual running of the UI.
+
+This [file][events-examples] contains many combinations of events that can be sent by the tracker filled with dummy information.  These dummy events are what gets sent to the specified endpoint.  As well as an example of how to build a [custom context][custom-context] to add further decoration to your events.
+
+This should give you a fair amount of examples to get started!  If you need any help please do not hesitate to post questions in the [google user group][user-group].
 
 [Back to top](#top)
 
@@ -72,3 +78,7 @@ Now that we have seen the application in action we can walkthrough what's happen
 [unknown-sources]: http://developer.android.com/distribute/tools/open-distribution.html
 [integration]: https://github.com/snowplow/snowplow/wiki/Android-Integration
 [testing]: https://github.com/snowplow/snowplow/wiki/Android-Testing-locally-and-Debugging
+[calling-from-ui]: https://github.com/snowplow/snowplow-android-tracker/blob/master/snowplow-demo-app/src/main/java/com/snowplowanalytics/snowplowtrackerdemo/ClassicDemo.java#L114
+[events-examples]: https://github.com/snowplow/snowplow-android-tracker/blob/master/snowplow-demo-app/src/main/java/com/snowplowanalytics/snowplowtrackerdemo/utils/TrackerEvents.java#L41-L87
+[custom-context]: https://github.com/snowplow/snowplow-android-tracker/blob/master/snowplow-demo-app/src/main/java/com/snowplowanalytics/snowplowtrackerdemo/utils/TrackerEvents.java#L92-L100
+[user-group]: https://groups.google.com/forum/#!forum/snowplow-user
