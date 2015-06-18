@@ -5,6 +5,8 @@ This page is a walkthrough detailing how the demo app works, what it is doing an
 ## Contents
 
 - 1. [Overview](#overview)
+- 2. [App Walkthrough](#walkthrough)
+- 3. [Code Review](#review)
 
 <a name="classic" />
 ## 1. Overview
@@ -12,6 +14,13 @@ This page is a walkthrough detailing how the demo app works, what it is doing an
 Before we get started please [download the APK][download-apk] and install it on your Android device.  You will need to allow installation from [unknown sources][unknown-sources] before it will proceed.
 
 The application has been developed as a proof of concept of the Android Tracker in all of its forms.  It will allow you to send all combinations of possible events to an endpoint of your choosing so you can see how the events look and what data is being collected.
+
+For help in setting up a local endpoint please go [here][testing].
+
+[Back to top](#top)
+
+<a name="walkthrough" />
+## 2. App Walkthrough
 
 The main screen:
 
@@ -52,5 +61,14 @@ In the last frame you will now notice that we have successfully sent all of our 
 
 [Back to top](#top)
 
+<a name="review" />
+## 3. Code Review
+
+Now that we have seen the application in action we can walkthrough what's happening and work on how to integrate it into your codebase.  For some example classes please have a look [here][integration].
+
+[Back to top](#top)
+
 [download-apk]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow-demo-app-release-0.1.0.apk
 [unknown-sources]: http://developer.android.com/distribute/tools/open-distribution.html
+[integration]: https://github.com/snowplow/snowplow/wiki/Android-Integration.md
+[testing]: https://github.com/snowplow/snowplow/wiki/Android-Testing-locally-and-Debugging
