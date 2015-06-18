@@ -39,9 +39,7 @@ The Snowplow Android Tracker has been built and tested using the Android SDK ver
 <a name="dependencies" />
 ### 2.2 Dependencies
 
-To minimize the dex footprint of the Tracker we have kept dependencies to an absolute minimum.  
-
-To minimize jar bloat, we have tried to keep external dependencies to a minimum. For the full list of dependencies, please see our [core Gradle build file][gradle-build-core], [classic Gradle build file][gradle-build-classic] and our [rx Gradle build file][gradle-build-rx].
+To minimize jar bloat, we have tried to keep external dependencies to a minimum. For the full list of dependencies, please see our [Gradle build file] [gradle-build].
 
 [Back to top](#top)
 
@@ -53,7 +51,7 @@ To minimize jar bloat, we have tried to keep external dependencies to a minimum.
 
 The Tracker is published to Snowplow's [hosted Maven repository] [maven-snplow], which should make it easy to add it as a dependency into your own Android app.
 
-The current version of the Snowplow Android Tracker is 0.4.0.
+The current version of the Snowplow Android Tracker is 0.3.0.
 
 <a name="maven" />
 ### 3.2 Maven
@@ -83,23 +81,13 @@ If you are using Maven for building your Android application, then add the follo
 </settings>
 ```
 
-Then add into your project's `pom.xml` for the classic Tracker:
+Then add into your project's `pom.xml`:
 
 ```xml
 <dependency>
     <groupId>com.snowplowanalytics</groupId>
-    <artifactId>snowplow-android-tracker-classic</artifactId>
-    <version>0.4.0</version>
-</dependency>
-```
-
-...and for the RxJava Tracker:
-
-```xml
-<dependency>
-    <groupId>com.snowplowanalytics</groupId>
-    <artifactId>snowplow-android-tracker-rx</artifactId>
-    <version>0.4.0</version>
+    <artifactId>snowplow-android-tracker</artifactId>
+    <version>0.3.0</version>
 </dependency>
 ```
 
@@ -123,29 +111,19 @@ Then add into the same file:
 dependencies {
     ...
     // Snowplow Android Tracker
-
-    // For Classic
-    compile 'com.snowplowanalytics:snowplow-android-tracker-classic:0.4.0'
-
-    // For RxJava
-    compile 'com.snowplowanalytics:snowplow-android-tracker-rx:0.4.0'
+    compile 'com.snowplowanalytics:snowplow-android-tracker:0.3.0'
 }
 ```
 
-This will install version `0.4.0` of the android tracker.  However if you would like to ensure that all bug fixes and patches for version `0.4.0` are installed, simply change `0.4.0` into `0.4.+`.  
+This will install version `0.3.0` of the android tracker.  However if you would like to ensure that all bug fixes and patches for version `0.3.0` are installed, simply change `0.3.0` into `0.3.+`.  
 
-Please note that no breaking changes will occur in the '0.4.x' space.
+Please note that no breaking changes will occur in the '0.3.x' space.
 
 ```groovy
 dependencies {
     ...
     // Snowplow Android Tracker
-
-    // For Classic
-    compile 'com.snowplowanalytics:snowplow-android-tracker-classic:0.4.+'
-
-    // For RxJava
-    compile 'com.snowplowanalytics:snowplow-android-tracker-rx:0.4.+'
+    compile 'com.snowplowanalytics:snowplow-android-tracker:0.3.+'
 }
 ```
 <a name="aar" />
@@ -156,12 +134,7 @@ You can also add the Android Tracker using the Android ARchive (aar) package in 
 dependencies {
     ...
     // Snowplow Android Tracker
-
-    // For Classic
-    compile 'com.snowplowanalytics:snowplow-android-tracker:0.4.+@aar'
-
-    // For RxJava
-    compile 'com.snowplowanalytics:snowplow-android-tracker-rx:0.4.+@aar'
+    compile 'com.snowplowanalytics:snowplow-android-tracker:0.3.+@aar'
 }
 ```
 
@@ -191,7 +164,5 @@ Done? Now read the [Android Tracker API](Android-Tracker) to start tracking even
 
 [android]: http://www.android.com/
 
-[gradle-build-core]: https://github.com/snowplow/snowplow-android-tracker/blob/master/snowplow-android-core/build.gradle
-[gradle-build-classic]: https://github.com/snowplow/snowplow-android-tracker/blob/master/snowplow-android-tracker-classic/build.gradle
-[gradle-build-rx]: https://github.com/snowplow/snowplow-android-tracker/blob/master/snowplow-android-tracker-rx/build.gradle
+[gradle-build]: https://github.com/snowplow/snowplow-android-tracker/blob/master/snowplow-android-tracker/build.gradle
 [maven-snplow]: http://maven.snplow.com
