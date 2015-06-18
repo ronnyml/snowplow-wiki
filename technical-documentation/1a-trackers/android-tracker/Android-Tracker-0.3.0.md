@@ -2,22 +2,18 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > Android Tracker
 
-This page refers to version 0.4.0 of the Snowplow Android Tracker.
+This page refers to version 0.3.0 of the Snowplow Android Tracker.
+
+**Please note** that this version of the Android Tracker is dependent upon the [Snowplow 0.9.14 release][snowplow-0.9.14], you will need to be running this version or higher of Snowplow for events sent by the tracker to be successfully processed. Snowplow 0.9.14+ contains updates to the Hadoop Enrich and Scala Hadoop Shred jobs to allow newer self-describing JSON versions, as sent by Android Tracker 0.3.0. For more information, please refer to tickets [#1220][issue-1220] and [#1231][issue-1231].
 
 Documentation for older version of this tracker is available:
 
-* [Android v0.3.*][android-0.3]
 * [Java v0.6.* and Android v0.2.*][java-0.6]
 * [Java v0.5.* and Android v0.1.*][java-0.5]
 
-Integration Guide:
-
-* [Android v0.4.*][android-integration-0.4.0]
-
 ## Contents
 
-- 1. [Overview](#overview)
-  - 1.1 [Demo App](#demo-app)
+- 1. [Overview](#overview)  
 - 2. [Initialization](#init)
   - 2.1 [Importing the module](#importing)
   - 2.2 [Creating a tracker](#create-tracker)
@@ -45,7 +41,6 @@ Integration Guide:
   - 3.2 [Additional contexts sent by this tracker](#additional-contexts)
     - 3.2.1 [`mobile_context`](#mobile-context)
     - 3.2.2 [`geolocation_context`](#geo-context)
-  - 3.3 [Getting the AndroidIdfa](#android-idfa)
 - 4. [Tracking specific events](#events)
   - 4.1 [Common](#common)
     - 4.1.1 [Self-describing JSON](#self-describing-json)
@@ -70,15 +65,6 @@ Integration Guide:
 The [Snowplow Android Tracker](https://github.com/snowplow/snowplow-android-tracker) allows you to track Snowplow events from your Android applications and games. It supports applications using the Android SDK 11 and above.
 
 The tracker should be straightforward to use if you are comfortable with Java development; its API is modelled after Snowplow's [[Python Tracker]] so any prior experience with that tracker is helpful but not necessary. If you haven't already, have a look at the [[Android Tracker Setup]] guide before continuing.
-
-[Back to top](#top)
-
-<a name="demo-app" />
-### 1.1. Demo App
-
-If you would like to see the Tracker in action you can download our demonstration android app [here][demo-app-link].  You will need to enable installation of applications from [unknown sources][android-unknown].
-
-Within the app you will simply need to supply an endpoint and hit start!  The application will then send all types of events available to the tracker to this endpoint.
 
 [Back to top](#top)
 
@@ -130,7 +116,7 @@ Tracker t2 = new Tracker
         .TrackerBuilder(e2, "myNamespace", "myAppId")
         .base64(false) // Optional - defines if we use base64 encoding
         .platform(DevicePlatforms.Mobile) // Optional - defines what platform the event will report to be on
-        .subject(new Subject.SubjectBuilder().build()) // Optional - a subject which contains values appended to every event
+        .subject(new Subject()) // Optional - a subject which contains values appended to every event
         .build();
 ```
 
@@ -151,7 +137,6 @@ We also have several extra builder options:
 | `subject`         | The subject that defines a user             | `Subject, null`                     | `null`      |
 | `platform`        | The platform that the Tracker is running on | `DevicePlatforms.{{ Enum Option }}` | `DevicePlatforms.Mobile` |
 | `base64`          | Whether to enable [Base64 encoding][base64] | `True, False`                       | `True`      |
-| `level`           | The level of logging to do                  | `LogLevel.{{ Enum Option}}`         | `LogLevel.OFF` |
 
 <a name="emitter" />
 ##### 2.3.1 `emitter`
@@ -254,7 +239,7 @@ The Subject class has a set of `set...()` methods to attach extra data relating 
 Here are some examples:
 
 ```java
-Subject s1 = new Subject.SubjectBuilder().build();
+Subject s1 = new Subject();
 
 s1.setUserID("Kevin Gleason"); 
 s1.setLanguage("en-gb");
@@ -475,7 +460,7 @@ The `mobile_context` is comprised of the following fields:
 To ensure you gather all of this information you will need to create your Subject with the following argument:
 
 ```java
-Subject subject = new Subject.SubjectBuilder().context(getContext()).build();
+Subject subject = new Subject(getContext());
 ```
 
 Note that `getContext()` is an Android global function.  It is needed to grab information that is related to the client specifically.
@@ -497,7 +482,7 @@ The `geolocation_context` is comprised of the following fields:
 To ensure you gather all of this information you will need to create your Subject with the following argument:
 
 ```java
-Subject subject = new Subject.SubjectBuilder().context(getContext()).build();
+Subject subject = new Subject(getContext());
 ```
 
 Note that `getContext()` is an Android global function.
@@ -510,32 +495,6 @@ You will also need to include the following in your `AndroidManifest.xml` file:
 ```
 
 This will make the functions for checking these metrics available for the tracker to use.
-
-[Back to top](#top)
-
-<a name="android-idfa" />
-## 3.3 Getting the Android Idfa Code
-
-The Android Idfa code is a unique identifier for google advertising.  You can get this code using this library in two ways:
-
-1. Use the utility function available:
-
-```java
-import com.snowplowanalytics.snowplow.tracker.utils.Util;
-
-// Context is your application context object
-String androidIdfa = Util.getAdvertisingId(context);
-```
-
-Please note that this function will only work when run from a different thread than the UI/Main thread of your application.
-
-2. Get it from the Subject class:
-
-If you created a Tracker Subject with your application's context then the ID will have already been populated.
-
-```java
-String androidIdfa = tracker.getSubject().getSubjectMobile().get("androidIdfa");
-```
 
 [Back to top](#top)
 
@@ -767,15 +726,15 @@ t1.trackEcommerceTransaction("6a8078be", 300, "my_affiliate", 30, 10, "Boston", 
 <a name="struct-event" />
 #### 4.5 Track structured events with `trackStructuredEvent()`
 
-Use `trackStructuredEvent()` to track a custom event happening in your app which fits the Google Analytics-style structure of having up to five fields (with only the first two required):
+Use `trackStructuredEvent()` to track a custom event happening in your app which fits the Google Analytics-style structure of having up to five fields:
 
 | **Argument** | **Description**                                                  | **Required?** | **Type**    |
 |-------------:|:---------------------------------------------------------------  |:--------------|:------------------|
 | `category`   | The grouping of structured events which this `action` belongs to | Yes           | `String`            |
 | `action`     | Defines the type of user interaction which this event involves   | Yes           | `String`            |
-| `label`      | A string to provide additional dimensions to the event data      | No            | `String`            |
-| `property`   | A string describing the object or the action performed on it     | No            | `String`            |
-| `value`      | A value to provide numerical data about the event                | No            | `int`               |
+| `label`      | A string to provide additional dimensions to the event data      | Yes           | `String`            |
+| `property`   | A string describing the object or the action performed on it     | Yes           | `String`            |
+| `value`      | A value to provide numerical data about the event                | Yes           | `int`               |
 | `context`    | Custom context for the event                                     | No            | `List<SelfDescribingJson>` |
 | `timestamp`  | Optional timestamp for the event                                 | No            | `Long`              |
 
@@ -868,17 +827,12 @@ The below are required arguments for the 'EmitterBuilder({{ ... }})' segment of 
 
 We also have several extra builder options such as:
 
-| **Function**    | **Description**                                 | **Options**                     | **Default**       |
-|----------------:|:------------------------------------------------|:--------------------------------|:------------------|
-| `method`        | The request method to use                       | `HttpMethod.GET, .POST`         | `HttpMethod.POST` |
-| `option`        | The amount of events sent in a POST request     | `BufferOption.{{ Enum Option}}` | `BufferOption.DefaultGroup `|
-| `security`      | Whether to send over HTTP or HTTPS              | `RequestSecurity.HTTP, .HTTPS`  | `RequestSecurity.HTTP` |
-| `callback`      | A callback to output successes and failures     | `new RequestCallback{ ... }`    | `null`            |
-| `tick`          | The time between emitter ticks                  | Any positive int                | `5`               |
-| `sendLimit`     | The maximum amount of events to get from the DB | Any positive int                | `250`             |
-| `emptyLimit`    | The amount of times the emitter can be empty    | Any positive int                | `5`               |
-| `byteLimitGet`  | The maximum amount of bytes to send in a GET    | Any positive int                | `40000`           |
-| `byteLimitPost` | The maximum amount of bytes to send in a POST   | Any positive int                | `40000`           |
+| **Function** | **Description**                                 | **Options**                     | **Default**       |
+|-------------:|:------------------------------------------------|:--------------------------------|:------------------|
+| `method`     | The request method to use                       | `HttpMethod.GET, .POST`         | `HttpMethod.POST` |
+| `option`     | The amount of events sent in a POST request     | `BufferOption.{{ Enum Option}}` | `BufferOption.DefaultGroup `|
+| `security`   | Whether to send over HTTP or HTTPS              | `RequestSecurity.HTTP, .HTTPS`  | `RequestSecurity.HTTP` |
+| `callback`   | A callback to output successes and failures     | `new RequestCallback{ ... }`    | `null`            |
 
 [Back to top](#top)
 
@@ -892,13 +846,20 @@ The current Emitter flow goes as follows:
 1. Emitter is created
 2. Emitter will check if it has access to the internet
 3. If it is it will begin a recurring check for events to send to the configured collector
-   - This defaults to every 5 seconds
-4. If there are events in the SQlite database the emitter will grab up to 250 (default) events from the database and begin sending.
+   - This is currently set to be every 5 seconds. (# Constant-1)
+4. If there are events in the SQlite database the emitter will grab up to 250 events from the database and begin sending. (# Constant-2)
 5. Once it has finished sending it will again check for events
-6. If there are no events to be sent 5 (default) times in a row, it will shut itself down 
+6. If there are no events to be sent 5 times in a row, it will shut itself down (# Constant-3)
 7. On receiving a new event the Emitter checks again if it is online and will then begin sending again
-8. If there are only errors in sending, the events will not be deleted from the database and the emitter will then be shutdown
-   - If there are some successes it will not shutdown.
+8. If there are any errors in sending, the events will not be deleted from the database and the emitter will then be shutdown
+
+All constants can be found in the 'constants/TrackerConstants.java' class with the following names:
+
+- EMITTER_TICK
+- EMITTER_SEND_LIMIT
+- EMITTER_EMPTY_EVENTS_LIMIT
+
+To alter these values you will need to edit and recompile the Trackers source, pending an upcoming release where this will be configurable when initializing an Emitter object. 
 
 <a name="buffer" />
 #### 5.2 Using a buffer
@@ -975,7 +936,11 @@ Emitter emitter = new Emitter
 <a name="logging" />
 ## 6. Logging
 
-Logging in the Tracker is done using our own Logger class: '/utils/Logger.java'. All logging is actioned based on what `LogLevel` was set in the Tracker creation.  This level can be configured to `VERBOSE`, `DEBUG`, `ERROR` or `OFF`.  By default logging is not enabled.
+Logging in the Tracker is done using our own Logger class: '/utils/Logger.java'. All logging is actioned based on whether or not the 'DEBUG_MODE' constant is set to true in the 'constants/TrackerConstants.java' class.
+
+This class also utilizes the standard Android logging API, removing the prior versions dependency on an extra logging library.
+
+To alter this constant you will need to edit and recompile the Trackers source, pending an upcoming release where this will be configurable when initializing a Tracker object.
 
 [Back to top](#top)
 
@@ -983,12 +948,7 @@ Logging in the Tracker is done using our own Logger class: '/utils/Logger.java'.
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
 [java-0.6]: https://github.com/snowplow/snowplow/wiki/Android-and-Java-Tracker
 [java-0.5]: https://github.com/snowplow/snowplow/wiki/Android-v0.1-and-Java-Tracker-v0.5
-[android-0.3]: https://github.com/snowplow/snowplow/wiki/Android-Tracker-0.3.0.md
-[android-integration-0.4.0]: https://github.com/snowplow/snowplow/wiki/Android-Integration.md
 [base64]: https://en.wikipedia.org/wiki/Base64
 [snowplow-0.9.14]: https://github.com/snowplow/snowplow/releases/tag/0.9.14
 [issue-1220]: https://github.com/snowplow/snowplow/issues/1220
 [issue-1231]: https://github.com/snowplow/snowplow/issues/1231
-
-[android-unknown]: http://developer.android.com/distribute/tools/open-distribution.html
-[demo-app-link]: http://NEED_DEMO_LINK/
