@@ -987,8 +987,8 @@ Logging in the Tracker is done using our own Logger class: '/utils/Logger.java'.
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
 [java-0.6]: https://github.com/snowplow/snowplow/wiki/Android-and-Java-Tracker
 [java-0.5]: https://github.com/snowplow/snowplow/wiki/Android-v0.1-and-Java-Tracker-v0.5
-[android-0.3]: https://github.com/snowplow/snowplow/wiki/Android-Tracker-0.3.0.md
-[android-integration-0.4.0]: https://github.com/snowplow/snowplow/wiki/Android-Integration.md
+[android-0.3]: https://github.com/snowplow/snowplow/wiki/Android-Tracker-0.3.0
+[android-integration-0.4.0]: https://github.com/snowplow/snowplow/wiki/Android-Integration
 [android-testing-0.4.0]: https://github.com/snowplow/snowplow/wiki/Android-Testing-locally-and-Debugging
 [base64]: https://en.wikipedia.org/wiki/Base64
 [snowplow-0.9.14]: https://github.com/snowplow/snowplow/releases/tag/0.9.14

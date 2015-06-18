@@ -70,5 +70,5 @@ Now that we have seen the application in action we can walkthrough what's happen
 
 [download-apk]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow-demo-app-release-0.1.0.apk
 [unknown-sources]: http://developer.android.com/distribute/tools/open-distribution.html
-[integration]: https://github.com/snowplow/snowplow/wiki/Android-Integration.md
+[integration]: https://github.com/snowplow/snowplow/wiki/Android-Integration
 [testing]: https://github.com/snowplow/snowplow/wiki/Android-Testing-locally-and-Debugging
