@@ -89,6 +89,6 @@ This simply stops the VM and restarts it.
 
 [Back to top](#top)
 
-[imposter-link]: http://
-[mountebank]:
-[ngrok]:
+[imposter-link]: https://github.com/snowplow/snowplow-android-tracker/blob/master/snowplow-android-tracker-rx/src/androidTest/assets/imposters.json
+[mountebank]: http://www.mbtest.org/
+[ngrok]: https://ngrok.com/
