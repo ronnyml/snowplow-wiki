@@ -158,7 +158,7 @@ dependencies {
     // Snowplow Android Tracker
 
     // For Classic
-    compile 'com.snowplowanalytics:snowplow-android-tracker:0.4.+@aar'
+    compile 'com.snowplowanalytics:snowplow-android-tracker-classic:0.4.+@aar'
 
     // For RxJava
     compile 'com.snowplowanalytics:snowplow-android-tracker-rx:0.4.+@aar'
