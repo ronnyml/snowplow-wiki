@@ -84,6 +84,8 @@ If you would like to see the Tracker in action you can download our demonstratio
 
 Within the app you will simply need to supply an endpoint and hit start!  The application will then send all types of events available to the tracker to this endpoint.
 
+For a walkthrough go [here][app-walkthrough].
+
 [Back to top](#top)
 
 <a name="init" />
@@ -990,6 +992,7 @@ Logging in the Tracker is done using our own Logger class: '/utils/Logger.java'.
 [android-0.3]: https://github.com/snowplow/snowplow/wiki/Android-Tracker-0.3.0
 [android-integration-0.4.0]: https://github.com/snowplow/snowplow/wiki/Android-Integration
 [android-testing-0.4.0]: https://github.com/snowplow/snowplow/wiki/Android-Testing-locally-and-Debugging
+[app-walkthrough]: https://github.com/snowplow/snowplow/wiki/Android-app-walkthrough
 [base64]: https://en.wikipedia.org/wiki/Base64
 [snowplow-0.9.14]: https://github.com/snowplow/snowplow/releases/tag/0.9.14
 [issue-1220]: https://github.com/snowplow/snowplow/issues/1220
