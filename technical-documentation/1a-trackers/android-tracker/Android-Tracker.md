@@ -14,6 +14,10 @@ Integration Guide:
 
 * [Android v0.4.*][android-integration-0.4.0]
 
+Local Testing:
+
+* [Android v0.4.*][android-testing-0.4.0]
+
 ## Contents
 
 - 1. [Overview](#overview)
@@ -985,6 +989,7 @@ Logging in the Tracker is done using our own Logger class: '/utils/Logger.java'.
 [java-0.5]: https://github.com/snowplow/snowplow/wiki/Android-v0.1-and-Java-Tracker-v0.5
 [android-0.3]: https://github.com/snowplow/snowplow/wiki/Android-Tracker-0.3.0.md
 [android-integration-0.4.0]: https://github.com/snowplow/snowplow/wiki/Android-Integration.md
+[android-testing-0.4.0]: https://github.com/snowplow/snowplow/wiki/Android-Testing-locally-and-Debugging
 [base64]: https://en.wikipedia.org/wiki/Base64
 [snowplow-0.9.14]: https://github.com/snowplow/snowplow/releases/tag/0.9.14
 [issue-1220]: https://github.com/snowplow/snowplow/issues/1220
