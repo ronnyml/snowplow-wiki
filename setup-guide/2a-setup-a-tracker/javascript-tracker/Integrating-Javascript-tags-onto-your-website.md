@@ -59,10 +59,10 @@ window.snowplow('newTracker', 'cf', 'd3rkrsqld9gmqf.cloudfront.net', { // Initia
 });
 ```
 
-If you are using another Collector type, for example a [Clojure Collector](setting-up-the-clojure-collector) with URI "snowplow-mobile.acme.com", just pass in that collector's URI: 
+If you are using another Collector type, for example a [Clojure Collector](setting-up-the-clojure-collector) with URI "snowplow-coll.acme.com", just pass in that collector's URI: 
 
 ```
-window.snowplow('newTracker', 'clj', 'snowplow-mobile.acme.com', { // Initialise a tracker
+window.snowplow('newTracker', 'mycljcoll', 'snowplow-coll.acme.com', { // Initialise a tracker
   appId: '{{MY-SITE-ID}}',
   cookieDomain: '{{MY-COOKIE-DOMAIN}}'
 });
