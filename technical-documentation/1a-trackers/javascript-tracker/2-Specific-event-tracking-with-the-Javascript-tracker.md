@@ -2,11 +2,12 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > [**JavaScript Tracker**](Javascript-Tracker) > Specific event tracking
 
-*This page refers to version 2.4.2 of the Snowplow JavaScript Tracker.*  
+*This page refers to version 2.5.0 of the Snowplow JavaScript Tracker.*  
+*Click [here] [specific-events-v1] for the corresponding documentation for version 1.*  
 *Click [here] [specific-events-v2.0] for the corresponding documentation for version 2.0.*  
-*Click [here] [specific-events-v2.2] for the corresponding documentation for version 2.2.*  
-*Click [here] [specific-events-v2.3] for the corresponding documentation for version 2.3.*  
-*Click [here] [specific-events-v1] for the corresponding documentation for version 1.*
+*Click [here] [specific-events-v2.2] for the corresponding documentation for version 2.2.2.*  
+*Click [here] [specific-events-v2.3] for the corresponding documentation for version 2.3.0.*  
+*Click [here] [specific-events-v2.3] for the corresponding documentation for version 2.4.3.*  
 
 <a name="tracking-specific-events" />
 ## 3. Tracking specific events
@@ -58,7 +59,7 @@ Page views are tracked using the `trackPageView` method. This is generally part 
 ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
 p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
 };p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.4.2/sp.js","snowplow_name_here"));
+n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.5.0/sp.js","snowplow_name_here"));
 
 snowplow_name_here('enableActivityTracking', 30, 10);
 
@@ -257,7 +258,7 @@ snowplow_name_here('trackTrans');
   ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
   p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
   };p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-  n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.4.2/sp.js","snowplow_name_here"));
+  n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.5.0/sp.js","snowplow_name_here"));
 
   snowplow_name_here('newTracker', 'cf', 'd3rkrsqld9gmqf.cloudfront.net');
   snowplow_name_here('enableActivityTracking', 30, 10)
@@ -422,7 +423,7 @@ Below is an example of how to achieve this when using Snowplow ad impression tra
   ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
   p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
   };p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-  n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.4.2/sp.js","sp_pm"));
+  n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.5.0/sp.js","sp_pm"));
    
   // Create a new tracker namespaced to rnd
   window.sp_pm('newTracker', rnd, 'dgrp31ac2azr9.cloudfront.net', {
@@ -582,7 +583,7 @@ The full HTML code to append, using asynchronous Snowplow invocation, looks like
 ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
 p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
 };p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.4.2/sp.js","snowplow_name_here"));
+n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.5.0/sp.js","snowplow_name_here"));
 
 // Update tracker constructor to use your CloudFront distribution subdomain
 window.snowplow_name_here('newTracker', 'cf', 'patldfvsg0d8w.cloudfront.net');
