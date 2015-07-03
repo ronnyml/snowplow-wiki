@@ -87,42 +87,7 @@ snowplow_name_here('trackPageView', 'my custom page title');
 
 `trackPageView` can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
 
-Additionally, you can pass a function which returns an array of zero or more contexts to trackPageView. For the page view and for all subsequent page pings, the function will be called and the contexts it returns will be added to the event.
-
-For example:
-
-```javascript
-// Turn on page pings every 10 seconds
-window.snowplow('enableActivityTracking', 10, 10);
-
-window.snowplow(
-  'trackPageView',
-
-  // no custom title
-  null,
-
-  // The usual array of static contexts
-  [{
-    schema: 'iglu:com.acme/static_context/jsonschema/1-0-0',
-    data: {
-      staticValue: new Date().toString()
-    }
-  }],
-
-  // Function which returns an array of custom contexts
-  // Gets called once per page view / page ping
-  function() {
-    return [{
-      schema: 'iglu:com.acme/dynamic_context/jsonschema/1-0-0',
-      data: {
-        dynamicValue: new Date().toString()
-      }
-    }];
-  }
-);
-```
-
-The page view and every subsequent page ping will have both a static_context and a dynamic_context attached. The static_contexts will all have the same staticValue, but the dynamic_contexts will have different dynamicValues since a new context is created for every event.
+Note: going forwards we plan to extend this method to also capture page category.
 
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]

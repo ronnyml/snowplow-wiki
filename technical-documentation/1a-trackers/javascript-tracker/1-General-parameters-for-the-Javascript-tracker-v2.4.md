@@ -7,7 +7,6 @@
 *Click [here] [general-parameters-v2.0] for the corresponding documentation for version 2.1.1.*
 *Click [here] [general-parameters-v2.2] for the corresponding documentation for version 2.2.0.*
 *Click [here] [general-parameters-v2.3] for the corresponding documentation for version 2.3.0.*
-*Click [here] [general-parameters-v2.4] for the corresponding documentation for version 2.4.0.*
 
 <a name="general" />
 ## 2. General parameters
@@ -26,15 +25,13 @@
     - 2.2.11 [Altering cookies](#write-cookies)
     - 2.2.12 [Configuring localStorage](#configuring-local-storage)
     - 2.2.13 [Adding predefined contexts](#predefined-contexts)
-      - 2.2.13.1 [webPage context](#webPage)
-      - 2.2.13.2 [performanceTiming context](#performanceTiming)
-      - 2.2.13.3 [gaCookies context](#gaCookies)
-      - 2.2.13.4 [geolocation contexts](#geolocation)
+      - 2.2.13.1 [performanceTiming context](#performanceTiming)
+      - 2.2.13.2 [gaCookies context](#gaCookies)
+      - 2.2.13.3 [geolocation contexts](#geolocation)
     - 2.2.14 [POST support](#post)
     - 2.2.15 [Disabling cookies](#write-cookies)
     - 2.2.16 [Configuring cross-domain tracking](#cross-domain)
     - 2.2.17 [Configuring the maximum payload size in bytes](#maxPostBytes)
-    - 2.2.18 [Configuring the session cookie duration](#session-cookie-duration)
   - 2.3 [Other parameters](#other-methods)
     - 2.3.1 [Setting the user id](#user-id)
       - 2.3.1.1 [`setUserId`](#set-user-id)
@@ -42,6 +39,7 @@
       - 2.3.1.3 [`setUserIdFromReferrer`](#set-user-id-from-referrer)
       - 2.3.1.4 [`setUserIdFromCookie`](#set-user-id-from-cookie)
     - 2.3.2 [Setting a custom page URL and referrer URL](#custom-url)
+    - 2.3.3 [Configuring cookie timeouts using `setSessionCookieTimeout`](#cookie-timeouts)
   - 2.4 [Setting onload callbacks](#callback)
   - 2.5 [Managing multiple trackers](#multiple-trackers)
   - 2.6 [How the Tracker uses cookies](#cookies)
@@ -132,7 +130,6 @@ snowplow_name_here("newTracker", "cf", "d3rkrsqld9gmqf.cloudfront.net", {
     return (linkElement.href === "http://acme.de" || linkElement.id === "crossDomainLink"); 
   },
   contexts: {
-    webPage: true,
     performanceTiming: true,
     gaCookies: true,
     geolocation: false
@@ -217,13 +214,8 @@ By default the Tracker will [store events in `localStorage`](#local-storage) bef
 
 The JavaScript Tracker comes with three predefined contexts which you can automatically add to every event you send. To enable them, simply add them to the `contexts` field of the argmap as above.
 
-<a name="webPage" />
-##### 2.2.13.1 webPage context
-
-When the JavaScript Tracker loads on a page, it generates a new page view UUID. If the webPage context is enabled, then a context containing this UUID is attached to every page view.
-
 <a name="performanceTiming" />
-##### 2.2.13.2 performanceTiming context
+##### 2.2.13.1 performanceTiming context
 
 If this context is enabled, the JavaScript Tracker will use the create a context JSON from the `window.performance.timing` object, along with the Chrome `firstPaintTime` field (renamed to `"chromeFirstPaint"`) if it exists. This data can be used to calculate page performance metrics.
 
@@ -232,12 +224,12 @@ Note that if you fire a page view event as soon as the page loads, the `domCompl
 For more information on the Navigation Timing API, see [the specification][performance-spec].
 
 <a name="gaCookies" />
-##### 2.2.13.3 gaCookies context
+##### 2.2.13.2 gaCookies context
 
 If this context is enabled, the JavaScript Tracker will look for Google Analytics cookies (specifically the "__utma", "__utmb", "__utmc", "__utmv", "__utmz", and "_ga" cookies) and combine their values into a JSON which gets sent with every event.
 
 <a name="geolocation" />
-##### 2.2.13.4 geolocation context
+##### 2.2.13.3 geolocation context
 
 If this context is enabled, the JavaScript Tracker will attempt to create a context from the visitor's geolocation information. If the visitor has not already given or denied the website permission to use their geolocation information, a prompt will appear. If they give permission, then all events from that moment on will include their geolocation information.
 
@@ -319,26 +311,9 @@ snowplow_name_here('crossDomainLinker', function () {
 <a name="maxPostBytes" />
 #### 2.2.17 Configuring the maximum payload size in bytes
 
-Because the Clojure Collector and the Scala Stream Collector both have a maximum request size, the Tracker limits POST requests to 40000 bytes. If the combined size of the events in `localStorage` is greater than this limit, they will be split into multiple POST requests. You can override this default using a `maxPostBytes` in the argmap.
+Because the Clojure Collector and the Scala Stream Collector both have a maximum request size, the Tracker limits POST requests to 40000 bytes. If the combined size of the events in `localStorage` is greater than this limit, they will be split into multiple POST requests. You can override this decault using a `maxPostBytes` in the argmap.
 
 The Clojure Collector can't handle requests bigger than 64kB. The Scala Stream Collector cannot process requests bigger than 50kB because that is the maximum size of a Kinesis record.
-
-<a name="session-cookie-duration" />
-#### 2.2.18 Configuring the session cookie duration
-
-Whenever an event fires, the Tracker creates a session cookie. If the cookie didn't previously exist, the Tracker interprets this as the start of a new session.
-
-By default the session cookie expires after 30 minutes. This means that a user leaving the site and returning in under 30 minutes does not change the session. You can override this default by setting `sessionCookieTimeout` to a duration (in seconds) in the argmap. For example,
-
-```javascript
-{
-  ...
-  sessionCookieTimeout: 3600
-  ...
-}
-```
-
-would set the session cookie lifespan to an hour.
 
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
@@ -413,6 +388,21 @@ snowplow_name_here('setCustomUrl', 'http://custom-referrer.com');
 ```
 
 On a single-page app, the page URL might change without the page being reloaded. Whenever an event is fired, the Tracker checks whether the page URL has changed since the last event. If it has, the page URL is updated and the URL at the time of the last event is used as the referrer. If you use `setCustomUrl`, the page URL will no longer be updated in this way. If you use `setReferrerUrl`, the referrer URL will no longer be updated in this way.
+
+<a name="cookie-timeout" />
+#### 2.3.3 Configuring cookie timeouts using `setSessionCookieTimeout`
+
+The JavaScript Tracker sets two cookies: a visitor cookie and a session cookie. The visitor cookie contains all persistent information about the user, including a visit count (the number of times the user has visited the site). It lasts for two years. The session cookie is specific to an individual session. By default, it expires after 30 minutes pass with no event fired. Whenever a Snowplow event is fired, if no session cookie is found, the Tracker takes this to mean that a new session has started. It therefore increments the visitor cookie's visit count. If the user leaves the site and returns before the 30 minutes is up, the visit count is not incremented.
+
+The visit count is added to each event querystring as "vid". "vid=3" would mean an event was fired during the user's third session.
+
+You can change the default from 30 minutes by using `setSessionCookieTimeout`. You should give the expiration time of the session cookie in seconds:
+
+```javascript
+snowplow_name_here('setSessionCookieTimeout', 3600);
+```
+
+The above code would cause the session cookie to last for one hour.
 
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
@@ -564,7 +554,6 @@ The Snowplow JavaScript Tracker uses `window.localStorage` to store events in ca
 [general-parameters-v2.0]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker-v2.0
 [general-parameters-v2.2]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker-v2.2
 [general-parameters-v2.3]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker-v2.3
-[general-parameters-v2.4]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker-v2.4
 [snowplow-tracker-protocol]: https://github.com/snowplow/snowplow/wiki/SnowPlow-Tracker-Protocol
 [contexts]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker-v1#custom-contexts
 [clojure-collector]: https://github.com/snowplow/snowplow/wiki/Clojure-collector
