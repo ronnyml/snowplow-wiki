@@ -2,7 +2,7 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > [**JavaScript Tracker**](Javascript-Tracker) > Specific event tracking
 
-*This page refers to version 2.5.0 of the Snowplow JavaScript Tracker.*  
+*This page refers to version 2.5.0 of the Snowplow JavaScript Tracker, which has not been released yet.*  
 *Click [here] [specific-events-v1] for the corresponding documentation for version 1.*  
 *Click [here] [specific-events-v2.0] for the corresponding documentation for version 2.0.*  
 *Click [here] [specific-events-v2.2] for the corresponding documentation for version 2.2.2.*  
