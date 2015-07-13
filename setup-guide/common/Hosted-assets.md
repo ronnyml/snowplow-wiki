@@ -94,11 +94,13 @@ No hosted assets currently.
 
 We are steadily moving over to [Bintray][bintray] for hosting binaries and artifacts which don't have to be hosted on S3.
 
-To make deployment easier, the Kinesis apps (Scala Stream Collector, Scala Kinesis Enrich, Kinesis Elasticsearch Sink, and Kinesis S3 Sink) are now all available in a single zip file here:
+To make deployment easier, the Kinesis apps Scala Stream Collector, Scala Kinesis Enrich and Kinesis Elasticsearch Sink are now all available in a single zip file here:
 
-    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r65_scarlet_rosefinch.zip
+    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r67_bohemian_waxwing.zip
 
 Right-click on this [Download link] [kinesis-download] to save it down locally.
+
+The Kinesis S3 app is available for download separately.
 
 ## See also
 
@@ -116,4 +118,4 @@ Please see the [[Artifact repositories]] wiki page for more information.
 [maxmind]: http://www.maxmind.com/?rld=snowplow
 
 [bintray]: https://bintray.com/
-[kinesis-download]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r60_bee_hummingbird.zip
+[kinesis-download]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r67_bohemian_waxwing.zip
