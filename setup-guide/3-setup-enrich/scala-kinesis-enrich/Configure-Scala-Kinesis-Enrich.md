@@ -58,7 +58,7 @@ out: {
 
 You can also now include Snowplow Monitoring in the application.  This is setup through a new section at the bottom of the config.  You will need to ammend:
 
-+ `monitoring.snowplow.collecotr-uri` insert your snowplow collector URI here.
++ `monitoring.snowplow.collector-uri` insert your snowplow collector URI here.
 + `monitoring.snowplow.app-id` the app-id used in decorating the events sent.
 
 If you do not wish to include Snowplow Monitoring please remove the entire `monitoring` section from the config.
