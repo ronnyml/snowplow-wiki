@@ -831,7 +831,7 @@ t1.track(PageView.builder().( ... ).timestamp(1423583655000).build());
 <a name="screen-view" />
 #### 4.2 Track screen views with `track(ScreenView event)`
 
-Use `track(ScreenView event)` to track a user viewing a screen (or equivalent) within your app. Arguments are:
+Use `track(ScreenView event)` to track a user viewing a screen (or equivalent) within your app. You must use either `name` or `id`. Arguments are:
 
 | **Argument**   | **Description**                     | **Required?** | **Type**                   |
 |---------------:|:------------------------------------|:--------------|:---------------------------|
@@ -870,8 +870,8 @@ Arguments are:
 | **Argument**   | **Description**                      | **Required?** | **Type**                   |
 |---------------:|:-------------------------------------|:--------------|:---------------------------|
 | `pageUrl`      | The URL of the page                  | Yes           | `String`                   |
-| `pageTitle`    | The title of the page                | Yes           | `String`                   |
-| `referrer`     | The address which linked to the page | Yes           | `String`                   |
+| `pageTitle`    | The title of the page                | No            | `String`                   |
+| `referrer`     | The address which linked to the page | No            | `String`                   |
 | `customContext`| Optional custom context              | No            | `List<SelfDescribingJson>` |
 | `timestamp`    | Optional timestamp                   | No            | `Long`                     |
 | `eventId`      | Optional custom event id             | No            | `String`                   |
@@ -908,13 +908,13 @@ Arguments:
 |---------------:|:-------------------------------------|:--------------|:---------------------------|
 | `orderId`      | ID of the eCommerce transaction      | Yes           | `String`                   |
 | `totalValue`   | Total transaction value              | Yes           | `Double`                   |
-| `affiliation`  | Transaction affiliation              | Yes           | `String`                   |
-| `taxValue`     | Transaction tax value                | Yes           | `Double`                   |
-| `shipping`     | Delivery cost charged                | Yes           | `Double`                   |
-| `city`         | Delivery address city                | Yes           | `String`                   |
-| `state`        | Delivery address state               | Yes           | `String`                   |
-| `country`      | Delivery address country             | Yes           | `String`                   | 
-| `currency`     | Transaction currency                 | Yes           | `String`                   |
+| `affiliation`  | Transaction affiliation              | No            | `String`                   |
+| `taxValue`     | Transaction tax value                | No            | `Double`                   |
+| `shipping`     | Delivery cost charged                | No            | `Double`                   |
+| `city`         | Delivery address city                | No            | `String`                   |
+| `state`        | Delivery address state               | No            | `String`                   |
+| `country`      | Delivery address country             | No            | `String`                   | 
+| `currency`     | Transaction currency                 | No            | `String`                   |
 | `items`        | Items in the transaction             | Yes           | `List<TransactionItem>`    |
 | `customContext`| Optional custom context              | No            | `List<SelfDescribingJson>` |
 | `timestamp`    | Optional timestamp                   | No            | `Long`                     |
@@ -947,11 +947,11 @@ These are the fields that can appear as elements in each `TransactionItem` eleme
 |---------------:|:-------------------------------------|:--------------|:---------------------------|
 | `itemId`       | Item ID                              | Yes           | `String`                   |
 | `sku`          | Item SKU                             | Yes           | `String`                   |
-| `price`        | Item price                           | Yes           | `double`                   |
-| `quantity`     | Item quantity                        | Yes           | `int`                      |
-| `name`         | Item name                            | Yes           | `String`                   |
-| `category`     | Item category                        | Yes           | `String`                   |
-| `currency`     | Item currency                        | Yes           | `String`                   |
+| `price`        | Item price                           | Yes           | `Double`                   |
+| `quantity`     | Item quantity                        | Yes           | `Integer`                  |
+| `name`         | Item name                            | No            | `String`                   |
+| `category`     | Item category                        | No            | `String`                   |
+| `currency`     | Item currency                        | No            | `String`                   |
 | `customContext`| Optional custom context              | No            | `List<SelfDescribingJson>` |
 | `timestamp`    | Optional timestamp                   | No            | `Long`                     |
 | `eventId`      | Optional custom event id             | No            | `String`                   |
@@ -1114,8 +1114,8 @@ Use `track(TimingWithCategory event)` to track an event related to a custom timi
 | **Argument**   | **Description**                                 | **Required?** | **Type**                   |
 |---------------:|:------------------------------------------------|:--------------|:---------------------------|
 | `category`     | The category of the timed event                 | Yes           | `String`                   |
-| `label`        | The label of the timed event                    | Yes           | `String`                   |
-| `timing`       | The timing measurement in milliseconds          | Yes           | `int`                      |
+| `label`        | The label of the timed event                    | No            | `String`                   |
+| `timing`       | The timing measurement in milliseconds          | Yes           | `Integer`                  |
 | `variable`     | The name of the timed event                     | Yes           | `String`                   |
 | `customContext`| Optional custom context                         | No            | `List<SelfDescribingJson>` |
 | `timestamp`    | Optional timestamp                              | No            | `Long`                     |
