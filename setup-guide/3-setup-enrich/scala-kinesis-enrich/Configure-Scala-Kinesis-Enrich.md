@@ -2,12 +2,13 @@
 
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 3: Setting up Enrich**](Setting-up-enrich) > [**Step 3.2: setting up Scala Kinesis Enrich**](Setting-up-Scala-Kinesis-Enrich) > [2: Configuring](Configuring-Scala-Kinesis-Enrich)
 
-This documentation is for version 0.5.0 of Scala Kinesis Enrich. Documentation for other versions is available:
+This documentation is for version 0.6.0 of Scala Kinesis Enrich. Documentation for other versions is available:
 
 **[Version 0.1.0][v0.1]**
 **[Version 0.3.0][v0.3]**
+**[Version 0.5.0][v0.5]**
 
-The Scala Stream Collector has a number of configuration options available.
+Scala Kinesis Enrich has a number of configuration options available.
 
 ## Basic configuration
 
@@ -53,6 +54,15 @@ out: {
 }
 ```
 
+### Monitoring
+
+You can also now include Snowplow Monitoring in the application.  This is setup through a new section at the bottom of the config.  You will need to ammend:
+
++ `monitoring.snowplow.collecotr-uri` insert your snowplow collector URI here.
++ `monitoring.snowplow.app-id` the app-id used in decorating the events sent.
+
+If you do not wish to include Snowplow Monitoring please remove the entire `monitoring` section from the config.
+
 ## Resolver configuration
 
 You will also need a JSON configuration for the Iglu resolver used to look up JSON schemas. A sample configuration is available [here][resolver.json.sample].
@@ -83,8 +93,9 @@ Next: [[Run Scala Kinesis Enrich]]
 
 [v0.1]: https://github.com/snowplow/snowplow/wiki/Configure-Scala-Kinesis-Enrich-v0.1
 [v0.3]: https://github.com/snowplow/snowplow/wiki/Configure-Scala-Kinesis-Enrich-v0.3
+[v0.5]: https://github.com/snowplow/snowplow/wiki/Configure-Scala-Kinesis-Enrich-v0.5
 [geolite]: http://dev.maxmind.com/geoip/legacy/geolite/?rld=snowplow
-[app-conf]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-kinesis-enrich/src/main/resources/config.hocon.sample
+[app-conf]: https://github.com/snowplow/snowplow/blob/r67-bohemian-waxwing/3-enrich/scala-kinesis-enrich/src/main/resources/config.hocon.sample
 [enrichment-json-examples]: https://github.com/snowplow/snowplow/tree/master/3-enrich/emr-etl-runner/config/enrichments
 [configuring-enrichments]: https://github.com/snowplow/snowplow/wiki/5-Configuring-enrichments#template
 [resolver.json.sample]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-kinesis-enrich/src/main/resources/resolver.json.sample

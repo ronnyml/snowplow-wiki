@@ -6,7 +6,7 @@
 
 *[Version 0.2][v0.2] (not yet released)*
 
-The Scala Stream Collector has a number of configuration options available.
+Scala Kinesis Enrich has a number of configuration options available.
 
 ## Basic configuration
 
