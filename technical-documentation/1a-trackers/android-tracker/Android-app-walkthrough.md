@@ -51,7 +51,7 @@ Options Explained:
 - Emitter Protocol: Whether to use HTTP or HTTPS for event sending.
 - Emitter Type: Whether to send events as GET's or POST's.
   - You will note quite a substantial speed increase if using POST over GET.
-- Connection: Whether to turn event collection ON or OFF.
+- Collection: Whether to turn event collection ON or OFF.
 
 So now that we know what everything is lets start the demo!
 
