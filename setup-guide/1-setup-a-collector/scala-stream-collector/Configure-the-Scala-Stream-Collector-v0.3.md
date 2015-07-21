@@ -1,9 +1,8 @@
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 1: setup a Collector**](Setting-up-a-Collector) > [**Scala Stream Collector setup**](setting-up-the-Scala-Stream-Collector) > [[Configure the Scala Stream Collector]]
 
-**This documentation refers to version 0.5.0 of the Scala Stream Collector**
+**This documentation refers to version 0.3.0 and 0.4.0 of the Scala Stream Collector**
 
 **[Version 0.1.0][v0.1]**
-**[Version 0.3.0 & 0.4.0][v0.3]**
 
 The Scala Stream Collector has a number of configuration options available.
 
@@ -26,10 +25,10 @@ You can insert your actual credentials in these fields. Alternatively, if you se
 
 ### Stream configuration
 
-You will need to put in the names of your `good` and `bad` streams:
+We also recommend changing the default stream options:
 
-+ `collector.stream.good`
-+ `collector.stream.bad`
++ `collector.stream.name`
++ `collector.stream.size`
 
 If your stream's AWS region is not us-east-1, you should also change `collector.stream.region` correspondingly.
 
@@ -39,14 +38,6 @@ Also verify the settings of the HTTP service:
 
 + `collector.interface`
 + `collector.port`
-
-### Buffer settings
-
-You will also need to set appropriate limits for
-
-+ `collector.buffer.byte-limit`
-+ `collector.buffer.record-limit`
-+ `collector.buffer.time-limit`
 
 ## Additional configuration options
 
@@ -59,8 +50,8 @@ initializing the collector.
 ### 2. Sinks
 
 The `collector.sink.enabled` setting determines which of the supported sinks to write raw events to:
-+ `"kinesis`" for writing Thrift-serialized records and error rows to a Kinesis stream
-+ `"stdout`" for writing Base64-encoded Thrift-serialized records and error rows to stdout and stderr respectively
++ `"kinesis`" for writing Thrift-serialized records to a Kinesis stream
++ `"stdout`" for writing Base64-encoded Thrift-serialized records to stdout
 
 The default setting is `"kinesis`".
 
@@ -93,5 +84,4 @@ From version 0.4.0 forwards, if `collector.cookie.expiration` is set to 0, no co
 Next: [[Run the Scala Stream collector]]
 
 [v0.1]: https://github.com/snowplow/snowplow/wiki/Configure-the-Scala-Stream-Collector-v0.1
-[v0.3]: https://github.com/snowplow/snowplow/wiki/Configure-the-Scala-Stream-Collector-v0.3
-[app-conf]: https://github.com/snowplow/snowplow/blob/r67-bohemian-waxwing/2-collectors/scala-stream-collector/src/main/resources/config.hocon.sample
+[app-conf]: https://github.com/snowplow/snowplow/blob/r65-scarlet-rosefinch/2-collectors/scala-stream-collector/src/main/resources/config.hocon.sample
