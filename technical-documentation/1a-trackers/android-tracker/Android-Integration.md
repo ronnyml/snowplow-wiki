@@ -73,7 +73,7 @@ You will need to have imported the following library into your project:
 dependencies {
     ...
     // Snowplow Android Tracker Rx
-    compile 'com.snowplowanalytics:snowplow-android-tracker-rx:0.4.0'
+    compile 'com.snowplowanalytics:snowplow-android-tracker-rx:0.5.0'
 }
 ```
 
