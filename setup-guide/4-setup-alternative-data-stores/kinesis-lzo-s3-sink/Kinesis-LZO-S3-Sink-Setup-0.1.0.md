@@ -2,9 +2,7 @@
 
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 4: setting up alternative data stores**](Setting-up-alternative-data-stores) > [Kinesis-LZO-S3-Sink-Setup](Kinesis-LZO-S3-Sink-Setup)
 
-This documentation is for version 0.3.0 of Kinesis LZO S3. For previous versions:
-
-**[Version 0.1.0 - 0.2.1][v0.1]**
+This documentation is for version 0.1.0 upto 0.2.1 of Kinesis LZO S3
 
 ## Overview
 
@@ -56,27 +54,18 @@ The `jar` file will be saved as `snowplow-lzo-s3-sink-0.1.0` in the `target/scal
 
 The sink is configured using a HOCON file. These are the fields:
 
-* `aws.access-key` and `aws.secret-key`: Change these to your AWS credentials. You can alternatively leave them as "default", in which case the [DefaultAWSCredentialsProviderChain][DefaultAWSCredentialsProviderChain] will be used.
-* `kinesis.in.stream-name`: The name of the input Kinesis stream. This should be the stream to which your are writing records with the Scala Stream Collector.
-* `kinesis.in.initial-position`: Where to start reading from the stream the first time the app is run. "TRIM_HORIZON" for as far back as possible, "LATEST" for as recent as possibly.
-* `kinesis.out.stream-name`: The name of the output Kinesis stream, where records are sent if the compression process fails.
-* `kinesis.out.shards`: If the out stream doesn't exist, create it with this many shards.
-* `kinesis.region`: The Kinesis region name to use.
-* `kinesis.app-name`: Unique identifier for the app which ensures that if it is stopped and restarted, it will restart at the correct location.
-* `s3.endpoint`: The AWS endpoint for the S3 bucket
-* `s3.bucket`: The name of the S3 bucket in which files are to be stored
-* `buffer.byte-limit`: Whenever the total size of the buffered records exceeds this number, they will all be sent to S3.
-* `buffer.record-limit`: Whenever the total number of buffered records exceeds this number, they will all be sent to S3.
-* `buffer.time-limit`: If this length of time passes without the buffer being flushed, the buffer will be flushed.
-
-### Monitoring
-
-You can also now include Snowplow Monitoring in the application.  This is setup through a new section at the bottom of the config.  You will need to ammend:
-
-+ `monitoring.snowplow.collector-uri` insert your snowplow collector URI here.
-+ `monitoring.snowplow.app-id` the app-id used in decorating the events sent.
-
-If you do not wish to include Snowplow Monitoring please remove the entire `monitoring` section from the config.
+* aws/access-key and aws/secret-key: Change these to your AWS credentials. You can alternatively leave them as "default", in which case the [DefaultAWSCredentialsProviderChain][DefaultAWSCredentialsProviderChain] will be used.
+* kinesis/in/stream-name: The name of the input Kinesis stream. This should be the stream to which your are writing records with the Scala Stream Collector.
+* kinesis/in/initial-position: Where to start reading from the stream the first time the app is run. "TRIM_HORIZON" for as far back as possible, "LATEST" for as recent as possibly.
+* kinesis/out/stream-name: The name of the output Kinesis stream, where records are sent if the compression process fails.
+* kinesis/out/shards: If the out stream doesn't exist, create it with this many shards.
+* kinesis/region: The Kinesis region name to use.
+* kinesis/app-name: Unique identifier for the app which ensures that if it is stopped and restarted, it will restart at the correct location.
+* s3/endpoint: The AWS endpoint for the S3 bucket
+* s3/bucket: The name of the S3 bucket in which files are to be stored
+* buffer/byte-limit: Whenever the total size of the buffered records exceeds this number, they will all be sent to S3.
+, buffer/record-limit: Whenever the total number of buffered records exceeds this number, they will all be sent to S3.
+* buffer/time-limit: If this length of time passes without the buffer being flushed, the buffer will be flushed.
 
 An [example][conf-example] is available in the repo.
 
@@ -112,5 +101,4 @@ This will start the process of reading events from Kinesis, compressing them, an
 [splittable-lzo]: http://blog.cloudera.com/blog/2009/11/hadoop-at-twitter-part-1-splittable-lzo-compression/
 [ske]: Scala-Kinesis-Enrich
 [DefaultAWSCredentialsProviderChain]: http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/auth/DefaultAWSCredentialsProviderChain.html
-[conf-example]: https://github.com/snowplow/kinesis-s3/blob/0.3.0/src/main/resources/config.hocon.sample
-[v0.1]: https://github.com/snowplow/snowplow/wiki/kinesis-lzo-s3-sink-setup-0.1.0
+[conf-example]: https://github.com/snowplow/kinesis-s3/blob/0.2.1/src/main/resources/config.hocon.sample
