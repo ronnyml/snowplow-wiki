@@ -42,7 +42,7 @@ Also verify the settings of the HTTP service:
 
 ### Buffer settings
 
-You will also need to set appropriate limits for
+You will also need to set appropriate limits for:
 
 + `collector.buffer.byte-limit`
 + `collector.buffer.record-limit`
