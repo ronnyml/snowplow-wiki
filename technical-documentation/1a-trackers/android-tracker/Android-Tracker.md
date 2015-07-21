@@ -28,26 +28,27 @@ Local Testing:
 - 2. [Initialization](#init)
   - 2.1 [Importing the module](#importing)
   - 2.2 [Creating a tracker](#create-tracker)
-    - 2.2.1 [`shutdown`](#shutdown)
-    - 2.2.2 [`shutdownEmitter`](#shutdown-emitter)
-    - 2.2.3 [`startSessionChecker`](#start-session)
-    - 2.2.4 [`shutdownSessionChecker`](#shutdown-session)
-    - 2.2.5 [`startDataCollection`](#start-data)
-    - 2.2.6 [`stopDataCollection`](#stop-data)
-    - 2.2.7 [`getEmitter`](#emitter)
-    - 2.2.8 [`getSubject`](#subject)
-    - 2.2.9 [`getNamespace`](#namespace)
-    - 2.2.10 [`getAppId`](#app-id)
-    - 2.2.11 [`getBase64Encoded`](#base64)
-    - 2.2.12 [`getPlatform`](#platform)
-    - 2.2.13 [`getSession`](#session)
-    - 2.2.14 [`getDataCollection`](#data)
-    - 2.2.15 [`getLogLevel`](#log-level)
-    - 2.2.16 [`getThreadCount`](#thread-count)
-    - 2.2.17 [`getTrackerVersion`](#version)
-    - 2.2.18 [`setPlatform`](#set-platform)
-    - 2.2.19 [`setSubject`](#set-subject)
-    - 2.2.20 [`setEmitter`](#set-emitter)
+    - 2.2.1 [`getEmitter`](#emitter)
+    - 2.2.2 [`getSubject`](#subject)
+    - 2.2.3 [`getNamespace`](#namespace)
+    - 2.2.4 [`getAppId`](#app-id)
+    - 2.2.5 [`getBase64Encoded`](#base64)
+    - 2.2.6 [`getPlatform`](#platform)
+    - 2.2.7 [`getSession`](#session)
+    - 2.2.8 [`getDataCollection`](#data)
+    - 2.2.9 [`getLogLevel`](#log-level)
+    - 2.2.10 [`getThreadCount`](#thread-count)
+    - 2.2.11 [`getTrackerVersion`](#version)
+    - 2.2.12 [`setPlatform`](#set-platform)
+    - 2.2.13 [`setSubject`](#set-subject)
+    - 2.2.14 [`setEmitter`](#set-emitter)
+  - 2.3 [Extra Tracker Functions](#functions-tracker)
+    - 2.3.1 [`shutdown`](#shutdown)
+    - 2.3.2 [`shutdownEmitter`](#shutdown-emitter)
+    - 2.3.3 [`startSessionChecker`](#start-session)
+    - 2.3.4 [`shutdownSessionChecker`](#shutdown-session)
+    - 2.3.5 [`startDataCollection`](#start-data)
+    - 2.3.6 [`stopDataCollection`](#stop-data)
 - 3. [Adding extra data: the Subject class](#add-data-subject)
   - 3.1 [Subject setter functions](#subject-setters)
     - 3.1.1 [`setUserId`](#set-user-id)
@@ -184,122 +185,85 @@ We also have several extra builder options:
 | `sessionCheckInterval`| The session check interval                  | Any valid `Long`                    | `15000` ms |
 | `threadCount`         | The amount of threads to use                | Any valid `Integer`                 | `10` threads |
 
-<a name="shutdown" />
-##### 2.2.1 `shutdown`
-
-This function will shutdown all background Tracker services.  This includes the emitter and session polling checkers. However if a `tracker.track( ... )` function is fired the emitter will be started again, the session checker will not.
-
-```java
-tracker.shutdown();
-```
-
-<a name="shutdown-emitter" />
-##### 2.2.2 `shutdownEmitter`
-
-This function shuts down the background emitter service.  On a new `tracker.track( ... )` the emitter will be restarted.  You should never need to manually shutdown the emitter as it should always stop itself if their are no events to send.
-
-```java
-tracker.shutdownEmitter();
-```
-
-<a name="start-session" />
-##### 2.2.3 `startSessionChecker`
-
-This function starts the polling session checker if it is not already running.  There is a single argument for a polling interval which needs to be supplied.
-
-```java
-long interval = 15000; // 15 Seconds
-tracker.startSessionChecker(interval);
-```
-
-If `sessionContext` was set as `True` in the Tracker creator this function is run automatically.  
-
-<a name="shutdown-session" />
-##### 2.2.4 `shutdownSessionChecker`
-
-This functions stops the session checker from running.  Please note if `sessionContext` is enabled you will continue to append sessions information to events but it will not update.
-
-```java
-tracker.shutdownSessionChecker();
-```
-
-Will only work if the session checker is currently running.
-
-<a name="start-data" />
-##### 2.2.5 `startDataCollection`
-
-If data collection has been switched off will allow events to be collected and sent again, as well as restarting the session checker (if enabled) and will attempt to flush the emitter for any old events still in storage.
-
-```java
-tracker.startDataCollection();
-```
-
-<a name="stop-data" />
-##### 2.2.6 `stopDataCollection`
-
-If data collection is switched on will prevent any events from being stored or sent by the Tracker.  As well as terminating all background services.
-
-```java
-tracker.stopDataCollection();
-```
-
 <a name="emitter" />
-##### 2.2.7 `getEmitter`
+#### 2.2.1 `getEmitter`
 
 Returns the emitter to which the tracker will send events. See [Emitters](#emitter) for more on emitter configuration.
 
+[Back to top](#top)
+
 <a name="subject" />
-##### 2.2.8 `getSubject`
+#### 2.2.2 `getSubject`
 
 Returns the user which the Tracker will track. This must be an instance of the [Subject](#subject) class. You don't need to set this during Tracker construction; you can use the `Tracker.setSubject` method afterwards. In fact, you don't need to create a subject at all. If you don't, though, your events won't contain user-specific data such as timezone and language.
 
+[Back to top](#top)
+
 <a name="namespace" />
-##### 2.2.9 `getNamespace`
+#### 2.2.3 `getNamespace`
 
 Returns the `namespace` argument attached to every event fired by the new tracker. This allows you to later identify which tracker fired which event if you have multiple trackers running.
 
+[Back to top](#top)
+
 <a name="app-id" />
-##### 2.2.10 `getAppId`
+#### 2.2.4 `getAppId`
 
 Returns the `appId` argument that you passed in Tracker construction.
 
+[Back to top](#top)
+
 <a name="base64" />
-##### 2.2.11 `getBase64Encoded`
+#### 2.2.5 `getBase64Encoded`
 
 By default, unstructured events and custom contexts are encoded into Base64 to ensure that no data is lost or corrupted. You can turn encoding on or off using the Boolean `base64Encoded` builder option.
 
+[Back to top](#top)
+
 <a name="platform" />
-##### 2.2.12 `getPlatform`
+#### 2.2.6 `getPlatform`
 
 Returns the 'platform' that was set in Tracker construction, the builder allows you to pick from a list of allowed platforms which define what type of device/service the event is being sent from.
 
+[Back to top](#top)
+
 <a name="session" />
-##### 2.2.13 `getSession`
+#### 2.2.7 `getSession`
 
 Returns the `session` object created for the Tracker (if `sessionContext` was enabled).  See [`session`](#session-class) for more information.
 
+[Back to top](#top)
+
 <a name="data" />
-##### 2.2.14 `getDataCollection`
+#### 2.2.8 `getDataCollection`
 
 Returns the state of data collection in the Tracker; either `True` or `False`.
 
+[Back to top](#top)
+
 <a name="log-level" />
-##### 2.2.15 `getLogLevel`
+#### 2.2.9 `getLogLevel`
 
 Returns the `LogLevel` being used by the Tracker.
 
+[Back to top](#top)
+
 <a name="thread-count" />
-##### 2.2.16 `getThreadCount`
+#### 2.2.10 `getThreadCount`
 
 Returns the amount of threads that the tracker is consuming.
 
+[Back to top](#top)
+
 <a name="version" />
-##### 2.2.17 `getTrackerVersion`
+#### 2.2.11 `getTrackerVersion`
 
 Returns this Trackers version as a String.
 
+[Back to top](#top)
+
 <a name="set-platform" />
-#### 2.2.18 Change the tracker's platform with `setPlatform`
+#### 2.2.12 Change the tracker's platform with `setPlatform`
 
 You can change the platform by calling:
 
@@ -315,8 +279,10 @@ There are several different DevicePlatforms options to choose from.
 
 For a full list of supported platforms, please see the [[Snowplow Tracker Protocol]].
 
+[Back to top](#top)
+
 <a name="set-subject" />
-#### 2.2.19 Change the tracker's subject with `setSubject`
+#### 2.2.13 Change the tracker's subject with `setSubject`
 
 You can change the subject by creating a new `Subject` object and then calling:
 
@@ -326,13 +292,93 @@ tracker.setSubject(newSubject);
 
 See [Adding extra data: the Subject class](#add-data-subject) for more information on the `Subject`.
 
+[Back to top](#top)
+
 <a name="set-emitter" />
-#### 2.2.20 Change the tracker's emitter with `setEmitter`
+#### 2.2.14 Change the tracker's emitter with `setEmitter`
 
 You can change the emitter by creating a new `Emitter` object and then calling:
 
 ```java
 tracker.setEmitter(newEmitter);
+```
+
+[Back to top](#top)
+
+<a name="functions-tracker" />
+### 2.3 Extra Tracker Functions
+
+These are extra functions for controlling the Tracker, Emitter and Session checker.  The Tracker is designed to be run without ever using any of these functions however they are there for any special use cases where you need to shutdown or otherwise control the Tracker.
+
+<a name="shutdown" />
+#### 2.3.1 `shutdown`
+
+This function will shutdown all background Tracker services.  This includes the emitter and session polling checkers. 
+
+However if a `tracker.track( ... )` function is fired the emitter will be started again, the session checker will not, you will need to manually restart the session checker using the `startSessionChecker` function.
+
+```java
+tracker.shutdown();
+```
+
+[Back to top](#top)
+
+<a name="shutdown-emitter" />
+#### 2.3.2 `shutdownEmitter`
+
+This function shuts down the background emitter service.  On a new `tracker.track( ... )` the emitter will be restarted.  You should never need to manually shutdown the emitter as it should always stop itself if their are no events to send.
+
+```java
+tracker.shutdownEmitter();
+```
+
+[Back to top](#top)
+
+<a name="start-session" />
+#### 2.3.3 `startSessionChecker`
+
+This function starts the polling session checker if it is not already running.  There is a single argument for a polling interval which needs to be supplied.
+
+```java
+long interval = 15000; // 15 Seconds
+tracker.startSessionChecker(interval);
+```
+
+[Back to top](#top)
+
+If `sessionContext` was set as `True` in the Tracker creator this function is run automatically.  
+
+<a name="shutdown-session" />
+#### 2.3.4 `shutdownSessionChecker`
+
+This functions stops the session checker from running.  Please note if `sessionContext` is enabled you will continue to append sessions information to events but it will not update.
+
+```java
+tracker.shutdownSessionChecker();
+```
+
+[Back to top](#top)
+
+Will only work if the session checker is currently running.
+
+<a name="start-data" />
+#### 2.3.5 `startDataCollection`
+
+If data collection has been switched off will allow events to be collected and sent again, as well as restarting the session checker (if enabled) and will attempt to flush the emitter for any old events still in storage.
+
+```java
+tracker.startDataCollection();
+```
+
+[Back to top](#top)
+
+<a name="stop-data" />
+#### 2.3.6 `stopDataCollection`
+
+If data collection is switched on will prevent any events from being stored or sent by the Tracker.  As well as terminating all background services.
+
+```java
+tracker.stopDataCollection();
 ```
 
 [Back to top](#top)
