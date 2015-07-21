@@ -1,12 +1,8 @@
 <a name="top" />
 
-This page refers to integration samples for [Android Tracker v0.5.0][android-tracker].  This assumes you have already successfully gone through the [Setup Guide][setup-guide] for setting up all the dependencies for the tracker.
+This page refers to integration samples for [Android Tracker v0.4.0][android-tracker].  This assumes you have already successfully gone through the [Setup Guide][setup-guide] for setting up all the dependencies for the tracker.
 
 The following example classes are using the bare minimum of settings for building a Tracker.  It is encouraged to flesh out the options for the Tracker and Emitter builders.
-
-For previous versions:
-
-* [v0.4.0][0.4.0]
 
 ## Contents
 
@@ -23,7 +19,7 @@ You will need to have imported the following library into your project:
 dependencies {
     ...
     // Snowplow Android Tracker Classic
-    compile 'com.snowplowanalytics:snowplow-android-tracker-classic:0.5.0'
+    compile 'com.snowplowanalytics:snowplow-android-tracker-classic:0.4.0'
 }
 ```
 
@@ -40,7 +36,7 @@ public class TrackerBuilderClassic {
         Subject subject = getSubject(context);  // Optional
 
         return new Tracker
-            .TrackerBuilder(emitter, "your-namespace", "your-appid", context,
+            .TrackerBuilder(emitter, "your-namespace", "your-appid",
                 com.snowplowanalytics.snowplow.tracker.classic.Tracker.class)
             .subject(subject) // Optional
             .build();
@@ -90,7 +86,7 @@ public class TrackerBuilderRx {
         Subject subject = getSubject(context); // Optional
 
         return new Tracker
-            .TrackerBuilder(emitter, "your-namespace", "your-appid", context,
+            .TrackerBuilder(emitter, "your-namespace", "your-appid",
                 com.snowplowanalytics.snowplow.tracker.rx.Tracker.class)
             .subject(subject) // Optional
             .build();
@@ -121,14 +117,13 @@ Once you have successfully built your Tracker object you can track events with c
 
 ```java
 Tracker tracker = getClassicTracker(context);
-tracker.track(ScreenView.builder().name("screenName").id("screenId").build());
+tracker.trackScreenView("someScreenName", "someScreenId");
 ```
 
 For an outline of all available tracking combinations have a look [here][demo-app-track-events].
 
 [Back to top](#top)
 
-[android-tracker]: https://github.com/snowplow/snowplow/wiki/Android-Tracker
-[setup-guide]: https://github.com/snowplow/snowplow/wiki/Android-Tracker-Setup
-[demo-app-track-events]: https://raw.githubusercontent.com/snowplow/snowplow-android-tracker/0.5.0/snowplow-demo-app/src/main/java/com/snowplowanalytics/snowplowtrackerdemo/utils/TrackerEvents.java
-[0.4.0]: https://github.com/snowplow/snowplow/wiki/Android-Integration-0.4.0
+[android-tracker]: https://github.com/snowplow/snowplow/wiki/Android-Tracker-0.4.0
+[setup-guide]: https://github.com/snowplow/snowplow/wiki/Android-Tracker-Setup-0.4.0
+[demo-app-track-events]: https://raw.githubusercontent.com/snowplow/snowplow-android-tracker/0.4.0/snowplow-demo-app/src/main/java/com/snowplowanalytics/snowplowtrackerdemo/utils/TrackerEvents.java

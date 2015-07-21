@@ -1,11 +1,7 @@
 <a name="top" />
 
 This page refers to instructions on testing the Android Tracker locally and debugging any issues that might crop up.  
-These instuctions are aimed at version 0.5.0 of the Android Tracker.
-
-For instructions of previous versions:
-
-* [0.4.0][0.4.0]
+These instuctions are aimed at version 0.4.0 of the Android Tracker.
 
 ## Contents
 
@@ -74,7 +70,7 @@ To resolve:
 
 ```bash
 guest$ curl -X DELETE http://localhost:2525/imposters/4545
-guest$ curl -i -X POST -H 'Content-Type: application/json' -d@/vagrant/testing/imposter.json http://localhost:2525/imposters
+guest$ curl -i -X POST -H 'Content-Type: application/json' -d@/vagrant/snowplow-android-tracker-rx/src/androidTest/assets/imposters.json http://localhost:2525/imposters
 ```
 
 This will delete the imposter and create a new one in its place.
@@ -93,7 +89,6 @@ This simply stops the VM and restarts it.
 
 [Back to top](#top)
 
-[imposter-link]: https://raw.githubusercontent.com/snowplow/snowplow-android-tracker/0.5.0/testing/imposter.json
+[imposter-link]: https://raw.githubusercontent.com/snowplow/snowplow-android-tracker/0.4.0/snowplow-android-tracker-rx/src/androidTest/assets/imposters.json
 [mountebank]: http://www.mbtest.org/
 [ngrok]: https://ngrok.com/
-[0.4.0]: https://github.com/snowplow/snowplow/wiki/Android-Testing-locally-and-Debugging-0.4.0
