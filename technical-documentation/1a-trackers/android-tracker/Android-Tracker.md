@@ -831,7 +831,7 @@ t1.track(PageView.builder().( ... ).timestamp(1423583655000).build());
 <a name="screen-view" />
 #### 4.2 Track screen views with `track(ScreenView event)`
 
-Use track(ScreenView event)` to track a user viewing a screen (or equivalent) within your app. Arguments are:
+Use `track(ScreenView event)` to track a user viewing a screen (or equivalent) within your app. Arguments are:
 
 | **Argument**   | **Description**                     | **Required?** | **Type**                   |
 |---------------:|:------------------------------------|:--------------|:---------------------------|
