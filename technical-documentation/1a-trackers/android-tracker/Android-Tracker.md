@@ -86,6 +86,7 @@ Local Testing:
   - 5.2 [Using a buffer](#buffer)
   - 5.3 [Choosing the HTTP method](#http-method)
   - 5.4 [Emitter callback](#http-callback)
+  - 5.5 [Emitter Flush](#emitter-flush)
 - 6 [Logging](#logging)
 
 <a name="overview" />
@@ -1322,6 +1323,17 @@ Emitter emitter = new Emitter
 ```
 
 [Back to top](#top)
+
+<a name="emitter-flush" />
+#### 5.5 Emitter Flush
+
+If you want to ensure that there are no events left in the local database for sending simply run the emitter `flush()` function like so:
+
+```java
+tracker.getEmitter().flush();
+```
+
+This will attempt to start the emitter process; however it will fail if the emitter is already running or if the application is offline.
 
 <a name="logging" />
 ## 6. Logging
