@@ -57,13 +57,13 @@ So now that we know what everything is lets start the demo!
 
 [[/technical-documentation/images/android/android-app-classic-0.2.0-1.png]]
 
-So we have entered in a valid URI for the application and we are sending events to it in POST's.  You can also note that I have pressed the start button a few too many times as we have 196 events that were made...
+So we have entered in a valid URI for the application and we are sending events to it in POST's.
 
 Everytime the emitter successfully sends off a batch a log will appear in the Emitter Callback section of the demo, this will denote the Successes (or Failures) that occured during sending.  As events are sent you will also notice that the DB Size will gradually go back to 0.
 
 [[/technical-documentation/images/android/android-app-classic-0.2.0-2.png]]
 
-In the last frame you will now notice that we have successfully sent all of our events to the endpoint, the DB Size has gone back to 0 and the emitter has stopped searching for events to send.
+In the last frame you will now notice that we have successfully sent all of our events to the endpoint, the DB Size has gone back to 0 and the emitter will soon stop searching for events to send.
 
 [Back to top](#top)
 
