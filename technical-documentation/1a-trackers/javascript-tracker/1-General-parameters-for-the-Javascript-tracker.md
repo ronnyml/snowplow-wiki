@@ -2,7 +2,7 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > [**JavaScript Tracker**](Javascript-Tracker) > General parameters
 
-*This page refers to version 2.5.0 of the Snowplow JavaScript Tracker, which has not been released yet.*  
+*This page refers to version 2.5.0 of the Snowplow JavaScript Tracker.*  
 *Click [here] [general-parameters-v1] for the corresponding documentation for version 1.*  
 *Click [here] [general-parameters-v2.0] for the corresponding documentation for version 2.1.1.*  
 *Click [here] [general-parameters-v2.2] for the corresponding documentation for version 2.2.2.*  
@@ -23,7 +23,7 @@
     - 2.2.8 [Setting the user fingerprint seed](#user-fingerprint-seed)
     - 2.2.9 [Setting the page unload pause](#page-unload-timer)
     - 2.2.10 [Setting the event request protocol](#force-secure-tracker)
-    - 2.2.11 [Altering cookies](#write-cookies)
+    - 2.2.11 [Configuring the session cookie duration](#session-cookie-duration)
     - 2.2.12 [Configuring localStorage](#configuring-local-storage)
     - 2.2.13 [Adding predefined contexts](#predefined-contexts)
       - 2.2.13.1 [webPage context](#webPage)
@@ -34,7 +34,6 @@
     - 2.2.15 [Disabling cookies](#write-cookies)
     - 2.2.16 [Configuring cross-domain tracking](#cross-domain)
     - 2.2.17 [Configuring the maximum payload size in bytes](#maxPostBytes)
-    - 2.2.18 [Configuring the session cookie duration](#session-cookie-duration)
   - 2.3 [Other parameters](#other-methods)
     - 2.3.1 [Setting the user id](#user-id)
       - 2.3.1.1 [`setUserId`](#set-user-id)
@@ -124,7 +123,6 @@ snowplow_name_here("newTracker", "cf", "d3rkrsqld9gmqf.cloudfront.net", {
   pageUnloadTimer: 0,
   forceSecureTracker: true,
   useCookies: true,
-  writeCookies: true,
   post: true,
   bufferSize: 5,
   maxPostBytes: 45000,
@@ -202,10 +200,22 @@ See also [How the Tracker uses `localStorage`](#local-storage) for an explanatio
 
 Normally the protocol (http or https) used by the Tracker to send events to a collector is the same as the protocol of the current page. You can force it to use https by setting the `forceSecureTracker` field of the argmap to `true`.
 
-<a name="write-cookies" />
-#### 2.2.11 Altering cookies
+<a name="session-cookie-duration" />
+#### 2.2.11 Configuring the session cookie duration
 
-The `writeCookies` argument is a boolean value which determines whether the tracker instance will be able to alter cookies or add new ones. It does not affect whether the tracker instance will read cookies, so if it is turned off but Snowplow cookies with the tracker's configured cookie name already exist for the page, the tracker will continue to report those cookies' values. If you do use this argument, be careful - if two trackers on the same page are both initialised with the same cookie name and with `writeCookies` turned on, inaccurate data will result from them both trying to alter the same cookies. Note that you will always be fine if the `writeCookies` argument is not set - because the default behaviour avoids these problems.
+Whenever an event fires, the Tracker creates a session cookie. If the cookie didn't previously exist, the Tracker interprets this as the start of a new session.
+
+By default the session cookie expires after 30 minutes. This means that a user leaving the site and returning in under 30 minutes does not change the session. You can override this default by setting `sessionCookieTimeout` to a duration (in seconds) in the argmap. For example,
+
+```javascript
+{
+  ...
+  sessionCookieTimeout: 3600
+  ...
+}
+```
+
+would set the session cookie lifespan to an hour.
 
 <a name="configuring-local-storage" />
 #### 2.2.12 Configuring localStorage
@@ -322,23 +332,6 @@ snowplow_name_here('crossDomainLinker', function () {
 Because the Clojure Collector and the Scala Stream Collector both have a maximum request size, the Tracker limits POST requests to 40000 bytes. If the combined size of the events in `localStorage` is greater than this limit, they will be split into multiple POST requests. You can override this default using a `maxPostBytes` in the argmap.
 
 The Clojure Collector can't handle requests bigger than 64kB. The Scala Stream Collector cannot process requests bigger than 50kB because that is the maximum size of a Kinesis record.
-
-<a name="session-cookie-duration" />
-#### 2.2.18 Configuring the session cookie duration
-
-Whenever an event fires, the Tracker creates a session cookie. If the cookie didn't previously exist, the Tracker interprets this as the start of a new session.
-
-By default the session cookie expires after 30 minutes. This means that a user leaving the site and returning in under 30 minutes does not change the session. You can override this default by setting `sessionCookieTimeout` to a duration (in seconds) in the argmap. For example,
-
-```javascript
-{
-  ...
-  sessionCookieTimeout: 3600
-  ...
-}
-```
-
-would set the session cookie lifespan to an hour.
 
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
