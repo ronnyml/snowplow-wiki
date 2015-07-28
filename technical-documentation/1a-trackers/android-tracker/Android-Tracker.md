@@ -985,12 +985,13 @@ Arguments:
 | `state`        | Delivery address state               | No            | `String`                   |
 | `country`      | Delivery address country             | No            | `String`                   | 
 | `currency`     | Transaction currency                 | No            | `String`                   |
-| `items`        | Items in the transaction             | Yes           | `List<TransactionItem>`    |
+| `items`        | Items in the transaction             | Yes           | `List<EcommerceTransactionItem>`    |
+| `items`        | Items in the transaction             | Yes           | `EcommerceTransactionItem...` |
 | `customContext`| Optional custom context              | No            | `List<SelfDescribingJson>` |
 | `timestamp`    | Optional timestamp                   | No            | `Long`                     |
 | `eventId`      | Optional custom event id             | No            | `String`                   |
 
-The `items` argument is a `List` of individual `EcommerceTransactionItem` elements representing the items in the e-commerce transaction. Note that `track(EcommerceTransaction event)` fires multiple events: one transaction event for the transaction as a whole, and one transaction item event for each element of the `items` `List`. Each transaction item event will have the same timestamp, order_id, and currency as the main transaction event.
+The `items` argument is a `List` of individual `EcommerceTransactionItem` elements representing the items in the e-commerce transaction or it can be a `varargs` argument of many individual items. Note that `track(EcommerceTransaction event)` fires multiple events: one transaction event for the transaction as a whole, and one transaction item event for each element of the `items` `List`. Each transaction item event will have the same timestamp, order_id, and currency as the main transaction event.
 
 [Back to top](#top)
 
@@ -1011,7 +1012,7 @@ EcommerceTransactionItem item = EcommerceTransactionItem.builder()
     .build();
 ```
 
-These are the fields that can appear as elements in each `TransactionItem` element of the transaction item's `List`:
+These are the fields that can appear as elements in each `EcommerceTransactionItem` element of the transaction item's `List`:
 
 | **Field**      | **Description**                      | **Required?** | **Type**                   |
 |---------------:|:-------------------------------------|:--------------|:---------------------------|
@@ -1067,6 +1068,20 @@ tracker.track(EcommerceTransaction.builder()
     .country("USA")
     .currency("USD")
     .items(items)
+    .build());
+
+// Or include the items as varargs in the items section
+tracker.track(EcommerceTransaction.builder()
+    .orderId("6a8078be")
+    .totalValue(300.00)
+    .affiliation("my_affiliate")
+    .taxValue(30.00)
+    .shipping(10.00)
+    .city("Boston")
+    .state("Massachusetts")
+    .country("USA")
+    .currency("USD")
+    .items(item1, item2)
     .build());
 ```
 
