@@ -82,11 +82,12 @@ Local Testing:
   - 4.6 [`track(Unstructured event)`](#unstruct-event)
   - 4.7 [`track(TimingWithCategory event)`](#timing)
 - 5 [Sending events: `Emitter`](#emitters)
-  - 5.1 [How the `Emitter` works](#emitter-works)
-  - 5.2 [Using a buffer](#buffer)
-  - 5.3 [Choosing the HTTP method](#http-method)
-  - 5.4 [Emitter callback](#http-callback)
-  - 5.5 [Emitter Flush](#emitter-flush)
+  - 5.1 [Constructor Explained](#constructor-emitter)
+  - 5.2 [How the `Emitter` works](#emitter-works)
+  - 5.3 [Using a buffer](#buffer)
+  - 5.4 [Choosing the HTTP method](#http-method)
+  - 5.5 [Emitter callback](#http-callback)
+  - 5.6 [Emitter Flush](#emitter-flush)
 - 6 [Logging](#logging)
 
 <a name="overview" />
@@ -1237,7 +1238,7 @@ The below are required arguments for the 'EmitterBuilder({{ ... }})' segment of 
 
 | **Argument Name** | **Description**                                                             |    **Required?**  |
 |------------------:|:----------------------------------------------------------------------------|:------------------|
-| `URI`             | The collector endpoint URI events will be sent to                           | Yes               |
+| `uri`             | The collector endpoint URI events will be sent to                           | Yes               |
 | `context`         | Used to use to open or create an SQLite database                            | Yes               |
 
 We also have several extra builder options such as:
@@ -1253,11 +1254,38 @@ We also have several extra builder options such as:
 | `emptyLimit`    | The amount of times the emitter can be empty    | Any positive int                | `5`               |
 | `byteLimitGet`  | The maximum amount of bytes to send in a GET    | Any positive int                | `40000`           |
 | `byteLimitPost` | The maximum amount of bytes to send in a POST   | Any positive int                | `40000`           |
+| `timeUnit`      | The TimeUnit that time measurements are in      | `TimeUnit.{{ Enum Option }}`    | `TimeUnit.SECONDS` |
+
+[Back to top](#top)
+
+<a name="constructor-emitter" />
+### 5.1 Emitter Constructor Explained
+
+#### Required
+
+* `uri` : The collector endpoint that all events will be sent to.  Needs to be the raw path in the sense that you will not include any `http://` or `https://` with the address.  Rather something like: `www.fake.io` in place of `http://www.fake.io`.  The http security setting is configured in a seperate option.
+* `context` : The Android Application context object.
+
+#### Sending
+
+* `method` : Whether to send requests via `GET` or `POST`; essentially whether to send each event individually or to send many events together in a `POST`.  The default `POST` setting is recommended as it has huge performance gains over sending individually as a `GET`.
+* `option` : How many events can be parcelled together in a `POST`, this can be increased to a maximum of `25` per event.  If you require larger volumes please raise a ticket to have this limit increased!
+* `security` : Whether to send events via `HTTP` or `HTTPS`.
+* `callback` : A custom callback method that will be called after each emitter send loop, currently the only variables included are the count of successfully and unsuccessfully sent events.
+* `byteLimitGet` : Allows you to set an upper limit for the maximal size of a single `GET` request.  Meaning that if an event exceeds this size we will attempt to send it but will then delete it from the database regardless of success to send.
+* `byteLimitPost` : Allows you to set an upper limit for the maximal size of a single `POST` request.  Meaning that if an event exceeds this size we will attempt to send it but will then delete it from the database regardless of success to send.
+
+#### Functional Settings
+
+* `tick` : The interval at which the emitter will check for more events.
+* `timeUnit` : The timeunit that the aforementioned `tick` is measured in.  By default we measure this in seconds.
+* `sendLimit` : The upper limit of events that can be grabbed from the database per sending session, this in place to avoid consuming overt amounts of memory in case of huge event ingress.  On weaker devices this can be tuned down to and on beefier devices can be greatly increased.
+* `emptyLimit` : The amount of times that the emitter is allowed to fail a check before it will release its Thread back to the pool.
 
 [Back to top](#top)
 
 <a name="emitter-works" />
-#### 5.1 How the Emitter works
+### 5.2 How the Emitter works
 
 The Emitter is configured and setup to run as a background process so it never blocks on the Main Thread or on the UI Thread of the device it is on.
 
@@ -1274,8 +1302,10 @@ The current Emitter flow goes as follows:
 8. If there are only errors in sending, the events will not be deleted from the database and the emitter will then be shutdown
    - If there are some successes it will not shutdown.
 
+[Back to top](#top)
+
 <a name="buffer" />
-#### 5.2 Using a buffer
+### 5.3 Using a buffer
 
 A buffer is used to group events together in bulk before sending them. This is especially handy to reduce network usage. By default, the Emitter buffers up to 10 events together before sending them; only available if you are using POST as your request type.
 
@@ -1299,7 +1329,7 @@ Buffer options will only ever influence how POST request are sent however. All G
 [Back to top](#top)
 
 <a name="http-method" />
-####  5.3 Choosing the HTTP method
+###  5.4 Choosing the HTTP method
 
 Snowplow supports receiving events via both GET and POST requests. In a GET request, each event is sent in individual request. With POST requests, events are bundled together in one request.
 
@@ -1322,7 +1352,7 @@ Here are all the posibile options that you can use:
 [Back to top](#top)
 
 <a name="http-callback" />
-####  5.4 Emitter callback
+###  5.5 Emitter callback
 
 If an event fails to send because of a network issue, you can choose to handle the failure case with a callback class to react accordingly. The callback class needs to implement the `EmitterCallback` interface in order to do so. Here is a sample bit of code to show how it could work:
 
@@ -1347,7 +1377,7 @@ Emitter emitter = new Emitter
 [Back to top](#top)
 
 <a name="emitter-flush" />
-#### 5.5 Emitter Flush
+### 5.6 Emitter Flush
 
 If you want to ensure that there are no events left in the local database for sending simply run the emitter `flush()` function like so:
 
