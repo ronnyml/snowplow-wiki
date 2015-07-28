@@ -13,6 +13,7 @@ For previous versions:
 - 1. [Classic Tracker](#classic)
 - 2. [RxJava Tracker](#rx-java)
 - 3. [Tracking Events](#events)
+- 4. [Application Focus](#app-focus)
 
 <a name="classic" />
 ## 1. Classic Tracker
@@ -125,6 +126,31 @@ tracker.track(ScreenView.builder().name("screenName").id("screenId").build());
 ```
 
 For an outline of all available tracking combinations have a look [here][demo-app-track-events].
+
+[Back to top](#top)
+
+<a name="app-focus" />
+## 4. Application Focus
+
+The Tracker Session object can be tuned to timeout in `foreground` and `background` scenarios, but you are required to tell us when your application is in these states.  Unfortunately it is not possible to do so from a library standpoint.
+
+The current implementation we are using is to override the `onPause()` and `onResume()` functions of an application activity to notify the session when we change states.
+
+```java
+@Override
+protected void onPause() {
+    super.onPause();
+    tracker.getSession().setIsBackground(true);
+}
+
+@Override
+protected void onResume() {
+    super.onResume();
+    tracker.getSession().setIsBackground(false);
+}
+```
+
+If you know of a better way please do not hesitate to let us know!
 
 [Back to top](#top)
 
