@@ -14,6 +14,9 @@
   - 3.3 [Gradle](#gradle)
     - 3.3.1 [Android Archive](#aar)
   - 3.4 [Permissions](#permissions)
+- 4. [Example Gradle Dependencies](#example)
+  - 4.1 [Classic](#classic)
+  - 4.2 [RxJava](#rx-java)
 
 <a name="overview" />
 ## 1. Overview
@@ -185,6 +188,52 @@ If you want to send location information with each event you will need to add th
 ```xml
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+```
+
+<a name="example" />
+## 4. Example Gradle Dependencies
+
+<a name="classic" />
+### 4.1 Classic
+
+The dependencies for the Classic implementation of the Android Tracker goes as follows:
+
+```java
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Optional Google Analytics Library
+    // - Required to get the IDFA Code
+    compile 'com.google.android.gms:play-services-analytics:7.5.0'
+
+    // Required Dependency for the Tracker
+    compile 'com.squareup.okhttp:okhttp:2.1.0'
+
+    // Tracker Import
+    compile 'com.snowplowanalytics:snowplow-android-tracker-classic:0.5.0'
+}
+```
+
+<a name="rx-java" />
+### 4.2 RxJava
+
+The dependencies for the RxJava implementation of the Android Tracker goes as follows:
+
+```java
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Optional Google Analytics Library
+    // - Required to get the IDFA Code
+    compile 'com.google.android.gms:play-services-analytics:7.5.0'
+
+    // Required Dependency for the Tracker
+    compile 'com.squareup.okhttp:okhttp:2.1.0'
+    compile 'io.reactivex:rxjava:1.0.11'
+
+    // Tracker Import
+    compile 'com.snowplowanalytics:snowplow-android-tracker-rx:0.5.0'
+}
 ```
 
 Done? Now read the [Android Tracker API](Android-Tracker) to start tracking events.
