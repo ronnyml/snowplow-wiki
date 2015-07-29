@@ -155,6 +155,7 @@ dependencies {
 #### 3.3.1 Android Archive
 
 You can also add the Android Tracker using the Android ARchive (aar) package in your gradle file in a similar way to the Gradle version while appending '@aar' to the end:
+
 ```groovy
 dependencies {
     ...
@@ -164,6 +165,23 @@ dependencies {
     compile 'com.snowplowanalytics:snowplow-android-tracker-classic:0.5.+@aar'
 
     // For RxJava
+    compile 'com.snowplowanalytics:snowplow-android-tracker-rx:0.5.+@aar'
+}
+```
+
+Please note that if using the `@aar` dependencies you will also need to include the core library, as this will not be brought in automatically.
+
+```groovy
+dependencies {
+    ...
+    // Snowplow Android Tracker
+
+    // For Classic
+    compile 'com.snowplowanalytics:snowplow-android-core:0.5.0@aar'
+    compile 'com.snowplowanalytics:snowplow-android-tracker-classic:0.5.0@aar'
+
+    // For RxJava
+    compile 'com.snowplowanalytics:snowplow-android-core:0.5.0@aar'
     compile 'com.snowplowanalytics:snowplow-android-tracker-rx:0.5.+@aar'
 }
 ```
