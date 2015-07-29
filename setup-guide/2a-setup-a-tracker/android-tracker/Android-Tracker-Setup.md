@@ -198,9 +198,17 @@ If you want to send location information with each event you will need to add th
 
 The dependencies for the Classic implementation of the Android Tracker goes as follows:
 
-```java
+```groovy
+repositories {
+    maven {
+        url "http://maven.snplow.com/releases"
+    }
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:support-v4:22.0.0'
+    compile 'com.android.support:appcompat-v7:22.2.0'
 
     // Optional Google Analytics Library
     // - Required to get the IDFA Code
@@ -219,9 +227,17 @@ dependencies {
 
 The dependencies for the RxJava implementation of the Android Tracker goes as follows:
 
-```java
+```groovy
+repositories {
+    maven {
+        url "http://maven.snplow.com/releases"
+    }
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:support-v4:22.0.0'
+    compile 'com.android.support:appcompat-v7:22.2.0'
 
     // Optional Google Analytics Library
     // - Required to get the IDFA Code
