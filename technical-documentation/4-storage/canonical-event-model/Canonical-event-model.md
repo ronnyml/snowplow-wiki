@@ -125,7 +125,7 @@ Back to [top](#top).
 | `user_id`       | text     | Unique ID set by business | No | 'jon.doe@email.com' |
 | `domain_userid` | text     | User ID set by Snowplow using 1st party cookie | No | 'bc2e92ec6c204a14' |
 | `network_userid`| text     | User ID set by Snowplow using 3rd party cookie | No | 'ecdff4d0-9175-40ac-a8bb-325c49733607' |
-| `user_ipaddress` | text    | Ueser IP address | No       | '92.231.54.234' |
+| `user_ipaddress` | text    | User IP address | No       | '92.231.54.234' |
 | `domain_sessionidx` | int      | A visit / session index | No | 3              |
 | `domain_sessionid`  | text      | A visit / session identifier | No | 'c6ef3124-b53a-4b13-a233-0088f79dcbcb'              |
 
