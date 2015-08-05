@@ -139,11 +139,11 @@ Until v0.4.0 of the tracker, you need to find all `DLog(@` in the `Snowplow` sub
 
 Now **Build** your project and you should see **Build Succeeded**.
 
-You are now ready to proceed to instrumenting your app. Just remember to use quotation marks not angle brackets when importing the tracker:
+You are now ready to proceed to instrumenting your app. Just remember to use quotation marks not angle brackets, and the `Snowplow` sub-folder as necessary when importing the tracker:
 
 ```objective-c
-#import "SnowplowTracker.h"
-#import "SnowplowEmitter.h"
+#import "Snowplow/SnowplowTracker.h"
+#import "Snowplow/SnowplowEmitter.h"
 ```
 
 [ios]: https://developer.apple.com/technologies/ios/
