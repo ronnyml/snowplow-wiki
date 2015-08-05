@@ -82,7 +82,7 @@ Next, drag and drop the sub-folder `MyObjcApp/MyObjcApp/Snowplow` into your XCod
 
 [[/setup-guide/images/setup-objc-tracker-manual-1.png]]
 
-The suggested defaults for adding `Snowplow` are fine, so click **Finish**:
+Make sure that the suggested options for adding `Snowplow` are set **Create groups**, then click **Finish**:
 
 [[/setup-guide/images/setup-objc-tracker-manual-2.png]]
 
@@ -98,7 +98,7 @@ cd fmdb && git checkout v2.3
 cp -r src/fmdb ../MyObjcApp/MyObjcApp/
 ```
 
-As before, drag and drop the sub-folder `MyObjcApp/MyObjcApp/fmdb` into your XCode project's workspace.
+As before, drag and drop the sub-folder `MyObjcApp/MyObjcApp/fmdb` into your XCode project's workspace, making sure to **Create groups**.
 
 Finally, you will need to edit `Snowplow/SnowplowEmitter.m` and `Snowplow/SnowplowEventStore.m` in X-Code and change:
 
@@ -137,13 +137,13 @@ Until v0.4.0 of the tracker, you need to find all `DLog(@` in the `Snowplow` sub
 
 #### Building
 
-Now **Build** your project and you should see **Build Succeeded**.
+Now **Build** your project and you should see **Build Succeeded**. If you get a build error, check that you added Snowplow and fmdb as Groups, not just as Folders.
 
 You are now ready to proceed to instrumenting your app. Just remember to use quotation marks not angle brackets, and the `Snowplow` sub-folder as necessary when importing the tracker:
 
 ```objective-c
-#import "Snowplow/SnowplowTracker.h"
-#import "Snowplow/SnowplowEmitter.h"
+#import "SnowplowTracker.h"
+#import "SnowplowEmitter.h"
 ```
 
 [ios]: https://developer.apple.com/technologies/ios/
