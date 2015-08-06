@@ -376,7 +376,7 @@ If a visitor arrives on a page advertising a movie, the context dictionary might
 
 ```python
 { 
-  "schema": "iglu:com.acme_company/movie_poster/jsonschema/2.1.1",
+  "schema": "iglu:com.acme_company/movie_poster/jsonschema/2-1-1",
   "data": {
     "movie_name": "Solaris", 
     "poster_country": "JP", 
@@ -389,7 +389,7 @@ This is how to fire a page view event with the above custom context:
 
 ```python
 t.track_page_view("http://www.films.com", "Homepage", context=[{ 
-  "schema": "iglu:com.acme_company/movie_poster/jsonschema/2.1.1",
+  "schema": "iglu:com.acme_company/movie_poster/jsonschema/2-1-1",
   "data": {
     "movie_name": "Solaris", 
     "poster_country": "JP", 
@@ -602,7 +602,7 @@ Example:
 
 ```python
 t.track_unstruct_event({
-  "schema": "com.example_company/save-game/jsonschema/1.0.2",
+  "schema": "com.example_company/save-game/jsonschema/1-0-2",
   "data": {
     "save_id": "4321",
     "level": 23,

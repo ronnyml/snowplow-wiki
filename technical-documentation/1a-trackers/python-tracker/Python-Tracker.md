@@ -2,7 +2,9 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > Python Tracker
 
-*This page refers to version 0.6.0 of the Snowplow Python Tracker, which is the latest version. Documentation for earlier versions is available:*
+**Warning: this documentation is for a version of the Tracker which has not yet been released.**
+
+*This page refers to version 0.7.0 of the Snowplow Python Tracker, which is the latest version. Documentation for earlier versions is available:*
 
 *[Version 0.2][python-0.2]*
 
@@ -11,6 +13,8 @@
 *[Version 0.4][python-0.4]*
 
 *[Version 0.5][python-0.5]*
+
+*[Version 0.6][python-0.6]*
 
 ## Contents
 
@@ -440,27 +444,22 @@ If a visitor arrives on a page advertising a movie, the context dictionary might
 
 
 ```python
-{ 
-  "schema": "iglu:com.acme_company/movie_poster/jsonschema/2.1.1",
-  "data": {
+from snowplow_tracker import SelfDescribingJson
+
+my_context = SelfDescribingJson(
+  "iglu:com.acme_company/movie_poster/jsonschema/2-1-1",
+  {
     "movie_name": "Solaris", 
     "poster_country": "JP", 
     "poster_year": new Date(1978, 1, 1)
   }
-}
+)
 ```
 
 This is how to fire a page view event with the above custom context:
 
 ```python
-t.track_page_view("http://www.films.com", "Homepage", context=[{ 
-  "schema": "iglu:com.acme_company/movie_poster/jsonschema/2.1.1",
-  "data": {
-    "movie_name": "Solaris", 
-    "poster_country": "JP", 
-    "poster_year": new Date(1978, 1, 1)
-  }
-}])
+t.track_page_view("http://www.films.com", "Homepage", context=[my_context])
 ```
 
 Note that even though there is only one custom context attached to the event, it still needs to be placed in an array.
@@ -511,7 +510,7 @@ Use `track_screen_view()` to track a user viewing a screen (or equivalent) withi
 |-------------:|:------------------------------------|:--------------|:------------------------|
 | `name`       | Human-readable name for this screen | No           | Non-empty string         |
 | `id_`         | Unique identifier for this screen  | No            | String                  |
-| `context`    | Custom context for the event        | No            | List                    |
+| `context`    | Custom context for the event        | No            | List(SelfDescribingJson)                    |
 | `tstamp`     | When the screen was viewed          | No            | Positive integer        |
 
 Although name and id_ are not individually required, at least one must be provided or the event will fail validation.
@@ -535,7 +534,7 @@ Arguments are:
 | `page_url`   | The URL of the page                 | Yes           | Non-empty string        |
 | `page_title` | The title of the page               | No            | String                  |
 | `referrer`   | The address which linked to the page| No            | String                  |
-| `context`    | Custom context for the event        | No            | List                    |
+| `context`    | Custom context for the event        | No            | List(SelfDescribingJson)                    |
 | `tstamp`     | When the pageview occurred          | No            | Positive integer        |
 
 Example:
@@ -564,7 +563,7 @@ Arguments:
 | `country`     | Delivery address country             | No            | String            | 
 | `currency     | Transaction currency                 | No            | String            |
 | `items`       | Items in the transaction             | Yes           | List              |
-| `context`     | Custom context for the event         | No            | List              |
+| `context`     | Custom context for the event         | No            | List(SelfDescribingJson)              |
 | `tstamp`      | When the transaction event occurred  | No            | Positive integer  |
 
 The `items` argument is an array of Python dictionaries representing the items in the transaction. `track_ecommerce_transaction` fires multiple events: one "transaction" event for the transaction as a whole, and one "transaction item" event for each element of the `items` array. Each transaction item event will have the same timestamp, order_id, and currency as the main transaction event. 
@@ -613,7 +612,7 @@ Arguments:
 | `quantity`    | Item quantity                       | Yes           | Int                      |
 | `name`        | Item name                           | No            | String                   |
 | `category`    | Item category                       | No            | String                   |
-| `context`     | Custom context for the event        | No            | List                     |
+| `context`     | Custom context for the event        | No            | List(SelfDescribingJson)                     |
 | `tstamp`      | When the transaction event occurred | No            | Positive integer         |
 
 Example:
@@ -636,7 +635,7 @@ Use `track_struct_event()` to track a custom event happening in your app which f
 | `label`      | A string to provide additional dimensions to the event data      | No            | String                   |
 | `property`   | A string describing the object or the action performed on it     | No            | String                   |
 | `value`      | A value to provide numerical data about the event                | No            | Int or Float             |
-| `context`    | Custom context for the event                                     | No            | List                     |
+| `context`    | Custom context for the event                                     | No            | List(SelfDescribingJson)                     |
 | `tstamp`     | When the structured event occurred                               | No            | Positive integer         |
 
 Example:
@@ -659,22 +658,24 @@ The arguments are as follows:
 
 | **Argument**   | **Description**                      | **Required?** | **Validation**          |
 |---------------:|:-------------------------------------|:--------------|:------------------------|
-| `event_json`   | The properties of the event          | Yes           | Dict                    |
-| `context`      | Custom context for the event         | No            | List                    |
+| `event_json`   | The properties of the event          | Yes           | SelfDescribingJson      |
+| `context`      | Custom context for the event         | No            | List(SelfDescribingJson)                    |
 | `tstamp`       | When the unstructured event occurred | No            | Positive integer        |
 
 Example:
 
 ```python
-t.track_unstruct_event({
-  "schema": "com.example_company/save-game/jsonschema/1.0.2",
-  "data": {
+from snowplow_tracker import SelfDescribingJson
+
+t.track_unstruct_event(SelfDescribingJson(
+  "com.example_company/save-game/jsonschema/1-0-2",
+  {
     "save_id": "4321",
     "level": 23,
     "difficultyLevel": "HARD",
     "dl_content": true 
   }
-})
+)
 ```
 
 The `event_json` must be a Python dictionary with two fields: `schema` and `data`. `data` is a flat dictionary containing the properties of the unstructured event. `schema` identifies the JSON schema against which `data` should be validated.
@@ -933,6 +934,7 @@ This will set up a worker which will run indefinitely, taking events from the Re
 [python-0.3]: https://github.com/snowplow/snowplow/wiki/Python-Tracker-v0.3
 [python-0.4]: https://github.com/snowplow/snowplow/wiki/Python-Tracker-v0.4
 [python-0.4]: https://github.com/snowplow/snowplow/wiki/Python-Tracker-v0.5
+[python-0.6]: https://github.com/snowplow/snowplow/wiki/Python-Tracker-v0.6
 [pycontracts]: http://andreacensi.github.io/contracts/
 
 [jsonschema]: http://snowplowanalytics.com/blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/
