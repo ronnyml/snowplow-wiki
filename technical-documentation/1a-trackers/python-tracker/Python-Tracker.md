@@ -760,12 +760,14 @@ t.track_page_view("http://www.example.com/page2")
 ## 5.2 The AsyncEmitter class
 
 ```python
-from snowplow_tracker import Emitter
+from snowplow_tracker import AsyncEmitter
 
-e = Emitter("d3rkrsqld9gmqf.cloudfront.net")
+e = Emitter("d3rkrsqld9gmqf.cloudfront.net", thread_count=10)
 ```
 
 The `AsyncEmitter` class works just like the Emitter class. It has one advantage, though: HTTP(S) requests are sent asynchronously, so the Tracker won't be blocked while the Emitter waits for a response. For this reason, the AsyncEmitter is recommended over the base `Emitter` class.
+
+The AsyncEmitter uses a fixed-size thread pool to perform network I/O. By default this pool contains only one thread, but you can configure the number of threads in the constructor using the `thread_count` argument.
 
 <a name="celery-emitter" />
 ## 5.3 The CeleryEmitter class
@@ -812,11 +814,19 @@ print(rdb.lrange("my_snowplowkey", 0, -1))
 <a name="manual-flushing" />
 ### 5.5 Manual flushing
 
-You can flush the emitter manually using the `flush` method of the `Tracker` instance which is sending events to the emitter. This is a blocking call which synchronously sends all events in the emitter's buffer. In the case of the `AsyncEmitter`, it also forces all running threads to finish within 10 seconds.
+You can flush the emitter manually using the `flush` method of the `Tracker` instance which is sending events to the emitter. This is a blocking call which synchronously sends all events in the emitter's buffer.
 
 ```python
 t.flush()
 ```
+
+You can alternatively perform an asynchronous flush, which tells the tracker to send all buffered events but doesn't wait for the sending to complete:
+
+```python
+t.flush(False)
+```
+
+If you are using the AsyncEmitter, you shouldn't perform a synchronous flush inside an on_success or on_failure callback function as this can cause a deadlock.
 
 <a name="multiple-emitters" />
 ### 5.6 Multiple emitters

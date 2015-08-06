@@ -703,9 +703,9 @@ t.track_page_view("http://www.example.com/page2")
 ## 5.2 The AsyncEmitter class
 
 ```python
-from snowplow_tracker import Emitter
+from snowplow_tracker import AsyncEmitter
 
-e = Emitter("d3rkrsqld9gmqf.cloudfront.net")
+e = AsyncEmitter("d3rkrsqld9gmqf.cloudfront.net")
 ```
 
 The `AsyncEmitter` class works just like the Emitter class. It has one advantage, though: HTTP(S) requests are sent asynchronously, so the Tracker won't be blocked while the Emitter waits for a response. For this reason, the AsyncEmitter is recommended over the base `Emitter` class.
