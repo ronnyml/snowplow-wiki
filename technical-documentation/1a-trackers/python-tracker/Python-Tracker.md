@@ -678,7 +678,7 @@ t.track_unstruct_event(SelfDescribingJson(
 )
 ```
 
-The `event_json` must be a Python dictionary with two fields: `schema` and `data`. `data` is a flat dictionary containing the properties of the unstructured event. `schema` identifies the JSON schema against which `data` should be validated.
+The `event_json` is represented using the SelfDescribingJson class. It has two fields: `schema` and `data`. `data` is a dictionary containing the properties of the unstructured event. `schema` identifies the JSON schema against which `data` should be validated.
 
 For more on JSON schema, see the [blog post] [self-describing-jsons].
 
