@@ -31,6 +31,7 @@
   - 3.9 [`set_useragent`](#set-useragent)
   - 3.10 [`set_domain_user_id`](#set-domain-user-id)
   - 3.11 [`set_network_user_id`](#set-network-user-id)
+  - 3.12 [`set_fingerprint`](#set-fingerprint)
 - 4. [Tracking specific events](#events)
   - 4.1 [Common](#common)
     - 4.1.1 [Argument validation](#validation)
@@ -309,6 +310,15 @@ The `network_user_id` field of the Snowplow event model corresponds to the ID st
 
 ```ruby
 tracker.set_network_user_id('ecdff4d0-9175-40ac-a8bb-325c49733607')
+```
+
+<a name="set-fingerprint" />
+### 3.12 Setting the user fingerprint with `set_fingerprint`
+
+The JavaScript Tracker generates a fingerprint based on browser features and attaches it to all client-side events. You can set the user fingerprint field for server-sie events like this:
+
+```ruby
+tracker.set_fingerprint(164502195)
 ```
 
 [Back to top](#top)
