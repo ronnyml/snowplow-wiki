@@ -2,13 +2,11 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > Ruby Tracker
 
-**Warning: version 0.5.0 of the Snowplow Ruby Tracker has not yet been released.**
-
-**This page refers to version 0.5.0 of the Snowplow Ruby Tracker. Documentation for other versions is available:**
+**This page refers to version 0.4.1 of the Snowplow Ruby Tracker. Documentation for other versions is available:**
 
 *[Version 0.2][ruby-0.2]*  
 *[Version 0.3][ruby-0.3]*
-*[Version 0.3][ruby-0.4]*
+*[Version 0.4][ruby-latest]*
 
 **Please note** that this version of the Ruby Tracker is dependent upon the [Snowplow 0.9.14 release][snowplow-0.9.14]. You will need to be running version 0.9.14 or later of Snowplow for events sent by the tracker using POST to be successfully processed. Snowplow 0.9.14 contains updates to the Hadoop Enrich and Scala Hadoop Shred jobs to allow the newer self-describing JSON version which the Ruby Tracker sends for POSTs. For more information, please refer to tickets [#1220][issue-1220] and [#1231][issue-1231].
 
@@ -343,35 +341,33 @@ Each `track_XXX` method expects arguments of a certain type. The types are valid
 <a name="context-arg" />
 #### 4.1.2 Optional context argument
 
-Each `track_XXX` method has `context` as its penultimate optional parameter. This is for an optional nonempty array of [self-describing custom context JSONs][self-describing-jsons] attached to the event. Each element of the `context` argument should be a `SelfDescribingJson` with two fields: the "schema", pointing to the JSON schema against which the context will be validated, and the "data", containing the context data itself. The "data" field should contain a flat hash of key-value pairs.  
+Each `track_XXX` method has `context` as its penultimate optional parameter. This is for an optional nonempty array of [self-describing custom context JSONs][self-describing-jsons] attached to the event. Each element of the `context` argument should be a hash whose keys are "schema", containing a pointer to the JSON schema against which the context will be validated, and "data", containing the context data itself. The "data" field should contain a flat hash of key-value pairs. 
 
 **Important:**
 * Even if only one custom context is being attached to an event, it still needs to be wrapped in an array.
+* If you do provide the argument it shouldn't be an empty array. Pass in `nil` instead of an empty array. Otherwise the context will fail validation.
 
 For example, an array containing two custom contexts relating to the event of a movie poster being viewed:
 
 ```ruby
 # Array of contexts
-[
+[{
   # First context
-  SnowplowTracker::SelfDescribingJson.new(
-    'iglu:com.my_company/movie_poster/jsonschema/1-0-0',
-    {
-      'movie_name' => 'Solaris',
-      'poster_country' => 'JP',
-      'poster_year$dt' => new Date(1978, 1, 1)  
-    }
-  ),
-
+  'schema' => 'iglu:com.my_company/movie_poster/jsonschema/1-0-0',
+  'data' => {
+    'movie_name' => 'Solaris',
+    'poster_country' => 'JP',
+    'poster_year$dt' => new Date(1978, 1, 1)  
+  }
+},
+{
   # Second context
-  SnowplowTracker::SelfDescribingJson.new(
-    'iglu:com.my_company/customer/jsonschema/1-0-0',
-    {
+  'schema' => 'iglu:com.my_company/customer/jsonschema/1-0-0',
+  'data' => {
       'p_buy' => 0.23,
       'segment' => 'young adult'
-    }
-  )
-]
+  }
+}]
 ```
 
 The keys of a context hash can be either strings or Ruby symbols.
@@ -389,26 +385,23 @@ After the optional context argument, each `track_XXX` method supports an optiona
 Here is an example of a page view event with custom context and timestamp arguments supplied:
 
 ```ruby
-tracker.track_page_view('http://www.film_company.com/movie_poster', nil, nil, [
+tracker.track_page_view('http://www.film_company.com/movie_poster', nil, nil, [{
   # First context
-  SnowplowTracker::SelfDescribingJson.new(
-    'iglu:com.my_company/movie_poster/jsonschema/1-0-0',
-    {
-      'movie_name' => 'Solaris',
-      'poster_country' => 'JP',
-      'poster_year$dt' => new Date(1978, 1, 1)  
-    }
-  ),
-
+  'schema' => 'iglu:com.my_company/movie_poster/jsonschema/1-0-0',
+  'data' => {
+    'movie_name' => 'Solaris',
+    'poster_country' => 'JP',
+    'poster_year$dt' => new Date(1978, 1, 1)  
+  }
+},
+{
   # Second context
-  SnowplowTracker::SelfDescribingJson.new(
-    'iglu:com.my_company/customer/jsonschema/1-0-0',
-    {
+  'schema' => 'iglu:com.my_company/customer/jsonschema/1-0-0',
+  'data' => {
       'p_buy' => 0.23,
       'segment' => 'young adult'
-    }
-  )
-], 1368725287000)
+  }
+}], 1368725287000)
 ```
 
 <a name="screen-view" />
@@ -420,7 +413,7 @@ Use `track_screen_view()` to track a user viewing a screen (or equivalent) withi
 |-------------:|:------------------------------------|:--------------|:------------------------|
 | `name`       | Human-readable name for this screen | Yes           | String                  |
 | `id`         | Unique identifier for this screen   | No            | String                  |
-| `context`    | Custom context                      | No            | Array[SelfDescribingJson]                    |
+| `context`    | Custom context                      | No            | Array[Hash]                    |
 | `tstamp`     | When the screen was viewed          | No            | Positive integer        |
 
 Example:
@@ -440,7 +433,7 @@ Arguments are:
 | `page_url`   | The URL of the page                 | Yes           | String                  |
 | `page_title` | The title of the page               | No            | String                  |
 | `referrer`   | The address which linked to the page| No            | String                  |
-| `context`    | Custom context                      | No            | Array[SelfDescribingJson]                    |
+| `context`    | Custom context                      | No            | Array[Hash]                    |
 | `tstamp`     | When the pageview occurred          | No            | Positive integer        |
 
 Example:
@@ -459,7 +452,7 @@ Arguments:
 |-----------------:|:-------------------------------------|:--------------|:---------------------|
 | `transaction`    | Data for the whole transaction       | Yes           | Hash                 |
 | `items`          | Data for each item                   | Yes           | Array of hashes      |
-| `context`        | Custom context                       | No            | Array[SelfDescribingJson]                 |
+| `context`        | Custom context                       | No            | Array[Hash]                 |
 | `tstamp`         | When the transaction event occurred  | No            | Positive integer     |
 
 The `transaction` argument is a hash containing information about the transaction. Here are the fields supported in this hash:
@@ -497,7 +490,7 @@ The `items` parameter is an array of hashes. Each hash represents one item in th
 | `quantity`     | Item quantity                       | Yes           | Int                      |
 | `name`         | Item name                           | No            | String                   |
 | `category`     | Item category                       | No            | String                   |
-| `context`      | Custom context                      | No            | Array[SelfDescribingJson]                     |
+| `context`      | Custom context                      | No            | Array[Hash]                     |
 
 The `items` parameter might look like that:
 
@@ -558,7 +551,7 @@ Use `track_struct_event()` to track a custom event happening in your app which f
 | `label`      | A string to provide additional dimensions to the event data      | No            | String                   |
 | `property`   | A string describing the object or the action performed on it     | No            | String                   |
 | `value`      | A value to provide numerical data about the event                | No            | Int or Float             |
-| `context`    | Custom context                                                   | No            | Array[SelfDescribingJson]                     |
+| `context`    | Custom context                                                   | No            | Array[Hash]                     |
 | `tstamp`     | When the structured event occurred                               | No            | Positive integer         |
 
 
@@ -580,25 +573,25 @@ The arguments are as follows:
 
 | **Argument**   | **Description**                      | **Required?** | **Validation**          |
 |---------------:|:-------------------------------------|:--------------|:------------------------|
-| `event_json`   | The properties of the event          | Yes           | SelfDescribingJson      |
-| `context`      | Custom context                       | No            | Array[SelfDescribingJson]                    |
+| `event_json`   | The properties of the event          | Yes           | Hash                    |
+| `context`      | Custom context                       | No            | Array[Hash]                    |
 | `tstamp`       | When the unstructured event occurred | No            | Positive integer        |
 
 Example:
 
 ```ruby
-tracker.track_unstruct_event(SnowplowTracker::SelfDescribingJson.new(
-  "com.example_company/save_game/jsonschema/1-0-2",
-  {
+tracker.track_unstruct_event({
+  "schema" => "com.example_company/save_game/jsonschema/1-0-2",
+  "data" => {
     "saveId" => "4321",
     "level" => 23,
     "difficultyLevel" => "HARD",
     "dlContent" => true 
   }
-))
+})
 ```
 
-The `event_json` argument is [SelfDescribingJson][self-describing-jsons]. It has two fields: "schema", containing a pointer to the JSON schema for the event, and "data", containing the event data itself. The data field must be flat: properties cannot be nested.
+The `event_json` argument is [self-describing JSON][self-describing-jsons]. It has two fields: "schema", containing a pointer to the JSON schema for the event, and "data", containing the event data itself. The data field must be flat: properties cannot be nested.
 
 The keys of the `event_json` hash can be either strings or Ruby symbols.
 
@@ -652,15 +645,7 @@ Every setting in the configuration hash is optional. Here is what they do:
 <a name="async-emitter" />
 ### 5.2. The AsyncEmitter class
 
-AsyncEmitter is a subclass of Emitter. Whenever the buffer is flushed, the AsyncEmitter places the flushed events in a work queue. The AsyncEmitter asynchronously sends events in this queue using a thread pool of a fixed size. You can choose the size of this thread pool with the `thread_count` field:
-
-```ruby
-AsyncEmitter.new(ENDPOINT, {
-  thread_count: 5
-})
-```
-
-By default this value is 1.
+AsyncEmitter is a subclass of Emitter. It's API is exactly the same. It's advantage is that it always creates a new thread to flush its buffer, so requests are sent asynchronously.
 
 **A note on testing:** if you test the AsyncEmitter by using a short script to send an event, you may find that the event fails to send. This is because the process exits before the flushing thread is finished. You can get round this either by adding a `sleep(10)` to the end of your script, or by using the [synchronous flush](#flushing).
 
@@ -684,14 +669,14 @@ my_tracker.add_emitter(another_emitter)
 <a name="flushing" />
 ### 5.4. Flushing manually
 
-You may want to force an emitter to send all events in its buffer, even if the buffer is not full. The `Tracker` class has a `flush` method which flushes all its emitters. It accepts one argument, `async`, which defaults to false. Unless you set `async` to `true`, the flush will be synchronous: it will block until all queued events have been sent.
+You may want to force an emitter to send all events in its buffer, even if the buffer is not full. The `Tracker` class has a `flush` method which flushes all its emitters. It accepts one argument, `sync`, which defaults to false. If you set `sync` to `true`, the flush will be synchronous: it will block until all flushing threads are finished.
 
 ```ruby
 # Asynchronous flush
-my_tracker.flush(true)
+my_tracker.flush
 
 # Synchronous flush
-my_tracker.flush
+my_tracker.flush(true)
 ```
 
 <a name="contracts" />
@@ -744,7 +729,6 @@ This section covers more advanced techniques with the Snowplow Ruby Tracker.
 
 [ruby-0.2]: https://github.com/snowplow/snowplow/wiki/Ruby-Tracker-v0.2
 [ruby-0.3]: https://github.com/snowplow/snowplow/wiki/Ruby-Tracker-v0.3
-[ruby-0.4]: https://github.com/snowplow/snowplow/wiki/Ruby-Tracker-v0.4
 
 [contexts]: http://snowplowanalytics.com/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#contexts
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/

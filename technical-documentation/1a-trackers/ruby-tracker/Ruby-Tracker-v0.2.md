@@ -5,7 +5,8 @@
 *This page refers to version 0.2.0 of the Snowplow Python Tracker. Documentation for the latest version, 0.3.0, is available:*
 
 *[Version 0.3][ruby-0.3]*
-*[Version 0.4][ruby-latest]*
+*[Version 0.4][ruby-0.4]*
+*[Version 0.5][ruby-latest]*
 
 ## Contents
 
@@ -430,7 +431,7 @@ Example:
 
 ```ruby
 tracker.track_unstruct_event({
-  "schema" => "com.example_company/save_game/jsonschema/1.0.2",
+  "schema" => "com.example_company/save_game/jsonschema/1-0-2",
   "data" => {
     "saveId" => "4321",
     "level" => 23,
@@ -447,6 +448,7 @@ The keys of the `event_json` hash can be either strings or Ruby symbols.
 [Back to top](#top)
 
 [ruby-0.3]: https://github.com/snowplow/snowplow/wiki/Ruby-Tracker-v0.3
+[ruby-0.4]: https://github.com/snowplow/snowplow/wiki/Ruby-Tracker-v0.4
 [ruby-latest]: https://github.com/snowplow/snowplow/wiki/Ruby-Tracker
 
 [contexts]: http://snowplowanalytics.com/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#contexts
