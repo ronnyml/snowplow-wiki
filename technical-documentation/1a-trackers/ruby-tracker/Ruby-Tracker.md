@@ -636,7 +636,7 @@ A complicated example using every setting:
 
 ```ruby
 # Create an emitter
-my_emitter = SnowplowTracker::Emitter.new('d3rkrsqld9gmqf.cloudfront.net', {
+my_emitter = SnowplowTracker::AsyncEmitter.new('d3rkrsqld9gmqf.cloudfront.net', {
   :protocol => 'https',
   :method => 'post',
   :port => 80,
@@ -646,7 +646,8 @@ my_emitter = SnowplowTracker::Emitter.new('d3rkrsqld9gmqf.cloudfront.net', {
   },
   :on_failure => lambda { |success_count, failures| 
     puts '#{success_count} events sent successfully, #{failures.size} events sent unsuccessfully'
-  }
+  },
+  :thread_count => 10
 })
 ```
 
@@ -658,6 +659,7 @@ Every setting in the configuration hash is optional. Here is what they do:
 * `:buffer_size` is the number of events which will be buffered before they are all sent simultaneously. The process of sending all buffered events is called "flushing". When using GET, `buffer_size` defaults to `0` because each request can only contain one event. When using POST, `buffer_size` defaults to `10`, and the buffered events are all sent together in a single request.
 * `:on_success` is a callback which is called every time the buffer is flushed and every event in it is sent successfully (meaning with status code 200). It should accept one argument: the number of requests sent this way.
 * `on_failure` is a callback which is called if the buffer is flushed but not every event is sent successfully. It should accept two arguments: the number of successfully sent events and an array containing the unsuccessful events.
+* `thread_count` is only used by the AsyncEmitter. It determines the number of worker threads which will be used to send events.
 
 <a name="async-emitter" />
 ### 5.2. The AsyncEmitter class
