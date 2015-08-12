@@ -612,6 +612,8 @@ SnowplowEmitter emitter = [[SnowplowEmitter alloc] initWithURLRequest:url
                                                       emitterCallback:self];
 ```
 
+The `self` will work only if you have declared the callback functions in the same class as you are creating the Emitter from.
+
 <a name="http-request" />
 ### 5.4 Sending HTTP requests
 
