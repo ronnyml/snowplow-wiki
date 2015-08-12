@@ -17,7 +17,11 @@ This page refers to version 0.4.0 of the Snowplow Objective-C Tracker, which is 
 - 3. [Setup](#setup)
   - 3.1 [CocoaPods](#cocoapods)
   - 3.2 [Manual setup](#manual-setup)
+    - 3.2.1 [FMDB Setup](#fmdb-setup)
+    - 3.2.2 [Reachability Setup](#reach-setup)
+    - 3.2.3 [Import all required frameworks](#required-frameworks)
   - 3.3 [Static setup](#static-setup)
+    - 3.3.1 [OpenIDFA Setup](#open-idfa-setup)
 
 <a name="overview" />
 ## 1. Overvew
@@ -93,6 +97,7 @@ Make sure that the suggested options for adding `Snowplow` are set **Create grou
 
 [[/setup-guide/images/setup-objc-tracker-manual-2.png]]
 
+<a name="fmdb-setup" />
 #### 3.2.1 Add the FMDB dependency
 
 The tracker is dependent on [FMDB] [fmdb] version 2.3, an Objective-C wrapper around SQLite.
@@ -119,6 +124,9 @@ to:
 #import "FMDB.h"
 ```
 
+[Back to top](#top)
+
+<a name="reach-setup" />
 #### 3.2.2 Add the Reachability dependency
 
 The tracker is dependent on [Reachability] [reach] version 3.2, a drop in replacement for Apple's Reachability class.
@@ -138,6 +146,9 @@ Once you have added the `.h/m` files to the project:
 * Press the plus in the lower left of the list
 * Add `SystemConfiguration.framework`
 
+[Back to top](#top)
+
+<a name="required-frameworks" />
 #### 3.2.3 Import all required frameworks
 
 The tracker also depends on various frameworks:
@@ -172,13 +183,55 @@ You are now ready to proceed to instrumenting your app. Just remember to use quo
 #import "SnowplowEmitter.h"
 ```
 
+[Back to top](#top)
+
 <a name="static-setup" />
 ### 3.3 Static Library Setup
+
+We also now support including the SnowplowTracker as a static library import.
+
+* Download the static library from [bintray][static-download].
+* Go to `Projects->TARGETS->Build Phases->Link Binary With Libraries`
+* Press the plus in the lower left of the list
+* Navigate to where you downloaded the Tracker to and then add the framework
+
+To activate the library:
+
+* Go to `Projects->TARGETS->Build Settings` and search for `Other Linker Flags`
+* Ensure that the `-ObjC` flag has been added.
+
+To import the library headers into your project you will need to add them with the name of the library prepended like so:
+
+```objective-c
+#import "SnowplowTracker/SnowplowTracker.h"
+```
+
+*Please note* that you will need to add in all Tracker dependencies manually as they are not included in the static download.
+
+* To add FMDB: 
+
+[Back to top](#top)
+
+<a name="open-idfa-setup" />
+#### 3.3.1 Add the OpenIDFA dependency
+
+The tracker is dependent on [OpenIDFA] [openidfa].
+
+As before, git clone the dependency and copy the source into your XCode project's folder:
+
+```
+git clone https://github.com/ylechelle/OpenIDFA.git
+cd OpenIDFA
+cp OpenIDFA.h ../MyObjcApp/MyObjcApp/
+cp OpenIDFA.m ../MyObjcApp/MyObjcApp/
+```
 
 [Back to top](#top)
 
 [ios]: https://developer.apple.com/technologies/ios/
 [ios-tracker-github]: https://github.com/snowplow/snowplow-ios-tracker
+
+[static-download]: https://
 
 [git]: http://git-scm.com/downloads
 [fmdb]: https://github.com/ccgus/fmdb
