@@ -168,10 +168,6 @@ This is what adding the frameworks to an OS-X application looks like:
 
 [[/setup-guide/images/setup-objc-tracker-manual-3.png]]
 
-#### 3.2.3 (Temporary) Comment out DLogs
-
-Until v0.4.0 of the tracker, you need to find all `DLog(@` in the `Snowplow` sub-folder and replace with `// DLog(@`. You will have to manually comment out `DLog`s which span multiple lines.
-
 #### Building
 
 Now **Build** your project and you should see **Build Succeeded**. If you get a build error, check that you added Snowplow and fmdb as Groups, not just as Folders.
