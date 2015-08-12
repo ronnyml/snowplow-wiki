@@ -2,12 +2,6 @@
 
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2: Setup a Tracker**](Setting-up-a-Tracker) > [**iOS tracker**](iOS-tracker-setup)
 
-*NOTE*: This version has not yet been released, please refer to *[Version 0.3][ios-0.3]* documentation.
-
-This page refers to version 0.4.0 of the Snowplow Objective-C Tracker, which is the latest version. Documentation for earlier versions is available:
-
-* *[Version 0.1-0.3][ios-0.3]*
-
 ## Contents
 
 - 1. [Overview](#overview)
@@ -16,8 +10,7 @@ This page refers to version 0.4.0 of the Snowplow Objective-C Tracker, which is 
   - 2.2 [Dependencies](#dependencies)
 - 3. [Setup](#setup)
   - 3.1 [CocoaPods](#cocoapods)
-  - 3.2 [Manual setup](#manual-setup)
-  - 3.3 [Static setup](#static-setup)
+  - 3.2 [Manual setup](#manual_setup)
 
 <a name="overview" />
 ## 1. Overvew
@@ -43,7 +36,7 @@ With iOS backward compatibility is limited to a small range which it makes it ea
 <a name="dependencies" />
 ### 2.2 Dependencies
 
-The tracker has dependencies limited to the [FMDB][fmdb] and [Reachability][reach] libraries for database management and network information respectively. Both of which have iOS 6+ support as well. If you're installing via CocoaPods, these dependencies are recursively downloaded for your project so you don't have to worry about it.
+The tracker has dependencies limited to the [AFNetworking][afnetworking] and [FMDB][fmdb] libraries for networking and database management respectively. Both of which have iOS 6+ support as well. If you're installing via CocoaPods, these dependencies are recursively downloaded for your project so you don't have to worry about it.
 
 [Back to top](#top)
 
@@ -64,7 +57,7 @@ pod 'SnowplowTracker'
 
 [Back to top](#top)
 
-<a name="manual-setup" />
+<a name="manual_setup" />
 ### 3.2 Manual Setup
 
 If you prefer not to use CocoaPods, you can grab the tracker from our [GitHub repo][ios-tracker-github] and import it into your project.
@@ -119,26 +112,7 @@ to:
 #import "FMDB.h"
 ```
 
-#### 3.2.2 Add the Reachability dependency
-
-The tracker is dependent on [Reachability] [reach] version 3.2, a drop in replacement for Apple's Reachability class.
-
-As before, git clone the dependency and copy the source into your XCode project's folder:
-
-```
-git clone https://github.com/tonymillion/Reachability.git
-cd Reachability && git checkout v3.2
-cp Reachability.h ../MyObjcApp/MyObjcApp/
-cp Reachability.m ../MyObjcApp/MyObjcApp/
-```
-
-Once you have added the `.h/m` files to the project:
-
-* Go to `Projects->TARGETS->Build Phases->Link Binary With Libraries`
-* Press the plus in the lower left of the list
-* Add `SystemConfiguration.framework`
-
-#### 3.2.3 Import all required frameworks
+#### 3.2.2 Import all required frameworks
 
 The tracker also depends on various frameworks:
 
@@ -172,16 +146,11 @@ You are now ready to proceed to instrumenting your app. Just remember to use quo
 #import "SnowplowEmitter.h"
 ```
 
-<a name="static-setup" />
-### 3.3 Static Library Setup
-
-[Back to top](#top)
-
 [ios]: https://developer.apple.com/technologies/ios/
 [ios-tracker-github]: https://github.com/snowplow/snowplow-ios-tracker
 
+[afnetworking]: https://github.com/AFNetworking/AFNetworking
+[fmdb]: https://github.com/ccgus/fmdb
+
 [git]: http://git-scm.com/downloads
 [fmdb]: https://github.com/ccgus/fmdb
-[reach]: https://github.com/tonymillion/Reachability
-
-[ios-0.3]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker-Setup-0.1-0.3
