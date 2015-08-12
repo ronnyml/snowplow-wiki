@@ -241,5 +241,6 @@ cp OpenIDFA.m ../MyObjcApp/MyObjcApp/
 [git]: http://git-scm.com/downloads
 [fmdb]: https://github.com/ccgus/fmdb
 [reach]: https://github.com/tonymillion/Reachability
+[openidfa]: https://github.com/ylechelle/OpenIDFA
 
 [ios-0.3]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker-Setup-0.1-0.3
