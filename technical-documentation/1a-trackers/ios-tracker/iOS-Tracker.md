@@ -2,14 +2,18 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > iOS Tracker
 
-This page refers to version 0.3.0 of the Snowplow Objective-C Tracker, which is the latest version. Documentation for earlier versions is available:*
+*NOTE*: This version has not yet been released, please refer to *[Version 0.3][ios-0.3]* documentation.
 
+This page refers to version 0.4.0 of the Snowplow Objective-C Tracker, which is the latest version. Documentation for earlier versions is available:
+
+* *[Version 0.3][ios-0.3]*
 * *[Version 0.2][ios-0.2]*
 * *[Version 0.1][ios-0.1]*
 
 ## Contents
 
 - 1. [Overview](#overview)
+  - 1.1 [Demonstration App](#demo-app)
 - 2. [Initialization](#init)
   - 2.1 [Importing the library](#importing)
   - 2.2 [Creating a tracker](#create-tracker)
@@ -34,16 +38,30 @@ This page refers to version 0.3.0 of the Snowplow Objective-C Tracker, which is 
 - 5. [Sending events: `SnowplowEmitter`](#emitters)
   - 5.1 [Using a buffer](#buffer)
   - 5.2 [Choosing the HTTP method](#http-method)
-  - 5.3 [Sending HTTP requests](#http-request)
+  - 5.3 [Emitter Callback](#emitter-callback)
+  - 5.4 [Sending HTTP requests](#http-request)
 
 <a name="overview" />
 ## 1. Overview
 
-The [Snowplow iOS Tracker](https://github.com/snowplow/snowplow-ios-tracker) allows you to track Snowplow events from your iOS apps and games. It supports iOS 7.0+.
+The [Snowplow iOS Tracker](https://github.com/snowplow/snowplow-ios-tracker) allows you to track Snowplow events from your iOS apps and games. It supports iOS 6.0+.
 
 The tracker should be straightforward to use if you are comfortable with iOS development; its API is modelled after Snowplow's [[Python Tracker]] so any prior experience with that tracker is helpful but not necessary. If you haven't already, have a look at the [[iOS Tracker Setup]] guide before continuing.
 
 You can also find detailed documentation for the method calls in the tracker classes available as part of the [CocoaPods documentation](http://cocoadocs.org/docsets/SnowplowTracker/).
+
+[Back to top](#top)
+
+<a name="demo-app" />
+### 1.1 Demonstration App
+
+If you would like to see the Tracker in action you can launch the demo app like so:
+
+* Download the github repo: `git clone https://github.com/snowplow/snowplow-objc-tracker.git`
+* In XCode open the `SnowplowDemo.xcworkspace` file.
+* Select the device you want to launch the SnowplowDemo into!
+
+You will then need to simply enter a valid endpoint URL and hit the `Start Demo!` button.
 
 [Back to top](#top)
 
@@ -67,6 +85,13 @@ If you have manually copied the library into your project, don't forget to chang
 ```objective-c
 #import "SnowplowTracker.h"
 #import "SnowplowEmitter.h"
+```
+
+If you have statically added the library you will need to further amend your syntax:
+
+```objective-c
+#import "SnowplowTracker/SnowplowTracker.h"
+#import "SnowplowTracker/SnowplowEmitter.h"
 ```
 
 That's it - you are now ready to initialize a tracker instance. 
@@ -490,8 +515,14 @@ Events created by the Tracker are sent to a collector using a `SnowplowEmitter` 
 
 ```objective-c
 - (id) initWithURLRequest:(NSURL *)url 
+               httpMethod:(NSString *)method 
+             bufferOption:(enum SnowplowBufferOptions)option 
+          emitterCallback:(id<RequestCallback>)callback;
+
+- (id) initWithURLRequest:(NSURL *)url 
                httpMethod:(NSString *)method
              bufferOption:(enum SnowplowBufferOptions)option;
+
 - (id) initWithURLRequest:(NSURL *)url 
                httpMethod:(NSString* )method;
 ```
@@ -543,8 +574,46 @@ Here are all the posibile options that you can use:
 | `@"GET"`    | Events are sent individually as GET requests                               |
 | `@"POST"`   | Events are sent in a group when 10 events are received in one POST request |
 
+<a name="emitter-callback" />
+### 5.3 Adding an Emitter Callback
+
+You are now also able to include an emitter callback which will return the count of successful and failed events.
+
+To implement you will need to:
+
+* Add the `RequestCallback` protocol to your header file:
+
+```objective-c
+// Example from the SnowplowDemo -> ViewController.h file:
+@interface ViewController : UIViewController <UITextFieldDelegate, RequestCallback>
+```
+
+* In your paired `.m` file add the following functions:
+
+```objective-c
+// Define Callback Functions
+- (void) onSuccess:(NSInteger)successCount {
+    // Do something with result
+}
+
+- (void) onFailure:(NSInteger)successCount failure:(NSInteger)failureCount {
+    // Do something with results
+}
+```
+
+* Construct the SnowplowEmitter like so:
+
+```objective-c
+NSURL *url = [[NSURL alloc] initWithString:@"https://collector.acme.net"];
+
+SnowplowEmitter emitter = [[SnowplowEmitter alloc] initWithURLRequest:url
+                                                           httpMethod:@"POST"
+                                                         bufferOption:SnowplowBufferInstant
+                                                      emitterCallback:self];
+```
+
 <a name="http-request" />
-### 5.3 Sending HTTP requests
+### 5.4 Sending HTTP requests
 
 You can set this during the creation of a `SnowplowEmitter` object:
 ```objective-c
@@ -561,6 +630,7 @@ SnowplowEmitter emitter2 = [[SnowplowEmitter alloc] initWithURLRequest:url
 
 [ios-0.1]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker-v0.1
 [ios-0.2]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker-v0.2
+[ios-0.3]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker-v0.3
 
 [base64]: https://en.wikipedia.org/wiki/Base64
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
