@@ -206,9 +206,13 @@ To import the library headers into your project you will need to add them with t
 #import "SnowplowTracker/SnowplowTracker.h"
 ```
 
+This portion was based on the developers guide from Apple on [importing static libraries][apple-static-instructions].
+
 *Please note* that you will need to add in all Tracker dependencies manually as they are not included in the static download.
 
-* To add FMDB: 
+* To add FMDB: [FMDB Setup](#fmdb-setup)
+* To add Reachability: [Reachability Setup](#reach-setup)
+* To add OpenIDFA: [OpenIDFA Setup](#open-idfa-setup)
 
 [Back to top](#top)
 
@@ -231,7 +235,8 @@ cp OpenIDFA.m ../MyObjcApp/MyObjcApp/
 [ios]: https://developer.apple.com/technologies/ios/
 [ios-tracker-github]: https://github.com/snowplow/snowplow-ios-tracker
 
-[static-download]: https://
+[static-download]: https://bintray.com/artifact/download/snowplow/snowplow-generic/snowplow-objc-tracker-static-0.4.0.framework
+[apple-static-instructions]: https://developer.apple.com/library/ios/technotes/iOSStaticLibraries/Articles/configuration.html
 
 [git]: http://git-scm.com/downloads
 [fmdb]: https://github.com/ccgus/fmdb
