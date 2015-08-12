@@ -586,6 +586,9 @@ To implement you will need to:
 ```objective-c
 // Example from the SnowplowDemo -> ViewController.h file:
 @interface ViewController : UIViewController <UITextFieldDelegate, RequestCallback>
+
+// Extra Example
+@interface MyObjcClass : NSObject <RequestCallback>
 ```
 
 * In your paired `.m` file add the following functions:
