@@ -1022,7 +1022,7 @@ For more information on custom contexts, see [this][contexts] blog post.
 [multiple-trackers]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker#24-managing-multiple-trackers
 [json-schema]: http://json-schema.org/
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
-[ad-impression-schema]: schemas/com.snowplowanalytics.snowplow/ad_impression/jsonschema/1-0-0
+[ad-impression-schema]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/ad_impression/jsonschema/1-0-0
 [ad-click-schema]: schemas/com.snowplowanalytics.snowplow/ad_click/jsonschema/1-0-0
 [ad-conversion-schema]: schemas/com.snowplowanalytics.snowplow/ad_conversion/jsonschema/1-0-0
 [link-click-schema]: schemas/com.snowplowanalytics.snowplow/link_click/jsonschema/1-0-0
