@@ -1023,15 +1023,15 @@ For more information on custom contexts, see [this][contexts] blog post.
 [json-schema]: http://json-schema.org/
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
 [ad-impression-schema]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/ad_impression/jsonschema/1-0-0
-[ad-click-schema]: schemas/com.snowplowanalytics.snowplow/ad_click/jsonschema/1-0-0
-[ad-conversion-schema]: schemas/com.snowplowanalytics.snowplow/ad_conversion/jsonschema/1-0-0
-[link-click-schema]: schemas/com.snowplowanalytics.snowplow/link_click/jsonschema/1-0-0
+[ad-click-schema]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/ad_click/jsonschema/1-0-0
+[ad-conversion-schema]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/ad_conversion/jsonschema/1-0-0
+[link-click-schema]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/link_click/jsonschema/1-0-1
 
 [openx]: http://www.openx.com/publisher/enterprise-ad-server
 [zoneappend]: /snowplow/snowplow/wiki/setup-guide/images/03a_zone_prepend_openx.png
 [magicmacros]: http://www.openx.com/docs/whitepapers/magic-macros
 [dmp]: http://www.adopsinsider.com/online-ad-measurement-tracking/data-management-platforms/what-are-data-management-platforms/ 
-[contactus]: mailto:snowplow-ads@keplarllp.com
+[contactus]: mailto:contact@snowplowanalytics.com
 [gahelppage]: https://support.google.com/analytics/answer/1033863
 [gaurlbuilder]: https://support.google.com/analytics/answer/1033867?hl=en
 [mixpanel]: https://mixpanel.com/
