@@ -53,7 +53,7 @@ Use `sbt` to resolve dependencies, compile the source, and build an assembled fa
 $ sbt assembly
 ```
 
-The `jar` file will be saved as `snowplow-lzo-s3-sink-0.3.0` in the `target/scala-2.10` subdirectory. It is now ready to be deployed.
+The `jar` file will be saved as `snowplow-lzo-s3-sink-0.4.0` in the `target/scala-2.10` subdirectory. It is now ready to be deployed.
 
 ## Configuration
 
@@ -106,7 +106,7 @@ To get around this, include your bucket's S3 region in the endpoint field:
 The Kinesis LZO S3 Sink is an executable jarfile which should be runnable from any Unix-like shell environment. Simply provide the configuration file as a parameter:
 
 ```
-$ ./kinesis-lzo-sink-0.3.0 --config my.conf
+$ ./kinesis-lzo-sink-0.4.0 --config my.conf
 ```
 
 This will start the process of reading events from Kinesis, compressing them, and writing them to S3.
