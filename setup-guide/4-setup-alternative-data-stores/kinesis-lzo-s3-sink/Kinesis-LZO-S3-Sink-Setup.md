@@ -35,13 +35,13 @@ Alternatively, you can build it from the source files. To do so, you will need [
 To do so, clone the Snowplow repo:
 
 ```
-$ git clone https://github.com/snowplow/snowplow.git
+$ git clone https://github.com/snowplow/kinesis-s3.git
 ```
 
 Navigate into the Kinesis Elasticsearch Sink folder:
 
 ```
-$ cd 4-storage/kinesis-lzo-s3-sink
+$ cd kinesis-s3
 ```
 
 Use `sbt` to resolve dependencies, compile the source, and build an [assembled][assembly] fat JAR file with all dependencies.
@@ -50,7 +50,7 @@ Use `sbt` to resolve dependencies, compile the source, and build an [assembled][
 $ sbt assembly
 ```
 
-The `jar` file will be saved as `snowplow-lzo-s3-sink-0.1.0` in the `target/scala-2.10` subdirectory. It is now ready to be deployed.
+The `jar` file will be saved as `snowplow-lzo-s3-sink-0.3.0` in the `target/scala-2.10` subdirectory. It is now ready to be deployed.
 
 ## Configuration
 
