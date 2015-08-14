@@ -44,7 +44,7 @@ Navigate into the Kinesis Elasticsearch Sink folder:
 $ cd kinesis-s3
 ```
 
-Use `sbt` to resolve dependencies, compile the source, and build an [assembled][assembly] fat JAR file with all dependencies.
+Use `sbt` to resolve dependencies, compile the source, and build an assembled fat JAR file with all dependencies.
 
 ```
 $ sbt assembly
@@ -113,4 +113,7 @@ This will start the process of reading events from Kinesis, compressing them, an
 [ske]: Scala-Kinesis-Enrich
 [DefaultAWSCredentialsProviderChain]: http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/auth/DefaultAWSCredentialsProviderChain.html
 [conf-example]: https://github.com/snowplow/kinesis-s3/blob/0.3.0/src/main/resources/config.hocon.sample
+[scala]: http://www.scala-lang.org/
+[sbt]: http://www.scala-sbt.org/
+
 [v0.1]: https://github.com/snowplow/snowplow/wiki/kinesis-lzo-s3-sink-setup-0.1.0
