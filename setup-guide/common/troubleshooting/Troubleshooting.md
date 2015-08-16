@@ -8,6 +8,7 @@ This is a page of hints, tips and explanations to help you work with Snowplow. I
 6. [My database load process died during an S3 file copy, help!](#s3-filecopy)
 7. [Shredding is failing with File does not exist: hdfs:/local/snowplow/shredded-events](#shred-fail)
 8. [How do I terminate a Clojure Collector instance without losing event logs?](#clj-logs)
+9. [My EMR master instance starts but my core instances timeout during the bootstrap process](#vpc-hostnames)
 
 <a name="etl-failure"/>
 ### EmrEtlRunner failed. What do I do now?
@@ -116,6 +117,11 @@ The Hadoop job step that is failing is the copy (using Amazon's S3DistCp utility
 The Clojure Collector is configured to upload logs of raw events to Amazon S3 every hour (typically at 10 minutes past the hour). If you want to terminate an instance running the Clojure Collector, you need to follow a strict process to ensure the most recent event logs are not lost when the instance is terminated.
 
 For the process to follow, please see our dedicated [[Troubleshooting Clojure Collector instances to prevent data loss]] wiki page.
+
+<a name="vpc-hostnames"/>
+### My EMR master instance starts but my core instances timeout during the bootstrap process
+
+You are most likely running EMR in a VPC. If EMR cannot launch the slave EC2 instances, then you may have a misconfigured VPC. You must set Enable Hostnames to true for the VPC.
 
 [sluice]: https://github.com/snowplow/sluice
 
