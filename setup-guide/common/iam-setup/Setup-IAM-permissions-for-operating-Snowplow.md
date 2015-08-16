@@ -64,6 +64,7 @@ We now need to create the Amazon policy document to define *just* the user permi
 	        "elasticmapreduce:RunJobFlow",
 	        "elasticmapreduce:SetTerminationProtection",
 	        "elasticmapreduce:TerminateJobFlows",
+	        "elasticmapreduce:List*",
 	        "ec2:AuthorizeSecurityGroupIngress",
 	        "ec2:CancelSpotInstanceRequests",
 	        "ec2:CreateSecurityGroup",
