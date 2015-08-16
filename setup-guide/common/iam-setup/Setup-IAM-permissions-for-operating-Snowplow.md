@@ -555,6 +555,7 @@ Your completed permissions file should look something like this:
 	        "elasticmapreduce:RunJobFlow",
 	        "elasticmapreduce:SetTerminationProtection",
 	        "elasticmapreduce:TerminateJobFlows",
+                "elasticmapreduce:List*",
 	        "ec2:AuthorizeSecurityGroupIngress",
 	        "ec2:CancelSpotInstanceRequests",
 	        "ec2:CreateSecurityGroup",
