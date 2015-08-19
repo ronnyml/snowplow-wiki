@@ -6,6 +6,16 @@ As we release new versions of these assets, we will leave old versions unchanged
 
 The **current versions** of the assets hosted by the Snowplow Analytics team are as follows:
 
+## 0. Snowplow CLI
+
+We are steadily moving over to [Bintray][bintray] for hosting binaries and artifacts which don't have to be hosted on S3.
+
+To make operating Snowplow easier, the EmrEtlRunner and StorageLoader apps are now available as prebuilt executables in a single zipfile here:
+
+    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_emr_r70_bornean_green_magpie.zip
+
+Right-click on this [Download link] [emr-download] to save it down locally.
+
 ## 1. Trackers
 
 ### 1.1 JavaScript Tracker resources
@@ -124,3 +134,5 @@ Please see the [[Artifact repositories]] wiki page for more information.
 [bintray]: https://bintray.com/
 [kinesis-download]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r67_bohemian_waxwing.zip
 [kinesis-s3-download]: http://dl.bintray.com/snowplow/snowplow-generic/kinesis_s3_0.3.0.zip
+
+[emr-download]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_emr_r70_bornean_green_magpie.zip
