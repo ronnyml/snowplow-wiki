@@ -1,3 +1,5 @@
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow)
+
 ### Overview
 
 This page describes the format for the YAML file which is used to configure both the EmrEtlRunner and the Storage Loader.
