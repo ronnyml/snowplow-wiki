@@ -4,6 +4,14 @@ This page describes the format for the YAML file which is used to configure both
 
 You can and should use the same file for both applications.
 
+### Using environment variables
+
+You can use environment variables rather than hardcoding strings in the configuration file. For example, load your AWS access key from an environment variable named "AWS_SNOWPLOW_SECRET_KEY":
+
+```yaml
+secret_access_key: <%= ENV['AWS_SNOWPLOW_SECRET_KEY'] %>
+```
+
 ### Example configuration
 
 ```yaml
