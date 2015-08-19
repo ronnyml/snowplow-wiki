@@ -215,10 +215,10 @@ See the [[EmrEtlRunner Input Formats]] page.
 
 ### enrich
 
-`job_name`: the name to give our ETL job. This makes it easier to identify your ETL job in the Elastic MapReduce console
-`hadoop_enrich`: version of the Scala Hadoop Enrich jar
-`hadoop_shred`: version of the Scala Hadoop Shred jar
-`continue_on_unexpected_error`: continue processing even on unexpected row-level errors, e.g. an input file not matching the expected CloudFront format. Off ("false") by default
+* `job_name`: the name to give our ETL job. This makes it easier to identify your ETL job in the Elastic MapReduce console
+* `hadoop_enrich`: version of the Scala Hadoop Enrich jar
+* `hadoop_shred`: version of the Scala Hadoop Shred jar
+* `continue_on_unexpected_error`: continue processing even on unexpected row-level errors, e.g. an input file not matching the expected CloudFront format. Off ("false") by default
 
 ### storage
 
@@ -275,16 +275,16 @@ You can load multiple storage targets.
 
 This section deals with metadata around the EmrEtlRunner and StorageLoader.
 
-`tags`: a dictionary of name-value pairs describing the job
-`logging`: how verbose/chatty the log output from EmrEtlRunner should be.
+* `tags`: a dictionary of name-value pairs describing the job
+* `logging`: how verbose/chatty the log output from EmrEtlRunner should be.
 
 #### snowplow
 
 The `snowplow` section allows the ETL apps to send Snowplow events describing their own progress. To disable this internal tracking, remove the "snowplow" field from the configuration.
 
-`method`: "get" or "post"
-`app_id`: ID for the pipeline
-`collector`: Endpoint to which events should be sent
+* `method`: "get" or "post"
+* `app_id`: ID for the pipeline
+* `collector`: Endpoint to which events should be sent
 
 [git-install]: http://git-scm.com/book/en/Getting-Started-Installing-Git
 [config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
