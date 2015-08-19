@@ -48,6 +48,10 @@ for example `--skip download,load` would only run the final archive
 step. This is useful if you have an error in your load and need to
 re-run only part of it.
 
+Instead of using the --config option, you can pass the configuration to the EmrEtlRunner via stdin. You need to set `--config -` to signal that the config is to be read from stdin rather than from a file:
+
+  $ cat config/config.yml | bundle exec bin/snowplow-storage-loader --config -
+
 <a name="running"/>
 ## 3. Running
 
