@@ -79,7 +79,7 @@ EmrEtlRunner requires a YAML format configuration file to run. There is a config
 
 ### iglu
 
-This is where we list the schema repositories to use to retrieve JSON Schemas for validation. For more information on this, see the [wiki page for Configuring shredding](5-Configuring-shredding).
+You will also need an Iglu resolver configuration file. This is where we list the schema repositories to use to retrieve JSON Schemas for validation. For more information on this, see the [wiki page for Configuring shredding](5-Configuring-shredding).
 
 <a name="enrichments" />
 ## 5. Configuring enrichments

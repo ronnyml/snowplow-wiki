@@ -40,10 +40,11 @@ The command-line options for EmrEtlRunner look like this:
     Specific options:
         -c, --config CONFIG              configuration file
         -n, --enrichments ENRICHMENTS    enrichments directory
+        -r, --resolver RESOLVER,         Iglu resolver file
         -d, --debug                      enable EMR Job Flow debugging
         -s, --start YYYY-MM-DD           optional start date *
         -e, --end YYYY-MM-DD             optional end date *
-        -x staging,s3distcp,emr{enrich,shred},archive,
+        -x staging,s3distcp,emr{enrich,shred},archive_raw,
             --skip                       skip work step(s)
         -E, --process-enrich LOCATION    run enrichment only on specified location. Implies --skip staging,shred,archive
         -S, --process-shred LOCATION     run shredding only on specified location. Implies --skip staging,enrich,archive
@@ -58,7 +59,7 @@ The command-line options for EmrEtlRunner look like this:
 A note on the `--skip` option: this takes a list of individual steps to skip.
 So for example you could run **only** the EMR job with the command-line option:
 
-    $ bundle exec bin/snowplow-emr-etl-runner --skip staging,archive --config config/config.yml --enrichments config/enrichments
+    $ bundle exec bin/snowplow-emr-etl-runner --skip staging,archive_raw --config config/config.yml --resolver resolver.json --enrichments config/enrichments
 
 <a name="running"/>
 ## 3. Running in each mode
@@ -69,7 +70,7 @@ Invoking EmrEtlRunner with just the `--config` option puts it into rolling
 mode, processing all the raw Snowplow event logs it can find in your In
 Bucket:
 
-    $ bundle exec bin/snowplow-emr-etl-runner --config config/config.yml --enrichments config/enrichments
+    $ bundle exec bin/snowplow-emr-etl-runner --config config/config.yml --resolver config/resolver.json --enrichments config/enrichments
 
 ### 3.2 Timespan mode
 
@@ -78,6 +79,7 @@ and/or `--end` dates as well as the `--config` option, like so:
 
     $ bundle exec bin/snowplow-emr-etl-runner \
       --config config.yml \
+      --resolver config/resolver.json \
       --start 2012-06-20 \
       --end 2012-06-24 
 
