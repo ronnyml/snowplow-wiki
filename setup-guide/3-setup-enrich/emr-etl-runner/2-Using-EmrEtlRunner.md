@@ -46,8 +46,8 @@ The command-line options for EmrEtlRunner look like this:
         -e, --end YYYY-MM-DD             optional end date *
         -x staging,s3distcp,emr{enrich,shred},archive_raw,
             --skip                       skip work step(s)
-        -E, --process-enrich LOCATION    run enrichment only on specified location. Implies --skip staging,shred,archive
-        -S, --process-shred LOCATION     run shredding only on specified location. Implies --skip staging,enrich,archive
+        -E, --process-enrich LOCATION    run enrichment only on specified location. Implies --skip staging,shred,archive_raw
+        -S, --process-shred LOCATION     run shredding only on specified location. Implies --skip staging,enrich,archive_raw
 
     * filters the raw event logs processed by EmrEtlRunner by their timestamp. Only
       supported with 'cloudfront' collector format currently.
