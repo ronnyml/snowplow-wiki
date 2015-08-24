@@ -18,13 +18,15 @@ In the Elastic Beanstalk user interface, select your Clojure collector app, sele
 
 Select the keypair you want to be able to SSH into the instances with. Make sure that you keep the key you selected safe, so it is availble should you need it.
 
-### Use EBS-backed instances
+### Use EBS-backed instances and set the HD size
 
 Now we can update the instance type to use EBS root types. This means that in the unlikely event SSH access does not work, we can snapshot the contents of the instance and retrieve the logs from the snapshot.
 
 From the **Root volume type** dropdown select **General Purpose (SSD)**
 
 [[/setup-guide/images/clojure-collector-setup-guide/25.png]]
+
+Now set the size of the instance HD. We recommend setting this to at least 100GB. Remember that the events logged by the instance are stored locally to the instance and will then be flushed to S3 every hour - if you run out of HD space locally you will lose event data and the log rotation will fail, so it is essential to overprovision disk space.
 
 When you are done, click the **Save** button. 
 
