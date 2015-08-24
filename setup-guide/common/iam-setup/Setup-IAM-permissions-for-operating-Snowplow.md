@@ -47,20 +47,16 @@ Choose the *Custom Policy* option and click *Select*:
 
 Let's give it a _Policy Name_ of `snowplow-policy-operate-datapipeline`.
 
-We now need to create the Amazon policy document to define *just* the user permissions required to run the Snowplow pipeline. They are:
+We now need to create the Amazon policy document to define *just* the user permissions required to run the Snowplow pipeline. An example permissions policy is given below:
+
 ```json
 {
     "Version": "2012-10-17",
     "Statement": [
         {
             "Action": [
-                "autoscaling:*",
-                "cloudformation:*",
-                "cloudfront:*",
-                "cloudwatch:*",
                 "ec2:*",
                 "elasticbeanstalk:*",
-                "elasticloadbalancing:*",
                 "elasticmapreduce:*",
                 "s3:*",
                 "sns:*",
@@ -72,6 +68,11 @@ We now need to create the Amazon policy document to define *just* the user permi
     ]
 }
 ```
+
+Note that there should be opportunities to lock these permissions down further e.g.:
+
+1. Place them on specific resources rather than `*`
+2. Remove e.g. `sns` permissions if you are not using SNS to monitor your Snowplow infrastructure
 
 Copy and paste the JSON into the 
 
