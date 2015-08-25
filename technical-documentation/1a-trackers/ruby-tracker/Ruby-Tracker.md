@@ -48,6 +48,7 @@
   - 5.2 [The AsyncEmitter class](#async-emitter)
   - 5.3 [Multiple emitters](#multiple-emitters)
   - 5.4 [Manual flushing](#flushing)
+  - 5.5 [Automatically retry sending failed events](#onfailure-loop)
 - 6 [Contracts](#contracts)
 - 7 [Logging](#logging)
 - 8 [Advanced usage](#advanced)
@@ -694,7 +695,7 @@ my_tracker.add_emitter(another_emitter)
 ```
 
 <a name="flushing" />
-### 5.4. Flushing manually
+### 5.4. Manual flushing
 
 You may want to force an emitter to send all events in its buffer, even if the buffer is not full. The `Tracker` class has a `flush` method which flushes all its emitters. It accepts one argument, `async`, which defaults to false. Unless you set `async` to `true`, the flush will be synchronous: it will block until all queued events have been sent.
 
@@ -705,6 +706,22 @@ my_tracker.flush(true)
 # Synchronous flush
 my_tracker.flush
 ```
+
+<a name="onfailure-loop" />
+### 5.5 Automatically retry sending failed events
+
+You can use the following function as the `on_failure` callback to immediately retry failed events:
+
+```ruby
+def on_failure_retry(failed_event_count, failed_events)
+  # possible backoff-and-retry timeout here
+  failed_events.each do |e|
+    my_emitter.input(e)
+  end
+end
+```
+
+You may wish to add backoff logic to delay the resending.
 
 <a name="contracts" />
 ### 6. Contracts
