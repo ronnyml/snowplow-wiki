@@ -863,7 +863,7 @@ def on_failure_retry(failed_event_count, failed_events):
   # possible backoff-and-retry timeout here
   for e in failed_events:
     my_emitter.input(e)
-```python
+```
 
 You may wish to add backoff logic to delay the resending.
 
