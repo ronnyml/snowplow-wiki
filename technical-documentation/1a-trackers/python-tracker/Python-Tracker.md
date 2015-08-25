@@ -56,6 +56,7 @@
   - 5.5 [Manual flushing](#manual-flushing)
   - 5.6 [Multiple emitters](#multiple-emitters)
   - 5.7 [Custom emitters](#custom-emitters)
+  - 5.8 [Automatically retry sending failed events](#onfailure-loop)
 - 6 [Contracts](#contracts)
 - 7 [Logging](#logging)
 - 8 [The RedisWorker class](#redis-worker)
@@ -851,6 +852,20 @@ t.addEmitter(e3)
 ### 5.7 Custom emitters
 
 You can create your own custom emitter class, either from scratch or by subclassing one of the existing classes (with the exception of `CeleryEmitter`, since it uses the `pickle` module which doesn't work correctly with a class subclassed from a class located in a different module). The only requirement for compatibility is that is must have an `input` method which accepts a Python dictionary of name-value pairs.
+
+<a name="onfailure-loop" />
+### 5.8 Automatically retry sending failed events
+
+You can use the following function as the `on_failure` callback to immediately retry failed events:
+
+```python
+def on_failure_retry(failed_event_count, failed_events):
+  # possible backoff-and-retry timeout here
+  for e in failed_events:
+    my_emitter.input(e)
+```python
+
+You may wish to add backoff logic to delay the resending.
 
 <a name="contracts" />
 ## 6. Contracts
