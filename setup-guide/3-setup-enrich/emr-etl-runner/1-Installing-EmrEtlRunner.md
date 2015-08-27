@@ -84,7 +84,7 @@ You will also need an Iglu resolver configuration file. This is where we list th
 <a name="enrichments" />
 ## 5. Configuring enrichments
 
-If you wish to use Snowplow enrichments, see the [wiki page for configuring enrichments](Configuring-enrichments).
+If you wish to use Snowplow enrichments, see the [wiki page for configuring enrichments](5-Configuring-enrichments).
 
 <a name="next-steps" />
 ## 6. Next steps
