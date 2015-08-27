@@ -60,7 +60,8 @@ We now need to create the Amazon policy document to define *just* the user permi
                 "elasticmapreduce:*",
                 "s3:*",
                 "sns:*",
-                "iam:passrole"
+                "iam:passrole",
+                "cloudformation:ListStackResources"
             ],
             "Resource": "*",
             "Effect": "Allow"
