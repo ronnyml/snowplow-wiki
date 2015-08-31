@@ -156,6 +156,7 @@ The `addTrans` method creates a transaction object. It takes seven possible para
 | `city`                         | No            | 'San Jose'        | 
 | `state or province`            | No            | 'California'      |
 | `country`                      | No            | 'USA'             |
+| `currency`                     | No            | 'USD'             |
 
 For example: 
 
@@ -168,7 +169,8 @@ snowplow_name_here('addTrans',
     '5',              // shipping
     'San Jose',       // city
     'California',     // state or province
-    'USA'             // country
+    'USA',            // country
+    'USD'             // currency
   );
 ```
 
@@ -192,6 +194,7 @@ There are six potential parameters that can be passed with each call, four of wh
 | `category or variation`        | No                                                | 'Large'           |
 | `unit price`                   | Yes                                               | '9.99'            |
 | `quantity`                     | Yes                                               | '1'               |
+| `currency`                     | No                                                | 'USD'             |
 
 For example:
 
@@ -202,7 +205,8 @@ snowplow_name_here('addItem',
     'T-Shirt',        // product name
     'Green Medium',   // category or variation
     '11.99',          // unit price - required
-    '1'               // quantity - required
+    '1',              // quantity - required
+    'USD'             // currency
   );
 ```
 
