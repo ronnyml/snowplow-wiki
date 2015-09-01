@@ -2,12 +2,9 @@
 
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2: Setup a Tracker**](Setting-up-a-Tracker) > [**iOS tracker**](iOS-tracker-setup)
 
-*NOTE*: This version has not yet been released, please refer to *[Version 0.4][ios-0.4]* documentation.
-
-This page refers to version 0.5.0 of the Snowplow Objective-C Tracker, which is the latest version. Documentation for earlier versions is available:
+This page refers to version 0.4.0 of the Snowplow Objective-C Tracker, which is the latest version. Documentation for earlier versions is available:
 
 * *[Version 0.1-0.3][ios-0.3]*
-* *[Version 0.4][ios-0.4]*
 
 ## Contents
 
@@ -113,7 +110,7 @@ cp -r src/fmdb ../MyObjcApp/MyObjcApp/
 
 As before, drag and drop the sub-folder `MyObjcApp/MyObjcApp/fmdb` into your XCode project's workspace, making sure to **Create groups**.
 
-Finally, you will need to edit `Snowplow/SPEmitter.m` and `Snowplow/SPEventStore.m` in X-Code and change:
+Finally, you will need to edit `Snowplow/SnowplowEmitter.m` and `Snowplow/SnowplowEventStore.m` in X-Code and change:
 
 ```objective-c
 #import <FMDB.h>
@@ -176,8 +173,8 @@ Now **Build** your project and you should see **Build Succeeded**. If you get a 
 You are now ready to proceed to instrumenting your app. Just remember to use quotation marks not angle brackets, and the `Snowplow` sub-folder as necessary when importing the tracker:
 
 ```objective-c
-#import "SPTracker.h"
-#import "SPEmitter.h"
+#import "SnowplowTracker.h"
+#import "SnowplowEmitter.h"
 ```
 
 [Back to top](#top)
@@ -200,7 +197,7 @@ To activate the library:
 To import the library headers into your project you will need to add them with the name of the library prepended like so:
 
 ```objective-c
-#import "SnowplowTracker/SPTracker.h"
+#import "SnowplowTracker/SnowplowTracker.h"
 ```
 
 This portion was based on the developers guide from Apple on [importing static libraries][apple-static-instructions].
@@ -232,7 +229,7 @@ cp OpenIDFA.m ../MyObjcApp/MyObjcApp/
 [ios]: https://developer.apple.com/technologies/ios/
 [ios-tracker-github]: https://github.com/snowplow/snowplow-ios-tracker
 
-[static-download]: https://bintray.com/artifact/download/snowplow/snowplow-generic/snowplow-objc-tracker-static-0.5.0.framework
+[static-download]: https://bintray.com/artifact/download/snowplow/snowplow-generic/snowplow-objc-tracker-static-0.4.0.framework
 [apple-static-instructions]: https://developer.apple.com/library/ios/technotes/iOSStaticLibraries/Articles/configuration.html
 
 [git]: http://git-scm.com/downloads
@@ -241,4 +238,3 @@ cp OpenIDFA.m ../MyObjcApp/MyObjcApp/
 [openidfa]: https://github.com/ylechelle/OpenIDFA
 
 [ios-0.3]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker-Setup-0.1-0.3
-[ios-0.4]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker-Setup-0.4
