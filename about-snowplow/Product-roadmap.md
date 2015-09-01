@@ -21,7 +21,4 @@ In this section we set out an approximate map of the new components and capabili
 
 **Update** this section has been removed because it was not current.
 
-[milestones]: https://github.com/snowplow/snowplow/issues/milestones
-
-[scalding]: https://github.com/twitter/scalding
-[redshift]: http://aws.amazon.com/redshift/
+[milestones]: https://github.com/snowplow/snowplow/milestones
