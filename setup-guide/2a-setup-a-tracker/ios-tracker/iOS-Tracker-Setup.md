@@ -200,8 +200,10 @@ We also now support including the SnowplowTracker as a static library import.
 
 To activate the library:
 
-* Go to `Projects->TARGETS->Build Settings` and search for `Other Linker Flags`
-* Ensure that the `-ObjC` flag has been added.
+* Go to `Projects->TARGETS->Build Settings`
+* Make sure you are browsing `All` settings, not just `Basic`
+* Search for `Other Linker Flags`
+* Ensure that the `-ObjC` flag has been added
 
 To import the library headers into your project you will need to add them with the name of the library prepended like so:
 
