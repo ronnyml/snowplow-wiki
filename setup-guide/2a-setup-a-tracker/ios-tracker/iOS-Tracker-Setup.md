@@ -224,7 +224,9 @@ This portion was based on the developers guide from Apple on [importing static l
 <a name="open-idfa-setup" />
 #### 3.3.1 Add the OpenIDFA dependency
 
-The tracker is dependent on [OpenIDFA] [openidfa], which has been intentionally excluded  from the Static Library.
+If you are embedding this app in an iOS app, then you will need to add [OpenIDFA] [openidfa], which has been intentionally excluded from the Static Library.
+
+**Do not add OpenIDFA for a OS-X app.**
 
 As before, git clone the dependency and copy the source into your XCode project's folder:
 
