@@ -190,6 +190,8 @@ You are now ready to proceed to instrumenting your app. Just remember to use quo
 <a name="static-setup" />
 ### 3.3 Static Library Setup
 
+**Currently the Static Library is only available for iOS, not for OS-X.**
+
 We also now support including the SnowplowTracker as a static library import.
 
 * Download the static library's zipfile from [bintray][static-download]
