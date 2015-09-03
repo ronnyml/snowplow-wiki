@@ -62,7 +62,8 @@ We now need to create the Amazon policy document to define *just* the user permi
                 "sns:*",
                 "iam:passrole",
                 "cloudformation:ListStackResources",
-                "cloudformation:DescribeStacks"
+                "cloudformation:DescribeStacks",
+                "autoscaling:DescribeAutoScalingGroups"
             ],
             "Resource": "*",
             "Effect": "Allow"
