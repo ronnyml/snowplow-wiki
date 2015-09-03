@@ -83,8 +83,9 @@ Back to [common field types](#common).
 
 | **Parameter** | **Maps to**        | **Type** | **Description**               | **Implemented?** | **Example values**        | 
 |:--------------|:-------------------|:---------|:------------------------------|:-----------------|:-----------------------------|
-| `dtm`         | `dvce_tstamp`      | int      | Timestamp when event occurred, as recorded by client device | Yes  | `1361553733313`   |
+| `dtm`         | `dvce_created_tstamp`      | int      | Timestamp when event occurred, as recorded by client device | Yes  | `1361553733313`   |
 | `stm`         | `dvce_sent_tstamp` | int      | Timestamp when event was sent by client device to collector | Yes  | `1361553733371`   |
+| `ttm`         | `true_tstamp` | int      | User-set exact timestamp | Yes  | `1361553733371`   |
 | `tz`          | `os_timezone`      | text     | Time zone of client device's OS                             | Yes  | `Europe%2FLondon` |
 
 It is possible to record the time that an event occurs on the clients-side (i.e. in the tracker), or server side (i.e. by the collector). When using the JavaScript tracker to track web events, it makes sense to rely on the collector logs to identify the time that events occured, as Snowplow tracking tags are fired as events happen, and so the time they are received server-side should be an accurate representation of the time the event being tracked occured. In other situations (e.g. when using mobile trackers), the time the collector receives the data may be sometime after an event occurred, and so it makes sense to record the timestamp on the client-side, in which case this is handled by the tracker.
