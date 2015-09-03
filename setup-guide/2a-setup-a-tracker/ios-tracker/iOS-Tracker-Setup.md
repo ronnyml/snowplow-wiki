@@ -218,21 +218,21 @@ This portion was based on the developers guide from Apple on [importing static l
 * To add FMDB: [FMDB Setup](#fmdb-setup)
 * To add Reachability: [Reachability Setup](#reach-setup)
 * To add OpenIDFA: [OpenIDFA Setup](#open-idfa-setup)
+* To add the required frameworks: [Import all required frameworks](#required-frameworks)
 
 [Back to top](#top)
 
 <a name="open-idfa-setup" />
 #### 3.3.1 Add the OpenIDFA dependency
 
-The tracker is dependent on [OpenIDFA] [openidfa].
+The tracker is dependent on [OpenIDFA] [openidfa], which has been intentionally excluded  from the Static Library.
 
 As before, git clone the dependency and copy the source into your XCode project's folder:
 
 ```
 git clone https://github.com/ylechelle/OpenIDFA.git
 cd OpenIDFA
-cp OpenIDFA.h ../MyObjcApp/MyObjcApp/
-cp OpenIDFA.m ../MyObjcApp/MyObjcApp/
+cp OpenIDFA.{h,m} ../MyObjcApp/MyObjcApp/
 ```
 
 [Back to top](#top)
