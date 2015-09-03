@@ -192,7 +192,8 @@ You are now ready to proceed to instrumenting your app. Just remember to use quo
 
 We also now support including the SnowplowTracker as a static library import.
 
-* Download the static library from [bintray][static-download].
+* Download the static library's zipfile from [bintray][static-download]
+* Unzip the static library's zipfile to a location (doesn't need to be inside your app)
 * Go to `Projects->TARGETS->Build Phases->Link Binary With Libraries`
 * Press the plus in the lower left of the list
 * Navigate to where you downloaded the Tracker to and then add the framework
