@@ -217,7 +217,6 @@ This portion was based on the developers guide from Apple on [importing static l
 
 * To add FMDB: [FMDB Setup](#fmdb-setup)
 * To add Reachability: [Reachability Setup](#reach-setup)
-* To add OpenIDFA: [OpenIDFA Setup](#open-idfa-setup)
 * To add the required frameworks: [Import all required frameworks](#required-frameworks)
 
 [Back to top](#top)
