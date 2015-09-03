@@ -147,7 +147,7 @@ SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
 <a name="emitter" />
 #### 2.2.1 `emitter`
 
-This is a single `SPEmitter` object that will be used to send all the tracking events created by the `SnowplowTracker` to a collector. See [Sending events](#emitters) for more on its configuration.
+This is a single `SPEmitter` object that will be used to send all the tracking events created by the `SPTracker` to a collector. See [Sending events](#emitters) for more on its configuration.
 
 <a name="namespace" />
 #### 2.2.2 `namespace`
@@ -758,16 +758,16 @@ To implement you will need to:
 
 ```objective-c
 // Define Callback Functions
-- (void) onSuccess:(NSInteger)successCount {
+- (void) onSuccessWithCount:(NSInteger)successCount {
     // Do something with result
 }
 
-- (void) onFailure:(NSInteger)successCount failure:(NSInteger)failureCount {
+- (void) onFailureWithCount:(NSInteger)failureCount successCount:(NSInteger)successCount {
     // Do something with results
 }
 ```
 
-* Construct the SnowplowEmitter like so:
+* Construct the `SPEmitter` like so:
 
 ```objective-c
 NSURL *url = [[NSURL alloc] initWithString:@"https://collector.acme.net"];
@@ -778,7 +778,7 @@ SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
 }];
 ```
 
-The `self` will work only if you have declared the callback functions in the same class as you are creating the Emitter from.
+The `self` will work only if you have declared the callback functions in the same class as you are creating the Emitter from.  Otherwise you will need to pass in the target for the class in which you have defined these functions.
 
 <a name="http-request" />
 ### 5.4 Sending HTTP requests
