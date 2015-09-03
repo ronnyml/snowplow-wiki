@@ -235,6 +235,12 @@ cd OpenIDFA
 cp OpenIDFA.{h,m} ../MyObjcApp/MyObjcApp/
 ```
 
+Now add the `OpenIDFA.{h,m}` files to your project by:
+
+* Right-clicking on your `MyObjcApp` folder in XCode
+* Selecting Add Files to "MyObjcApp"...
+* Selecting both OpenIDFA files and adding them
+
 [Back to top](#top)
 
 [ios]: https://developer.apple.com/technologies/ios/
