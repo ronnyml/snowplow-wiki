@@ -137,8 +137,7 @@ As before, git clone the dependency and copy the source into your XCode project'
 ```
 git clone https://github.com/tonymillion/Reachability.git
 cd Reachability && git checkout v3.2
-cp Reachability.h ../MyObjcApp/MyObjcApp/
-cp Reachability.m ../MyObjcApp/MyObjcApp/
+cp Reachability.{h,m} ../MyObjcApp/MyObjcApp/
 ```
 
 Once you have added the `.h/m` files to the project:
