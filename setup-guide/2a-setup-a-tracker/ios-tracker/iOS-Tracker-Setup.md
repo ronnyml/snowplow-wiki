@@ -230,6 +230,7 @@ As before, git clone the dependency and copy the source into your XCode project'
 
 ```
 git clone https://github.com/ylechelle/OpenIDFA.git
+git checkout 382db601ca12a7710b8fe583e710f9cfcbf42c4f
 cd OpenIDFA
 cp OpenIDFA.{h,m} ../MyObjcApp/MyObjcApp/
 ```
