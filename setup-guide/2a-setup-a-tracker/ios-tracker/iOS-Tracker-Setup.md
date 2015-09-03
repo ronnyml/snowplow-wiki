@@ -140,6 +140,12 @@ cd Reachability && git checkout v3.2
 cp Reachability.{h,m} ../MyObjcApp/MyObjcApp/
 ```
 
+Now add the `Reachability.{h,m}` files to your project by:
+
+* Right-clicking on your `MyObjcApp` folder in XCode
+* Selecting Add Files to "MyObjcApp"...
+* Selecting both Reachability files and adding them
+
 Once you have added the `.h/m` files to the project:
 
 * Go to `Projects->TARGETS->Build Phases->Link Binary With Libraries`
