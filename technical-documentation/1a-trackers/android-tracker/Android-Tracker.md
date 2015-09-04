@@ -2,7 +2,7 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > Android Tracker
 
-This page refers to version 0.5.0 of the Snowplow Android Tracker.
+This page refers to version 0.5.1 of the Snowplow Android Tracker.
 
 Documentation for older version of this tracker is available:
 
@@ -1428,4 +1428,4 @@ Logging in the Tracker is done using our own Logger class: '/utils/Logger.java'.
 [issue-1231]: https://github.com/snowplow/snowplow/issues/1231
 
 [android-unknown]: http://developer.android.com/distribute/tools/open-distribution.html
-[demo-app-link]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow-demo-app-release-0.2.0.apk
+[demo-app-link]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow-demo-app-release-0.2.1.apk
