@@ -1,6 +1,6 @@
 <a name="top" />
 
-This page refers to integration samples for [Android Tracker v0.5.0][android-tracker].  This assumes you have already successfully gone through the [Setup Guide][setup-guide] for setting up all the dependencies for the tracker.
+This page refers to integration samples for [Android Tracker v0.5.1][android-tracker].  This assumes you have already successfully gone through the [Setup Guide][setup-guide] for setting up all the dependencies for the tracker.
 
 The following example classes are using the bare minimum of settings for building a Tracker.  It is encouraged to flesh out the options for the Tracker and Emitter builders.
 
@@ -24,7 +24,7 @@ You will need to have imported the following library into your project:
 dependencies {
     ...
     // Snowplow Android Tracker Classic
-    compile 'com.snowplowanalytics:snowplow-android-tracker-classic:0.5.0'
+    compile 'com.snowplowanalytics:snowplow-android-tracker-classic:0.5.1'
 }
 ```
 
@@ -74,7 +74,7 @@ You will need to have imported the following library into your project:
 dependencies {
     ...
     // Snowplow Android Tracker Rx
-    compile 'com.snowplowanalytics:snowplow-android-tracker-rx:0.5.0'
+    compile 'com.snowplowanalytics:snowplow-android-tracker-rx:0.5.1'
 }
 ```
 
@@ -156,5 +156,5 @@ If you know of a better way please do not hesitate to let us know!
 
 [android-tracker]: https://github.com/snowplow/snowplow/wiki/Android-Tracker
 [setup-guide]: https://github.com/snowplow/snowplow/wiki/Android-Tracker-Setup
-[demo-app-track-events]: https://raw.githubusercontent.com/snowplow/snowplow-android-tracker/0.5.0/snowplow-demo-app/src/main/java/com/snowplowanalytics/snowplowtrackerdemo/utils/TrackerEvents.java
+[demo-app-track-events]: https://raw.githubusercontent.com/snowplow/snowplow-android-tracker/master/snowplow-demo-app/src/main/java/com/snowplowanalytics/snowplowtrackerdemo/utils/TrackerEvents.java
 [0.4.0]: https://github.com/snowplow/snowplow/wiki/Android-Integration-0.4.0
