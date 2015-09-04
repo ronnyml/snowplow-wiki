@@ -2,6 +2,8 @@
 
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 3: Setting up Enrich](Setting-up-enrich) > Configurable enrichments > JavaScript script enrichment
 
+**Warning: The JavaScript Enrichment is a powerful tool and should be used with care. Do not allow untrusted third parties to edit your script.**
+
 ### Compatibility
 
 JSON Schema   [iglu:com.snowplowanalytics.snowplow/javascript_script_config/jsonschema/1-0-0][schema]  
@@ -116,6 +118,7 @@ Don't:
 * mutate existing fields in the supplied enriched event - return a new context instead
 * try to share state across multiple enriched events - write your own Scalding or Spark job instead
 * include CPU-intensive tasks without being aware of the impact on your event processing time
+* allow untrusted parties to write your script - the script has access to the Java standard library and therefore to your filesystem.
 
 [schema]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/javascript_script_config/jsonschema/1-0-0
 
