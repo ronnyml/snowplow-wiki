@@ -56,7 +56,7 @@ To minimize jar bloat, we have tried to keep external dependencies to a minimum.
 
 The Tracker is published to Snowplow's [hosted Maven repository] [maven-snplow], which should make it easy to add it as a dependency into your own Android app.
 
-The current version of the Snowplow Android Tracker is 0.5.0.
+The current version of the Snowplow Android Tracker is 0.5.1.
 
 <a name="maven" />
 ### 3.2 Maven
@@ -92,7 +92,7 @@ Then add into your project's `pom.xml` for the classic Tracker:
 <dependency>
     <groupId>com.snowplowanalytics</groupId>
     <artifactId>snowplow-android-tracker-classic</artifactId>
-    <version>0.5.0</version>
+    <version>0.5.1</version>
 </dependency>
 ```
 
@@ -102,7 +102,7 @@ Then add into your project's `pom.xml` for the classic Tracker:
 <dependency>
     <groupId>com.snowplowanalytics</groupId>
     <artifactId>snowplow-android-tracker-rx</artifactId>
-    <version>0.5.0</version>
+    <version>0.5.1</version>
 </dependency>
 ```
 
@@ -128,14 +128,14 @@ dependencies {
     // Snowplow Android Tracker
 
     // For Classic
-    compile 'com.snowplowanalytics:snowplow-android-tracker-classic:0.5.0'
+    compile 'com.snowplowanalytics:snowplow-android-tracker-classic:0.5.1'
 
     // For RxJava
-    compile 'com.snowplowanalytics:snowplow-android-tracker-rx:0.5.0'
+    compile 'com.snowplowanalytics:snowplow-android-tracker-rx:0.5.1'
 }
 ```
 
-This will install version `0.5.0` of the android tracker.  However if you would like to ensure that all bug fixes and patches for version `0.5.0` are installed, simply change `0.5.0` into `0.5.+`.  
+This will install version `0.5.1` of the android tracker.  However if you would like to ensure that all bug fixes and patches for version `0.5.1` are installed, simply change `0.5.1` into `0.5.+`.  
 
 Please note that no breaking changes will occur in the '0.5.x' space.
 
@@ -177,12 +177,12 @@ dependencies {
     // Snowplow Android Tracker
 
     // For Classic
-    compile 'com.snowplowanalytics:snowplow-android-core:0.5.0@aar'
-    compile 'com.snowplowanalytics:snowplow-android-tracker-classic:0.5.0@aar'
+    compile 'com.snowplowanalytics:snowplow-android-core:0.5.1@aar'
+    compile 'com.snowplowanalytics:snowplow-android-tracker-classic:0.5.1@aar'
 
     // For RxJava
-    compile 'com.snowplowanalytics:snowplow-android-core:0.5.0@aar'
-    compile 'com.snowplowanalytics:snowplow-android-tracker-rx:0.5.+@aar'
+    compile 'com.snowplowanalytics:snowplow-android-core:0.5.1@aar'
+    compile 'com.snowplowanalytics:snowplow-android-tracker-rx:0.5.1@aar'
 }
 ```
 
@@ -236,7 +236,7 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.1.0'
 
     // Tracker Import
-    compile 'com.snowplowanalytics:snowplow-android-tracker-classic:0.5.0'
+    compile 'com.snowplowanalytics:snowplow-android-tracker-classic:0.5.1'
 }
 ```
 
@@ -266,7 +266,7 @@ dependencies {
     compile 'io.reactivex:rxjava:1.0.11'
 
     // Tracker Import
-    compile 'com.snowplowanalytics:snowplow-android-tracker-rx:0.5.0'
+    compile 'com.snowplowanalytics:snowplow-android-tracker-rx:0.5.1'
 }
 ```
 
