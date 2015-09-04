@@ -80,7 +80,7 @@ This should give you a fair amount of examples to get started!  If you need any 
 
 [Back to top](#top)
 
-[download-apk]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow-demo-app-release-0.2.0.apk
+[download-apk]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow-demo-app-release-0.2.1.apk
 [unknown-sources]: http://developer.android.com/distribute/tools/open-distribution.html
 [integration]: https://github.com/snowplow/snowplow/wiki/Android-Integration
 [testing]: https://github.com/snowplow/snowplow/wiki/Android-Testing-locally-and-Debugging
