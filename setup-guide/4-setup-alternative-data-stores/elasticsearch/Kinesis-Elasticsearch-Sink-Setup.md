@@ -174,11 +174,11 @@ The sink is configured using a HOCON file. These are the fields:
 * `kinesis.out.shards`: If the out stream doesn't exist, create it with this many shards.
 * `kinesis.region`: The Kinesis region name to use.
 * `kinesis.app-name`: Unique identifier for the app which ensures that if it is stopped and restarted, it will restart at the correct location.
-* `elasticsearch.cluster-name`: The Elasticsarch cluster name
-* `elasticsearch.endpoint`: The Elasticsarch cluster endpoint
-* `elasticsearch.max-timeout`: The Elasticsarch maximum timeout in milliseconds
+* `elasticsearch.cluster-name`: The Elasticesarch cluster name
+* `elasticsearch.endpoint`: The Elasticesarch cluster endpoint
+* `elasticsearch.max-timeout`: The Elasticesarch maximum timeout in milliseconds
 * `elasticsearch.index`: The Elasticsearch index name
-* `elasticsearch.type`: The Elasticsarch type name
+* `elasticsearch.type`: The Elasticesarch type name
 * `buffer.byte-limit`: Whenever the total size of the buffered records exceeds this number, they will all be sent to Elasticsearch.
 * `buffer.record-limit`: Whenever the total number of buffered records exceeds this number, they will all be sent to Elasticsearch.
 * `buffer.time-limit`: If this length of time passes without the buffer being flushed, the buffer will be flushed.
