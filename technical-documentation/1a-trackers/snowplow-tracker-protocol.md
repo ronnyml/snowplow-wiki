@@ -90,6 +90,8 @@ Back to [common field types](#common).
 
 It is possible to record the time that an event occurs on the clients-side (i.e. in the tracker), or server side (i.e. by the collector). When using the JavaScript tracker to track web events, it makes sense to rely on the collector logs to identify the time that events occured, as Snowplow tracking tags are fired as events happen, and so the time they are received server-side should be an accurate representation of the time the event being tracked occured. In other situations (e.g. when using mobile trackers), the time the collector receives the data may be sometime after an event occurred, and so it makes sense to record the timestamp on the client-side, in which case this is handled by the tracker.
 
+The `ttm` field is used for a timestamp set on the client which should be taken as accurate. For example, it should be used when using a tracker to process a batch of existing events with known timestamps independent of the device clock for the tracker.
+
 The tracker can pass a client-side timestamp to the collector using the above parameters.
 
 Back to [common field types](#common).
