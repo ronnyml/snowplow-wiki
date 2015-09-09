@@ -2,6 +2,12 @@
 
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2: setup a Tracker**](Setting-up-a-Tracker) > [**Java tracker**](Java-tracker-setup)
 
+**NOTE**: This version has not been released yet!
+
+Documentation for older version of this tracker is available:
+
+* [Java 0.7][java-0.7]
+
 ## Contents
 
 - 1. [Overview](#overview)  
@@ -31,7 +37,7 @@ Ready? Let's get started.
 <a name="compatibility" />
 ### 2.1 Tracker compatibility
 
-The Snowplow Java Tracker has been built and tested using JDK6 (JRE 1.6), so should work within any Java application built using JDK6 upwards.
+The Snowplow Java Tracker has been built and tested using JDK7 (JRE 1.7), so should work within any Java application built using JDK7 upwards.
 
 [Back to top](#top)
 
@@ -50,7 +56,7 @@ To minimize jar bloat, we have tried to keep external dependencies to a minimum.
 
 The Tracker is published to Snowplow's [hosted Maven repository] [maven-snplow], which should make it easy to add it as a dependency into your own Java app.
 
-The current version of the Snowplow Java Tracker is 0.7.0.
+The current version of the Snowplow Java Tracker is 0.8.0.
 
 <a name="maven" />
 ### 3.2 Maven
@@ -86,7 +92,7 @@ Then add into your project's `pom.xml`:
 <dependency>
     <groupId>com.snowplowanalytics</groupId>
     <artifactId>snowplow-java-tracker</artifactId>
-    <version>0.7.0</version>
+    <version>0.8.0</version>
 </dependency>
 ```
 
@@ -110,7 +116,7 @@ Then add into the same file:
 dependencies {
     ...
     // Snowplow Java Tracker
-    compile 'com.snowplowanalytics:snowplow-java-tracker:0.7.0'
+    compile 'com.snowplowanalytics:snowplow-java-tracker:0.8.0'
 }
 ```
 
@@ -124,12 +130,13 @@ The Snowplow Java Tracker is also usable from Scala. Add this to your SBT config
 val snowplowRepo = "SnowPlow Repo" at "http://maven.snplow.com/releases/"
 
 // Dependency
-val snowplowTracker = "com.snowplowanalytics"  % "snowplow-java-tracker"  % "0.7.0"
+val snowplowTracker = "com.snowplowanalytics"  % "snowplow-java-tracker"  % "0.8.0"
 ```
 
 Done? Now read the [Java/Android Tracker API](Android-and-Java-Tracker) to start tracking events.
 
 [java]: http://www.java.com/en/
+[java-0.7]: https://github.com/snowplow/snowplow/wiki/Java-Tracker-Setup-0.7 
 
 [gradle-build]: https://github.com/snowplow/snowplow-java-tracker/blob/master/build.gradle
 [maven-snplow]: http://maven.snplow.com 
