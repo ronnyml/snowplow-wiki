@@ -23,7 +23,7 @@ Documentation for older version of this tracker is available:
 <a name="overview" />
 ## 1. Overview
 
-The [Snowplow Java Tracker](https://github.com/snowplow/snowplow-java-tracker) lets you add analytics to your [Java] [java]-based desktop and server apps, servlets and games. It does not (yet) support Android.
+The [Snowplow Java Tracker](https://github.com/snowplow/snowplow-java-tracker) lets you add analytics to your [Java] [java]-based desktop and server apps, servlets and games.
 
 The Tracker should be relatively straightforward to setup if you are familiar with Java development.
 
