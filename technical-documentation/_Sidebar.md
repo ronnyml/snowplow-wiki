@@ -8,7 +8,7 @@
 [[Python Tracker]]  
 [[Ruby Tracker]]  
 [[Android Tracker]]  
-[[Android and Java Tracker]]  
+[[Java Tracker]]  
 [[Lua Tracker]]  
 [[Arduino Tracker]]  
 [[.NET Tracker]]  
