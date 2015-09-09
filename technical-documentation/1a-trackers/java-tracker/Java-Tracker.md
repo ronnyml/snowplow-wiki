@@ -441,7 +441,7 @@ Events supported by the Java Tracker at a glance:
 | [`track(EcommerceTransaction event)`](#ecommerce-transaction) | Track an ecommerce transaction and its items           |
 | [`track(Structured event)`](#struct-event)                    | Track a Snowplow custom structured event               |
 | [`track(Unstructured event)`](#unstruct-event)                | Track a Snowplow custom unstructured event             |
-| [`track(TimingWithCategory event)`](#timing)                  | Track a Timing with Category event                     |
+| [`track(Timing event)`](#timing)                              | Track a Timing with Category event                     |
 
 You can also directly Track a `TrackerPayload` object.  **Please** only use this function to re-track failed event payloads.
 
@@ -867,7 +867,7 @@ For more on JSON schema, see the [blog post] [self-describing-jsons].
 
 [Back to top](#top)
 
-<a name="struct-event" />
+<a name="timing" />
 ### 4.7 Track timing events with `track(Timing event)`
 
 Use `track(Timing event)` to track an event related to a custom timing.
