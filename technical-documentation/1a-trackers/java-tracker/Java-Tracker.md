@@ -105,9 +105,6 @@ Tracker.TrackerBuilder(Emitter : emitter, String : namespace, String : appId)
 For example:
 
 ```java
-Tracker t1 = new Tracker(emitter, user1Subject, "AF003", "cf", true);
-Tracker t2 = new Tracker(emitter, "AF003", "cf");
-
 Tracker tracker = new Tracker.TrackerBuilder(emitter, "AF003", "cf")
                     .subject(user1Subject)
                     .base64(true)
