@@ -70,7 +70,7 @@ You can use the No-JS tracker for click tracking aka URI redirects:
 
 Example:
 
-```
+```html
 Check out <a href="http://collector.snplow.com/r/tp2?u=https%3A%2F%2Fgithub.com%2Fsnowplow%2Fhuskimo">Huskimo</a>
 ```
 
