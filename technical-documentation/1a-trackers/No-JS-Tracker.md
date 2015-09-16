@@ -79,7 +79,7 @@ Snowplow converts the `&u={{uri}}` argument into a `com.snowplowanalytics.snowpl
 How Snowplow attaches the `uri_redirect` to the event depends on what other Tracker Protocol fields you attached to the event:
 
 1. If you attached an `&e={{event type}}` to your event, then the `uri_redirect` will be added to the contexts array of your event
-2. If you did not attach an `&e={{event type}}` to your event, then this event will be treated as an unstructured event and the `uri_redirect` will be attached as the event contents
+2. If you did not attach an `&e={{event type}}` to your event, then this event will be treated as an unstructured event and the `uri_redirect` will be attached as the event itself
 
 [wizard]: http://snowplowanalytics.com/no-js-tracker.html
 [no-js-repo]: https://github.com/snowplow/snowplow/tree/master/1-trackers/no-js-tracker
