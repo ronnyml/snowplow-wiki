@@ -41,6 +41,7 @@ In the [first part of this guide](#common), we cover the parameters in the Snowp
   - 3.9 [Custom structured events](#event)
   - 3.10 [Custom unstructured events](#unstructevent)
 - 4. [Custom contexts](#customcontexts)
+- 5. [Reserved parameters](#reserved-parameters)
 
 <a name="common" />
 ## 1. Common parameters (platform and event independent) 
@@ -746,6 +747,12 @@ uid=aeb1691c5a0ee5a6    // User ID
                                         ]}
                                       }
 ```
+
+Back to [top](#top).
+
+<a name="reserved-parameters" />
+
+`u` is a reserved parameter because it is used for click tracking / URI redirects in the No-JS Tracker.
 
 Back to [top](#top).
 

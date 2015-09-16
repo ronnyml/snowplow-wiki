@@ -6,6 +6,7 @@ This guide covers:
 2. [Anatomy of a No-JS tracking tag](#anatomy)
 3. [The tag-generating wizard](#wizard)
 4. [Using the No-JS tracker with the Clojure collector](#clojure)
+5. [Click tracking](#click-tracking)
 
 <a name="what" />
 ## 1. What is the No-JS tracker?
@@ -55,6 +56,30 @@ When using the No-JS tracker with the Clojure collector, the Clojure collector s
 
 Care must therefore be exercised when using the No-JS tracker on domains that you do not own. **It is your responsibility to abide by the terms and conditions of any domain owner for domains where you post content including uploading No-JS tracking tags.** Some domain owners forbid 3rd parties from dropping cookies on their domains. It is your responsibility to ensure you do not violate the terms and conditions of any domain owners that you work with.
 
+<a name="click-tracking" />
+## 5. Click tracking
+
+**This feature requires Snowplow R72 and up.**
+
+You can use the No-JS tracker for click tracking aka URI redirects:
+
+* Set your collector path to `{{collector-domain}}/r/tp2?{{name-value-pairs}}` - the `/r/tp2` tells Snowplow that you are attempting a URI redirect
+* Add a `&u={{uri}}` argument to your collector URI, where `{{uri}}` is the URL-encoded URI that you want to redirect to
+* On clicking this link, the collector will register the link and then do a 302 redirect to the supplied `{{uri}}`
+* As well as the `&u={{uri}}` parameter, you can populate the collector URI with any other fields from the [[Snowplow Tracker Protocol]]
+
+Example:
+
+```
+Check out <a href="http://collector.snplow.com/r/tp2?u=https%3A%2F%2Fgithub.com%2Fsnowplow%2Fhuskimo">Huskimo</a>
+```
+
+Snowplow converts the `&u={{uri}}` argument into a `com.snowplowanalytics.snowplow/uri_direct` self-describing JSON.
+
+How Snowplow attaches the `uri_redirect` to the event depends on what other Tracker Protocol fields you attached to the event:
+
+1. If you attached an `&e={{event type}}` to your event, then the `uri_redirect` will be added to the contexts array of your event
+2. If you did not attach an `&e={{event type}}` to your event, then this event will be treated as an unstructured event and the `uri_redirect` will be attached as the event contents
 
 [wizard]: http://snowplowanalytics.com/no-js-tracker.html
 [no-js-repo]: https://github.com/snowplow/snowplow/tree/master/1-trackers/no-js-tracker
