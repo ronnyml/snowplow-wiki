@@ -752,6 +752,8 @@ Back to [top](#top).
 
 <a name="reserved-parameters" />
 
+#### 5. Reserved parameters
+
 `u` is a reserved parameter because it is used for click tracking / URI redirects in the No-JS Tracker.
 
 Back to [top](#top).
