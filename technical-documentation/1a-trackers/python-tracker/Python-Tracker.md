@@ -48,7 +48,7 @@
   - 4.5 [`track_ecommerce_transaction_item()`](#ecommerce-transaction-item)
   - 4.6 [`track_struct_event()`](#struct-event)
   - 4.7 [`track_unstruct_event()`](#unstruct-event)
-- 5. [Emitters](#emitter)
+- 5. [Emitters](#emitters)
   - 5.1 [The basic Emitter class](#base-emitter)
   - 5.2 [The AsyncEmitter class](#async-emitter)
   - 5.3 [The CeleryEmitter class](#celery-emitter)
@@ -545,7 +545,7 @@ t.track_page_view("www.example.com", "example", "www.referrer.com")
 [Back to top](#top)
 
 <a name="ecommerce-transaction" />
-### 4.4 Track ecommerce transactions with `track-ecommerce-transaction()`
+### 4.4 Track ecommerce transactions with `track_ecommerce_transaction()`
 
 Use `track_ecommerce_transaction()` to track an ecommerce transaction.
 Arguments:
@@ -560,7 +560,7 @@ Arguments:
 | `city`        | Delivery address city                | No            | String            |
 | `state`       | Delivery address state               | No            | String            |
 | `country`     | Delivery address country             | No            | String            | 
-| `currency     | Transaction currency                 | No            | String            |
+| `currency`    | Transaction currency                 | No            | String            |
 | `items`       | Items in the transaction             | Yes           | List              |
 | `context`     | Custom context for the event         | No            | List(SelfDescribingJson)              |
 | `tstamp`      | When the transaction event occurred  | No            | Positive integer  |
@@ -681,7 +681,7 @@ The `event_json` is represented using the SelfDescribingJson class. It has two f
 
 For more on JSON schema, see the [blog post] [self-describing-jsons].
 
-<a name="emitter" />
+<a name="emitters" />
 ## 5. Emitters
 
 Tracker instances must be initialized with an emitter. This section will go into more depth about the Emitter class and its subclasses.
@@ -717,7 +717,7 @@ def __init__(self, endpoint,
 
 `protocol` defaults to "http" but can also be "https". 
 
-When the emitter receives an event, it adds it to a buffer. When the queue is full, all events in the queue get sent to the collector. The `buffer_size` argument allows you to customize the queue size. By default, it is 1 for GET requests and 10 for POST requests. (So in the case of GET requests, each event is fired as soon as the emitter receives it.) If the emitter is configured to send POST requests, then instead of sending one for every event in the buffer, it will send a sing request containing all those events in JSON format.
+When the emitter receives an event, it adds it to a buffer. When the queue is full, all events in the queue get sent to the collector. The `buffer_size` argument allows you to customize the queue size. By default, it is 1 for GET requests and 10 for POST requests. (So in the case of GET requests, each event is fired as soon as the emitter receives it.) If the emitter is configured to send POST requests, then instead of sending one for every event in the buffer, it will send a single request containing all those events in JSON format.
 
 *Warning: `method` defaults to GET because Snowplow collectors do not currently support POST requests.*
 
