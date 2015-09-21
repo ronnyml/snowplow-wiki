@@ -956,7 +956,7 @@ This will set up a worker which will run indefinitely, taking events from the Re
 [python-0.2]: https://github.com/snowplow/snowplow/wiki/Python-Tracker-v0.2
 [python-0.3]: https://github.com/snowplow/snowplow/wiki/Python-Tracker-v0.3
 [python-0.4]: https://github.com/snowplow/snowplow/wiki/Python-Tracker-v0.4
-[python-0.4]: https://github.com/snowplow/snowplow/wiki/Python-Tracker-v0.5
+[python-0.5]: https://github.com/snowplow/snowplow/wiki/Python-Tracker-v0.5
 [python-0.6]: https://github.com/snowplow/snowplow/wiki/Python-Tracker-v0.6
 [pycontracts]: http://andreacensi.github.io/contracts/
 
