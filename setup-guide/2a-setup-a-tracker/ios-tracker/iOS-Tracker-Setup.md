@@ -72,7 +72,7 @@ pod 'SnowplowTracker'
 
 If you prefer not to use CocoaPods, you can grab the tracker from our [GitHub repo][ios-tracker-github] and import it into your project.
 
-#### 3.2.1 Clone the tracker
+#### Clone the tracker
 
 First, git clone the latest version of the tracker to your local machine:
 
@@ -80,7 +80,7 @@ First, git clone the latest version of the tracker to your local machine:
 
 If you don't have git installed locally, [install it] [git] first.
 
-#### 3.2.2 Copy the tracker into your project
+#### Copy the tracker into your project
 
 You only need to copy the tracker's `Snowplow` sub-folder into your XCode project's folder. The command will look something like this:
 
