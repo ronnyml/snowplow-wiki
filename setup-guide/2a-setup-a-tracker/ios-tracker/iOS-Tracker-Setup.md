@@ -2,8 +2,6 @@
 
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2: Setup a Tracker**](Setting-up-a-Tracker) > [**iOS tracker**](iOS-tracker-setup)
 
-*NOTE*: This version has not yet been released, please refer to *[Version 0.4][ios-0.4]* documentation.
-
 This page refers to version 0.5.0 of the Snowplow Objective-C Tracker, which is the latest version. Documentation for earlier versions is available:
 
 * *[Version 0.1-0.3][ios-0.3]*
