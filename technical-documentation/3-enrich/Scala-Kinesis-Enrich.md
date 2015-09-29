@@ -9,7 +9,7 @@ Scala Kinesis Enrich is an [Amazon Kinesis] [kinesis] app, written in Scala and 
 
 It is designed to be used downstream of the [[Scala Stream Collector]].
 
-It also supports reading raw events from `stdio` and writing enriched events to `stdout`, which is useful for debugging.
+It also supports reading raw events from `stdin` and writing enriched events to `stdout`, which is useful for debugging.
 
 Scala Kinesis Enrich utilizes the [scala-common-enrich][common-enrich] Scala project to enrich events and the [SnowplowRawEvent][schema] for
 reading Thrift-serialized objects collected with the Scala Stream Collector.
