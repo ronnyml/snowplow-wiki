@@ -16,7 +16,11 @@ This guide assumes that you have administrator access to a Unix-based server (e.
 
 ### 2.1 Software
 
-To install StorageLoader, first make sure that your server has **all** of the following installed:
+The StorageLoader jar is available for download. For more information, see the [[Hosted assets]] page.
+
+The StorageLoader requires Java 7 to run.
+
+Alternatively, to build the StorageLoader yourself, first make sure that you have **all** of the following installed:
 
 1. **Git** - see the [Git Installation Guide] [git-install]
 2. **Ruby and RVM*** - see our [Ruby and RVM setup guide](Ruby-and-RVM-setup)
@@ -47,23 +51,16 @@ Right, now we can install StorageLoader.
 <a name="installation"/>
 ## 3. Installation
 
-First, checkout the Snowplow repository and navigate to the StorageLoader root:
+To build the StorageLoader yourself, checkout the Snowplow repository and navigate to the StorageLoader root:
 
     $ git clone git://github.com/snowplow/snowplow.git
     $ cd snowplow/4-storage/storage-loader
-
-StorageLoader depends on some Postgres libraries being installed to talk to Redshift. You will need to install this first:
-
-    $ sudo aptitude install libpq-dev
-
-Now you are ready to install the application on your system:
-
-    $ bundle install --deployment
+    $ ./build.sh
 
 Check it worked okay:
 
-    $ bundle exec bin/snowplow-storage-loader --version
-    snowplow-storage-loader 0.0.4
+    $ ./deploy/snowplow-storage-loader --version
+    snowplow-storage-loader 0.5.0
 
 <a name="configuration"/>
 ## 4. Configuration

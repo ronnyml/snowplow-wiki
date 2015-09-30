@@ -15,12 +15,9 @@ command-line options in the next section.
 <a name="cli-options"/>
 ## 2. Command-line options
 
-Invoke StorageLoader using Bundler's `bundle exec` syntax:
+The StorageLoader is an executable jar:
 
-    $ bundle exec bin/snowplow-storage-loader
-    
-Note the `bin/` sub-folder, and that the `bundle exec` command will
-only work when you are inside the `storage-loader` folder.
+    $ ./deploy/snowplow-storage-loader
 
 The command-line options for StorageLoader look like this:
 
@@ -50,7 +47,7 @@ re-run only part of it.
 
 Instead of using the --config option, you can pass the configuration to the EmrEtlRunner via stdin. You need to set `--config -` to signal that the config is to be read from stdin rather than from a file:
 
-  $ cat config/config.yml | bundle exec bin/snowplow-storage-loader --config -
+  $ cat config/config.yml | ./deploy/snowplow-storage-loader --config -
 
 <a name="running"/>
 ## 3. Running
@@ -59,7 +56,7 @@ As per the above, running StorageLoader is a matter of populating
 your configuration file, let's call it `my-config.yml` for this
 example, and then invoking StorageLoader like so: 
 
-    $ bundle exec snowplow-storage-loader --config my-config.yml --skip analyze
+    $ ./deploy/snowplow-storage-loader --config my-config.yml --skip analyze
 
 The `--skip analyze` is required because in Redshift only the table owner or superuser can ANALYZE a table, not our `storageloader` user.
 
