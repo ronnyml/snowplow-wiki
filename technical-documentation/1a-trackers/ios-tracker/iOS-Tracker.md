@@ -2,7 +2,7 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > iOS Tracker
 
-This page refers to version 0.5.0 of the Snowplow Objective-C Tracker, which is the latest version. Documentation for earlier versions is available:
+This page refers to version 0.5.0+ of the Snowplow Objective-C Tracker, which is the latest version. Documentation for earlier versions is available:
 
 * *[Version 0.4][ios-0.4]*
 * *[Version 0.3][ios-0.3]*
