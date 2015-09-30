@@ -25,7 +25,9 @@ You will need to setup EmrEtlRunner on your own server. A number of people choos
 
 ### 2.2 Software
 
-To install EmrEtlRunner, first make sure that your server has **all** of the following installed:
+The EmrEtlRunner jar is available for download. For more information, see the [[Hosted assets]] page.
+
+Alternatively, to build EmrEtlRunner yourself, first make sure that your server has **all** of the following installed:
 
 1. **Git** - see the [Git Installation Guide] [git-install]
 2. **Ruby and RVM*** - see our [Ruby and RVM setup guide](Ruby-and-RVM-setup). Both EmrEtlRunner and StorageLoader require Ruby 1.9.3
@@ -56,19 +58,19 @@ Done? Right, now we can install EmrEtlRunner.
 <a name="installation"/>
 ## 3. Installation
 
-First, checkout the Snowplow repository and navigate to the EmrEtlRunner root:
+To build EmrEtlRunner yourself, checkout the Snowplow repository and navigate to the EmrEtlRunner root:
 
     $ git clone git://github.com/snowplow/snowplow.git
     $ cd snowplow/3-enrich/emr-etl-runner
     
-Next you are ready to install the application on your system:
+Next you are ready to build the application on your system:
 
-    $ bundle install --deployment
+    $ ./build.sh
 
 Check it worked okay:
 
-    $ bundle exec bin/snowplow-emr-etl-runner --version
-    snowplow-emr-etl-runner 0.0.9
+    $ ./deploy/snowplow-emr-etl-runner --version
+    snowplow-emr-etl-runner 0.17.0
 
 If you have any problems installing, please double-check that you have successfully completed our [Ruby and RVM setup guide](Ruby-and-RVM-setup).
 
@@ -77,7 +79,7 @@ If you have any problems installing, please double-check that you have successfu
 
 EmrEtlRunner requires a YAML format configuration file to run. There is a configuration file template available in the Snowplow GitHub repository at [`/3-enrich/emr-etl-runner/config/config.yml.sample`] [config-yml]. See [[Common configuration]] more information on how to write this file.
 
-### iglu
+### Iglu
 
 You will also need an Iglu resolver configuration file. This is where we list the schema repositories to use to retrieve JSON Schemas for validation. For more information on this, see the [wiki page for Configuring shredding](5-Configuring-shredding).
 

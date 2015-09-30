@@ -26,12 +26,9 @@ those logs.
 <a name="cli-options"/>
 ## 2. Command-line options
 
-Invoke EmrEtlRunner using Bundler's `bundle exec` syntax:
+The EmrEtlRunner is an executable jar:
 
-    $ bundle exec bin/snowplow-emr-etl-runner
-    
-Note the `bin/` sub-folder, and that the `bundle exec` command will
-only work when you are inside the `emr-etl-runner` folder.
+    $ ./deploy/snowplow-emr-etl-runner
 
 The command-line options for EmrEtlRunner look like this:
 
@@ -59,11 +56,11 @@ The command-line options for EmrEtlRunner look like this:
 A note on the `--skip` option: this takes a list of individual steps to skip.
 So for example you could run **only** the EMR job with the command-line option:
 
-    $ bundle exec bin/snowplow-emr-etl-runner --skip staging,archive_raw --config config/config.yml --resolver resolver.json --enrichments config/enrichments
+    $ ./deploy/snowplow-emr-etl-runner --skip staging,archive_raw --config config/config.yml --resolver resolver.json --enrichments config/enrichments
 
 Instead of using the --config option, you can pass the configuration to the EmrEtlRunner via stdin. You need to set `--config -` to signal that the config is to be read from stdin rather than from a file:
 
-    $ cat config/config.yml | bundle exec bin/snowplow-emr-etl-runner --config - --resolver resolver.json --enrichments config/enrichments
+    $ cat config/config.yml | ./deploy/snowplow-emr-etl-runner --config - --resolver resolver.json --enrichments config/enrichments
 
 <a name="running"/>
 ## 3. Running in each mode
@@ -74,14 +71,14 @@ Invoking EmrEtlRunner with just the `--config` option puts it into rolling
 mode, processing all the raw Snowplow event logs it can find in your In
 Bucket:
 
-    $ bundle exec bin/snowplow-emr-etl-runner --config config/config.yml --resolver config/resolver.json --enrichments config/enrichments
+    $ ./deploy/snowplow-emr-etl-runner --config config/config.yml --resolver config/resolver.json --enrichments config/enrichments
 
 ### 3.2 Timespan mode
 
 To run EmrEtlRunner in timespan mode, you need to specify the `--start`
 and/or `--end` dates as well as the `--config` option, like so:
 
-    $ bundle exec bin/snowplow-emr-etl-runner \
+    $ ./deploy/snowplow-emr-etl-runner \
       --config config.yml \
       --resolver config/resolver.json \
       --start 2012-06-20 \
