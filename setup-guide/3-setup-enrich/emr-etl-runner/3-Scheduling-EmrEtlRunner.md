@@ -42,7 +42,7 @@ So for example if you installed RVM as the `admin` user, then you would set:
     rvm_path=/home/admin/.rvm
 
 Now, assuming you're using the excellent [cronic] [cronic] as a wrapper for 
-your cronjobs, and that cronic is on your path, you can
+your cronjobs, and that both cronic and Bundler are on your path, you can 
 configure your cronjob like so:
 
     0 4   * * *   root    cronic /path/to/snowplow/3-enrich/bin/snowplow-emr-etl-runner.sh
