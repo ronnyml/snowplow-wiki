@@ -2,7 +2,7 @@
 
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2: setup a Tracker**](Setting-up-a-Tracker) > [**Java tracker**](Java-tracker-setup)
 
-**NOTE**: This version has not been released yet!
+This page refers to version 0.8.0+ of the Snowplow Java Tracker.
 
 Documentation for older version of this tracker is available:
 
