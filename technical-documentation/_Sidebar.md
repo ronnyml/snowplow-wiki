@@ -3,7 +3,7 @@
 **1A. Trackers**  
 [Overview](trackers)  
 [JavaScript Tracker](javascript-tracker)  
-[No-JS Tracker](no-js-tracker)  
+[Pixel Tracker](pixel-tracker)  
 [[iOS Tracker]]  
 [[Python Tracker]]  
 [[Ruby Tracker]]  

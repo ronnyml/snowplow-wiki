@@ -4,9 +4,9 @@
 <a name="overview" />
 ## Overview
 
-Snowplow trackers fire _events_, which are `GET` requests of a [Snowplow collector](collectors), whenever an event on a website or application takes place. By appending parameters and values to the end of those `GET`  requests, trackers can pass data into the collectors, for processing by Snowplow. 
+Snowplow trackers fire _events_, which are `GET` requests of a [Snowplow collector](collectors), whenever an event on a website or application takes place. By appending parameters and values to the end of those `GET`  requests, trackers can pass data into the collectors, for processing by Snowplow.
 
-The Snowplow Tracker Protocol is the list of all the parameters that Snowplow trackers use when firing events to push data into the [Snowplow collectors] (collectors). Each parameter maps onto one or more fields in the [Snowplow events table] (canonical-event-model) employed in storage. Here we document which field in the [Snowplow events table] (canonical-event-model) each parameter added to the query string maps onto. 
+The Snowplow Tracker Protocol is the list of all the parameters that Snowplow trackers use when firing events to push data into the [Snowplow collectors] (collectors). Each parameter maps onto one or more fields in the [Snowplow events table] (canonical-event-model) employed in storage. Here we document which field in the [Snowplow events table] (canonical-event-model) each parameter added to the query string maps onto.
 
 Snowplow has been architected to be as easy as possible for developers to create their own alternative subsystems. This documentation should be used by anyone who would like to build their own tracker: by utilising the parameters documented here, the author of a new tracker can be confident that his / her tracker will work with the rest of the Snowplow stack, and be confident where the values associated with each parameter on every call will be available to query in Snowplow, whether that's in Hive or Infobright or another database.
 
@@ -44,12 +44,12 @@ In the [first part of this guide](#common), we cover the parameters in the Snowp
 - 5. [Reserved parameters](#reserved-parameters)
 
 <a name="common" />
-## 1. Common parameters (platform and event independent) 
+## 1. Common parameters (platform and event independent)
 
 <a name="appid" />
 #### 1.1 Application parameters
 
-| **Parameter** | **Maps to**      | **Type** |**Description**               | **Implemented?** | **Example values**        | 
+| **Parameter** | **Maps to**      | **Type** |**Description**               | **Implemented?** | **Example values**        |
 |:--------------|:-----------------|:---------|:------------------------------|:-----------------|:--------------------------|
 | `tna`         | `name_tracker`   | text     | The tracker namespace         | Yes               | `tracker_1`               |
 | `evn`        | `event_vendor` (deprecated)   | text     | The company who developed the event model        | No               | `com.snowplowanalytics` |
@@ -68,8 +68,8 @@ As a Snowplow user, you can define application IDs for each of your different di
 
 | **Platform**               | **`p` value**  |
 |:---------------------------|:---------------|
-| Web (including Mobile Web) | `web`          | 
-| Mobile/Tablet              | `mob`          | 
+| Web (including Mobile Web) | `web`          |
+| Mobile/Tablet              | `mob`          |
 | Desktop/Laptop/Netbook     | `pc`           |
 | Server-Side App            | `srv`          |
 | General App                | `app`          |
@@ -82,7 +82,7 @@ Back to [common field types](#common).
 <a name="timestamp" />
 #### 1.2 Date / time parameter
 
-| **Parameter** | **Maps to**        | **Type** | **Description**               | **Implemented?** | **Example values**        | 
+| **Parameter** | **Maps to**        | **Type** | **Description**               | **Implemented?** | **Example values**        |
 |:--------------|:-------------------|:---------|:------------------------------|:-----------------|:-----------------------------|
 | `dtm`         | `dvce_created_tstamp`      | int      | Timestamp when event occurred, as recorded by client device | Yes  | `1361553733313`   |
 | `stm`         | `dvce_sent_tstamp` | int      | Timestamp when event was sent by client device to collector | Yes  | `1361553733371`   |
@@ -100,7 +100,7 @@ Back to [common field types](#common).
 <a name="event2" />
 #### 1.3 Event / transaction parameters
 
-| **Parameter** | **Maps to**      | **Type** | **Description**               | **Implemented?** | **Example values**        | 
+| **Parameter** | **Maps to**      | **Type** | **Description**               | **Implemented?** | **Example values**        |
 |:--------------|:-----------------|:---------|:------------------------------|:-----------------|:--------------------------|
 | `e`           | `event`          | text     | Event type                    | Yes              | (See table [below](#events))|
 | `tid`         | `txn_id` (deprecated)         | text     | Transaction ID                | Yes              | `352583`                    |
@@ -117,18 +117,18 @@ Back to [common field types](#common).
 <a name="version" />
 #### 1.4 Snowplow Tracker Version
 
-| **Parameter** | **Maps to**      | **Type** | **Description**               | **Implemented?** | **Example values**        | 
+| **Parameter** | **Maps to**      | **Type** | **Description**               | **Implemented?** | **Example values**        |
 |:--------------|:-----------------|:---------|:------------------------------|:-----------------|:--------------------------|
 | `tv`          | `v_tracker`      | text     | Identifier for Snowplow tracker | Yes             | `js-0.5.1`                |
 
-For deployments where multiple trackers are used (e.g. for businesses that use the [JavaScript tracker] (javascript-tracker) to track events on their domains alongside the [No-JS tracker] (no-js-tracker) to track events on 3rd party domains), it is useful to be able to distinguish data generated from each tracker. It can also be useful when tracker versions are updated, so that it is easier to see if an update in tracker accounts for a feature of the data at analysis time.
+For deployments where multiple trackers are used (e.g. for businesses that use the [JavaScript tracker] (javascript-tracker) to track events on their domains alongside the [Pixel tracker] (pixel-tracker) to track events on 3rd party domains), it is useful to be able to distinguish data generated from each tracker. It can also be useful when tracker versions are updated, so that it is easier to see if an update in tracker accounts for a feature of the data at analysis time.
 
 Back to [common field types](#common).
 
 <a name="user" />
 #### 1.5 User related parameters
 
-| **Parameter** | **Maps to**      | **Type** | **Description**               | **Implemented?** | **Example values**        | 
+| **Parameter** | **Maps to**      | **Type** | **Description**               | **Implemented?** | **Example values**        |
 |:--------------|:-----------------|:---------|:------------------------------|:-----------------|:--------------------------|
 | `duid`        | `domain_userid`  | text     | Unique identifier for a user, based on a first party cookie (so domain specific) | Yes | `aeb1691c5a0ee5a6` |
 | `nuid`        | `network_userid` | text     | Unique identifier for a user, based on a third party cookie (so set at a network level) | Yes | `ecdff4d0-9175-40ac-a8bb-325c49733607` |
@@ -151,7 +151,7 @@ Back to [common field types](#common).
 <a name="device" />
 #### 1.6 Device related properties
 
-| **Parameter** | **Maps to**      | **Type** | **Description**               | **Implemented?** | **Example values**        | 
+| **Parameter** | **Maps to**      | **Type** | **Description**               | **Implemented?** | **Example values**        |
 |:--------------|:-----------------|:---------|:------------------------------|:-----------------|:--------------------------|
 | `res`         | `dvce_screenheight` and `dvce_screenwidth` | text | Screen / monitor resolution |  Yes | `1280x1024`   |
 
@@ -167,7 +167,7 @@ Back to [common field types](#common).
 
 In addition, there is a set of browser-specific parameters that only makes sense to record for events that happen on web platforms (`p=web`). These parameters are relevant across **all** web events, regardless of the event type. (E.g. if it is a pageview, pageping, transaction, media play etc...)
 
-| **Parameter** | **Maps to**      | **Type** |**Description**                                      | **Implemented?** | **Example values**| 
+| **Parameter** | **Maps to**      | **Type** |**Description**                                      | **Implemented?** | **Example values**|
 |:--------------|:-----------------|:---------|:----------------------------------------------------|:-----------------|:------------------|
 | `url`         | `page_url`       | text     | Page URL                                            | Yes              | `http%3A%2F%2Ftest.psybazaar.com%2F2-tarot-cards` |
 | `ua`          | `useragent`      | text     | Useragent (a.k.a. browser string)                   | Yes | Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.78.2 (KHTML, like Gecko) Version/7.0.6 Safari/537.78.2 |
@@ -198,7 +198,7 @@ Back to [common field types](#common).
 
 In addition, there is a set of device-specific parameters that only makes sense to record for events that happen on the Internet of Things (`p=iot`). These parameters are relevant across **all** Internet of Things events, regardless of the event type:
 
-| **Parameter** | **Maps to**      | **Type** |**Description**                                 | **Implemented?** | **Example values**  | 
+| **Parameter** | **Maps to**      | **Type** |**Description**                                 | **Implemented?** | **Example values**  |
 |:--------------|:-----------------|:---------|:-----------------------------------------------|:-----------------|:--------------------|
 | `mac`         | `mac_address`    | text     | MAC address for the device running the tracker | Yes              | `12:34:56:78:9A:BC` |
 
@@ -211,9 +211,9 @@ At its heart, Snowplow is a platform for granular tracking of events. Currently,
 
 |    | **Type of tracking**          | **Event type (value of `e`)** |
 |:---|:------------------------------|:--------------------------|
-| 3.1| [Pageview tracking](#pageview)| `pv`                      | 
+| 3.1| [Pageview tracking](#pageview)| `pv`                      |
 | 3.2| [Page pings](#pagepings)      | `pp`                      |  
-| 3.3| [Link click](#linkclick)      | `ue`                      | 
+| 3.3| [Link click](#linkclick)      | `ue`                      |
 | 3.4| [Ad impression tracking](#adimp)| `ue`                    |  
 | 3.5| [Ecommerce transaction tracking](#ecomm) | `tr` and `ti`  |  
 | 3.6| [Social tracking](#social)    | TBD                       |  
@@ -229,7 +229,7 @@ In each case, we use the `&e` parameter to indicate the type of event that is be
 <a name="pageview" />
 #### 3.1 Pageview tracking
 
-Pageview tracking is used to record views of web pages. 
+Pageview tracking is used to record views of web pages.
 
 Currently, recording a pageview involves recording an event where `e=pv`. All the fields associated with web events can be tracked. There are no other pageview specific fields:
 
@@ -269,7 +269,7 @@ e=pv           // page view
 
 &res=1920x976                         // Device monitor dimensions
 &vp=873x390                           // Viewport dimensions
-&duid=91a88a7ec90ebbb1                // Domain user ID 
+&duid=91a88a7ec90ebbb1                // Domain user ID
 &fp=3324966434                        // User fingerprint
 &vid=3                                // Domain session ID
 
@@ -283,13 +283,13 @@ Back to [event tracking](#events).
 <a name="pagepings" />
 #### 3.2 Page pings
 
-Page pings are used to record users engaging with content on a web page after it has originally loaded. It can be used to track e.g. how far down an article a user scrolls. 
+Page pings are used to record users engaging with content on a web page after it has originally loaded. It can be used to track e.g. how far down an article a user scrolls.
 
 If enabled, the page ping function checks for engagement with a page after load. (E.g. mousemovement, scrolling etc...) If there is some sort of engagement in a specified time interval, a page ping is sent.
 
 Page pings are identified by `e=pp`. As well as all the standard web fields, there are four additional fields that `pp` includes, which are used to identify how users are scrolling over web pages:
 
-| **Parameter** | **Maps to**      | **Type** |**Description**       | **Implemented?** | **Example values**| 
+| **Parameter** | **Maps to**      | **Type** |**Description**       | **Implemented?** | **Example values**|
 |:--------------|:-----------------|:---------|:---------------------|:-----------------|:------------------|
 | `pp_mix`      | `pp_xoffset_min` | integer  | Minimum page x offset seen in the last ping period | Yes | `0` |
 | `pp_max`      | `pp_xoffset_max` | integer  | Maximum page x offset seen in the last ping period | Yes | `100` |
@@ -346,7 +346,7 @@ Back to [event tracking](#events).
 
 As well as setting `e=ad`, there are four specific parameters that can be set when an ad impression is tracked:
 
-| **Parameter** | **Maps to**      | **Type** |**Description**       | **Implemented?** | **Example values**| 
+| **Parameter** | **Maps to**      | **Type** |**Description**       | **Implemented?** | **Example values**|
 |:--------------|:-----------------|:---------|:---------------------|:-----------------|:------------------|
 | `ad_ba`       | `adi_bannerid`    | text    | Banner ID            | No               | `126422315640`   |
 | `ad_ca`       | `adi_campaignid`  | text    | Campaign ID          | No               | `d-546135`       |
@@ -371,15 +371,15 @@ duid=aeb1691c5a0ee5a6   // Domain user ID
 ```
 
 Back to [event tracking](#events).
- 
+
 <a name="ecomm" />
-#### 3.5 Ecommerce tracking 
+#### 3.5 Ecommerce tracking
 
 To track an ecommerce transaction, fire a `transaction` event (`e=tr`) to register the transaction, and then fire `item` events (`e=ti`) to log specific data about the items that were part of that transaction. The `order_id`, (captured using the `ti` parameter) is used to link the transaction-level and item-level data at analysis time.
 
 ##### 3.5.1 Transaction parameters
 
-| **Parameter** | **Maps to**      | **Type** |**Description**       | **Implemented?** | **Example values**| 
+| **Parameter** | **Maps to**      | **Type** |**Description**       | **Implemented?** | **Example values**|
 |:--------------|:-----------------|:---------|:---------------------|:-----------------|:------------------|
 | `tr_id`       | `tr_orderid`     | text     | Order ID             | Yes              | `12345`             |
 | `tr_af`       | `tr_affiliation` | text     | Transaction affiliation (e.g. channel) | Yes | `Web`          |
@@ -412,7 +412,7 @@ duid=aeb1691c5a0ee5a6   // Domain user ID
 
 ##### 3.5.2 Transaction item parameters
 
-| **Parameter** | **Maps to**      | **Type** |**Description**       | **Implemented?** | **Example values**| 
+| **Parameter** | **Maps to**      | **Type** |**Description**       | **Implemented?** | **Example values**|
 |:--------------|:-----------------|:---------|:---------------------|:-----------------|:------------------|
 | `ti_id`       | `ti_orderid`     | text     | Order ID             | Yes              | `12345`           |
 | `ti_sk`       | `ti_sku`         | text     | Item SKU             | Yes              | `pbz0025'         |
@@ -448,7 +448,7 @@ Back to [event tracking](#events).
 
 **Note!** This has not been implemented yet.
 
-| **Parameter** | **Maps to**      | **Description**               | **Implemented?** | **Example values**        | 
+| **Parameter** | **Maps to**      | **Description**               | **Implemented?** | **Example values**        |
 |:--------------|:-----------------|:------------------------------|:-----------------|:--------------------------|
 | `sa`          | `social_action`  | Social action performed       | No               | `like`, `tweet`           |
 | `sn`          | `social_network` | Social network involved       | No               | `facebook`, `twitter`     |
@@ -496,7 +496,7 @@ Custom event tracking is used to track events that are not natively supported by
 
 As well as setting `e=ue`, there are five custom event specific parameters that can be set:
 
-| **Parameter** | **Maps to**      | **Type** |**Description**                                     | **Implemented?** | **Example values**| 
+| **Parameter** | **Maps to**      | **Type** |**Description**                                     | **Implemented?** | **Example values**|
 |:--------------|:-----------------|:---------|:---------------------------------------------------|:-----------------|:------------------|
 | `se_ca`       | `se_category`    | text     | The category of event                              | Yes              | `Ecomm`, `Media`  |
 | `se_ac`       | `se_action`      | text     | The action / event itself                          | Yes              | `add-to-basket`, `play-video` |
@@ -554,7 +554,7 @@ An example of an unstructured event for a product view event:
 {
   schema: 'iglu:com.my_company/viewed_product/jsonschema/1-0-0',
   data: {
-    "product_id": "ASO01043", 
+    "product_id": "ASO01043",
     "price": 49.95
   }
 }
@@ -566,7 +566,7 @@ The tracker will wrap this [self-describing JSON][self-desc-jsons] in an outer s
 {
 
   // Tells Snowplow this is an unstructured event
-  schema: 'iglu:com.my_company/unstruct_event/jsonschema/1-0-0', 
+  schema: 'iglu:com.my_company/unstruct_event/jsonschema/1-0-0',
   data: {
 
     // Tells Snowplow this is a viewed_product event
@@ -574,7 +574,7 @@ The tracker will wrap this [self-describing JSON][self-desc-jsons] in an outer s
     data: {
 
       // The event data itself
-      "product_id": "ASO01043", 
+      "product_id": "ASO01043",
       "price": 49.95
     }
   }
@@ -583,7 +583,7 @@ The tracker will wrap this [self-describing JSON][self-desc-jsons] in an outer s
 
 As well as setting `e=ue`, there are two custom event specific parameters that can be populated with the outer self-describing JSON:
 
-| **Parameter** | **Maps to**      | **Type** |**Description**                                     | **Implemented?** | **Example values**| 
+| **Parameter** | **Maps to**      | **Type** |**Description**                                     | **Implemented?** | **Example values**|
 |:--------------|:-----------------|:---------|:---------------------------------------------------|:-----------------|:------------------|
 | `ue_pr`       | `unstruct_event`        | JSON     | The properties of the event                        | Yes               | `{ "product_id": "ASO01043", "price": 49.95 }` |
 | `ue_px`       | `unstruct_event`        | JSON (URL-safe Base64 encoded)   | The properties of the event         | Yes               | `eyAicHJvZHVjdF9pZCI6ICJBU08wMTA0MyIsICJwcmljZSI6IDQ5Ljk1IH0=` |
@@ -602,11 +602,11 @@ uid=aeb1691c5a0ee5a6   // User ID
 &e=ue                  // event = unstructured  
 &ue_pr="%7B%22schema%22:%22iglu:com.my_company/unstruct_event/jsonschema/1-0-0%22,%22data%22:%7B%22schema%22:%22iglu:com.my_company/viewed_product/jsonschema/1-0-0%22,%22data%22:%7B%22product_id%22:%22ASO01043%22,%22price%22:49.95%7D%7D%7D"
                        // event_properties =  {
-                                                schema: 'iglu:com.my_company/unstruct_event/jsonschema/1-0-0', 
+                                                schema: 'iglu:com.my_company/unstruct_event/jsonschema/1-0-0',
                                                 data: {
                                                   schema: 'iglu:com.my_company/viewed_product/jsonschema/1-0-0',
                                                   data: {
-                                                    "product_id": "ASO01043", 
+                                                    "product_id": "ASO01043",
                                                     "price": 49.95
                                                   }
                                                 }
@@ -626,11 +626,11 @@ uid=aeb1691c5a0ee5a6   // User ID
 &e=ue                  // event = unstructured  
 &ue_px=ew0KICBzY2hlbWE6ICdpZ2x1OmNvbS5teV9jb21wYW55L3Vuc3RydWN0X2V2ZW50L2pzb25zY2hlbWEvMS0wLTAnLCANCiAgZGF0YTogew0KICAgIHNjaGVtYTogJ2lnbHU6Y29tLm15X2NvbXBhbnkvdmlld2VkX3Byb2R1Y3QvanNvbnNjaGVtYS8xLTAtMCcsDQogICAgZGF0YTogew0KICAgICAgInByb2R1Y3RfaWQiOiAiQVNPMDEwNDMiLCANCiAgICAgICJwcmljZSI6IDQ5Ljk1DQogICAgfQ0KICB9DQp9
                        // event_properties = {
-                                                schema: 'iglu:com.my_company/unstruct_event/jsonschema/1-0-0', 
+                                                schema: 'iglu:com.my_company/unstruct_event/jsonschema/1-0-0',
                                                 data: {
                                                   schema: 'iglu:com.my_company/viewed_product/jsonschema/1-0-0',
                                                   data: {
-                                                    "product_id": "ASO01043", 
+                                                    "product_id": "ASO01043",
                                                     "price": 49.95
                                                   }
                                                 }
@@ -650,7 +650,7 @@ Each individual custom context is a [self-describing JSON][self-desc-jsons] such
 
 ```javascript
 {
-  schema: 'iglu:com.my_company/user/jsonschema/1-0-0' 
+  schema: 'iglu:com.my_company/user/jsonschema/1-0-0'
   data: {
     fb_uid: '9999xyz'
   }
@@ -664,7 +664,7 @@ All custom contexts to be attached to an event will be wrapped in an array by th
 {
 
   // Tells Snowplow this is an array of custom contexts
-  schema: 'iglu:com.snowplowanalytics.snowplow/contexts/jsonschema/1-0-0' 
+  schema: 'iglu:com.snowplowanalytics.snowplow/contexts/jsonschema/1-0-0'
   data: [
     {
 
@@ -682,7 +682,7 @@ All custom contexts to be attached to an event will be wrapped in an array by th
 
 The tracker can be configured to encode the context into URL-safe Base64 to ensure that no data is lost or corrupted. The downside is that the data will be bigger and less readable. Otherwise the data will be percent-encoded.
 
-| **Parameter** | **Maps to**      | **Type** |**Description**                                     | **Implemented?** | **Example values**| 
+| **Parameter** | **Maps to**      | **Type** |**Description**                                     | **Implemented?** | **Example values**|
 |:--------------|:-----------------|:---------|:---------------------------------------------------|:-----------------|:------------------|
 | `cv`       | `context_vendor` (deprecated)        | String     | Vendor for the custom contexts  | deprecated       | `com.acme`        |
 | `co`       | `context`        | JSON     | An array of custom contexts                        | Yes         | `%7B%22schema%22:%22iglu:com.snowplowanalytics.snowplow/contexts/jsonschema/1-0-0%22,%22data%22:%5B%7B%22schema%22:%22iglu:com.my_company/user/jsonschema/1-0-0%22,%22data%22:%7B%22fb_uid%22:%229999xyz%22%7D%7D%5D%7D` |
@@ -706,7 +706,7 @@ uid=aeb1691c5a0ee5a6    // User ID
 
 &co=%7B%22schema%22:%22iglu:com.snowplowanalytics.snowplow/contexts/jsonschema/1-0-0%22,%22data%22:%5B%7B%22schema%22:%22iglu:com.my_company/user/jsonschema/1-0-0%22,%22data%22:%7B%22fb_uid%22:%229999xyz%22%7D%7D%5D%7D
                         // context =  {
-                                        schema: 'iglu:com.snowplowanalytics.snowplow/contexts/jsonschema/1-0-0' 
+                                        schema: 'iglu:com.snowplowanalytics.snowplow/contexts/jsonschema/1-0-0'
                                         data: [
                                           {
                                             schema: 'iglu:com.my_company/user/jsonschema/1-0-0',
@@ -736,7 +736,7 @@ uid=aeb1691c5a0ee5a6    // User ID
 
 &cx=ew0KICBzY2hlbWE6ICdpZ2x1OmNvbS5zbm93cGxvd2FuYWx5dGljcy5zbm93cGxvdy9jb250ZXh0cy9qc29uc2NoZW1hLzEtMC0wJyANCiAgZGF0YToge1sNCiAgICB7DQogICAgICBzY2hlbWE6ICdpZ2x1OmNvbS5teV9jb21wYW55L3VzZXIvanNvbnNjaGVtYS8xLTAtMCcgDQogICAgICBkYXRhOiB7DQogICAgICAgIGZiX3VpZDogJzk5OTl4eXonDQogICAgICB9DQogICAgfQ0KICBdfQ0KfQ==
                         // context =  {
-                                        schema: 'iglu:com.snowplowanalytics.snowplow/contexts/jsonschema/1-0-0' 
+                                        schema: 'iglu:com.snowplowanalytics.snowplow/contexts/jsonschema/1-0-0'
                                         data: [
                                           {
                                             schema: 'iglu:com.my_company/user/jsonschema/1-0-0',
@@ -754,7 +754,7 @@ Back to [top](#top).
 
 #### 5. Reserved parameters
 
-`u` is a reserved parameter because it is used for click tracking / URI redirects in the No-JS Tracker.
+`u` is a reserved parameter because it is used for click tracking / URI redirects in the Pixel Tracker.
 
 Back to [top](#top).
 
@@ -763,4 +763,3 @@ Back to [top](#top).
 [ad-impression-schema]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/ad_impression/jsonschema/1-0-0
 [ad-click-schema]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/ad_click/jsonschema/1-0-0
 [ad-conversion-schema]: https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/ad_conversion/jsonschema/1-0-0
-

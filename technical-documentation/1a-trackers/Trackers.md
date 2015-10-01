@@ -11,7 +11,7 @@
 ### Trackers
 
 * [JavaScript Tracker](Javascript-Tracker) - for tracking user activity on websites and webapps
-* [No-JS Tracker](No-JS-Tracker) - a pixel tracker for web environments where JavaScript is not available
+* [Pixel Tracker](pixel-tracker) - a pixel tracker for web environments where JavaScript is not available
 * [[Python Tracker]] - for tracking events in your Python-based applications, games or Python web servers/frameworks
 * [[iOS Tracker]] - for tracking events in your iOS apps and games
 * [[.NET Tracker]] - for tracking events in your .NET applications

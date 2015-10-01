@@ -2,17 +2,17 @@
 
 **1. Trackers**  
 [Overview](trackers)  
-[Javascript Tracker](javascript-tracker) 
+[Javascript Tracker](javascript-tracker)
 
 * [Overview](javascript-tracker)  
 * [General parameters (version 2)](1-General-parameters-for-the-Javascript-tracker)
-* [General parameters (version 1)](1-General-parameters-for-the-Javascript-tracker-v1) 
-* [Specific event tracking parameters (version 2)](2-Specific-event-tracking-with-the-Javascript-tracker) 
-* [Specific event tracking parameters (version 1)](2-Specific-event-tracking-with-the-Javascript-tracker-v1) 
+* [General parameters (version 1)](1-General-parameters-for-the-Javascript-tracker-v1)
+* [Specific event tracking parameters (version 2)](2-Specific-event-tracking-with-the-Javascript-tracker)
+* [Specific event tracking parameters (version 1)](2-Specific-event-tracking-with-the-Javascript-tracker-v1)
 * [Advanced usage](3-Advanced-usage-of-the-JavaScript-Tracker)
 * [Modifying Snowplow.js](Modifying-snowplow-js)
 
-[No-JS Tracker](no-js-tracker)  
+[Pixel Tracker](pixel-tracker)  
 [[Lua Tracker]]  
 [Arduino Tracker](Arduino-Tracker)  
 
