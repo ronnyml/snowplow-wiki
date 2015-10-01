@@ -2,8 +2,6 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > Node.js tracker
 
-*This page refers to version 0.2.0 of the Snowplow Node.js Tracker, which has not yet been released. Click [here][v1] for the corresponding documentation for version 0.1.0.*
-
 ## Contents
 
 - 1. [Overview](#overview)  
@@ -458,5 +456,3 @@ For more on JSON schema, see the [blog post] [self-describing-jsons].
 [repo]: https://github.com/snowplow/snowplow-nodejs-tracker
 [jsonschema]: http://snowplowanalytics.com/blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
-
-[v1]: https://github.com/snowplow/snowplow/wiki/Node.js-Tracker.md
