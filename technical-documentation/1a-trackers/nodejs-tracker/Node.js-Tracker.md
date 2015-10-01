@@ -236,6 +236,8 @@ Tracking methods supported by the Node.js Tracker at a glance:
 | [`trackStructEvent()`](#struct-event)       | Track a Snowplow custom structured event               |
 | [`trackUnstructEvent()`](#unstruct-event)   | Track a Snowplow custom unstructured event             |
 
+Details of other tracking methods are available in the documentation for the [tracker core][tracker-core].
+
 <a name="common" />
 ### 4.1 Common
 
@@ -459,5 +461,6 @@ For more on JSON schema, see the [blog post] [self-describing-jsons].
 [repo]: https://github.com/snowplow/snowplow-nodejs-tracker
 [jsonschema]: http://snowplowanalytics.com/blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
+[tracker-core]: https://github.com/snowplow/snowplow/wiki/Javascript-Tracker-Core
 
 [v1]: https://github.com/snowplow/snowplow/wiki/Node.js-Tracker-v1
