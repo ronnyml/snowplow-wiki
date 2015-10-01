@@ -459,4 +459,4 @@ For more on JSON schema, see the [blog post] [self-describing-jsons].
 [jsonschema]: http://snowplowanalytics.com/blog/2014/05/13/introducing-schemaver-for-semantic-versioning-of-schemas/
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
 
-[v1]: https://github.com/snowplow/snowplow/wiki/Node.js-Tracker.md
+[v1]: https://github.com/snowplow/snowplow/wiki/Node.js-Tracker-v1
