@@ -8,8 +8,6 @@
 
 - 1. [Overview](#overview)  
 - 2. [Initialization](#init)  
-  - 2.1 [Requiring the module](#requiring)
-  - 2.2 [Creating a tracker](#create-tracker)  
 - 3. [Configuration](#config)  
   - 3.1 [`setAppId()`](#set-app-id)
   - 3.2 [`setUserId()`](#set-user-id)
@@ -42,40 +40,43 @@ The tracker should be straightforward to use if you are comfortable with JavaScr
 
 Assuming you have completed the [Node.js Tracker Setup](Node.js-tracker-setup) for your project, you are now ready to initialize the Tracker.
 
-<a name="requiring" />
-### 2.1 Requiring the module
-
 Require the Node.js Tracker module into your code like so:
 
 ```js
-var tracker = require('snowplow-tracker');
+var snowplow = require('snowplow-tracker');
+var emitter = snowplow.emitter;
+var tracker = snowplow.tracker;
 ```
 
-That's it - you are now ready to initialize a tracker instance. 
+First, initialize an emitter instance. This object will be responsible for how and when events are sent to Snowplow.
 
-[Back to top](#top)
-
-<a name="create-tracker" />
-### 2.2 Creating a tracker
+```js
+var e = emitter(
+  'myscalastreamcollector.net', // Collector endpoint
+  'http', // Optionally specify a method - http is the default
+  8080, // Optionally specify a port
+  'POST', // Method - defaults to GET
+  5, // Only send events once n are buffered. Defaults to 1 for GET requests and 10 for POST requests.
+  function (error, body, response) { // Callback called for each request
+    if (error) {
+      console.log("Request to Scala Stream Collector failed!");
+    }
+  }
+);
+```
 
 Initialise a tracker instance like this:
 
 ```js
-var t = tracker('d3rkrsqld9gmqf.cloudfront.net');
+var t = tracker([e], 'myTracker', 'myApp', false);
 ```
 
 The `tracker` function takes four parameters:
 
-* The `endpoint`, to which events will be sent. No need to attach the protocol ("http") - the tracker will take care of this.
+* An array of emitters to which the tracker will hand Snowplow events
 * An optional tracker `namespace` which will be attached to all events which the tracker fires, allowing you to identify their origin
 * The `appId`, or application ID
 * `encodeBase64`, which determines whether unstructured events and custom contexts will be base 64 encoded (by default they are).
-
-An example using all four parameters:
-
-```js
-var t = tracker('d3rkrsqld9gmqf.cloudfront.net', 'cloudfront-tracker', 'my-node-app', false);
-```
 
 [Back to top](#top)
 
