@@ -2,12 +2,10 @@
 
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 3: Setting up Enrich](Setting-up-enrich) > Configurable enrichments > Event fingerprint enrichment
 
-**Warning: this enrichment will only be supported from Snowplow version 71 onwards.**
-
 ### Compatibility
 
 JSON Schema   [iglu:com.snowplowanalytics.snowplow/event_fingerprint_config/jsonschema/1-0-0][schema]  
-Compatibility r66+  
+Compatibility 71+  
 Data provider None
 
 ### Overview
