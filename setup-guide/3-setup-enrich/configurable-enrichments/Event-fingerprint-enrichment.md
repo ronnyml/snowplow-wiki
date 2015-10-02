@@ -5,7 +5,7 @@
 ### Compatibility
 
 JSON Schema   [iglu:com.snowplowanalytics.snowplow/event_fingerprint_config/jsonschema/1-0-0][schema]  
-Compatibility 71+  
+Compatibility Release 71+  
 Data provider None
 
 ### Overview
