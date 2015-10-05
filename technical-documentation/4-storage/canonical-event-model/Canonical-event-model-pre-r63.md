@@ -1,5 +1,11 @@
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Storage**](storage documentation) > Canonical Event Model pre-r63
 
+
+This relates to the Canonical Event Model prior to Snowplow Release 63 Red-Cheeked Cordon-Bleu. For other versions:
+
+* [Canonical Event Model](Canonical-event-model) (Release 71)
+* [Canonical Event Model pre-Release 71](Canonical-event-model-pre-r71)
+
 <a name="top" />
 # Canonical data structure  
 
