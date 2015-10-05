@@ -3,9 +3,10 @@
 <a name="top" />
 # Canonical event model
 
-This relates to the Canonical Event Model from Snowplow Release 63 Red-Cheeked Cordon-Bleu onwards. For previous versions:
+This relates to the Canonical Event Model from Snowplow Release 63 Red-Cheeked Cordon-Bleu to 70 Bornean Green Magpie. For previous versions:
 
 * [Canonical Event Model pre-Release 63](Canonical-event-model-pre-r63)
+* [Canonical Event Model post-Release 71](Canonical-event-model)
 
 Table of contents:
 

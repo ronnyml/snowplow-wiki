@@ -3,9 +3,10 @@
 <a name="top" />
 # Canonical event model
 
-This relates to the Canonical Event Model from Snowplow Release 63 Red-Cheeked Cordon-Bleu onwards. For previous versions:
+This relates to the Canonical Event Model from Snowplow Release 71 Stork-Billed Kingfisher onwards. For previous versions:
 
 * [Canonical Event Model pre-Release 63](Canonical-event-model-pre-r63)
+* [Canonical Event Model pre-Release 71](Canonical-event-model-v70)
 
 Table of contents:
 
