@@ -6,6 +6,11 @@
 
 - 1. [Overview](#overview)  
 - 2. [Setup](#setup)
+  - 2.1 [Hosting](#hosting)
+  - 2.2 [SBT](#sbt)
+  - 2.3 [Gradle](#gradle)
+  - 2.4 [Maven](#maven)
+
 
 <a name="overview" />
 ## 1. Overview
@@ -17,6 +22,14 @@ Setting up the tracker should be relatively straightforward if you are familiar 
 <a name="setup" />
 ## 2. Setup
 
+<a name="hosting" />
+### 2.1 Hosting
+
+The Tracker is published to Snowplow's [hosted Maven repository] [maven-snplow], which should make it easy to add it as a dependency into your own Scala app.
+
+<a name="sbt" />
+### 2.2 SBT
+
 Add the Scala Tracker to your build.sbt like this:
 
 ```scala
@@ -24,7 +37,69 @@ Add the Scala Tracker to your build.sbt like this:
 val snowplowRepo = "Snowplow Releases" at "http://maven.snplow.com/releases/"
 
 // Libraries
-libraryDependencies += "com.snowplowanalytics.snowplow" %% "snowplow-scala-tracker" % "0.1.0"
+libraryDependencies += "com.snowplowanalytics.snowplow" %% "snowplow-scala-tracker" % "0.2.0"
+```
+
+<a name="gradle" />
+### 2.3 Gradle
+
+If you are using Gradle in your own Scala application, then add our Maven repository in your `build.gradle` file:
+
+```groovy
+repositories {
+    ...
+    maven {
+        url "http://maven.snplow.com/releases"
+    }
+}
+```
+
+Then add into the same file:
+
+```groovy
+dependencies {
+    ...
+    // Snowplow Scala Tracker
+    compile 'com.snowplowanalytics:snowplow-scala-tracker:0.2.0'
+}
+```
+
+<a name="maven" />
+### 2.4 Maven
+
+If you are using Maven for building your Scala application, then add the following code into your `HOME/.m2/settings.xml` to be able to use this repository:
+
+```xml
+<settings>
+  <profiles>
+    <profile>
+      <!-- ... -->
+      <repositories>
+        <repository>
+          <id>com.snowplowanalytics</id>
+          <name>SnowPlow Analytics</name>
+          <url>http://maven.snplow.com/releases</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
+    </profile>
+  </profiles>
+</settings>
+```
+
+Then add into your project's `pom.xml`:
+
+```xml
+<dependency>
+    <groupId>com.snowplowanalytics</groupId>
+    <artifactId>snowplow-scala-tracker</artifactId>
+    <version>0.2.0</version>
+</dependency>
 ```
 
 Done? Now read the [Scala Tracker API](Scala-Tracker) to start tracking events.
@@ -32,3 +107,5 @@ Done? Now read the [Scala Tracker API](Scala-Tracker) to start tracking events.
 [Back to top](#top)
 
 [sbt]: http://www.scala-sbt.org/
+[maven-snplow]: http://maven.snplow.com 
+
