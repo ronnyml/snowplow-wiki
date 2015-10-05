@@ -5,8 +5,8 @@
 
 This relates to the Canonical Event Model from Snowplow Release 71 Stork-Billed Kingfisher onwards. For previous versions:
 
-* [Canonical Event Model pre-Release 63](Canonical-event-model-pre-r63)
 * [Canonical Event Model pre-Release 71](Canonical-event-model-v70)
+* [Canonical Event Model pre-Release 63](Canonical-event-model-pre-r63)
 
 Table of contents:
 
