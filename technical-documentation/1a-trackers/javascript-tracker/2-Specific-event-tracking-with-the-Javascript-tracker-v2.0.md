@@ -21,7 +21,7 @@ Snowplow has been built to enable users to track a wide range of events that occ
     - 3.3.3 [`trackTrans`](#trackTrans)  
     - 3.3.4 [Pulling it all together: an example](#ecomm-example)
   - 3.4 [Social tracking](#social) 
-    - 3.4.1 [`trackSocial`](#trackSocial) 
+    - 3.4.1 [`trackSocialInteraction`](#trackSocial) 
   - 3.5 [Campaign tracking](#campaign)  
     - 3.5.1 [Identifying paid sources](#identifying-paid-sources)  
     - 3.5.2 [Anatomy of the query parameter](#anatomy-of-the-query-parameter)
@@ -270,11 +270,11 @@ Social tracking has not been implemented yet. However, the intention is to use a
 Social tracking will be used to track the way users interact with Facebook, Twitter and Google + widgets, e.g. to capture "like this" or "tweet this" events.
 
 <a name="trackSocial" />
-#### 3.4.1 `trackSocial`
+#### 3.4.1 `trackSocialInteraction`
 
 *This method has not yet been implemented.*
 
-The `trackSocial` method takes four parameters:
+The `trackSocialInteraction` method takes four parameters:
 
 | **Parameter** | **Description** | **Required?** | **Example value**     | 
 |:--------------|:----------------|:--------------|:----------------------|
@@ -301,7 +301,7 @@ Or if the optional parameters were left off:
 snowplow_name_here('trackSocial', 'facebook', 'like');
 ```
 
-`trackSocial` can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
+`trackSocialInteraction` can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
 

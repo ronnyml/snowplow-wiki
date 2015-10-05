@@ -34,7 +34,7 @@
   - 3.3.3 [`trackTrans`](2-Specific-event-tracking-with-the-Javascript-tracker#wiki-trackTrans)  
   - 3.3.4 [Pulling it all together: an example](2-Specific-event-tracking-with-the-Javascript-tracker#wiki-ecomm-example)
 - 3.4 [Social tracking](2-Specific-event-tracking-with-the-Javascript-tracker#wiki-social) 
-  - 3.4.1 [`trackSocial`](2-Specific-event-tracking-with-the-Javascript-tracker#wiki-trackSocial) 
+  - 3.4.1 [`trackSocialInteraction`](2-Specific-event-tracking-with-the-Javascript-tracker#wiki-trackSocial) 
 - 3.5 [Campaign tracking](2-Specific-event-tracking-with-the-Javascript-tracker#wiki-campaign)  
   - 3.5.1 [Identifying paid sources](2-Specific-event-tracking-with-the-Javascript-tracker#wiki-identifying-paid-sources)  
   - 3.5.2 [Anatomy of the query parameter](2-Specific-event-tracking-with-the-Javascript-tracker#wiki-anatomy-of-the-query-parameter)

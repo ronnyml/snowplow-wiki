@@ -317,7 +317,7 @@ Social tracking will be used to track the way users interact with Facebook, Twit
 <a name="trackSocial" />
 #### 3.4.1 `trackSocialInteraction`
 
-The `trackSocial` method takes three parameters:
+The `trackSocialInteraction` method takes three parameters:
 
 | **Parameter** | **Description** | **Required?** | **Example value**     | 
 |:--------------|:----------------|:--------------|:----------------------|
