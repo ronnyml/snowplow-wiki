@@ -328,19 +328,19 @@ The `trackSocial` method takes three parameters:
 The method is executed in as:
 
 ```javascript
-snowplow_name_here('trackSocialInteraction', network, socialAction, target);
+snowplow_name_here('trackSocialInteraction', action, network, target);
 ```
 
 For example:
 
 ```javascript
-snowplow_name_here('trackSocialInteraction', 'facebook', 'like', 'pbz00123');
+snowplow_name_here('trackSocialInteraction', 'like', 'facebook', 'pbz00123');
 ```
 
 Or if the optional parameters were left off:
 
 ```javascript
-snowplow_name_here('trackSocialInteraction', 'facebook', 'like');
+snowplow_name_here('trackSocialInteraction', 'like', 'facebook');
 ```
 
 `trackSocialInteraction` can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
