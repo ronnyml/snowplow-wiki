@@ -22,16 +22,16 @@ This page refers to version 0.1.0 of the Snowplow Unity Tracker.
   - 4.2 [Functions](#e-functions)
     - 4.2.3 [`Add(TrackerPayload)`](#e-add)
 - 5. [Subject](#subject)
-  - 5.1 [`setUserId`](#set-user-id)
-  - 5.2 [`setResolutionWithWidth`](#set-res)
-  - 5.3 [`setViewPortWithWidth`](#set-view-port)
-  - 5.4 [`setColorDepth`](#set-color-depth)
-  - 5.5 [`setTimezone`](#set-timezone)
-  - 5.6 [`setLanguage`](#set-language)
-  - 5.7 [`setIpAddress`](#set-ip-address)
-  - 5.8 [`setUseragent`](#set-useragent)
-  - 5.9 [`setNetworkUserId`](#set-nuid)
-  - 5.10 [`setDomainUserId`](#set-duid)
+  - 5.1 [`SetUserId`](#set-user-id)
+  - 5.2 [`SetResolutionWithWidth`](#set-res)
+  - 5.3 [`SetViewPortWithWidth`](#set-view-port)
+  - 5.4 [`SetColorDepth`](#set-color-depth)
+  - 5.5 [`SetTimezone`](#set-timezone)
+  - 5.6 [`SetLanguage`](#set-language)
+  - 5.7 [`SetIpAddress`](#set-ip-address)
+  - 5.8 [`SetUseragent`](#set-useragent)
+  - 5.9 [`SetNetworkUserId`](#set-nuid)
+  - 5.10 [`SetDomainUserId`](#set-duid)
 - 6. [Session](#session)
   - 6.1 [Constructor](#s-constructor)
   - 6.2 [Functions](#s-functions)
@@ -180,6 +180,258 @@ This is the function used for Tracking all events.  You can pass any of [these](
 
 ```csharp
 tracker.Track(IEvent newEvent);
+```
+
+[Back to top](#top)
+
+<a name="emitter" />
+## 4. Emitter
+
+The Emitter object is responsible for sending and storing all events.
+
+[Back to top](#top)
+
+<a name="e-constructor" />
+### 4.1 Constructor
+
+| **Argument Name**  | **Description**                              | **Required?**  | **Default**   |
+|-------------------:|:---------------------------------------------|:---------------|:--------------|
+| `endpoint`         | The collector uri the emitter should use     | Yes            | Null          |
+| `protocol`         | The request Protocol (HTTP or HTTPS)         | No             | HTTP          |
+| `method`           | The HTTP Method (GET or POST)                | No             | POST          |
+| `sendLimit`        | The amount of events to send at a time       | No             | 500           |
+| `byteLimitGet`     | The byte limit for a GET request             | No             | 52000         |
+| `byteLimitPost`    | The byte limit for a POST request            | No             | 52000         |
+
+A full Emitter construction should look like the following:
+
+```csharp
+IEmitter e1 = new AsyncEmitter ("com.collector.acme", HttpProtocol.HTTPS, HttpMethod.GET, 50, 30000, 30000);
+```
+
+All of these variables can be altered after creation with the accompanying `emitter.SetXXX()` function.  However do be aware that multiple threads will be accessing these variables so to be safe always shut the Tracker down using `StopEventTracking()` before ammending anything.
+
+[Back to top](#top)
+
+<a name="e-functions" />
+### 4.2 Functions
+
+The Emitter also contains several extra functions.
+
+[Back to top](#top)
+
+<a name="e-add" />
+#### 4.2.3 `Add(TrackerPayload)`
+
+This is the public function used by the Tracker to add and send events from the emitter.  If for whatever reason the Tracker needs to be bypassed you can add a TrackerPayload object directly to the Emitter.
+
+[Back to top](#top)
+
+<a name="subject" />
+## 5. Subject
+
+You may have additional information about your application's environment, current user and so on, which you want to send to Snowplow with each event.
+
+The Subject class has a set of `Set...()` methods to attach extra data relating to the user to all tracked events:
+
+* [`SetUserId`](#set-user-id)
+* [`SetScreenResolution`](#set-screen-resolution)
+* [`SetViewport`](#set-viewport)
+* [`SetColorDepth`](#set-color-depth)
+* [`SetTimezone`](#set-timezone)
+* [`SetLanguage`](#set-lang)
+* [`SetIpAddress`](#set-ip-address)
+* [`SetUseragent`](#set-user-agent)
+* [`SetNetworkUserId`](#set-network-user-id)
+* [`SetDomainUserId`](#set-domain-user-id)
+
+Here are some examples:
+
+```csharp
+Subject s1 = new Subject();
+s1.SetUserId("Kevin Gleason"); 
+s1.SetLanguage("en-gb");
+s1.SetScreenResolution(1920, 1080);
+```
+
+After that, you can add your Subject to your Tracker like so:
+
+```csharp
+Tracker t1 = new Tracker(..., s1)
+
+// OR
+
+t1.SetSubject(s1);
+```
+
+[Back to top](#top)
+
+<a name="set-user-id" />
+### 5.1 Set user ID with `SetUserId`
+
+You can set the user ID to any string:
+
+```csharp
+s1.SetUserId( "{{USER ID}}" )
+```
+
+Example:
+
+```csharp
+s1.SetUserId("alexd")
+```
+
+[Back to top](#top)
+
+<a name="set-screen-resolution" />
+### 5.2 Set screen resolution with `SetScreenResolution`
+
+If your C# code has access to the device's screen resolution, then you can pass this in to Snowplow too:
+
+```csharp
+t1.SetScreenResolution( {{WIDTH}}, {{HEIGHT}} )
+```
+
+Both numbers should be positive integers; note the order is width followed by height. Example:
+
+```csharp
+t1.SetScreenResolution(1366, 768)
+```
+
+[Back to top](#top)
+
+<a name="set-viewport-dimensions" />
+### 5.3 Set viewport dimensions with `SetViewport`
+
+If your C# code has access to the viewport dimensions, then you can pass this in to Snowplow too:
+
+```csharp
+s.SetViewport( {{WIDTH}}, {{HEIGHT}} )
+```
+
+Both numbers should be positive integers; note the order is width followed by height. Example:
+
+```csharp
+s.SetViewport(300, 200)
+```
+
+[Back to top](#top)
+
+<a name="set-color-depth" />
+### 5.4 Set color depth with `SetColorDepth`
+
+If your C# code has access to the bit depth of the device's color palette for displaying images, then you can pass this in to Snowplow too:
+
+```csharp
+s.SetColorDepth( {{BITS PER PIXEL}} )
+```
+
+The number should be a positive integer, in bits per pixel. Example:
+
+```csharp
+s.SetColorDepth(32)
+```
+
+[Back to top](#top)
+
+<a name="set-timezone" />
+### 5.5 Set timezone with `SetTimezone`
+
+This method lets you pass a user's timezone in to Snowplow:
+
+```csharp
+s.SetTimezone( {{TIMEZONE}} )
+```
+
+The timezone should be a string:
+
+```csharp
+s.SetTimezone("Europe/London")
+```
+
+[Back to top](#top)
+
+<a name="set-lang" />
+### 5.6 Set the language with `SetLanguage`
+
+This method lets you pass a user's language in to Snowplow:
+
+```csharp
+s.SetLanguage( {{LANGUAGE}} )
+```
+
+The language should be a string:
+
+```csharp
+s.SetLanguage('en')
+```
+
+[Back to top](#top)
+
+<a name="set-ip-address" />
+### 5.7 `SetIpAddress`
+
+This method lets you pass a user's IP Address in to Snowplow:
+
+```csharp
+SetIpAddress( {{IP ADDRESS}} )
+```
+
+The IP address should be a string:
+
+```csharp
+subj.SetIpAddress("127.0.0.1");
+```
+
+[Back to top](#top)
+
+<a name="set-user-agent" />
+### 5.8 `SetUseragent`
+
+This method lets you pass a useragent in to Snowplow:
+
+```csharp
+SetUseragent( {{USERAGENT}} )
+```
+
+The useragent should be a string:
+
+```csharp
+subj.SetUseragent("Agent Smith");
+```
+
+[Back to top](#top)
+
+<a name="set-network-user-id" />
+### 5.9 `SetNetworkUserId`
+
+This method lets you pass a Network User ID in to Snowplow:
+
+```csharp
+SetNetworkUserId( {{NUID}} )
+```
+
+The network user id should be a string:
+
+```csharp
+subj.SetNetworkUserId("network-id");
+```
+
+[Back to top](#top)
+
+<a name="set-domain-user-id" />
+### 5.10 `SetDomainUserId`
+
+This method lets you pass a Domain User ID in to Snowplow:
+
+```csharp
+SetDomainUserId( {{DUID}} )
+```
+
+The domain user id should be a string:
+
+```csharp
+subj.SetDomainUserId("domain-id");
 ```
 
 [Back to top](#top)
