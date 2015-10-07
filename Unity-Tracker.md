@@ -75,3 +75,60 @@ This page refers to version 0.1.0 of the Snowplow Unity Tracker.
 - 8. [Utilities](#utilities)
   - 8.1 [Log](#log)
   - 8.2 [ConcurrentQueue](concurrent)
+
+<a name="overview" />
+## 1. Overview
+
+The [Snowplow Unity Tracker](https://github.com/snowplow/snowplow-unity-tracker) allows you to track Snowplow events from your Unity games and apps.
+
+[Back to top](#top)
+
+<a name="demo-app" />
+### 1.1 Snowplow Pong Demo
+
+To see the Tracker in action you can download our demonstration game Snowplow Pong from [here][snowplow-pong-dl].  You will need to set a valid collector endpoint on the Settings Page to see the events being generated.
+
+[Back to top](#top)
+
+<a name="init" />
+## 2. Initialization
+
+Assuming you have completed the [[Unity Tracker Setup]] for your project, you are now ready to initialize the Unity Tracker.
+
+[Back to top](#top)
+
+<a name="importing" />
+## 2.1 Importing the library
+
+Add the following `using` lines to the top of your `.cs` scripts to access the Tracker:
+
+```c-sharp
+using SnowplowTracker;
+using SnowplowTracker.Emitters;
+using SnowplowTracker.Enums;
+using SnowplowTracker.Events;
+```
+
+You should now be able to setup the Tracker!
+
+[Back to top](#top)
+
+<a name="create-tracker" />
+## 2.2 Creating a tracker
+
+To instantiate a Tracker in your code (can be global or local to the process being tracked) simply instantiate the Tracker interface with the following:
+
+```c-sharp
+// Create Emitter and Tracker
+IEmitter e1 = new AsyncEmitter ("com.collector.acme")
+Tracker t1 = new Tracker(e1, "Namespace", "AppId");
+
+// Start the Tracker
+t1.StartEventTracking();
+```
+
+This is the simplest possible Tracker creation available.  For more information please review the [Tracker](#tracker) and [Emitter](#emitter) specific sections.
+
+[Back to top](#top)
+
+[snowplow-pong-dl]: http://
