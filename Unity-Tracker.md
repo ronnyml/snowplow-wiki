@@ -13,25 +13,12 @@ This page refers to version 0.1.0 of the Snowplow Unity Tracker.
   - 2.2 [Creating a tracker](#create-tracker)
 - 3. [Tracker](#tracker)
   - 3.1 [Constructor](#t-constructor)
-    - 3.1.1 [`emitter`](#t-emitter)  
-    - 3.1.2 [`trackerNamespace`](#t-namespace)
-    - 3.1.3 [`appId`](#t-app-id)
-    - 3.1.4 [`subject`](#t-subject)
-    - 3.1.5 [`session`](#t-session)
-    - 3.1.6 [`platform`](#t-platform)
-    - 3.1.7 [`base64Encoded`](#t-base64)
   - 3.2 [Functions](#t-functions)
     - 3.2.1 [`StartEventTracking()`](#t-start)
     - 3.2.2 [`StopEventTracking()`](#t-stop)
     - 3.2.3 [`Track(IEvent)`](#t-track)
 - 4. [Emitter](#emitter)
   - 4.1 [Constructor](#e-constructor)
-    - 4.1.1 [`endpoint`](#e-endpoint)  
-    - 4.1.2 [`protocol`](#e-protocol)
-    - 4.1.3 [`method`](#e-method)
-    - 4.1.4 [`sendLimit`](#e-sendLimit)
-    - 4.1.5 [`byteLimitGet`](#e-byteLimitGet)
-    - 4.1.6 [`byteLimitPost`](#e-byteLimitPost)
   - 4.2 [Functions](#e-functions)
     - 4.2.1 [`Start()`](#e-start)
     - 4.2.2 [`Stop()`](#e-stop)
@@ -49,14 +36,11 @@ This page refers to version 0.1.0 of the Snowplow Unity Tracker.
   - 5.10 [`setDomainUserId`](#set-duid)
 - 6. [Session](#session)
   - 6.1 [Constructor](#s-constructor)
-    - 3.1.1 [`foregroundTimeout`](#s-foregroundTimeout)  
-    - 3.1.2 [`backgroundTimeout`](#s-backgroundTimeout)
-    - 3.1.3 [`checkInterval`](#s-checkInterval)
-  - 3.2 [Functions](#s-functions)
-    - 3.2.1 [`StartChecker()`](#s-start)
-    - 3.2.2 [`StopChecker()`](#s-stop)
-    - 3.2.3 [`GetSessionContext(string)`](#s-get-context)
-    - 3.2.4 [`SetBackground(bool)`](#s-set-background)
+  - 6.2 [Functions](#s-functions)
+    - 6.2.1 [`StartChecker()`](#s-start)
+    - 6.2.2 [`StopChecker()`](#s-stop)
+    - 6.2.3 [`GetSessionContext(string)`](#s-get-context)
+    - 6.2.4 [`SetBackground(bool)`](#s-set-background)
 - 7. [Event Tracking](#event-tracking)
   - 7.1 [Events Types](#event-types)
     - 7.1.1 [`PageView`](#et-page-view)
@@ -74,7 +58,7 @@ This page refers to version 0.1.0 of the Snowplow Unity Tracker.
     - 7.2.5 [`GenericContext`](#ct-generic)
 - 8. [Utilities](#utilities)
   - 8.1 [Log](#log)
-  - 8.2 [ConcurrentQueue](concurrent)
+  - 8.2 [ConcurrentQueue](#concurrent)
 
 <a name="overview" />
 ## 1. Overview
@@ -98,11 +82,11 @@ Assuming you have completed the [[Unity Tracker Setup]] for your project, you ar
 [Back to top](#top)
 
 <a name="importing" />
-## 2.1 Importing the library
+### 2.1 Importing the library
 
 Add the following `using` lines to the top of your `.cs` scripts to access the Tracker:
 
-```c-sharp
+```csharp
 using SnowplowTracker;
 using SnowplowTracker.Emitters;
 using SnowplowTracker.Enums;
@@ -114,11 +98,11 @@ You should now be able to setup the Tracker!
 [Back to top](#top)
 
 <a name="create-tracker" />
-## 2.2 Creating a tracker
+### 2.2 Creating a tracker
 
 To instantiate a Tracker in your code (can be global or local to the process being tracked) simply instantiate the Tracker interface with the following:
 
-```c-sharp
+```csharp
 // Create Emitter and Tracker
 IEmitter e1 = new AsyncEmitter ("com.collector.acme")
 Tracker t1 = new Tracker(e1, "Namespace", "AppId");
@@ -131,4 +115,38 @@ This is the simplest possible Tracker creation available.  For more information 
 
 [Back to top](#top)
 
+<a name="tracker" />
+## 3. Tracker
+
+The Tracker object is responsible for co-ordinating the saving and sending of events as well as managing the optional Session object.
+
+[Back to top](#top)
+
+<a name="t-constructor" />
+### 3.1 Constructor
+
+| **Argument Name**  | **Description**                              | **Required?**  | **Default**   |
+|-------------------:|:---------------------------------------------|:---------------|:--------------|
+| `emitter`          | The Emitter object you create                | Yes            | Null          |
+| `trackerNamespace` | The name of the tracker instance             | Yes            | Null          |
+| `appId`            | The application ID                           | Yes            | Null          |
+| `subject`          | The Subject that defines a user              | No             | Null          |
+| `session`          | The Session object you create                | No             | Null          |
+| `platform`         | The device the Tracker is running on         | No             | Mobile        |
+| `base64Encoded`    | If we [base 64 encode][base64] json values   | No             | True          |
+
+A full Tracker construction should look like the following:
+
+```csharp
+IEmitter e1 = new AsyncEmitter ("com.collector.acme")
+Subject subject = new Subject();
+Session session = new Session();
+Tracker t1 = new Tracker(e1, "Namespace", "AppId", subject, session, DevicePlatforms.Desktop, true);
+```
+
+All of these variables can be altered after creation with the accompanying `tracker.SetXXX()` function.
+
+[Back to top](#top)
+
 [snowplow-pong-dl]: http://
+[base64]: https://en.wikipedia.org/wiki/Base64
