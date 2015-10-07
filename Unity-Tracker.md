@@ -23,15 +23,15 @@ This page refers to version 0.1.0 of the Snowplow Unity Tracker.
     - 4.2.3 [`Add(TrackerPayload)`](#e-add)
 - 5. [Subject](#subject)
   - 5.1 [`SetUserId`](#set-user-id)
-  - 5.2 [`SetResolutionWithWidth`](#set-res)
-  - 5.3 [`SetViewPortWithWidth`](#set-view-port)
+  - 5.2 [`SetResolution`](#set-screen-resolution)
+  - 5.3 [`SetViewPort`](#set-viewport)
   - 5.4 [`SetColorDepth`](#set-color-depth)
   - 5.5 [`SetTimezone`](#set-timezone)
   - 5.6 [`SetLanguage`](#set-language)
   - 5.7 [`SetIpAddress`](#set-ip-address)
   - 5.8 [`SetUseragent`](#set-useragent)
-  - 5.9 [`SetNetworkUserId`](#set-nuid)
-  - 5.10 [`SetDomainUserId`](#set-duid)
+  - 5.9 [`SetNetworkUserId`](#set-network-user-id)
+  - 5.10 [`SetDomainUserId`](#set-domain-user-id)
 - 6. [Session](#session)
   - 6.1 [Constructor](#s-constructor)
   - 6.2 [Functions](#s-functions)
@@ -241,7 +241,7 @@ The Subject class has a set of `Set...()` methods to attach extra data relating 
 * [`SetTimezone`](#set-timezone)
 * [`SetLanguage`](#set-lang)
 * [`SetIpAddress`](#set-ip-address)
-* [`SetUseragent`](#set-user-agent)
+* [`SetUseragent`](#set-useragent)
 * [`SetNetworkUserId`](#set-network-user-id)
 * [`SetDomainUserId`](#set-domain-user-id)
 
@@ -385,7 +385,7 @@ subj.SetIpAddress("127.0.0.1");
 
 [Back to top](#top)
 
-<a name="set-user-agent" />
+<a name="set-useragent" />
 ### 5.8 `SetUseragent`
 
 This method lets you pass a useragent in to Snowplow:
