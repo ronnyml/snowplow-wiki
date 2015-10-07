@@ -20,7 +20,7 @@ This page refers to version 0.1.0 of the Snowplow Unity Tracker.
 - 4. [Emitter](#emitter)
   - 4.1 [Constructor](#e-constructor)
   - 4.2 [Functions](#e-functions)
-    - 4.2.3 [`Add(TrackerPayload)`](#e-add)
+    - 4.2.1 [`Add(TrackerPayload)`](#e-add)
 - 5. [Subject](#subject)
   - 5.1 [`SetUserId`](#set-user-id)
   - 5.2 [`SetResolution`](#set-screen-resolution)
@@ -35,8 +35,8 @@ This page refers to version 0.1.0 of the Snowplow Unity Tracker.
 - 6. [Session](#session)
   - 6.1 [Constructor](#s-constructor)
   - 6.2 [Functions](#s-functions)
-    - 6.2.3 [`GetSessionContext(string)`](#s-get-context)
-    - 6.2.4 [`SetBackground(bool)`](#s-set-background)
+    - 6.2.1 [`GetSessionContext(string)`](#s-get-context)
+    - 6.2.2 [`SetBackground(bool)`](#s-set-background)
 - 7. [Event Tracking](#event-tracking)
   - 7.1 [Events Types](#event-types)
     - 7.1.1 [`PageView`](#et-page-view)
@@ -221,7 +221,7 @@ The Emitter also contains several extra functions.
 [Back to top](#top)
 
 <a name="e-add" />
-#### 4.2.3 `Add(TrackerPayload)`
+#### 4.2.1 `Add(TrackerPayload)`
 
 This is the public function used by the Tracker to add and send events from the emitter.  If for whatever reason the Tracker needs to be bypassed you can add a TrackerPayload object directly to the Emitter.
 
@@ -433,6 +433,85 @@ The domain user id should be a string:
 ```csharp
 subj.SetDomainUserId("domain-id");
 ```
+
+[Back to top](#top)
+
+<a name="session" />
+## 6. Session
+
+The Session object is responsible for maintaining persistent data around user sessions over the life-time of an application.
+
+[Back to top](#top)
+
+<a name="s-constructor" />
+### 6.1 Constructor
+
+| **Argument Name**   | **Description**                              | **Required?**  | **Default**   |
+|--------------------:|:---------------------------------------------|:---------------|:--------------|
+| `foregroundTimeout` | The time until a session expires in focus    | No             | 600 (s)       |
+| `backgroundTimeout` | The time until a session expires in back     | No             | 300 (s)       |
+| `checkInterval`     | How often to validate the session timeout    | No             | 15 (s)        |
+
+A full Session construction should look like the following:
+
+```csharp
+Session session = new Session (1200, 600, 30);
+```
+
+The timeout's refer to the length of time the session remains active after the last event is sent.  As long as events are sent within this limit the session will not timeout.
+
+[Back to top](#top)
+
+<a name="s-functions" />
+### 6.2 Functions
+
+The Session object also contains several extra functions.
+
+[Back to top](#top)
+
+<a name="s-get-context" />
+#### 6.2.1 `GetSessionContext(string)`
+
+Everytime this function is accessed the timeout will be reset.  Is called automatically by the Tracker on each `tracker.track()` function call.
+
+[Back to top](#top)
+
+<a name="s-set-background" />
+#### 6.2.2 `SetBackground(bool)`
+
+Will set whether or not the application is in the background.  Due to the difficulty involved with the many platforms Unity can be pushed to it is up to the developer to set this metric if they wish to have a different timeout for foreground and background. 
+
+[Back to top](#top)
+
+<a name="utilities" />
+## 8. Utilities
+
+The Tracker also provides several extra utilities that can be used.
+
+[Back to top](#top)
+
+<a name="log" />
+### 8.1 Log
+
+There is a custom logging wrapper which allows you to control the level of Tracker logging that occurs. You can set the level via:
+
+```csharp
+Log.SetLogLevel({0,1,2 or 3});
+```
+
+* `0` : Turns of all logging
+* `1` : Error only
+* `2` : Error and Debug
+* `3` : Error, Debug and Verbose
+
+[Back to top](#top)
+
+<a name="concurrent" />
+### 8.2 ConcurrentQueue
+
+Due to the .NET 2.0 limitation we have had to implement our own ThreadSafe queue which can be found in the following package:
+
+* `SnowplowTracker.Collections`
 
 [Back to top](#top)
 
