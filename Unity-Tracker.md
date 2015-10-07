@@ -20,8 +20,6 @@ This page refers to version 0.1.0 of the Snowplow Unity Tracker.
 - 4. [Emitter](#emitter)
   - 4.1 [Constructor](#e-constructor)
   - 4.2 [Functions](#e-functions)
-    - 4.2.1 [`Start()`](#e-start)
-    - 4.2.2 [`Stop()`](#e-stop)
     - 4.2.3 [`Add(TrackerPayload)`](#e-add)
 - 5. [Subject](#subject)
   - 5.1 [`setUserId`](#set-user-id)
@@ -37,8 +35,6 @@ This page refers to version 0.1.0 of the Snowplow Unity Tracker.
 - 6. [Session](#session)
   - 6.1 [Constructor](#s-constructor)
   - 6.2 [Functions](#s-functions)
-    - 6.2.1 [`StartChecker()`](#s-start)
-    - 6.2.2 [`StopChecker()`](#s-stop)
     - 6.2.3 [`GetSessionContext(string)`](#s-get-context)
     - 6.2.4 [`SetBackground(bool)`](#s-set-background)
 - 7. [Event Tracking](#event-tracking)
@@ -145,6 +141,46 @@ Tracker t1 = new Tracker(e1, "Namespace", "AppId", subject, session, DevicePlatf
 ```
 
 All of these variables can be altered after creation with the accompanying `tracker.SetXXX()` function.
+
+[Back to top](#top)
+
+<a name="t-functions" />
+### 3.2 Functions
+
+The Tracker also contains several critical functions that must be used to start Tracking.
+
+[Back to top](#top)
+
+<a name="t-start" />
+#### 3.2.1 `StartEventTracking()`
+
+This function must be called before any events will start being stored or sent.  This is due to the fact that we do not want to start any background processing from the constructors so it is left up to the developer to choose when to start everything up.
+
+This function:
+
+* Starts the background emitter thread
+* Starts the background event processor thread
+* Starts the background session check timer (Optional)
+
+Once this is run everything should be in place for asynchronous event tracking.
+
+[Back to top](#top)
+
+<a name="t-stop" />
+#### 3.2.2 `StopEventTracking()`
+
+If you need to temporarily halt the Tracker from tracking events you can run this function.  This will bring all event processing, sending and collection to a halt and nothing will be started again until `StartEventTracking()` is fired again.
+
+[Back to top](#top)
+
+<a name="t-track" />
+#### 3.2.3 `Track(IEvent)`
+
+This is the function used for Tracking all events.  You can pass any of [these](#event-types) event types to this function.
+
+```csharp
+tracker.Track(IEvent newEvent);
+```
 
 [Back to top](#top)
 
