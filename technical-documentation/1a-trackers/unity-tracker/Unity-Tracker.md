@@ -82,7 +82,6 @@ Add the following `using` lines to the top of your `.cs` scripts to access the T
 ```csharp
 using SnowplowTracker;
 using SnowplowTracker.Emitters;
-using SnowplowTracker.Enums;
 using SnowplowTracker.Events;
 ```
 
@@ -186,6 +185,11 @@ tracker.Track(IEvent newEvent);
 
 The Emitter object is responsible for sending and storing all events.
 
+We have two emitters available currently:
+
+* `SyncEmitter` : Slow blocking synchronous operation, useful for testing but should not be used in production.
+* `AsyncEmitter` : Fully asynchronous operation which uses the ThreadPool to perform all of its opertations.
+
 [Back to top](#top)
 
 <a name="e-constructor" />
@@ -207,6 +211,8 @@ IEmitter e1 = new AsyncEmitter ("com.collector.acme", HttpProtocol.HTTPS, HttpMe
 ```
 
 All of these variables can be altered after creation with the accompanying `emitter.SetXXX()` function.  However do be aware that multiple threads will be accessing these variables so to be safe always shut the Tracker down using `StopEventTracking()` before ammending anything.
+
+**NOTE:** Be aware that when sending events via `GET` all events will be sent individually.  This means that if your `sendLimit` is 500 there is the potential for 500 Threads to be spawned at the same time which can cause serious performance issues.  To alleviate this concern simply drop your `sendLimit` to a more manageable range.
 
 [Back to top](#top)
 
