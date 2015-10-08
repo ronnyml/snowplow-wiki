@@ -640,7 +640,7 @@ The arguments are as follows:
 
 | **Argument**    | **Description**                   |  **Required?** |  **Type**                  |
 |----------------:|:----------------------------------|:---------------|:---------------------------|
-| `eventData`     | The properties of the event       | Yes            | `SelfDescribingJson`       |
+| `eventData`     | The properties of the event       | Yes            | [`SelfDescribingJson`](#self-describing-json)       |
 | `customContexts`| Optional custom context           | No             | `List<IContext>`           |
 | `timestamp`     | Optional timestamp                | No             | `long`                     |
 | `eventId`       | Optional custom event id          | No             | `string`                   |
