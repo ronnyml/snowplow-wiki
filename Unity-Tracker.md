@@ -497,7 +497,7 @@ Events supported by the Unity Tracker at a glance:
 | [`Track(Structured)`](#et-structured)                         | Track a Snowplow custom structured event               |
 | [`Track(Timing)`](#et-timing)                                 | Track a Timing with Category event                     |
 | [`Track(Unstructured)`](#et-unstructured)                     | Track a Snowplow custom unstructured event             |
-| [`Track(EcommerceTransaction)`](#ecommerce-transaction)       | Track an ecommerce transaction and its items           |
+| [`Track(EcommerceTransaction)`](#et-ecomm)                    | Track an ecommerce transaction and its items           |
 
 [Back to top](#top)
 
@@ -506,7 +506,7 @@ Events supported by the Unity Tracker at a glance:
 
 [Back to top](#top)
 
-<a name="page-view" />
+<a name="et-page-view" />
 #### 7.1.1 Track page views with `Track(PageView)`
 
 You can use `Track(PageView)` to track a user viewing a web page within your app.
@@ -543,7 +543,7 @@ t1.Track(new PageView()
 
 [Back to top](#top)
 
-<a name="screen-view" />
+<a name="et-screen-view" />
 #### 7.1.2 Track screen views with `Track(ScreenView)`
 
 Use `Track(ScreenView)` to track a user viewing a screen (or equivalent) within your app. You **must** use either `name` or `id`. Arguments are:
@@ -575,7 +575,7 @@ t1.Track(new ScreenView()
 
 [Back to top](#top)
 
-<a name="struct-event" />
+<a name="et-structured" />
 #### 7.1.3 Track structured events with `Track(Structured)`
 
 Use `Track(Structured)` to track a custom event happening in your app which fits the Google Analytics-style structure of having up to five fields (with only the first two required):
@@ -613,7 +613,7 @@ t1.Track(new Structured()
 
 [Back to top](#top)
 
-<a name="timing" />
+<a name="et-timing" />
 #### 7.1.4 Track timing events with `Track(Timing)`
 
 Use `Track(Timing)` to track an event related to a custom timing.
@@ -650,7 +650,7 @@ t1.Track(new Timing()
 
 [Back to top](#top)
 
-<a name="unstruct-event" />
+<a name="et-unstructured" />
 #### 7.1.5 Track unstructured events with `Track(Unstructured)`
 
 Custom unstructured events are a flexible tool that enable Snowplow users to define their own event types and send them into Snowplow.
@@ -713,7 +713,7 @@ For more on JSON schema, see the [blog post] [self-describing-jsons].
 
 [Back to top](#top)
 
-<a name="ecommerce-transaction" />
+<a name="et-ecomm" />
 #### 7.1.6 Track ecommerce transactions with `Track(EcommerceTransaction)`
 
 Use `Track(EcommerceTransaction)` to track an ecommerce transaction.
@@ -742,7 +742,7 @@ Each transaction item event will have the same timestamp, orderId, and currency 
 
 [Back to top](#top)
 
-<a name="ecommerce-transaction-item" />
+<a name="et-ecomm-item" />
 #### 7.1.6.1 `EcommerceTransactionItem`
 
 To instantiate a `EcommerceTransactionItem` in your code, simply use the following constructor signature:
