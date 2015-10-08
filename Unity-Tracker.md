@@ -48,8 +48,7 @@ This page refers to version 0.1.0 of the Snowplow Unity Tracker.
     - 7.2.1 [`DesktopContext`](#ct-desktop)
     - 7.2.2 [`MobileContext`](#ct-mobile)
     - 7.2.3 [`GeoLocationContext`](#ct-geo-location)
-    - 7.2.4 [`SessionContext`](#ct-session)
-    - 7.2.5 [`GenericContext`](#ct-generic)
+    - 7.2.4 [`GenericContext`](#ct-generic)
 - 8. [Utilities](#utilities)
   - 8.1 [Log](#log)
   - 8.2 [ConcurrentQueue](#concurrent)
@@ -790,6 +789,139 @@ tracker.Track(new EcommerceTransaction()
     .SetCurrency("USD")
     .SetItems(items)
     .Build());
+```
+
+[Back to top](#top)
+
+<a name="context-types" />
+### 7.2 Custom Contexts
+
+Custom contexts are Self Describing Jsons with extra descriptive information that can be optionally attached to any Snowplow event with `SetCustomContexts(...)`.
+We provide several builders for Snowplow custom contexts as well as a generic builder if you wish to define and send your own custom context!
+
+For ease of development you are also able to extend the `IContext` interface or the `AbstractContext` class for your own contexts if you so wish.
+
+All of these contexts will need to be combined into a `List<IContext>` before being attachable to Snowplow Events.
+
+[Back to top](#top)
+
+<a name="ct-desktop" />
+#### 7.2.1 `DesktopContext`
+
+The following arguments can be used in a DesktopContext:
+
+| **Field**            | **Description**                      | **Required?** | **Type**                   |
+|---------------------:|:-------------------------------------|:--------------|:---------------------------|
+| `osType`             | The Operating System Type            | Yes           | `string`                   |
+| `osVersion`          | The Version of the Operating System  | Yes           | `string`                   |
+| `osServicePack`      | Service Pack information             | No            | `string`                   |
+| `osIs64Bit`          | If the OS is 32 or 64 bit            | No            | `bool`                     |
+| `deviceManufacturer` | Who made the device                  | No            | `string`                   |
+| `deviceModel`        | What is the device model             | No            | `string`                   |
+| `processorCount`     | How many cores does the device have  | No            | `int`                      |
+
+An example of a DesktopContext construction:
+
+```csharp
+DesktopContext context = new DesktopContext ()
+    .SetOsType("OS-X")
+    .SetOsVersion("10.10.5")
+    .SetOsServicePack("Yosemite")
+    .SetOsIs64Bit(true)
+    .SetDeviceManufacturer("Apple")
+    .SetDeviceModel("Macbook Pro")
+    .SetDeviceProcessorCount(4)
+    .Build ();
+```
+
+[Back to top](#top)
+
+<a name="ct-mobile" />
+#### 7.2.2 `MobileContext`
+
+The following arguments can be used in a MobileContext:
+
+| **Field**            | **Description**                      | **Required?** | **Type**                   |
+|---------------------:|:-------------------------------------|:--------------|:---------------------------|
+| `osType`             | The Operating System Type            | Yes           | `string`                   |
+| `osVersion`          | The Version of the Operating System  | Yes           | `string`                   |
+| `deviceManufacturer` | Who made the device                  | Yes           | `string`                   |
+| `deviceModel`        | What is the device model             | Yes           | `string`                   |
+| `carrier`            | The name of the carrier              | No            | `string`                   |
+| `networkType`        | The type of network                  | No            | `NetworkType`              |
+| `networkTechnology`  | The networks technlogy               | No            | `string`                   |
+| `openIdfa`           | An OpenIDFA UUID                     | No            | `string`                   |
+| `appleIdfa`          | An Apple IDFA UUID                   | No            | `string`                   |
+| `appleIdfv`          | An Apple IDFV UUID                   | No            | `string`                   |
+| `androidIdfa`        | An Android IDFA UUID                 | No            | `string`                   |
+
+An example of a MobileContext construction:
+
+```csharp
+MobileContext context = new MobileContext ()
+    .SetOsType("iOS")
+    .SetOsVersion("9.0")
+    .SetDeviceManufacturer("Apple")
+    .SetDeviceModel("iPhone 6S+")
+    .SetCarrier("FREE")
+    .SetNetworkType(NetworkType.Mobile)
+    .SetNetworkTechnology("LTE")
+    .Build ();
+```
+
+[Back to top](#top)
+
+<a name="ct-geo-location" />
+#### 7.2.3 `GeoLocationContext`
+
+The following arguments can be used in a GeoLocationContext:
+
+| **Field**                   | **Description**                      | **Required?** | **Type**                   |
+|----------------------------:|:-------------------------------------|:--------------|:---------------------------|
+| `latitude`                  | The user latitude                    | Yes           | `double`                   |
+| `longitude`                 | The user longitude                   | Yes           | `double`                   |
+| `latitudeLongitudeAccuracy` | The user lat-long accuracy           | No            | `double`                   |
+| `altitude`                  | The user altitude                    | No            | `double`                   |
+| `altitudeAccuracy`          | The user alt accuracy                | No            | `double`                   |
+| `bearing`                   | The user bearing                     | No            | `double`                   |
+| `speed`                     | The user speed                       | No            | `double`                   |
+| `timestamp`                 | A timestamp in ms                    | No            | `long`                     |
+
+An example of a GeoLocationContext construction:
+
+```csharp
+GeoLocationContext context = new GeoLocationContext ()
+    .SetLatitude(123.564)
+    .SetLongitude(-12.6)
+    .SetLatitudeLongitudeAccuracy(5.6)
+    .SetAltitude(5.5)
+    .SetAltitudeAccuracy(2.1)
+    .SetBearing(3.2)
+    .SetSpeed(100.2)
+    .SetTimestamp(1234567890000)
+    .Build ();
+```
+
+[Back to top](#top)
+
+<a name="ct-generic" />
+#### 7.2.4 `GenericContext`
+
+The GenericContext is a simple builder with three functions:
+
+* `SetSchema(string)` : Sets the Context Schema Path
+* `Add(string, object)` : Adds a single key-pair value to the data packet of this context
+* `AddDict(string, object)` : Adds a dictionary of key-pair values to the data packet
+
+You must set a schema string or a RuntimeException will be thrown.
+
+An example of a GenericContext construction:
+
+```csharp
+GenericContext context = new GenericContext()
+    .SetSchema("iglu:com.acme/acme_context/jsonschema/1-0-0")
+    .Add("context", "custom")
+    .Build();
 ```
 
 [Back to top](#top)
