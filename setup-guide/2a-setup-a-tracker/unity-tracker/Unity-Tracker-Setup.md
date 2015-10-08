@@ -40,8 +40,6 @@ It is not currently compatible with the WebPlayer as of yet.
 There are several dependencies that are required to use the Unity Tracker currently.  These are available in [this folder][deps-folder].
 
 * `UnityEngine.dll` : This is included as a way of setting up development externally to the Unity playground; you do not need to include this.
-* `UnityHTTP.dll` : This is the pre-built dll from [this library][unity-http-home].  This is a simplified version of [this library][unity-http].
-* `UnityJSON.dll` : This is the pre-built dll from [this library][unity-json-home].
 
 All the other dependencies are required for proper Tracker function.
 
@@ -62,4 +60,4 @@ Done? Now read the [Unity Tracker API](Unity-Tracker) to start tracking events.
 [unity-http-home]: https://github.com/snowplow/snowplow-unity-tracker/tree/master/UnityHTTP
 [unity-http]: https://github.com/andyburke/UnityHTTP/tree/master/src
 [unity-json-home]: https://github.com/snowplow/snowplow-unity-tracker/tree/master/UnityJSON
-[bintray-snplow]: https://bintray.com/snowplow/snowplow-generic/snowplow/view
+[bintray-snplow]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_unity_tracker_0.1.0.zip
