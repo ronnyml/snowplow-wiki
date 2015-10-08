@@ -19,8 +19,6 @@ This page refers to version 0.1.0 of the Snowplow Unity Tracker.
     - 3.2.3 [`Track(IEvent)`](#t-track)
 - 4. [Emitter](#emitter)
   - 4.1 [Constructor](#e-constructor)
-  - 4.2 [Functions](#e-functions)
-    - 4.2.1 [`Add(TrackerPayload)`](#e-add)
 - 5. [Subject](#subject)
   - 5.1 [`SetUserId`](#set-user-id)
   - 5.2 [`SetResolution`](#set-screen-resolution)
@@ -123,11 +121,11 @@ The Tracker object is responsible for co-ordinating the saving and sending of ev
 
 | **Argument Name**  | **Description**                              | **Required?**  | **Default**   |
 |-------------------:|:---------------------------------------------|:---------------|:--------------|
-| `emitter`          | The Emitter object you create                | Yes            | Null          |
+| [`emitter`](#emitter)          | The Emitter object you create                | Yes            | Null          |
 | `trackerNamespace` | The name of the tracker instance             | Yes            | Null          |
 | `appId`            | The application ID                           | Yes            | Null          |
-| `subject`          | The Subject that defines a user              | No             | Null          |
-| `session`          | The Session object you create                | No             | Null          |
+| [`subject`](#subject)          | The Subject that defines a user              | No             | Null          |
+| [`session`](#session)          | The Session object you create                | No             | Null          |
 | `platform`         | The device the Tracker is running on         | No             | Mobile        |
 | `base64Encoded`    | If we [base 64 encode][base64] json values   | No             | True          |
 
@@ -210,20 +208,6 @@ IEmitter e1 = new AsyncEmitter ("com.collector.acme", HttpProtocol.HTTPS, HttpMe
 ```
 
 All of these variables can be altered after creation with the accompanying `emitter.SetXXX()` function.  However do be aware that multiple threads will be accessing these variables so to be safe always shut the Tracker down using `StopEventTracking()` before ammending anything.
-
-[Back to top](#top)
-
-<a name="e-functions" />
-### 4.2 Functions
-
-The Emitter also contains several extra functions.
-
-[Back to top](#top)
-
-<a name="e-add" />
-#### 4.2.1 `Add(TrackerPayload)`
-
-This is the public function used by the Tracker to add and send events from the emitter.  If for whatever reason the Tracker needs to be bypassed you can add a TrackerPayload object directly to the Emitter.
 
 [Back to top](#top)
 
@@ -465,8 +449,6 @@ The timeout's refer to the length of time the session remains active after the l
 <a name="s-functions" />
 ### 6.2 Functions
 
-The Session object also contains several extra functions.
-
 [Back to top](#top)
 
 <a name="s-get-context" />
@@ -479,7 +461,7 @@ Everytime this function is accessed the timeout will be reset.  Is called automa
 <a name="s-set-background" />
 #### 6.2.2 `SetBackground(bool)`
 
-Will set whether or not the application is in the background.  Due to the difficulty involved with the many platforms Unity can be pushed to it is up to the developer to set this metric if they wish to have a different timeout for foreground and background. 
+Will set whether or not the application is in the background.  It is up to the developer to set this metric if they wish to have a different timeout for foreground and background.
 
 [Back to top](#top)
 
