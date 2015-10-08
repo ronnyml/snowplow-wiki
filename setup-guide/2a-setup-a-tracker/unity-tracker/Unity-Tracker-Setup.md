@@ -30,6 +30,8 @@ Ready? Let's get started.
 
 The Snowplow Unity Tracker has been built and tested using Unity5+ on Windows, Linux, OSX and iOS.
 
+It is not currently compatible with the WebPlayer as of yet.
+
 [Back to top](#top)
 
 <a name="dependencies" />
