@@ -483,22 +483,6 @@ Will set whether or not the application is in the background.  Due to the diffic
 
 [Back to top](#top)
 
-- 7. [Event Tracking](#event-tracking)
-  - 7.1 [Events Types](#event-types)
-    - 7.1.1 [`PageView`](#et-page-view)
-    - 7.1.2 [`ScreenView`](#et-screen-view)
-    - 7.1.3 [`Structured`](#et-structured)
-    - 7.1.4 [`Timing`](#et-timing)
-    - 7.1.5 [`Unstructured`](#et-unstructured)
-    - 7.1.6 [`EcommerceTransaction`](#et-ecomm)
-      - 7.1.6.1 [`EcommerceTransactionItem`](#et-ecomm-item)
-  - 7.2 [Custom Contexts](#context-types)
-    - 7.2.1 [`DesktopContext`](#ct-desktop)
-    - 7.2.2 [`MobileContext`](#ct-mobile)
-    - 7.2.3 [`GeoLocationContext`](#ct-geo-location)
-    - 7.2.4 [`SessionContext`](#ct-session)
-    - 7.2.5 [`GenericContext`](#ct-generic)
-
 <a name="event-tracking" />
 ## 7. Event Tracking
 
