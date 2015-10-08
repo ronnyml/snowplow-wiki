@@ -483,6 +483,351 @@ Will set whether or not the application is in the background.  Due to the diffic
 
 [Back to top](#top)
 
+- 7. [Event Tracking](#event-tracking)
+  - 7.1 [Events Types](#event-types)
+    - 7.1.1 [`PageView`](#et-page-view)
+    - 7.1.2 [`ScreenView`](#et-screen-view)
+    - 7.1.3 [`Structured`](#et-structured)
+    - 7.1.4 [`Timing`](#et-timing)
+    - 7.1.5 [`Unstructured`](#et-unstructured)
+    - 7.1.6 [`EcommerceTransaction`](#et-ecomm)
+      - 7.1.6.1 [`EcommerceTransactionItem`](#et-ecomm-item)
+  - 7.2 [Custom Contexts](#context-types)
+    - 7.2.1 [`DesktopContext`](#ct-desktop)
+    - 7.2.2 [`MobileContext`](#ct-mobile)
+    - 7.2.3 [`GeoLocationContext`](#ct-geo-location)
+    - 7.2.4 [`SessionContext`](#ct-session)
+    - 7.2.5 [`GenericContext`](#ct-generic)
+
+<a name="event-tracking" />
+## 7. Event Tracking
+
+Snowplow has been built to enable you to track a wide range of events that occur when users interact with your websites and apps. We are constantly growing the range of functions available in order to capture that data more richly.
+
+Events supported by the Unity Tracker at a glance:
+
+| **Events**                                                    | **Description*                                         |
+|--------------------------------------------------------------:|:-------------------------------------------------------|
+| [`Track(PageView)`](#et-page-view)                            | Track and record views of web pages                    |
+| [`Track(ScreenView)`](#et-screen-view)                        | Track the user viewing a screen within the application |
+| [`Track(Structured)`](#et-structured)                         | Track a Snowplow custom structured event               |
+| [`Track(Timing)`](#et-timing)                                 | Track a Timing with Category event                     |
+| [`Track(Unstructured)`](#et-unstructured)                     | Track a Snowplow custom unstructured event             |
+| [`Track(EcommerceTransaction)`](#ecommerce-transaction)       | Track an ecommerce transaction and its items           |
+
+[Back to top](#top)
+
+<a name="event-types" />
+## 7. Event Types
+
+[Back to top](#top)
+
+<a name="page-view" />
+#### 7.1.1 Track page views with `Track(PageView)`
+
+You can use `Track(PageView)` to track a user viewing a web page within your app.
+
+Arguments are:
+
+| **Argument**    | **Description**                      | **Required?** | **Type**                   |
+|----------------:|:-------------------------------------|:--------------|:---------------------------|
+| `pageUrl`       | The URL of the page                  | Yes           | `string`                   |
+| `pageTitle`     | The title of the page                | No            | `string`                   |
+| `referrer`      | The address which linked to the page | No            | `string`                   |
+| `customContexts`| Optional custom context              | No            | `List<IContext>`           |
+| `timestamp`     | Optional timestamp                   | No            | `long`                     |
+| `eventId`       | Optional custom event id             | No            | `string`                   |
+
+Examples:
+
+```csharp
+t1.Track(new PageView()
+    .SetPageUrl("www.example.com")
+    .SetPageTitle("example")
+    .SetReferrer("www.referrer.com")
+    .Build());
+
+t1.Track(new PageView()
+    .SetPageUrl("www.example.com")
+    .SetPageTitle("example")
+    .SetReferrer("www.referrer.com")
+    .SetCustomContext(contextList)
+    .SetTimestamp(1423583655000)
+    .SetEventId("uid-1")
+    .Build());
+```
+
+[Back to top](#top)
+
+<a name="screen-view" />
+#### 7.1.2 Track screen views with `Track(ScreenView)`
+
+Use `Track(ScreenView)` to track a user viewing a screen (or equivalent) within your app. You **must** use either `name` or `id`. Arguments are:
+
+| **Argument**    | **Description**                     | **Required?** | **Type**                   |
+|----------------:|:------------------------------------|:--------------|:---------------------------|
+| `name`          | Human-readable name for this screen | No            | `string`                   |
+| `id`            | Unique identifier for this screen   | No            | `string`                   |
+| `customContexts`| Optional custom context             | No            | `List<IContext>`           |
+| `timestamp`     | Optional timestamp                  | No            | `long`                     |
+| `eventId`       | Optional custom event id            | No            | `string`                   |
+
+Examples:
+
+```csharp
+t1.Track(new ScreenView()
+    .SetName("HUD > Save Game")
+    .SetId("screen23")
+    .Build());
+
+t1.Track(new ScreenView()
+    .SetName("HUD > Save Game")
+    .SetId("screen23")
+    .SetCustomContext(contextList)
+    .SetTimestamp(1423583655000)
+    .SetEventId("uid-1")
+    .Build());
+```
+
+[Back to top](#top)
+
+<a name="struct-event" />
+#### 7.1.3 Track structured events with `Track(Structured)`
+
+Use `Track(Structured)` to track a custom event happening in your app which fits the Google Analytics-style structure of having up to five fields (with only the first two required):
+
+| **Argument**    | **Description**                                                  | **Required?** | **Type**                   |
+|----------------:|:---------------------------------------------------------------  |:--------------|:---------------------------|
+| `category`      | The grouping of structured events which this `action` belongs to | Yes           | `string`                   |
+| `action`        | Defines the type of user interaction which this event involves   | Yes           | `string`                   |
+| `label`         | A string to provide additional dimensions to the event data      | No            | `string`                   |
+| `property`      | A string describing the object or the action performed on it     | No            | `string`                   |
+| `value`         | A value to provide numerical data about the event                | No            | `double`                   |
+| `customContexts`| Optional custom context                                          | No            | `List<IContext>`           |
+| `timestamp`     | Optional timestamp                                               | No            | `long`                     |
+| `eventId`       | Optional custom event id                                         | No            | `string`                   |
+
+Examples:
+
+```csharp
+t1.Track(new Structured()
+    .SetCategory("shop")
+    .SetAction("add-to-basket")
+    .Build());
+
+t1.Track(new Structured()
+    .SetCategory("shop")
+    .SetAction("add-to-basket")
+    .SetLabel("Add To Basket")
+    .SetProperty("pcs")
+    .SetValue(2.00)
+    .SetCustomContext(contextList)
+    .SetTimestamp(1423583655000)
+    .SetEventId("uid-1")
+    .Build());
+```
+
+[Back to top](#top)
+
+<a name="timing" />
+#### 7.1.4 Track timing events with `Track(Timing)`
+
+Use `Track(Timing)` to track an event related to a custom timing.
+
+| **Argument**    | **Description**                                 | **Required?** | **Type**                   |
+|----------------:|:------------------------------------------------|:--------------|:---------------------------|
+| `category`      | The category of the timed event                 | Yes           | `string`                   |
+| `label`         | The label of the timed event                    | No            | `string`                   |
+| `timing`        | The timing measurement in milliseconds          | Yes           | `int`                      |
+| `variable`      | The name of the timed event                     | Yes           | `string`                   |
+| `customContexts`| Optional custom context                         | No            | `List<IContext>`           |
+| `timestamp`     | Optional timestamp                              | No            | `long`                     |
+| `eventId`       | Optional custom event id                        | No            | `string`                   |
+
+Examples:
+
+```csharp
+t1.Track(new Timing()
+    .SetCategory("category")
+    .SetVariable("variable")
+    .SetTiming(1)
+    .Build());
+
+t1.Track(new Timing()
+    .SetCategory("category")
+    .SetVariable("variable")
+    .SetTiming(1)
+    .SetLabel("label")
+    .SetCustomContext(contextList)
+    .SetTimestamp(1423583655000)
+    .SetEventId("uid-1")
+    .Build());
+```
+
+[Back to top](#top)
+
+<a name="unstruct-event" />
+#### 7.1.5 Track unstructured events with `Track(Unstructured)`
+
+Custom unstructured events are a flexible tool that enable Snowplow users to define their own event types and send them into Snowplow.
+
+When a user sends in a custom unstructured event, they do so as a JSON of name-value properties, that conforms to a JSON schema defined for the event earlier.
+
+Use `Track(Unstructured)` to track a custom event which consists of a name and an unstructured set of properties. This is useful when:
+
+* You want to track event types which are proprietary/specific to your business (i.e. not already part of Snowplow), or
+* You want to track events which have unpredictable or frequently changing properties
+
+The arguments are as follows:
+
+| **Argument**    | **Description**                   |  **Required?** |  **Type**                  |
+|----------------:|:----------------------------------|:---------------|:---------------------------|
+| `eventData`     | The properties of the event       | Yes            | `SelfDescribingJson`       |
+| `customContexts`| Optional custom context           | No             | `List<IContext>`           |
+| `timestamp`     | Optional timestamp                | No             | `long`                     |
+| `eventId`       | Optional custom event id          | No             | `string`                   |
+
+Example event json to track:
+
+```json
+{
+  "schema": "iglu:com.acme/save_game/jsonschema/1-0-0",
+  "data": {
+    "levelName": "Barrels o' Fun",
+    "levelIndex": 23
+  }
+}
+```
+
+How to set it up?
+
+```csharp
+// Create a Dictionary of your event data
+Dictionary<string, object> eventDict = new Dictionary<string, object>();
+eventDict.Add("levelName", "Barrels o' Fun");
+eventDict.Add("levelIndex", 23);
+
+// Create your event data
+SelfDescribingJson eventData = new SelfDescribingJson("iglu:com.acme/save_game/jsonschema/1-0-0", eventDict);
+
+// Track your event with your custom event data
+t1.Track(new Unstructured()
+    .SetEventData(eventData)
+    .Build();
+
+// OR
+
+t1.Track(new Unstructured()
+    .SetEventData(eventData)
+    .SetCustomContext(contextList)
+    .SetTimestamp(1423583655000)
+    .SetEventId("uid-1")
+    .Build();
+```
+
+For more on JSON schema, see the [blog post] [self-describing-jsons].
+
+[Back to top](#top)
+
+<a name="ecommerce-transaction" />
+#### 7.1.6 Track ecommerce transactions with `Track(EcommerceTransaction)`
+
+Use `Track(EcommerceTransaction)` to track an ecommerce transaction.
+
+Arguments:
+
+| **Argument**    | **Description**                      | **Required?** | **Type**                   |
+|----------------:|:-------------------------------------|:--------------|:---------------------------|
+| `orderId`       | ID of the eCommerce transaction      | Yes           | `string`                   |
+| `totalValue`    | Total transaction value              | Yes           | `double`                   |
+| `affiliation`   | Transaction affiliation              | No            | `string`                   |
+| `taxValue`      | Transaction tax value                | No            | `double`                   |
+| `shipping`      | Delivery cost charged                | No            | `double`                   |
+| `city`          | Delivery address city                | No            | `string`                   |
+| `state`         | Delivery address state               | No            | `string`                   |
+| `country`       | Delivery address country             | No            | `string`                   | 
+| `currency`      | Transaction currency                 | No            | `string`                   |
+| `items`         | Items in the transaction             | Yes           | `List<EcommerceTransactionItem>` |
+| `customContexts`| Optional custom context              | No            | `List<IContext>`           |
+| `timestamp`     | Optional timestamp                   | No            | `long`                     |
+| `eventId`       | Optional custom event id             | No            | `string`                   |
+
+The `items` argument is a `List` of individual `EcommerceTransactionItem` elements representing the items in the e-commerce transaction. Note that `Track(EcommerceTransaction)` fires multiple events: one transaction event for the transaction as a whole, and one transaction item event for each element of the `items` `List`. 
+
+Each transaction item event will have the same timestamp, orderId, and currency as the main transaction event.
+
+[Back to top](#top)
+
+<a name="ecommerce-transaction-item" />
+#### 7.1.6.1 `EcommerceTransactionItem`
+
+To instantiate a `EcommerceTransactionItem` in your code, simply use the following constructor signature:
+
+```csharp
+EcommerceTransactionItem item = new EcommerceTransactionItem ()
+      .SetSku ("sku")
+      .SetPrice (10.2)
+      .SetQuantity (1)
+      .SetName ("name")
+      .SetCategory ("category")
+      .Build ()
+```
+
+These are the fields that can appear as elements in each `EcommerceTransactionItem` element of the transaction item's `List`:
+
+| **Field**       | **Description**                      | **Required?** | **Type**                   |
+|----------------:|:-------------------------------------|:--------------|:---------------------------|
+| `sku`           | Item SKU                             | Yes           | `string`                   |
+| `price`         | Item price                           | Yes           | `double`                   |
+| `quantity`      | Item quantity                        | Yes           | `int`                      |
+| `name`          | Item name                            | No            | `string`                   |
+| `category`      | Item category                        | No            | `string`                   |
+| `customContexts`| Optional custom context              | No            | `List<IContext>`           |
+| `eventId`       | Optional custom event id             | No            | `string`                   |
+
+Example of tracking a transaction containing two items:
+
+```csharp
+
+// Create some Transaction Items
+EcommerceTransactionItem item1 = new EcommerceTransactionItem ()
+    .SetSku ("item_sku_1")
+    .SetPrice (10.2)
+    .SetQuantity (1)
+    .SetName ("item_name_1")
+    .SetCategory ("item_category")
+    .Build ();
+
+EcommerceTransactionItem item2 = new EcommerceTransactionItem()
+    .SetSku("item_sku_2")
+    .SetPrice(1.00)
+    .SetQuantity(1)
+    .SetName("item_name_2")
+    .SetCategory("item_category")
+    .Build();
+
+// Add these items to a List
+List<EcommerceTransactionItem> items = new List<EcommerceTransactionItem>();
+items.Add(item1);
+items.Add(item2);
+
+// Now Track the Transaction by using this list of items as an argument
+tracker.Track(new EcommerceTransaction()
+    .SetOrderId("order_id_1")
+    .SetTotalValue(300.00)
+    .SetAffiliation("my_affiliate")
+    .SetTaxValue(30.00)
+    .SetShipping(10.00)
+    .SetCity("Boston")
+    .SetState("Massachusetts")
+    .SetCountry("USA")
+    .SetCurrency("USD")
+    .SetItems(items)
+    .Build());
+```
+
+[Back to top](#top)
+
 <a name="utilities" />
 ## 8. Utilities
 
@@ -517,3 +862,4 @@ Due to the .NET 2.0 limitation we have had to implement our own ThreadSafe queue
 
 [snowplow-pong-dl]: http://
 [base64]: https://en.wikipedia.org/wiki/Base64
+[self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
