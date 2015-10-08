@@ -922,7 +922,7 @@ GenericContext context = new GenericContext()
 <a name="self-describing-json" />
 ### 7.3 SelfDescribingJson
 
-A `SelfDescribingJson` is used as a wrapper around a `Dictionary<string, object`.  After creating the Dictionary you want to wrap you can create a `SelfDescribingJson` using the following:
+A `SelfDescribingJson` is used as a wrapper around a `Dictionary<string, object>`.  After creating the Dictionary you want to wrap you can create a `SelfDescribingJson` using the following:
 
 ```csharp
 // Data as a Dictionary
