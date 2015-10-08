@@ -53,7 +53,7 @@ All the other dependencies are required for proper Tracker function.
 <a name="download" />
 ### 3.1 Download
 
-The Unity Tracker package is published to Snowplow's [bintray repository] [bintray-snplow].  Once downloaded simply add the `SnowplowTracker.unitypackage` to your project.  This should insert all of the required dll files into your `Assets/Plugins/` folder.
+The Unity Tracker package is published to Snowplow's [bintray repository] [bintray-snplow].  Once downloaded simply add the `SnowplowTracker-0.1.0.unitypackage` to your project.  This should insert all of the required dll files into your `Assets/Plugins/` folder.
 
 Done? Now read the [Unity Tracker API](Unity-Tracker) to start tracking events.
 
