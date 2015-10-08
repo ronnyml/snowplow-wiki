@@ -33,8 +33,7 @@ This page refers to version 0.1.0 of the Snowplow Unity Tracker.
 - 6. [Session](#session)
   - 6.1 [Constructor](#s-constructor)
   - 6.2 [Functions](#s-functions)
-    - 6.2.1 [`GetSessionContext(string)`](#s-get-context)
-    - 6.2.2 [`SetBackground(bool)`](#s-set-background)
+    - 6.2.1 [`SetBackground(bool)`](#s-set-background)
 - 7. [Event Tracking](#event-tracking)
   - 7.1 [Events Types](#event-types)
     - 7.1.1 [`PageView`](#et-page-view)
@@ -49,6 +48,7 @@ This page refers to version 0.1.0 of the Snowplow Unity Tracker.
     - 7.2.2 [`MobileContext`](#ct-mobile)
     - 7.2.3 [`GeoLocationContext`](#ct-geo-location)
     - 7.2.4 [`GenericContext`](#ct-generic)
+  - 7.3 [`SelfDescribingJson`](#self-describing-json)
 - 8. [Utilities](#utilities)
   - 8.1 [Log](#log)
   - 8.2 [ConcurrentQueue](#concurrent)
@@ -450,15 +450,8 @@ The timeout's refer to the length of time the session remains active after the l
 
 [Back to top](#top)
 
-<a name="s-get-context" />
-#### 6.2.1 `GetSessionContext(string)`
-
-Everytime this function is accessed the timeout will be reset.  Is called automatically by the Tracker on each `tracker.track()` function call.
-
-[Back to top](#top)
-
 <a name="s-set-background" />
-#### 6.2.2 `SetBackground(bool)`
+#### 6.2.1 `SetBackground(bool)`
 
 Will set whether or not the application is in the background.  It is up to the developer to set this metric if they wish to have a different timeout for foreground and background.
 
@@ -923,6 +916,31 @@ GenericContext context = new GenericContext()
     .Add("context", "custom")
     .Build();
 ```
+
+[Back to top](#top)
+
+<a name="self-describing-json" />
+### 7.3 SelfDescribingJson
+
+A `SelfDescribingJson` is used as a wrapper around a `Dictionary<string, object`.  After creating the Dictionary you want to wrap you can create a `SelfDescribingJson` using the following:
+
+```csharp
+// Data as a Dictionary
+Dictionary<string, object> data = new Dictionary<string, object>();
+data.Add("Event", "Data")
+
+// We then create a new SelfDescribingJson
+SelfDescribingJson json = new SelfDescribingJson("iglu:com.acme/example/jsonschema/1-0-0", data);
+```
+
+This object is now ready to be Tracked within an Unstructured Event.
+
+You can create a SelfDescribingJson with the following arguments:
+
+| **Argument** | **Description**                           | **Required?** | **Type**                    |
+|-------------:|:------------------------------------------|:--------------|:----------------------------|
+| `schema`     | JsonSchema that describes the data        | Yes           | `string`                    |
+| `data`       | Data that will be validated by the schema | No            | `Dictionary<string,object`> |
 
 [Back to top](#top)
 
