@@ -2,7 +2,7 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > Node.js tracker
 
-*This page refers to version 0.2.0 of the Snowplow Node.js Tracker, which has not yet been released. Click [here][v1] for the corresponding documentation for version 0.1.0.*
+*This page refers to version 0.2.0 of the Snowplow Node.js Tracker. Click [here][v1] for the corresponding documentation for version 0.1.0.*
 
 ## Contents
 
