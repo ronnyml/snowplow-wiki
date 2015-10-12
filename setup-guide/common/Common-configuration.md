@@ -177,7 +177,7 @@ This section of the config file is where we configure the operation of EMR. The 
 
 1. `region`, which is the Amazon EC2 region in which the job should run, e.g. "us-east-1" or "eu-west-1"
 2. `ec2_key_name`, which is the name of the Amazon EC2 key that you
-   set up in the [Dependencies](#dependencies) above
+   set up in the [[Dependencies|1-Installing-EmrEtlRunner#dependencies]] above
 
 Make sure that the EC2 key you specify belongs in the region you specify, or else EMR won't be able to find the key. **It's strongly recommended that you choose the same Amazon region as your S3 buckets are located in.**
 
