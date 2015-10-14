@@ -6,6 +6,9 @@
 
 - 1. [Overview](#overview)  
 - 2. [Initialization](#init)
+- 2.1. [Tracker](#tracker-init)
+- 2.2. [Subject](#subject)
+- 2.3. [EC2 Context](#ec2)
 - 3. [Sending events](#events)
 - 4. [Subject methods](#subject)
 
@@ -25,6 +28,9 @@ A tracker always has one active subject at a time associated with it. The defaul
 <a name="init" />
 ## 2. Initialization
 
+<a name="tracker-init" />
+### 2.1 Tracker 
+
 Assuming you have completed the [[Scala Tracker Setup]], you are ready to initialize the Scala Tracker.
 
 ```scala
@@ -33,14 +39,19 @@ import com.snowplowanalytics.snowplow.scalatracker.emitters._
 
 val emitter1 = AsyncEmitter.createAndStart("mycollector.com")
 val emitter2 = new SyncEmitter("myothercollector.com", port = 8080)
-val tracker = new Tracker(List(emitter, emitter2), "mytrackername", "myapplicationid")
+val emitter3 = new AsyncBatchEmitter("myothercollector.com", port = 8080, bufferSize = 32)
+val tracker = new Tracker(List(emitter, emitter2, emitter3), "mytrackername", "myapplicationid")
 ```
 
 The above code:
 
 * creates a non-blocking emitter, `emitter1`, which sends events to "mycollector.com" on the default port, port 80
-* creates a blocking emitter, `emitter1`, which sends events to "myothercollector.com" on port 8080
+* creates a blocking emitter, `emitter2`, which sends events to "myothercollector.com" on port 8080
+* creates a non-blocking batch `emitter3`, which will buffer events until buffer size reach 32 events and then send all of them at once in POST request
 * creates a tracker which can be used to send events to both emitters
+
+<a name="subject" />
+### 2.2 Subject
 
 You can configure a subject with extra data and attach it to the tracker so that the data will be attached to every event:
 
@@ -49,6 +60,16 @@ val subject = new Subject()
   .setUserId("user-00035")
   .setPlatform(Desktop)
 tracker.setSubject(subject)
+```
+
+<a name="ec2" />
+### 2.3 EC2 Context
+
+Amazon [Elastic Cloud] [ec2] can provide basic information about instance running your app.
+You can add this informational as additional custom context to all sent events by enabling it in Tracker after initializaiton of your tracker:
+
+```scala
+tracker.enableEc2Context()
 ```
 
 <a name="events" />
@@ -87,11 +108,17 @@ val userContext = SelfDescribingJson(
 t.trackUnstructEvent(productViewEvent, List(pageTypeContext, userContext))
 ```
 
-A timestamp will automatically be attached to every event. You can override this timestamp by providing your own. It should be in seconds since the Unix epoch:
+A timestamp will automatically be attached to every event. You can override this timestamp by providing your own. It should be in milliseconds since the Unix epoch:
 
 ```scala
-tracker.trackUnstructEvent(productViewEvent, Nil, 1432806619L)
+tracker.trackUnstructEvent(productViewEvent, Nil, 1432806619000L)
 ```
+
+Currently supported methods are:
+
++ trackUnstructEvent
++ trackStructEvent
++ trackPageView
 
 <a name="subject" />
 ## 4. Subject methods
@@ -214,5 +241,6 @@ subject.setNetworkUserId("ecdff4d0-9175-40ac-a8bb-325c49733607")
 
 [json4s]: https://github.com/json4s/json4s
 [json4s-dsl]: https://github.com/json4s/json4s#dsl-rules
+[ec2]: https://aws.amazon.com/ec2/
 
 [self-describing-jsons]: https://github.com/snowplow/iglu/wiki/Self-describing-JSONs
