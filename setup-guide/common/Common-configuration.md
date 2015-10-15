@@ -69,8 +69,8 @@ collectors:
 enrich:
   job_name: Snowplow ETL # Give your job a name
   versions:
-    hadoop_enrich: 1.0.0 # Version of the Hadoop Enrichment process
-    hadoop_shred: 0.4.0 # Version of the Hadoop Shredding process
+    hadoop_enrich: 1.2.0 # Version of the Hadoop Enrichment process
+    hadoop_shred: 0.5.0 # Version of the Hadoop Shredding process
   continue_on_unexpected_error: false # Set to 'true' (and set out_errors: above) if you don't want any exceptions thrown from ETL
   output_compression: NONE # Compression only supported with Redshift, set to NONE if you have Postgres targets. Allowed formats: NONE, GZIP
 storage:
@@ -87,6 +87,7 @@ storage:
       password: ADD HERE
       maxerror: 1 # Stop loading on first error, or increase to permit more load errors
       comprows: 200000 # Default for a 1 XL node cluster. Not used unless --include compupdate specified
+      ssl_mode: disable
     - name: "My PostgreSQL database"
       type: postgres
       host: ADD HERE # Hostname of database server
@@ -97,6 +98,7 @@ storage:
       password: ADD HERE
       maxerror: # Not required for Postgres
       comprows: # Not required for Postgres
+      ssl_mode: disable
 monitoring:
   tags: {} # Name-value pairs describing this job
   logging:
