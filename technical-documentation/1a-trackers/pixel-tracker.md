@@ -59,7 +59,7 @@ Care must therefore be exercised when using the Pixel tracker on domains that yo
 <a name="click-tracking" />
 ## 5. Click tracking
 
-**This feature requires Snowplow R72 and up.**
+**This feature requires Snowplow R72+ and the Clojure Collector.**
 
 You can use the Pixel tracker for click tracking aka URI redirects:
 
