@@ -374,15 +374,6 @@ The unstructured event is not part of the `atomic.events` table; instead, for us
 
 Back to [top](#top).
 
-## 3. A note about storage data formats
-
-* Currently, Snowplow data is stored in S3 (for processing in Apache Hive, Pig, and / or Mahout), Redshift and PostgreSQL (for processing by any SQL-compatible analytics package).
-* There are minor differences between the structure of data in both formats. These relate to data structures that Hive and PostgreSQL support (e.g. JSONs) that Redshift does not
-* Nevertheless, the structure of both is similar: representing a fat table
-* Going forwards our intention is to move the storage format for data on S3 from the current flatfile structure to Avro. **This** will become the 'canonical Snowplow data structure'. Other formats (e.g. Redshift, PostgreSQL etc.) will simply be 'flattened' versions of the same data. We have outlined some of our plans in [this blog post][avro-blog-post].
-
-Back to [top](#top).
-
 <a name="customcontexts" />
 #### 2.3.7 Contexts
 
@@ -398,6 +389,15 @@ Back to [top](#top).
 ### 2.4 Specific unstructured events and custom contexts
 
 These are also a variety of unstructured events and custom contexts defined by Snowplow. You can find their schemas [here][snowplow-schemas].
+
+Back to [top](#top).
+
+## 3. A note about storage data formats
+
+* Currently, Snowplow data is stored in S3 (for processing in Apache Hive, Pig, and / or Mahout), Redshift and PostgreSQL (for processing by any SQL-compatible analytics package).
+* There are minor differences between the structure of data in both formats. These relate to data structures that Hive and PostgreSQL support (e.g. JSONs) that Redshift does not
+* Nevertheless, the structure of both is similar: representing a fat table
+* Going forwards our intention is to move the storage format for data on S3 from the current flatfile structure to Avro. **This** will become the 'canonical Snowplow data structure'. Other formats (e.g. Redshift, PostgreSQL etc.) will simply be 'flattened' versions of the same data. We have outlined some of our plans in [this blog post][avro-blog-post].
 
 Back to [top](#top).
 
