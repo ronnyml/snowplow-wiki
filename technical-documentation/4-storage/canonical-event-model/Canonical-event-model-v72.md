@@ -3,7 +3,7 @@
 <a name="top" />
 # Canonical event model
 
-This relates to the Canonical Event Model from Snowplow Release 63 Red-Cheeked Cordon-Bleu to 70 Bornean Green Magpie. For other versions:
+This relates to the Canonical Event Model from Snowplow Release 71 Stork-Billed Kingfisher to 72 Great Spotted Kiwi. For other versions:
 
 * [Canonical Event Model](Canonical-event-model) (Latest)
 * [Canonical Event Model pre-Release 73](Canonical-event-model-v72)
@@ -42,6 +42,7 @@ In order to analyse Snowplow data, it is important to understand how it is struc
   - 2.1.6 [Device and operating system fields](#device)  
   - 2.1.7 [Location fields](#location)
   - 2.1.8 [IP address-based fields](#ip)
+  - 2.1.9 [Metadata fields](#metadata)
 - 2.2 [**Platform-specific fields**](#platform)  
   - 2.2.1 [Web-specific fields](#web)  
 - 2.3 [**Event-specific fields**](#event)
@@ -84,11 +85,12 @@ Back to [top](#top).
 | **Field**       | **Type** | **Description** | **Reqd?** | **Example**    |
 |:----------------|:---------|:----------------|:----------|:---------------|
 | `collector_tstamp`| timestamp | Time stamp for the event recorded by the collector | Yes    | '2013-11-26 00:02:05'   |
-| `dvce_tstamp`   | timestamp | Timestamp event was recorded on the client device | No | '2013-11-26 00:03:57.885' |
+| `dvce_created_tstamp`   | timestamp | Timestamp event was recorded on the client device | No | '2013-11-26 00:03:57.885' |
 | `dvce_sent_tstamp` | timestamp | When the event was sent by the client device | No | '2013-11-26 00:03:58.032' |
 | `etl_tstamp`   | timestamp | Timestamp event began ETL | No | '2017-01-26 00:01:25.292' |
 | `os_timezone`   | text     | Client operating system timezone | No | 'Europe/London' |
-| `derived_tstamp` | timestamp | Calculated "true timestamp" for the event | No | '2013-11-26 00:02:04' |
+| `derived_tstamp` | timestamp | Timestamp making allowance for innaccurate device clock | No | '2013-11-26 00:02:04' |
+| `true_tstamp` | timestamp | User-set "true timestamp" for the event | No | '2013-11-26 00:02:04' |
 
 Back to [top](#top).
 
@@ -100,6 +102,7 @@ Back to [top](#top).
 | `event`         | text     | The type of event recorded | Yes | 'page_view'    |
 | `event_id`      | text     | A UUID for each event | Yes | 'c6ef3124-b53a-4b13-a233-0088f79dcbcb' |
 | `txn_id`        | int      | Transaction ID set client-side, used to de-dupe records | No | 421828 |
+| `event_fingerprint`        | tesxt      | Hash client-set event fields | No | AADCE520E20C2899F4CED228A79A3083 |
 
 A complete list of event types is given [here] (#event).
 
@@ -168,7 +171,7 @@ Back to [top](#top).
 | `geo_timezone` | text     | Visitor timezone name | No | 'Europe/London'      |
 
 <a name="ip" />
-#### 2.1.7 IP address-based fields
+#### 2.1.8 IP address-based fields
 
 | **Field**       | **Type** | **Description** | **Reqd?** | **Example**    |
 |:----------------|:---------|:----------------|:----------|:---------------|
@@ -176,6 +179,18 @@ Back to [top](#top).
 | `ip_organization`    | text     | Organization associated with the visitor's IP address - defaults to ISP name if none is found | No | 'Bouygues Telecom' |
 | `ip_domain`      | text     | Second level domain name associated with the visitor's IP address | No | 'nuvox.net'       |
 | `ip_netspeed`  | text     | Visitor's connection type | No | 'Cable/DSL'           |
+
+<a name="metadata" />
+#### 2.1.9 Metadata fields
+
+Fields containing information about the event type.
+
+| **Field**       | **Type** | **Description**         | **Reqd?** | **Example**    |
+|:----------------|:---------|:------------------------|:----------|:---------------|
+| `event_vendor`  | text     | Who defined the event   | No        | 'com.acme' |
+| `event_name`    | text     | Event name              | No        | 'link_click' |
+| `event_format`  | text     | Format for event        | No        | 'jsonschema'       |
+| `event_version` | text     | Version of event schema | No        | '1-0-2'           |
 
 <a name="platform" />
 ### 2.2 Platform-specific fields

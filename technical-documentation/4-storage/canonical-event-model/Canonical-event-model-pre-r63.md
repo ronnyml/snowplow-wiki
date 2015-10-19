@@ -3,7 +3,8 @@
 
 This relates to the Canonical Event Model prior to Snowplow Release 63 Red-Cheeked Cordon-Bleu. For other versions:
 
-* [Canonical Event Model](Canonical-event-model) (Release 71)
+* [Canonical Event Model](Canonical-event-model) (Latest)
+* [Canonical Event Model pre-Release 73](Canonical-event-model-v72)
 * [Canonical Event Model pre-Release 71](Canonical-event-model-v70)
 
 <a name="top" />

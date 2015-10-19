@@ -3,8 +3,9 @@
 <a name="top" />
 # Canonical event model
 
-This relates to the Canonical Event Model from Snowplow Release 71 Stork-Billed Kingfisher onwards. For previous versions:
+This relates to the Canonical Event Model from Snowplow Release 73 Cuban Macaw onwards. For previous versions:
 
+* [Canonical Event Model pre-Release 73](Canonical-event-model-v72)
 * [Canonical Event Model pre-Release 71](Canonical-event-model-v70)
 * [Canonical Event Model pre-Release 63](Canonical-event-model-pre-r63)
 
@@ -367,15 +368,9 @@ Back to [top](#top).
 
 Custom unstructured events are a flexible tool that enable Snowplow users to define their own event types and send them into Snowplow.
 
-When a user sends in a custom unstructured event, they do so as a JSON of name-value properties, that conforms to a JSON schema defined for the event earlier. 
+When a user sends in a custom unstructured event, they do so as a JSON of name-value properties that conforms to a JSON schema defined for the event earlier. 
 
-The complete JSON envelop for the event is loaded into the `atomic.events` table, in the `unstruct_event` field as shown below:
-
-| **Field**        | **Type** | **Description** | **Reqd?** | **Example**    |
-|:-----------------|:---------|:----------------|:----------|:---------------|
-| `unstruct_event` | JSON     | Name of the event | Yes     | {"schema":"iglu:com.mycompany/product_view/jsonschema/1-0-1", "data":{"sku":"14424"}} |
-
-In addition, for Snowplow users running Redshift, the unstructured event is shredded into its own table in Amazon Redshift. The fields in this table will be determined by the JSON schema defined for the event in advance. Users can query just the table for that particular unstructured event, if that's all that's required for their analysis, or join that table back to the `atomic.events` table by `atomic.my_example_unstructured_event_table.root_id = atomic.events.root_id`.
+The unstructured event is not part of the `atomic.events` table; instead, for users running on Redshift, it is shredded into its own table. The fields in this table will be determined by the JSON schema defined for the event in advance. Users can query just the table for that particular unstructured event, if that's all that's required for their analysis, or join that table back to the `atomic.events` table by `atomic.my_example_unstructured_event_table.root_id = atomic.events.root_id`.
 
 Back to [top](#top).
 
@@ -395,14 +390,7 @@ Contexts enable Snowplow users to define their own entities that are related to 
 
 An event can have any number of custom contexts attached. Each context is passed into Snowplow as a JSON. Additionally, the Snowplow Enrichment process can derive additional contexts.
 
-The arrays of contexts JSONs related to an event are loaded directly into the `atomic.events` table as described below:
-
-| **Field**       | **Type** | **Description** | **Reqd?** | **Example**    |
-|:----------------|:---------|:----------------|:----------|:---------------|
-| `contexts`   | array     | Contexts attached to event by Tracker | No     | [{"schema":"iglu:com.acme/page_type/jsonschema/1-0-0", "data":{"type":"test"}}] |
-| `derived_contexts` | array     | Contexts attached to event by Enrich | No     | [{"schema":"iglu:com.snowplowanalytics.snowplow/ua_parser_context/jsonschema/1-0-0", "data":{"deviceFamily":"Windows"}}] |
-
-In addition, for users running on Redshift, Snowplow will shred each context JSON into a dedicated table in the `atomic` schema, making it much more efficient for analysts to query data passed in in any one of the contexts. Those contexts can be joined back to the core `atomic.events` table on `atomic.my_custom_context_table.root_id = atomic.events.event_id`, which is a one-to-one join.
+Contexts are not part of the `atomic.events` table; instead, for users running on Redshift, Snowplow will shred each context JSON into a dedicated table in the `atomic` schema, making it much more efficient for analysts to query data passed in in any one of the contexts. Those contexts can be joined back to the core `atomic.events` table on `atomic.my_custom_context_table.root_id = atomic.events.event_id`, which is a one-to-one join.
 
 Back to [top](#top).
 
