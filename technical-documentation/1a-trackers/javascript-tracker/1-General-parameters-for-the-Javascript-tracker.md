@@ -282,7 +282,7 @@ You can prevent the Tracker from setting or reading first-party cookies by addin
 <a name="cross-domain" />
 #### 2.2.16 Configuring cross-domain tracking
 
-The JavaScript Tracker can add an additional parameter named "_sp" to the querystring of outbound links. Its value includes the domain user ID for the current page and the time at which the link was clicked. This makes these values visible in the "url" field of events sent by an instance of the JavaScript Tracker on the destination page.
+The JavaScript Tracker can add an additional parameter named "_sp" to the querystring of outbound links. Its value includes the domain user ID for the current page and the time at which the link was clicked. This makes these values visible in the "url" field of events sent by an instance of the JavaScript Tracker on the destination page. The enrichment process will use these values to populate the `refr_domain_userid` and `refr_dvce_tstamp` fields in Redshift for all events fired on the destination page.
 
 You can configure which links get decorated this way using the `crossDomainLinker` field of the argmap. This field should be a function taking one argument (the link element) and return `true` if the link element should be decorated and false otherwise. For example, this function would only decorate those links whose destination is "http://acme.de" or whose HTML id is "crossDomainLink":
 
