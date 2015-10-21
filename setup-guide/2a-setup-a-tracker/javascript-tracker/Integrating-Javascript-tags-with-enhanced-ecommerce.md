@@ -4,33 +4,33 @@
 
 **Warning: this feature is in test and should not yet be used.**
 
-[Overview](#overview)
-[Creating the Data Layer Variable](#variable)
-[Creating the trigger](#overview)
-[Writing the JavaScript](#script)
-[Creating the tag](#tag)
+1. [Overview](#overview)
+2. [Creating the Data Layer Variable](#variable)
+3. [Creating the trigger](#overview)
+4. [Writing the JavaScript](#script)
+5. [Creating the tag](#tag)
 
 <a name="overview" />
-## Overview
+### 1. Overview
 
 This guide will show you how to configure Google Tag Manager to load the Snowplow JavaScript Tracker and send enhanced ecommerce data to Snowplow as well as Google without changing any of your calls to `dataLayer.push`. We will assume that you have already implemented enhanced ecommerce in Universal Analytics as described in the [Enhanced Ecommerce (UA) Developer Guide](enhancedEcommerceDeveloperGuide).
 
 We also assume that any ecommerce-related call to `dataLayer.push` which does not contain an "event" field is made before Google Tag Manager loads, as described [here](http://www.simoahava.com/analytics/ecommerce-tips-google-tag-manager/#tip1).
 
 <a name="variable" />
-## Creating the Data Layer Variable
+### 2. Creating the Data Layer Variable
 
 In the Variables tab, create a Data Layer Variable. Set the name of this variable to "ecommerce". This variable will hold all ecommerce-related data and will be updated when you call `dataLayer.push` with a JSON containing the key "ecommerce".
 
 <a name="trigger" />
-## Creating the trigger
+### 3. Creating the trigger
 
 The trigger will detect ecommerce data pushed into the data layer and cause the main tag to fire.
 
 In the Triggers tab, Create a new trigger named "Enhanced Ecommerce". In the "Choose Event" section, choose "Custom Event". Set "Fire On" to the string `gtm.dom|checkout|checkoutOption|productClick|addToCart|removeFromCart|promotionClick` and check the "Use regex matching" box.
 
 <a name="script" />
-## Writing the JavaScript
+### 4. Writing the JavaScript
 
 Your tag will fire both when the page loads and also every time an ecommerce event is pushed to the data layer.
 
@@ -223,7 +223,7 @@ You can also customize the part of the tag between the comments containing "!!!"
 ```
 
 <a name="tag" />
-## Creating the tag
+### 5. Creating the tag
 
 In the Tags tab, create a new tag. Name it something like "Enhanced Ecommerce Pageview". In the "Choose Product" section, select "Custom HTML Tag". Copy and paste the JavaScript you wrote in the previous section into the textbox.
 
