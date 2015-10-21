@@ -13,7 +13,7 @@
 <a name="overview" />
 ### 1. Overview
 
-This guide will show you how to configure Google Tag Manager to load the Snowplow JavaScript Tracker and send enhanced ecommerce data to Snowplow as well as Google without changing any of your calls to `dataLayer.push`. We will assume that you have already implemented enhanced ecommerce in Universal Analytics as described in the [Enhanced Ecommerce (UA) Developer Guide](enhancedEcommerceDeveloperGuide).
+This guide will show you how to configure Google Tag Manager to load the Snowplow JavaScript Tracker and send enhanced ecommerce data to Snowplow as well as Google without changing any of your calls to `dataLayer.push`. We will assume that you have already implemented enhanced ecommerce in Universal Analytics as described in the [Enhanced Ecommerce (UA) Developer Guide][enhancedEcommerceDeveloperGuide].
 
 We also assume that any ecommerce-related call to `dataLayer.push` which does not contain an "event" field is made before Google Tag Manager loads, as described [here](http://www.simoahava.com/analytics/ecommerce-tips-google-tag-manager/#tip1).
 
