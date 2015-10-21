@@ -27,7 +27,9 @@ In the Variables tab, create a Data Layer Variable. Set the name of this variabl
 
 The trigger will detect ecommerce data pushed into the data layer and cause the main tag to fire.
 
-In the Triggers tab, Create a new trigger named "Enhanced Ecommerce". In the "Choose Event" section, choose "Custom Event". Set "Fire On" to the string `gtm.dom|checkout|checkoutOption|productClick|addToCart|removeFromCart|promotionClick|purchase` and check the "Use regex matching" box.
+In the Triggers tab, Create a new trigger named "Enhanced Ecommerce". In the "Choose Event" section, choose "Custom Event". Set "Fire On" to something like the string `gtm.dom|checkout|checkoutOption|productClick|addToCart|removeFromCart|promotionClick|purchase` and check the "Use regex matching" box.
+
+The regex should consist of "gtm.dom" together with every string which you set as a the value of the "event" key in the enhanced ecommerce objects you push to the data layer, separated by the "|" pipe character.
 
 <a name="script" />
 ### 4. Writing the JavaScript
