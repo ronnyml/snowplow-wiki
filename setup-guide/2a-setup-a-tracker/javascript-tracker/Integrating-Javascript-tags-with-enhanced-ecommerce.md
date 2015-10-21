@@ -139,11 +139,15 @@ You can also customize the part of the tag between the comments containing "!!!"
         data.currency = currencyCode;
       }
       for (var j in data) {
-        if (data[j] === null || data[j] === undefined || data[j] === NaN) {
+        if (isEmptyValue(data[j])) {
           delete data[j];
         }
       }
     }
+  }
+
+  function isEmptyValue(value) {
+    return (! value) && (value !== false) && (value !== 0) && (value !== '');
   }
 
   function getActionJson(action) {
