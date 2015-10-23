@@ -22,10 +22,14 @@ If you are sending very large ecommerce events containing lots of impressions, t
 <a name="variable" />
 ### 2. Creating the Data Layer Variable
 
+[[/setup-guide/images/enhanced-ecommerce/enhanced_ecommerce_variable.png]]
+
 In the Variables tab, create a Data Layer Variable. Set the name of this variable to "ecommerce". This variable will hold all ecommerce-related data and will be updated when you call `dataLayer.push` with a JSON containing the key "ecommerce".
 
 <a name="trigger" />
 ### 3. Creating the trigger
+
+[[/setup-guide/images/enhanced-ecommerce/enhanced_ecommerce_trigger.png]]
 
 The trigger will detect ecommerce data pushed into the data layer and cause the main tag to fire.
 
@@ -229,6 +233,8 @@ You can also customize the part of the tag between the comments containing "!!!"
 
 <a name="tag" />
 ### 5. Creating the tag
+
+[[/setup-guide/images/enhanced-ecommerce/enhanced_ecommerce_tag.png]]
 
 In the Tags tab, create a new tag. Name it something like "Enhanced Ecommerce Pageview". In the "Choose Product" section, select "Custom HTML Tag". Copy and paste the JavaScript you wrote in the previous section into the textbox.
 
