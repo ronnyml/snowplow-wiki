@@ -17,6 +17,8 @@ This guide will show you how to configure Google Tag Manager to load the Snowplo
 
 We also assume that any ecommerce-related call to `dataLayer.push` which does not contain an "event" field is made before Google Tag Manager loads, as described [here](http://www.simoahava.com/analytics/ecommerce-tips-google-tag-manager/#tip1).
 
+If you are sending very large ecommerce events containing lots of impressions, the size of your events may exceed Internet Explorer's maximum querystring size for GET requests. In this case we recommend configuring the tracker to use POST instead as described [here](https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker#post).
+
 <a name="variable" />
 ### 2. Creating the Data Layer Variable
 
