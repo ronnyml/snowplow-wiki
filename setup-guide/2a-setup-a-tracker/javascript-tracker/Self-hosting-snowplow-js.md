@@ -6,6 +6,7 @@ We recommend self-hosting the Snowplow tracking JavaScript, `snowplow.js` as it 
 
 1. Hosting your own JavaScript allows you to use your own JavaScript minification and asset pipelining approach (e.g. bundling all JavaScripts into one minified JavaScript)
 2. As [Douglas Crockford] [crockford] put it about third-party JavaScripts: _"it is extremely unwise to load code from servers you do not control."_
+3. Renaming `sp.js` will ensure that Snowplow continues to function in the presence of ad/content blockers, which block `sp.js` (see e.g. [EasyPrivacy] [easyprivacy])
 
 The alternative to self-hosting `snowplow.js` is to use the version hosted by **Snowplow Analytics**, which is okay if your page volumes are not too high. (Details of all the assets including `sp.js` that we house on behalf of the community can be found [here](hosted-assets)). But if you want to self-host `snowplow.js`, please read on...
 
@@ -209,3 +210,4 @@ Return to the [setup guide] (Setting-up-Snowplow).
 [open-permissions]: setup-guide/images/js_properties.png
 [enter-key-value-pair]: setup-guide/images/js_enter_metadata.png
 [key-value-pair-entered]: setup-guide/images/properties-filled-in.png
+[easyprivacy]: https://easylist-downloads.adblockplus.org/easyprivacy.txt
