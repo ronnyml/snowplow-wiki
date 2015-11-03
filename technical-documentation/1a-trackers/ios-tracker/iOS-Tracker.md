@@ -2,7 +2,7 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > iOS Tracker
 
-This page refers to version 0.5.0+ of the Snowplow Objective-C Tracker, which is the latest version. Documentation for earlier versions is available:
+This page refers to version 0.5.2+ of the Snowplow Objective-C Tracker, which is the latest version. Documentation for earlier versions is available:
 
 * *[Version 0.4][ios-0.4]*
 * *[Version 0.3][ios-0.3]*
@@ -445,12 +445,14 @@ Sending the movie poster context with an event looks like this:
 
 In all the trackers, we offer a way to set the timestamp if you want the event to show as tracked at a specific time. If you don't, we create a timestamp while the event is being tracked.
 
+Please note this argument must always be in milliseconds since the unix epoch like so `1446542245000`.
+
 Here is an example:
 ```objective-c
 [tracker trackPageView:@"www.page.com" title:@"Example Page" referrer:@"www.referrer.com"];
 [tracker trackPageView:@"www.page.com" title:@"Example Page" referrer:@"www.referrer.com" context:contextArray];
-[tracker trackPageView:@"www.page.com" title:@"Example Page" referrer:@"www.referrer.com" timestamp:1234567890];
-[tracker trackPageView:@"www.page.com" title:@"Example Page" referrer:@"www.referrer.com" context:contextArray timestamp:1234567890];
+[tracker trackPageView:@"www.page.com" title:@"Example Page" referrer:@"www.referrer.com" timestamp:1446542245000];
+[tracker trackPageView:@"www.page.com" title:@"Example Page" referrer:@"www.referrer.com" context:contextArray timestamp:1446542245000];
 ```
 
 [Back to top](#top)
@@ -478,8 +480,8 @@ Example:
 
 ```objective-c
 [t1 trackScreenView:@"HUD > Save Game" screen:@"screen23"];
-[t1 trackScreenView:@"HUD > Save Game" screen:nil timestamp:12435678];
-[t1 trackScreenView:@"HUD > Save Game" screen:@"screen23" timestamp:12435678];
+[t1 trackScreenView:@"HUD > Save Game" screen:nil timestamp:1446542245000];
+[t1 trackScreenView:@"HUD > Save Game" screen:@"screen23" timestamp:1446542245000];
 ```
 
 [Back to top](#top)
@@ -591,7 +593,7 @@ Example:
 
 ```objective-c
 [t1 trackStructuredEvent:@"shop" action:@"add-to-basket" label:@"Add To Basket" property:@"pcs" value:27];
-[t1 trackStructuredEvent:@"shop" action:@"add-to-basket" label:@"Add To Basket" property:@"pcs" value:27 timestamp:1234569];
+[t1 trackStructuredEvent:@"shop" action:@"add-to-basket" label:@"Add To Basket" property:@"pcs" value:27 timestamp:1446542245000];
 ```
 
 [Back to top](#top)
@@ -638,7 +640,7 @@ NSDictionary *event = @{
                           };
 tracker trackUnstructuredEvent:event
                         context:nil
-                      timestamp:12345678;
+                      timestamp:1446542245000;
 ```
 
 For more on JSON schema, see the [blog post] [self-describing-jsons].
@@ -671,7 +673,7 @@ Example:
                    variable:@"Background"
                      timing:324
                       label:@"5231804123"
-                  timestamp:1234569];
+                  timestamp:1446542245000];
 ```
 
 [Back to top](#top)
