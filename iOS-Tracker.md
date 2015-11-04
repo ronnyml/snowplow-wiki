@@ -51,6 +51,8 @@ This page refers to version 0.5.2+ of the Snowplow Objective-C Tracker, which is
   - 5.2 [Choosing the HTTP method](#http-method)
   - 5.3 [Emitter Callback](#emitter-callback)
   - 5.4 [Sending HTTP requests](#http-request)
+- 6. [Utility Functions](#utils)
+  - 6.1 [`getAppleIdfa`](#apple-idfa)
 
 <a name="overview" />
 ## 1. Overview
@@ -796,6 +798,60 @@ SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
 
     [builder setHttpMethod:SPRequestGet];
 }];
+```
+
+[Back to top](#top)
+
+<a name="utils" />
+## 6. Utility Functions
+
+The `SPUtilities` class contains a host of static functions which are used throughout the Tracker.  To see all of the available functions please consult the [`SPUtils.h`](https://github.com/snowplow/snowplow-objc-tracker/blob/master/Snowplow/SPUtils.h) file.
+
+[Back to top](#top)
+
+<a name="apple-idfa" />
+### 6.1 `getAppleIdfa`
+
+This function will only return the IDFA under the following conditions:
+
+* The device is running iOS.
+* The AdSupport library is in your project.
+
+To use:
+
+```objective-c
+NSString* appleIdfa = [SPUtils getAppleIdfa];
+```
+
+[Back to top](#top)
+
+<a name="apple-idfv" />
+### 6.2 `getAppleIdfv`
+
+This function will only return the IDFV under the following conditions:
+
+* The device is running iOS.
+
+To use:
+
+```objective-c
+NSString* appleIdfv = [SPUtils getAppleIdfv];
+```
+
+[Back to top](#top)
+
+<a name="open-idfa" />
+### 6.3 `getOpenIdfa`
+
+This function will only return the OpenIDFA under the following conditions:
+
+* The device is running iOS.
+* The iOS version is less than 9.0.
+
+To use:
+
+```objective-c
+NSString* openIdfa = [SPUtils getOpenIdfa];
 ```
 
 [Back to top](#top)
