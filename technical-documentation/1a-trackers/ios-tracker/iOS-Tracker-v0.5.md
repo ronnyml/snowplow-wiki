@@ -2,11 +2,8 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > iOS Tracker
 
-NOT RELEASED
+This page refers to version 0.5.2+ of the Snowplow Objective-C Tracker, which is the latest version. Documentation for earlier versions is available:
 
-This page refers to version 0.6.0 of the Snowplow Objective-C Tracker, which is the latest version. Documentation for earlier versions is available:
-
-* *[Version 0.5][ios-0.5]*
 * *[Version 0.4][ios-0.4]*
 * *[Version 0.3][ios-0.3]*
 * *[Version 0.2][ios-0.2]*
@@ -38,7 +35,6 @@ This page refers to version 0.6.0 of the Snowplow Objective-C Tracker, which is 
   - 3.9 [`setUseragent`](#set-useragent)
   - 3.10 [`setNetworkUserId`](#set-nuid)
   - 3.11 [`setDomainUserId`](#set-duid)
-  - 3.12 [Set Geo-Location variables](#set-geo)
 - 4. [Tracking specific events](#events)
   - 4.1 [Common](#common)
     - 4.1.1 [Custom contexts](#custom-contexts)
@@ -63,7 +59,7 @@ This page refers to version 0.6.0 of the Snowplow Objective-C Tracker, which is 
 <a name="overview" />
 ## 1. Overview
 
-The [Snowplow Objective-C Tracker](https://github.com/snowplow/snowplow-objc-tracker) allows you to track Snowplow events from your iOS, OSX and tvOS apps and games. It supports iOS 7.0+, OSX 10.9+ and tvOS 9.0+.
+The [Snowplow Objective-C Tracker](https://github.com/snowplow/snowplow-objc-tracker) allows you to track Snowplow events from your iOS and OSX apps and games. It supports iOS 7.0+, OSX 10.9+.
 
 The tracker should be straightforward to use if you are comfortable with iOS development; its API is modelled after Snowplow's [[Python Tracker]] so any prior experience with that tracker is helpful but not necessary. If you haven't already, have a look at the [[iOS Tracker Setup]] guide before continuing.
 
@@ -200,14 +196,12 @@ This function will resume all event tracking when called (if it was paused) and 
 
 To add extra data to the Tracker you will need to append an `SPSubject` object to the Tracker.  This can be done either during Tracker creation or added later.
 
-__Be aware__ that the use of the geo-location requires you to set all values yourself; we do not currently support automatic geo detection.
-
 ```objective-c
 SPSubject *subject = [[SPSubject alloc] init];
 
-// OR with the optional platform/geo-location context...
+// OR with the optional platform context...
 
-SPSubject *subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:NO];
+SPSubject *subject = [[SPSubject alloc] initWithPlatformContext:YES];
 
 // Add it to the Tracker during construction...
 SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
@@ -221,9 +215,6 @@ SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
 ```
 
 * [Sending IFA](#sending-ifa)
-
-#### Standard Pairs
-
 * [`setUserId`](#set-user-id)
 * [`setResolutionWithWidth`](#set-res)
 * [`setViewPortWithWidth`](#set-view-port)
@@ -234,10 +225,6 @@ SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
 * [`setUseragent`](#set-useragent)
 * [`setNetworkUserId`](#set-nuid)
 * [`setDomainUserId`](#set-duid)
-
-#### Geo-Location
-
-* [Setting the Geo-Location](#set-geo)
 
 [Back to top](#top)
 
@@ -365,30 +352,6 @@ Example:
 ```objective-c
 [subject setDomainUserId:@"duid"];
 ```
-
-<a name="set-geo" />
-### 3.12 Set Geo-Location variables
-
-Due to difficulty in getting these variables automatically we are depending on the developer to pass in these values for us if they wish to populate the geo-location.  This will hopefully change in the future.
-
-__NOTE__: `latitude` and `longitude` are required fields and must be present if you decide to include the geo-location context with your events.
-
-These are the available functions for geo-location which are all called directly on a subject object:
-
-```objective-c
-[subject setGeoXXX:];
-```
-
-* `setGeoLatitude` : Sets the latitude value
-* `setGeoLongitude` : Sets the longitude value
-* `setGeoLatitudeLongitudeAccuracy` : Sets the lat-long accuracy
-* `setGeoAltitude` : Sets the altitude
-* `setGeoAltitudeAccuracy` : Sets the altitude accuracy
-* `setGeoBearing` : Sets the bearing
-* `setGeoSpeed` : Sets the speed
-* `setGeoTimestamp` : Sets a timestamp (must be in ms since unix epoch)
-
-Once this is set it will be automatically attached to all events being sent.
 
 <a name="events" />
 ## 4. Tracking specific events
@@ -899,7 +862,6 @@ NSString* openIdfa = [SPUtils getOpenIdfa];
 [ios-0.2]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker-v0.2
 [ios-0.3]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker-v0.3
 [ios-0.4]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker-v0.4
-[ios-0.5]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker-v0.5
 
 [base64]: https://en.wikipedia.org/wiki/Base64
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
