@@ -39,7 +39,7 @@ Ready? Let's get started.
 <a name="compatibility" />
 ### 2.1 Tracker compatibility
 
-With iOS backward compatibility is limited to a small range which it makes it easy to support. Hence, our goal was to make the iOS Tracker compatible with iOS 6+ with easy availability via CocoaPods.
+With iOS backward compatibility is limited to a small range which it makes it easy to support. Hence, our goal was to make the iOS Tracker compatible with iOS 7+ with easy availability via CocoaPods.
 
 [Back to top](#top)
 
