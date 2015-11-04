@@ -25,7 +25,7 @@ This page refers to version 0.5.0+ of the Snowplow Objective-C Tracker, which is
 <a name="overview" />
 ## 1. Overvew
 
-The [Snowplow iOS Tracker](https://github.com/snowplow/snowplow-ios-tracker) lets you add analytics to your [iOS] [ios]-based applications.
+The [Snowplow Objective-C Tracker](https://github.com/snowplow/snowplow-objc-tracker) lets you add analytics to your [iOS] [ios], [OSX][osx] and [tvOS][tvos] applications.
 
 The Tracker should be relatively straightforward to setup if you are familiar with iOS development using CocoaPods.
 
@@ -70,7 +70,7 @@ pod 'SnowplowTracker'
 <a name="manual-setup" />
 ### 3.2 Manual Setup
 
-If you prefer not to use CocoaPods, you can grab the tracker from our [GitHub repo][ios-tracker-github] and import it into your project.
+If you prefer not to use CocoaPods, you can grab the tracker from our [GitHub repo][objc-tracker-github] and import it into your project.
 
 #### Clone the tracker
 
@@ -246,7 +246,9 @@ Now add the `OpenIDFA.{h,m}` files to your project by:
 [Back to top](#top)
 
 [ios]: https://developer.apple.com/technologies/ios/
-[ios-tracker-github]: https://github.com/snowplow/snowplow-ios-tracker
+[osx]: https://www.apple.com/osx/
+[tvos]: https://www.apple.com/tv/
+[objc-tracker-github]: https://github.com/snowplow/snowplow-objc-tracker
 
 [static-download]: https://bintray.com/artifact/download/snowplow/snowplow-generic/snowplow-objc-tracker-static-0.5.1.framework
 [apple-static-instructions]: https://developer.apple.com/library/ios/technotes/iOSStaticLibraries/Articles/configuration.html
