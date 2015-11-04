@@ -10,6 +10,8 @@ This documentation is for version 0.4.0 of Kinesis Elasticsearch Sink.  For prev
 
 If you are using [Snowplow Kinesis Enrich][ske] to write enriched Snowplow events to one stream and bad events to another, you can use the Kinesis Elasticsearch Sink to read events from either of those streams and write them to [Elasticsearch][elasticsearch].
 
+__NOTE__: This application is not compatible with the [Amazon Elasticsearch Service](https://aws.amazon.com/elasticsearch-service/) as it does not currently support sending via the TransportClient; which the Elasticsearch Sink uses.
+
 ## Configuring Elasticsearch
 
 ### Getting started
