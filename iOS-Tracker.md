@@ -53,11 +53,13 @@ This page refers to version 0.5.2+ of the Snowplow Objective-C Tracker, which is
   - 5.4 [Sending HTTP requests](#http-request)
 - 6. [Utility Functions](#utils)
   - 6.1 [`getAppleIdfa`](#apple-idfa)
+  - 6.2 [`getAppleIdfv`](#apple-idfv)
+  - 6.3 [`getOpenIdfa`](#open-idfa)
 
 <a name="overview" />
 ## 1. Overview
 
-The [Snowplow iOS Tracker](https://github.com/snowplow/snowplow-ios-tracker) allows you to track Snowplow events from your iOS apps and games. It supports iOS 6.0+.
+The [Snowplow Objective-C Tracker](https://github.com/snowplow/snowplow-objc-tracker) allows you to track Snowplow events from your iOS and OSX apps and games. It supports iOS 7.0+, OSX 10.9+.
 
 The tracker should be straightforward to use if you are comfortable with iOS development; its API is modelled after Snowplow's [[Python Tracker]] so any prior experience with that tracker is helpful but not necessary. If you haven't already, have a look at the [[iOS Tracker Setup]] guide before continuing.
 
