@@ -874,7 +874,7 @@ SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
 <a name="utils" />
 ## 6. Utility Functions
 
-The `SPUtilities` class contains a host of static functions which are used throughout the Tracker.  To see all of the available functions please consult the [`SPUtils.h`](https://github.com/snowplow/snowplow-objc-tracker/blob/master/Snowplow/SPUtils.h) file.
+The `SPUtilities` class contains a host of static functions which are used throughout the Tracker.  To see all of the available functions please consult the [`SPUtilities.h`](https://github.com/snowplow/snowplow-objc-tracker/blob/master/Snowplow/SPUtilities.h) file.
 
 [Back to top](#top)
 
@@ -889,7 +889,7 @@ This function will only return the IDFA under the following conditions:
 To use:
 
 ```objective-c
-NSString* appleIdfa = [SPUtils getAppleIdfa];
+NSString* appleIdfa = [SPUtilities getAppleIdfa];
 ```
 
 [Back to top](#top)
@@ -904,7 +904,7 @@ This function will only return the IDFV under the following conditions:
 To use:
 
 ```objective-c
-NSString* appleIdfv = [SPUtils getAppleIdfv];
+NSString* appleIdfv = [SPUtilities getAppleIdfv];
 ```
 
 [Back to top](#top)
@@ -920,7 +920,7 @@ This function will only return the OpenIDFA under the following conditions:
 To use:
 
 ```objective-c
-NSString* openIdfa = [SPUtils getOpenIdfa];
+NSString* openIdfa = [SPUtilities getOpenIdfa];
 ```
 
 [Back to top](#top)
