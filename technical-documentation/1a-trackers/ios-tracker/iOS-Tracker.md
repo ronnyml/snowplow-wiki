@@ -764,7 +764,7 @@ __NOTE__: The current safe maximum byte threshold is 52000 however this may chan
 
 | **Builder Function**    | **Description**                                           |
 |------------------------:|:----------------------------------------------------------|
-| `setUrlEndpoint`        | The NSURL to use for sending events                       |
+| `setUrlEndpoint`        | The collector resource name to use for sending events     |
 | `setHttpMethod`         | The method sending; either GET or POST                    |
 | `setProtocol`           | The protocol option; HTTP or HTTPS                        |
 | `setCallback`           | The optional emitter callback                             |
