@@ -2,10 +2,13 @@
 
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2: Setup a Tracker**](Setting-up-a-Tracker) > [**Objective-C tracker**](ios-tracker-setup)
 
-This page refers to version 0.5.0+ of the Snowplow Objective-C Tracker, which is the latest version. Documentation for earlier versions is available:
+NOT RELEASED
 
-* *[Version 0.1-0.3][ios-0.3]*
+This page refers to version 0.6.0 of the Snowplow Objective-C Tracker, which is the latest version. Documentation for earlier versions is available:
+
+* *[Version 0.5][ios-0.5]*
 * *[Version 0.4][ios-0.4]*
+* *[Version 0.1-0.3][ios-0.3]*
 
 ## Contents
 
@@ -25,7 +28,7 @@ This page refers to version 0.5.0+ of the Snowplow Objective-C Tracker, which is
 <a name="overview" />
 ## 1. Overvew
 
-The [Snowplow Objective-C Tracker](https://github.com/snowplow/snowplow-objc-tracker) lets you add analytics to your [iOS] [ios] and [OSX][osx] applications.
+The [Snowplow Objective-C Tracker](https://github.com/snowplow/snowplow-objc-tracker) lets you add analytics to your [iOS] [ios], [OSX][osx] and [tvOS][tvos] applications.
 
 The Tracker should be relatively straightforward to setup if you are familiar with iOS/OSX development using CocoaPods.
 
@@ -46,7 +49,11 @@ With iOS backward compatibility is limited to a small range which it makes it ea
 <a name="dependencies" />
 ### 2.2 Dependencies
 
-The tracker has dependencies limited to the [FMDB][fmdb] and [Reachability][reach] libraries for database management and network information respectively. Both of which have iOS 6+ support as well. If you're installing via CocoaPods, these dependencies are recursively downloaded for your project so you don't have to worry about it.
+* For iOS the Tracker has dependencies limited to the [FMDB][fmdb] and [Reachability][reach] libraries for database management and network information respectively. Both of which have iOS 7+ support as well.
+
+* For OSX and tvOS the Tracker has dependencies limited to [FMDB][fmdb] for database management.
+
+If you're installing via CocoaPods, the dependencies are recursively downloaded for your project so you don't have to worry about it.
 
 [Back to top](#top)
 
@@ -55,7 +62,8 @@ The tracker has dependencies limited to the [FMDB][fmdb] and [Reachability][reac
 
 <a name="cocoapods" />
 ### 3.1 CocoaPods
-We support installing the iOS Tracker via CocoaPods since it's the easiest way to install the tracker. Doing so is simple:
+
+We support installing the Objective-C Tracker via CocoaPods since it's the easiest way to install the tracker. Doing so is simple:
 
 1. Install CocoaPods using `gem install cocoapods`
 2. Create the file `Podfile` in the root of your XCode project directory, if you don't have one already
@@ -260,3 +268,4 @@ Now add the `OpenIDFA.{h,m}` files to your project by:
 
 [ios-0.3]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker-Setup-0.1-0.3
 [ios-0.4]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker-Setup-0.4
+[ios-0.5]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker-Setup-0.5
