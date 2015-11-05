@@ -70,6 +70,14 @@ The tracker should be straightforward to use if you are comfortable with iOS dev
 
 You can also find detailed documentation for the method calls in the tracker classes available as part of the [CocoaPods documentation](http://cocoadocs.org/docsets/SnowplowTracker/).
 
+## Implementation
+
+The Tracker is designed to be used as a Singleton object.  Meaning that within your application you should only have to create one Tracker for the lifecycle of your application.  Without setting this up:
+
+* Multiple Emitters could become active resulting in the same events being sent multiple times.
+* Thrashing of the database.
+* Hogging of resources for sending HTTP requests which can slow your application.
+
 [Back to top](#top)
 
 <a name="demo-app" />
