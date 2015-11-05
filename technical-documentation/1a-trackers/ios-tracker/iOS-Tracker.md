@@ -783,6 +783,7 @@ SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
 ```
 
 Here are all the posibile options that you can use:
+
 |         **Option**         | **Description**               |
 |---------------------------:|:------------------------------|
 | `SPHttp`                   | Sends events as HTTP          |
