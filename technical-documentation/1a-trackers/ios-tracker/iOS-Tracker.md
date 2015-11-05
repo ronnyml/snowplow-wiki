@@ -755,6 +755,13 @@ SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
 }];
 ```
 
+A key change to the emitter construction is the removal of the `setBufferOption` and the addition of `byteLimit`.  In the case of POST requests we will now add events up until a byte limit rather than an arbitrary event count.  However there are a few more implications:
+
+* If an event, by itself, exceeds this limit it will be sent but it is then removed from the queue irrespective of the result.
+* If you set the limit higher than 52000 it is likely that none of your events will make it to the collector.
+
+__NOTE__: The current safe maximum byte threshold is 52000 however this may change in the future.
+
 | **Builder Function**    | **Description**                                           |
 |------------------------:|:----------------------------------------------------------|
 | `setUrlEndpoint`        | The NSURL to use for sending events                       |
