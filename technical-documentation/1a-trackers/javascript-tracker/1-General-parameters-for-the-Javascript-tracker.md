@@ -510,6 +510,7 @@ This cookie is called _sp_id.{{DOMAIN HASH}} by default. It is used to persist i
 * The timestamp of the user's first visit
 * The timestamp of the current visit
 * The timestamp of the last visit
+* The ID of the current session
 
 It expires after 2 years.
 
