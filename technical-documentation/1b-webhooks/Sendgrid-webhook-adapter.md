@@ -52,7 +52,7 @@ All resources for this webhook's events:
 | Spam Report       | [spam_report 1-0-0] [spam_report-json-schema]              | [spam_report_1.json] [spam_report-json-paths]              | [com_sendgrid_spam_report_1.sql] [spam_report-sql]            |
 | Unsubscribe       | [unsubscribe 1-0-0] [unsubscribe-json-schema]              | [unsubscribe_1.json] [unsubscribe-json-paths]              | [com_sendgrid_unsubscribe_1.sql] [unsubscribe-sql]            |
 | Group Unsubscribe | [group_unsubscribe 1-0-0] [group_unsubscribe-json-schema]  | [group_unsubscribe_1.json] [group_unsubscribe-json-paths]  | [com_sendgrid_group_unsubscribe_1.sql] [group_unsubscribe-sql]|
-| Group Resubscribe | [group_resubscribe 1-0-0] [group_resubscribe-json-schema]  | [group_resubscribe_1.json] [group_resubscribe-json-paths]  | [com_sendgrid_resubscribe_1.sql] [group_resubscribe-sql]      |
+| Group Resubscribe | [group_resubscribe 1-0-0] [group_resubscribe-json-schema]  | [group_resubscribe_1.json] [group_resubscribe-json-paths]  | [com_sendgrid_group_resubscribe_1.sql] [group_resubscribe-sql]      |
 
 
 <a name="see-also" />
