@@ -251,7 +251,7 @@ If this context is enabled, the JavaScript Tracker will look for Google Analytic
 
 If this context is enabled, the JavaScript Tracker will attempt to create a context from the visitor's geolocation information. If the visitor has not already given or denied the website permission to use their geolocation information, a prompt will appear. If they give permission, then all events from that moment on will include their geolocation information.
 
-For more information on the geolocation AIP, see [the specification][geolocation-spec].
+For more information on the geolocation API, see [the specification][geolocation-spec].
 
 <a name="post" />
 #### 2.2.14 POST support
