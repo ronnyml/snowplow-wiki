@@ -108,7 +108,8 @@ storage:
       es_nodes_wan_only: false # Set to true if using Amazon Elasticsearch Service
       username: # Unnecessary for Elasticsearch
       password: # Unnecessary for Elasticsearch
-      sources: # Leave blank or specify: ["s3://out/enriched/bad/run=xxx", "s3://out/shred/bad/run=yyy"] maxerror: # Not required for Elasticsearch
+      sources: # Leave blank or specify: ["s3://out/enriched/bad/run=xxx", "s3://out/shred/bad/run=yyy"]
+      maxerror: # Not required for Elasticsearch
       comprows: # Not required for Elasticsearch
 monitoring:
   tags: {} # Name-value pairs describing this job
