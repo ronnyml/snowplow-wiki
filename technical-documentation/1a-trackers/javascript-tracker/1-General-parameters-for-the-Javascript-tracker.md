@@ -314,6 +314,14 @@ If you want to decorate every link, regardless of its destination:
 }
 ```
 
+Note that the above will decorate "links" which are actually just JavaScript actions (with an `href` of `"javascript:void(0)"`). To exclude these links:
+
+```javascript
+window.snowplow('crossDomainLinker', function(linkElement) { 
+  return linkElement.href.indexOf('javascript:') < 0; 
+});
+```
+
 Note that when the tracker loads, it does not immediately decorate links. Instead it adds event listeners to links which decorate them as soon as a user clicks on them or navigates to them using the keyboard. This ensures that the timestamp added to the querystring is fresh.
 
 If further links get added to the page after the tracker has loaded, you can use the tracker's `crossDomainLinker` method to add listeners again. (Listeners won't be added to links which already have them.)
