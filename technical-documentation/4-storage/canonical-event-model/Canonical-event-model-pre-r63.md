@@ -3,7 +3,8 @@
 
 This relates to the Canonical Event Model prior to Snowplow Release 63 Red-Cheeked Cordon-Bleu. For other versions:
 
-* [Canonical Event Model](Canonical-event-model) (Release 71)
+* [Canonical Event Model](Canonical-event-model) (Latest)
+* [Canonical Event Model pre-Release 73](Canonical-event-model-v72)
 * [Canonical Event Model pre-Release 71](Canonical-event-model-v70)
 
 <a name="top" />
@@ -347,15 +348,6 @@ In addition, for Snowplow users running Redshift, the unstructured event is shre
 
 Back to [top](#top).
 
-## 3. A note about storage data formats
-
-* Currently, Snowplow data is stored in S3 (for processing in Apache Hive, Pig, and / or Mahout), Redshift and PostgreSQL (for processing by any SQL-compatible analytics package).
-* There are minor differences between the structure of data in both formats. These relate to data structures that Hive and PostgreSQL support (e.g. JSONs) that Redshift does not
-* Nevertheless, the structure of both is similar: representing a fat table
-* Going forwards our intention is to move the storage format for data on S3 from the current flatfile structure to Avro. **This** will become the 'canonical Snowplow data structure'. Other formats (e.g. Redshift, PostgreSQL etc.) will simply be 'flattened' versions of the same data. We have outlined some of our plans in [this blog post][avro-blog-post].
-
-Back to [top](#top).
-
 <a name="customcontexts" />
 #### 2.3.7 Custom contexts
 
@@ -465,6 +457,15 @@ This has not been implemented yet. The intention is to implement the following f
 | `item_location` | text     | Location of the item on the web page | No | No | 'div-cat-4' |
 
 For additional details see [this gist](https://gist.github.com/4327909) and [issue 113](https://github.com/snowplow/snowplow/issues/113)
+
+Back to [top](#top).
+
+## 3. A note about storage data formats
+
+* Currently, Snowplow data is stored in S3 (for processing in Apache Hive, Pig, and / or Mahout), Redshift and PostgreSQL (for processing by any SQL-compatible analytics package).
+* There are minor differences between the structure of data in both formats. These relate to data structures that Hive and PostgreSQL support (e.g. JSONs) that Redshift does not
+* Nevertheless, the structure of both is similar: representing a fat table
+* Going forwards our intention is to move the storage format for data on S3 from the current flatfile structure to Avro. **This** will become the 'canonical Snowplow data structure'. Other formats (e.g. Redshift, PostgreSQL etc.) will simply be 'flattened' versions of the same data. We have outlined some of our plans in [this blog post][avro-blog-post].
 
 Back to [top](#top).
 
