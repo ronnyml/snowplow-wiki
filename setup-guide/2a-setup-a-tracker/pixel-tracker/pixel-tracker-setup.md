@@ -69,5 +69,5 @@ Return to the [setup guide](Setting-up-Snowplow).
 
 [pixel-tracker-repo]: https://github.com/snowplow/snowplow/tree/master/1-trackers/no-js-tracker
 [pixel-wizard]: http://snowplowanalytics.com/no-js-tracker.html
-[intro-to-pixel-tracker]: http://snowplowanalytics.com/blog/2013/01/29/introducing-the-no-js-tracker/
+[intro-to-pixel-tracker]: http://snowplowanalytics.com/blog/2013/01/29/introducing-the-pixel-tracker/
 [ebay-prohibit]: http://pages.ebay.com/help/policies/listing-javascript.html
