@@ -22,7 +22,7 @@ Right-click on this [Download link] [emr-download] to save it down locally.
 
 The minified JavaScript tracker is hosted on CloudFront against its full semantic version:
 
-    http(s)://d1fc8wv8zag5ca.cloudfront.net/2.5.2/sp.js
+    http(s)://d1fc8wv8zag5ca.cloudfront.net/2.5.3/sp.js
 
 ### 2.1 Clojure Collector resources
 
