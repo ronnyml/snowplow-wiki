@@ -92,7 +92,7 @@ If you are running StorageLoader, these files will automatically be used for loa
 
 The Hadoop Elasticsearch Sink process uses a single jarfile containing the MapReduce job. This is made available in a public Amazon S3 bucket, for Snowplowers who are running their Hadoop Enrich & Shred process on Amazon EMR:
 
-    s3://snowplow-hosted-assets/3-enrich/scala-hadoop-shred/snowplow-hadoop-shred-0.6.0.jar
+    s3://snowplow-hosted-assets/4-storage/hadoop-elasticsearch-sink/hadoop-elasticsearch-sink-0.1.0.jar
 
 Right-click on this [Download link] [hadoop-elasticsearch-sink-download] to save it down locally via CloudFront CDN.
 
