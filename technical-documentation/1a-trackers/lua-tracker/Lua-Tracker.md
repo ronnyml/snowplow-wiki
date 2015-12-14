@@ -332,8 +332,6 @@ These values are as follows:
 <a name="screen-view" />
 ### 4.2 Track screen views with `trackScreenView()`
 
-**Warning:** this feature is implemented in the Lua tracker, but it is **not** currently supported in the Enrichment, Storage or Analytics stages in the Snowplow data pipeline. As a result, if you use this feature, you will log screen views to your collector logs, but these will not be parsed and loaded into e.g. Redshift to analyse. (Adding this capability is on the roadmap.)
-
 Use `trackScreenView()` to track a user viewing a screen (or equivalent) within your app. Arguments are:
 
 | **Argument** | **Description**                     | **Required?** | **Validation**          |
@@ -374,8 +372,6 @@ local s, msg = t:trackStructEvent( "shop", "add-to-basket", nil, "pcs", 2, 13693
 
 <a name="unstruct-event" />
 ### 4.4 Track unstructured events with `trackUnstructEvent()`
-
-**Warning:** this feature is implemented in the Lua tracker, but it is **not** currently supported in the Enrichment, Storage or Analytics stages in the Snowplow data pipeline. As a result, if you use this feature, you will log unstructured events to your collector logs, but these will not be parsed and loaded into e.g. Redshift to analyse. (Adding this capability is on the roadmap.)
 
 Use `trackUnstructEvent()` to track a custom event which consists of a name and an unstructured set of properties. This is useful when:
 
