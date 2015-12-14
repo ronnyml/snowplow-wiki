@@ -16,6 +16,7 @@
     - [referer-rarser enrichment] (referer-parser-enrichment)
     - [ua-parser enrichment] (ua-parser-enrichment)
     - [user-agent-utils enrichment] (user-agent-utils-enrichment)
+    - [Weather enrichment] (Weather-enrichment)
 - [Step 4: Setup alternative data stores] (setting-up-alternative-data-stores)  
 - [Step 5: Analyze your data!] (Getting started analyzing Snowplow data)  
 
