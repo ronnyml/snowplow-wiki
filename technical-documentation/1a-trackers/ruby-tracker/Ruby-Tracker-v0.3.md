@@ -4,9 +4,9 @@
 
 *This page refers to version 0.3.0 of the Snowplow Ruby Tracker. Documentation for other versions is available:*
 
-*[Version 0.2][ruby-0.2]*
-*[Version 0.4][ruby-0.4]*
-*[Version 0.5][ruby-latest]*
+*[Version 0.2][ruby-0.2]*  
+*[Version 0.4][ruby-0.4]*  
+*[Version 0.5][ruby-latest]*  
 
 ## Contents
 
@@ -648,7 +648,7 @@ The levels are:
 [Back to top](#top)
 
 [ruby-0.2]: https://github.com/snowplow/snowplow/wiki/Ruby-Tracker-v0.2
-[ruby-0.2]: https://github.com/snowplow/snowplow/wiki/Ruby-Tracker-v0.4
+[ruby-0.4]: https://github.com/snowplow/snowplow/wiki/Ruby-Tracker-v0.4
 [ruby-latest]: https://github.com/snowplow/snowplow/wiki/Ruby-Tracker
 
 [contexts]: http://snowplowanalytics.com/blog/2014/01/27/snowplow-javascript-tracker-0.13.0-released-with-custom-contexts/#contexts
