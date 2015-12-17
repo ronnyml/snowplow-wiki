@@ -348,7 +348,7 @@ Back to [top](#top).
 <a name="customstruct" />
 #### 2.3.5 Custom structured events
 
-If you wish to track an event that Snowplow does not recognise as a first class citizen (i.e. one of the events listed above), then you can track them using the generic 'custom structured events'. Currently there are five fields that are available to store data related to custom events: we plant to increase this to 25 in the near future:
+If you wish to track an event that Snowplow does not recognise as a first class citizen (i.e. one of the events listed above), then you can track them using the generic 'custom structured events'. There are five fields that are available to store data related to custom events:
 
 | **Field**       | **Type** | **Description** | **Reqd?** | **Example**    |
 |:----------------|:---------|:----------------|:----------|:---------------|
