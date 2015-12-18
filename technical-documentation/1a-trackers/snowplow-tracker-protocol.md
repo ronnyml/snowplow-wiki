@@ -40,7 +40,7 @@ In the [first part of this guide](#common), we cover the parameters in the Snowp
   - 3.8 [Error tracking](#error)
   - 3.9 [Custom structured events](#event)
   - 3.10 [Custom unstructured events](#unstructevent)
-- 4. [Custom contexts](#customcontexts)
+- 4. [Custom contexts](#custom-contexts)
 - 5. [Reserved parameters](#reserved-parameters)
 
 <a name="common" />
