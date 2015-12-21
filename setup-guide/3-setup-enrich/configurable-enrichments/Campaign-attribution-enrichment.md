@@ -120,7 +120,7 @@ You can add other networks using the `mktClickId` field like this:
 
         "name": "campaign_attribution",
         "vendor": "com.snowplowanalytics.snowplow",
-        "enabled": false,
+        "enabled": true,
         "parameters": {
             "mapping": "static",
             "fields": {
