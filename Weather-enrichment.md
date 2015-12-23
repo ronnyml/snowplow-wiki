@@ -4,7 +4,6 @@
 
 ### Compatibility
 
-Status **Not released yet**  
 JSON Schema   [iglu:com.snowplowanalytics.snowplow.enrichments/weather_enrichment_config/jsonschema/1-0-0][schema]  
 Compatibility r74+  
 Data provider [OpenWeatherMap][owm]  
