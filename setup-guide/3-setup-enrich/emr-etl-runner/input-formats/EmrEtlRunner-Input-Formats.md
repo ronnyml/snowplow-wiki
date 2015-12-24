@@ -54,4 +54,9 @@ If you are running the Snowplow batch (Hadoop) flow with Amazon Redshift, then y
 
 You can either load these events using your existing `atomic.events` table, or if you prefer load into an all-new database or schema. If you load into your existing `atomic.events` table, make sure to schedule these loads so that they don't clash with your existing loads.
 
+<a name="ndjson/urbanairship.connect/v1"/>
+### 1.5 `ndjson/urbanairship.connect/v1`
+
+Use this when you are working with Urban Airship Connect. For more details see [[Urban Airship Connect webhook setup]].
+
 [access-log-sql]: https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.amazon.aws.cloudfront/wd_access_log_1.sql
