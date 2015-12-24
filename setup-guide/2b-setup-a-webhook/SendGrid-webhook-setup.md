@@ -1,8 +1,6 @@
 <a name="top" />
 
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2b: setup a Webhook**](Setting-up-a-webhook) > [[Sendgrid webhook setup]]
-
-__NOT YET RELEASED__
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2b: setup a Webhook**](Setting-up-a-webhook) > [[SendGrid webhook setup]]
 
 ## Contents
 
@@ -36,7 +34,7 @@ For the technical implementation, see [[SendGrid webhook adapter]].
 <a name="compat" />
 ### 1.1 Compatibility
 
-* [Snowplow x.x.x][snowplow-x.x.x] + (`POST`-capable collectors for event processing, will require `GET` for initial webhook validation)
+* [Snowplow 75 Long-Legged Buzzard][snowplow-release] + (`POST`-capable collectors for event processing, will require `GET` for initial webhook validation)
 * [SendGrid webhook API] [sendgrid-webhooks]
 
 <a name="setup" />
@@ -65,7 +63,7 @@ http://<collector host>/com.sendgrid/v3
 
 Our Webhooks setup page should look like this after we have added our **HTTP POST URL**:
 
-[[/setup-guide/images/webhooks/sendgrid/sendgrid_event_notification.png]]
+[[/setup-guide/images/webhooks/sendgrid/sendgrid-event-notification.png]]
 
 If you want, you can also manually override the event's `platform` parameter by appending a query string to the end of the URL so:
 
@@ -75,7 +73,7 @@ http://<collector host>/com.sendgrid/v3?p=<platform code>
 
 Supported platform codes can again be found in the [Snowplow Tracker Protocol] [tracker-protocol]; if not set, then the value for `platform` will default to `srv` for a server-side application.
 
-Before we save our SendGrid webhook we can configure what types of events Sendgrid will send to our webhook and what channels will trigger these events.  Simply select the boxes that are applicable to you and SendGrid will send these events to our webhook.
+Before we save our SendGrid webhook we can configure what types of events SendGrid will send to our webhook and what channels will trigger these events.  Simply select the boxes that are applicable to you and SendGrid will send these events to our webhook.
 
 <a name="setup-redshift" />
 ## 2.2 Redshift
@@ -94,7 +92,7 @@ You can find the table definitions here:
 * [com_sendgrid_spam_report_1.sql] [spam_report-sql]            
 * [com_sendgrid_unsubscribe_1.sql] [unsubscribe-sql]            
 * [com_sendgrid_group_unsubscribe_1.sql] [group_unsubscribe-sql]
-* [com_sendgrid_group_resubscribe_1.sql] [group_resubscribe-sql]
+* [com_sendgrid_resubscribe_1.sql] [group_resubscribe-sql]
 
 Make sure to deploy this table into the same schema as your `events` table.
 
@@ -106,7 +104,7 @@ That's it - with these tables deployed, your SendGrid events should automaticall
 
 
 [sendgrid-adapter]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/adapters/registry/SendgridAdapter.scala
-[snowplow-x.x.x]: https://github.com/snowplow/snowplow/releases
+[snowplow-release]: https://github.com/snowplow/snowplow/releases/tag/r75-long-legged-buzzard
 
 [processed-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.sendgrid/processed_1.sql
 [dropped-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.sendgrid/dropped_1.sql
