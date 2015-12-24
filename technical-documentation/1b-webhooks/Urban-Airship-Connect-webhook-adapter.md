@@ -63,7 +63,7 @@ All resources for this webhook's events:
 <a name="see-also" />
 ## 4. See also
 
-[[UrbanAirship webhook setup]]
+[[Urban Airship Connect webhook setup]]
 
 [urbanairship-website]: http://https://www.urbanairship.com/
 
