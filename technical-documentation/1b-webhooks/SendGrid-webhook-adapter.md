@@ -1,8 +1,6 @@
 <a name="top" />
 
-[**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Webhooks**](Webhooks) > Sendgrid webhook adapter
-
-__NOT YET RELEASED__
+[**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Webhooks**](Webhooks) > SendGrid webhook adapter
 
 ## Contents
 
@@ -33,7 +31,7 @@ SendGrid sends events as a `POST` request with all information in the body, with
 
 Implementation: [SendGrid] [sendgrid-adapter]
 
-SendGrid webhook support was implemented in [Snowplow x.x.x] [snowplow-x.x.x].
+SendGrid webhook support was implemented in [Snowplow 75 Long-Legged Buzzard][snowplow-release].
 
 <a name="events" />
 ## 3. Events
@@ -52,7 +50,7 @@ All resources for this webhook's events:
 | Spam Report       | [spam_report 1-0-0] [spam_report-json-schema]              | [spam_report_1.json] [spam_report-json-paths]              | [com_sendgrid_spam_report_1.sql] [spam_report-sql]            |
 | Unsubscribe       | [unsubscribe 1-0-0] [unsubscribe-json-schema]              | [unsubscribe_1.json] [unsubscribe-json-paths]              | [com_sendgrid_unsubscribe_1.sql] [unsubscribe-sql]            |
 | Group Unsubscribe | [group_unsubscribe 1-0-0] [group_unsubscribe-json-schema]  | [group_unsubscribe_1.json] [group_unsubscribe-json-paths]  | [com_sendgrid_group_unsubscribe_1.sql] [group_unsubscribe-sql]|
-| Group Resubscribe | [group_resubscribe 1-0-0] [group_resubscribe-json-schema]  | [group_resubscribe_1.json] [group_resubscribe-json-paths]  | [com_sendgrid_group_resubscribe_1.sql] [group_resubscribe-sql]      |
+| Group Resubscribe | [group_resubscribe 1-0-0] [group_resubscribe-json-schema]  | [group_resubscribe_1.json] [group_resubscribe-json-paths]  | [com_sendgrid_resubscribe_1.sql] [group_resubscribe-sql]      |
 
 
 <a name="see-also" />
@@ -63,7 +61,7 @@ All resources for this webhook's events:
 [sendgrid-website]: http://sendgrid.com/
 
 [sendgrid-adapter]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-common-enrich/src/main/scala/com.snowplowanalytics.snowplow.enrich/common/adapters/registry/SendgridAdapter.scala
-[snowplow-x.x.x]: https://github.com/snowplow/snowplow/releases
+[snowplow-release]: https://github.com/snowplow/snowplow/releases/tag/r75-long-legged-buzzard
 
 [processed-json-schema]: https://github.com/snowplow/iglu-central/tree/master/schemas/com.sendgrid/processed/jsonschema/1-0-0
 [processed-json-paths]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/jsonpaths/com.sendgrid/processed_1.json
