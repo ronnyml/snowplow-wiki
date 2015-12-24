@@ -63,7 +63,7 @@ http://<collector host>/com.sendgrid/v3
 
 Our Webhooks setup page should look like this after we have added our **HTTP POST URL**:
 
-[[/setup-guide/images/webhooks/sendgrid/sendgrid-event-notification.png]]
+[[/setup-guide/images/webhooks/sendgrid/sendgrid_event_notification.png]]
 
 If you want, you can also manually override the event's `platform` parameter by appending a query string to the end of the URL so:
 
