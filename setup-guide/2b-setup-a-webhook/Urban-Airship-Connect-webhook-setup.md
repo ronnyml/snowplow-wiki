@@ -90,24 +90,24 @@ Make sure to deploy this table into the same schema as your `events` table.
 
 The minimum Hadoop enrich job version is *0.19.0*. You'll need to set the version you're using to be at least this. This setting can be found in the file `config.yml`
 
-{% highlight yaml %}
+```yaml
   versions:
     hadoop_enrich: 0.19.0
-{% endhighlight %}
+```
 
-You'll also need to set your loader format. To collect UrbanAirship Connect events, this should be set to `ndjson/com.urbanairship.connect/v1` as below.
+You'll also need to set your loader format. To collect Urban Airship Connect events, this should be set to `ndjson/com.urbanairship.connect/v1` as below.
 
-{% highlight yaml %}
+```yaml
   collector_format: ndjson/com.urbanairship.connect/v1
-{% endhighlight %}
+```
 
-Finally, you need to point EmrEtlRunner at your UrbanAirship integration S3 bucket. This is also located in `config.yml`.
+Finally, you need to point EmrEtlRunner at your UrbanAirship integration S3 bucket:
 
-{% highlight yaml %}
+```yaml
 raw:
-  in:                  # Multiple in buckets are permitted
-    - ADD HERE          # e.g. s3://my-archive-bucket/raw
-{% endhighlight %}
+  in:
+    - s3://bucket-specified-in-urban-airship
+```
 
 For a complete example, see our [sample `config.yml` template] [emretlrunner-config-yml].
 
