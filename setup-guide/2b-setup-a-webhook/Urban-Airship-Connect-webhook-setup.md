@@ -37,7 +37,7 @@ Available events are:
 - TAG_CHANGE
 - UNINSTALL
 
-For the technical implementation details, see [[UrbanAirship Connect webhook adapter]].
+For the technical implementation details, see [[Urban Airship Connect webhook adapter]].
 
 <a name="compat" />
 ### 1.1 Compatibility
