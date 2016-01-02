@@ -12,7 +12,7 @@ We are steadily moving over to [Bintray][bintray] for hosting binaries and artif
 
 To make operating Snowplow easier, the EmrEtlRunner and StorageLoader apps are now available as prebuilt executables in a single zipfile here:
 
-    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_emr_r73_cuban_macaw.zip
+    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_emr_r75_long_legged_buzzard.zip
 
 Right-click on this [Download link] [emr-download] to save it down locally.
 
@@ -144,4 +144,4 @@ Please see the [[Artifact repositories]] wiki page for more information.
 [kinesis-download]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r67_bohemian_waxwing.zip
 [kinesis-s3-download]: http://dl.bintray.com/snowplow/snowplow-generic/kinesis_s3_0.3.0.zip
 
-[emr-download]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_emr_r73_cuban_macaw.zip
+[emr-download]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_emr_r75_long_legged_buzzard.zip
