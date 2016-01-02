@@ -1,7 +1,7 @@
 All the things to tick off when doing a new release:
 
 0. **Complete?** - make sure all tickets completed
-1. **CHANGELOG** - updated, including version and date? Remove any `DONE` notes.
+1. **CHANGELOG** - updated, including version and date? Remove any `DONE` or `WIP` notes.
 2. **Documentation** - any urgent documentation changes release at the same time as the new version; any lower priority changes,  file a ticket in the snowplow repo
 3. **Configuration file templates** - easy to forget. Have these been updated?
 4. **Hosted assets** - any new ones, add to the hosted assets page. Also, remove any `-TEST-rX` suffixes on the filenames of the new hosted asset versions
