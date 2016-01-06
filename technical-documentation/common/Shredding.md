@@ -3,7 +3,7 @@ Snowplow has a Shredding process which consists of two phases:
 1. Extracting unstructured event JSONs and context JSONs from enriched event files into their own files
 2. Loading those files into corresponding tables in Redshift
 
-Currently Hive and Postgres are not supported for shredding.
+Postgres does not support copying data in JSON format, so you cannot load Snowplow JSONs into Postgres. However, if you are using Postgres, you must still run the shred step because it also creates the TSV which is loaded into the atomic.events table.
 
 ## Technical architecture
 
