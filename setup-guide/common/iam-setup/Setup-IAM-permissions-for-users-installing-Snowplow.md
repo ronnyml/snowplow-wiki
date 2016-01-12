@@ -89,8 +89,7 @@ Paste the following JSON into the _Policy Document_ text area:
         "rds:*",
         "redshift:*",
         "s3:*",
-        "sns:*",
-        "sqs:*"
+        "sns:*"
       ],
       "Resource": "*"
     }
@@ -131,8 +130,7 @@ Paste the following JSON into the _Policy Document_ text area:
         "cloudfront:*",
         "logs:*",
         "dynamodb:*",
-        "sns:*",
-        "sqs:*"
+        "sns:*"
       ],
       "Resource": [
         "*"
@@ -189,8 +187,7 @@ Paste the following JSON into the _Policy Document_ text area:
         "rds:*",
         "redshift:*",
         "s3:*",
-        "sns:*",
-        "sqs:*"
+        "sns:*"
       ],
       "Resource": [
         "*"
