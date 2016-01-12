@@ -187,7 +187,8 @@ Paste the following JSON into the _Policy Document_ text area:
         "rds:*",
         "redshift:*",
         "s3:*",
-        "sns:*"
+        "sns:*",
+        "sqs:*",
       ],
       "Resource": [
         "*"
