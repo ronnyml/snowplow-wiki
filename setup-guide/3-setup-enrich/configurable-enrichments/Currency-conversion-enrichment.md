@@ -14,11 +14,11 @@ This enrichment uses [Open Exchange Rates][openexchangerates] to convert the val
 
 These are the fields which the currency_conversion_config enrichment can populate:
 
-base_currency
-tr_total_base
-tr_tax_base
-tr_shipping_base
-ti_price_base
+`base_currency`  
+`tr_total_base`  
+`tr_tax_base`  
+`tr_shipping_base`  
+`ti_price_base`  
 
 ### Example
 
