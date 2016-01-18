@@ -136,7 +136,7 @@ to:
 <a name="reach-setup" />
 #### 3.2.2 Add the Reachability dependency
 
-The tracker is dependent on [Reachability] [reach] version 3.2, a drop in replacement for Apple's Reachability class.
+For iOS only, the tracker is dependent on [Reachability] [reach] version 3.2, a drop in replacement for Apple's Reachability class.
 
 As before, git clone the dependency and copy the source into your XCode project's folder:
 
