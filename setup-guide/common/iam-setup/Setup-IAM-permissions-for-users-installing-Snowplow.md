@@ -58,6 +58,7 @@ The following permissions are needed for all batch proccessing operations:
 * Amazon Marketplaces (required for EmrEtlRunner / StorageLoader)
 * Amazon CloudFront (required for Cloudfront collector)
 * Amazon Elastic Beanstalk (required for Clojure collector)
+* Amazon Elasticsearch service (for loading bad rows)
 * Amazon Redshift (required for Redshift)
 * Amazon Cloudformation (required if the Snowplow team setup your Snowplow data pipeline, as we use Cloudformation)
 * Amazon IAM (required as part of the Clojure collector setup, as a role is created for the Clojure collector application)
@@ -85,6 +86,7 @@ Paste the following JSON into the _Policy Document_ text area:
         "elasticbeanstalk:*",
         "elasticloadbalancing:*",
         "elasticmapreduce:*",
+        "es:*",
         "iam:*",
         "rds:*",
         "redshift:*",
