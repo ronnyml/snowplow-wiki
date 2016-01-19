@@ -14,6 +14,7 @@ This page refers to version 0.6.0 of the Snowplow Objective-C Tracker, which is 
 
 - 1. [Overview](#overview)
   - 1.1 [Demonstration App](#demo-app)
+  - 1.2 [HTTPs and Certificates](#certificates)
 - 2. [Initialization](#init)
   - 2.1 [Importing the library](#importing)
   - 2.2 [Creating a tracker](#create-tracker)
@@ -88,6 +89,17 @@ If you would like to see the Tracker in action you can launch the demo app like 
 * Select the device you want to launch the SnowplowDemo into!
 
 You will then need to simply enter a valid endpoint URL and hit the `Start Demo!` button.
+
+[Back to top](#top)
+
+<a name="certificates" />
+### 1.2 HTTPs and Certificates
+
+Please note that with the release of iOS 9, tvOS 9 and OS-x 10.11 Apple's Application Transport Security now requires:
+
+1. That all network communication be done using HTTPs by default.  There are [ways around this](https://forums.developer.apple.com/thread/3544) if need be.
+
+2. We have noticed that for the Application Transport Security to work with your certificates you will need to supply the whole certificate chain.
 
 [Back to top](#top)
 
