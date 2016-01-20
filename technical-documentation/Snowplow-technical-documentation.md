@@ -7,14 +7,21 @@ The technical documentation reflects the Snowplow architecture, with six loosely
 ## 1A. Trackers
 
 [Trackers overview](trackers)  
+[ActionScript3 Tracker](ActionScript3-Tracker)  
+[Android Tracker](Android-Tracker)  
+[Arduino Tracker](Arduino-Tracker)  
+[.NET Tracker](.NET-Tracker)  
+[iOS Tracker](iOS-Tracker)  
+[Java Tracker](Java-Tracker)   
 [JavaScript Tracker](javascript-tracker)  
-[Pixel Tracker](pixel-tracker)
-[[Python Tracker]]  
-[[Ruby Tracker]]  
-[[Java Tracker]]  
-[[Lua Tracker]]  
-[[Arduino Tracker]]  
-[[ActionScript3 Tracker]]
+[Lua Tracker](Lua-Tracker)  
+[Node.js Tracker](Node.js-Tracker)  
+[PHP Tracker](PHP-Tracker)  
+[Python Tracker](Python-Tracker)  
+[Pixel Tracker](pixel-tracker)  
+[Ruby Tracker](Ruby-Tracker)  
+[Scala Tracker](Scala-Tracker)  
+[Unity Tracker](Unity-Tracker)  
 
 ## 1B. Webhooks
 
@@ -47,7 +54,7 @@ The technical documentation reflects the Snowplow architecture, with six loosely
 ## 4. Storage
 
 [Storage Overview](Storage-documentation)  
-[Storage in S3](S3 storage)  
+[Storage in S3](S3-storage)  
 [Storage in Redshift](amazon-redshift-storage)  
 [Storage in PostgreSQL](postgresql-storage)   
 [Storage in Infobright](infobright-storage) (deprecated)  
