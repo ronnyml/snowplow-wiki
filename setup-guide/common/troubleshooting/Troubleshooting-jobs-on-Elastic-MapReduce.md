@@ -40,7 +40,7 @@ In this case, we would simply rerun EmrEtlRunner with the command-line option of
 
 On the other hand, if your job started but encountered errors part way through, then you should see something like this:
 
-[[/setup-guide/images/troubleshooting/emr-console-error.png]]
+[[/setup-guide/images/troubleshooting/emr-console-step-failed.png]]
 
 To find out what happened, we will need to dig into the Hadoop logs for the step - please continue to the next section, [Checking the Hadoop logs for errors](#check-hadoop-logs).
 
