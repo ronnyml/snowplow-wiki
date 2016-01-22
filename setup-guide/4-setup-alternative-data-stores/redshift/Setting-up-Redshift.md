@@ -252,9 +252,13 @@ Click the **Modify** button to save the changes. We now need to reboot the clust
 
 
 <a name="load" />
-## 8. Automate the loading of Snowplow data into Redshift
+## 8. Loading Snowplow data into Redshift using StorageLoader
 
-Now that you have your Snowplow database and table setup on Redshift, you are ready to [setup the StorageLoader to regularly upload Snowplow data into the table] [storage-loader]. Click [here] [storage-loader] for step-by-step instructions on how.
+Now that you have your Snowplow database and table setup on Redshift, you are ready to setup the StorageLoader to regularly upload Snowplow data into the table.
+
+1. [Installing the StorageLoader](1-Installing-the-StorageLoader)
+2. [Using the StorageLoader](2-using-the-storageloader)
+3. [Scheduling the StorageLoader](3-scheduling-the-storageloader)
 
 [Back to top](#top).
 
