@@ -25,6 +25,5 @@
 **Useful resources**  
 
 - [[Troubleshooting]]  
-- [[IAM Setup]]  
-- [[Ruby and RVM setup]]  
+- [[IAM Setup]]   
 - [[Hosted assets]]
