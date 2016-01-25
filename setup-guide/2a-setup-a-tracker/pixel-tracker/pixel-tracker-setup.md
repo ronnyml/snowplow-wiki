@@ -35,7 +35,7 @@ Navigate to the [wizard] [pixel-wizard].
 
 **2.4. You may optionally enter a page URL**. Both the Clojure Collector and Cloudfront collector will be able to deduce the URL directly (without relying on a value entered in a query string), so this can be safely left out if you wish.
 
-**2.5. Select the type of collector you're using and enter the relevant details.** If you're using the Cloudfront collector you will need to enter the Cloudfront subdomain. If you're using the Clojure collector (or any other collector) you will need to enter the or the endpoint collector URL.
+**2.5. Select the type of collector you're using and enter the relevant details.** If you're using the Cloudfront collector you will need to enter the Cloudfront subdomain. If you're using the Clojure collector (or any other collector) you will need to enter the endpoint collector URL.
 
 **2.6. Select the `Generate Pixel tracking tag button**. The tracking code will be displayed below the wizard. Copy this to the clipboard.
 
