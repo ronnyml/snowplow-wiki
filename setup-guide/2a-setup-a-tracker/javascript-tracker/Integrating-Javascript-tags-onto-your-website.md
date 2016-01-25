@@ -99,7 +99,7 @@ snowplowTracker.trackPageView();
 <a name="events" />
 ## 2. Tracking more than just page views: event tracking, ecommerce tracking etc.
 
-Snowplow has been built to track more than simply page views. We believe, as far as possible, that *every* every that can happen on a user journey should be captured in Snowplow, and that includes every in-page events that might not result in a new page load. (Which are the only events that are captured as by the page view tracking already implemented.) The JavaScript Tracker incorporates a number of functions to capture a wealth of events including:
+Snowplow has been built to track more than simply page views. We believe, as far as possible, that *every* event that can happen on a user journey should be captured in Snowplow, and that includes every in-page events that might not result in a new page load. (Which are the only events that are captured as by the page view tracking already implemented.) The JavaScript Tracker incorporates a number of functions to capture a wealth of events including:
 
 1. [Custom structured events](2-Specific-event-tracking-with-the-Javascript-tracker#wiki-custom-structured-events). A general purpose event tracking tag that can be used to track events like *add-to-baskets*, *video-plays* amongst others. It is modelled closely on Google's Event tracking
 2. [Ecommerce transactions](2-Specific-event-tracking-with-the-Javascript-tracker#wiki-ecommerce). Use this to track orders placed on your site
