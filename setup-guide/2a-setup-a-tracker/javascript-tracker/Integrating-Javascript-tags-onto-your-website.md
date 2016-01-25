@@ -70,7 +70,7 @@ window.snowplow('newTracker', 'mycljcoll', 'snowplow-coll.acme.com', { // Initia
 
 ### 1.3 Configuring the header script: application ID and cookie domain
 
-Setting the collector endpoint is essential for Snowplow to work. Setting the application ID and cookie domain are optional. For details on setting these, see the [JavaScript technical documentation guide] [Javascript-Tracker].
+Setting the collector endpoint is essential for Snowplow to work. Setting the application ID and cookie domain are optional. For details on setting these, see the [JavaScript technical documentation guide] (Javascript-Tracker).
 
 <a name="sync"/>
 ### 1.2 Synchronous integration
