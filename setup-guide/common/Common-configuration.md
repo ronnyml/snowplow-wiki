@@ -29,10 +29,10 @@ aws:
       log: ADD HERE
       raw:
         in:                  # Multiple in buckets are permitted
-          - ADD HERE          # e.g. s3://my-archive-bucket/raw
+          - ADD HERE          # e.g. s3://my-in-bucket/raw
           - ADD HERE
         processing: ADD HERE
-        archive: ADD HERE    # e.g. s3://my-archive-bucket/raw
+        archive: ADD HERE    # e.g. s3://my-archive-bucket/in
       enriched:
         good: ADD HERE       # e.g. s3://my-out-bucket/enriched/good
         bad: ADD HERE        # e.g. s3://my-out-bucket/enriched/bad
