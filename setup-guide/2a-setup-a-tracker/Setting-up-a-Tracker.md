@@ -31,7 +31,6 @@ There are currently 13 trackers available for setup:
 | [Scala Tracker](Scala-tracker-setup) | This tracker allows you to track Snowplow events in your Scala apps and servers. | Production-ready |
 | [Unity Tracker](Unity-Tracker-Setup) | It allows you to track Snowplow events from your Unity games and apps. | Beta |
 
-TODO: complete this list
 
 For other possible trackers (e.g. Go, Erlang, C++) and their approximate timelines, please see the [Product roadmap](Product-roadmap).
 
