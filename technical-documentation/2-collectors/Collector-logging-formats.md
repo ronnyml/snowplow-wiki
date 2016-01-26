@@ -20,7 +20,31 @@ Here we document the different formats, and show which collectors generate what.
 <a name="cloudfront" />
 ## The Cloudfront logging format (with Cloudfront naming convention)
 
-TO WRITE
+For the Cloudfront logfile naming convention, please, refer to the official [Amazon documentation](http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html#AccessLogsFileNaming). The main point to note here is the logfiles are stored in `gzip` format, thus bearing `.gz` extension. They will be prefixed with the distribution ID:
+ 
+`distribution-ID.YYYY-MM-DD-HH.unique-ID.gz`
+
+The logging format is well described in [this section of the Amazon article](http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html#BasicDistributionFileFormat). Each entry in a log file gives details about a single user request and the files bear the following characteristics.
+
+* Use the [W3C extended log file format](http://www.w3.org/TR/WD-logfile.html).
+* Contain tab-separated values.
+* Contain records that are not necessarily in chronological order.
+* Contain two header lines: one with the file-format version, and another that lists the W3C fields included in each record.
+* Substitute URL-encoded equivalents for spaces and non-standard characters in field values.
+* These non-standard characters consist of all ASCII codes below 32 and above 127. The URL encoding standard is [RFC 1738](http://www.ietf.org/rfc/rfc1738.txt).
+
+Note that the actual field containing the key/value pairs from the `GET` requests initiated by the trackers is `cs-uri-query` (the 12th field).
+
+Below is an example of a single record in the logfile.
+
+`2016-01-20	20:22:55	IND6	480	174.2.224.27	GET	d2gtrjee5bqfpl.cloudfront.net	/i	200	https://www.properweb.ca/hosting/	Mozilla/5.0%2520(Windows%2520NT%25206.1)%2520AppleWebKit/537.36%2520(KHTML,%2520like%2520Gecko)%2520Chrome/47.0.2526.111%2520Safari/537.36	e=ue&ue_px=eyJzY2hlbWEiOiJpZ2x1OmNvbS5zbm93cGxvd2FuYWx5dGljcy5zbm93cGxvdy91bnN0cnVjdF9ldmVudC9qc29uc2NoZW1hLzEtMC0wIiwiZGF0YSI6eyJzY2hlbWEiOiJpZ2x1OmNvbS5zbm93cGxvd2FuYWx5dGljcy5zbm93cGxvdy9saW5rX2NsaWNrL2pzb25zY2hlbWEvMS0wLTEiLCJkYXRhIjp7InRhcmdldFVybCI6Imh0dHBzOi8vd3d3LnByb3BlcndlYi5jYS9ob3N0aW5nL2NvbXBhcmUtcGVyc29uYWwtcGxhbnMvIiwiZWxlbWVudElkIjoiIiwiZWxlbWVudFRhcmdldCI6IiJ9fX0&tv=js-2.5.3&tna=cf&aid=cfpweb&p=web&tz=America%252FGuatemala&lang=en-US&cs=UTF-8&f_pdf=1&f_qt=0&f_realp=0&f_wma=0&f_dir=0&f_fla=1&f_java=0&f_gears=0&f_ag=0&res=1152x864&cd=24&cookie=1&eid=a8451163-d056-4a6c-a8ef-c612aab3c252&dtm=1453321369503&vp=1152x329&ds=1135x2601&vid=3&sid=a2e39d3f-af4d-48f7-b153-8ca79942a552&duid=830e4863d85df04a&fp=1354193749&refr=https%253A%252F%252Fwww.properweb.ca%252Fdomain-name-registration%252F&url=https%253A%252F%252Fwww.properweb.ca%252Fhosting%252F	-	Hit	yavbRZy0qwso0j-8VBYB-VHIaJjo8K4eaARnXiseXDvKSH8vZ-_Mlg==	d2gtrjee5bqfpl.cloudfront.net	https	1268	0.001	-	TLSv1.2	ECDHE-RSA-AES128-GCM-SHA256	Hit`
+
+The main points regarding Cloudfront logging are
+
+1. Supports single events sent via `GET` **only**
+2. No support for `network_userid`
+
+Please, refer to the [Snowplow Tracker Protocol](snowplow-tracker-protocol) for the comprehensive list of the individual parameters that could be submitted with the `GET` request (and thus contained in the field `cs-uri-query` of the Cloudfront logfile).
 
 <a name="tomcat" />
 ## The Tomcat access log format (with Amazon Elastic Beanstalk filename naming convention)
