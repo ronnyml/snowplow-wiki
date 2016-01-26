@@ -27,11 +27,6 @@ You will need to setup EmrEtlRunner on your own server. A number of people choos
 
 The EmrEtlRunner jar is available for download. For more information, see the [[Hosted assets]] page.
 
-Alternatively, to build EmrEtlRunner yourself, first make sure that your server has **all** of the following installed:
-
-1. **Git** - see the [Git Installation Guide] [git-install]
-2. **Ruby and RVM*** - see our [Ruby and RVM setup guide](Ruby-and-RVM-setup). Both EmrEtlRunner and StorageLoader require Ruby 1.9.3
-
 \* If you prefer, an alternative Ruby manager such as chruby or rbenv should work fine too.
 
 ### 2.3 EC2 key
@@ -71,8 +66,6 @@ Check it worked okay:
 
     $ ./deploy/snowplow-emr-etl-runner --version
     snowplow-emr-etl-runner 0.17.0
-
-If you have any problems installing, please double-check that you have successfully completed our [Ruby and RVM setup guide](Ruby-and-RVM-setup).
 
 <a name="configuration"/>
 ## 4. Configuration
