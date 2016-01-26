@@ -20,11 +20,6 @@ The StorageLoader jar is available for download. For more information, see the [
 
 The StorageLoader requires Java 7 to run.
 
-Alternatively, to build the StorageLoader yourself, first make sure that you have **all** of the following installed:
-
-1. **Git** - see the [Git Installation Guide] [git-install]
-2. **Ruby and RVM*** - see our [Ruby and RVM setup guide](Ruby-and-RVM-setup)
-
 \* If you prefer, an alternative Ruby manager such as chruby or rbenv should work fine too.
 
 Also make sure that if you are loading Snowplow events into a PostgreSQL database, then the StorageLoader **must be run on the same server running PostgreSQL**. That is because it downloads the files locally, and Postgres needs to be able to ingest the data from the local file system.
@@ -51,16 +46,15 @@ Right, now we can install StorageLoader.
 <a name="installation"/>
 ## 3. Installation
 
-To build the StorageLoader yourself, checkout the Snowplow repository and navigate to the StorageLoader root:
+We host StorageLoader on the distribution platform [JFrog Bintray](https://bintray.com/). If you completed [EmrEtlRunner installation](1-Installing-EmrEtlRunner) then this step could be skipped. Otherwise you can get a copy of the StorageLoader as shown below
 
-    $ git clone git://github.com/snowplow/snowplow.git
-    $ cd snowplow/4-storage/storage-loader
-    $ ./build.sh
+`$ wget http://dl.bintray.com/snowplow/snowplow-generic/snowplow_emr_r75_long_legged_buzzard.zip`
 
-Check it worked okay:
+The archive contains both [EmrEtlRunner](1-Installing-EmrEtlRunner) and StorageLoader. Unzip the archive:
 
-    $ ./deploy/snowplow-storage-loader --version
-    snowplow-storage-loader 0.5.0
+`$ unzip snowplow_emr_r75_long_legged_buzzard.zip`
+
+You will see two files `snowplow-emr-etl-runner` and `snowplow-storage-loader` where the second one is the actual StorageLoader.
 
 <a name="configuration"/>
 ## 4. Configuration
