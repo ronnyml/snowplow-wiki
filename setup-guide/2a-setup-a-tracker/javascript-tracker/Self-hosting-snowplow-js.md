@@ -168,7 +168,7 @@ n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//://{{SUBDOM
 
 The `setCollectorCf` legacy method is used to determine the Cloudfront subdomain where your tracking pixel is served from. This should **not** be confused with the Cloudfront subdomain used to serve `sp.js`.
 
-This page of documentation relates to self-hosting `sp.js`. You should be using a different Cloudfront distribution for you `setCollectorCf` method in the Snowplow tag. (Or if you're not using the Cloudfront collector, `setCollectorUrl`.) If you are using the Cloudfront collector, see [Cloudfront collector setup](1-Setup-a-bucket-on-S3-for-the-pixel) for details on setting up a Cloudfront distribution for your tracking pixel, and [setting the collector endpoint of your JavaScript Tracker](javascript-tracker#wiki-endpoint) for details on configuring your Snowplow tags.
+This page of documentation relates to self-hosting `sp.js`. You should be using a different Cloudfront distribution for you `setCollectorCf` method in the Snowplow tag. (Or if you're not using the Cloudfront collector, `setCollectorUrl`.) If you are using the Cloudfront collector, see [Cloudfront collector setup](1-Setup-a-bucket-on-S3-for-the-pixel) for details on setting up a Cloudfront distribution for your tracking pixel, and [setting the collector endpoint of your JavaScript Tracker](integrating-javascript-tags-onto-your-website) for details on configuring your Snowplow tags.
 
 <a name="advanced-options" />
 ## Advanced options
