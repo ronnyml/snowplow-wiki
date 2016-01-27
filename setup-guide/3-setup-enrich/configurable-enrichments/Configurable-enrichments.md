@@ -43,6 +43,7 @@ These are the available configurable enrichments:
 [[Event fingerprint enrichment]]  
 [[Cookie extractor enrichment]]  
 [[Weather enrichment]]  
+[[API Lookup enrichment]]  
 
 
 Snowplow ships with a set of sensible default configurations for the configurable enrichments. You can browser them on GitHub: [3-enrich/emr-etl-runner/config/enrichments][enrichment-json-examples].
