@@ -59,7 +59,7 @@ Please, refer to the following [Amazon article](http://docs.aws.amazon.com/elast
 
 Bear in mind that if you reconfigure the environment the `instance-id` could be modified too.
 
-Access logging in Tomcat environment is performed by [valves that implement org.apache.catalina.AccessLog interface](https://tomcat.apache.org/tomcat-8.0-doc/config/valve.html#Access_Log_Valve). A formatting layout identifying the various information fields from the request to be logged is determined by the attribute `pattern`. The pattern we use ensures that the access log format matches that produced by the Cloudfront Collector (so that the same ETL process can be employed for both collectors).
+Access logging in Tomcat environment is performed by [valves that implement org.apache.catalina.AccessLog interface](https://tomcat.apache.org/tomcat-8.0-doc/config/valve.html#Access_Log_Valve). A formatting layout identifying the various information fields from the request and response to be logged is determined by the attribute `pattern`. The pattern we use ensures that the access log format matches that produced by the Cloudfront Collector (so that the same ETL process can be employed for both collectors).
 
 `<Valve ... pattern="%{yyyy-MM-dd}t&#9;%{HH:mm:ss}t&#9;-&#9;%b&#9;%a&#9;%m&#9;%h&#9;%U&#9;%s&#9;%{Referer}i&#9;%{User-Agent}I&#9;%q&amp;cv=clj-1.1.0-%v&amp;nuid=%{sp}C&#9;-&#9;-&#9;-&#9;%~&#9;%w" />`
 
