@@ -12,7 +12,7 @@ To do so, download the Snowplow repo:
 
 Navigate into the clojure collector folder:
 
-	$ cd 2-collectors/clojure-collector
+	$ cd 2-collectors/clojure-collector/java-servlet
 
 Download the required dependencies:
 
