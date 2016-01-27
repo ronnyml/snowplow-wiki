@@ -25,7 +25,7 @@
     - 2.2.5 [`contracts`](#contracts)
   - 2.3 [Creating multiple trackers](#multi-tracker)
 - 3. [Adding extra data](#add-data)  
-  - 3.1 [`set_platform()`](#platform)
+  - 3.1 [`set_platform()`](#set-platform)
   - 3.2 [`set_user_id()`](#set-user-id)
   - 3.3 [`set_screen_resolution()`](#set-screen-resolution)
   - 3.4 [`set_viewport()`](#set-viewport)
@@ -190,7 +190,7 @@ The tracker instance has a set of `set...()` methods to attach extra data to all
 
 We will discuss each of these in turn below:
 
-<a name="platform" />
+<a name="set-platform" />
 #### 3.1 Change the tracker's platform with `set_platform()`
 
 You can change the platform the tracker is running on by calling:
@@ -243,7 +243,7 @@ t.set_screen_resolution(1366, 768)
 
 [Back to top](#top)
 
-<a name="set-screen-resolution" />
+<a name="set-viewport" />
 ### 3.4 Set viewport dimensions with `set_viewport()`
 
 If your Python code has access to the device's screen resolution, then you can pass this in to Snowplow too:
@@ -277,7 +277,7 @@ t.set_color_depth(32)
 
 [Back to top](#top)
 
-<a name="set-color-depth" />
+<a name="set-lang" />
 ### 3.6 Set the language with `set_lang()`
 
 This method lets you pass a user's language in to Snowplow:
