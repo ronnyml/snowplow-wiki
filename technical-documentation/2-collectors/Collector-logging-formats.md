@@ -86,19 +86,19 @@ As a result, a logfile record will look like the one below:
 
 For your convenience, the `pattern` codes utilized are summarised in the table below.
 
-| Code/element | Implementation Type | Description |
-|:-------------|:-------------------:|:----------------------------------------------------------------------------|
+| Code | Implementation Type | Description |
+|:-------|:-------------------:|:----------------------------------------------------------------------------|
 | %a | Customized | Reimplemented to get remote IP more reliably, even through proxies. |
-| %b | Standard | Bytes sent, excluding HTTP headers, or '-' if zero |
+| %b | Standard | Bytes sent, excluding HTTP headers, or '-' if zero. |
 | %{xxx}C | New | Introduced to fetch a cookie stored on the response. |
-| %h | Standard | Remote host name (or IP address if `enableLookups` for the connector is `false`) |
+| %h | Standard | Remote host name (or IP address if `enableLookups` for the connector is `false`). |
 | %{xxx}I | New | Introduced to escape an incoming header. |
 | %{xxx}i | Customized | Reimplemented to ensure that "" (empty string) is replaced with "-". |
-| %m | Standard | Request method (`GET`, `POST`) |
+| %m | Standard | Request method (`GET`, `POST`). |
 | %q | Customized | Re-implements the pattern 'q' to remove the "?" and ensure "" (empty string) is replaced with "-". |
-| %s | Standard | HTTP status code of the response |
-| %{xxx}t | Standard | Timestamp formatted using the enhanced `SimpleDateFormat` pattern |
-| %U | Standard | Requested URL path |
+| %s | Standard | HTTP status code of the response. |
+| %{xxx}t | Standard | Timestamp formatted using the enhanced `SimpleDateFormat` pattern .|
+| %U | Standard | Requested URL path. |
 | %v | Customized | Overwritten to write the version of this `AccessLogValve`, rather than the local server name. |
 | %w | New | Introduced to capture the request's body. |
 | %~ | New | Introduced to capture the request's content type. |

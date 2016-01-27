@@ -68,10 +68,10 @@ Tracking is done by inserting JavaScript tags onto pages. These tags run functio
 
 The JavaScript Tracker supports both synchronous and asynchronous tags. We recommend the asynchronous tags in nearly all instances, as these do not slow down page load times. 
 
-[2. General parameters](1-General-parameters-for-the-Javascript-tracker#wiki-general)  
-[3. Tracking specific events](2-Specific-event-tracking-with-the-Javascript-tracker#wiki-tracking-specific-events)  
-[4. The relationship between Snowplow.js and Piwik.js](3-The-relationship-between-SnowPlow.js-and-Piwik.js)  
-[5. Modifying Snowplow JS](Modifying-snowplow-js)
+2. [General parameters](1-General-parameters-for-the-Javascript-tracker#wiki-general)  
+3. [Tracking specific events](2-Specific-event-tracking-with-the-Javascript-tracker#wiki-tracking-specific-events)  
+4. [Advanced usage](3-Advanced-usage-of-the-JavaScript-Tracker)  
+5. [Modifying Snowplow JS](Modifying-snowplow-js)
 
 
 [Back to top](#top)  
