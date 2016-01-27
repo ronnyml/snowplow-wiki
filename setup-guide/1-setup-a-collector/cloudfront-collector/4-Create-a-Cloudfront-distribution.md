@@ -1,6 +1,6 @@
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 1: setup a Collector**](Setting-up-a-collector) > [**Setup the Cloudfront collector**](setting up the cloudfront collector) > 4. Create a Cloudfront distribution
 
-Having setup everything in S3, we now need to create a Cloudfront distribution. This will be used to serve the tracking pixel `i`. (So we need to tell Cloudfront to serve the contents of the [first bucket](#bucket1) in S3 we created, that houses the tracking pixel.) We also need to switch on Cloudfront logging, so that every request made for the tracking pixel by the Snowplow tracker will be logged. Again, we need to tell Cloudfront to store these logs in the bucket we created in [step 3 above](#bucket2).
+Having setup everything in S3, we now need to create a Cloudfront distribution. This will be used to serve the tracking pixel `i` (so we need to tell Cloudfront to serve the contents of the [first bucket](1-Setup-a-bucket-on-S3-for-the-pixel) in S3 we created, that houses the tracking pixel). We also need to switch on Cloudfront logging, so that every request made for the tracking pixel by the Snowplow tracker will be logged. Again, we need to tell Cloudfront to store these logs in the [second bucket](3-create-a-bucket-for-cloudfront-logs) we created.
 
 ## 4.1 Switch from S3 to Cloudfront
 
@@ -26,7 +26,7 @@ The first field, **Origin Domain ID** lets us specify where Cloudfront should fi
 
 [[/setup-guide/images/cloudfront-collector-setup-guide/cloudfront-create-distribution-4.jpg]]
 
-In the drop down you should see the bucket you setup in [step 1](#bucket1) that contains the tracking pixel `i`. Selet this - the **Origin ID** field should be automatically populated for you:
+In the drop down you should see the bucket you setup in [step 1](1-Setup-a-bucket-on-S3-for-the-pixel) that contains the tracking pixel `i`. Selet this - the **Origin ID** field should be automatically populated for you:
 
 [[/setup-guide/images/cloudfront-collector-setup-guide/cloudfront-create-distribution-5.jpg]]
 
@@ -38,7 +38,7 @@ Change the radio button for **Logging** from **Off** to **On**. The two fields b
 
 [[/setup-guide/images/cloudfront-collector-setup-guide/cloudfront-create-distribution-7.jpg]]
 
-You should now be able to select the [2nd bucket](#bucket2) you setup to store the logs.
+You should now be able to select the [2nd bucket](3-create-a-bucket-for-cloudfront-logs) you setup to store the logs.
 
 Now all you need to do is tell Cloudfront to create the distribution. Scroll down to the end of the options and select the **Create Distribution** button:
 
