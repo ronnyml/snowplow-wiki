@@ -11,6 +11,5 @@
 
 **Useful resources**  
 
-- [[Troubleshooting]]  
-- [[Ruby and RVM setup]]  
+- [[Troubleshooting]]   
 - [[Hosted assets]]
