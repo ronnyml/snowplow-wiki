@@ -47,7 +47,7 @@ Use your standard asset pipelining strategy to upload the minified `sp.js` JavaS
 
 As a final step, you will want to just check that your customised `sp.js` JavaScript is working okay.
 
-To do this, please follow the testing instructions at the end of the guide to [Integrating Snowplow tags directly onto your website] (Integrating Javascript tags onto your website#testing).
+To do this, please follow the testing instructions on [Testing the Javascript tracker is firing](Testing%20the%20Javascript%20tracker%20is%20firing).
 
 ## Next steps
 
