@@ -522,6 +522,6 @@ Now you have setup the JavaScript tracking tags, you are in a position to [test 
 [Return to setup guide](Setting-up-Snowplow).
 
 [datalayer]: https://developers.google.com/tag-manager/reference
-[event-tracking]: https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-events
+[event-tracking]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#tracking-specific-events
 [ecomm-tracking]: https://github.com/snowplow/snowplow/wiki/javascript-tracker#wiki-ecommerce
 [gtm-vars]: https://developers.google.com/tag-manager/reference#varnames
