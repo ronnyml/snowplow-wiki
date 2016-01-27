@@ -11,6 +11,10 @@ Here we document the different formats, and show which collectors generate what.
 
 ## Logging formats
 
+1. Be it a record in a logfile or a raw event, it serves as an envelope containing the event data encapsulated within either the `GET` query string or the `POST` response object.
+2. If it's inside the `POST` response object, then the events will be contained within [this JSON](https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/payload_data/jsonschema/1-0-3).
+3. With either `GET` or `POST`, the lowest level will be a set of name/value pairs that respect the [Snowplow Tracker Protocol](snowplow-tracker-protocol).
+
 | **Logging formats**                   | **Description**                                 | **Status** | **Collector** |
 |:--------------------------------------|:------------------------------------------------|:-----------|:--------------|
 | [Cloudfront logs](#cloudfront)        | Amazon's Cloudfront log formats with Amazon Cloudfront filename naming convention | Supported (both pre and post Sept 2012 formats) | [[Cloudfront Collector]] |
