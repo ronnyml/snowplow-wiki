@@ -1,23 +1,23 @@
 <a name="top" />
 
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 3: Setting up Enrich](Setting-up-enrich) > Configurable enrichments > API Lookup enrichment
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 3: Setting up Enrich](Setting-up-enrich) > Configurable enrichments > API Request enrichment
 
 ### Compatibility
 
-JSON Schema	[iglu:com.snowplowanalytics.snowplow.enrichments/api_lookup_enrichment_config/jsonschema/1-0-0][schema]  
+JSON Schema	[iglu:com.snowplowanalytics.snowplow.enrichments/api_request_enrichment_config/jsonschema/1-0-0][schema]  
 Compatibility	**NOT RELEASED YET**  
 Data provider	Any  
 
 
 ### Overview
 
-This enrichment uses any HTTP server to look up contexts related to particular event.
+This enrichment uses extrnal API server to look up contexts related to particular event.
 
 **TODO**
 
 ### Example
 
-Here's factitious configuration that uses [OpenWeatherMap] [owm] to fetch weather weather conditions in which event has been occuried.
+Here's factitious configuration that uses [OpenWeatherMap] [owm] to fetch weather conditions in which event has been occuried.
 
 **WARNING** This configuration is for demonstration purposes only, as it uses very naive cache implementation and invalid time format.
 For actual weather lookup you may want to check our [Weather enrichment](Weather-enrichment)
@@ -25,12 +25,12 @@ For actual weather lookup you may want to check our [Weather enrichment](Weather
 
 ```json
 {
-    "schema": "iglu:com.snowplowanalytics.snowplow.enrichments/api_lookup_enrichment_config/jsonschema/1-0-0",
+    "schema": "iglu:com.snowplowanalytics.snowplow.enrichments/api_request_enrichment_config/jsonschema/1-0-0",
 
     "data": {
         "enabled": true,
         "vendor": "com.snowplowanalytics.snowplow.enrichments",
-        "name": "api_lookup_enrichment_config",
+        "name": "api_request_enrichment_config",
         "parameters": {
             "inputs": [
                 {
@@ -80,4 +80,4 @@ For actual weather lookup you may want to check our [Weather enrichment](Weather
 
 
 [owm]: http://openweathermap.org
-[schema]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow.enrichments/api_lookup_enrichment_config/jsonschema/1-0-0
+[schema]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow.enrichments/api_request_enrichment_config/jsonschema/1-0-0
