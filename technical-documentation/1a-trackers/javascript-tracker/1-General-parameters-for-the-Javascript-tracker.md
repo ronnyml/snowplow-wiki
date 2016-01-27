@@ -13,7 +13,7 @@
 ## 2. General parameters
   - 2.1 [Loading Snowplow.js](#loading)
   - 2.2 [Initialising a tracker](#initialisation)
-    - 2.2.1 [Setting the application ID](#app id)
+    - 2.2.1 [Setting the application ID](#app-id)
     - 2.2.2 [Setting the platform](#platform)
     - 2.2.3 [Configuring the cookie domain](#cookie-domain)
     - 2.2.4 [Configuring the cookie name](#cookie-name)
