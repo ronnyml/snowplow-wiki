@@ -37,6 +37,7 @@ In general, you'll only need to setup a single account, and most likely a single
 1. A container is a single GTM tag that you will install on your web pages instead of the individual tags from different web analytics and other vendors. If you use a common tag setup across many domains, then you can use the same container across multiple domains, rather than create a container for each domain. This might save administrative time in GTM, because you can then add and manage tags across all the domains in one go. (It is straightforward to add tags for a single domain within a multi-domain container setup, and to distinguish data collected from each domain, so there really is no disadvantage in using a single container across multiple domains.)
 2. An account is a grouping of containers for administrative purposes. In general, one account is all you would need. If you work with different teams to manage different containers, then it makes sense to group the containers used by each team into a single account, with each team member being granted access to the account.
 
+<a name="1.2" />
 ### 1.2 Integrating the container tag on your website
 
 Once you have created a container, Google will provide you with the actual container tag. You will need to integrate this on every web page on your website(s), in place of any tags that are currently directly integrated on those web pages. (These will need to be migrated into GTM.)
@@ -238,7 +239,7 @@ Check the box next to **All pages**. This will ensure that the tag is fired for 
 
 Now you're done - click **Save**. The new tag should be listed in the container summary screen.
 
-Note: although set up, the tag wont fire until this update is **published**. We cover how to publish the configurations made above in [section 2.4 below](#2.4).
+Note: although set up, the tag wont fire until this update is **published**. We cover how to publish the configurations made above in [section 2.4 below](#other-events).
 
 <a name="events" />
 ### 2.2 Integrating Snowplow structured event tracking tags
