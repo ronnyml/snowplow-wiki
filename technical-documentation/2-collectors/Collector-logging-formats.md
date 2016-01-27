@@ -63,19 +63,51 @@ Please, refer to the following [Amazon article](http://docs.aws.amazon.com/elast
 
 Bear in mind that if you reconfigure the environment the `instance-id` could be modified too.
 
-Access logging in Tomcat environment is performed by [valves that implement org.apache.catalina.AccessLog interface](https://tomcat.apache.org/tomcat-8.0-doc/config/valve.html#Access_Log_Valve). A formatting layout identifying the various information fields from the request and response to be logged is determined by the attribute `pattern`. The pattern we use ensures that the access log format matches that produced by the Cloudfront Collector (so that the same ETL process can be employed for both collectors).
+Access logging in Tomcat environment is performed by [valves that implement org.apache.catalina.AccessLog interface](https://tomcat.apache.org/tomcat-8.0-doc/config/valve.html#Access_Log_Valve). A formatting layout identifying the various information fields from the request and response to be logged is determined by the attribute `pattern`.
+
+Our Clojure Collector uses a customized Tomcat access log valve. Compared to the [standard AccessLogValve](https://tomcat.apache.org/tomcat-8.0-doc/config/valve.html#Access_Log_Valve/Attributes), this valve:
+
+1. Introduces a new pattern, 'I', to escape an incoming header.
+2. Introduces a new pattern, 'C', to fetch a cookie stored on the response.
+3. Re-implements the pattern 'i' to ensure that "" (empty string) is replaced with "-".
+4. Re-implements the pattern 'q' to remove the "?" and ensure "" (empty string) is replaced with "-".
+5. Overwrites the 'v' pattern, to write the version of this AccessLogValve, rather than the local server name.
+6. Introduces a new pattern, 'w' to capture the request's body.
+7. Introduces a new pattern, '~' to capture the request's content type.
+8. Re-implements the pattern 'a' to get remote IP more reliably, even through proxies.
+
+Thus the pattern we use ensures that the access log format matches that produced by the Cloudfront Collector (so that the same ETL process can be employed for both collectors).
 
 `<Valve ... pattern="%{yyyy-MM-dd}t&#9;%{HH:mm:ss}t&#9;-&#9;%b&#9;%a&#9;%m&#9;%h&#9;%U&#9;%s&#9;%{Referer}i&#9;%{User-Agent}I&#9;%q&amp;cv=clj-1.1.0-%v&amp;nuid=%{sp}C&#9;-&#9;-&#9;-&#9;%~&#9;%w" />`
 
-As a result, a logfile record will look like the one below
+As a result, a logfile record will look like the one below:
 
 `174.2.224.27 - - [26/Jan/2016:02:18:33 +0000] "GET /i?e=pv&url=http%3A%2F%2Ffree.properweb.ca%2F&page=ProperWeb%20%7C%20Budget%20Web%20Solutions%20with%20Premium%20Features&tv=js-2.5.3&tna=cc&aid=cfpwfree&p=web&tz=America%2FGuatemala&lang=en-US&cs=UTF-8&f_pdf=1&f_qt=0&f_realp=0&f_wma=0&f_dir=0&f_fla=1&f_java=0&f_gears=0&f_ag=0&res=1152x864&cd=24&cookie=1&eid=54266cca-fa93-4c44-92b1-d0a5d4b77d27&dtm=1453774711474&vp=1152x763&ds=1152x763&vid=10&sid=d1571370-3922-4111-860a-042d9792dc54&duid=830e4863d85df04a&fp=1354193749 HTTP/1.1" 200 43 "http://free.properweb.ca/" "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.111 Safari/537.36"`
 
-The main characteristics of Tomacat access logs:
+For your convenience, the `pattern` codes utilized are summarised in the table below.
 
-1. A custom textual format based on Apache logfile format
-2. Support `GET` but also multiple events sent via `POST`
-3. Support `network_userid`
+| Code/element | Implementation Type | Description |
+|:-------------|:-------------------:|:----------------------------------------------------------------------------|
+| %a | Customized | Reimplemented to get remote IP more reliably, even through proxies. |
+| %b | Standard | Bytes sent, excluding HTTP headers, or '-' if zero |
+| %{xxx}C | New | Introduced to fetch a cookie stored on the response. |
+| %h | Standard | Remote host name (or IP address if `enableLookups` for the connector is `false`) |
+| %{xxx}I | New | Introduced to escape an incoming header. |
+| %{xxx}i | Customized | Reimplemented to ensure that "" (empty string) is replaced with "-". |
+| %m | Standard | Request method (`GET`, `POST`) |
+| %q | Customized | Re-implements the pattern 'q' to remove the "?" and ensure "" (empty string) is replaced with "-". |
+| %s | Standard | HTTP status code of the response |
+| %{xxx}t | Standard | Timestamp formatted using the enhanced `SimpleDateFormat` pattern |
+| %U | Standard | Requested URL path |
+| %v | Customized | Overwritten to write the version of this `AccessLogValve`, rather than the local server name. |
+| %w | New | Introduced to capture the request's body. |
+| %~ | New | Introduced to capture the request's content type. |
+
+The main characteristics of Tomcat access logs:
+
+1. A custom textual format based on Apache logfile format.
+2. Support `GET` but also multiple events sent via `POST`.
+3. Support `network_userid`.
 
 <a name="thrift" />
 ## The Snowplow Thrift raw event format
