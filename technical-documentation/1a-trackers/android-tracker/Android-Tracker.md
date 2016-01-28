@@ -269,7 +269,7 @@ Returns the 'platform' that was set in Tracker construction, the builder allows 
 <a name="session" />
 #### 2.3.7 `getSession`
 
-Returns the `session` object created for the Tracker (if `sessionContext` was enabled).  See [`session`](#session-class) for more information.
+Returns the `session` object created for the Tracker (if `sessionContext` was enabled).
 
 [Back to top](#top)
 
@@ -421,7 +421,7 @@ The Subject class has a set of `set...()` methods to attach extra data relating 
 
 * [`setUserId`](#set-user-id)
 * [`setScreenResolution`](#set-screen-resolution)
-* [`setViewport`](#set-viewport)
+* [`setViewport`](#set-viewport-dimensions)
 * [`setColorDepth`](#set-color-depth)
 * [`setTimezone`](#set-timezone)
 * [`setLanguage`](#set-lang)
@@ -1191,7 +1191,7 @@ For more on JSON schema, see the [blog post] [self-describing-jsons].
 
 [Back to top](#top)
 
-<a name="struct-event" />
+<a name="timing" />
 #### 4.7 Track timing events with `track(TimingWithCategory event)`
 
 Use `track(TimingWithCategory event)` to track an event related to a custom timing.
