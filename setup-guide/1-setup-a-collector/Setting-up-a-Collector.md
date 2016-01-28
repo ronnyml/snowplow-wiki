@@ -22,7 +22,7 @@ There are currently three collectors available:
 
 ### Do you want to track data from mobile apps, application servers and/or 3rd party webhooks?
 
-If so we recommend setting up the [Clojure collector] [clojure-collector] as this supports POST requests as well as GET requests.
+If so we recommend setting up the [Clojure collector] [clojure-collector] or [Scala Stream Collector] [scala-stream-collector] as this supports POST requests as well as GET requests.
 
 ### Are you setting up Snowplow to track users across a single domain, or multiple domains?
 
