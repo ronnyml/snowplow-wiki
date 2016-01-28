@@ -224,7 +224,7 @@ t.set_screen_resolution(1366, 768)
 
 [Back to top](#top)
 
-<a name="set-screen-resolution" />
+<a name="set-viewport" />
 ### 3.2.4 Set viewport dimensions with `set_viewport()`
 
 If your Python code has access to the device's screen resolution, then you can pass this in to Snowplow too:
@@ -258,7 +258,7 @@ t.set_color_depth(32)
 
 [Back to top](#top)
 
-<a name="set-color-depth" />
+<a name="set-lang" />
 ### 3.2.6 Set the language with `set_lang()`
 
 This method lets you pass a user's language in to Snowplow:
