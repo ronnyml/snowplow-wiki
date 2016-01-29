@@ -91,7 +91,7 @@ As a result, a logfile record will look like the one below:
 For your convenience, the `pattern` codes utilized are summarised in the table below.
 
 | Code | Implementation Type | Description |
-|:---------|:-------------------:|:----------------------------------------------------------------------------|
+|:----------|:-------------------:|:-------------------------------------------------------------------------|
 | %a | Customized | Reimplemented to get remote IP more reliably, even through proxies. |
 | %b | Standard | Bytes sent, excluding HTTP headers, or '-' if zero. |
 | %{xxx}C | New | Introduced to fetch a cookie stored on the response. |
