@@ -11,7 +11,7 @@
 ## 2. General parameters
   - 2.1 [Loading Snowplow.js](#loading)
   - 2.2 [Initialising a tracker](#initialisation)
-    - 2.2.1 [Setting the application ID](#app id)
+    - 2.2.1 [Setting the application ID](#app-id)
     - 2.2.2 [Setting the platform](#platform)
     - 2.2.3 [Configuring the cookie domain](#cookie-domain)
     - 2.2.4 [Configuring the cookie name](#cookie-name)
@@ -35,7 +35,8 @@
       - 2.3.1.3 [`setUserIdFromReferrer`](#set-user-id-from-referrer)
       - 2.3.1.4 [`setUserIdFromCookie`](#set-user-id-from-cookie)
     - 2.3.2 [Setting a custom URL with `setCustomUrl`](#custom-url)
-    - 2.3.3 [Setting the pause time before leaving a page with `setLinkTrackingTimer`](#tracker-pause)
+    - 2.3.3 Setting the pause time before leaving a page with `setLinkTrackingTimer`[](#tracker-pause)
+    - 2.3.4 [Configuring cookie timeouts using `setSessionCookieTimeout`](#cookie-timout)
   - 2.4 [Setting onload callbacks](#callback)
   - 2.5 [Managing multiple trackers](#multiple-trackers)
   - 2.6 [How the Tracker uses cookies](#cookies)
@@ -304,7 +305,7 @@ To set a custom URL, use the `setCustomUrl` method:
 snowplow_name_here('setCustomUrl', 'http://mysite.com/checkout-page');
 ```
 
-<a name="custom-url" />
+<a name="cookie-timout" />
 #### 2.3.4 Configuring cookie timeouts using `setSessionCookieTimeout`
 
 The JavaScript Tracker sets two cookies: a visitor cookie and a session cookie. The visitor cookie contains all persistent information about the user, including a visit count (the number of times the user has visited the site). It lasts for two years. The session cookie is specific to an individual session. By default, it expires after 30 minutes pass with no event fired. Whenever a Snowplow event is fired, if no session cookie is found, the Tracker takes this to mean that a new session has started. It therefore increments the visitor cookie's visit count. If the user leaves the site and returns before the 30 minutes is up, the visit count is not incremented.
