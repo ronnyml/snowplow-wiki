@@ -9,7 +9,7 @@
   - 2.1 [Requiring the module](#requiring)
   - 2.2 [Creating a tracker](#create-tracker)  
 - 3. [Configuration](#config)  
-  - 3.1 [`setAppId()`](#set-app-id)
+  - 3.1 [`setPlatform()`](#set-platform)
   - 3.2 [`setUserId()`](#set-user-id)
   - 3.3 [`setScreenResolution()`](#set-screen-resolution)
   - 3.4 [`setViewport()`](#set-viewport)
@@ -24,7 +24,7 @@
   - 4.2 [`trackScreenView()`](#screen-view)
   - 4.3 [`trackPageView()`](#page-view)
   - 4.4 [`trackEcommerceTransaction()`](#ecommerce-transaction)
-  - 4.5 [`trackEcommerceTransactionItem()`](#ecommerce-transaction-item)
+  - 4.5 `trackEcommerceTransactionItem()`[](#ecommerce-transaction-item)
   - 4.6 [`trackStructEvent()`](#struct-event)
   - 4.7 [`trackUnstructEvent()`](#unstruct-event)
 
