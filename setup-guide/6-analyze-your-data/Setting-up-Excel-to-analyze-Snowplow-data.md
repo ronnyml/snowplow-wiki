@@ -30,7 +30,6 @@ Setting up Excel so that you can grab live Snowplow data directly from Amazon Re
 2. [White label your local IP address with Amazon Redshift security](#security)
 3. [Create a data connection in Windows to your Snowplow data in Redshift, via ODBC](#windows)
 4. [Use that connection to fetch Snowplow data from Excel, directly into your Excel workbook](#excel)
-5. [Fetching data into Excel as a PivotTable or PivotChart Report](#pivot)
 
 <a name="driver" />
 ### 2.1 Install the Redshift ODBC driver
@@ -134,7 +133,7 @@ You can now associate a filename with the connection details, and add a descript
 
 [[/setup-guide/images/excel/connection-9.JPG]]
 
-Excel now gives you a set of options related to the format you data will be imported in. (Do you want it in the form of a table, PivotTable or PivotChart?) Before we pick one, however, we need to tell Excel that rather than import the `events` table in in its entirity (which may be billions of lines of data - more than enough to crash Excel), we want to specify a query for defining a subset, or rolled up, view of the data. To do this, click on the **Properties** button:
+Excel now gives you a set of options related to the format you data will be imported in. (Do you want it in the form of a table, PivotTable or PivotChart?) Before we pick one, however, we need to tell Excel that rather than import the `events` table in in its entirety (which may be billions of lines of data - more than enough to crash Excel), we want to specify a query for defining a subset, or rolled up, view of the data. To do this, click on the **Properties** button:
 
 [[/setup-guide/images/excel/connection-10.JPG]]
 
@@ -176,7 +175,7 @@ Voila! Our slice of data appears directly in Excel. We can graph it as normal:
 
 [[/setup-guide/images/excel/connection-16.JPG]]
 
-Note: we can use pull *any* cut of Snowplow data direclty into Excel in the method described above. For ideas of other slices of data / queries to run, see the [Analytics Cookbook] [cookbook].
+Note: we can use pull *any* cut of Snowplow data directly into Excel in the method described above. For ideas of other slices of data / queries to run, see the [Analytics Cookbook] [cookbook].
 
 Back to [top](#top).
 

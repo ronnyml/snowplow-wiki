@@ -9,7 +9,7 @@
 - 1. [Overview](#overview)  
 - 2. [Initialization](#init)  
 - 3. [Configuration](#config)  
-  - 3.1 [`setAppId()`](#set-app-id)
+  - 3.1 [`setPlatform()`](#set-platform)
   - 3.2 [`setUserId()`](#set-user-id)
   - 3.3 [`setScreenResolution()`](#set-screen-resolution)
   - 3.4 [`setViewport()`](#set-viewport)

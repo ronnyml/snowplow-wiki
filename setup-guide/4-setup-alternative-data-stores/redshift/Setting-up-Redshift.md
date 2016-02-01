@@ -9,7 +9,7 @@ Setting up Redshift is a 9 step process:
 3. [Connect to your cluster](#connect)
 4. [Set up the Snowplow database and events table](#db)
 5. [Set up user access on Redshift](#user)
-6. [Generate Redshift-format data from Snowplow](#generate)
+6. [Generate Redshift-format data from Snowplow](#etl)
 7. [Update the search path for your Redshift cluster](#search_path)
 8. [Automate the loading of Snowplow data into Redshift](#load)
 

@@ -233,7 +233,7 @@ Note that this version defaults `aLabel` and `aProperty` to `NULL` if you don't 
 snowplow.trackStructEvent("example", "basic ping");
 ```
 
-See [Tracking return codes](#tracking-return-codes) above for the return codes supported by `trackStructEvent`.
+See [Tracking return codes](#return-codes) above for the return codes supported by `trackStructEvent`.
 
 [Back to top](#top)
 
@@ -261,7 +261,7 @@ Here's an example invocation:
 snowplow.trackStructEvent("example", "profile-update", "age", NULL, 22);
 ```
 
-See [Tracking return codes](#tracking-return-codes) above for the return codes supported by `trackStructEvent`.
+See [Tracking return codes](#return-codes) above for the return codes supported by `trackStructEvent`.
 
 [Back to top](#top)
 
@@ -287,7 +287,7 @@ Here's an example invocation:
 snowplow.trackStructEvent("example", "constant", NULL, "pi", 3.14159, 5);
 ```
 
-See [Tracking return codes](#tracking-return-codes) above for the return codes supported by `trackStructEvent`.
+See [Tracking return codes](#return-codes) above for the return codes supported by `trackStructEvent`.
 
 [Back to top](#top)
 
@@ -313,7 +313,7 @@ Here's an example invocation:
 snowplow.trackStructEvent("example", "temp reading", NULL, "celsius", 15.3f, 1);
 ```
 
-See [Tracking return codes](#tracking-return-codes) above for the return codes supported by `trackStructEvent`.
+See [Tracking return codes](#return-codes) above for the return codes supported by `trackStructEvent`.
 
 [Back to top](#top)
 

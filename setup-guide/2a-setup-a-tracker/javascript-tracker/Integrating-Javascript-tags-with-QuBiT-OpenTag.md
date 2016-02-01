@@ -28,6 +28,7 @@ You can create an OpenTag account for free by signing up on the [QuBit website] 
 
 [Back to top] (#top)
 
+<a name="expose-data" />
 ### 1.2 Expose the data required by OpenTag and Snowplow to OpenTag via the OpenTag Universal Variable
 
 OpenTag manages the firing of all the different tags on your site: that includes web analytics tags like Snowplow and Google Analytics, as well as other sorts of tags e.g. tags from affiliate networks, audience management platforms etc.) In order to pass the relevant data to these services in their tags, you need to pass that data from your website into OpenTag in the first place.

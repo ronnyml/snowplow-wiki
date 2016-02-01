@@ -24,7 +24,7 @@ Snowplow has been built to enable users to track a wide range of events that occ
     - 3.4.1 [`trackSocialInteraction`](#trackSocial) 
   - 3.5 [Campaign tracking](#campaign)  
     - 3.5.1 [Identifying paid sources](#identifying-paid-sources)  
-    - 3.5.2 [Anatomy of the query parameter](#anatomy-of-the-query-parameter)
+    - 3.5.2 [Anatomy of the query parameters](#anatomy-of-the-query-parameters)
   - 3.6 [Ad tracking methods](#ad-tracking) 
     - 3.6.1 [`trackAdImpression`](#adImpression)
     - 3.6.2 [`trackAdClick`](#adClick)
@@ -355,7 +355,7 @@ The parameters are descibed in the [Google Analytics help page] [gahelppage]. Go
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
 
-<a name="adimps" />
+<a name="ad-tracking" />
 ### 3.6 Ad tracking methods
 
 Snowplow tracking code can be included in ad tags in order to track impressions and ad clicks. This is used by e.g. ad networks to identify which sites and web pages users visit across a network, so that they can be segmented, for example.
@@ -572,6 +572,7 @@ Our philosophy in creating Snowplow is that users should capture "every" consume
 
 As part of a Snowplow implementation, therefore, we recommend that you identify every type of AJAX interaction that a user might have with your site: each one of these is an event that will not be captured as part of the standard page view tracking. All of them are candidates to track using `trackStructEvent`, if none of the other event-specific methods outlined above are appropriate.
 
+<a name="trackStructEvent" />
 #### 3.7.1 `trackStructEvent`
 
 There are five parameters can be associated with each structured event. Of them, only the first two are required:
@@ -807,7 +808,7 @@ For more information on custom contexts, see [this][contexts] blog post.
 [contents]: Javascript-Tracker
 [specific-events-v1]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker-v1
 [specific-events]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker
-[multiple-trackers]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker#24-managing-multiple-trackers
+[multiple-trackers]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker#25-managing-multiple-trackers
 [json-schema]: http://json-schema.org/
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
 [ad-impression-schema]: schemas/com.snowplowanalytics.snowplow/ad_impression/jsonschema/1-0-0

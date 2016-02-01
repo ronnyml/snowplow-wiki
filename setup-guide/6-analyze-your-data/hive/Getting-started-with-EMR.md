@@ -8,16 +8,5 @@ Because Snowplow data is stored on S3 and Snowplow data volumes are often very l
 
 More details on EMR can be found on the [Amazon website](http://aws.amazon.com/elasticmapreduce/).
 
-## Getting started with EMR and Hive
 
-In this guide we cover the steps necessary to get up and running with EMR and querying your data using Hive, which is the most straightforward of the Hadoop-powered services listed above. This guide has two parts:
-
-1. [Setting up command line tools](setting-up-emr-command-line-tools). You can use these to fire up analysis clusters and launch jobs
-2. [An introduction to using Hive with the command line tools](Running-Hive-using-the-command-line-tools). An example of using the above tools to query your Snowplow data using Hive.
-
-We plan to add a guide to using Mahout to segment users in Snowplow by behaviour in the near future.
-
-## Ready to get started?
-
-Then [set up the command line tools](setting-up-emr-command-line-tools)!
 

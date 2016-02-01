@@ -22,15 +22,14 @@ Snowplow has been built to enable users to track a wide range of events that occ
     - 3.4.1 [`trackSocialInteraction`](#trackSocial) 
   - 3.5 [Campaign tracking](#campaign)  
     - 3.5.1 [Identifying paid sources](#identifying-paid-sources)  
-    - 3.5.2 [Anatomy of the query parameter](#anatomy-of-the-query-parameter)
+    - 3.5.2 [Anatomy of the query parameter](#anatomy-of-the-query-parameters)
   - 3.6 [Ad impression tracking](#adimps) 
     - 3.6.1 [`trackImpression`](#trackImpression)
   - 3.7 [Tracking custom structured events](#custom-structured-events)  
     - 3.7.1 [`trackStructEvent`](#trackStructEvent)
   - 3.8 [Tracking custom unstructured events](#custom-unstructured-events)
     - 3.8.1 [`trackUnstructEvent`](#trackUnstructEvent)   
-  - 3.9 [Link click tracking](#link-click-track)
-    - 3.9.1 [`enableLinkTracking`](#enableLinkTracking)
+  - 3.9 [Link click tracking](#link-click-tracking)
   - 3.10 [Custom contexts](#custom-contexts)
 
 <a name="tracking-specific-events" />
@@ -418,6 +417,7 @@ Our philosophy in creating Snowplow is that users should capture "every" consume
 
 As part of a Snowplow implementation, therefore, we recommend that you identify every type of AJAX interaction that a user might have with your site: each one of these is an event that will not be captured as part of the standard page view tracking. All of them are candidates to track using `trackStructEvent`, if none of the other event-specific methods outlined above are appropriate.
 
+<a name="trackStructEvent" />
 #### 3.7.1 `trackStructEvent`
 
 There are five parameters can be associated with each structured event. Of them, only the first two are required:

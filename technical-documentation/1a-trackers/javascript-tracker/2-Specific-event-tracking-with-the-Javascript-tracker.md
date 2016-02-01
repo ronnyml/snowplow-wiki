@@ -27,7 +27,7 @@ Snowplow has been built to enable users to track a wide range of events that occ
     - 3.4.1 [`trackSocialInteraction`](#trackSocial)
   - 3.5 [Campaign tracking](#campaign)  
     - 3.5.1 [Identifying paid sources](#identifying-paid-sources)  
-    - 3.5.2 [Anatomy of the query parameter](#anatomy-of-the-query-parameter)
+    - 3.5.2 [Anatomy of the query parameter](#anatomy-of-the-query-parameters)
   - 3.6 [Ad tracking methods](#ad-tracking) 
     - 3.6.1 [`trackAdImpression`](#adImpression)
     - 3.6.2 [`trackAdClick`](#adClick)
@@ -398,14 +398,14 @@ The parameters are descibed in the [Google Analytics help page] [gahelppage]. Go
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
 
-<a name="adimps" />
+<a name="ad-tracking" />
 ### 3.6 Ad tracking methods
 
 Snowplow tracking code can be included in ad tags in order to track impressions and ad clicks. This is used by e.g. ad networks to identify which sites and web pages users visit across a network, so that they can be segmented, for example.
 
 Each ad tracking method has a `costModel` field and a `cost` field. If you provide the `cost` field, you must also provide one of `'cpa'`, `'cpc'`, and `'cpm'` for the `costModel` field.
 
-It may be the case that multiple ads from the same source end up on a single page. If this happens, it is important that the different Snowplow code snippets associated with those ads not interfere with one another. The best way to prevent this is to randomly name each tracker instance you create so that the probability of a name collision is negligible. See [Managing multiple trackers][multiple-trackers] for more on having more than one tracker instance on a single page.
+It may be the case that multiple ads from the same source end up on a single page. If this happens, it is important that the different Snowplow code snippets associated with those ads not interfere with one another. The best way to prevent this is to randomly name each tracker instance you create so that the probability of a name collision is negligible. See [Managing multiple trackers](1-General-parameters-for-the-Javascript-tracker#25-managing-multiple-trackers) for more on having more than one tracker instance on a single page.
 
 Below is an example of how to achieve this when using Snowplow ad impression tracking.
 
