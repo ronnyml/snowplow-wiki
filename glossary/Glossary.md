@@ -1,11 +1,9 @@
-[**HOME**](Home) > [**SNOWPLOW GLOSSARY OF TERMS**](Glossary)
+[**HOME**](Home) > **SNOWPLOW GLOSSARY OF TERMS**
 
 
 ----------
 
-<center>
 [A]() - [B]() - [C](#C) - [D]() - [E](#E) - [F]() - [G]() - [H]() - [I](#I) - [J]() - [K]() - [L]() - [M]() - [N]() - [O]() - [P](#P) - [Q]() - [R]() - [S](#S) - [T]() - [U]() - [V]() - [W]() - [X]() - [Y]() - [Z]()
-</center>
 
 ----------
 
@@ -61,7 +59,7 @@ Read [more][enrichment] or go to the [top](#top)
 <a name="I" />
 ####Iglu
 
-Snowplow uses Iglu, a schema respository, to store all the schemas associated with the different [events][e-event] and [contexts][e-context] that are captured via Snowplow. When an event or context is sent into Snowplow, it is sent with a reference to the schema for the [event][e-event] or [context][e-context], which points to the location of the schema for the event or context in Iglu. 
+Snowplow uses Iglu, a schema respository, to store all the schemas associated with the different [events](#e-event) and [contexts](#e-context) that are captured via Snowplow. When an event or context is sent into Snowplow, it is sent with a reference to the schema for the [event](#e-event) or [context](#e-context), which points to the location of the schema for the event or context in Iglu. 
 
 Read [more][iglu] or go to the [top](#top)
 
