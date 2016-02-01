@@ -2,7 +2,7 @@ Snowplow has a very different architecture from conventional open-source web ana
 
 ![architecture] [conceptual-architecture]
 
-To briefly explain these five sub-systems:
+To briefly explain these sub-systems:
 
 * **Trackers** fire Snowplow events. Currently we have 12 trackers, covering web, mobile, desktop, server and IoT. (For more information see the [trackers section](https://github.com/snowplow/snowplow/tree/master/1-trackers) of the repository.
 * **Collectors** receive Snowplow events from trackers. Currently we have three different event collectors, sinking events either to Amazon S3 or Amazon Kinesis, namely a CDN-based [Cloudfront Collector](https://github.com/snowplow/snowplow/tree/master/2-collectors/cloudfront-collector) on [Amazon CloudFront] [cloudfront], a collector that sets a third party pixel for cross-domain tracking called the [Clojure Collector](https://github.com/snowplow/snowplow/tree/master/2-collectors/clojure-collector), and a [Scala Stream Collector](https://github.com/snowplow/snowplow/tree/master/2-collectors/scala-stream-collector) which sets a third-party cookie for cross-domain tracking.
