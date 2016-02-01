@@ -1,3 +1,5 @@
+<a name="top" />
+
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 5: Get started analysing Snowplow data**](Getting started analyzing Snowplow data) > Setting up R to perform more sophisticated analysis on your data
 
 ## Contents
