@@ -157,7 +157,7 @@ The Subject class has a set of `set...()` methods to attach extra data relating 
 * [`setPlatform`](#set-platform)
 * [`setUserId`](#set-user-id)
 * [`setScreenResolution`](#set-screen-resolution)
-* [`setViewport`](#set-viewport)
+* [`setViewport`](#set-viewport-dimensions)
 * [`setColorDepth`](#set-color-depth)
 * [`setTimezone`](#set-timezone)
 * [`setLanguage`](#set-lang)
