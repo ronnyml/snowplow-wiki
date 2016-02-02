@@ -4,7 +4,7 @@
 
 ----------
 
-[A](#A) - [B]() - [C](#C) - [D](#D) - [E](#E) - [F]() - [G]() - [H]() - [I](#I) - [J]() - [K]() - [L]() - [M]() - [N]() - [O]() - [P](#P) - [Q]() - [R]() - [S](#S) - [T](#T) - [U]() - [V]() - [W](#W) - [X]() - [Y]() - [Z]()
+[A](#A) - [B]() - [C](#C) - [D](#D) - [E](#E) - [F]() - [G]() - [H]() - [I](#I) - [J]() - [K]() - [L]() - [M]() - [N]() - [O]() - [P](#P) - [Q]() - [R]() - [S](#S) - [T](#T) - [U](#U) - [V]() - [W](#W) - [X]() - [Y]() - [Z]()
 
 ----------
 
@@ -32,7 +32,9 @@ Read [more](collectors) or go to the [top](#top)
 <a name="g-context" />
 ####Context
 
-A context is the group of entities associated with or describing the setting in which an event has taken place. What makes contexts interesting is that they are common across multiple different event types. Thus, contexts provide a convenient way in Snowplow to schema common entities once, and then use those schemas across all the different events where those entities are relevant.
+A context is the group of *entities* associated with or describing the setting in which an event has taken place. What makes contexts interesting is that they are common across multiple different event types. Thus, contexts provide a convenient way in Snowplow to schema common entities once, and then use those schemas across all the different events where those entities are relevant.
+
+Across all our [trackers](#g-tracker), the approach is the same. Each context is a [self-describing JSON](#g-self-describing-json). We create an array of all the different contexts that we wish to pass into Snowplow, and then we pass those contexts in generally as the final argument on any track method that we call to capture the [event](#e-event). 
 
 Read [more][contexts] or go to the [top](#top)
 
@@ -93,7 +95,7 @@ An event is something that occurred in a particular point in time. Examples of e
 - Search for an item
 - Share a video
 
-Snowplow is an event analytics platform. Once you have setup one or more Snowplow trackers, every time an event occurs, Snowplow should spot the event, generate a packet of data to describe the event, and send that event into the Snowplow data pipeline.
+Snowplow is an event analytics platform. Once you have setup one or more Snowplow trackers, every time an event occurs, Snowplow should spot the event, generate a packet of data to describe the event, and send that event into the Snowplow data [pipeline](#g-pipeline).
 
 *Read [more][event] or go to the [top](#top)*
 
@@ -128,17 +130,19 @@ Snowplow uses Iglu, a schema respository, to store all the schemas associated wi
 *Read [more][iglu] or go to the [top](#top)*
 
 <a name="P" />
+<a name="g-pipeline" />
 ####Pipeline
 
-The Snowplow pipeline is built to enable a very clean separation of the following steps in the data processing flow:
+The Snowplow pipeline is built to enable a very clean separation of the following steps in the *data processing flow*:
 
-1. Data collection
-2. Data enrichment
-3. Data modelling
-4. Data analysis
+1. [Data collection](#g-data-collection)
+2. [Data enrichment](#g-enrichment)
+3. [Data modelling](#g-data-modeling)
+4. [Data analysis](#g-analytics)
 
 *Read [more][pipeline] or go to the [top](#top)*
 
+<a name="g-self-describing-json" />
 ####Self-describing JSON
 
 Self-describing JSONs is an individual JSON with its JSON Schema. It generally looks like the one below:
@@ -169,6 +173,25 @@ There are therefore a number of different potential storage modules that Snowplo
 
 *Read [more](Storage-documentation) or go to the [top](#top)*
 
+<a name="g-structured-event" />
+####Structured event
+
+We follow Google five-variable tracking event structure. When you track a structured event, you get five parameters:
+
+- *Category*: The name for the group of objects you want to track.
+- *Action*: A string that is used to define the user in action for the category of object.
+- *Label*: An optional string which identifies the specific object being actioned.
+- *Property*: An optional string describing the object or the action performed on it.
+- *Value*: An optional numeric data to quantify or further describe the user action. 
+
+For example, when tracking a custom structured event the specification for the `trackStructEvent` method (Javascript tracker) would follow the pattern:
+
+```
+snowplow_name_here('trackStructEvent', 'category','action','label','property','value');
+```
+
+*Read [more](Canonical-event-model#customstruct) or go to the [top](#top)*
+
 <a name="T" />
 <a name="g-tracker" />
 ####Tracker
@@ -176,6 +199,21 @@ There are therefore a number of different potential storage modules that Snowplo
 A tracker is client- or server-side libraries which track customer behaviour by sending Snowplow [events](#g-event) to a [Collector](#g-collector).
 
 *Read [more](trackers) or go to the [top](#top)*
+
+<a name="U" />
+<a name="g-unstructured-event" />
+####Unstructured event
+
+You may wish to track [events](#g-event) on your website or application which are not directly supported by Snowplow and which [structured event](#g-structured-event) tracking does not adequately capture. Your event may have more than the five fields offered by `trackStructEvent`, or its fields may not fit into the *category-action-label-property-value* model. The solution is Snowplow's custom unstructured events. Unstructured events use [self-describing JSON](#g-self-describing-json) which can have arbitrarily many fields.
+
+For example, to track an unstructured event with Javascript tracker, you make use the `trackUnstructEvent` method with the pattern shown below:
+
+```
+snowplow_name_here('trackUnstructEvent', <<SELF-DESCRIBING EVENT JSON>>);
+
+```
+
+*Read [more][unstructured-events] or go to the [top](#top)*
 
 <a name="W" />
 <a name="g-webhook" />
@@ -198,3 +236,4 @@ Webhooks allow this third-party software to send their own internal event stream
 [iglu]: http://snowplowanalytics.com/documentation/concepts/iglu
 [pipeline]: http://snowplowanalytics.com/documentation/concepts/snowplow-data-pipeline
 [self-describing-json]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
+[unstructured-events]: http://snowplowanalytics.com/blog/2013/05/14/snowplow-unstructured-events-guide/
