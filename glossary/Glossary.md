@@ -34,7 +34,7 @@ A collector receives data in the form of `GET` or `POST` requests from the [trac
 
 A context is the group of *entities* associated with or describing the setting in which an event has taken place. What makes contexts interesting is that they are common across multiple different event types. Thus, contexts provide a convenient way in Snowplow to schema common entities once, and then use those schemas across all the different events where those entities are relevant.
 
-Across all our [trackers](#g-tracker), the approach is the same. Each context is a [self-describing JSON](#g-self-describing-json). We create an array of all the different contexts that we wish to pass into Snowplow, and then we pass those contexts in generally as the final argument on any track method that we call to capture the [event](#e-event). 
+Across all our [trackers](#g-tracker), the approach is the same. Each context is a [self-describing JSON](#g-self-describing-json). We create an array of all the different contexts that we wish to pass into Snowplow, and then we pass those contexts in generally as the final argument on any track method that we call to capture the [event](#g-event). 
 
 *Read [more][contexts] or go to the [top](#top)*
 
@@ -83,7 +83,16 @@ We call this process of aggregating a "data modeling". At the end of the data mo
 *Read [more][data-modeling] or go to the [top](#top)*
 
 <a name="E" />
-<a name="e-event" />
+<a name="g-entity" />
+####Entity
+
+In [event](#g-event) modeling terms, an entity is a thing or object which is somehow relevant to the event that we are observing. We use the word "entity" because the word "object" is too loaded - it has too many connotations.
+
+There is a lot of confusion around the role of entities within [events](#g-event) - even to the extent of one analytics company arguing that entity data is completely distinct from event data. In fact nothing could be further from the truth - as we see it, our [events](#g-event) consist of *almost nothing but entities*.
+
+*Read [more][entities] or go to the [top](#top)*
+
+<a name="g-event" />
 ####Event
 
 An event is something that occurred in a particular point in time. Examples of events include:
@@ -97,11 +106,11 @@ An event is something that occurred in a particular point in time. Examples of e
 
 Snowplow is an event analytics platform. Once you have setup one or more Snowplow trackers, every time an event occurs, Snowplow should spot the event, generate a packet of data to describe the event, and send that event into the Snowplow data [pipeline](#g-pipeline).
 
-*Read [more][event] or go to the [top](#top)*
+*Read [more][events] or go to the [top](#top)*
 
 ####Event Dictionary
 
-When we set up Snowplow, we need to make sure that we track all the [events](#e-event) that are meaningful to our business, so that the data associated with those events is available in Snowplow for analysis.
+When we set up Snowplow, we need to make sure that we track all the [events](#g-event) that are meaningful to our business, so that the data associated with those events is available in Snowplow for analysis.
 
 When we come to analyse Snowplow data, we need to be able to look at the event data and understand, in an unambiguous way, what that data actually means i.e. what it represents.
 
@@ -123,6 +132,7 @@ Snowplow supports the following enrichments out-of-the-box. We are working on ma
 *Read [more][enrichment] or go to the [top](#top)*
 
 <a name="I" />
+<a name="g-iglu" />
 ####Iglu
 
 Snowplow uses Iglu, a schema respository, to store all the schemas associated with the different [events](#g-event) and [contexts](#g-context) that are captured via Snowplow. When an event or context is sent into Snowplow, it is sent with a reference to the schema for the [event](#g-event) or [context](#g-context), which points to the location of the schema for the event or context in Iglu. 
@@ -210,7 +220,6 @@ For example, to track an unstructured event with Javascript tracker, you make us
 
 ```
 snowplow_name_here('trackUnstructEvent', <<SELF-DESCRIBING EVENT JSON>>);
-
 ```
 
 *Read [more][unstructured-events] or go to the [top](#top)*
@@ -230,9 +239,10 @@ Webhooks allow this third-party software to send their own internal event stream
 [contexts]: http://snowplowanalytics.com/documentation/concepts/contexts
 [data-collection]: http://snowplowanalytics.com/documentation/concepts/snowplow-data-pipeline/#data-collection
 [data-modeling]: http://snowplowanalytics.com/documentation/concepts/snowplow-data-pipeline/#data-modeling
-[event]: http://snowplowanalytics.com/documentation/concepts/events
-[event-dictionary]: http://snowplowanalytics.com/documentation/concepts/event-dictionaries-and-schemas
+[entities]: http://snowplowanalytics.com/blog/2015/01/18/modeling-events-through-entity-snapshotting/
 [enrichment]: http://snowplowanalytics.com/documentation/concepts/snowplow-data-pipeline/#data-enrichment
+[events]: http://snowplowanalytics.com/documentation/concepts/events
+[event-dictionary]: http://snowplowanalytics.com/documentation/concepts/event-dictionaries-and-schemas
 [iglu]: http://snowplowanalytics.com/documentation/concepts/iglu
 [pipeline]: http://snowplowanalytics.com/documentation/concepts/snowplow-data-pipeline
 [self-describing-json]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
