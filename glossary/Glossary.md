@@ -27,7 +27,7 @@ Read [more][analytics] or go to the [top](#top)
 
 A collector receives data in the form of `GET` or `POST` requests from the [trackers](#g-tracker), and write the data to either logs or streams (for further processing).
 
-Read [more][collectors] or go to the [top](#top)
+Read [more](collectors) or go to the [top](#top)
 
 <a name="g-context" />
 ####Context
@@ -56,12 +56,12 @@ At this stage, the data that is collected should describe the events as they hav
 
 For each of the above we want to collect as much data describing the event and associated contexts as possible.
 
-Read [more][data-collection] or go to the [top](#top)
+*Read [more][data-collection] or go to the [top](#top)*
 
 <a name="g-data-enrichment" />
 ####Data enrichment
 
-See [**Enrichment**](#g-enrichment)
+*See [**Enrichment**](#g-enrichment)*
 
 <a name="g-data-modeling" />
 ####Data modeling
@@ -78,7 +78,7 @@ What tables are produced, and the different fields available in each, varies wid
 
 We call this process of aggregating a "data modeling". At the end of the data modeling process, a clean set of tables is available to make it easier to perform analysis on the data.
 
-Read [more][data-modeling] or go to the [top](#top)
+*Read [more][data-modeling] or go to the [top](#top)*
 
 <a name="E" />
 <a name="e-event" />
@@ -95,7 +95,7 @@ An event is something that occurred in a particular point in time. Examples of e
 
 Snowplow is an event analytics platform. Once you have setup one or more Snowplow trackers, every time an event occurs, Snowplow should spot the event, generate a packet of data to describe the event, and send that event into the Snowplow data pipeline.
 
-Read [more][event] or go to the [top](#top)
+*Read [more][event] or go to the [top](#top)*
 
 ####Event Dictionary
 
@@ -105,7 +105,7 @@ When we come to analyse Snowplow data, we need to be able to look at the event d
 
 An event dictionary is a crucial tool in both cases. It is a document that defines the universe of events that a company is interested in tracking. 
 
-Read [more][event-dictionary] or go to the [top](#top)
+*Read [more][event-dictionary] or go to the [top](#top)*
 
 <a name="g-enrichment" />
 ####Enrichment
@@ -118,14 +118,14 @@ Snowplow supports the following enrichments out-of-the-box. We are working on ma
 2. Referrer query string -> source of traffic
 3. User agent string -> classifying devices, operating systems and browsers
 
-Read [more][enrichment] or go to the [top](#top)
+*Read [more][enrichment] or go to the [top](#top)*
 
 <a name="I" />
 ####Iglu
 
 Snowplow uses Iglu, a schema respository, to store all the schemas associated with the different [events](#g-event) and [contexts](#g-context) that are captured via Snowplow. When an event or context is sent into Snowplow, it is sent with a reference to the schema for the [event](#g-event) or [context](#g-context), which points to the location of the schema for the event or context in Iglu. 
 
-Read [more][iglu] or go to the [top](#top)
+*Read [more][iglu] or go to the [top](#top)*
 
 <a name="P" />
 ####Pipeline
@@ -137,7 +137,7 @@ The Snowplow pipeline is built to enable a very clean separation of the followin
 3. Data modelling
 4. Data analysis
 
-Read [more][pipeline] or go to the [top](#top)
+*Read [more][pipeline] or go to the [top](#top)*
 
 ####Self-describing JSON
 
@@ -156,7 +156,7 @@ It differs from standard JSON due to the following important changes :
 1. We have added a new top-level field, schema, which contains (in a space-efficient format) all the information required to uniquely identify the associated JSON Schema
 2. We have moved the JSON’s original property inside a data field. This sandboxing will prevent any accidental collisions should the JSON already have a schema field
 
-Read [more][self-describing-json] or go to the [top](#top)
+*Read [more][self-describing-json] or go to the [top](#top)*
 
 <a name="g-storage">
 ####Storage
@@ -167,7 +167,7 @@ In addition, Snowplow data from those event files could be copied into Amazon Re
 
 There are therefore a number of different potential storage modules that Snowplow users can store their data in.
 
-Read [more][Storage-documentation] or go to the [top](#top)
+*Read [more](Storage-documentation) or go to the [top](#top)*
 
 <a name="T" />
 <a name="g-tracker" />
@@ -175,16 +175,17 @@ Read [more][Storage-documentation] or go to the [top](#top)
 
 A tracker is client- or server-side libraries which track customer behaviour by sending Snowplow [events](#g-event) to a [Collector](#g-collector).
 
-Read [more][trackers] or go to the [top](#top)
+*Read [more](trackers) or go to the [top](#top)*
 
 <a name="W" />
 <a name="g-webhook" />
+####Webhook
 
 Snowplow allows you to collect events via the adapters (webhooks) of supported third-party software.
 
 Webhooks allow this third-party software to send their own internal event streams to Snowplow Collectors for further processing. Webhooks are sometimes referred to as "streaming APIs" or "HTTP response APIs".
 
-Read [more][Setting-up-a-webhook] or go to the [top](#top)
+*Read [more](Setting-up-a-webhook) or go to the [top](#top)*
 
 
 [analytics]: http://snowplowanalytics.com/documentation/concepts/snowplow-data-pipeline/#data-analysis
