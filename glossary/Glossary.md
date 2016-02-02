@@ -19,7 +19,7 @@ Most companies that use Snowplow will perform analytics using a number of differ
 1. It is common to implement a Business Intelligence tool on top of Snowplow data to enable users (particularly non-technical users) to slice and dice (pivot) on the data. For many companies, the BI tool will be the primary way that most users interface with Snowplow data.
 2. Often a data scientist or data science team will often crunch the underlying event-level data to perform more sophisticated analysis including building predictive models, perform marketing attribution etc. The data scientist(s) will use one or more specialist tools e.g. Python for Data Science or R.
 
-Read [more][analytics] or go to the [top](#top)
+*Read [more][analytics] or go to the [top](#top)*
 
 <a name="C" />
 <a name="g-collector" />
@@ -27,7 +27,7 @@ Read [more][analytics] or go to the [top](#top)
 
 A collector receives data in the form of `GET` or `POST` requests from the [trackers](#g-tracker), and write the data to either logs or streams (for further processing).
 
-Read [more](collectors) or go to the [top](#top)
+*Read [more](collectors) or go to the [top](#top)*
 
 <a name="g-context" />
 ####Context
@@ -36,13 +36,13 @@ A context is the group of *entities* associated with or describing the setting i
 
 Across all our [trackers](#g-tracker), the approach is the same. Each context is a [self-describing JSON](#g-self-describing-json). We create an array of all the different contexts that we wish to pass into Snowplow, and then we pass those contexts in generally as the final argument on any track method that we call to capture the [event](#e-event). 
 
-Read [more][contexts] or go to the [top](#top)
+*Read [more][contexts] or go to the [top](#top)*
 
 <a name="D" />
 <a name="g-data-analysis" />
 ####Data analysis
 
-See [**Analytics**](#g-analytics)
+*See [**Analytics**](#g-analytics)*
 
 <a name="g-data-collection" />
 ####Data collection
@@ -204,9 +204,9 @@ A tracker is client- or server-side libraries which track customer behaviour by 
 <a name="g-unstructured-event" />
 ####Unstructured event
 
-You may wish to track [events](#g-event) on your website or application which are not directly supported by Snowplow and which [structured event](#g-structured-event) tracking does not adequately capture. Your event may have more than the five fields offered by `trackStructEvent`, or its fields may not fit into the *category-action-label-property-value* model. The solution is Snowplow's custom unstructured events. Unstructured events use [self-describing JSON](#g-self-describing-json) which can have arbitrarily many fields.
+You may wish to track [events](#g-event) on your website or application which are not directly supported by Snowplow and which [structured event](#g-structured-event) tracking does not adequately capture. Your [event](#g-event) may have more than the five fields offered by `trackStructEvent`, or its fields may not fit into the *category-action-label-property-value* model. The solution is Snowplow's custom unstructured events. Unstructured events use [self-describing JSON](#g-self-describing-json) which can have arbitrarily many fields.
 
-For example, to track an unstructured event with Javascript tracker, you make use the `trackUnstructEvent` method with the pattern shown below:
+For example, to track an unstructured event with Javascript tracker, you make use of the `trackUnstructEvent` method with the pattern shown below:
 
 ```
 snowplow_name_here('trackUnstructEvent', <<SELF-DESCRIBING EVENT JSON>>);
@@ -221,7 +221,7 @@ snowplow_name_here('trackUnstructEvent', <<SELF-DESCRIBING EVENT JSON>>);
 
 Snowplow allows you to collect events via the adapters (webhooks) of supported third-party software.
 
-Webhooks allow this third-party software to send their own internal event streams to Snowplow Collectors for further processing. Webhooks are sometimes referred to as "streaming APIs" or "HTTP response APIs".
+Webhooks allow this third-party software to send their own internal event streams to Snowplow [collectors](#g-collector) for further processing. Webhooks are sometimes referred to as "streaming APIs" or "HTTP response APIs".
 
 *Read [more](Setting-up-a-webhook) or go to the [top](#top)*
 
