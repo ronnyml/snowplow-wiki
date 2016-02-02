@@ -25,6 +25,7 @@ Local Testing:
 
 - 1. [Overview](#overview)
   - 1.1 [Demo App](#demo-app)
+  - 1.2 [Client sessions](#client-sessions)
 - 2. [Initialization](#init)
   - 2.1 [Importing the module](#importing)
   - 2.2 [Creating a tracker](#create-tracker)
@@ -109,6 +110,47 @@ Within the app you will simply need to supply an endpoint and hit start!  The ap
 For a walkthrough go [here][app-walkthrough].
 
 [Back to top](#top)
+
+<a name="client-sessions" />
+### 1.2. Client Sessions
+
+To activate client sessionization please enter the following builder arguments to your tracker:
+
+```java
+Tracker tracker = new Tracker.TrackerBuilder( ... )
+    .sessionContext(true)     // To use the session context
+    .sessionCheckInterval(10) // Checks every 10 seconds (default is 15)
+    .foregroundTimeout(300)   // Timeout after 5 minutes (default is 10)
+    .backgroundTimeout(120)   // Timeout after 2 minutes (default is 5)
+    .build();
+```
+
+Once sessionization has been turned on several things will begin to happen:
+
+* A client_session context will be appended to each event that is sent
+* A polling check will be started to check whether or not the session has timed out
+  - You can configure how often to check with the sessionCheckInterval method
+  - If your app is in the foreground and no events have been sent for the foregroundTimeout period, the session will be updated and a new session started
+  - There is a separate timeout if your application is detected to be in the background
+* Each time the session information is updated it is stored locally in a private file which should persist for the life of the application
+* Each time an event is sent from the Tracker, both timeouts for the session are reset
+* Session information will survive for the life of the application, i.e. until it is uninstalled from the Android device.
+
+An important note here is that the tracker does not automatically detect if the application is in the background or not from a library standpoint. You will have to update your applications onPause() and onResume() functions to manually flag this change. The following samples can be copied into an application activity to set the background state of the application for the session checker:
+
+```java
+@Override
+protected void onPause() {
+    super.onPause();
+    tracker.getSession().setIsBackground(true);
+}
+
+@Override
+protected void onResume() {
+    super.onResume();
+    tracker.getSession().setIsBackground(false);
+}
+```
 
 <a name="init" />
 ## 2 Initialization
