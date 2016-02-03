@@ -4,10 +4,10 @@
 
 1. [Assumptions](#assumptionss)
 2. [Prerequisites](#prerequisites)  
-    2.1 [Amazon S3](#prereq-s3)
-    2.2 [Postgres RDS](#prereq-postgres-rds)
-    2.3 [ZooKeeper](#prereq-zookeeper)
-    2.4 [Java 7](#prereq-java7)
+    2.1 [Amazon S3](#prereq-s3)  
+    2.2 [Postgres RDS](#prereq-postgres-rds)  
+    2.3 [ZooKeeper](#prereq-zookeeper)  
+    2.4 [Java 7](#prereq-java7)  
 3. [Download Druid](#download)  
 3. [xxx](#zzz)
 
