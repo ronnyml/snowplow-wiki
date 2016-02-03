@@ -4,7 +4,7 @@
 
 ----------
 
-[A](#A) - [B]() - [C](#C) - [D](#D) - [E](#E) - [F]() - [G]() - [H]() - [I](#I) - [J]() - [K]() - [L]() - [M]() - [N]() - [O]() - [P](#P) - [Q]() - [R]() - [S](#S) - [T](#T) - [U](#U) - [V]() - [W](#W) - [X]() - [Y]() - [Z]()
+[A](#A) - [B]() - [C](#C) - [D](#D) - [E](#E) - [F]() - [G]() - [H](#H) - [I](#I) - [J]() - [K]() - [L]() - [M]() - [N]() - [O]() - [P](#P) - [Q]() - [R]() - [S](#S) - [T](#T) - [U](#U) - [V]() - [W](#W) - [X]() - [Y]() - [Z]()
 
 ----------
 
@@ -32,7 +32,7 @@ A collector receives data in the form of `GET` or `POST` requests from the [trac
 <a name="g-context" />
 ####Context
 
-A context is the group of *entities* associated with or describing the setting in which an event has taken place. What makes contexts interesting is that they are common across multiple different event types. Thus, contexts provide a convenient way in Snowplow to schema common entities once, and then use those schemas across all the different events where those entities are relevant.
+A context is the group of [entities](#g-entity) associated with or describing the setting in which an [event](#g-event) has taken place. What makes contexts interesting is that they are common across multiple different event types. Thus, contexts provide a convenient way in Snowplow to schema common [entities](#g-entity) once, and then use those schemas across all the different [events](#g-event) where those [entities](#g-entity) are relevant.
 
 Across all our [trackers](#g-tracker), the approach is the same. Each context is a [self-describing JSON](#g-self-describing-json). We create an array of all the different contexts that we wish to pass into Snowplow, and then we pass those contexts in generally as the final argument on any track method that we call to capture the [event](#g-event). 
 
@@ -51,12 +51,12 @@ At data collection time, we aim to capture all the data required to accurately r
 
 At this stage, the data that is collected should describe the events as they have happened, including as much rich information about:
 
-1. The event itself
-2. The individual/entity that performed the action - that individual or entity is a "context"
+1. The [event](#g-event) itself
+2. The individual/entity that performed the action - that individual or [entity](#g-entity) is a "context"
 3. Any "objects" of the action - those objects are also "context"
-4. The wider context that the event has occurred in
+4. The wider [context](#g-context) that the [event](#g-event) has occurred in
 
-For each of the above we want to collect as much data describing the event and associated contexts as possible.
+For each of the above we want to collect as much data describing the [event](#g-event) and associated [contexts](#g-context) as possible.
 
 *Read [more][data-collection] or go to the [top](#top)*
 
@@ -131,6 +131,16 @@ Snowplow supports the following enrichments out-of-the-box. We are working on ma
 
 *Read [more][enrichment] or go to the [top](#top)*
 
+<a name="H" />
+<a name="g-huskimo " />
+####Huskimo
+
+Huskimo is an open-source product from the Snowplow team. It connects to third-party SaaS platforms (e.g [Singular](https://www.singular.net/), [Twilio](https://www.twilio.com/)), exports their data via API, and then uploads that data into your Redshift instance. Huskimo has a simple goal: to make essential datasets currently locked away inside various SaaS platforms available for [analysis](#g-analytics) inside Redshift.
+
+Huskimo is a complement to Snowplow's built-in [webhook](#g-webhook) support. It came about because not all SaaS services offer [webhooks](#g-webhook) which expose their internal data as a stream of [events](#g-event). Note that you do not need to use Snowplow to use Huskimo.
+
+*Read [more][huskimo] or go to the [top](#top)*
+
 <a name="I" />
 <a name="g-iglu" />
 ####Iglu
@@ -152,6 +162,14 @@ The Snowplow pipeline is built to enable a very clean separation of the followin
 
 *Read [more][pipeline] or go to the [top](#top)*
 
+<a name="S" />
+<a name="g-sauna" />
+####Sauna
+
+Sauna is an open-source decisioning and response framework from Snowplow Analytics team. Analysts and data scientists (and some data engineers) are the end users of Sauna: you want to use Sauna to automate responses to your event streams in third-party systems.
+
+*Read [more][sauna] or go to the [top](#top)*
+
 <a name="g-self-describing-json" />
 ####Self-describing JSON
 
@@ -171,6 +189,22 @@ It differs from standard JSON due to the following important changes :
 2. We have moved the JSON’s original property inside a data field. This sandboxing will prevent any accidental collisions should the JSON already have a schema field
 
 *Read [more][self-describing-json] or go to the [top](#top)*
+
+<a name="g-shredding" />
+####Shredding
+
+Snowplow has a Shredding process (as part of [Enrich](#g-enrich) and [Storage](#g-storage) processes) which consists of two phases:
+
+1. Extracting [unstructured event](#g-unstructured-event) JSONs and [context](#g-context) JSONs from [enriched](#g-enrichment) event files into their own files
+2. Loading those files into corresponding tables in Redshift
+
+There are three great use cases to use the shredding functionality for:
+
+1. Adding support into your Snowplow installation for *new Snowplow event types* with no software upgrade required - simply add new tables to your Redshift database.
+2. Defining your own *custom unstructured events types*, and processing these through the Snowplow [pipeline](#g-pipeline) into dedicated tables in Redshift. Retailers can define their own "product view" or "add to basket" events, for example. Media companies can define their own "video play" events.
+3. Defining your own *custom context types*, and processing these through the Snowplow [pipeline](#g-pipeline) into dedicated tables in Redshift. You can define your own "user" type, for example, including whatever fields you capture and want to store related to a user.
+
+*Read [more][shredding] or go to the [top](#top)*
 
 <a name="g-storage">
 ####Storage
@@ -243,7 +277,10 @@ Webhooks allow this third-party software to send their own internal event stream
 [enrichment]: http://snowplowanalytics.com/documentation/concepts/snowplow-data-pipeline/#data-enrichment
 [events]: http://snowplowanalytics.com/documentation/concepts/events
 [event-dictionary]: http://snowplowanalytics.com/documentation/concepts/event-dictionaries-and-schemas
+[huskimo]: http://snowplowanalytics.com/blog/2015/08/30/huskimo-0.3.0-released-warehouse-your-twilio-telephony-data-in-redshift/
 [iglu]: http://snowplowanalytics.com/documentation/concepts/iglu
 [pipeline]: http://snowplowanalytics.com/documentation/concepts/snowplow-data-pipeline
+[sauna]: https://github.com/snowplow/sauna/wiki
 [self-describing-json]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
+[shredding]: https://github.com/snowplow/snowplow/wiki/Shredding
 [unstructured-events]: http://snowplowanalytics.com/blog/2013/05/14/snowplow-unstructured-events-guide/
