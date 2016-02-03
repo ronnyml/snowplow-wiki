@@ -145,7 +145,9 @@ Huskimo is a complement to Snowplow's built-in [webhook](#g-webhook) support. It
 <a name="g-iglu" />
 ####Iglu
 
-Snowplow uses Iglu, a schema respository, to store all the schemas associated with the different [events](#g-event) and [contexts](#g-context) that are captured via Snowplow. When an [event](#g-event) or [context](#g-context) is sent into Snowplow, it is sent with a reference to the schema for the [event](#g-event) or [context](#g-context), which points to the location of the schema for the [event](#g-event) or [context](#g-context) in Iglu. 
+Iglu is a machine-readable, open-source *schema repository* for [JSON Schema](http://json-schema.org/) from the team at Snowplow Analytics. A schema repository (sometimes called a registry) is like *npm* or *Maven* or *git* but holds data schemas instead of software or code.
+
+Snowplow uses Iglu to store all the schemas associated with the different [events](#g-event) and [contexts](#g-context) that are captured via Snowplow. When an [event](#g-event) or [context](#g-context) is sent into Snowplow, it is sent with a reference to the schema for the [event](#g-event) or [context](#g-context), which points to the location of the schema for the [event](#g-event) or [context](#g-context) in Iglu. 
 
 *Read [more][iglu] or go to the [top](#top)*
 
