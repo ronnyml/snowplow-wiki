@@ -75,6 +75,8 @@ if not set, the P3P policy header defaults to:
 
 Setting the domain name in `collector.cookie.domain` can be useful if you want to make the cookie accessible to other applications on your domain. In our example above, for example, we've setup the collector on `collector.snplow.com`. If we do not set a domain name, the cookie will default to this domain. However, if we set it to `.snplow.com`, that cookie will be accessible to other applications running on `*.snplow.com`.
 
+Please, refer to [RFC 6265](https://tools.ietf.org/html/rfc6265#section-5.1.3) for the domain matching rules.
+
 ### 5. Setting the cookie duration
 
 The cookie expiration duration is set in `collector.cookie.expiration`.

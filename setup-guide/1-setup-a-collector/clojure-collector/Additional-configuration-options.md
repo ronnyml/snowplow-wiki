@@ -28,7 +28,9 @@ If it is not set, the P3P policy header defaults to:
 
 The domain name can be entered directly into the same dialogue box as the [environment name](#3bi) and [P3P policy header](#3bii) by entering it into **Param3**.
 
-Setting the domain name can be useful if you want to make the cookie accessible to other applications on your domain. In our example above, for example, we've setup the collector on `collector.snplow.com`. If we do not set a domain name, the cookie will default to thsi domain. However, if we set it to `.snplow.com`, that cookie will be accessible to other applications running on `*.snplow.com`.
+Setting the domain name can be useful if you want to make the cookie accessible to other applications on your domain. In our example above, for example, we've setup the collector on `collector.snplow.com`. If we do not set a domain name, the cookie will default to this domain. However, if we set it to `.snplow.com`, that cookie will be accessible to other applications running on `*.snplow.com`.
+
+Please, refer to [RFC 6265](https://tools.ietf.org/html/rfc6265#section-5.1.3) for the domain matching rules.
 
 <a name="3biv" ></a>
 
