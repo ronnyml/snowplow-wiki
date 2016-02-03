@@ -38,6 +38,18 @@ You now have the opportunity to encrypt the database and and set the availabilit
 
 Amazon summarises your cluster information. Click "Launch Cluster" to fire your Redshift instance up. This will take a few minutes to complete.
 
+Alternatively, you could use [AWS CLI](https://aws.amazon.com/cli/) to launch a new cluster. The outcome of the above steps could be achieved with the following command.
+
+```sh
+$ aws redshift create-cluster \
+    --node-type dc1.large \
+    --cluster-type single-node \
+    --cluster-identifier snowplow \
+    --db-name pbz \
+    --master-username admin \
+    --master-user-password TopSecret1
+```
+
 <a name="authorise" />
 ## 2. Authorize client connections to your cluster
 
@@ -79,6 +91,37 @@ and click "Add".
 We should now be able to connect a SQL client on our local machine to Amazon Redshift.
 
 **Note:** Amazon has moved to launching Redshift clusters in a VPC instance by default. In this case, the process for adding IP addresses or EC2 instances to a security group is very similar, but rather than being done in the `Redshift > Security Groups` section of the AWS console, it is done in the `EC2 -> VPC security groups` section of the AWS management console.
+
+Via [AWS CLI](https://aws.amazon.com/cli/), you could create the security group in the following fashion.
+
+```sh
+$ aws ec2 create-security-group \
+    --group-name "Redshift unlimited access" \
+    --description "Unsafe. Use for demonstration only" \
+    --vpc-id {{ VPC_ID }} \
+    | jq -r '.GroupId'
+```
+
+On output you'll get `GroupId`. We'll refer to it as `{{ REDSHIFT_SG }}`.
+
+Next, you need to add access rules to the new security group (amend as required to serve your purpose).
+
+```sh
+$ aws ec2 authorize-security-group-ingress \
+    --group-id {{ REDSHIFT_SG }} \
+    --protocol tcp \
+    --port 5439 \
+    --cidr 0.0.0.0/0
+```
+
+Then tie the previously created security to the cluster in the following manner. On output you'll get the cluster address which you can use in place of `hostname` when establishing the connection to your database.
+
+```sh
+$ aws redshift modify-cluster \
+    --cluster-id snowplow \
+    --vpc-security-group-ids {{ REDSHIFT_SG }} \
+    | jq -r '.Cluster.Endpoint.Address'
+```
 
 <a name="connect" />
 ## 3. Connect to your cluster

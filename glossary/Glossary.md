@@ -121,7 +121,7 @@ An event dictionary is a crucial tool in both cases. It is a document that defin
 <a name="g-enrichment" />
 ####Enrichment
 
-Data enrichment is sometimes referred to as "dimension widening". We are using 3rd party sources of data to enrich the data we originally collected about the event so that we have more context available for understanding that event, enabling us to perform richer analysis.
+Data enrichment is sometimes referred to as "dimension widening". We are using 3rd party sources of data to enrich the data we originally collected about the event so that we have more context available for understanding that event, enabling us to perform richer [analysis](#g-analytics).
 
 Snowplow supports the following enrichments out-of-the-box. We are working on making our enrichment framework pluggable, so that users and partners can extend the list of enrichments performed as part of the data processing pipeline:
 
@@ -145,7 +145,7 @@ Huskimo is a complement to Snowplow's built-in [webhook](#g-webhook) support. It
 <a name="g-iglu" />
 ####Iglu
 
-Snowplow uses Iglu, a schema respository, to store all the schemas associated with the different [events](#g-event) and [contexts](#g-context) that are captured via Snowplow. When an event or context is sent into Snowplow, it is sent with a reference to the schema for the [event](#g-event) or [context](#g-context), which points to the location of the schema for the event or context in Iglu. 
+Snowplow uses Iglu, a schema respository, to store all the schemas associated with the different [events](#g-event) and [contexts](#g-context) that are captured via Snowplow. When an [event](#g-event) or [context](#g-context) is sent into Snowplow, it is sent with a reference to the schema for the [event](#g-event) or [context](#g-context), which points to the location of the schema for the [event](#g-event) or [context](#g-context) in Iglu. 
 
 *Read [more][iglu] or go to the [top](#top)*
 
@@ -262,7 +262,7 @@ snowplow_name_here('trackUnstructEvent', <<SELF-DESCRIBING EVENT JSON>>);
 <a name="g-webhook" />
 ####Webhook
 
-Snowplow allows you to collect events via the adapters (webhooks) of supported third-party software.
+Snowplow allows you to collect [events](#g-event) via the adapters (webhooks) of supported third-party software.
 
 Webhooks allow this third-party software to send their own internal event streams to Snowplow [collectors](#g-collector) for further processing. Webhooks are sometimes referred to as "streaming APIs" or "HTTP response APIs".
 
