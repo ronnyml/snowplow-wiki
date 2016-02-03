@@ -27,7 +27,9 @@ We will refer to it as `{{ VPC_ID }}`.
 $ aws ec2 describe-vpcs | jq -r ".Vpcs[0].VpcId"
 ```
 
-**2. Create Security Group for SSH access**. On output you'll get `GroupId`. We will refer to it as `{{ SSH_SG }}`.
+**2. Create Security Group for SSH access** 
+
+On output you'll get `GroupId`. We will refer to it as `{{ SSH_SG }}`.
 
 ```sh
 $ aws ec2 create-security-group \
@@ -47,7 +49,9 @@ $ aws ec2 authorize-security-group-ingress \
     --cidr 0.0.0.0/0
 ```
 
-**4. Create SSH key-pair named on the local machine.** We named it "snowplow-ec2" here.
+**4. Create SSH key-pair named on the local machine** 
+
+We named it "snowplow-ec2" here.
 
 ```sh
 $ aws ec2 create-key-pair --key-name snowplow-ec2 \
@@ -55,7 +59,9 @@ $ aws ec2 create-key-pair --key-name snowplow-ec2 \
 $ chmod go-rwx ~/.ssh/snowplow-ec2.pem
 ```
 
-**5. Run t2.small instance with Amazon Linux AMI with previously created SSH-key.** On output you will get your instance id. We will refer to it as `{{ INSTANCE_ID }}`.
+**5. Run t2.small instance with Amazon Linux AMI with previously created SSH-key** 
+
+On output you will get your instance id. We will refer to it as `{{ INSTANCE_ID }}`.
 
 ```sh
 $ aws ec2 run-instances \
@@ -74,7 +80,9 @@ $ aws ec2 modify-instance-attribute \
     --groups {{ SSH_SG }}
 ```
 
-**7. Check public IP-address of newly created Instance.** Further we will refer to it as `{{ PUBLIC_IP }}`.
+**7. Check public IP-address of newly created Instance** 
+
+Further we will refer to it as `{{ PUBLIC_IP }}`.
 
 ```sh
 $ aws ec2 describe-instances \
@@ -82,7 +90,9 @@ $ aws ec2 describe-instances \
     | jq '.Reservations[0].Instances[0].PublicDnsName'
 ```
 
-**8. Log-in**. Fill-in `{{ PUBLIC_IP }}` from previous step.
+**8. Log-in** 
+
+Fill-in `{{ PUBLIC_IP }}` from previous step.
 
 ```sh
 $ ssh -i ~/.ssh/aws-ec2.pem ec2-user@{{ PUBLIC_IP }}
