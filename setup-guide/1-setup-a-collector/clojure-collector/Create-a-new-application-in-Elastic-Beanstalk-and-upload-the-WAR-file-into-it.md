@@ -44,6 +44,38 @@ Click on the **URL** link. (This is [[http://cc-endpoint.elasticbeanstalk.com]] 
 
 [[/setup-guide/images/clojure-collector-setup-guide/8.png]]
 
+Alternatively, the above steps could be done via [AWS CLI](https://aws.amazon.com/cli/) in the following manner.
+
+1. Create an empty application.
+
+```sh
+$ aws elasticbeanstalk create-application --application-name analytics
+```
+
+2. Set Clojure Collector WAR as an application.
+
+```sh
+$ aws elasticbeanstalk create-application-version \
+    --application-name analytics \
+    --version-label clojure-collector \
+    --cli-input-json "{\"SourceBundle\":{\"S3Bucket\":\"snowplow-hosted-assets\",\"S3Key\":\"2-collectors/clojure-collector/clojure-collector-1.1.0-standalone.war\"}}"
+```
+
+3. Create environment making sure you provide the valid `solution-stack-name`.
+
+```sh
+$ aws elasticbeanstalk create-environment \
+    --application-name analytics \
+    --environment-name collector \
+    --solution-stack-name "64bit Amazon Linux 2015.09 v2.0.4 running Tomcat 8 Java 8" \
+    --version-label clojure-collector \
+    | jq -r '.EnvironmentId'
+```
+
+***Hint***: The list of available solutions could be obtained with the command `aws elasticbeanstalk list-available-solution-stacks  | jq -r '.SolutionStacks[]' | grep "Tomcat"`.
+
+Launching environment can take several minutes. On output you will get `EnvironmentId`. We will refer to it as `{{ CC_ENV }}` in the next step where we'll show you how to enable S3 logging.
+
 Next: [[enable logging to S3]]
 
 [aws]: https://console.aws.amazon.com/
