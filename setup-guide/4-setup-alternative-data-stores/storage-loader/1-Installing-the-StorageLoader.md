@@ -11,6 +11,8 @@
 
 This guide assumes that you have administrator access to a Unix-based server (e.g. Ubuntu, OS X, Fedora) which you can install StorageLoader on.
 
+You might wish to try out the [steps](Setting-up-EC2-instance-for-EmrEtlRunner-and-StorageLoader) showing you how an EC2 instance could be set up via [AWS CLI](https://aws.amazon.com/cli/).
+
 <a name="dependencies"/>
 ## 2. Dependencies
 

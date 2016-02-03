@@ -46,13 +46,13 @@ Click on the **URL** link. (This is [[http://cc-endpoint.elasticbeanstalk.com]] 
 
 Alternatively, the above steps could be done via [AWS CLI](https://aws.amazon.com/cli/) in the following manner.
 
-1. Create an empty application.
+1.Create an empty application.
 
 ```sh
 $ aws elasticbeanstalk create-application --application-name analytics
 ```
 
-2. Set Clojure Collector WAR as an application.
+2.Set Clojure Collector WAR as an application.
 
 ```sh
 $ aws elasticbeanstalk create-application-version \
@@ -61,7 +61,7 @@ $ aws elasticbeanstalk create-application-version \
     --cli-input-json "{\"SourceBundle\":{\"S3Bucket\":\"snowplow-hosted-assets\",\"S3Key\":\"2-collectors/clojure-collector/clojure-collector-1.1.0-standalone.war\"}}"
 ```
 
-3. Create environment making sure you provide the valid `solution-stack-name`.
+3.Create environment making sure you provide the valid `solution-stack-name`.
 
 ```sh
 $ aws elasticbeanstalk create-environment \
