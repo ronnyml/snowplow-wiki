@@ -50,6 +50,8 @@ examples              run_druid_server.sh   select_example.sh
 
 Now start up Druid:
 
+https://github.com/boneill42/druid-vagrant/blob/master/supervisor/supervisord.conf
+
 ```
 $ xxx
 ```
@@ -80,6 +82,12 @@ Now start up Tranquility Server:
 $ bin/tranquility server -configFile conf/tranquility-server.conf
 ```
 
+
+Druid UIs:
+
+Overlord, Coordinator - http://localhost:8090/console.html
+
+Tranquility - http://localhost:8200/
 
 [apache-zookeeper]: https://zookeeper.apache.org/
 [druid]: http://druid.io/
