@@ -10,6 +10,18 @@ Select the **Container** tab in the dialogue box, and then check the box marked 
 
 Click the **Apply changes** button. The environment update will be processed, and the collector app should be live again after a few minutes.
 
+The above effect could be achieved via [AWS CLI](https://aws.amazon.com/cli/) in the following fashion.
+
+```sh
+$ aws elasticbeanstalk update-environment \
+    --environment-id {{ CC_ENV }} \
+    --option-settings Namespace="aws:autoscaling:launchconfiguration",OptionName="IamInstanceProfile",Value="aws-elasticbeanstalk-ec2-role",ResourceName="AWSEBAutoScalingLaunchConfiguration"
+$ aws elasticbeanstalk update-environment \
+    --environment-id {{ CC_ENV }} \
+    --option-settings Namespace="aws:elasticbeanstalk:hostmanager",OptionName="LogPublicationControl",Value="true"
+```
+Note the value for `environment-id` is obtained from the [previous step](Create-a-new-application-in-Elastic-Beanstalk-and-upload-the-WAR-file-into-it).
+
 ### Checking that your logs are being pushed to S3
 
 Amazon pushes Tomcat access logs to S3 hourly. (In our experience, they generally appear 10 minutes passed each hour.) Finding your logs in S3, however, is not entirely trivial...
