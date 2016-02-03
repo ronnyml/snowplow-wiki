@@ -193,7 +193,7 @@ It differs from standard JSON due to the following important changes :
 <a name="g-shredding" />
 ####Shredding
 
-Snowplow has a Shredding process (as part of [Enrich](#g-enrich) and [Storage](#g-storage) processes) which consists of two phases:
+Snowplow has a Shredding process (as part of [Enrichment](#g-enrichment) and [Storage](#g-storage) processes) which consists of two phases:
 
 1. Extracting [unstructured event](#g-unstructured-event) JSONs and [context](#g-context) JSONs from [enriched](#g-enrichment) event files into their own files
 2. Loading those files into corresponding tables in Redshift
