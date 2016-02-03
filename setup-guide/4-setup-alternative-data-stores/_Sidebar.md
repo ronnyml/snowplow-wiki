@@ -13,9 +13,10 @@
   - [4.4: using the StorageLoader] (2-using-the-storageloader)  
   - [4.5: scheduling the StorageLoader] (3-scheduling-the-storageloader)  
   - [4.6: loading shredded types] (4-Loading-shredded-types)  
-  - [4.7: setup Elasticsearch] (kinesis-elasticsearch-sink-setup)
-  - [4.8: setup the Kinesis LZO S3 Sink] (kinesis-lzo-s3-sink-setup)
-- [Step 5: Data modeling] (getting-started-with-data-modeling)
+  - [4.7: setup Elasticsearch] (kinesis-elasticsearch-sink-setup)  
+  - [4.8: setup the Kinesis LZO S3 Sink] (kinesis-lzo-s3-sink-setup)  
+  - [4.9: setup Druid] (Setting-up-Druid)  
+- [Step 5: Data modeling] (getting-started-with-data-modeling)  
 - [Step 6: Analyze your data!] (getting-started-analyzing-snowplow-data)
 
 **Useful resources**  
