@@ -64,23 +64,26 @@ First download it:
 
 ```
 $ wget http://static.druid.io/tranquility/releases/tranquility-distribution-0.7.2.tgz
-$ tar -xvf tranquility-distribution-0.7.2.tgz -C /opt
-$ cd ...
+$ sudo tar -xvf tranquility-distribution-0.7.2.tgz -C /opt
+$ cd /opt/tranquility-distribution-0.7.2/conf
 ```
 
 Now download the Snowplow configuration file for Tranquility Server:
 
 ```
-$ wget xxx
-``` 
+$ wget https://raw.githubusercontent.com/snowplow/snowplow/feature/druid/4-storage/druid-storage/config/tranquility-server.conf
+```
 
 Now start up Tranquility Server:
 
 ```
-$ bin/tranquility server -configFile conf/server.json
+$ bin/tranquility server -configFile conf/tranquility-server.conf
 ```
 
 
 [apache-zookeeper]: https://zookeeper.apache.org/
 [druid]: http://druid.io/
 [tranquility-server]: https://github.com/druid-io/tranquility/blob/master/docs/server.md
+
+
+
