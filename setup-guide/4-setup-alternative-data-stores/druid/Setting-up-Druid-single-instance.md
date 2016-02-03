@@ -46,6 +46,7 @@ $ tar -xvf druid-0.8.3-bin.tar.gz -C /opt
 LICENSE               extensions-repo       run_example_client.sh
 config                lib                   run_example_server.sh
 examples              run_druid_server.sh   select_example.sh
+```
 
 Now start up Druid:
 

@@ -11,15 +11,7 @@ We have two setup guides for working with Druid:
 
 Both guides assume that you are using **Druid 0.8.3 Stable** - this is the version that we have tested these instructions with.
 
-<a name="assumptions" />
-
-1. Assumptions
-
-This guide makes the following assumptions:
-
-1. 
-2. That you are deploying Druid onto **AWS** - we have chosen the Druid dependencies which require the least configuration for AWS 
-
+TODO: move the below into the instance spec description
 
 <a name="prereq-java7" />
 ### 1.4 Java 7 of higher
@@ -32,21 +24,6 @@ java version "1.7.0_67"
 Java(TM) SE Runtime Environment (build 1.7.0_67-b01)
 Java HotSpot(TM) 64-Bit Server VM (build 24.65-b04, mixed mode)
 ```
-
-<a name="download" />
-## 3. Download Druid
-
-Download the Druid binaries:
-
-    $ wget http://static.druid.io/artifacts/releases/druid-0.8.3-bin.tar.gz
-    $ tar -xvf druid-0.8.3-bin.tar.gz -C /opt
-    $ cd /opt/druid-0.8.3 && ls
-    LICENSE               extensions-repo       run_example_client.sh
-    config                lib                   run_example_server.sh
-    examples              run_druid_server.sh   select_example.sh
-
-Launch a Redshift Cluster
-
 
 [emr-etl-runner]: 1-Installing-EmrEtlRunner
 [storage-loader]: 1-Installing-the-StorageLoader
