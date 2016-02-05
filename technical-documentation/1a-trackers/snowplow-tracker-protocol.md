@@ -4,13 +4,13 @@
 <a name="overview" />
 ## Overview
 
-Snowplow trackers fire _events_, which are `GET` requests of a [Snowplow collector](collectors), whenever an event on a website or application takes place. By appending parameters and values to the end of those `GET`  requests, trackers can pass data into the collectors, for processing by Snowplow.
+Snowplow trackers fire _events_, which are either `GET` or `POST` requests of a [Snowplow collector](collectors), whenever an event on a website or application takes place. By appending events' parameters and values to the end of those `GET`  requests or adding them into the body of `POST` messages, trackers can pass data into the collectors, for processing by Snowplow.
 
 The Snowplow Tracker Protocol is the list of all the parameters that Snowplow trackers use when firing events to push data into the [Snowplow collectors] (collectors). Each parameter maps onto one or more fields in the [Snowplow events table] (canonical-event-model) employed in storage. Here we document which field in the [Snowplow events table] (canonical-event-model) each parameter added to the query string maps onto.
 
 Snowplow has been architected to be as easy as possible for developers to create their own alternative subsystems. This documentation should be used by anyone who would like to build their own tracker: by utilising the parameters documented here, the author of a new tracker can be confident that his / her tracker will work with the rest of the Snowplow stack, and be confident where the values associated with each parameter on every call will be available to query in Snowplow, whether that's in Hive or Infobright or another database.
 
-Please note that the end point where the `GET` request should be made depends on which [collector](collectors) is used. Refer to the [collectors](collectors) documentation for more information.
+Please note that the end point where the `GET`/`POST` request should be made depends on which [collector](collectors) is used. Refer to the [collectors](collectors) documentation for more information. Also take into consideration that [Clodfront collector](Setting-up-the-Cloudfront-collector) accepts only `GET` requests.
 
 In the [first part of this guide](#common), we cover the parameters in the Snowplow tracker protocol that are common across different event types. [In the second part](#events), we document the parameters that are relevant for specific events that are recognised in the Snowplow event model. Please note: this model is evolving over time as we incorporate more events and grow the set of fields associated with each of the standard events. In all cases, we do our best to ensure that any changes are backwards compatible. (So we are happy adding new parameters, but do not remove parameters once they have been incorporated.)
 
