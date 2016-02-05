@@ -35,7 +35,7 @@ The EmrEtlRunner jar is available for download. For more information, see the [[
 
 You will also need an **EC2 key pair** setup in your Amazon EMR account.
 
-For details on how to do this, please see the section "Configuring the client" in the [[Setting up EMR command line tools]] wiki page. Make sure that you setup the EC2 key pair inside the region in which you will be running your ETL jobs.
+For details on how to do this, please see [Create a Key Pair](http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/EMR_SetUp_KeyPair.html). Make sure that you setup the EC2 key pair inside the region in which you will be running your ETL jobs.
 
 <a name="s3-buckets"/>
 ### 2.4 S3 locations

@@ -33,7 +33,7 @@ Integrating Iglu-compatible webhooks into Snowplow is a two-stage process:
 1. Configure your third-party system to send Iglu-compatible events to Snowplow
 2. (Optional) Setup the appropriate JSON Schema, JSON Paths file and Redshift table definition for each Iglu-compatible event you are sending through
 
-<a name="setup-adxtracking" />
+<a name="setup-webhook" />
 ## 2.1 Your webhook
 
 Currently the Iglu webhook adapter only supports events send in as `GET` requests.

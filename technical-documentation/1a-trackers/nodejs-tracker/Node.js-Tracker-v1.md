@@ -24,9 +24,8 @@
   - 4.2 [`trackScreenView()`](#screen-view)
   - 4.3 [`trackPageView()`](#page-view)
   - 4.4 [`trackEcommerceTransaction()`](#ecommerce-transaction)
-  - 4.5 `trackEcommerceTransactionItem()`[](#ecommerce-transaction-item)
-  - 4.6 [`trackStructEvent()`](#struct-event)
-  - 4.7 [`trackUnstructEvent()`](#unstruct-event)
+  - 4.5 [`trackStructEvent()`](#struct-event)
+  - 4.6 [`trackUnstructEvent()`](#unstruct-event)
 
 <a name="overview" />
 ## 1. Overview
@@ -398,7 +397,7 @@ t.trackEcommerceTransaction("order-456", null, 142, 20, 12.99, "London", null, "
 
 
 <a name="struct-event" />
-### 4.6 Track structured events with `trackStructEvent()`
+### 4.5 Track structured events with `trackStructEvent()`
 
 Use `trackStructEvent()` to track a custom event happening in your app which fits the Google Analytics-style structure of having up to five fields (with only the first two required):
 
@@ -421,7 +420,7 @@ t.trackStructEvent("shop", "add-to-basket", null, "pcs", 2);
 [Back to top](#top)
 
 <a name="unstruct-event" />
-### 4.7 Track unstructured events with `trackUnstructEvent()`
+### 4.6 Track unstructured events with `trackUnstructEvent()`
 
 Use `trackUnstructEvent()` to track a custom event which consists of a name and an unstructured set of properties. This is useful when you want to track event types which are proprietary/specific to your business (i.e. not already part of Snowplow).
 

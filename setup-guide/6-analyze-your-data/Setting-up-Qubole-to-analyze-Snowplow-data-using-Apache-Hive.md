@@ -11,7 +11,7 @@ We haven't tested Qubole's Pig capabilities - but we've used it to perform Hive 
 
 In this guide, we walk through the steps necessary to get up and running using Hive on Qubole to query your Snowplow data:
 
-1. [Sign up to Qubole](#signup)
+1. [Sign up to Qubole](#sign-up)
 2. [Login](#login)
 3. [Define your Snowplow table in Hive](#define-table)
 4. [Performing some sample queries against the table](#queries)

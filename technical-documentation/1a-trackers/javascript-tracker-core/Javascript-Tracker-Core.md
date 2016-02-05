@@ -7,7 +7,7 @@
 
 - 1. [Overview](#overview)  
 - 2. [Initialization](#init)  
-  - 2.1 [Importing the module](#importing)
+  - 2.1 [Importing/Requiring the module](#requiring)
   - 2.2 [Creating a tracker](#create-tracker)
 - 3 [Setter methods](#setter-methods)
   - 3.1 [`addPayloadPair()`](#addPayloadPair)
@@ -53,8 +53,8 @@ Require the Snowplow Tracker Core module into your code like so:
 var snowplowTrackerCore = require('snowplow-tracker-core');
 ```
 
-<a name="requiring" />
-### 2.1 Creating a tracker core instance
+<a name="create-tracker" />
+### 2.2 Creating a tracker core instance
 
 The tracker core constructor takes two parameters: 
 
