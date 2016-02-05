@@ -239,6 +239,8 @@ SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
 [tracker setSubject:subject];
 ```
 
+__NOTE__: `initWithPlatformContext` refers to getting the context for the particular platform that the Tracker is running on.  In the case of an iOS application this will then automatically fetch the `mobile_context` for all of your events.
+
 * [Sending IFA](#sending-ifa)
 
 #### Standard Pairs
