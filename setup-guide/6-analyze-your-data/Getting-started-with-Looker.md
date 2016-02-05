@@ -94,7 +94,7 @@ Back to [top](#top).
 * Select either `PostgeSQL` or `Amazon Redshift` for the **Dialect**
 * Enter the host, port, database name, username and password you use to access your Snowplow data
 * Enter `atomic` for **Schema**
-* Enter your connection details. (Including the username / password combination you setup in step [3.3](##user-creds) above.)
+* Enter your connection details. (Including the username / password combination you setup in step [3.3](#user-creds) above.)
 * Select **Test These Settings**. If they are working, press the **Add Connection** button.
 * Looker can now access your Snowplow data!
 

@@ -12,7 +12,7 @@
 ## 2. General parameters
   - 2.1 [Loading Snowplow.js](#loading)
   - 2.2 [Initialising a tracker](#initialisation)
-    - 2.2.1 [Setting the application ID](#app id)
+    - 2.2.1 [Setting the application ID](#app-id)
     - 2.2.2 [Setting the platform](#platform)
     - 2.2.3 [Configuring the cookie domain](#cookie-domain)
     - 2.2.4 [Configuring the cookie name](#cookie-name)
@@ -39,7 +39,7 @@
       - 2.3.1.3 [`setUserIdFromReferrer`](#set-user-id-from-referrer)
       - 2.3.1.4 [`setUserIdFromCookie`](#set-user-id-from-cookie)
     - 2.3.2 [Setting a custom page URL and referrer URL](#custom-url)
-    - 2.3.3 [Configuring cookie timeouts using `setSessionCookieTimeout`](#cookie-timeouts)
+    - 2.3.3 [Configuring cookie timeouts using `setSessionCookieTimeout`](#cookie-timeout)
   - 2.4 [Setting onload callbacks](#callback)
   - 2.5 [Managing multiple trackers](#multiple-trackers)
   - 2.6 [How the Tracker uses cookies](#cookies)

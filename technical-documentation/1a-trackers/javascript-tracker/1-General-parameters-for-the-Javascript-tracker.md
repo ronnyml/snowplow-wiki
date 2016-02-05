@@ -31,7 +31,7 @@
       - 2.2.13.3 [gaCookies context](#gaCookies)
       - 2.2.13.4 [geolocation contexts](#geolocation)
     - 2.2.14 [POST support](#post)
-    - 2.2.15 [Disabling cookies](#write-cookies)
+    - 2.2.15 [Disabling cookies](#use-cookies)
     - 2.2.16 [Configuring cross-domain tracking](#cross-domain)
     - 2.2.17 [Configuring the maximum payload size in bytes](#maxPostBytes)
   - 2.3 [Other parameters](#other-methods)

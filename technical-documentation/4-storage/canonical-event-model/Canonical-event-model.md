@@ -53,13 +53,6 @@ In order to analyse Snowplow data, it is important to understand how it is struc
   - 2.3.6 [Custom unstructured events](#customunstruct)
   - 2.3.7 [Custom contexts](#customcontexts)
 - 2.4 [**Specific unstructured events**](#specific-unstruct-events-contexts)
-  - 2.4.1 Link clicks [](#link-click)
-  - 2.4.2 Ad impressions[](#ad-impression)
-  - 2.4.3 Ad clicks[](#ad-click)
-  - 2.4.4 Ad conversions[](#ad-conversion)
-  - 2.4.5 Screen views[](#screen-view)
-  - 2.4.6 Social events[](#social)  
-  - 2.4.7 Item views[](#itemview)
 
 <a name="common" />
 ### 2.1 Common fields (platform and event independent)

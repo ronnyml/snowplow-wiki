@@ -121,7 +121,7 @@ Now close the window: your new user is setup.
 
 Back to [top](top).
 
-<a name="add-to-grup" />
+<a name="add-to-group" />
 ## 4. Add the new user to your new group
 
 The user we have created has no permissions -> we need to add her to the new group we created to give her those permissions.

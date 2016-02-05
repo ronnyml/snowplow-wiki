@@ -74,4 +74,4 @@ Next: [[Run Scala Kinesis Enrich]]
 [geolite]: http://dev.maxmind.com/geoip/legacy/geolite/?rld=snowplow
 [app-conf]: https://github.com/snowplow/snowplow/blob/master/3-enrich/scala-kinesis-enrich/src/main/resources/config.hocon.sample
 [enrichment-json-examples]: https://github.com/snowplow/snowplow/tree/master/3-enrich/emr-etl-runner/config/enrichments
-[configuring-enrichments]: https://github.com/snowplow/snowplow/wiki/5-Configuring-enrichments#template
+[configuring-enrichments]: https://github.com/snowplow/snowplow/wiki/Configurable-enrichments

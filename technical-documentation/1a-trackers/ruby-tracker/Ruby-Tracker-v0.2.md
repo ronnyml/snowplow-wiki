@@ -14,7 +14,6 @@
 - 2. [Initialization](#init)  
   - 2.1 [Requiring the module](#requiring)
   - 2.2 [Creating a tracker](#create-tracker)  
-  - 2.3 [Creating multiple trackers](#multi-tracker)
 - 3 [Adding extra data](#add-data)
   - 3.1 [`set_platform`](#set-platform)
   - 3.2 [`set_user_id`](#set-user-id)

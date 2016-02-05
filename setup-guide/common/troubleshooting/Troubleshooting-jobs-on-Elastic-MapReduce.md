@@ -16,7 +16,7 @@ An error running the ETL job on Elastic MapReduce looks like this:
     EMR jobflow j-397K2WS5ZTOOT failed, check Amazon logs for details. Data files not archived.
     ---------------
 
-This tells you that you have a problem with your ETL job - continue to the next section, [Diagnosing an ETL job failure](#diagnose-etl-job-failure).
+This tells you that you have a problem with your ETL job - continue to the next section, [Diagnosing an ETL job failure](#diagnose-etl-job).
 
 On the other hand, when S3 file copy operations fail repeatedly, you will see errors (e.g. "500 InternalServerErrors") reported by [Sluice] [sluice], which is the library we use to handle S3 file operations. In this case, jump to the final section, [Fixing S3 file copy failures](#filecopy-failure).
 
