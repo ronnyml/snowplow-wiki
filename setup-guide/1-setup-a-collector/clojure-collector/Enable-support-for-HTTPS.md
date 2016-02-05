@@ -22,6 +22,9 @@ In due course, we should be able to enter our custom domain with a `/i` in a bro
 
 Now that we are running our collector on our own domain, we can serve it via HTTPS. 
 
+[[/images/warning.png]] | The below steps are deprecated. Please, follow the [Amazon guidance](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/configuring-https.html) instead.
+---|:---
+
 #### 4.2.1 Pre-requisites
 
 1. An SSL certificate for your custom domain
