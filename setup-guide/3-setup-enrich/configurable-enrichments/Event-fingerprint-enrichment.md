@@ -20,7 +20,7 @@ This is the field which this enrichment will augment:
 
 ```json
 {
-    "schema": "iglu:com.snowplowanalytics.snowplow/referer_parser/jsonschema/1-0-0",
+    "schema": "iglu:com.snowplowanalytics.snowplow/event_fingerprint_config/jsonschema/1-0-0",
 
     "data": {
 
