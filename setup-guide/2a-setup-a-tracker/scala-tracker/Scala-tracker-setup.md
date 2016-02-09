@@ -33,11 +33,8 @@ The Tracker is published to Snowplow's [hosted Maven repository] [maven-snplow],
 Add the Scala Tracker to your build.sbt like this:
 
 ```scala
-// Resolvers
-val snowplowRepo = "Snowplow Releases" at "http://maven.snplow.com/releases/"
-
-// Libraries
-libraryDependencies += "com.snowplowanalytics.snowplow" %% "snowplow-scala-tracker" % "0.2.0"
+resolvers += "Snowplow Releases" at "http://maven.snplow.com/releases/"
+libraryDependencies += "com.snowplowanalytics" %% "snowplow-scala-tracker" % "0.2.0"
 ```
 
 <a name="gradle" />
