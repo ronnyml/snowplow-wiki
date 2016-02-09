@@ -39,7 +39,7 @@ import com.snowplowanalytics.snowplow.scalatracker.emitters._
 
 val emitter1 = AsyncEmitter.createAndStart("mycollector.com")
 val emitter2 = new SyncEmitter("myothercollector.com", port = 8080)
-val emitter3 = new AsyncBatchEmitter("myothercollector.com", port = 8080, bufferSize = 32)
+val emitter3 = AsyncBatchEmitter.createAndStart(host = "myothercollector.com", port = 8080, bufferSize = 32)
 val tracker = new Tracker(List(emitter1, emitter2, emitter3), "mytrackername", "myapplicationid")
 ```
 
