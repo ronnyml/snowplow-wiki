@@ -40,7 +40,7 @@ import com.snowplowanalytics.snowplow.scalatracker.emitters._
 val emitter1 = AsyncEmitter.createAndStart("mycollector.com")
 val emitter2 = new SyncEmitter("myothercollector.com", port = 8080)
 val emitter3 = new AsyncBatchEmitter("myothercollector.com", port = 8080, bufferSize = 32)
-val tracker = new Tracker(List(emitter, emitter2, emitter3), "mytrackername", "myapplicationid")
+val tracker = new Tracker(List(emitter1, emitter2, emitter3), "mytrackername", "myapplicationid")
 ```
 
 The above code:
@@ -48,7 +48,7 @@ The above code:
 * creates a non-blocking emitter, `emitter1`, which sends events to "mycollector.com" on the default port, port 80
 * creates a blocking emitter, `emitter2`, which sends events to "myothercollector.com" on port 8080
 * creates a non-blocking batch `emitter3`, which will buffer events until buffer size reach 32 events and then send all of them at once in POST request
-* creates a tracker which can be used to send events to both emitters
+* creates a tracker which can be used to send events to all emitters
 
 <a name="subject" />
 ### 2.2 Subject
