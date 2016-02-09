@@ -26,6 +26,5 @@ In this guide, we cover:
 [scalding]: https://github.com/twitter/scalding
 [cascading]: http://www.cascading.org/
 [kinesis]: http://aws.amazon.com/kinesis/
-
 [emr-etl-runner]: EmrEtlRunner
 [hadoop-enrich]: https://github.com/snowplow/snowplow/tree/master/3-enrich/scala-hadoop-enrich
