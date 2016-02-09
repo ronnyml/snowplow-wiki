@@ -11,9 +11,7 @@ alternative storage mechanism for analysis
 
 The current enrichment process provides 2 options for developers to use:
 
-1. Using [Scalding][scalding], a Scala implementation of [Cascading][cascading], an ETL library that's written on top of Hadoop. This is the [Hadoop Enrichment][hadoop-enrich].
-
-Snowplow uses Amazon's EMR to run the Enrichment process. The regular running of the process (which is necessary to ensure that up-to-date Snowplow data is available for analysis) is managed by [EmrEtlRunner][emr-etl-runner], a Ruby application.
+1. Using [Scalding][scalding], a Scala implementation of [Cascading][cascading], an ETL library that's written on top of Hadoop. This is the [Hadoop Enrichment][hadoop-enrich]. Snowplow uses Amazon's EMR to run the Enrichment process. The regular running of the process (which is necessary to ensure that up-to-date Snowplow data is available for analysis) is managed by [EmrEtlRunner][emr-etl-runner], a Ruby application.
 
 2. Using Scala and [Amazon Kinesis][kinesis] for real-time processing
 of data.
