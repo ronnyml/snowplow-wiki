@@ -2,7 +2,7 @@
 
 Click on the **Create bucket** button again, this time to create a second bucket for storing the log files that Cloudfront will generate. Give the bucket a suitable name.
 
-[[/setup-guide/images/cloudfront-collector-setup-guide/s3-create-logging-bucket.jpg]]
+[[/setup-guide/images/cloudfront-collector-setup-guide/s3-create-logs-bucket.jpg]]
 
 ##Alternative approach: AWS CLI
 
