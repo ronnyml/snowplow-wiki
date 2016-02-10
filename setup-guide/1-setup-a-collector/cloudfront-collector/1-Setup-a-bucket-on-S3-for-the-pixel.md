@@ -45,6 +45,8 @@ The list of available regions could be obtained by executing:
 $ aws ec2 describe-regions | grep 'RegionName'
 ``` 
 
+You could also view it on the [Amazon doc page](http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region).
+
 If the bucket name is available you will get a confirmation on creation:
 
 ```sh

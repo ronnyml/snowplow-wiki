@@ -2,13 +2,15 @@
 
 You can download a copy of the tracking pixel from the [Snowplow Github repo](https://github.com/snowplow/snowplow/tree/master/2-collectors/cloudfront-collector/static). One convenient way to quickly grab `i` is to execute the following at the command line:
 
-	$ wget https://github.com/snowplow/snowplow/raw/master/2-collectors/cloudfront-collector/static/i 
+```sh
+$ wget https://github.com/snowplow/snowplow/raw/master/2-collectors/cloudfront-collector/static/i
+```
 
-To upload the tracking pixel into the bucket you just created, click on the **Upload** button on teh top left of the **Objects and Folders** window that makes up most of the screen. A popup will appear:
+To upload the tracking pixel into the bucket you just created, click on the **Upload** button on the top left corner of the window. A popup will appear:
 
 [[/setup-guide/images/cloudfront-collector-setup-guide/upload-i-to-s3.jpg]]
 
-Click on the **+ Add Files** button and select the tracking pixel from the location you downloaded it to on your local machine. The tracking pixel file should be lisetd on the popup. When it is, click the **Start Upload** button on the bottom right of the popup.
+Click on the **+ Add Files** button and select the tracking pixel from the location you downloaded it to on your local machine. (Alernative instructions are provided within the popup window). The tracking pixel file should be listed above the **+ Add Files** button. When it is, click the **Start Upload** button on the bottom right of the popup.
 
 When the upload is complete, the pixel should be listed in the bucket:
 
@@ -26,9 +28,31 @@ As a final step, we will set the mimetype on the tracking pixel to `image/gif` -
 
 So, click on the tracking pixel, click on the Properties tab, scroll down to the Metadata section and then click Add more metadata and add an entry for **Content-Type** like so:
 
-[[/setup-guide/images/cloudfront-collector-setup-guide/i-set-image-mimetype.png]]
+[[/setup-guide/images/cloudfront-collector-setup-guide/i-set-image-mimetype.jpg]]
 
 Hit Save and then you should be done.
+
+##Alternative approach: AWS CLI
+
+Alternatively, the above steps could be achieved with the following [AWS CLI](https://aws.amazon.com/cli/) commands.
+
+Download the tracking pixel to the local machine:
+
+```sh
+$ wget https://github.com/snowplow/snowplow/raw/master/2-collectors/cloudfront-collector/static/i
+```
+
+Upload it to the bucket and set the appropriate permissions and MIME type:
+
+```sh
+$ aws s3 cp i s3://snwplw-static-demo --acl public-read --content-type image/gif
+```
+
+It will be confirmed with the following output
+
+```sh
+upload: ./i to s3://snwplw-static-demo/i
+```
 
 ## All done?
 
