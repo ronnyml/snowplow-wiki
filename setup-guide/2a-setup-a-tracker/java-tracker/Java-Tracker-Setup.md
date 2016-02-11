@@ -58,6 +58,8 @@ The Tracker is published to Snowplow's [hosted Maven repository] [maven-snplow],
 
 The current version of the Snowplow Java Tracker is 0.8.0.
 
+You can also manually insert the Tracker by downloading the jar directly: http://maven.snplow.com/releases/com/snowplowanalytics/snowplow-java-tracker/0.8.0/snowplow-java-tracker-0.8.0.jar
+
 <a name="maven" />
 ### 3.2 Maven
 
