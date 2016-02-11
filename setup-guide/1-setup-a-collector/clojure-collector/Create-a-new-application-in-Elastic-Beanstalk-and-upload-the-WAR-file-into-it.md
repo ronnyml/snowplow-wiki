@@ -6,69 +6,88 @@ On your web browser, log into the [AWS control panel][aws]. From the **Services*
 
 Before you create your application, you need to switch to the region you want your web server located. Select your region from the dropdown on the top right of the screen:
 
-[[/setup-guide/images/clojure-collector-setup-guide/0.png]]
+[[/setup-guide/images/clojure-collector-setup-guide/0.jpg]]
 
-Once you've selected your region, you're ready to create your application. Click on the **Create application** button (located on the top right of the screen, below the top menu bar with the region selection):
+Once you've selected your region, you're ready to create your application. Click on the **Create application** button (located on the top right of the screen, below the top menu bar with the region selection). Give your application a suitable name and description.
 
-[[/setup-guide/images/clojure-collector-setup-guide/1.png]]
+[[/setup-guide/images/clojure-collector-setup-guide/1.jpg]]
 
-Give your application a suitable name and description. Select **64bit Amazon Linux running Tomcat 8** for the container type. For the **Application Source**, select **Upload your Existing Application**. Use the **Choose File** button to point Elastic Beanstalk at the `war` file from [part 1](Download-the-Clojure-collector-WAR-file-or-compile-it-from-source).
+Next you will need to set up the appropriate environment for the application to run in. Hit "Create web server" button.
 
-[[/setup-guide/images/clojure-collector-setup-guide/2.png]]
+[[/setup-guide/images/clojure-collector-setup-guide/2.jpg]]
 
-Next you need to configure the environment details. You can setup multiple environments for each application, but for our purposes one is enough.
+For the platform, select **Tomcat**. In this demo we picked a "*Single instance*". However, you could set up a load balanced, auto scaling environment.
 
-Keep the **Launch a new environment running this application** checkbox checked (i.e. selected), but **deselect** the 2nd option: **Create an RDS DB Instance with this environment**. We do **not** need a database to run the collector.
+[[/setup-guide/images/clojure-collector-setup-guide/3.jpg]]
 
-Give your environment a suitable name, URL and description:
+For the **Application Source**, select **Upload your own**. Use the **Choose File** button to point Elastic Beanstalk at the `war` file from [part 1](Download-the-Clojure-collector-WAR-file-or-compile-it-from-source). Click "Next" to upload the file.
 
-[[/setup-guide/images/clojure-collector-setup-guide/3.png]]
+[[/setup-guide/images/clojure-collector-setup-guide/4.jpg]]
+
+Once uploaded, give your environment a suitable name, URL and description. Ensure the environment URL is available (click "Check availability" button).
+
+[[/setup-guide/images/clojure-collector-setup-guide/5.jpg]]
+
+The following screen should be left unmodified. We do **not** need a database to run the collector. Nor do we require it running in VPC. 
+
+[[/setup-guide/images/clojure-collector-setup-guide/6.jpg]]
 
 Next we need to specify another set of configuration details. Set a suitable instance type (we recommend at least `m1.small`). If you have an EC2 key pair configured, you can enter the key pair name at this stage: this will enable you to use the key pair to SSH in should you wish. (This is not required, and can be added later without any difficulty.)
 
-For the **Application Health Check URL**, leave this blank. By default, Elastic Beanstalk sends a `HEAD` request to `/` to check that the collector is available. (Don't put a `/` in this box or Beanstalk will send a `GET`, which will fail.)
+[[/setup-guide/images/clojure-collector-setup-guide/7.jpg]]
 
-[[/setup-guide/images/clojure-collector-setup-guide/4.png]]
+[Tagging the environment](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.tagging.html) is optional and more appropriate if you run multiple environments and you want to distinguish them in cost allocation reports.
 
-Click **Continue**. Amazon gives you the chance to review your inputs. When you've checked them click **Finish**. 
+[[/setup-guide/images/clojure-collector-setup-guide/8.jpg]]
 
-Amazon then sets up your the application and environment. When this is complete, you should see a screen like the one below. Note the green box, and the **Successflly running version First Release** notice.
+Give the appropriate permissions and click "Next" to review the submitted information so far.
 
-[[/setup-guide/images/clojure-collector-setup-guide/5.png]]
+[[/setup-guide/images/clojure-collector-setup-guide/9.jpg]]
 
-To test that all is working as expected, select the **Environment Details** dropdown:
+Once you are satisfied with with the summary hit "Launch" button at the very bottom of the Review page (not shown on the screenshot). 
 
-[[/setup-guide/images/clojure-collector-setup-guide/7.png]]
+[[/setup-guide/images/clojure-collector-setup-guide/10.jpg]]
 
-Click on the **URL** link. (This is [[http://cc-endpoint.elasticbeanstalk.com]] in the example above.) This should return a 404. If you add `/i' to the path (e.g. `http://cc-endpoint.elasticbeanstalk.com/i`), right click on the window and select **Inspect Element** in Chrome or **Inspect with Firebug** in Firefox, you should be able to see if the cookie has been set:
+Elastic Beanstalk will start creating your environment followed by launching the application. The whole process could take a while.
+
+[[/setup-guide/images/clojure-collector-setup-guide/11.jpg]]
+
+Once application is up and running the dashboard will present the *Recent Events* logs and hopefully report the successful launch.
+
+[[/setup-guide/images/clojure-collector-setup-guide/12.jpg]]
+
+To test that all is working as expected click on the **URL** link at the very top of the Dashboard. (This is `http://cc-endpoint-demo.us-west-2.elasticbeanstalk.com` in the example above.) This should return a 404. If you add `/i` to the path (e.g. `http://cc-endpoint-demo.us-west-2.elasticbeanstalk.com/i`), right click on the window and select **Inspect Element** in Chrome or **Inspect with Firebug** in Firefox, you should be able to see if the cookie has been set:
 
 [[/setup-guide/images/clojure-collector-setup-guide/8.png]]
+
+
+##Alternative approach: AWS CLI
 
 Alternatively, the above steps could be done via [AWS CLI](https://aws.amazon.com/cli/) in the following manner.
 
 1.Create an empty application.
 
 ```sh
-$ aws elasticbeanstalk create-application --application-name analytics
+$ aws elasticbeanstalk create-application --application-name "Clojure Collector Demo" --description "Enables cross domain user tracking"
 ```
 
 2.Set Clojure Collector WAR as an application.
 
 ```sh
 $ aws elasticbeanstalk create-application-version \
-    --application-name analytics \
-    --version-label clojure-collector \
+    --application-name "Clojure Collector Demo" \
+    --version-label cc-endpoint-demo \
     --cli-input-json "{\"SourceBundle\":{\"S3Bucket\":\"snowplow-hosted-assets\",\"S3Key\":\"2-collectors/clojure-collector/clojure-collector-1.1.0-standalone.war\"}}"
 ```
 
-3.Create environment making sure you provide the valid `solution-stack-name`.
+3.Create environment making sure you provide the valid `solution-stack-name`. Note the `environment-name` will form the collector endpoint URL.
 
 ```sh
 $ aws elasticbeanstalk create-environment \
-    --application-name analytics \
-    --environment-name collector \
+    --application-name "Clojure Collector Demo" \
+    --environment-name cc-endpoint-demo \
     --solution-stack-name "64bit Amazon Linux 2015.09 v2.0.4 running Tomcat 8 Java 8" \
-    --version-label clojure-collector \
+    --version-label cc-endpoint-demo \
     | jq -r '.EnvironmentId'
 ```
 
