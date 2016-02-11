@@ -52,6 +52,26 @@ Note it might take a while for the distribution creation to complete. Watch for 
 
 Write down the **Domain Name** for the distribution you just created. (Highlighted above - in our case it is `http://d3age8pcob9fi8.cloudfront.net`.) You will need this in the next step (to test the collector is working), and when you set up your [tracker](choosing-a-tracker).
 
+##Alternative approach: AWS CLI
+
+Note [AWS CLI](https://aws.amazon.com/cli/) support for **cloudfront** service is only available in a *preview stage*.
+
+However, you will be able to execute the commands to list the current distributions and query their status.
+
+List current distribution:
+
+```sh
+$ aws cloudfront list-distributions
+```
+
+Wait for distribution deployment to complete:
+
+```sh
+aws cloudfront wait distribution-deployed --id {{ DISTRIBUTION_ID }}
+```
+
+The last command requires the distribution ID. As a deployment process takes a while to complete the command will poll every 60 seconds until a successful state has been reached. This will exit with a return code of 255 after 25 failed checks.
+
 ## All done?
 
 Proceed to [step 5: test your pixel](5-Test-your-pixel).
