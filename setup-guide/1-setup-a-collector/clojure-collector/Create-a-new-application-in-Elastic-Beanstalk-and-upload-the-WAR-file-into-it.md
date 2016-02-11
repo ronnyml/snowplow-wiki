@@ -8,7 +8,7 @@ Before you create your application, you need to switch to the region you want yo
 
 [[/setup-guide/images/clojure-collector-setup-guide/0.jpg]]
 
-Once you've selected your region, you're ready to create your application. Click on the **Create application** button (located on the top right of the screen, below the top menu bar with the region selection). Give your application a suitable name and description.
+Once you've selected your region, you're ready to create your application. Click on the **Create New Application** button (located on the top right of the screen, below the top menu bar with the region selection). Give your application a suitable name and description.
 
 [[/setup-guide/images/clojure-collector-setup-guide/1.jpg]]
 
