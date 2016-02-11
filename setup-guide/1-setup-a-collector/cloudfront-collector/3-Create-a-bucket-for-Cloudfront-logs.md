@@ -11,7 +11,7 @@ Alternatively, the above step could be achieved with the following [AWS CLI](htt
 To create a bucket in a specific region:
 
 ```sh
-$ aws s3 mb s3://snowplow-static-demo --region us-west-1
+$ aws s3 mb s3://snowplow-logs-demo --region us-west-1
 ```
 
 The list of available regions could be obtained by executing:
@@ -25,13 +25,13 @@ You could also view it on the [Amazon doc page](http://docs.aws.amazon.com/gener
 If the bucket name is available you will get a confirmation on creation:
 
 ```sh
-make_bucket: s3://snwplw-static-demo/
+make_bucket: s3://snwplw-logs-demo/
 ```
 
 You can view the content of the bucket:
 
 ```sh
-$ aws s3 ls s3://snwplw-static-demo
+$ aws s3 ls s3://snwplw-logs-demo
 ```
 
 As no object has been uploaded yet, an empty list (shell prompt) is returned.

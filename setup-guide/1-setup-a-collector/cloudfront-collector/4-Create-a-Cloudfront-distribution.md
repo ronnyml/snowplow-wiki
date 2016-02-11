@@ -8,13 +8,13 @@ Click on the **Services** menu on the top left of the browser screen, and select
 
 [[/setup-guide/images/cloudfront-collector-setup-guide/switch-to-cloudfront.jpg]]
 
-You should see a screen like the following: (Note - if you have not setup many Cloudfront distributinons previously, it will look a lot more sparse :-) .)
+You should see a screen like the following:
 
 [[/setup-guide/images/cloudfront-collector-setup-guide/cloudfront-create-distribution-1.jpg]]
 
 ## 4.2 Create a new Cloudfront distribution / subdomain
 
-Click on the **Create Distribution** button on the top right of the window. When presented with the following screen, select **Download** (rather than **Streaming**) and click the **Continue** button.
+Click on the **Create Distribution** button on the top of the window (shown in the previous screenshot). When presented with the following screen, click the **Get Started** button under the   **Web** (rather than **RTMP**) distribution section.
 
 [[/setup-guide/images/cloudfront-collector-setup-guide/cloudfront-create-distribution-2.jpg]]
 
@@ -22,7 +22,7 @@ Now we are presented with a screen with many options:
 
 [[/setup-guide/images/cloudfront-collector-setup-guide/cloudfront-create-distribution-3.jpg]]
 
-The first field, **Origin Domain ID** lets us specify where Cloudfront should find the content to distribute on the Cloudfront subdomain we are in the process of creating. If you click on it, you will be presented with a drop down:
+The first field, **Origin Domain Name** lets us specify where Cloudfront should find the content to distribute on the Cloudfront subdomain we are in the process of creating. If you click on it, you will be presented with a drop down:
 
 [[/setup-guide/images/cloudfront-collector-setup-guide/cloudfront-create-distribution-4.jpg]]
 
@@ -48,7 +48,9 @@ You should see your new distribution listed:
 
 [[/setup-guide/images/cloudfront-collector-setup-guide/cloudfront-create-distribution-9.jpg]]
 
-Write down the **Domain Name** for the distribution you just created. (Highlighted above - in our case it is `http://dzvb5g6uxbzaz.cloudfront.net`.) You will need this in the next step (to test the collector is working), and when you setup your [tracker](choosing-a-tracker).
+Note it might take a while for the distribution creation to complete. Watch for the **Status** changed from "*In Progress*" to "*Deployed*". 
+
+Write down the **Domain Name** for the distribution you just created. (Highlighted above - in our case it is `http://d3age8pcob9fi8.cloudfront.net`.) You will need this in the next step (to test the collector is working), and when you set up your [tracker](choosing-a-tracker).
 
 ## All done?
 
