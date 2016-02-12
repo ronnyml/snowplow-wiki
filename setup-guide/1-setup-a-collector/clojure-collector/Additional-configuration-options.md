@@ -1,6 +1,6 @@
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 1: setup a Collector**](Setting-up-a-Collector) > [**Clojure collector setup**](setting-up-the-clojure-collector) > [[Additional configuration options]]
 
-There are a environment configuration parameters that you may want to consider tailoring to your specific needs. All of them can be accessed via the **Configuration** page of the Elastic Beanstalk UI.
+There are environment configuration parameters that you may want to consider tailoring to your specific needs. All of them can be accessed via the **Configuration** page of the Elastic Beanstalk UI.
 
 <a name="3bi" ></a>
 
@@ -14,7 +14,7 @@ Scroll down to *Environment Properties* section. Enter the property name either 
 
 [[/setup-guide/images/clojure-collector-setup-guide/23.jpg]]
 
-Setting the environment to 'production' will hide the status of the collector on `http://{{COLLECTOR URL}}/status`. It is set to 'development' by default.
+Setting the environment to '*production*' will hide the status of the collector on `http://{{COLLECTOR URL}}/status`. It is set to '*development*' by default.
 
 <a name="3bii" ></a>
 
@@ -50,9 +50,9 @@ Below is the summary of what parameter names are to be used and their purpose.
 
 Parameter Name | Alternative Name | Parameter Use
 :---:|:---:|:---
-SP_ENV | PARAM1 | Setting the environment type of your application (ex. development)
+SP_ENV | PARAM1 | Setting the environment type of your application
 SP_P3P | PARAM2 | Setting the P3P policy header
-SP_DOMAIN | PARAM3 | Setting the cookie domain name matching
+SP_DOMAIN | PARAM3 | Setting the cookie domain name
 SP_DURATION | PARAM4 | Setting the cookie duration
 
 #### 5. Auto scaling
