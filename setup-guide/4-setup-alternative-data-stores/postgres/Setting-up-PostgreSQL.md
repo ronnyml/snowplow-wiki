@@ -19,51 +19,53 @@
 
 If you do not have a server / EC2 instance already available to run PostgreSQL, you will need to create one. (If you do have one, skip to the next step, [installing PostgreSQL](#1.2)). 
 
-Log into the AWS console, navigate to the EC2 section: 
+Log into the AWS console, navigate to the EC2 section and go either to **EC2 Dashboard** or **Instances**: 
 
-[[/setup-guide/images/postgresql/aws-ec2-console.png]]
+[[/setup-guide/images/postgresql/aws-ec2-console.jpg]]
 
-Press the **Launch Instance** button. Select the **Quick Launch Wizard**:
+### Choose AMI
 
-[[/setup-guide/images/postgresql/ec2-quick-launch-wizard.png]]
+Press the **Launch Instance** button. You should be presented with **Quick Start**:
 
-Either create a new security key pair, or create and download a new key pair. If you have downloaded a new key pair (in the form of a `.pem` file), you will need to make sure it is not publically viewable, by executing the following at the command line:
+[[/setup-guide/images/postgresql/ec2-quick-launch-wizard.jpg]]
 
-	$ chmod 400 $key-pair-name.pem
-
-Choose to launch an **Amazon Linux AMI** instance, and press the **Continue** button.
-
-[[/setup-guide/images/postgresql/create-new-instance-dialogue.png]]
-
-Give your instance a name. Select a suitable instance type. (Note: if you are running a high traffic site, it makes sense to run a powerful instance e.g. one of the `xlarge` series.)
-
-[[/setup-guide/images/postgresql/amazon-linux-ami.png]]
-
-Click on the **Continue** button:
-
-[[/setup-guide/images/postgresql/create-new-instance.png]]
-
-There are a number of important options here that are worth highlighting: exactly which you select will depend on your business:
+Choose to launch an **Amazon Linux AMI** instance, and press the **Select** button.
 
 #### Instance type
 
-Amazon offers a range of instances, with different costs and different configurations. Depending on your the number of events you expect to be tracking per day, it may make sense to select a larger, more powerful instance. Bear in mind though that these cost more.
+[[/setup-guide/images/postgresql/choose-instance-type.jpg]]
+
+Select a suitable instance type. Amazon offers a range of instances, with different costs and different configurations. Depending on your the number of events you expect to be tracking per day, it may make sense to select a larger, more powerful instance. Bear in mind though that these cost more.
+
+Click on **Review and Launch** button.
+
+[[/setup-guide/images/postgresql/review-instance-launch.jpg]]
 
 #### Security settings
 
-We recommend that you create a new security group for your PostgreSQL instance. To do this, select **Create new Security Group**:
+We recommend that you create a new security group for your PostgreSQL instance. To do this, click on **Edit Security Groups**:
 
-[[/setup-guide/images/postgresql/create-security-group.png]]
+[[/setup-guide/images/postgresql/create-security-group.jpg]]
 
-Enter a group name and click **Create**. Now add two rules, one enabling SSH access from `0.0.0.0/0`, and a custom rule to enable access on PostgreSQL 5432 port:
+Enter a group name and its description. Now add two rules, one enabling SSH access from `0.0.0.0/0`, and a custom rule to enable access on PostgreSQL 5432 port.
 
-[[/setup-guide/images/postgresql/security-settings.png]]
-
-Click **Save**.
+Click on **Review and Launch** button.
 
 #### Launch your instance
 
-When you are happy with the settings, click **Launch**. Note that in the example below, we are using a `t1.micro` instance for testing purposes.
+When you are happy with the settings, click **Launch**. Note that in the example above, we are using a `t1.micro` instance for testing purposes.
+
+At this point you should be prompted to either select an existing key pair or create a new one (or even not having one which is not recommended). The key file allows you to securely SSH into your instance.
+
+You have to download the private key file (*.pem file) before you can continue. Store it in a secure and accessible location. You will not be able to download the file again after it's created.
+
+Once downloaded (in the form of a `.pem` file), you will need to make sure it is not publicly viewable by executing the following at the command line:
+
+	$ chmod 400 $key-pair-name.pem
+
+[[/setup-guide/images/postgresql/create-key-pair.jpg]]
+
+Click on **Launch Instances** button to complete the setup and start the instance.
 
 <a name="1.2" />
 ### 1.2 Install PostgreSQL
@@ -72,11 +74,11 @@ When you are happy with the settings, click **Launch**. Note that in the example
 
 To install PostgreSQL, you need to SSH into the instance that you want to setup PostgreSQL on, and install Postres. In this tutorial, we're going to connect via a standalone SSH client, but you can also connect through the web browser.(For full instructions on the different connection options, see the [Amazon guide][amazon-emr-guide].)
 
-To do that, go into the EC2 section of the AWS dashboard. Click on **Instances** link on the left hand menu. Right click on the instance you want to setup PostgreSQL on and click **Connect**. In the dialogue box that appears, open the drop down to **Connect with a standalone SSH Client**:
+To do that, go into the EC2 section of the AWS dashboard. Click on **Instances** link on the left hand menu. Right click on the instance you want to setup PostgreSQL on and click **Connect**. In the dialogue box that appears, ensure to select **A standalone SSH client** in ***I would like to connect with*** section:
 
-[[/setup-guide/images/postgresql/connect-with-standalone-ssh-client.png]]
+[[/setup-guide/images/postgresql/connect-with-standalone-ssh-client.jpg]]
 
-Copy the text that Amazon instructs you to enter at the command line to SSH into the instance. Then paste it into the command line. In our case, that text is:
+Copy the text that Amazon instructs you to enter at the command line to SSH into the instance. Then paste it into the command line:
 
 	$ ssh -i postgres-test.pem ec2-user@ec2-54-246-27-243.eu-west-1.compute.amazonaws.com
 
@@ -189,9 +191,9 @@ Before you can connect to PostgreSQL remotely, you need to ensure that you have 
 
 Log into the AWS console, and navigate to the EC2 section. Click on the **Security Groups** settings in the **Network & Security** section. Select the security group which applies to your EC2 instance and select the **Inbound** tab:
 
-[[/setup-guide/images/postgresql/security-group-1.png]]
+[[/setup-guide/images/postgresql/security-group-1.jpg]]
 
-Create a **Custom TCP rule** - set the port range to your Postgres port (most likely `5432`) and provide an IP Address (or range) fro which you will grant users remote access. Then click the **Add rule** button. Make sure that afterwards you click the **Apply Rule Changes** button, to ensure that the rule is active.
+If you haven't done it yet, create a **Custom TCP rule** - set the port range to your Postgres port (most likely `5432`) and provide an IP Address (or range) from which you will grant users remote access. Then click the **Add rule** button. Make sure that afterwards you click the **Save** button, to ensure that the rule is active.
 
 
 #### 1.2.4 Connect to your PostgreSQL instance remotely
@@ -204,7 +206,7 @@ Fire up Navicat, and under **Connection** select **PostgreSQL**. A dialogue box 
 
 Give the connection a suitable name. You can identify the EC2 public IP address (to enter in the **Host name/IP Address** field, by clicking on the instance in the AWS console and scrolling down in the properties section to **Public DNS**:
 
-[[/setup-guide/images/postgresql/navicat-2.png]]
+[[/setup-guide/images/postgresql/navicat-2.jpg]]
 
 Copy and paste the value (in our case) `ec2-54-216-22-100.eu-west-1.compute.amazonaws.com` into the host field in Navicat.
 
