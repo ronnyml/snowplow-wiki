@@ -55,6 +55,8 @@ Select that bucket - you should find a folder within it called `resources`. With
 
 Write this path down somewhere as you will need it later to configure [EmrEtlRunner](setting-up-EmrEtlRunner).
 
+**Important**: do not include an {{INSTANCE IDENTIFIER}} at the end of your path. This is because your Clojure Collector may end up logging into multiple {{INSTANCE IDENTIFIER}} folders (if set up to run in *auto scaling* as opposed to *single instance* mode). That is Elastic Beanstalk might spin up more instances to run the Clojure collector to cope with a spike in traffic. By specifying your In Bucket only to the level of the Security Group identifier, you make sure that Snowplow can process all logs from all instances as the EmrEtlRunner processes all logs in all subfolders.
+
 Note - if you cannot find the logs as described above, it may be because Amazon has not written any yet. You may need to wait an hour for the logs to appear.
 
 Next: [configure the Clojure collector](Configuring-the-Clojure-collector)
