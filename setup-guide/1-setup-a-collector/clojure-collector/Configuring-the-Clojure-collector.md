@@ -8,15 +8,21 @@ There are several settings to configure for your Clojure collector application:
 
 ### Enable SSH access to your Elastic Beanstalk environment and set your instances to have EBS backed root devices
 
+If you skipped enabling SSH access during initial [Clojure Collector setup](Create-a-new-application-in-Elastic-Beanstalk-and-upload-the-WAR-file-into-it), here's how you could do it now.
+
+To start off, in the Elastic Beanstalk user interface, select your Clojure collector app, click on **Configuration** link and then on the cogwheel-like icon at the header of the **Instances** box.
+
+[[/setup-guide/images/clojure-collector-setup-guide/21.jpg]]
+
 #### Enable SSH access
 
 This will enable you to SSH into one or more of you instances in the unlikely event that the rotation of collector logs from the bucket to S3 fails.
 
-In the Elastic Beanstalk user interface, select your Clojure collector app, select **Configuration** and then **Instances**. You should see a dropdown for selecting an EC2 keypair.
+You should see a dropdown for selecting an EC2 key pair.
 
 [[/setup-guide/images/clojure-collector-setup-guide/22.png]]
 
-Select the keypair you want to be able to SSH into the instances with. Make sure that you keep the key you selected safe, so it is availble should you need it.
+Select the key pair you want to be able to SSH into the instances with. Make sure that you keep the key you selected safe, so it is available should you need it.
 
 ### Use EBS-backed instances and set the HD size
 
@@ -26,7 +32,7 @@ From the **Root volume type** dropdown select **General Purpose (SSD)**
 
 [[/setup-guide/images/clojure-collector-setup-guide/25.png]]
 
-Now set the size of the instance HD. We recommend setting this to at least 100GB. Remember that the events logged by the instance are stored locally to the instance and will then be flushed to S3 every hour - if you run out of HD space locally you will lose event data and the log rotation will fail, so it is essential to overprovision disk space.
+Now set the size of the instance HD. We recommend setting this to at least 100 GB. Remember that the events logged by the instance are stored locally to the instance and will then be flushed to S3 every hour - if you run out of HD space locally you will lose event data and the log rotation will fail, so it is essential to overprovision disk space.
 
 When you are done, click the **Save** button. 
 
@@ -34,7 +40,7 @@ When you are done, click the **Save** button.
 
 Enabling this will enable us to make sure that in the event you want to scale down your cluster, you do not lose any log files generated on machines that will be terminated.
 
-To do this, navigate to the EC2 section of the AWS console adn select **Load Balancers** from the left hand menu. Select the relevant Load Balancer from the list and click the **Edit** button in the **Connection Draining** section to enable this, as in the diagrams below:
+To do this, navigate to the EC2 section of the AWS console and select **Load Balancers** from the left hand menu. Select the relevant Load Balancer from the list and click the **Edit** button in the **Connection Draining** section to enable this, as in the diagrams below:
 
 [[/setup-guide/images/clojure-collector-setup-guide/23.png]]
 
@@ -52,11 +58,11 @@ We recommend setting the following settings:
 **Auto Scaling**
 
 1. Minimum instance count: 2
-2. Maximum intstance count > 5
+2. Maximum instance count > 5
 
 **Scaling Trigger**
 
-1. Trigger measurement: CPUUtilization
+1. Trigger measurement: CPU Utilization
 2. Trigger statistic: Maximum
 3. Unit of measurement: Percent
 4. Measurement period: 5 minutes

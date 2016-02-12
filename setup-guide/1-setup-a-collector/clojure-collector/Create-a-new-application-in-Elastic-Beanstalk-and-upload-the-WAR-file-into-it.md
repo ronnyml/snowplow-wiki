@@ -12,7 +12,7 @@ Once you've selected your region, you're ready to create your application. Click
 
 [[/setup-guide/images/clojure-collector-setup-guide/1.jpg]]
 
-Next you will need to set up the appropriate environment for the application to run in. Hit "Create web server" button.
+Next you will need to set up the appropriate environment for the application to run in. Hit **Create web server** button.
 
 [[/setup-guide/images/clojure-collector-setup-guide/2.jpg]]
 
@@ -20,11 +20,11 @@ For the platform, select **Tomcat**. In this demo we picked a "*Single instance*
 
 [[/setup-guide/images/clojure-collector-setup-guide/3.jpg]]
 
-For the **Application Source**, select **Upload your own**. Use the **Choose File** button to point Elastic Beanstalk at the `war` file from [part 1](Download-the-Clojure-collector-WAR-file-or-compile-it-from-source). Click "Next" to upload the file.
+For the **Application Source**, select **Upload your own**. Use the **Choose File** button to point Elastic Beanstalk at the `war` file from [part 1](Download-the-Clojure-collector-WAR-file-or-compile-it-from-source). Click **Next** to upload the file.
 
 [[/setup-guide/images/clojure-collector-setup-guide/4.jpg]]
 
-Once uploaded, give your environment a suitable name, URL and description. Ensure the environment URL is available (click "Check availability" button).
+Once uploaded, give your environment a suitable name, URL and description. Ensure the environment URL is available (click **Check availability** button).
 
 [[/setup-guide/images/clojure-collector-setup-guide/5.jpg]]
 
@@ -36,15 +36,21 @@ Next we need to specify another set of configuration details. Set a suitable ins
 
 [[/setup-guide/images/clojure-collector-setup-guide/7.jpg]]
 
+Also at this stage, you could set the instance to use EBS root types (*Root Volume* section). This means that in the unlikely event SSH access does not work, we can snapshot the contents of the instance and retrieve the logs from the snapshot.
+
+From the *Root volume type* dropdown select **General Purpose (SSD)**. Then set the size of the instance HD. We recommend setting this to at least 100 GB. Remember that the events logged by the instance are stored locally to the instance and will then be flushed to S3 every hour - if you run out of HD space locally you will lose event data and the log rotation will fail, so it is essential to overprovision disk space.
+
+If you skip either selecting EC2 key pair or configuring Root Volume you could set it up later on as shown on the [Configuring the Clojure collector](Configuring-the-Clojure-collector) page.
+
 [Tagging the environment](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.tagging.html) is optional and more appropriate if you run multiple environments and you want to distinguish them in cost allocation reports.
 
 [[/setup-guide/images/clojure-collector-setup-guide/8.jpg]]
 
-Give the appropriate permissions and click "Next" to review the submitted information so far.
+Give the appropriate permissions and click **Next** to review the submitted information so far.
 
 [[/setup-guide/images/clojure-collector-setup-guide/9.jpg]]
 
-Once you are satisfied with with the summary hit "Launch" button at the very bottom of the Review page (not shown on the screenshot). 
+Once you are satisfied with with the summary hit **Launch** button at the very bottom of the ***Review*** page (not shown on the screenshot). 
 
 [[/setup-guide/images/clojure-collector-setup-guide/10.jpg]]
 
