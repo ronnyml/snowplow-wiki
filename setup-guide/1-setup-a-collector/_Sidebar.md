@@ -13,4 +13,5 @@
 **Useful resources**  
 
 - [[Troubleshooting]]   
-- [[Hosted assets]]  
+- [[Hosted assets]] 
+- [Glossary of Terms](Glossary)

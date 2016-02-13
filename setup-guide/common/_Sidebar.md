@@ -14,3 +14,4 @@
 - [[AWS sub-account setup]]  
 - [[IAM Setup]]    
 - [[Hosted assets]] 
+- [Glossary of Terms](Glossary)

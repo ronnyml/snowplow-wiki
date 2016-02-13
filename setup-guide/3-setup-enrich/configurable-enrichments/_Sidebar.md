@@ -25,3 +25,4 @@
 - [[Troubleshooting]]  
 - [[IAM Setup]]   
 - [[Hosted assets]]  
+- [Glossary of Terms](Glossary)
