@@ -22,7 +22,8 @@
 
 - [[Troubleshooting]]  
 - [[IAM Setup]]    
-- [[Hosted assets]]  
+- [[Hosted assets]] 
+- [Glossary of Terms](Glossary)
 
 
 [analyst-cookbook]: http://snowplowanalytics.com/analytics/index.html

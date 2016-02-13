@@ -123,7 +123,7 @@ An event dictionary is a crucial tool in both cases. It is a document that defin
 
 Data enrichment is sometimes referred to as "dimension widening". We are using 3rd party sources of data to enrich the data we originally collected about the event so that we have more context available for understanding that event, enabling us to perform richer [analysis](#g-analytics).
 
-Snowplow supports the following enrichments out-of-the-box. We are working on making our enrichment framework pluggable, so that users and partners can extend the list of enrichments performed as part of the data processing pipeline:
+[Snowplow](#g-snowplow) supports the following enrichments out-of-the-box. We are working on making our enrichment framework pluggable, so that users and partners can extend the list of enrichments performed as part of the data processing pipeline:
 
 1. IP -> Geographic location
 2. Referrer query string -> source of traffic
@@ -172,10 +172,33 @@ Sauna is an open-source decisioning and response framework from Snowplow Analyti
 
 *Read [more][sauna] or go to the [top](#top)*
 
+<a name="g-schema-ddl" />
+####Schema DDL
+
+Schema DDL is a set of generators for producing various DDL formats from [JSON Schemas](http://json-schema.org/). It's tightly coupled with other tools from [Snowplow Platform](#g-snowplow) like [Iglu](#g-iglu) and [Self-describing JSON](#g-self-describing-json) and used mostly in [Schema Guru](#g-schema-guru).
+
+*Read [more][schema-ddl] or go to the [top](#top)*
+
+<a name="g-schema-guru" />
+####Schema Guru
+
+Schema Guru is a tool (CLI, Spark job and web) allowing you to derive [JSON Schemas](http://json-schema.org/) from a set of JSON instances process and transform it into different data definition formats.
+
+Current primary features include:
+
+- deriviation of JSON Schema from set of JSON instances
+- generation of [Redshift](http://aws.amazon.com/redshift/) table DDL and [JSONPaths file](http://docs.aws.amazon.com/redshift/latest/dg/copy-usage_notes-copy-from-json.html)
+
+Unlike other tools for deriving JSON Schemas, Schema Guru allows you to derive schema from an unlimited set of instances (making schemas much more precise), and supports many more JSON Schema validation properties.
+
+Schema Guru is used heavily in association with Snowplow's own [Snowplow](#g-snowplow), [Iglu](#g-iglu) and [Schema DDL](#g-schema-ddl) projects.
+
+*Read [more][schema-guru] or go to the [top](#top)*
+
 <a name="g-self-describing-json" />
 ####Self-describing JSON
 
-Self-describing JSONs is an individual JSON with its JSON Schema. It generally looks like the one below:
+Self-describing JSON is an individual [JSON](http://www.json.org/) with its [JSON Schema](http://json-schema.org/). It generally looks like the one below:
 
 ```json
 {
@@ -185,7 +208,7 @@ Self-describing JSONs is an individual JSON with its JSON Schema. It generally l
 	}
 }
 ```
-It differs from standard JSON due to the following important changes :
+It differs from [standard JSON](http://www.json.org/) due to the following important changes :
 
 1. We have added a new top-level field, schema, which contains (in a space-efficient format) all the information required to uniquely identify the associated JSON Schema
 2. We have moved the JSON’s original property inside a data field. This sandboxing will prevent any accidental collisions should the JSON already have a schema field
@@ -195,7 +218,7 @@ It differs from standard JSON due to the following important changes :
 <a name="g-shredding" />
 ####Shredding
 
-Snowplow has a Shredding process (as part of [Enrichment](#g-enrichment) and [Storage](#g-storage) processes) which consists of two phases:
+[Snowplow](#g-snowplow) has a Shredding process (as part of [Enrichment](#g-enrichment) and [Storage](#g-storage) processes) which consists of two phases:
 
 1. Extracting [unstructured event](#g-unstructured-event) JSONs and [context](#g-context) JSONs from [enriched](#g-enrichment) event files into their own files
 2. Loading those files into corresponding tables in Redshift
@@ -207,6 +230,17 @@ There are three great use cases to use the shredding functionality for:
 3. Defining your own *custom context types*, and processing these through the Snowplow [pipeline](#g-pipeline) into dedicated tables in Redshift. You can define your own "user" type, for example, including whatever fields you capture and want to store related to a user.
 
 *Read [more][shredding] or go to the [top](#top)*
+
+<a name="g-snowplow" />
+####Snowplow
+
+Snowplow is an enterprise-strength marketing and product [analytics](#g-analytics) platform. It does three things:
+
+- Identifies your users, and tracks the way they engage with your website or application
+- Stores your users' behavioural data in a scalable "event data warehouse" you control: in Amazon S3 and (optionally) Amazon Redshift or Postgres
+- Lets you leverage the biggest range of tools to [analyze](#g-analytics) that data, including big data tools (e.g. Hive, Pig, Mahout) via EMR or more traditional tools e.g. Tableau, R, Looker, Chartio to [analyze](#g-analytics) that behavioural data
+
+*Read [more](http://snowplowanalytics.com/) or go to the [top](#top)*
 
 <a name="g-storage">
 ####Storage
@@ -283,6 +317,8 @@ Webhooks allow this third-party software to send their own internal event stream
 [iglu]: http://snowplowanalytics.com/documentation/concepts/iglu
 [pipeline]: http://snowplowanalytics.com/documentation/concepts/snowplow-data-pipeline
 [sauna]: https://github.com/snowplow/sauna/wiki
+[schema-ddl]: https://github.com/snowplow/schema-ddl
+[schema-guru]: https://github.com/snowplow/schema-guru
 [self-describing-json]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
 [shredding]: https://github.com/snowplow/snowplow/wiki/Shredding
 [unstructured-events]: http://snowplowanalytics.com/blog/2013/05/14/snowplow-unstructured-events-guide/

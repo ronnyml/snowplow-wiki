@@ -10,12 +10,13 @@
 
 **Useful resources**  
 
-[**Troubleshooting**](Troubleshooting)  
-[**AWS sub-account setup**](AWS-sub-account-setup)  
-[**IAM Setup Guide**](IAM-Setup)  
+- [**Troubleshooting**](Troubleshooting)  
+- [**AWS sub-account setup**](AWS-sub-account-setup)  
+- [**IAM Setup Guide**](IAM-Setup)  
   - [**IAM - Setup**](IAM-Setup)  
   - [**Setup a user to install Snowplow**](Setup-IAM-permissions-for-users-installing-Snowplow)  
   - [**Setup a user to operate Snowplow**](Setup-IAM-permissions-for-operating-Snowplow)  
   - [**Setup a user to analyse Snowplow data with EMR**](Setup-IAM-permissions-for-a-data-analyst-using-EMR)  
 
-[**Hosted assets**](Hosted assets)
+- [**Hosted assets**](Hosted assets)
+- [Glossary of Terms](Glossary)
