@@ -23,9 +23,9 @@ Log into the AWS console, navigate to the EC2 section and go either to **EC2 Das
 
 [[/setup-guide/images/postgresql/aws-ec2-console.jpg]]
 
-### Choose AMI
+#### Choose AMI
 
-Press the **Launch Instance** button. You should be presented with **Quick Start**:
+Press the **Launch Instance** button. You should be presented with **Quick Start** wizard:
 
 [[/setup-guide/images/postgresql/ec2-quick-launch-wizard.jpg]]
 
@@ -35,7 +35,7 @@ Choose to launch an **Amazon Linux AMI** instance, and press the **Select** butt
 
 [[/setup-guide/images/postgresql/choose-instance-type.jpg]]
 
-Select a suitable instance type. Amazon offers a range of instances, with different costs and different configurations. Depending on your the number of events you expect to be tracking per day, it may make sense to select a larger, more powerful instance. Bear in mind though that these cost more.
+Select a suitable instance type. Amazon offers a [range of instances](https://aws.amazon.com/ec2/instance-types/), with different costs and different configurations. Depending on your the number of events you expect to be tracking per day, it may make sense to select a larger, more powerful instance. Bear in mind though that these cost more.
 
 Click on **Review and Launch** button.
 
