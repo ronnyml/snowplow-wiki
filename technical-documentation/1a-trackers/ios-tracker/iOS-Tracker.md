@@ -194,6 +194,16 @@ By default, unstructured events and custom contexts are encoded into Base64 to e
 
 By default no client sessionization is activated.  Once enabled the Tracker will start appending a `client_session` context to each event it sends and it will maintain this session information for the life of the application; i.e. as long as the application is installed on the device.
 
+__NOTE__: A known [bug exists](https://github.com/snowplow/snowplow-objc-tracker/issues/265) for the default settings where the foreground and background timeouts are passed as `ms` rather than `s`.  To ensure a sane timeout please add the following to your Tracker creation:
+
+```objective-c
+SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
+    ...
+    [builder setForegroundTimeout:300]; // 10 minutes
+    [builder setBackgroundTimeout:150]; // 5 minutes
+}];
+```
+
 <a name="pause-event-tracking" />
 #### 2.2.6 `pauseEventTracking`
 
