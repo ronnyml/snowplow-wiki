@@ -225,7 +225,7 @@ By default the Tracker will [store events in `localStorage`](#local-storage) bef
 <a name="predefined-contexts" />
 #### 2.2.13 Adding predefined contexts
 
-The JavaScript Tracker comes with three predefined contexts which you can automatically add to every event you send. To enable them, simply add them to the `contexts` field of the argmap as above.
+The JavaScript Tracker comes with four predefined contexts which you can automatically add to every event you send. To enable them, simply add them to the `contexts` field of the argmap as above.
 
 <a name="webPage" />
 ##### 2.2.13.1 webPage context
@@ -379,7 +379,7 @@ snowplow_name_here('setUserIdFromLocation', 'id');
 <a name="set-user-id-from-referrer" />
 ##### 2.3.1.1 `setUserIdFromReferrer`
 
-`setUserIdFromReferrer functions in the same way as `setUserIdFromLocation`, except that it uses the referrer querystring rather than the querystring of the current page.
+`setUserIdFromReferrer` functions in the same way as `setUserIdFromLocation`, except that it uses the referrer querystring rather than the querystring of the current page.
 
 ```javascript
 snowplow_name_here('setUserIdFromReferrer', 'id');
