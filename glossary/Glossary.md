@@ -195,6 +195,17 @@ Schema Guru is used heavily in association with Snowplow's own [Snowplow](#g-sno
 
 *Read [more][schema-guru] or go to the [top](#top)*
 
+<a name="g-schemaver" />
+####SchemaVer
+
+SchemaVer is Snowplow Team own schema versioning notion. It is defined as follows: `MODEL-REVISION-ADDITION`
+
+- `MODEL` when you make a breaking schema change which will prevent interaction with any historical data
+- `REVISION` when you introduce a schema change which may prevent interaction with some historical data
+- `ADDITION` when you make a schema change that is compatible with all historical data
+
+*Read [more][schemaver] or go to the [top](#top)*
+
 <a name="g-self-describing-json" />
 ####Self-describing JSON
 
@@ -319,6 +330,7 @@ Webhooks allow this third-party software to send their own internal event stream
 [sauna]: https://github.com/snowplow/sauna/wiki
 [schema-ddl]: https://github.com/snowplow/schema-ddl
 [schema-guru]: https://github.com/snowplow/schema-guru
+[schemaver]: https://github.com/snowplow/iglu/wiki/SchemaVer
 [self-describing-json]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
 [shredding]: https://github.com/snowplow/snowplow/wiki/Shredding
 [unstructured-events]: http://snowplowanalytics.com/blog/2013/05/14/snowplow-unstructured-events-guide/
