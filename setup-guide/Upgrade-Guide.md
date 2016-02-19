@@ -92,7 +92,7 @@ Put the [JSONPaths file](https://github.com/snowplow/snowplow/blob/master/4-stor
 
 ####Redshift
 
-If you are using Snowplow with Amazon Redshift, you will need to deploy the [org.openweathermap/weather_1.sql](https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/org.openweathermap/weather_1.sql) table into your database.
+If you are using Snowplow with Amazon Redshift, you will need to deploy the [org_openweathermap_weather_1](https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/org.openweathermap/weather_1.sql) table into your database.
 
 For more details on this release, please check out the [R74 Release Notes](https://github.com/snowplow/snowplow/releases/tag/r74-european-honey-buzzard) on GitHub. Also you might find interesting the [blog release article](http://snowplowanalytics.com/blog/2015/12/22/snowplow-r74-european-honey-buzzard-with-weather-enrichment-released/).
 
