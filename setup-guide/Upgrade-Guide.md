@@ -41,7 +41,8 @@ For a complete example, see our [sample config.yml template][config-yml].
 
 ### Read more
 
-For more details on this release, please, check out the [R76 Release Notes](https://github.com/snowplow/snowplow/releases/r76-changeable-hawk-eagle) on GitHub. Also you might find interesting the [blog release article](http://snowplowanalytics.com/blog/2016/01/26/snowplow-r76-changeable-hawk-eagle-released/).
+* [R76 Blog Post](http://snowplowanalytics.com/blog/2016/01/26/snowplow-r76-changeable-hawk-eagle-released/)
+* [R76 Release Notes](https://github.com/snowplow/snowplow/releases/r76-changeable-hawk-eagle)
 
 <a name="r75" />
 ##Snowplow 75 Long-Legged Buzzard
