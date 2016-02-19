@@ -22,6 +22,8 @@ For easier navigation, please, follow the links below.
 
 This release introduces an event de-duplication process which runs on Hadoop, and also includes an important bug fix for our SendGrid webhook support.
 
+### Upgrade steps
+
 Upgrading to this release is simple - the only changed components are the jar versions for Hadoop Enrich and Hadoop Shred. 
 
 ####Configuration file
@@ -36,6 +38,8 @@ In the `config.yml` file for your EmrEtlRunner, update your `hadoop_enrich` and 
 ```
 
 For a complete example, see our [sample config.yml template][config-yml]. 
+
+### Read more
 
 For more details on this release, please, check out the [R76 Release Notes](https://github.com/snowplow/snowplow/releases/r76-changeable-hawk-eagle) on GitHub. Also you might find interesting the [blog release article](http://snowplowanalytics.com/blog/2016/01/26/snowplow-r76-changeable-hawk-eagle-released/).
 
