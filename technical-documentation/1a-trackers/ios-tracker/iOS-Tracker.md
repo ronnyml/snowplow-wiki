@@ -199,8 +199,8 @@ __NOTE__: A known [bug existed](https://github.com/snowplow/snowplow-objc-tracke
 ```objective-c
 SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
     ...
-    [builder setForegroundTimeout:300]; // 10 minutes
-    [builder setBackgroundTimeout:150]; // 5 minutes
+    [builder setForegroundTimeout:600]; // 10 minutes
+    [builder setBackgroundTimeout:300]; // 5 minutes
 }];
 ```
 
