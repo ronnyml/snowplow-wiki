@@ -190,6 +190,8 @@ If you are upgrading to this release from an older version of Snowplow, we also 
 
 This release adds the ability to track clicks through the Snowplow Clojure Collector, adds a cookie extractor enrichment and introduces new de-duplication queries leveraging [R71](#r71)'s event fingerprint
 
+### Upgrade steps
+
 ####Clojure Collector
 
 This release bumps the Clojure Collector to version 1.1.0.
