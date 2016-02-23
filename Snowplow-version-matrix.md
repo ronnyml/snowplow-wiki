@@ -1,3 +1,9 @@
+The below link references the document reflecting internal component dependencies for each of the Snowplow releases. You can use it as a guidance when either building or upgrading Snowplow pipeline.
+
+- [Snowplow Version Matrix](https://docs.google.com/spreadsheets/d/1oI3n7nUzNfCwuNJk-LNdMdkAwUt6kI1irPg1FCFyxKc/pubhtml?gid=1937493131&single=true)
+
+
+<!---
 Release version | SCE | RAE | PAE | AMI | CC | SHE | SCE in SHE | SHS | EER | SL | SSC | SKE | SCE in SKE | KES
 ---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 [R76 Changeable Hawk-Eagle](https://github.com/snowplow/snowplow/releases/tag/r76-changeable-hawk-eagle) | 0.20.1 | 0.8.0 | 0.7.0 | 3.7.0 | 1.1.0 | 1.5.1 | 0.20.1 | 0.7.0 | 0.20.0 | 0.6.0 | 0.5.0 | 0.6.0 | 0.15.0 | 0.4.0
@@ -49,8 +55,4 @@ Release version | SCE | RAE | PAE | AMI | CC | SHE | SCE in SHE | SHS | EER | SL
 - SKE   - Scala Kinesis Enrich
 - SL    - StorageLoader
 - SSC   - Scala Stream Collector
-
-<!---
-Original doc:
-https://docs.google.com/spreadsheets/d/1oI3n7nUzNfCwuNJk-LNdMdkAwUt6kI1irPg1FCFyxKc/pubhtml?gid=1937493131&single=true
 --->
