@@ -24,6 +24,8 @@
 - [[IAM Setup]]    
 - [[Hosted assets]] 
 - [Glossary of Terms](Glossary)
+- [[Upgrade Guide]]
+- [Snowplow Version Matrix](Snowplow-version-matrix)
 
 
 [analyst-cookbook]: http://snowplowanalytics.com/analytics/index.html
