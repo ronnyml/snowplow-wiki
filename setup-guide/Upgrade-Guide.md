@@ -349,7 +349,7 @@ The SQL data models are a standalone and optional part of the Snowplow pipeline.
 
 ### Upgrade steps
 
-To implement the SQL data models, first execute the relevant [setup queries](https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/setup) in Redshift. Then use [SQL Runner}(https://github.com/snowplow/sql-runner) to execute the [queries](https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/sql) on a regular basis. SQL Runner is an [open source app](https://github.com/snowplow/sql-runner) that makes it easy to execute SQL statements programmatically as part of the Snowplow data pipeline.
+To implement the SQL data models, first execute the relevant [setup queries](https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/setup) in Redshift. Then use [SQL Runner](https://github.com/snowplow/sql-runner) to execute the [queries](https://github.com/snowplow/snowplow/tree/master/5-data-modeling/sql-runner/redshift/sql) on a regular basis. SQL Runner is an [open source app](https://github.com/snowplow/sql-runner) that makes it easy to execute SQL statements programmatically as part of the Snowplow data pipeline.
 
 The web and mobile data models come in two variants: `recalculate` and `incremental`.
 
