@@ -273,6 +273,9 @@ Back to [top](#top).
 
 Now that PostgreSQL has been setup, we need to create the table for the Snowplow events, and then all the different views that ship with Snowplow. 
 
+[[/images/warning.png]] | Note we are working on new data models and recipes that are more specific than we currently have. They will make use of all our latest features and enhancements. 
+---|:---
+
 First, let's create the `atomic.events` table, where the actual Snowplow data will live. The SQL for creating the atomic schema and table can be found [here] [postgres-table-def]. Either copy and paste that SQL into PSQL / Navicat, or you can run that file into PSQL at the command line. To do this, navigate to your Snowplow repo, then:
 
 	$ cd 4-storage/postgres-storage/sql
@@ -285,9 +288,6 @@ Now that you've created your `atomic.events` table, you're in a position to the 
 	$ psql -h <HOSTNAME> -U power_user -d snowplow -p <PORT> -f recipes/recipes-basic.sql
 	$ psql -h <HOSTNAME> -U power_user -d snowplow -p <PORT> -f recipes/recipes-catalog.sql
 	$ psql -h <HOSTNAME> -U power_user -d snowplow -p <PORT> -f recipes/recipes-customers.sql
-	$ psql -h <HOSTNAME> -U power_user -d snowplow -p <PORT> -f cubes/cube-pages.sql
-	$ psql -h <HOSTNAME> -U power_user -d snowplow -p <PORT> -f cubes/cube-visits.sql
-	$ psql -h <HOSTNAME> -U power_user -d snowplow -p <PORT> -f cubes/cube-transactions.sql
 
 Finally, you need to grant access relevant access permissions to your different users to the different tables and views.
 
@@ -301,11 +301,8 @@ Then we need to grant access to all the different schemas to `other_user`:
 
 ```sql
 GRANT USAGE ON SCHEMA	atomic	 TO other_user;
-GRANT USAGE ON SCHEMA	cubes_pages	 TO other_user;
 GRANT USAGE ON SCHEMA	recipes_basic	 TO other_user;
 GRANT USAGE ON SCHEMA	recipes_catalog	 TO other_user;
-GRANT USAGE ON SCHEMA	cubes_visits	 TO other_user;
-GRANT USAGE ON SCHEMA	cubes_ecomm	 TO other_user;
 GRANT USAGE ON SCHEMA	recipes_customer	 TO other_user;
 ```
 
@@ -379,19 +376,6 @@ GRANT SELECT ON 	recipes_customer	.	cohort_retention_by_month_by_paid_channel_ac
 GRANT SELECT ON 	recipes_customer	.	cohort_retention_by_week_by_paid_channel_acquired	 TO other_user;
 GRANT SELECT ON 	recipes_customer	.	cohort_retention_by_month_by_refr_acquired	 TO other_user;
 GRANT SELECT ON 	recipes_customer	.	cohort_retention_by_week_by_refr_acquired	 TO other_user;
-GRANT SELECT ON 	cubes_pages	.	pages_basic	 TO other_user;
-GRANT SELECT ON 	cubes_pages	.	views_by_session	 TO other_user;
-GRANT SELECT ON 	cubes_pages	.	pings_by_session	 TO other_user;
-GRANT SELECT ON 	cubes_pages	.	complete	 TO other_user;
-GRANT SELECT ON 	cubes_visits	.	basic	 TO other_user;
-GRANT SELECT ON 	cubes_visits	.	referer_basic	 TO other_user;
-GRANT SELECT ON 	cubes_visits	.	referer	 TO other_user;
-GRANT SELECT ON 	cubes_visits	.	entry_and_exit_pages	 TO other_user;
-GRANT SELECT ON 	cubes_visits	.	referer_entries_and_exits	 TO other_user;
-GRANT SELECT ON 	cubes_ecomm	.	transactions_basic	 TO other_user;
-GRANT SELECT ON 	cubes_ecomm	.	transactions_items_basic	 TO other_user;
-GRANT SELECT ON 	cubes_ecomm	.	transactions	 TO other_user;
-GRANT SELECT ON 	cubes_ecomm	.	transactions_with_visits	 TO other_user;
 \q
 ```
 
