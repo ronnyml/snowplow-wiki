@@ -33,6 +33,11 @@ For easier navigation, please, follow the links below.
 - [Snowplow 0.9.7](#v0.9.7) (**v0.9.7**) 2014-09-02
 - [Snowplow 0.9.6](#v0.9.6) (**v0.9.6**) 2014-07-26
 - [Snowplow 0.9.5](#v0.9.5) (**v0.9.5**) 2014-07-09
+- [Snowplow 0.9.4](#v0.9.4) (**v0.9.4**) 2014-05-30
+- [Snowplow 0.9.3](#v0.9.3) (**v0.9.3**) 2014-05-21
+- [Snowplow 0.9.2](#v0.9.2) (**v0.9.2**) 2014-04-30
+- [Snowplow 0.9.1](#v0.9.1) (**v0.9.1**) 2014-04-11
+- [Snowplow 0.9.0](#v0.9.0) (**v0.9.0**) 2014-02-04
 
 <a name="r76" />
 ##Snowplow 76 Changeable Hawk-Eagle
@@ -54,7 +59,7 @@ In the `config.yml` file for your EmrEtlRunner, update your `hadoop_enrich` and 
     hadoop_elasticsearch: 0.1.0 # Unchanged
 ```
 
-For a complete example, see our sample [`config.yml`][config-yml] template. 
+For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/r76-changeable-hawk-eagle/3-enrich/emr-etl-runner/config/config.yml.sample) template. 
 
 ### Read more
 
@@ -79,7 +84,7 @@ In your EmrEtlRunner’s `config.yml` file, update your `hadoop_enrich` job’s 
     hadoop_enrich: 1.5.0 # WAS 1.4.0
 ```
 
-For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/ac74147c665607980cc743afd09dd97c7c3c4406/3-enrich/emr-etl-runner/config/config.yml.sample) template.  
+For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/r75-long-legged-buzzard/3-enrich/emr-etl-runner/config/config.yml.sample) template.  
 
 ####Redshift
 
@@ -113,7 +118,7 @@ To take advantage of this new enrichment, update the `hadoop_enrich` jar version
     hadoop_elasticsearch: 0.1.0 # UNCHANGED
 ```
 
-For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/0eb855552eafc9282131d46a99e213da82f51bed/3-enrich/emr-etl-runner/config/config.yml.sample) template.  
+For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/r74-european-honey-buzzard/3-enrich/emr-etl-runner/config/config.yml.sample) template.  
 
 Make sure to add a [`weather_enrichment_config.json`](https://github.com/snowplow/snowplow/blob/master/3-enrich/config/enrichments/weather_enrichment_config.json) configured as explained [here](Weather-enrichment) into your `enrichments` folder too. The file should conform to this [JSON Schema](https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow.enrichments/weather_enrichment_config/jsonschema/1-0-0).
 
@@ -171,6 +176,8 @@ In order to start loading bad rows from the EMR jobflow into Elasticsearch, you 
 Note that the `database` and `table` fields actually contain the index and type respectively where bad rows will be stored.
 
 The `sources` field is an array of buckets from which to load bad rows. If you leave this field blank, then the bad rows buckets created by the current run of the EmrEtlRunner will be loaded. Alternatively you can explicitly specify an array of bad row buckets to load.
+
+For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/r73-cuban-macaw/3-enrich/emr-etl-runner/config/config.yml.sample) template.
 
 ####Running EmrEtlRunner
 
@@ -260,7 +267,7 @@ Unzip this file to a sensible location (e.g. `/opt/snowplow-r71`).
 
 ####Configuration files
 
-You should update the versions of the Enrich and Shred jars in your [configuration file][config-yml]:
+You should update the versions of the Enrich and Shred jars in your [configuration file][https://github.com/snowplow/snowplow/blob/r71-stork-billed-kingfisher/3-enrich/emr-etl-runner/config/config.yml.sample]:
 
 ```yaml
     hadoop_enrich: 1.1.0 # Version of the Hadoop Enrichment process
@@ -423,7 +430,7 @@ enrich {
 
 Note that this is a wholly optional section; if you do not want to send application events to a second Snowplow instance, simply do not add this to your configuration file.
 
-For a complete example, see our [`config.hocon.sample`](https://raw.githubusercontent.com/snowplow/snowplow/master/3-enrich/scala-kinesis-enrich/src/main/resources/config.hocon.sample) file.
+For a complete example, see our [`config.hocon.sample`](https://github.com/snowplow/snowplow/blob/r67-bohemian-waxwing/3-enrich/scala-kinesis-enrich/src/main/resources/config.hocon.sample) file.
 
 ####Kinesis Elasticsearch Sink
 
@@ -449,7 +456,7 @@ sink {
 
 Again, note that Snowplow tracking is a wholly optional section.
 
-For a complete example, see our [`config.hocon.sample`](https://raw.githubusercontent.com/snowplow/snowplow/master/4-storage/kinesis-elasticsearch-sink/src/main/resources/config.hocon.sample) file.
+For a complete example, see our [`config.hocon.sample`](https://github.com/snowplow/snowplow/blob/r67-bohemian-waxwing/4-storage/kinesis-elasticsearch-sink/src/main/resources/config.hocon.sample) file.
 
 ### Read more
 
@@ -585,7 +592,7 @@ This release also bumps the Hadoop Enrichment process to version **0.14.1**. Upd
     :hadoop_enrich: 0.14.1 # WAS 0.14.0
 ```
 
-For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/753454299c27cbadadc3969d3a2f8d9ec3bbc729/3-enrich/emr-etl-runner/config/config.yml.sample) template.
+For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/r64-palila/3-enrich/emr-etl-runner/config/config.yml.sample) template.
 
 ####Database
 
@@ -661,7 +668,7 @@ In your EmrEtlRunner's `config.yml` file, update your Hadoop jobs versions like 
     :hadoop_shred: 0.4.0 # WAS 0.3.0
 ```
 
-For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/b724ed2459bcc53a74db8f562d0ba58096469a6e/3-enrich/emr-etl-runner/config/config.yml.sample) template.
+For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/r63-red-cheeked-cordon-bleu/3-enrich/emr-etl-runner/config/config.yml.sample) template.
 
 #####Database
 
@@ -737,7 +744,7 @@ In the `:emr:` section of your EmrEtlRunner's `config.yml` file, add in a `:boot
     ...
 ```
 
-For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/17ac62065b220bfea9458a3c4825503949a481bc/3-enrich/emr-etl-runner/config/config.yml.sample) template.
+For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/r62-tropical-parula/3-enrich/emr-etl-runner/config/config.yml.sample) template.
 
 ### Read more
 
@@ -768,7 +775,7 @@ $ cd ../../4-storage/storage-loader
 $ bundle install --deployment
 ```
 
-If you currently use `snowplow-runner-and-loader.sh`, upgrade to the [relevant version](https://github.com/snowplow/snowplow/blob/fd7ead2d3d777071f2b85a1c96ba5adeebd7e9b1/4-storage/storage-loader/bin/snowplow-runner-and-loader.sh) too.
+If you currently use `snowplow-runner-and-loader.sh`, upgrade to the [relevant version](https://github.com/snowplow/snowplow/blob/r61-pygmy-parrot/4-storage/storage-loader/bin/snowplow-runner-and-loader.sh) too.
 
 ####Configuration file
 
@@ -781,7 +788,7 @@ In your EmrEtlRunner's `config.yml` file, update your `hadoop_enrich` and `hadoo
     :hadoop_enrich: 0.13.0 # WAS 0.12.0
 ```
 
-For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/f5878ed853f897dba510dfe15580a5099c281e04/3-enrich/emr-etl-runner/config/config.yml.sample) template.
+For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/r61-pygmy-parrot/3-enrich/emr-etl-runner/config/config.yml.sample) template.
 
 ####Clojure Collector
 
@@ -848,7 +855,7 @@ If you want to run the Hadoop Enrichment process against the output of the Kines
 :collector_format: thrift
 ```
 
-For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/55231004f93664566a6e4583fd03fc93162e1262/3-enrich/emr-etl-runner/config/config.yml.sample) template.
+For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/r60-bee-hummingbird/3-enrich/emr-etl-runner/config/config.yml.sample) template.
 
 ####Kinesis pipeline
 
@@ -895,7 +902,7 @@ In your EmrEtlRunner's `config.yml` file, update your hadoop_enrich and hadoop_s
     :hadoop_shred: 0.3.0 # WAS 0.2.1
 ```
 
-For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/8a36ba1fe04f3626aac69ed70b4ec57be71f3b90/3-enrich/emr-etl-runner/config/config.yml.sample) template.
+For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/0.9.14/3-enrich/emr-etl-runner/config/config.yml.sample) template.
 
 ####Clojure Collector
 
@@ -946,7 +953,7 @@ In your EmrEtlRunner's `config.yml` file, update your Hadoop enrich job's versio
     :hadoop_enrich: 0.10.1
 ```
 
-For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/934610c6e56e755ac971b1c45105002d8e46cac0/3-enrich/emr-etl-runner/config/config.yml.sample) template.
+For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/0.9.13/3-enrich/emr-etl-runner/config/config.yml.sample) template.
 
 ### Read more
 
@@ -993,7 +1000,7 @@ In your EmrEtlRunner's `config.yml` file, update your Hadoop enrich job's versio
     :hadoop_enrich: 0.10.0 # WAS 0.9.0
 ```
 
-For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/fdb7e3c8bddf53f2b3d6ae017597b64811c0d6c2/3-enrich/emr-etl-runner/config/config.yml.sample) template.
+For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/0.9.12/3-enrich/emr-etl-runner/config/config.yml.sample) template.
 
 ### Read more
 
@@ -1026,7 +1033,7 @@ In your EmrEtlRunner's `config.yml` file, update your Hadoop enrich job's versio
     :hadoop_enrich: 0.9.0 # WAS 0.8.0
 ```
 
-For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/d5eea84c1c7881066d8bd44b4cb5430ca5a723c4/3-enrich/emr-etl-runner/config/config.yml.sample) template.
+For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/0.9.11/3-enrich/emr-etl-runner/config/config.yml.sample) template.
 
 ####Clojure Collector
 
@@ -1105,7 +1112,7 @@ In your EmrEtlRunner's `config.yml` file, update your Hadoop enrich job’s vers
     :hadoop_enrich: 0.8.0 # WAS 0.7.0
 ```
 
-For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/5a79f2302405ce4564d38287223552e42db85924/3-enrich/emr-etl-runner/config/config.yml.sample) template.
+For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/0.9.9/3-enrich/emr-etl-runner/config/config.yml.sample) template.
 
 ####Campaign attribution
 
@@ -1154,7 +1161,7 @@ In your EmrEtlRunner's `config.yml` file, update your Hadoop enrich job's versio
     :hadoop_enrich: 0.7.0 # WAS 0.6.0
 ```
 
-For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/378647eec92b060fe3005c8cb4f1c054e22a7a4c/3-enrich/emr-etl-runner/config/config.yml.sample) template.
+For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/0.9.8/3-enrich/emr-etl-runner/config/config.yml.sample) template.
 
 ####Clojure Collector
 
@@ -1221,7 +1228,7 @@ In your EmrEtlRunner's `config.yml` file, update your Hadoop shred job's version
     :hadoop_shred: 0.2.1 # WAS 0.2.0
 ```
 
-For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/378647eec92b060fe3005c8cb4f1c054e22a7a4c/3-enrich/emr-etl-runner/config/config.yml.sample) template.
+For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/0.9.7/3-enrich/emr-etl-runner/config/config.yml.sample) template.
 
 ####Hive
 
@@ -1278,7 +1285,7 @@ Next, completely delete the `:enrichments:` section at the bottom:
     :anon_octets: 2
 ```
 
-For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/3376e85aff4170a3ba083abb935f3c7b4e343f4e/3-enrich/emr-etl-runner/config/config.yml.sample) template.
+For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/0.9.6/3-enrich/emr-etl-runner/config/config.yml.sample) template.
 
 ####Enrichments
 
@@ -1321,7 +1328,7 @@ $ cd snowplow/3-enrich/emr-etl-runner
 $ bundle install --deployment
 ```
 
-You also need to update the [`config.yml`](https://github.com/snowplow/snowplow/blob/6a477287f76979cb6324f6fb7dc419614af11ea3/3-enrich/emr-etl-runner/config/config.yml.sample) file for EmrEtlRunner.  For more information on how to populate the new configuration file correctly, see the [Configuration section of the EmrEtlRunner setup guide](https://github.com/snowplow/snowplow/wiki/1-Installing-EmrEtlRunner#4-configuration).
+You also need to update the [`config.yml`](https://github.com/snowplow/snowplow/blob/0.9.5/3-enrich/emr-etl-runner/config/config.yml.sample) file for EmrEtlRunner.  For more information on how to populate the new configuration file correctly, see the [Configuration section of the EmrEtlRunner setup guide](https://github.com/snowplow/snowplow/wiki/1-Installing-EmrEtlRunner#4-configuration).
 
 ####StorageLoader
 
@@ -1356,6 +1363,275 @@ Setting this up is outside of the scope of this release blog post. We have docum
 
 * [v0.9.5 Blog Post](http://snowplowanalytics.com/blog/2014/07/09/snowplow-0.9.5-released-with-json-validation-shredding/)
 * [v0.9.5 Release Notes](https://github.com/snowplow/snowplow/releases/tag/0.9.5)
+
+<a name="v0.9.4" />
+##Snowplow 0.9.4
+
+This release includes a new base LookML data model and dashboard to get Snowplow users started with [Looker](http://looker.com/).
+
+The new base model has some significant improvements over the old one:
+
+- Querying the data is much faster. When new Snowplow event data is loaded into Redshift, Looker automatically detects it and generates the relevant session-level and visitor-level derived tables, so that they are ready to be queried directly. We’ve tuned the derived tables with the relevant dist keys and sort keys to make sure any underlying table joins in Redshift are performant
+- New visualizations are now supported including geographic plots
+- Looker's new functionality around global filters: this makes it possible to drill into subsets of visitors by a range of dimensions, and see a wide range of different visualizations for that subset of users on the same screen, opening up new creative ways of exploring your Snowplow data 
+- Metrics and dimensions have been renamed to make it easier for a new user unfamiliar with Snowplow to explore the data through Looker
+
+### Upgrade steps
+
+To make use of the new models, you'll need to have a Looker license or be on a Looker trial.
+
+First you will need to load a new country codes dataset into Redshift / Postgres: this maps two character ISO country codes (outputed by our Maxmind enrichment) to three character ISO country codes (used by Looker for geographic visualizations) and country names.
+
+Clone the Snowplow repo:
+
+```
+$ git clone https://github.com/snowplow/snowplow.git
+```
+
+You need to run the contents of `snowplow/5-data-modeling/reference-data/redshift/iso-country-codes.sql` in our Redshift database. This can be done using PSQL e.g.
+
+```
+psql -U $username -p $port -h $host -d $database -f snowplow/5-data-modeling/reference-data/redshift/iso-country-codes.sql
+```
+
+Alternatively you can copy and paste the [content](https://github.com/snowplow/snowplow/blob/master/5-data-modeling/reference-data/redshift/iso-country-codes.sql) of the file into your favorite SQL editor.
+
+You then need to make sure that our Looker user has access to the new data. In PSQL, execute:
+
+```sql
+GRANT USAGE ON SCHEMA reference_data TO looker;
+GRANT SELECT ON TABLE reference_data.country_codes TO looker;
+```
+
+Assuming that the user credentials you share with Looker have username "looker".
+
+Next, you need to transfer our [LookML files from the Snowplow repo into the repo](https://github.com/snowplow/snowplow/tree/master/5-data-modeling/looker/lookml) you use for Looker, either directly (via Git) or by creating the files in the Looker UI (in the models section), and then copying and pasting the contents. Note that may need to update the [`snowplow.model.lookml`](https://github.com/snowplow/snowplow/blob/0.9.4/5-analytics/looker-analytics/lookml/snowplow.model.lookml) so that it references your connection in Redshift to your Snowplow dataset: the example file assumes that your connection is called "snowplow", which may not be the case.
+
+Once copied over, you should be able to start exploring the "events", "sessions" and "visitors" views, and playing around directly with the "Traffic Pulse" dashboard.
+
+### Read more
+
+* [v0.9.4 Blog Post](http://snowplowanalytics.com/blog/2014/05/30/snowplow-0.9.4-released-with-updated-looker-models-and-dashboard/)
+* [v0.9.4 Release Notes](https://github.com/snowplow/snowplow/releases/tag/0.9.4)
+
+<a name="v0.9.3" />
+##Snowplow 0.9.3
+
+These release deals with incremental improvements to EmrEtlRunner, plus two important bug fixes for Clojure Collector users.
+
+The first Clojure Collector issue was a problem in the file move functionality in EmrEtlRunner, which was preventing Clojure Collector users from scaling beyond a single instance without data loss. 
+
+The second Clojure Collector issue involved the Elastic Beanstalk's Apache proxy's IP address(es) showing up in the `atomic.events` table in place of the expected end-user's IPs. We were unable to reproduce this issue when running multiple instances, so we do not believe this problem is as widespread.
+
+### Upgrade steps
+
+Upgrading is a two step process:
+
+1. Update EmrEtlRunner
+2. Update Clojure Collector [optional]
+
+####EmrEtlRunner 
+
+You need to update EmrEtlRunner to the code 0.7.0 on GitHub:
+
+```sh
+$ git clone git://github.com/snowplow/snowplow.git
+$ git checkout 0.9.3
+$ cd snowplow/3-enrich/emr-etl-runner
+$ bundle install --deployment
+```
+
+You also need to update your EmrEtlRunner's `config.yml` file in a few places. First add a logging section at the top:
+
+```
+:logging:
+  :level: DEBUG # You can optionally switch to INFO for production
+```
+
+Next you need to replace this:
+
+```
+:emr:
+  :hadoop_version: 1.0.3
+```
+
+with this:
+
+```
+:emr:
+  :ami_version: 2.4.2
+```
+
+If you need to use a different Hadoop version, check out [this handy table](http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-plan-hadoop-version.html) to determine the correct AMI version.
+
+Finally, add the region in:
+
+```
+:emr:
+  :ami_version: 2.4.2
+  :region: us-east-1 # Or your region
+```
+
+Your `:region:` will be your existing `:placement:` without the character on the end. Note that if you are running your EMR job in an EC2 subnet, you no longer need to set the `:placement:` field.
+
+Once you have made these changes, do check your final version against the updated [`config.yml`](https://github.com/snowplow/snowplow/blob/0.9.3/3-enrich/emr-etl-runner/config/config.yml.sample) template.
+
+####Clojure Collector
+
+This release bumps the Clojure Collector to version **0.6.0**. Upgrading to this release is only necessary if you have been encountering the issue with proxy IPs appearing in `atomic.events`, as discussed in [this email thread](https://groups.google.com/forum/#!topic/snowplow-user/rCSrtBwpcac) (issue [#719](https://github.com/snowplow/snowplow/issues/719)).
+
+To upgrade to this release:
+
+1. Download the new warfile by right-clicking on [this link](http://s3-eu-west-1.amazonaws.com/snowplow-hosted-assets/2-collectors/clojure-collector/clojure-collector-0.6.0-standalone.war) and selecting “Save As…”
+2. Log in to your Amazon Elastic Beanstalk console
+3. Browse to your Clojure Collector's application
+4. Click the “Upload New Version” and upload your warfile
+
+### Read more
+
+* [v0.9.3 Blog Post](http://snowplowanalytics.com/blog/2014/05/21/snowplow-0.9.3-released-with-clojure-collector-fixes/)
+* [v0.9.3 Release Notes](https://github.com/snowplow/snowplow/releases/tag/0.9.3)
+
+<a name="v0.9.2" />
+##Snowplow 0.9.2
+
+This release adds Snowplow support for the updated [CloudFront access log file format](http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html) introduced by Amazon on the morning of 29th April 2014. 
+
+If you currently use the Snowplow CloudFront-based event collector, you are recommended to upgrade to this release as soon as possible.
+
+As well as support for the new log file format, this release also features a new standalone Scalding job to make re-processing “bad” rows easier, and also some Hive script updates to bring our Hive support in step with our Postgres and Redshift schemas.
+
+### Upgrade steps
+
+Before upgrading, please ensure that you are on [Snowplow 0.9.1](#v0.9.1) version, which introduced changes to the Snowplow enriched event format.
+
+*If you attempt to jump straight to 0.9.2 (from versions before 0.9.1), your enriched events will not load into your legacy Redshift or Postgres schema*.
+
+####Configuration file
+
+Upgrading is super simple: simply update the `config.yml` file for EmrEtlRunner to use the version 0.5.0 of the Hadoop ETL:
+
+```
+:snowplow:
+  :hadoop_etl_version: 0.5.0
+```
+
+####Recover missing data
+
+***Important**: since releasing this version of Snowplow, we have learnt that the suggested upgrade process listed below has the unfortunate side effect of URL-encoding all string columns in the recovered data. For that reason, we recommend updating to [Snowplow 0.9.3](#v0.9.3), where this bug is addressed.*
+
+Any Snowplow batch runs *after* the CloudFront change but *before* your upgrade to 0.9.2 will have resulted in valid events ending up in your `bad` rows bucket. Happily, we can use the [Snowplow Hadoop Bad Rows](https://github.com/snowplow/snowplow/tree/master/3-enrich/scala-hadoop-bad-rows) job to recover them.
+
+For every run to recover data from, you can run the Hadoop Bad Rows job using the [Amazon Ruby EMR client](http://aws.amazon.com/developertools/2264):
+
+```
+$ elastic-mapreduce --create --name "Extract raw events from Snowplow bad row JSONs" \
+  --instance-type m1.xlarge --instance-count 3 \
+  --jar s3://snowplow-hosted-assets/3-enrich/scala-bad-rows/snowplow-bad-rows-0.1.0.jar \
+  --arg com.snowplowanalytics.hadoop.scalding.SnowplowBadRowsJob \
+  --arg --hdfs \
+  --arg --input --arg s3n://[[PATH_TO_YOUR_FIXABLE_BAD_ROWS]] \
+  --arg --output --arg s3n://[[PATH_WILL_BE_STAGING_FOR_EMRETLRUNNER]]
+```
+
+Replace the `[[...]]` placeholders above with the appropriate bucket paths. ***Please note***: if you have multiple runs to fix, then we suggest running the above multiple times, one per run to fix, rather than running it against your whole bad rows bucket - it should be much faster.
+
+Now you are ready to process the recovered raw events with Snowplow. Unfortunately, the filenames generated by the Bad Rows job are not compatible with the EmrEtlRunner currently (we will fix this in a future release). In the meantime, here is a workaround:
+
+1. Edit `config.yml` and change `:collector_format: cloudfront` to `:collector_format: clj-tomcat`
+2. Edit `config.yml` and point the `:processing:` bucket setting to wherever your extracted bad rows are located
+3. Run EmrEtlRunner with `--skip staging`
+
+If you are a Qubole and/or Hive user, you can find an alternative approach to recovering the bad rows in our blog post, [Reprocessing bad rows of Snowplow data using Hive, the JSON Serde and Qubole](http://snowplowanalytics.com/blog/2013/09/11/reprocessing-bad-data-using-hive-the-json-serde-and-qubole/).
+
+### Read more
+
+* [v0.9.2 Blog Post](http://snowplowanalytics.com/blog/2014/04/30/snowplow-0.9.2-released-for-new-cloudfront-log-format/)
+* [v0.9.2 Release Notes](https://github.com/snowplow/snowplow/releases/tag/0.9.2)
+
+<a name="v0.9.1" />
+##Snowplow 0.9.1
+
+This release introduces initial support for JSON-based custom unstructured events and custom contexts in the Snowplow Enrichment and Storage processes; this is the most-requested feature from our community and a key building block for mobile and app event tracking in Snowplow.
+
+Snowplow’s event trackers have supported custom [unstructured events](https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#381-trackunstructevent) and [custom contexts](http://snowplowanalytics.com/blog/2014/01/27/snowplow-custom-contexts-guide/) for some time, but prior to 0.9.1 there had been no way of working with these JSON-based objects “downstream” in the rest of the Snowplow data pipeline. This release adds preliminary support like this:
+
+1. Parse incoming custom unstructured events and contexts to ensure that they are valid JSON
+2. Where possible, clean up the JSON (e.g. remove whitespace)
+3. Store the JSON as `json`-type fields in Postgres, and in large `varchar` fields in Redshift
+
+As well as this new JSON-based functionality, 0.9.1 also includes a host of additional features and updates.
+
+### Upgrade steps
+
+####EmrEtlRunner
+
+You need to update EmrEtlRunner to the code 0.9.1 on Github:
+
+```sh
+$ git clone git://github.com/snowplow/snowplow.git
+$ git checkout 0.9.1
+$ cd snowplow/3-enrich/emr-etl-runner
+$ bundle install --deployment
+```
+
+You also need to update the `config.yml` file for EmrEtlRunner to use the Hadoop ETL version 0.4.0:
+
+```
+:snowplow:
+  :hadoop_etl_version: 0.4.0
+```
+
+Don't forget to add in the new subnet (VPC) argument too:
+
+```
+:emr:
+  ...
+  :ec2_subnet_id: ADD HERE # Leave blank if not running in VPC
+```
+
+See a complete example of the EmrEtlRunner [`config.yml`](https://github.com/snowplow/snowplow/blob/0.9.1/3-enrich/emr-etl-runner/config/config.yml.sample) file on Github repo.
+
+####StorageLoader
+
+You need to upgrade your StorageLoader installation to the  code 0.9.1 on Github:
+
+```
+$ git clone git://github.com/snowplow/snowplow.git
+$ git checkout 0.9.1
+$ cd snowplow/4-storage/storage-loader
+$ bundle install --deployment
+```
+
+####Database
+
+We have updated the Redshift and Postgres table definitions for `atomic.events`. You can find the latest versions in the GitHub repository, along with migration scripts to handle the upgrade from recent prior versions. *Please review any migration script carefully before running and check that you are happy with how it handles the upgrade*.
+
+Database | Table definition | Migration script
+---|:---:|:---:
+Redshift | [0.3.0](https://github.com/snowplow/snowplow/blob/0.9.1/4-storage/redshift-storage/sql/atomic-def.sql) | [Migrate from 0.2.2 to 0.3.0](https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/migrate_0.2.2_to_0.3.0.sql)
+Postgres | [0.2.0](https://github.com/snowplow/snowplow/blob/0.9.1/4-storage/postgres-storage/sql/atomic-def.sql) | [Migrate from 0.1.x to 0.2.0](https://github.com/snowplow/snowplow/blob/master/4-storage/postgres-storage/sql/migrate_0.1.x_to_0.2.0.sql)
+
+### Read more
+
+* [v0.9.1 Blog Post](http://snowplowanalytics.com/blog/2014/04/11/snowplow-0.9.1-released-with-initial-json-support/)
+* [v0.9.1 Release Notes](https://github.com/snowplow/snowplow/releases/tag/0.9.1)
+
+<a name="v0.9.0" />
+##Snowplow 0.9.0
+
+This release introduces our initial beta support for [Amazon Kinesis](http://aws.amazon.com/kinesis/) in the Snowplow Collector and Enrichment components.
+
+At Snowplow we are hugely excited about Kinesis's potential, not just to enable near-real-time event analytics, but more fundamentally to serve as a business’s unified log, aka its “digital nervous system”. This is a concept we introduced recently in our blog post [The three eras of business data processing](http://snowplowanalytics.com/blog/2014/01/20/the-three-eras-of-business-data-processing/), and further explored at the [Inaugural Kinesis London meetup](http://snowplowanalytics.com/blog/2014/01/30/inaugural-amazon-kinesis-meetup/).
+
+### Upgrade steps
+
+No upgrade steps as the release introduces the whole "new" concept. If you want to take it onboard you would need to set up a new environment.
+
+### Read more
+
+* [v0.9.0 Blog Post](http://snowplowanalytics.com/blog/2014/02/04/snowplow-0.9.0-released-with-beta-kinesis-support/)
+* [v0.9.0 Release Notes](https://github.com/snowplow/snowplow/releases/tag/0.9.0)
 
 
 [config-yml]: https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample
