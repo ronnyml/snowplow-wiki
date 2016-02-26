@@ -120,7 +120,7 @@ Right-click on this [Download link] [kinesis-download] to save it down locally.
 
 The Kinesis S3 app is available for download separately here:
 
-    http://dl.bintray.com/snowplow/snowplow-generic/kinesis_s3_0.3.0.zip
+    http://dl.bintray.com/snowplow/snowplow-generic/kinesis_s3_0.4.0.zip
 
 Right-click on this [Download link] [kinesis-s3-download] to save it down locally.
 
@@ -142,6 +142,6 @@ Please see the [[Artifact repositories]] wiki page for more information.
 
 [bintray]: https://bintray.com/
 [kinesis-download]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r67_bohemian_waxwing.zip
-[kinesis-s3-download]: http://dl.bintray.com/snowplow/snowplow-generic/kinesis_s3_0.3.0.zip
+[kinesis-s3-download]: http://dl.bintray.com/snowplow/snowplow-generic/kinesis_s3_0.4.0.zip
 
 [emr-download]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_emr_r75_long_legged_buzzard.zip
