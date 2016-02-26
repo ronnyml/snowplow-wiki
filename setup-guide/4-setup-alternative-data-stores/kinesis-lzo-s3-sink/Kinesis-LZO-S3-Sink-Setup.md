@@ -2,8 +2,6 @@
 
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 4: setting up alternative data stores**](Setting-up-alternative-data-stores) > [Kinesis-LZO-S3-Sink-Setup](Kinesis-LZO-S3-Sink-Setup)
 
-NOTE: This version has not been released yet, please refer to **[Version 0.3.0][v0.3]**.
-
 This documentation is for version 0.4.0 of Kinesis LZO S3. For previous versions:
 
 * **[Version 0.1.0 - 0.2.1][v0.1]**
