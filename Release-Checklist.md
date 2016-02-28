@@ -13,5 +13,6 @@ All the things to tick off when doing a new release:
 10. **Delete feature branch** - `git branch -D feature/whatever` and `git push origin :feature/whatever`
 11. **Blog post** - always write a blog post
 12. **Add release** - in GitHub
-13. **Tweet** - put `#opensource` in the tweet
-14. **Email to Google Group** - final step
+13. **Update the version matrix** - in Google Spreadsheets 
+14. **Tweet** - put `#opensource` in the tweet
+15. **Email to Google Group** - final step
