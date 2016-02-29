@@ -71,7 +71,7 @@ You will also need a JSON configuration for the Iglu resolver used to look up JS
 
 Rather than keeping the resolver JSON in a local file, you can store it in a [DynamoDB][ddb] table with hash key "id". If you do this, the JSON must be saved in string form in an item under the key "json".
 
- ## Configuring enrichments
+### Configuring enrichments
 
 You may wish to use Snowplow's configurable enrichments. To do this, create a directory of enrichment JSONs. For each configurable enrichment you wish to use, the enrichments directory should contain a .json file with a configuration JSON for that enrichment. When you come to run Scala Kinesis Enrich you can then pass in the filepath to this directory using the --enrichments option.
 
