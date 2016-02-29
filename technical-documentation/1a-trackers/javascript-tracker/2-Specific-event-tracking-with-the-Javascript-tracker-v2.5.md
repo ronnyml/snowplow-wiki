@@ -2,15 +2,12 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > [**JavaScript Tracker**](Javascript-Tracker) > Specific event tracking
 
-__UNRELEASED__
-
-*This page refers to version 2.6.0 of the Snowplow JavaScript Tracker.*  
+*This page refers to version 2.5.3 of the Snowplow JavaScript Tracker.*  
 *Click [here] [specific-events-v1] for the corresponding documentation for version 1.*  
 *Click [here] [specific-events-v2.0] for the corresponding documentation for version 2.0.*  
 *Click [here] [specific-events-v2.2] for the corresponding documentation for version 2.2.2.*  
 *Click [here] [specific-events-v2.3] for the corresponding documentation for version 2.3.0.*  
-*Click [here] [specific-events-v2.4] for the corresponding documentation for version 2.4.3.* 
-*Click [here] [specific-events-v2.5] for the corresponding documentation for version 2.5.3.*  
+*Click [here] [specific-events-v2.3] for the corresponding documentation for version 2.4.3.*  
 
 <a name="tracking-specific-events" />
 ## 3. Tracking specific events
@@ -49,13 +46,7 @@ Snowplow has been built to enable users to track a wide range of events that occ
   - 3.11 [`trackAddToCart` and `trackRemoveFromCart`](#cart)
   - 3.12 [`trackSiteSearch`](#siteSearch)
   - 3.13 [`trackTiming`](#timing)
-  - 3.14 [Enhanced Ecommerce tracking](#enhanced-ecommerce)
-    - 3.14.1 [`trackEnhancedEcommerceAction`](#trackEnhancedEcommerceAction)
-    - 3.14.2 [`trackEnhancedEcommerceActionFieldObject`](#trackEnhancedEcommerceActionFieldObject)
-    - 3.14.3 [`trackEnhancedEcommerceImpressionFieldObject`](#trackEnhancedEcommerceImpressionFieldObject)
-    - 3.14.4 [`trackEnhancedEcommerceProductFieldObject`](#trackEnhancedEcommerceProductFieldObject)
-    - 3.14.5 [`trackEnhancedEcommercePromoFieldObject`](#trackEnhancedEcommercePromoFieldObject)
-  - 3.15 [Custom contexts](#custom-contexts)
+  - 3.14 [Custom contexts](#custom-contexts)
 
 <a name="page" />
 ### 3.1 Pageviews
@@ -970,142 +961,8 @@ Site search events are implemented as Snowplow unstructured events. [Here][timin
 
 `trackTiming` can also be passed an array of custom contexts as an additional final parameter. See [Contexts](#custom-contexts) for more information.
 
-<a name="enhanced-ecommerce" />
-### 3.14 Enhanced Ecommerce tracking
-
-For more information on the Enhanced Ecommerce functions please see the Googla Analytics [documentation](#https://developers.google.com/analytics/devguides/collection/analyticsjs/enhanced-ecommerce).
-
-<a name="trackEnhancedEcommerceAction" />
-#### 3.14.1 `trackEnhancedEcommerceAction`
-
-Use the `trackEnhancedEcommerceAction` method to track a GA Enhanced Ecommerce Action:
-
-| **Name**   | **Required?** | **Type**             |
-|-----------:|:--------------|:---------------------|
-| `action`   | Yes           | string               |
-
-The allowed actions:
-
- * `click`
- * `detail`
- * `add`
- * `remove`
- * `checkout`
- * `checkout_option`
- * `purchase`
- * `refund`
- * `promo_click`
- * `view`
-
-An example:
-
-```javascript
-window.snowplow('trackEnhancedEcommerceAction',
-  'click'
-);
-```
-
-<a name="trackEnhancedEcommerceActionFieldObject" />
-#### 3.14.2 `trackEnhancedEcommerceActionFieldObject`
-
-Use the `trackEnhancedEcommerceActionFieldObject` method to track a GA Enhanced Ecommerce Action Data:
-
-| **Name**      | **Required?** | **Type**             |
-|--------------:|:--------------|:---------------------|
-| `id`          | Yes           | string               |
-| `affiliation` | No            | string               |
-| `revenue`     | No            | number               |
-| `tax`         | No            | number               |
-| `shipping`    | No            | number               |
-| `coupon`      | No            | string               |
-| `list`        | No            | string               |
-| `step`        | No            | integer              |
-| `option`      | No            | string               |
-| `currency`    | No            | string               |
-
-An example:
-
-```javascript
-window.snowplow('trackEnhancedEcommerceActionFieldObject',
-  'T1234' // The Transaction ID
-);
-```
-
-<a name="trackEnhancedEcommerceImpressionFieldObject" />
-#### 3.14.3 `trackEnhancedEcommerceImpressionFieldObject`
-
-Use the `trackEnhancedEcommerceImpressionFieldObject` method to track a GA Enhanced Ecommerce Impression Data:
-
-| **Name**      | **Required?** | **Type**             |
-|--------------:|:--------------|:---------------------|
-| `id`          | Yes           | string               |
-| `name`        | No            | string               |
-| `list`        | No            | string               |
-| `brand`       | No            | string               |
-| `category`    | No            | string               |
-| `variant`     | No            | string               |
-| `position`    | No            | integer              |
-| `price`       | No            | number               |
-| `currency`    | No            | string               |
-
-An example:
-
-```javascript
-window.snowplow('trackEnhancedEcommerceImpressionFieldObject',
-  'imp5000' // The Impression ID
-);
-```
-
-<a name="trackEnhancedEcommerceProductFieldObject" />
-#### 3.14.4 `trackEnhancedEcommerceProductFieldObject`
-
-Use the `trackEnhancedEcommerceProductFieldObject` method to track a GA Enhanced Ecommerce Product Field Data:
-
-| **Name**      | **Required?** | **Type**             |
-|--------------:|:--------------|:---------------------|
-| `id`          | Yes           | string               |
-| `name`        | No            | string               |
-| `list`        | No            | string               |
-| `brand`       | No            | string               |
-| `category`    | No            | string               |
-| `variant`     | No            | string               |
-| `price`       | No            | number               |
-| `quantity`    | No            | integer              |
-| `coupon`      | No            | string               |
-| `position`    | No            | integer              |
-| `currency`    | No            | string               |
-
-An example:
-
-```javascript
-window.snowplow('trackEnhancedEcommerceProductFieldObject',
-  'imp5000' // The Product ID
-);
-```
-
-<a name="trackEnhancedEcommercePromoFieldObject" />
-#### 3.14.5 `trackEnhancedEcommercePromoFieldObject`
-
-Use the `trackEnhancedEcommercePromoFieldObject` method to track a GA Enhanced Ecommerce Promotion Field Data:
-
-| **Name**      | **Required?** | **Type**             |
-|--------------:|:--------------|:---------------------|
-| `id`          | Yes           | string               |
-| `name`        | No            | string               |
-| `creative`    | No            | string               |
-| `position`    | No            | string               |
-| `currency`    | No            | string               |
-
-An example:
-
-```javascript
-window.snowplow('trackEnhancedEcommercePromoFieldObject',
-  'imp5000' // The Promotion ID
-);
-```
-
 <a name="custom-contexts" />
-### 3.15 Custom contexts
+### 3.14 Custom contexts
 
 Custom contexts can be used to augment any standard Snowplow event type, including unstructured events, with additional data.
 
@@ -1166,8 +1023,6 @@ For more information on custom contexts, see [this][contexts] blog post.
 [specific-events-v2.0]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker-v2.0
 [specific-events-v2.2]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker-v2.2
 [specific-events-v2.3]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker-v2.3
-[specific-events-v2.4]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker-v2.4
-[specific-events-v2.5]: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker-v2.5
 [multiple-trackers]: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker#24-managing-multiple-trackers
 [json-schema]: http://json-schema.org/
 [self-describing-jsons]: http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/
