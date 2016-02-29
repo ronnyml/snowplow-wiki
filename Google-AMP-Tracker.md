@@ -11,7 +11,7 @@ Snowplow is natively integrated in the project, so pages optimized with AMP HTML
   <script type="application/json">
   {
     "vars": {
-      "collectorUrl": "YOUR COLLECTOR URL GOES HERE"
+      "collectorUrl": "COLLECTOR URL"
     },
    ...
   }
