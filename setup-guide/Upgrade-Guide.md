@@ -6,6 +6,7 @@ You can also use [Snowplow Version Matrix](Snowplow-version-matrix) as a guidanc
 
 For easier navigation, please, follow the links below.
 
+- [Snowplow 77 Great Auk](#r77) (**r77**) 2016-02-29
 - [Snowplow 76 Changeable Hawk-Eagle](#r76) (**r76**) 2016-01-26
 - [Snowplow 75 Long-Legged Buzzard](#r75) (**r75**) 2016-01-02
 - [Snowplow 74 European Honey Buzzard](#r74) (**r74**) 2015-12-22
@@ -38,6 +39,44 @@ For easier navigation, please, follow the links below.
 - [Snowplow 0.9.2](#v0.9.2) (**v0.9.2**) 2014-04-30
 - [Snowplow 0.9.1](#v0.9.1) (**v0.9.1**) 2014-04-11
 - [Snowplow 0.9.0](#v0.9.0) (**v0.9.0**) 2014-02-04
+
+<a name="r77" />
+##Snowplow 77 Great Auk
+
+This release focuses on the command-line applications used to orchestrate Snowplow, bringing Snowplow up-to-date with the new 4.x series of Elastic MapReduce releases.
+
+### Upgrade steps
+
+Running EmrEtlRunner and StorageLoader as *Ruby* (rather than *JRuby* apps) is no longer actively supported.
+
+The latest version of the EmrEtlRunner and StorageLoader are available from our Bintray [here](http://dl.bintray.com/snowplow/snowplow-generic/snowplow_emr_r77_great_auk.zip).
+
+Note that the [`snowplow-runner-and-loader.sh`](https://github.com/snowplow/snowplow/blob/r77-great-auk/4-storage/storage-loader/bin/snowplow-runner-and-loader.sh) script has been also updated to use the *JRuby* binaries rather than the raw *Ruby* project.
+
+####Configuration file
+
+The recommended AMI version to run Snowplow is now 4.3.0 - update your configuration YAML as follows:
+
+```yaml
+emr:
+  ami_version: 4.3.0 # WAS 3.7.0
+```
+
+You will need to update the jar versions in the same section:
+
+```yaml
+  versions:
+    hadoop_enrich: 1.6.0        # WAS 1.5.1
+    hadoop_shred: 0.8.0         # WAS 0.7.0
+    hadoop_elasticsearch: 0.1.0 # UNCHANGED
+```
+
+For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/r77-great-auk/3-enrich/emr-etl-runner/config/config.yml.sample) template.
+
+### Read more
+
+* [R77 Blog Post](http://snowplowanalytics.com/blog/2016/02/28/snowplow-r77-great-auk-released-with-emr-4.x-series-support/)
+* [R77 Release Notes](https://github.com/snowplow/snowplow/releases/tag/r77-great-auk)
 
 <a name="r76" />
 ##Snowplow 76 Changeable Hawk-Eagle
