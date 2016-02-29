@@ -973,7 +973,7 @@ Site search events are implemented as Snowplow unstructured events. [Here][timin
 <a name="enhanced-ecommerce" />
 ### 3.14 Enhanced Ecommerce tracking
 
-For more information on the Enhanced Ecommerce functions please see the Googla Analytics [documentation](#https://developers.google.com/analytics/devguides/collection/analyticsjs/enhanced-ecommerce).
+For more information on the Enhanced Ecommerce functions please see the Google Analytics [documentation](https://developers.google.com/analytics/devguides/collection/analyticsjs/enhanced-ecommerce).
 
 <a name="trackEnhancedEcommerceAction" />
 #### 3.14.1 `trackEnhancedEcommerceAction`
