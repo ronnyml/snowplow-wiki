@@ -21,22 +21,37 @@ Snowplow is natively integrated in the project, so pages optimized with AMP HTML
 </body>
 ```
 
-## 2. Standard tagging
+## 2. Standard variables
 
-Certain parameters must be provided for AMP to correctly send events to Snowplow.
-
-In the `"vars"` section you must specify your collector host:
+Certain parameters must be provided in the `"vars"` section of the tag:
 
 ```javascript
 {
   "vars": {
-    "collectorHost": "snowplow-collector.acme.com"
+    ...
   },
  ...
 }
 ```
 
-Use of HTTPS is mandatory in AMP, therefore your Snowplow collector **must** support HTTPS. 
+### 2.1 `collectorHost`
+
+Specify the host to your collector like so:
+
+```javascript
+  "vars": {
+    "collectorHost": "snowplow-collector.acme.com"
+    ...
+```
+
+Notes:
+
+* Do *not* include a trailing slash
+* Use of HTTPS is mandatory in AMP, so your Snowplow collector **must** support HTTPS
+
+### 2.2 `appId`
+
+TO WRITE
 
 ## 3. Specific event support
 
