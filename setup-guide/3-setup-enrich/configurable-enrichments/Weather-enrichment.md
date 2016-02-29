@@ -47,13 +47,15 @@ Here's pretty common configuration suited for [starter plan] [owm-price]:
 
 To produce the enriched weather-related data, the values of `latitude`, `longitude`, and `time` are passed with API request to OpenWeatherMap.  
 
-Ultimately `ip` parameter (mapped to `user_ipaddress`) is used to obtain latitude and longitude geographical coordinates. It is achieved by yet another enrichment, namely [`IP lookups enrichment`](IP-lookups-enrichment).
+Ultimately `ip` parameter (mapped to `user_ipaddress`) is used to obtain latitude and longitude geographical coordinates. It is achieved by yet another enrichment, namely [`IP lookups enrichment`](IP-lookups-enrichment), which produces `geo_latitude` and `geo_longitude`.
 
 The `time` parameter is the `derived_tstamp` value calculated during the common enrichment process. To find out more about `derived_tstamp`, please, follow [this link](http://snowplowanalytics.com/blog/2015/09/15/improving-snowplows-understanding-of-time/).
 
 ###Algorithm
 
 This enrichment uses 3rd party, [OpenWeatherMap][owm], service to look up the weather conditions in which the event occurred.
+
+As a reminder, bear in mind how `geoPrecision` works. Its value ranges from 1 to 10. Less precise value is 1 and it assumes ~60km infelicity in worst cast. Most precise value is 10 which assumes ~6km infelicity.
 
 ###Data generated
 
@@ -87,7 +89,7 @@ An example of the returned data follows. This is the kind of stringified JSON va
             "icon": "01d"
         }
     ],
-    "dt": 1415608710
+    "dt": "1997-07-16T19:20+01:00"
 }
 ```
 
@@ -95,25 +97,25 @@ Below is the summary of the output fields for the dedicated `org_openweathermap_
 
 Field | Purpose
 :---|:---
-clouds.all | Cloudiness, %
-dt | Time of data calculation, UTC      
-main.humidity | Humidity, %
-main.pressure | Atmospheric pressure (on the sea level, if there is no `sea_level` or `grnd_level` data), hPa
-main.temp | Temperature, Kelvin
-main.temp_max | Maximum temperature at the moment. This is deviation from current temp that is possible for large cities and megalopolises geographically expanded.
-main.temp_min | Minimum temperature at the moment. This is deviation from current temp that is possible for large cities and megalopolises geographically expanded.
-main.grnd_level | Atmospheric pressure on the ground level, hPa
-main.sea_level | Atmospheric pressure on the sea level, hPa
-rain.1h | Rain volume for the last 1 hour 
-rain.3h | Rain volume for the last 3 hours
-snow.1h | Snow volume for the last 1 hour   
-snow.3h | Snow volume for the last 3 hours
-weather | Weather condition   
-wind.deg | Wind direction, degrees (meteorological)
-wind.gust | Wind gust, meter/sec
-wind.speed | Wind speed, meter/sec
-wind.var_beg | Beginning of wind direction (from), degree (meteorological)
-wind.var_end | End of wind direction (to), degree (meteorological)
+`clouds.all` | Cloudiness, %
+`dt` | Time of data calculation, UTC      
+`main.humidity` | Humidity, %
+`main.pressure` | Atmospheric pressure (on the sea level, if there is no `sea_level` or `grnd_level` data), hPa
+`main.temp` | Temperature, Kelvin
+`main.temp_max` | Maximum temperature at the moment. This is deviation from current temp that is possible for large cities and megalopolises geographically expanded.
+`main.temp_min` | Minimum temperature at the moment. This is deviation from current temp that is possible for large cities and megalopolises geographically expanded.
+`main.grnd_level` | Atmospheric pressure on the ground level, hPa
+`main.sea_level` | Atmospheric pressure on the sea level, hPa
+`rain.1h` | Rain volume for the last 1 hour 
+`rain.3h` | Rain volume for the last 3 hours
+`snow.1h` | Snow volume for the last 1 hour   
+`snow.3h` | Snow volume for the last 3 hours
+`weather` | Weather condition   
+`wind.deg` | Wind direction, degrees (meteorological)
+`wind.gust` | Wind gust, meter/sec
+`wind.speed` | Wind speed, meter/sec
+`wind.var_beg` | Beginning of wind direction (from), degree (meteorological)
+`wind.var_end` | End of wind direction (to), degree (meteorological)
 
 
 [schema]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow.enrichments/weather_enrichment_config/jsonschema/1-0-0
