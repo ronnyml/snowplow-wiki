@@ -47,7 +47,7 @@ Here's pretty common configuration suited for [starter plan] [owm-price]:
 
 To produce the enriched weather-related data, the values of `latitude`, `longitude`, and `time` are passed with API request to OpenWeatherMap.  
 
-Ultimately `ip` parameter (mapped to `user_ipaddress`) is used to obtain latitude and longitude geographical coordinates. It is achieved by yet another enrichment, namely `IP lookups enrichment`(IP-lookups-enrichment).
+Ultimately `ip` parameter (mapped to `user_ipaddress`) is used to obtain latitude and longitude geographical coordinates. It is achieved by yet another enrichment, namely [`IP lookups enrichment`](IP-lookups-enrichment).
 
 The `time` parameter is the `derived_tstamp` value calculated during the common enrichment process. To find out more about `derived_tstamp`, please, follow [this link](http://snowplowanalytics.com/blog/2015/09/15/improving-snowplows-understanding-of-time/).
 
