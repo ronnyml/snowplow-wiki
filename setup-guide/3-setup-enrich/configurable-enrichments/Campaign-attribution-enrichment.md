@@ -1,6 +1,6 @@
 <a name="top" />
 
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 3: Setting up Enrich](Setting-up-enrich) > Configurable enricments > Campaign attribution enrichment
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 3: Setting up Enrich](Setting-up-enrich) > [Configurable enrichments](Configurable-enrichments) > Campaign attribution enrichment
 
 ### Compatibility
 
@@ -142,6 +142,29 @@ Then for a querystring containing `...&customclid=abc&...` the `mkt_clickid` fie
 
 The "mapping" field is currently not implemented. In the future, setting it to "script" will indicate that the enrichment uses custom JavaScript to extract the campaign fields from the querystring.
 
+###Data sources
+
+The input values for this enrichment come from querystring of `url` parameter. It is mapped to `page_urlquery` field in `atomic.events` table.
+
+###Algorithm
+
+The enrichment is straightforward here. If the enrichment is enabled the query string is parsed and the five marketing campaign fields `mkt_medium`, `mkt_source`, `mkt_term`, `mkt_content`, and `mkt_campaign` are populated with the extracted values the mapping of which is determined by one of the above corresponding schemas. If multiple acceptable parameter names for the same field are found in the querystring, the first one listed in the configuration JSON will take precedence.
+
+Additionally, JSON schema 1-0-1 allows to add `mkt_clickid` and `mkt_network` fields which correspond to the click ID and the network responsible for the click. One of the three parameters (if found in querystring) `gclid`, `msclkid`, or `dclid` are mapped to Google, Microsoft, and DoubleClick respectively. The custom network could be introduced if it corresponds to `mktClickId` field of JSON schema.
+
+###Data generated
+
+Below is the summary of the fields in `atomic.events` table driven by the result of this enrichment (no dedicated table).
+
+Field | Purpose
+:---|:---
+`mkt_medium` | The advertising or marketing medium, for example: `banner`, `email newsletter`.
+`mkt_source` |  Identifies the advertiser, site, publication, etc. that is sending traffic to your property, for example: `newsletter4`, `billboard`.
+`mkt_term` | Identifies keywords (terms).
+`mkt_content` | Used to differentiate similar content, or links within the same ad. For example, if you have two call-to-action links within the same email message, you can use `mkt_content` and set different values for each so you can tell which version is more effective.
+`mkt_campaign` | The individual campaign name, slogan, promo code, etc. for a product.
+`mkt_clickid` | Click ID which resulted in the redirect/follow request
+`mkt_network` | The advertising network name, either default determined from parameter for Click ID or custom specifically stated
 
 [schema-1]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/referer_parser/jsonschema/1-0-0
 [schema-2]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/referer_parser/jsonschema/1-0-0
