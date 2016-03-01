@@ -63,6 +63,7 @@ Specify the host to your collector like so:
 
 Notes:
 
+* Do *not* include the protocol aka schema (`http(s)://`)
 * Do *not* include a trailing slash
 * Use of HTTPS is mandatory in AMP, so your Snowplow collector **must** support HTTPS
 
