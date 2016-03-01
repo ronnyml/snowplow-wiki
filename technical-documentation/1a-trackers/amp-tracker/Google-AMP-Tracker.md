@@ -43,12 +43,9 @@ Snowplow is natively integrated in the project, so pages optimized with AMP HTML
 Certain parameters must be provided in the `"vars"` section of the tag:
 
 ```javascript
-{
-  "vars": {
-    ...
-  },
- ...
-}
+"vars": {
+  ...
+},
 ```
 
 [Back to top](#top)
@@ -84,7 +81,7 @@ You must set the application ID for the website you are tracking via AMP:
 
 Notes:
 
-* You do not have to use the `appId` to distinguish AMP traffic from other web traffic (unless you want to) - see the [Analytics](#analytics) for an alternative approach
+* You do not have to use the `appId` to distinguish AMP traffic from other web traffic (unless you want to) - see the [Analytics](#analytics) section for an alternative approach
 
 [Back to top](#top)
 
@@ -96,7 +93,7 @@ The following trigger request values are supported for the Google Analytics conf
  * `pageView` for page view tracking
  * `unstructEvent` for structured event tracking
 
-All event tracking is disabled by support; you can enable it on an event-by-event basis as follows:
+All event tracking is disabled by default; you can enable it on an event-by-event basis as follows:
 
 [Back to top](#top)
 
