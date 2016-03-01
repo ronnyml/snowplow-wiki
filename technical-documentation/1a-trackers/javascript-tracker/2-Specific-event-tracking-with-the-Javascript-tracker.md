@@ -1027,7 +1027,12 @@ An example:
 
 ```javascript
 window.snowplow('trackEnhancedEcommerceActionFieldObject',
-  'T1234' // The Transaction ID
+  'T12345', // The Transaction ID
+  'Google Store - Online', // The affiliate
+  '37.39', // The revenue
+  '2.85', // The tax
+  '5.34', // The shipping
+  'WINTER2016' // The coupon
 );
 ```
 
@@ -1052,7 +1057,12 @@ An example:
 
 ```javascript
 window.snowplow('trackEnhancedEcommerceImpressionFieldObject',
-  'imp5000' // The Impression ID
+  'P12345', // The ID
+  'Android Warhol T-Shirt', // The name
+  'Search Results', // The list
+  'Google', // The brand
+  'Apparel/T-Shirts', // The category
+  'Black' // The variant
 );
 ```
 
@@ -1079,7 +1089,14 @@ An example:
 
 ```javascript
 window.snowplow('trackEnhancedEcommerceProductFieldObject',
-  'imp5000' // The Product ID
+  'P12345', // The ID
+  'Android Warhol T-Shirt', // The name
+  'Search Results', // The list
+  'Google', // The brand
+  'Apparel/T-Shirts', // The category
+  'Black', // The variant
+  '29.20', // The price
+  1 // The quantity
 );
 ```
 
@@ -1100,7 +1117,10 @@ An example:
 
 ```javascript
 window.snowplow('trackEnhancedEcommercePromoFieldObject',
-  'imp5000' // The Promotion ID
+  'PROMO_1234', // The Promotion ID
+  'Summer Sale', // The name
+  'summer_banner2', // The name of the creative
+  'banner_slot1' // The position
 );
 ```
 

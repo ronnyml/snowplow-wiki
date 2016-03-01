@@ -69,7 +69,7 @@ You can also customize the part of the tag between the comments containing "!!!"
       'cookieName': 'MY_COOKIE_NAME'
     });
 
-	SNOWPLOW_NAME_HERE('enableActivityTracking', 10, 10);
+    SNOWPLOW_NAME_HERE('enableActivityTracking', 10, 10);
     SNOWPLOW_NAME_HERE('trackPageView');
 
     // !!! Customizable section ends
