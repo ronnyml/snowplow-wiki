@@ -11,7 +11,7 @@
 - 3. [Tracking events](#events)  
   - 2.1 [Page view](#pageView)  
   - 2.2 [Structured event](#structEvent)  
-- 3. [Analytics](#analytics)  
+- 4. [Analytics](#analytics)  
 
 <a name="overview" />
 ## 1. Overview
