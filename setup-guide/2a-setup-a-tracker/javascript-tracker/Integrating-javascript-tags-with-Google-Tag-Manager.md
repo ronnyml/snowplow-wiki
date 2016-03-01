@@ -5,7 +5,7 @@ This setup guide is divided into three sections:
 
 1. [Setting up Google Tag Manager](#setup-gtm) (GTM)
 2. [Integrating Snowplow JavaScript tracking tags with Google Tag Manager](#snowplow-setup)
-3. [Integrating Snowplow JavaScript tracking tags with enhanced ecommerce](#snowplow-setup)
+3. [Integrating Snowplow JavaScript tracking tags with enhanced ecommerce](#enhanced-ecommerce)
 4. [Next steps](#next-steps)
 
 If you have already setup Google Tag Manager on your website, you can proceed directly to [section 2](#snowplow-setup). However, we recommend at least skimming the section on [setting up Google Tag Manager](#setup-gtm), as we've seen a number of companies implement this badly, with the end result that they cannot pass all the data they would like to Snowplow tags for analysis later.
@@ -515,7 +515,7 @@ In the event that it is not working as expected, you can go back and make the ch
 
 [Back to top](#top)
 
-<a name="ecommerce" />
+<a name="enhanced-ecommerce" />
 ## 3. Integrating Snowplow JavaScript tracking tags with enhanced ecommerce
 
 You can send [enhanced ecommerce][enhancedEcommerce] data to Snowplow as well as Google Analytics. For more information, see [Integrating JavaScript tags with enhanced ecommerce](https://github.com/snowplow/snowplow/wiki/Integrating-Javascript-tags-with-enhanced-ecommerce).
