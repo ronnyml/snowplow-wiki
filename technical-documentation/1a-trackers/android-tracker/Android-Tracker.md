@@ -98,6 +98,8 @@ The [Snowplow Android Tracker](https://github.com/snowplow/snowplow-android-trac
 
 The tracker should be straightforward to use if you are comfortable with Java development; its API is modelled after Snowplow's [[Python Tracker]] so any prior experience with that tracker is helpful but not necessary. If you haven't already, have a look at the [[Android Tracker Setup]] guide before continuing.
 
+__NOTE__: The Tracker should only ever be setup as a singleton object.  Due to the way it stores and reads information and the creation of persistent background services creating more than one Tracker can cause a plethora of race conditions.
+
 [Back to top](#top)
 
 <a name="demo-app" />
