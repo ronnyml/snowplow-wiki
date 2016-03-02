@@ -51,10 +51,10 @@ Snowplow has been built to enable users to track a wide range of events that occ
   - 3.13 [`trackTiming`](#timing)
   - 3.14 [Enhanced Ecommerce tracking](#enhanced-ecommerce)
     - 3.14.1 [`trackEnhancedEcommerceAction`](#trackEnhancedEcommerceAction)
-    - 3.14.2 [`trackEnhancedEcommerceActionFieldObject`](#trackEnhancedEcommerceActionFieldObject)
-    - 3.14.3 [`trackEnhancedEcommerceImpressionFieldObject`](#trackEnhancedEcommerceImpressionFieldObject)
-    - 3.14.4 [`trackEnhancedEcommerceProductFieldObject`](#trackEnhancedEcommerceProductFieldObject)
-    - 3.14.5 [`trackEnhancedEcommercePromoFieldObject`](#trackEnhancedEcommercePromoFieldObject)
+    - 3.14.2 [`addEnhancedEcommerceActionContext`](#addEnhancedEcommerceActionContext)
+    - 3.14.3 [`addEnhancedEcommerceImpressionContext`](#addEnhancedEcommerceImpressionContext)
+    - 3.14.4 [`addEnhancedEcommerceProductContext`](#addEnhancedEcommerceProductContext)
+    - 3.14.5 [`addEnhancedEcommercePromoContext`](#addEnhancedEcommercePromoContext)
   - 3.15 [Custom contexts](#custom-contexts)
 
 <a name="page" />
@@ -978,7 +978,7 @@ For more information on the Enhanced Ecommerce functions please see the Google A
 <a name="trackEnhancedEcommerceAction" />
 #### 3.14.1 `trackEnhancedEcommerceAction`
 
-Use the `trackEnhancedEcommerceAction` method to track a GA Enhanced Ecommerce Action:
+Use the `trackEnhancedEcommerceAction` method to track a GA Enhanced Ecommerce Action.  When this function is called all of the added Ecommerce Contexts are attached and flushed from the Tracker.
 
 | **Name**   | **Required?** | **Type**             |
 |-----------:|:--------------|:---------------------|
@@ -1005,10 +1005,10 @@ window.snowplow('trackEnhancedEcommerceAction',
 );
 ```
 
-<a name="trackEnhancedEcommerceActionFieldObject" />
-#### 3.14.2 `trackEnhancedEcommerceActionFieldObject`
+<a name="addEnhancedEcommerceActionContext" />
+#### 3.14.2 `addEnhancedEcommerceActionContext`
 
-Use the `trackEnhancedEcommerceActionFieldObject` method to track a GA Enhanced Ecommerce Action Data:
+Use the `addEnhancedEcommerceActionContext` method to add a GA Enhanced Ecommerce Action Context to the Tracker:
 
 | **Name**      | **Required?** | **Type**             |
 |--------------:|:--------------|:---------------------|
@@ -1026,7 +1026,7 @@ Use the `trackEnhancedEcommerceActionFieldObject` method to track a GA Enhanced 
 An example:
 
 ```javascript
-window.snowplow('trackEnhancedEcommerceActionFieldObject',
+window.snowplow('addEnhancedEcommerceActionContext',
   'T12345', // The Transaction ID
   'Google Store - Online', // The affiliate
   '37.39', // The revenue
@@ -1036,10 +1036,10 @@ window.snowplow('trackEnhancedEcommerceActionFieldObject',
 );
 ```
 
-<a name="trackEnhancedEcommerceImpressionFieldObject" />
-#### 3.14.3 `trackEnhancedEcommerceImpressionFieldObject`
+<a name="addEnhancedEcommerceImpressionContext" />
+#### 3.14.3 `addEnhancedEcommerceImpressionContext`
 
-Use the `trackEnhancedEcommerceImpressionFieldObject` method to track a GA Enhanced Ecommerce Impression Data:
+Use the `addEnhancedEcommerceImpressionContext` method to add a GA Enhanced Ecommerce Impression Context to the Tracker:
 
 | **Name**      | **Required?** | **Type**             |
 |--------------:|:--------------|:---------------------|
@@ -1056,7 +1056,7 @@ Use the `trackEnhancedEcommerceImpressionFieldObject` method to track a GA Enhan
 An example:
 
 ```javascript
-window.snowplow('trackEnhancedEcommerceImpressionFieldObject',
+window.snowplow('addEnhancedEcommerceImpressionContext',
   'P12345', // The ID
   'Android Warhol T-Shirt', // The name
   'Search Results', // The list
@@ -1066,10 +1066,10 @@ window.snowplow('trackEnhancedEcommerceImpressionFieldObject',
 );
 ```
 
-<a name="trackEnhancedEcommerceProductFieldObject" />
-#### 3.14.4 `trackEnhancedEcommerceProductFieldObject`
+<a name="addEnhancedEcommerceProductContext" />
+#### 3.14.4 `addEnhancedEcommerceProductContext`
 
-Use the `trackEnhancedEcommerceProductFieldObject` method to track a GA Enhanced Ecommerce Product Field Data:
+Use the `addEnhancedEcommerceProductContext` method to add a GA Enhanced Ecommerce Product Field Context:
 
 | **Name**      | **Required?** | **Type**             |
 |--------------:|:--------------|:---------------------|
@@ -1088,7 +1088,7 @@ Use the `trackEnhancedEcommerceProductFieldObject` method to track a GA Enhanced
 An example:
 
 ```javascript
-window.snowplow('trackEnhancedEcommerceProductFieldObject',
+window.snowplow('addEnhancedEcommerceProductContext',
   'P12345', // The ID
   'Android Warhol T-Shirt', // The name
   'Search Results', // The list
@@ -1100,10 +1100,10 @@ window.snowplow('trackEnhancedEcommerceProductFieldObject',
 );
 ```
 
-<a name="trackEnhancedEcommercePromoFieldObject" />
-#### 3.14.5 `trackEnhancedEcommercePromoFieldObject`
+<a name="addEnhancedEcommercePromoContext" />
+#### 3.14.5 `addEnhancedEcommercePromoContext`
 
-Use the `trackEnhancedEcommercePromoFieldObject` method to track a GA Enhanced Ecommerce Promotion Field Data:
+Use the `addEnhancedEcommercePromoContext` method to add a GA Enhanced Ecommerce Promotion Field Context:
 
 | **Name**      | **Required?** | **Type**             |
 |--------------:|:--------------|:---------------------|
@@ -1116,7 +1116,7 @@ Use the `trackEnhancedEcommercePromoFieldObject` method to track a GA Enhanced E
 An example:
 
 ```javascript
-window.snowplow('trackEnhancedEcommercePromoFieldObject',
+window.snowplow('addEnhancedEcommercePromoContext',
   'PROMO_1234', // The Promotion ID
   'Summer Sale', // The name
   'summer_banner2', // The name of the creative
