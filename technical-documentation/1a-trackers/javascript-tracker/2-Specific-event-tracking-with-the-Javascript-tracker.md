@@ -9,7 +9,7 @@ __UNRELEASED__
 *Click [here] [specific-events-v2.0] for the corresponding documentation for version 2.0.*  
 *Click [here] [specific-events-v2.2] for the corresponding documentation for version 2.2.2.*  
 *Click [here] [specific-events-v2.3] for the corresponding documentation for version 2.3.0.*  
-*Click [here] [specific-events-v2.4] for the corresponding documentation for version 2.4.3.* 
+*Click [here] [specific-events-v2.4] for the corresponding documentation for version 2.4.3.*  
 *Click [here] [specific-events-v2.5] for the corresponding documentation for version 2.5.3.*  
 
 <a name="tracking-specific-events" />
