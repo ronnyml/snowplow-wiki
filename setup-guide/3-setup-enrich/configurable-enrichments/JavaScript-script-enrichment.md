@@ -1,6 +1,6 @@
 <a name="top" />
 
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 3: Setting up Enrich](Setting-up-enrich) > Configurable enrichments > JavaScript script enrichment
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 3: Setting up Enrich](Setting-up-enrich) > [Configurable enrichments](Configurable-enrichments) > JavaScript script enrichment
 
 **Warning: The JavaScript Enrichment is a powerful tool and should be used with care. Do not allow untrusted third parties to edit your script.**
 
@@ -92,7 +92,11 @@ The "parameters" fields are as follows:
 
 * "script": Your JavaScript function, Base64 encoded. You can use either URL-safe or regular Base64 encoding
 
-### How this enrichment works
+###Data sources
+
+The data source for this enrichment is the entire `enriched/good` event in the form of [Snowplow Plain Old Java Object] [enriched-event-pojo] produced during common enrichment process.
+
+###Algorithm
 
 This enrichment uses the [Rhino JavaScript engine] [rhino] to execute your JavaScript. Your JavaScript is pre-compiled so that your code should approach native Java speeds.
 
@@ -100,7 +104,7 @@ The `process` function is passed the exact [Snowplow enriched event POJO] [enric
 
 You can review the exact Scala code which executes your JavaScript script in the [JavascriptScriptEnrichment.scala] [enrichment-scala] file.
 
-### Do's and Don'ts
+#### Do's and Don'ts
 
 This is our most powerful enrichment yet - here are some do's and don'ts to avoid potential footguns.
 
@@ -119,6 +123,11 @@ Don't:
 * try to share state across multiple enriched events - write your own Scalding or Spark job instead
 * include CPU-intensive tasks without being aware of the impact on your event processing time
 * allow untrusted parties to write your script - the script has access to the Java standard library and therefore to your filesystem.
+
+###Data generated
+
+As during the JavaScript enrichment process the new context is added to `derived_contexts` of the `enriched/good` event, the data generated will end up in its own table determined by the custom self-describing JSON provided by the user with `process(event)` function encoded in [`javascript_script_config`](https://github.com/snowplow/iglu-central/blob/master/schemas/com.snowplowanalytics.snowplow/javascript_script_config/jsonschema/1-0-0) file.
+
 
 [schema]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/javascript_script_config/jsonschema/1-0-0
 

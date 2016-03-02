@@ -39,7 +39,7 @@ In this example, if an event's referer URL is either "subdomain1.mysite.com" or 
 
 ###Data sources
 
-The input value for the enrichment comes from `refr` parameter which is mapped to `page_referrer` field in `atomic.events` table. Also the value representing the domain name of the server the current page servered from is taken from `url` parameter. This value ends up in the `page_urlhost` field of `atomic.events` table. It is extracted during common enrichment process by means of `ConversionUtils.explodeUri` function.
+The input value for the enrichment comes from `refr` parameter which is mapped to `page_referrer` field in `atomic.events` table. Also the value representing the domain name of the server the current page served from is taken from `url` parameter. This value ends up in the `page_urlhost` field of `atomic.events` table. It is extracted during common enrichment process by means of `ConversionUtils.explodeUri` function.
 
 ###Algorithm
 
