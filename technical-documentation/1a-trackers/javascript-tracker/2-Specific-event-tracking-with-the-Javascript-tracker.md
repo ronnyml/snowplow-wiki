@@ -50,11 +50,11 @@ Snowplow has been built to enable users to track a wide range of events that occ
   - 3.12 [`trackSiteSearch`](#siteSearch)
   - 3.13 [`trackTiming`](#timing)
   - 3.14 [Enhanced Ecommerce tracking](#enhanced-ecommerce)
-    - 3.14.1 [`trackEnhancedEcommerceAction`](#trackEnhancedEcommerceAction)
-    - 3.14.2 [`addEnhancedEcommerceActionContext`](#addEnhancedEcommerceActionContext)
-    - 3.14.3 [`addEnhancedEcommerceImpressionContext`](#addEnhancedEcommerceImpressionContext)
-    - 3.14.4 [`addEnhancedEcommerceProductContext`](#addEnhancedEcommerceProductContext)
-    - 3.14.5 [`addEnhancedEcommercePromoContext`](#addEnhancedEcommercePromoContext)
+    - 3.14.1 [`addEnhancedEcommerceActionContext`](#addEnhancedEcommerceActionContext)
+    - 3.14.2 [`addEnhancedEcommerceImpressionContext`](#addEnhancedEcommerceImpressionContext)
+    - 3.14.3 [`addEnhancedEcommerceProductContext`](#addEnhancedEcommerceProductContext)
+    - 3.14.4 [`addEnhancedEcommercePromoContext`](#addEnhancedEcommercePromoContext)
+    - 3.14.5 [`trackEnhancedEcommerceAction`](#trackEnhancedEcommerceAction)
   - 3.15 [Custom contexts](#custom-contexts)
 
 <a name="page" />
