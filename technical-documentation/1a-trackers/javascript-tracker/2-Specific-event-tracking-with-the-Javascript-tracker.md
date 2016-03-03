@@ -1150,7 +1150,7 @@ window.snowplow('addEnhancedEcommercePromoContext',
 <a name="trackEnhancedEcommerceAction" />
 #### 3.14.5 `trackEnhancedEcommerceAction`
 
-Use the `trackEnhancedEcommerceAction` method to track a GA Enhanced Ecommerce Action.  When this function is called all of the added Ecommerce Contexts are attached and flushed from the Tracker.
+Use the `trackEnhancedEcommerceAction` method to track a GA Enhanced Ecommerce Action.  When this function is called all of the added Ecommerce Contexts are attached to this action and flushed from the Tracker.
 
 | **Name**   | **Required?** | **Type**             |
 |-----------:|:--------------|:---------------------|
@@ -1169,11 +1169,22 @@ The allowed actions:
  * `promo_click`
  * `view`
 
-An example:
+Adding an action using Google Analytics:
 
 ```javascript
+ga('ec:setAction', 'refund', {
+  'id': 'T12345'
+});
+```
+
+Adding an action using Snowplow:
+
+```javascript
+window.snowplow('addEnhancedEcommerceActionContext',
+  'T12345' // ID
+);
 window.snowplow('trackEnhancedEcommerceAction',
-  'click'
+  'refund'
 );
 ```
 
