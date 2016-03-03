@@ -2,7 +2,9 @@
 
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2: setup a Tracker**](Setting-up-a-Tracker) > [**JavaScript Tracker**](Javascript-tracker-setup) > [Integrating JavaScript tags with enhanced ecommerce](Integrating-Javascript-tags-with-enhanced-ecommerce)
 
-**Warning: this feature is in test and should not yet be used.**
+**Warning: This functionality depends on Snowplow JavaScript Tracker v2.6.0 or above**
+
+__Please visit__ the [technical documentation](https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker#enhanced-ecommerce) to see example use of the Enhanced Ecommerce functions.
 
 1. [Overview](#overview)
 2. [Creating the Data Layer Variable](#variable)
@@ -58,7 +60,7 @@ You can also customize the part of the tag between the comments containing "!!!"
     ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
     p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
     };p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-    n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.5.2/sp.js","SNOWPLOW_NAME_HERE"));
+    n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.6.0/sp.js","SNOWPLOW_NAME_HERE"));
 
 
     // !!! Customizable section starts
@@ -98,136 +100,85 @@ You can also customize the part of the tag between the comments containing "!!!"
   function sendEnhancedEcommerceEvent(ecommerce) {
     var currencyCode = ecommerce.currencyCode;
     var action;
-    var contexts = [];
-    for (var i=0;i<actions.length;i++) {
+
+    for (var i = 0; i < actions.length; i++) {
       if (ecommerce[actions[i]]) {
         action = actions[i];
+        break;
       }
     }
+
     if (ecommerce.impressions) {
-      for (var j=0;j<ecommerce.impressions.length;j++) {
-        contexts.push(getImpressionContext(ecommerce.impressions[j]));
+      for (var j = 0; j < ecommerce.impressions.length; j++) {
+        var impression = ecommerce.impressions[j];
+        SNOWPLOW_NAME_HERE('addEnhancedEcommerceImpressionContext', 
+          impression.id,
+          impression.name,
+          impression.list,
+          impression.brand,
+          impression.category,
+          impression.variant,
+          impression.position,
+          impression.price,
+          currencyCode
+        );
       }
     }
 
     if (ecommerce.promoView) {
-      for (var l=0;l<ecommerce.promoView.promotions.length;l++) {
-        contexts.push(getPromoContext(ecommerce.promoView.promotions[l]));
+      for (var l = 0; l < ecommerce.promoView.promotions.length; l++) {
+        var promotion = ecommerce.promoView.promotions[l];
+        SNOWPLOW_NAME_HERE('addEnhancedEcommercePromoContext',
+          promo.id,
+          promo.name,
+          promo.creative,
+          promo.position,
+          currencyCode
+        );
       }
     }
-    if (! action) {
+
+    if (!action) {
       action = 'view';
     } else {
       if (ecommerce[action].products) {
-        for (var k=0;k<ecommerce[action].products.length;k++) {
-          contexts.push(getProductContext(ecommerce[action].products[k]));
+        for (var k = 0; k < ecommerce[action].products.length; k++) {
+          var product = ecommerce[action].products[k];
+          SNOWPLOW_NAME_HERE('addEnhancedEcommerceProductContext',
+            product.id,
+            product.name,
+            product.list,
+            product.brand,
+            product.category,
+            product.variant,
+            product.price,
+            product.quantity,
+            product.coupon,
+            product.position,
+            currencyCode
+          );
         }
       }
+
       if (ecommerce[action].actionField) {
-        contexts.push(getActionContext(ecommerce[action].actionField));
+        var actionObject = ecommerce[action].actionField;
+        SNOWPLOW_NAME_HERE('addEnhancedEcommerceActionContext',
+          action.id,
+          action.affiliation,
+          action.revenue,
+          action.tax,
+          action.shipping,
+          action.coupon,
+          action.list,
+          action.step,
+          action.option,
+          currencyCode
+        );
       }
     }
 
-    var unstructEvent = getActionJson(action);
-    finalizeJsons([unstructEvent]);
-    finalizeJsons(contexts, currencyCode);
-
-    SNOWPLOW_NAME_HERE('trackUnstructEvent', unstructEvent, contexts);
+    SNOWPLOW_NAME_HERE('trackEnhancedEcommerceAction', action);
   }
-
-  function finalizeJsons(jsons, currencyCode) {
-    for (var i=0; i<jsons.length; i++) {
-      var data = jsons[i].data;
-      if (currencyCode) {
-        data.currency = currencyCode;
-      }
-      for (var j in data) {
-        if (isEmptyValue(data[j])) {
-          delete data[j];
-        }
-      }
-    }
-  }
-
-  function isEmptyValue(value) {
-    return (! value) && (value !== false) && (value !== 0) && (value !== '');
-  }
-
-  function getActionJson(action) {
-    return {
-      schema: 'iglu:com.google.analytics.enhanced-ecommerce/action/jsonschema/1-0-0',
-      data: {
-        action: action
-      }
-    };
-  }
-  
-  function getImpressionContext(impression) {
-    var data = {
-      name: impression.name,
-      id: impression.id,
-      price: parseFloat(impression.price),
-      brand: impression.brand,
-      category: impression.category,
-      variant: impression.variant,
-      list: impression.list,
-      position: parseInt(impression.position) 
-    };
-    return {
-      schema: 'iglu:com.google.analytics.enhanced-ecommerce/impressionFieldObject/jsonschema/1-0-0',
-      data: data
-    };
-  }
-  
-  function getProductContext(product) {
-    var data = {
-      name: product.name,
-      id: product.id,
-      price: parseFloat(product.price),
-      quantity: parseInt(product.quantity),
-      coupon: product.coupon,
-      position: parseInt(product.position),
-      brand: product.brand,
-      category: product.category,
-      variant: product.variant
-    };
-    return {
-      schema: 'iglu:com.google.analytics.enhanced-ecommerce/productFieldObject/jsonschema/1-0-0',
-      data: data
-    };
-  }
-
-  function getPromoContext(promo) {
-    var data = {
-      name: promo.name,
-      id: promo.id,
-      creative: promo.creative,
-      position: promo.position
-    }
-    return {
-      schema: 'iglu:com.google.analytics.enhanced-ecommerce/promoFieldObject/jsonschema/1-0-0',
-      data: data
-    };
-  }
-
-  function getActionContext(action) {
-    var data = {
-      id: action.id,
-      affiliation: action.affiliation,
-      revenue: parseFloat(action.revenue),
-      tax: parseFloat(action.tax),
-      shipping: parseFloat(action.shipping),
-      coupon: action.coupon,
-      list: action.list,
-      step: parseInt(action.step),
-      option: action.option
-    }
-    return {
-      schema: 'iglu:com.google.analytics.enhanced-ecommerce/actionFieldObject/jsonschema/1-0-0',
-      data: data
-    };
-  }
-
 </script>
 ```
 
