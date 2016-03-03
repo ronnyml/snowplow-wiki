@@ -1,4 +1,4 @@
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 4: setting up alternative data stores**](Setting-up-alternative-data-stores) > [**3: Scheduling the StorageLoader**](3-Scheduling-the-StorageLoader)
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 4: setting up alternative data stores](Setting-up-alternative-data-stores) > [1: Installing the StorageLoader](1-Installing-the-StorageLoader) > [2: Using the StorageLoader](2-Using-the-StorageLoader) > 3: Scheduling the StorageLoader
 
 1. [Overview](#scheduling-overview)
 2. [Scheduling StorageLoader only](#storage-loader-cron)
@@ -9,24 +9,22 @@
 <a name="scheduling-overview"/>
 ## 1. Overview
 
-Once you have the load process working smoothly, you can schedule a daily
-(or more frequent) task to automate the storage process.
+Once you have the load process working smoothly, you can schedule a daily (or more frequent) task to automate the storage process.
 
-The standard way of scheduling the load process is as a daily cronjob. We
-provide two alternative shell scripts for you to use in your scheduling:
+The standard way of scheduling the load process is as a daily cronjob. We provide a [snowplow-runner-and-loader.sh] [combo-bash] shell scripts for you to use in your scheduling if you want to run the StorageLoader immediately after EmrEtlRunner has completed its work (recommended).
 
-1. [snowplow-storage-loader.sh] [loader-bash] - this script just runs the
-   StorageLoader
-2. [snowplow-runner-and-loader.sh] [combo-bash] - this script runs the
-   EmrEtlRunner immediately followed by the StorageLoader
+1. [snowplow-storage-loader.sh] [loader-bash] - this (**obsolete**) script just runs the StorageLoader
+2. [snowplow-runner-and-loader.sh] [combo-bash] - this script runs the EmrEtlRunner immediately followed by the StorageLoader
 
-The second script is recommended assuming you want to run the StorageLoader
-immediately after EmrEtlRunner has completed its work.
+The second script is recommended assuming 
 
 To consider each scheduling option in turn:
 
 <a name="storage-loader-cron"/>
 ## 2. Scheduling StorageLoader only
+
+[[/images/warning.png]] | The below steps are relevant to the obsolete script `snowplow-storage-loader.sh`. Running EmrEtlRunner as *Ruby* (rather than *JRuby* apps) is no longer actively supported. The latest version of the EmrEtlRunner is available from our Bintray [here](http://dl.bintray.com/snowplow/snowplow-generic/snowplow_emr_r77_great_auk.zip).
+---|:---
 
 The shell script [`/4-storage/storage-loader/bin/snowplow-storage-loader.sh`] [loader-bash]
 runs the StorageLoader app only.
@@ -60,22 +58,23 @@ Snowplow, this is the scheduling option we use.
 
 If you use this script, you can delete any separate cronjob for the EmrEtlRunner alone.
 
-You need to update this script and update the **five** variables at the top:
+You need to update this script and update the **six** variables at the top:
 
-    rvm_path=/path/to/.rvm # Typically in the $HOME of the user who installed RVM
-    RUNNER_PATH=/path/to/snowplow/3-enrich/snowplow-emr-etl-runner
-    LOADER_PATH=/path/to/snowplow/4-storage/snowplow-storage-loader
+    RUNNER_PATH=/path/to/snowplow-emr-etl-runner
+    LOADER_PATH=/path/to/snowplow-storage-loader
     RUNNER_CONFIG=/path/to/your-runner-config.yml
+    RESOLVER=/path/to/your-resolver.json
+    RUNNER_ENRICHMENTS=/path/to/your/enrichment-jsons
     LOADER_CONFIG=/path/to/your-loader-config.yml
 
-So for example if you installed RVM as the `admin` user, then you would set:
+So for example if you installed the StorageLoader as the `admin` user, then you would set:
 
-    rvm_path=/home/admin/.rvm
+    LOADER_PATH=/home/admin/snowplow-storage-loader
 
 Using [cronic] [cronic] as a wrapper, and with cronic and Bundler on your path, configure
 your cronjob like so:
 
-    0 4   * * *   root    /path/to/snowplow/4-storage/storage-loader/bin/snowplow-runner-and-loader.sh 
+    0 4   * * *   root    /path/to/snowplow-runner-and-loader.sh 
 
 This will run the ETL job and then the database load daily at 4am, emailing any failures
 to you via cronic.
@@ -111,7 +110,7 @@ Setup the StorageLoader! Now you are ready to [do some analysis!](Setting-up-Sno
 [rubygems-install]: http://docs.rubygems.org/read/chapter/3
 
 [config-yml]: https://github.com/snowplow/snowplow/blob/master/4-storage/storage-loader/config/config.yml
-[loader-bash]: https://github.com/snowplow/snowplow/blob/master/4-storage/storage-loader/bin/snowplow-storage-loader.sh
+[loader-bash]: https://github.com/snowplow/snowplow/blob/r76-changeable-hawk-eagle/4-storage/storage-loader/bin/snowplow-storage-loader.sh
 [combo-bash]: https://github.com/snowplow/snowplow/blob/master/4-storage/storage-loader/bin/snowplow-runner-and-loader.sh
 
 [cronic]: http://habilis.net/cronic/
