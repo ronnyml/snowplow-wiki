@@ -984,12 +984,12 @@ Use the `addEnhancedEcommerceActionContext` method to add a GA Enhanced Ecommerc
 |--------------:|:--------------|:---------------------|
 | `id`          | Yes           | string               |
 | `affiliation` | No            | string               |
-| `revenue`     | No            | number               |
-| `tax`         | No            | number               |
-| `shipping`    | No            | number               |
+| `revenue`     | No            | number OR string     |
+| `tax`         | No            | number OR string     |
+| `shipping`    | No            | number OR string     |
 | `coupon`      | No            | string               |
 | `list`        | No            | string               |
-| `step`        | No            | integer              |
+| `step`        | No            | integer OR string    |
 | `option`      | No            | string               |
 | `currency`    | No            | string               |
 
@@ -1079,10 +1079,10 @@ Use the `addEnhancedEcommerceProductContext` method to add a GA Enhanced Ecommer
 | `brand`       | No            | string               |
 | `category`    | No            | string               |
 | `variant`     | No            | string               |
-| `price`       | No            | number               |
-| `quantity`    | No            | integer              |
+| `price`       | No            | number OR string     |
+| `quantity`    | No            | integer OR string    |
 | `coupon`      | No            | string               |
-| `position`    | No            | integer              |
+| `position`    | No            | integer OR string    |
 | `currency`    | No            | string               |
 
 Adding a product using Google Analytics:
