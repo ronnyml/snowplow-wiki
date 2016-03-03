@@ -1,4 +1,4 @@
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 4: setting up alternative data stores**](Setting-up-alternative-data-stores) > [**1: Installing the StorageLoader**](1-Installing-the-StorageLoader)
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 4: setting up alternative data stores](Setting-up-alternative-data-stores) > 1: Installing the StorageLoader
 
 1. [Assumptions](#assumptions)
 2. [Dependencies](#dependencies)
@@ -18,13 +18,9 @@ You might wish to try out the [steps](Setting-up-EC2-instance-for-EmrEtlRunner-a
 
 ### 2.1 Software
 
-The StorageLoader jar is available for download. For more information, see the [[Hosted assets]] page.
+The StorageLoader requires Java 7+ to run.
 
-The StorageLoader requires Java 7 to run.
-
-\* If you prefer, an alternative Ruby manager such as chruby or rbenv should work fine too.
-
-Also make sure that if you are loading Snowplow events into a PostgreSQL database, then the StorageLoader **must be run on the same server running PostgreSQL**. That is because it downloads the files locally, and Postgres needs to be able to ingest the data from the local file system.
+Make sure that if you are loading Snowplow events into a PostgreSQL database, then the StorageLoader **must be run on the same server running PostgreSQL**. That is because it downloads the files locally, and Postgres needs to be able to ingest the data from the local file system.
 
 <a name="s3-buckets"/>
 ### 2.2 S3 buckets
@@ -48,13 +44,19 @@ Right, now we can install StorageLoader.
 <a name="installation"/>
 ## 3. Installation
 
-We host StorageLoader on the distribution platform [JFrog Bintray](https://bintray.com/). If you completed [EmrEtlRunner installation](1-Installing-EmrEtlRunner) then this step could be skipped. Otherwise you can get a copy of the StorageLoader as shown below
+We host StorageLoader on the distribution platform [JFrog Bintray](https://bintray.com/). If you completed [EmrEtlRunner installation](1-Installing-EmrEtlRunner) then this step could be skipped. Otherwise you can get a copy of the StorageLoader as shown below.
 
-`$ wget http://dl.bintray.com/snowplow/snowplow-generic/snowplow_emr_r75_long_legged_buzzard.zip`
+**Note**: Please, follow [this link](http://dl.bintray.com/snowplow/snowplow-generic/) if you wish to get a different version of the loader. The distribution name follows the pattern `snowplow_emr_{{RELEASE_VERSION}}.zip`.
+
+```sh
+$ wget http://dl.bintray.com/snowplow/snowplow-generic/snowplow_emr_r77_great_auk.zip
+```
 
 The archive contains both [EmrEtlRunner](1-Installing-EmrEtlRunner) and StorageLoader. Unzip the archive:
 
-`$ unzip snowplow_emr_r75_long_legged_buzzard.zip`
+```sh
+$ unzip snowplow_emr_r77_great_auk.zip
+```
 
 You will see two files `snowplow-emr-etl-runner` and `snowplow-storage-loader` where the second one is the actual StorageLoader.
 

@@ -1,4 +1,4 @@
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 4: setting up alternative data stores**](Setting-up-alternative-data-stores) > [**4: Loading shredded types**](4-Loading-shredded-types)
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 4: setting up alternative data stores](Setting-up-alternative-data-stores) > [1: Installing the StorageLoader](1-Installing-the-StorageLoader) > [2: Using the StorageLoader](2-Using-the-StorageLoader) > [3: Scheduling the StorageLoader](3-Scheduling-the-StorageLoader) > 4: Loading shredded types
 
 1. [Overview](#overview)
 2. [Loading Snowplow-authored JSONs](#snowplow-jsons)

@@ -1,6 +1,6 @@
 <a name="top" />
 
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 3: Setting up Enrich](Setting-up-enrich) > [**Step 3.1: setting up EmrEtlRunner**](Setting-up-EmrEtlRunner) > [1: Installing EmrEtlRunner](1-Installing-EmrEtlRunner)
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 3: Setting up Enrich](Setting-up-enrich) > [Step 3.1: setting up EmrEtlRunner](Setting-up-EmrEtlRunner) > Step 3.1.1: Installing EmrEtlRunner
 
 1. [Assumptions](#assumptions)
 2. [Dependencies](#dependencies)
@@ -55,13 +55,19 @@ Done? Right, now we can install EmrEtlRunner.
 <a name="installation"/>
 ## 3. Installation
 
-We host EmrEtlRunner on the distribution platform [JFrog Bintray](https://bintray.com/). You can get a copy of it as shown below
+We host EmrEtlRunner on the distribution platform [JFrog Bintray](https://bintray.com/). You can get a copy of it as shown below.
 
-`$ wget http://dl.bintray.com/snowplow/snowplow-generic/snowplow_emr_r75_long_legged_buzzard.zip`
+**Note**: Please, follow [this link](http://dl.bintray.com/snowplow/snowplow-generic/) if you wish to get a different version of the runner. The distribution name follows the pattern `snowplow_emr_{{RELEASE_VERSION}}.zip`.
+
+```sh
+$ wget http://dl.bintray.com/snowplow/snowplow-generic/snowplow_emr_r77_great_auk.zip
+```
 
 The archive contains both EmrEtlRunner and [StorageLoader](1-Installing-the-StorageLoader). Unzip the archive:
 
-`$ unzip snowplow_emr_r75_long_legged_buzzard.zip`
+```sh
+$ unzip snowplow_emr_r77_great_auk.zip
+```
 
 You will see two files `snowplow-emr-etl-runner` and `snowplow-storage-loader` where the first one is the actual EmrEtlRunner.
 

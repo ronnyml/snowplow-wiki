@@ -1,4 +1,4 @@
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 4: setting up alternative data stores**](Setting-up-alternative-data-stores) > [**2: Using the StorageLoader**](2-Using-the-StorageLoader)
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 4: setting up alternative data stores](Setting-up-alternative-data-stores) > [1: Installing the StorageLoader](1-Installing-the-StorageLoader) > 2: Using the StorageLoader
 
 1. [Overview](#usage-overview)
 2. [Command-line options](#cli-options)
@@ -17,7 +17,7 @@ command-line options in the next section.
 
 The StorageLoader is an executable jar:
 
-    $ ./deploy/snowplow-storage-loader
+    $ ./snowplow-storage-loader
 
 The command-line options for StorageLoader look like this:
 
@@ -40,14 +40,13 @@ each each of the fields in your Redshift event table, using the `:comprows:`
 setting for the sample size. For more information on Amazon’s comprows
 functionality, see the [Redshift documentation] [comprows].
 
-A note on the `--skip` option: this skips the work steps listed. So
-for example `--skip download,load` would only run the final archive
-step. This is useful if you have an error in your load and need to
-re-run only part of it.
+A note on the `--skip` option: this skips the work steps listed. So, for example `--skip download,load` would only run the final archive step. This is useful if you have an error in your load and need to re-run only part of it.
 
 Instead of using the --config option, you can pass the configuration to the EmrEtlRunner via stdin. You need to set `--config -` to signal that the config is to be read from stdin rather than from a file:
 
-  $ cat config/config.yml | ./deploy/snowplow-storage-loader --config -
+```sh
+$ cat config/config.yml | ./snowplow-storage-loader --config -
+```
 
 <a name="running"/>
 ## 3. Running
@@ -56,7 +55,7 @@ As per the above, running StorageLoader is a matter of populating
 your configuration file, let's call it `my-config.yml` for this
 example, and then invoking StorageLoader like so: 
 
-    $ ./deploy/snowplow-storage-loader --config my-config.yml --skip analyze
+    $ ./snowplow-storage-loader --config my-config.yml --skip analyze
 
 The `--skip analyze` is required because in Redshift only the table owner or superuser can ANALYZE a table, not our `storageloader` user.
 
@@ -65,9 +64,7 @@ The `--skip analyze` is required because in Redshift only the table owner or sup
 
 ### locate command missing
 
-StorageLoader depends on Snowplow's [Infobright Ruby Loader] [irl],
-which in turn uses the `locate` shell command. If your shell complains
-that this is missing, in which case you can install it separately.
+StorageLoader depends on Snowplow's [Infobright Ruby Loader] [irl], which in turn uses the `locate` shell command. If your shell complains that this is missing, in which case you can install it separately.
 
 To install and configure `locate` on Debian/Ubuntu:
 
