@@ -975,8 +975,180 @@ Site search events are implemented as Snowplow unstructured events. [Here][timin
 
 For more information on the Enhanced Ecommerce functions please see the Google Analytics [documentation](https://developers.google.com/analytics/devguides/collection/analyticsjs/enhanced-ecommerce).
 
+<a name="addEnhancedEcommerceActionContext" />
+#### 3.14.1 `addEnhancedEcommerceActionContext`
+
+Use the `addEnhancedEcommerceActionContext` method to add a GA Enhanced Ecommerce Action Context to the Tracker:
+
+| **Name**      | **Required?** | **Type**             |
+|--------------:|:--------------|:---------------------|
+| `id`          | Yes           | string               |
+| `affiliation` | No            | string               |
+| `revenue`     | No            | number               |
+| `tax`         | No            | number               |
+| `shipping`    | No            | number               |
+| `coupon`      | No            | string               |
+| `list`        | No            | string               |
+| `step`        | No            | integer              |
+| `option`      | No            | string               |
+| `currency`    | No            | string               |
+
+Adding an action using Google Analytics:
+
+```javascript
+ga('ec:setAction', 'purchase', {
+  'id': 'T12345',
+  'affiliation': 'Google Store - Online',
+  'revenue': '37.39',
+  'tax': '2.85',
+  'shipping': '5.34',
+  'coupon': 'SUMMER2013'
+});
+```
+
+__NOTE__: The action type is passed with the action context in the Google Analytics example.  We have seperated this by asking you to call the [trackEnhancedEcommerceAction](#trackEnhancedEcommerceAction) function to actually send the context and the action.
+
+Adding an action using Snowplow:
+
+```javascript
+window.snowplow('addEnhancedEcommerceActionContext',
+  'T12345', // The Transaction ID
+  'Google Store - Online', // The affiliate
+  '37.39', // The revenue
+  '2.85', // The tax
+  '5.34', // The shipping
+  'WINTER2016' // The coupon
+);
+```
+
+<a name="addEnhancedEcommerceImpressionContext" />
+#### 3.14.2 `addEnhancedEcommerceImpressionContext`
+
+Use the `addEnhancedEcommerceImpressionContext` method to add a GA Enhanced Ecommerce Impression Context to the Tracker:
+
+| **Name**      | **Required?** | **Type**             |
+|--------------:|:--------------|:---------------------|
+| `id`          | Yes           | string               |
+| `name`        | No            | string               |
+| `list`        | No            | string               |
+| `brand`       | No            | string               |
+| `category`    | No            | string               |
+| `variant`     | No            | string               |
+| `position`    | No            | integer OR string    |
+| `price`       | No            | number OR string     |
+| `currency`    | No            | string               |
+
+Adding an impression using Google Analytics:
+
+```javascript
+ga('ec:addImpression', {
+  'id': 'P12345',
+  'name': 'Android Warhol T-Shirt',
+  'list': 'Search Results',
+  'brand': 'Google',
+  'category': 'Apparel/T-Shirts',
+  'variant': 'Black',
+  'position': 1
+});
+```
+
+Adding an impression using Snowplow:
+
+```javascript
+window.snowplow('addEnhancedEcommerceImpressionContext',
+  'P12345', // The ID
+  'Android Warhol T-Shirt', // The name
+  'Search Results', // The list
+  'Google', // The brand
+  'Apparel/T-Shirts', // The category
+  'Black', // The variant
+  '1' // The position
+);
+```
+
+<a name="addEnhancedEcommerceProductContext" />
+#### 3.14.3 `addEnhancedEcommerceProductContext`
+
+Use the `addEnhancedEcommerceProductContext` method to add a GA Enhanced Ecommerce Product Field Context:
+
+| **Name**      | **Required?** | **Type**             |
+|--------------:|:--------------|:---------------------|
+| `id`          | Yes           | string               |
+| `name`        | No            | string               |
+| `list`        | No            | string               |
+| `brand`       | No            | string               |
+| `category`    | No            | string               |
+| `variant`     | No            | string               |
+| `price`       | No            | number               |
+| `quantity`    | No            | integer              |
+| `coupon`      | No            | string               |
+| `position`    | No            | integer              |
+| `currency`    | No            | string               |
+
+Adding a product using Google Analytics:
+
+```javascript
+ga('ec:addProduct', {
+  'id': 'P12345',
+  'name': 'Android Warhol T-Shirt',
+  'brand': 'Google',
+  'category': 'Apparel/T-Shirts',
+  'variant': 'Black',
+  'position': 1
+});
+```
+
+Adding a product using Snowplow:
+
+```javascript
+window.snowplow('addEnhancedEcommerceProductContext',
+  'P12345', // The ID
+  'Android Warhol T-Shirt', // The name
+  'Search Results', // The list
+  'Google', // The brand
+  'Apparel/T-Shirts', // The category
+  'Black', // The variant
+  1 // The quantity
+);
+```
+
+<a name="addEnhancedEcommercePromoContext" />
+#### 3.14.4 `addEnhancedEcommercePromoContext`
+
+Use the `addEnhancedEcommercePromoContext` method to add a GA Enhanced Ecommerce Promotion Field Context:
+
+| **Name**      | **Required?** | **Type**             |
+|--------------:|:--------------|:---------------------|
+| `id`          | Yes           | string               |
+| `name`        | No            | string               |
+| `creative`    | No            | string               |
+| `position`    | No            | string               |
+| `currency`    | No            | string               |
+
+Adding a promotion using Google Analytics:
+
+```javascript
+ga('ec:addPromo', {
+  'id': 'PROMO_1234',
+  'name': 'Summer Sale',
+  'creative': 'summer_banner2',
+  'position': 'banner_slot1'
+});
+```
+
+Adding a promotion using Snowplow:
+
+```javascript
+window.snowplow('addEnhancedEcommercePromoContext',
+  'PROMO_1234', // The Promotion ID
+  'Summer Sale', // The name
+  'summer_banner2', // The name of the creative
+  'banner_slot1' // The position
+);
+```
+
 <a name="trackEnhancedEcommerceAction" />
-#### 3.14.1 `trackEnhancedEcommerceAction`
+#### 3.14.5 `trackEnhancedEcommerceAction`
 
 Use the `trackEnhancedEcommerceAction` method to track a GA Enhanced Ecommerce Action.  When this function is called all of the added Ecommerce Contexts are attached and flushed from the Tracker.
 
@@ -1002,125 +1174,6 @@ An example:
 ```javascript
 window.snowplow('trackEnhancedEcommerceAction',
   'click'
-);
-```
-
-<a name="addEnhancedEcommerceActionContext" />
-#### 3.14.2 `addEnhancedEcommerceActionContext`
-
-Use the `addEnhancedEcommerceActionContext` method to add a GA Enhanced Ecommerce Action Context to the Tracker:
-
-| **Name**      | **Required?** | **Type**             |
-|--------------:|:--------------|:---------------------|
-| `id`          | Yes           | string               |
-| `affiliation` | No            | string               |
-| `revenue`     | No            | number               |
-| `tax`         | No            | number               |
-| `shipping`    | No            | number               |
-| `coupon`      | No            | string               |
-| `list`        | No            | string               |
-| `step`        | No            | integer              |
-| `option`      | No            | string               |
-| `currency`    | No            | string               |
-
-An example:
-
-```javascript
-window.snowplow('addEnhancedEcommerceActionContext',
-  'T12345', // The Transaction ID
-  'Google Store - Online', // The affiliate
-  '37.39', // The revenue
-  '2.85', // The tax
-  '5.34', // The shipping
-  'WINTER2016' // The coupon
-);
-```
-
-<a name="addEnhancedEcommerceImpressionContext" />
-#### 3.14.3 `addEnhancedEcommerceImpressionContext`
-
-Use the `addEnhancedEcommerceImpressionContext` method to add a GA Enhanced Ecommerce Impression Context to the Tracker:
-
-| **Name**      | **Required?** | **Type**             |
-|--------------:|:--------------|:---------------------|
-| `id`          | Yes           | string               |
-| `name`        | No            | string               |
-| `list`        | No            | string               |
-| `brand`       | No            | string               |
-| `category`    | No            | string               |
-| `variant`     | No            | string               |
-| `position`    | No            | integer              |
-| `price`       | No            | number               |
-| `currency`    | No            | string               |
-
-An example:
-
-```javascript
-window.snowplow('addEnhancedEcommerceImpressionContext',
-  'P12345', // The ID
-  'Android Warhol T-Shirt', // The name
-  'Search Results', // The list
-  'Google', // The brand
-  'Apparel/T-Shirts', // The category
-  'Black' // The variant
-);
-```
-
-<a name="addEnhancedEcommerceProductContext" />
-#### 3.14.4 `addEnhancedEcommerceProductContext`
-
-Use the `addEnhancedEcommerceProductContext` method to add a GA Enhanced Ecommerce Product Field Context:
-
-| **Name**      | **Required?** | **Type**             |
-|--------------:|:--------------|:---------------------|
-| `id`          | Yes           | string               |
-| `name`        | No            | string               |
-| `list`        | No            | string               |
-| `brand`       | No            | string               |
-| `category`    | No            | string               |
-| `variant`     | No            | string               |
-| `price`       | No            | number               |
-| `quantity`    | No            | integer              |
-| `coupon`      | No            | string               |
-| `position`    | No            | integer              |
-| `currency`    | No            | string               |
-
-An example:
-
-```javascript
-window.snowplow('addEnhancedEcommerceProductContext',
-  'P12345', // The ID
-  'Android Warhol T-Shirt', // The name
-  'Search Results', // The list
-  'Google', // The brand
-  'Apparel/T-Shirts', // The category
-  'Black', // The variant
-  '29.20', // The price
-  1 // The quantity
-);
-```
-
-<a name="addEnhancedEcommercePromoContext" />
-#### 3.14.5 `addEnhancedEcommercePromoContext`
-
-Use the `addEnhancedEcommercePromoContext` method to add a GA Enhanced Ecommerce Promotion Field Context:
-
-| **Name**      | **Required?** | **Type**             |
-|--------------:|:--------------|:---------------------|
-| `id`          | Yes           | string               |
-| `name`        | No            | string               |
-| `creative`    | No            | string               |
-| `position`    | No            | string               |
-| `currency`    | No            | string               |
-
-An example:
-
-```javascript
-window.snowplow('addEnhancedEcommercePromoContext',
-  'PROMO_1234', // The Promotion ID
-  'Summer Sale', // The name
-  'summer_banner2', // The name of the creative
-  'banner_slot1' // The position
 );
 ```
 
