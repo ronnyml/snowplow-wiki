@@ -1,6 +1,6 @@
 <a name="top" />
 
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 3: Setting up Enrich](Setting-up-enrich) > [**Step 3.1: setting up EmrEtlRunner**](Setting-up-EmrEtlRunner) > [2: Using EmrEtlRunner](2-Using-EmrEtlRunner)
+[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 3: Setting up Enrich](Setting-up-enrich) > [**Step 3.1: setting up EmrEtlRunner**](Setting-up-EmrEtlRunner) [Step 3.1.1: Installing EmrEtlRunner](1-Installing-EmrEtlRunner) > Step 3.1.2: Using EmrEtlRunner
 
 1. [Overview](#usage-overview)
 2. [Command-line options](#cli-options)
@@ -28,7 +28,7 @@ those logs.
 
 The EmrEtlRunner is an executable jar:
 
-    $ ./deploy/snowplow-emr-etl-runner
+    $ ./snowplow-emr-etl-runner
 
 The command-line options for EmrEtlRunner look like this:
 
@@ -56,11 +56,11 @@ The command-line options for EmrEtlRunner look like this:
 A note on the `--skip` option: this takes a list of individual steps to skip.
 So for example you could run **only** the EMR job with the command-line option:
 
-    $ ./deploy/snowplow-emr-etl-runner --skip staging,archive_raw --config config/config.yml --resolver resolver.json --enrichments config/enrichments
+    $ ./snowplow-emr-etl-runner --skip staging,archive_raw --config config/config.yml --resolver resolver.json --enrichments config/enrichments
 
 Instead of using the --config option, you can pass the configuration to the EmrEtlRunner via stdin. You need to set `--config -` to signal that the config is to be read from stdin rather than from a file:
 
-    $ cat config/config.yml | ./deploy/snowplow-emr-etl-runner --config - --resolver resolver.json --enrichments config/enrichments
+    $ cat config/config.yml | ./snowplow-emr-etl-runner --config - --resolver resolver.json --enrichments config/enrichments
 
 <a name="running"/>
 ## 3. Running in each mode
@@ -71,14 +71,14 @@ Invoking EmrEtlRunner with just the `--config` option puts it into rolling
 mode, processing all the raw Snowplow event logs it can find in your In
 Bucket:
 
-    $ ./deploy/snowplow-emr-etl-runner --config config/config.yml --resolver config/resolver.json --enrichments config/enrichments
+    $ ./snowplow-emr-etl-runner --config config/config.yml --resolver config/resolver.json --enrichments config/enrichments
 
 ### 3.2 Timespan mode
 
 To run EmrEtlRunner in timespan mode, you need to specify the `--start`
 and/or `--end` dates as well as the `--config` option, like so:
 
-    $ ./deploy/snowplow-emr-etl-runner \
+    $ ./snowplow-emr-etl-runner \
       --config config.yml \
       --resolver config/resolver.json \
       --start 2012-06-20 \
