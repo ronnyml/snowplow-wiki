@@ -35,8 +35,8 @@ The following fields are populated depending on whether the tracker provided the
 
 Raw Parameter | Enriched Parameter | Purpose
 :---|:---|:---
-`eid` | `event_id` | The unique event identifier (UUID). Assigned during enrichment if not provided with eid
-`cv` | `v_collector` | Collector type/version. 
+`eid` | `event_id` | The unique event identifier (UUID). Assigned during enrichment if not provided with `eid`
+`cv` | `v_collector` | Collector type/version
 `tnuid` | `network_userid` | User ID set by Snowplow using 3rd party cookie. Overwriten with tracker-set `tnuid`.
 `ip` | `user_ipaddress` | Snowplow collectors log IP address as standard. However, you can override the value derived from the collector by populating this value in the tracker.
 `ua` | `useragent` | Raw useragent (browser string). Could be overwritten with `ua`.
@@ -52,6 +52,7 @@ Added Parameter | Purpose
 The `url` parameter provides the value for `page_url` in `atomic.events`, which represents the current page's URL. The following parts are extracted and populate separate fields as outlined below.
 
 Added Parameter | Purpose
+:---|:---
 `page_urlscheme` | Scheme (protocol), ex. "http"
 `page_urlhost` | Host (domain), ex. "www.snowplowanalytics.com"
 `page_urlport` | Port if specified, 80 if not
@@ -62,6 +63,7 @@ Added Parameter | Purpose
 Similarly, `page_referrer` gets the value from `refr`, which represents the referer’s URL, and the following parts are extracted and populate separate fields as shown below.
 
 Added Parameter | Purpose
+:---|:---
 `refr_urlscheme` | Scheme (protocol)
 `refr_urlhost` | Host (domain)
 `refr_urlport` | Port if specified, 80 if not
