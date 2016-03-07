@@ -414,6 +414,10 @@ The Clojure Collector can't handle requests bigger than 64kB. The Scala Stream C
 
 If set the Tracker automatically discovers and sets the `configCookieDomain` value to the root domain.
 
+__NOTE__: If you have been setting this manually please note that the automatic detection does not prepend a '.' to the domain. For example a root domain of ".mydomain.com" would become "mydomain.com".  This is because the library we use for setting cookies doesn't care about the difference.
+
+This will then result in a different domain hash, so we recommend that if you have been setting this manually with a leading '.' to continue to do so manually.
+
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
 
