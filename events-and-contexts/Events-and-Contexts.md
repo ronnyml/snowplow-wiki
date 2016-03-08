@@ -49,5 +49,5 @@ To find out more about the concepts mentioned above and ultimately how to set up
 
 - [Events](Events-overview)
 - [Contexts](Contexts-overview)
-- [Event dictionary]()
-- [Iglu]()
+- [Event dictionary](Event-dictionary)
+- [Iglu repository](Iglu-repository)

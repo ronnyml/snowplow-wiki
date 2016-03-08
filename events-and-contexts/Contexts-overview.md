@@ -108,23 +108,20 @@ See [Javascript tracker](1-General-parameters-for-the-Javascript-tracker#2214-ad
 
 Custom contexts let you add additional information about the circumstances surrounding an event in the form of a dictionary. More specifically, a dictionary is represented with a [self-describing JSON](http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/).
 
-The `contexts` argument to any method is always *optional*. If set, it must be a JSON taking form:
+> Self-describing JSON is an individual [JSON](http://www.json.org/) with its [JSON Schema](http://json-schema.org/).
 
-```
-{ "context1_name": {
-    /* context1 JSON */
-  },
-  "context2_name": {
-    /* context2 JSON */
-  },
-  ...
+The `contexts` argument to any method is always *optional*. If set, it must be a self-describing JSON including at least one `name: property` pair in JSON provided as a value to `data` property of the self-describing JSON, where `data` is the name for an individual context entry.
+
+It generally looks like the one below:
+
+```json
+{
+    "schema": "iglu:com.snowplowanalytics/ad_click/jsonschema/1-0-0",
+    "data": {
+        "bannerId": "4732ce23d345"
+    }
 }
 ```
-
-If the `contexts` argument is set, it must be a JSON including at least one `name: property` pair, where:
-
-- The `name` is the name for an individual context entry
-- The `property` is a JSON holding `name: property` pairs for this context entry
 
 A few dos and don’ts for *context names*:
 
@@ -141,7 +138,7 @@ A few dos and don’ts for the *JSON*s inside each context entry JSONs:
 
 ###Further reading
 
-To find out more about the concepts mentioned above and ultimately how to set up custom events and send them to Snowplow pipeline, follow the links below.
+To find out more about the concepts mentioned above and ultimately how to set up custom contexts and send them to Snowplow pipeline, follow the links below.
 
 - [Custom contexts](Custom-contexts)
 - [Self-describing JSON](http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/)

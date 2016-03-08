@@ -1,0 +1,1 @@
+[**HOME**](Home) » [**EVENTS AND CONTEXTS**](Events-and-Contexts) » [Event dictionary](Event-dictionary) » Building event dictionaries
