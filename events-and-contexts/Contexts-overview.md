@@ -1,6 +1,6 @@
 [**HOME**](Home) » [**EVENTS AND CONTEXTS**](Events-and-Contexts) » Contexts Overview
 
-### Overview
+## Overview
 
 When an **event** occurs, it generally involves a number of *entities*, and takes place in a particular setting. For example, the search event we used in our [example event dictionary entry]() might have the following entities associated with it:
 
@@ -82,7 +82,7 @@ We distiguish 2 types of contexts:
 A contexts can be added to any event (function) as a last parameter (argument).
 
 <a name="predefined-contexts" />
-###Predefined contexts
+##Predefined contexts
 
 Predefined contexts are Snowplow authored web contexts and are available with JavaScript tracker. They are enabled at the tracker initialization step and thus the associated data will be added automatically to any Snowplow event fired on the page.
 
@@ -104,11 +104,11 @@ snowplow_name_here("newTracker", "cf", "d3rkrsqld9gmqf.cloudfront.net", {
 See [Javascript tracker](1-General-parameters-for-the-Javascript-tracker#2214-adding-predefined-contexts) for the specific parameters to be used with predefined contexts.
 
 <a name="custom-contexts" />
-###Custom contexts
+##Custom contexts
 
 Custom contexts let you add additional information about the circumstances surrounding an event in the form of a dictionary. More specifically, a dictionary is represented with a [self-describing JSON](http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/).
 
-> Self-describing JSON is an individual [JSON](http://www.json.org/) with its [JSON Schema](http://json-schema.org/).
+> [**Self-describing JSON**](https://github.com/snowplow/iglu/wiki/Self-describing-JSONs) is a standardized [JSON](http://www.json.org/) format which co-locates a reference to the instance's [JSON Schema](http://json-schema.org/) alongside the instance's data
 
 The `contexts` argument to any method is always *optional*. If set, it must be a self-describing JSON including at least one `name: property` pair in JSON provided as a value to `data` property of the self-describing JSON, where `data` is the name for an individual context entry.
 
@@ -136,11 +136,12 @@ A few dos and don’ts for the *JSON*s inside each context entry JSONs:
 - Do use Snowplow datatype suffixes if the data type would otherwise be unclear
 - Don't nest properties as with custom unstructured events, the structure must be flat
 
-###Further reading
+##Further reading
 
 To find out more about the concepts mentioned above and ultimately how to set up custom contexts and send them to Snowplow pipeline, follow the links below.
 
 - [Custom contexts](Custom-contexts)
 - [Self-describing JSON](http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/)
-- [Event dictionary]()
-- [Iglu]()
+- [Events](Events-overview)
+- [Event dictionary](Event-dictionary)
+- [Iglu repository](Iglu-repository)

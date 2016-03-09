@@ -1,6 +1,6 @@
 [**HOME**](Home) » **EVENTS AND CONTEXTS**
 
-###Overview
+##Overview
 
 **Snowplow** is an *event analytics platform*. Once you have set up one or more [Snowplow trackers](Setting-up-a-tracker), every time an event occurs, Snowplow should spot the event, generate a packet of data (context) to describe the event, and send that event into the *Snowplow data pipeline*.
 
@@ -28,11 +28,13 @@ When an **event** occurs, it generally involves a number of **entities**, and ta
 
 > A **context** is the group of entities associated with or describing the setting in which an **event** has taken place. 
 
-In fact, we can consider an event a *named context* where "named" means a name given to a specific event that is it signifies an action for which we gave a specific name and we are interested in a bunch of data (context) characterising the event.
+In fact, we can consider an event a *named context* where "named" means a name given to a specific event. That is it signifies an action for which we gave a specific name and we are interested in a bunch of data (context) characterising the event.
 
-Due to the nature of *custom* events/contexts there has to be some mechanism in place ensuring validity of the captured data. JSON schema plays a significant part in this mechanism. Both events and contexts have schemas which define what data is recorded about the event, or context, at data capture time.
+Due to the nature of *custom* (as well as Snowplow authored) events/contexts there has to be some mechanism in place ensuring validity of the captured data. JSON schema plays a significant part in this mechanism. Both events and contexts have schemas which define what data is recorded about the event, or context, at data capture time.
 
 > **JSON schema** specifies a *JSON*-based format to define the structure of JSON data for validation, documentation, and interaction control. 
+
+<p></p>
 
 > **JSON** (JavaScript Object Notation) is an open-standard format that uses human-readable text to transmit data objects consisting of attribute–value pairs.
 

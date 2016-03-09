@@ -1,6 +1,6 @@
 [**HOME**](Home) » [**EVENTS AND CONTEXTS**](Events-and-Contexts) » [Events Overview](Events-overview) » Custom events
 
-###Overview
+##Overview
 
 Snowplow supports a large number of events "out of the box" (first class citizens), most of which are fairly standard in a web analytics context. See [Snowplow authored events](Snowplow-authored-events) for more details.
 
@@ -10,7 +10,7 @@ If you wish to track an event that Snowplow does not recognise as a first class 
 - [Custom unstructured event](#unstructured-event)
 
 <a name="structured-event" />
-###Custom structured event
+##Custom structured event
 
 With a structured event, we follow Google five-variable tracking event structure. When you track a structured event, you get five parameters:
 
@@ -48,7 +48,7 @@ Note the user email address could have been populated with the emailing tool (un
 See [Snowplow tracker protocol](snowplow-tracker-protocol#39-custom-structured-event-tracking) for the specific parameters to be used with structured events and examples of usage.
 
 <a name="unstructured-event" />
-###Custom unstructured event
+##Custom unstructured event
 
 Custom unstructured events are user events which do not fit one of the existing [Snowplow event types](Snowplow-authored-events) (page views, ecommerce transactions etc), and do not fit easily into our existing [custom structured event format](#structured-event). A **custom unstructured event** consists of two elements:
 
@@ -64,7 +64,7 @@ Custom unstructured events are great for a couple of use cases:
 
 The set of `key: value` properties in unstructured events is represented with **self-describing JSON** which can have arbitrarily many fields.
 
-> **Self-describing JSON** is an individual JSON with its JSON schema included as a `value` to `schema` key in this JSON.
+> [**Self-describing JSON**](https://github.com/snowplow/iglu/wiki/Self-describing-JSONs) is a standardized [JSON](http://www.json.org/) format which co-locates a reference to the instance's [JSON Schema](http://json-schema.org/) alongside the instance's data
 
 For example, to track an unstructured event with Javascript tracker, you make use of the `trackUnstructEvent` method with the pattern shown below:
 
@@ -99,10 +99,15 @@ Knowing in advance what the expected structure and format of data should be as a
 
 » Read more about [event dictionary](Event-dictionary).
 
-###Further reading
+##Further reading
 
 To find out more about the concepts mentioned above and ultimately how to set up custom events and contexts and send them to Snowplow pipeline, follow the links below.
 
 - [Self-describing JSON](http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/)
+-  [Custom structured events](Canonical-event-model#customstruct)
+- [Unstructured events guide][unstructured-events]
+- [Contexts](Contexts-overview)
 - [Event dictionary](Event-dictionary)
-- [Iglu]()
+- [Iglu repository](Iglu-repository)
+
+[unstructured-events]: http://snowplowanalytics.com/blog/2013/05/14/snowplow-unstructured-events-guide/

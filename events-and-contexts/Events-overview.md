@@ -1,8 +1,8 @@
 [**HOME**](Home) » [**EVENTS AND CONTEXTS**](Events-and-Contexts) » Events Overview
 
-###Overview
+##Overview
 
-####What is an event?
+###What is an event?
 
 An **event** is something that occurred in a particular point in time. Examples of events include:
 
@@ -30,7 +30,7 @@ To use Snowplow successfully, you need to have a good idea of:
 - What decisions you make based on those events
 - What you need to know about those events to make those decisions
 
-###Snowplow authored events
+##Snowplow authored events
 
 Snowplow supports a large number of events "out of the box" (first class citizens), most of which are fairly standard in a web analytics context. Examples of events that we support include:
 
@@ -45,9 +45,9 @@ For events that Snowplow natively supports, there is generally a specific API fo
 
 In general, each tracker will have a specific API call for tracking any events that have been defined by the Snowplow team, and you should refer to the [tracker-specific documentation](trackers) to make sure that this is set up correctly.
 
-» Read more about [[Snowplow authored events]]
+» Read more about [Snowplow authored events](Snowplow-authored-events)
 
-###Custom events
+##Custom events
 
 If you wish to track an event that Snowplow does not recognise as a first class citizen (i.e. one of the events listed above), then you can track them using either the generic *custom structured event* or *custom unstructured event*. 
 
@@ -63,16 +63,12 @@ You may wish to track events on your website or application which are not direct
 
 » Read more about [custom events](Custom-events).
 
-###Further reading
+##Further reading
 
 To find out more about the concepts mentioned above and ultimately how to set up custom events and send them to Snowplow pipeline, follow the links below.
 
-- [[Snowplow authored events]]
-- [Custom structured events](Canonical-event-model#customstruct)
-- [Unstructured events guide][unstructured-events]
+- [Snowplow authored events](Snowplow-authored-events)
 - [Custom events](Custom-events)
-- [Event dictionary]()
-- [Iglu]()
-
-
-[unstructured-events]: http://snowplowanalytics.com/blog/2013/05/14/snowplow-unstructured-events-guide/
+- [Contexts overview](Contexts-overview)
+- [Event dictionary](Event-dictionary)
+- [Iglu repository](Iglu-repository)
