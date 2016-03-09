@@ -136,6 +136,8 @@ A few dos and don’ts for the *JSON*s inside each context entry JSONs:
 - Do use Snowplow datatype suffixes if the data type would otherwise be unclear
 - Don't nest properties as with custom unstructured events, the structure must be flat
 
+» Read more about [custom contexts](Custom-contexts)
+
 ##Further reading
 
 To find out more about the concepts mentioned above and ultimately how to set up custom contexts and send them to Snowplow pipeline, follow the links below.

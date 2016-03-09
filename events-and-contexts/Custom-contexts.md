@@ -16,7 +16,7 @@ If you want to create your own custom context, you must create a [JSON Schema](h
 
 Here are two examples of custom context JSONs. One describes a page, and the other describes a user on that page.
 
-```json
+```
 {
     schema: "iglu:com.example_company/page/jsonschema/1-2-1",
     data: {
@@ -26,7 +26,7 @@ Here are two examples of custom context JSONs. One describes a page, and the oth
 }
 ```
 
-```json
+```
 {
     schema: "iglu:com.example_company/user/jsonschema/2-0-0",
     data: {

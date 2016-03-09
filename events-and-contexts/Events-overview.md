@@ -61,7 +61,7 @@ When you track a **structured event**, you get five parameters:
 
 You may wish to track events on your website or application which are not directly supported by Snowplow and which *structured* event tracking does not adequately capture. Your event may have more than the five fields offered by trackStructEvent, or its fields may not fit into the category-action-label-property-value model. The solution is Snowplow's **custom unstructured events**. Unstructured events use *self-describing JSON* which can have arbitrarily many fields.
 
-» Read more about [custom events](Custom-events).
+» Read more about [custom events](Custom-events)
 
 ##Further reading
 

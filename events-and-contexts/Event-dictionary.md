@@ -26,7 +26,7 @@ Event dictionaries serve three purposes:
 
 Before considering an example you might wish to brush up on your understanding of what [JSON](http://www.json.org/) and [JSON schema](http://json-schema.org/) are. Also we have introduced a [self-describing JSON](https://github.com/snowplow/iglu/wiki/Self-describing-JSONs) and as a result a [self-describing JSON schema](https://github.com/snowplow/iglu/wiki/Self-describing-JSON-Schemas).
 
-> Self-describing JSON is an individual JSON with its JSON Schema.
+> [**Self-describing JSON**](https://github.com/snowplow/iglu/wiki/Self-describing-JSONs) - a standardized [JSON](http://www.json.org/) format which co-locates a reference to the instance's [JSON Schema](http://json-schema.org/) alongside the instance's data
 
 An example entry in an event dictionary might look like this:
 
@@ -72,7 +72,7 @@ window.snowplow('trackUnstructEvent', {
 });
 ```
 
-» Read more about building your own [event dictionaries](Building-event-dictionaries).
+» Read more about building your own [event dictionaries](Building-event-dictionaries)
 
 ##Further reading
 
