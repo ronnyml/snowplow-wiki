@@ -1037,8 +1037,8 @@ If an event fails to send because of a network issue, you can choose to handle t
 // Make a RequestCallback
 RequestCallback callback = new RequestCallback() {
   @Override
-  public void onSuccess(int bufferLength) {
-    System.out.println("Buffer length for POST/GET:" + bufferLength);
+  public void onSuccess(int successCount) {
+    System.out.println("Success, successCount: " + successCount);
   }
 
   @Override
@@ -1062,8 +1062,8 @@ A common pattern here could be to re-send all failed events if they occur.  It i
 // Example on-failure function with re-tracking
 RequestCallback callback = new RequestCallback() {
   @Override
-  public void onSuccess(int bufferLength) {
-    System.out.println("Buffer length for POST/GET:" + bufferLength);
+  public void onSuccess(int successCount) {
+    System.out.println("Success, successCount: " + successCount);
   }
 
   @Override
