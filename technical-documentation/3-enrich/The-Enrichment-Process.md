@@ -55,6 +55,13 @@ Added Parameter | Purpose
 `etl_tstamp` | Timestamp event began ETL
 `collector_tstamp` | Time stamp for the event recorded by the collector
 
+The raw parameter `res` (if present) representing the screen/monitor resolution and coming in as a combination of width and height (ex. `1280x1024`) is broken up into separate entities.
+
+Added Parameter | Purpose
+:---|:---
+`dvce_screenwidth` | Screen / monitor width
+`dvce_screenheight` | Screen / monitor height
+
 The `url` parameter provides the value for `page_url` in `atomic.events`, which represents the current page's URL. The following parts are extracted and populate separate fields as outlined below.
 
 Added Parameter | Purpose
