@@ -7,7 +7,7 @@
  - [Contexts overview](Contexts-overview)
  - [Custom contexts](Custom-contexts)
 - [Event dictionary](Event-dictionary)
- - [Building event dictionaries](Building-event-dictionaries)
+- [Schema registry](Schema-registry)
 - [Iglu repository](Iglu-repository)
 
 **Useful resources**
