@@ -2,7 +2,7 @@
 
 ## Overview
 
-When an **event** occurs, it generally involves a number of *entities*, and takes place in a particular setting. For example, the search event we used in our [example event dictionary entry]() might have the following entities associated with it:
+When an **event** occurs, it generally involves a number of *entities*, and takes place in a particular setting. For example, the search event we used in our [example event dictionary entry](Event-dictionary) might have the following entities associated with it:
 
 1. A user entity, who performed the search
 2. A web page in which the event occurred
@@ -123,14 +123,14 @@ It generally looks like the one below:
 }
 ```
 
-A few dos and don’ts for *context names*:
+A few dos and don'ts for *context names*:
 
 - Do name each context entry however you like
 - Do use a context name to identify a set of associated data points which make sense to your business
 - Do use the same contexts across multiple different events and event types
 - Don't use multiple different context names to refer to the same set of data points
 
-A few dos and don’ts for the *JSON*s inside each context entry JSONs:
+A few dos and don'ts for the *JSON*s inside each context entry JSONs:
 
 - Do use any of the data types supported by custom unstructured events
 - Do use Snowplow datatype suffixes if the data type would otherwise be unclear
@@ -146,4 +146,5 @@ To find out more about the concepts mentioned above and ultimately how to set up
 - [Self-describing JSON](http://snowplowanalytics.com/blog/2014/05/15/introducing-self-describing-jsons/)
 - [Events](Events-overview)
 - [Event dictionary](Event-dictionary)
+- [Schema registry](Schema-registry)
 - [Iglu repository](Iglu-repository)

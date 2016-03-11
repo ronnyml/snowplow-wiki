@@ -4,10 +4,10 @@
 
 Snowplow supports a large number of events "out of the box" (first class citizens), most of which are fairly standard in a web analytics context. See [Snowplow authored events](Snowplow-authored-events) for more details.
 
-If you wish to track an event that Snowplow does not recognise as a first class citizen (i.e. one of the events listed above), then you can track them using one of the following generic events:
+If you wish to track an event that Snowplow does not recognise as a first class citizen then you can track them using one of the following generic events:
 
 - [Custom structured event](#structured-event)
-- [Custom unstructured event](#unstructured-event)
+- [Self-describing event](#unstructured-event) (also called *unstructured* event)
 
 <a name="structured-event" />
 ##Custom structured event
@@ -48,25 +48,25 @@ Note the user email address could have been populated with the emailing tool (un
 See [Snowplow tracker protocol](snowplow-tracker-protocol#39-custom-structured-event-tracking) for the specific parameters to be used with structured events and examples of usage.
 
 <a name="unstructured-event" />
-##Custom unstructured event
+##Self-describing event
 
-Custom unstructured events are user events which do not fit one of the existing [Snowplow event types](Snowplow-authored-events) (page views, ecommerce transactions etc), and do not fit easily into our existing [custom structured event format](#structured-event). A **custom unstructured event** consists of two elements:
+Self-describing events (also known as custom unstructured events are user events which do not fit one of the existing [Snowplow event types](Snowplow-authored-events) (page views, ecommerce transactions, etc.), and do not fit easily into our existing [custom structured event format](#structured-event). A **self-describing event** consists of two elements:
 
 - A `name` of the unstructured event, e.g. "Game saved" or "returned-order". This is case-sensitive; spaces etc are allowed
 - A set of `key: value` properties (also known as a hash, associative array or dictionary)
 
-You might recognise what we call custom unstructured events from other analytics tools including MixPanel, KISSmetrics and Keen.io, where they are the primary trackable event type.
+You might recognise what we call self-describing events (custom unstructured events) from other analytics tools including MixPanel, KISSmetrics and Keen.io, where they are the primary trackable event type.
 
-Custom unstructured events are great for a couple of use cases:
+Self-describing events are great for a couple of use cases:
 
 - Where you want to track event types which are proprietary/specific to your business (i.e. not already part of Snowplow)
 - Where you want to track events which have unpredictable or frequently changing properties
 
-The set of `key: value` properties in unstructured events is represented with **self-describing JSON** which can have arbitrarily many fields.
+The set of `key: value` properties in self-describing events is represented with **self-describing JSON** which can have arbitrarily many fields.
 
 > [**Self-describing JSON**](https://github.com/snowplow/iglu/wiki/Self-describing-JSONs) is a standardized [JSON](http://www.json.org/) format which co-locates a reference to the instance's [JSON Schema](http://json-schema.org/) alongside the instance's data
 
-For example, to track an unstructured event with Javascript tracker, you make use of the `trackUnstructEvent` method with the pattern shown below:
+For example, to track a self-describing event with Javascript tracker, you make use of the `trackUnstructEvent` method with the pattern shown below:
 
 ```
 snowplow_name_here('trackUnstructEvent', <<SELF-DESCRIBING EVENT JSON>>);
@@ -89,15 +89,15 @@ window.snowplow_name_here('trackUnstructEvent', {
 });
 ```
 
-See [Snowplow tracker protocol](snowplow-tracker-protocol#310-custom-unstructured-event-tracking) for the specific parameters to be used with structured events and examples of usage.
+See [Snowplow tracker protocol](snowplow-tracker-protocol#310-custom-unstructured-event-tracking) for the specific parameters to be used with self-describing events and examples of usage.
 
-Note that with **structured** event, we know the structure of the data and the value format in advance as it is predefined and has to follow the five-value structure. With **unstructured** events, however, the number of `key:value` pairs can vary and is determined by business model of the entity associated with the event.
+Note that with **structured** event, we know the structure of the data and the value format in advance as it is predefined and has to follow the five-value structure. With **unstructured**  (self-describing) events, however, the number of `key:value` pairs can vary and is determined by business model of the entity associated with the event.
 
 Therefore, for Snowplow to be able to validate and extract the data self-describing JSON would have to be sent with the event. By its definition, self-describing JSON includes a reference to JSON schema which has to be in place by the time enrichment process takes place. It allows for maximum customisation of the unstructured events.
 
-Knowing in advance what the expected structure and format of data should be as a necessity to be able to handle events and contexts brought about an idea of what we call **event dictionary**.
+Knowing in advance what the expected structure and format of data should be as a necessity to be able to handle events and contexts brought about an idea of what we call **schema registry**.
 
-» Read more about [event dictionary](Event-dictionary).
+» Read more about [schema registry](Schema-registry)
 
 ##Further reading
 
@@ -108,6 +108,7 @@ To find out more about the concepts mentioned above and ultimately how to set up
 - [Unstructured events guide][unstructured-events]
 - [Contexts](Contexts-overview)
 - [Event dictionary](Event-dictionary)
+- [Schema registry](Schema-registry)
 - [Iglu repository](Iglu-repository)
 
 [unstructured-events]: http://snowplowanalytics.com/blog/2013/05/14/snowplow-unstructured-events-guide/

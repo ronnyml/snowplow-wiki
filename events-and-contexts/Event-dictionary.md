@@ -72,17 +72,19 @@ window.snowplow('trackUnstructEvent', {
 });
 ```
 
-» Read more about building your own [event dictionaries](Building-event-dictionaries)
+When it comes to actual implementation of *event dictionaries* we prefer to call it a **schema registry**.
+
+» Read more about building your own [schema registry](Schema-registry)
 
 ##Further reading
 
-Snowplow privides a number of predefined (most commonly used) events such as page views, link clicks, form submissions and so on. We built the corresponding event dictionaries. Now we need to have some kind of storage to keep the JSON schemas in and be able to retrieve them when the data is validated and processed to ensure the data conforms to the requirements set in those JSON schemas. Thus we come up with the idea of JSOM schema repository which we called **Iglu**.
+Snowplow privides a number of predefined (most commonly used) events such as page views, link clicks, form submissions and so on. We built the corresponding schema registries (event dictionaries). Now we need to have some kind of storage to keep the JSON schemas in and be able to retrieve them when the data is validated and processed to ensure the data conforms to the requirements set in those JSON schemas. Thus, we come up with the idea of JSON schema repository which we called **Iglu**.
 
-Likewise once you produced JSON schemas for all the *custom* unstructured events and contexts you would have to have your own JSON schema repository hosting your own JSON schemas. 
+Likewise once you produced JSON schemas for all the *custom* unstructured events (also called *self-describing events*) and contexts you would have to have your own JSON schema repository hosting your own JSON schemas. 
 
 To find out more about the concepts mentioned above and ultimately how to set up your own Iglu repository for Snowplow to be able to handle custom unstructured events and contexts, follow the links below.
 
-- [Building event dictionaries](Building-event-dictionaries)
+- [Schema registry](Schema-registry)
 - [Custom events](Custom-events)
 - [Custom contexts](Custom-contexts)
 - [Iglu repository](Iglu-repository)

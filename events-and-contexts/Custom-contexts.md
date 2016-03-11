@@ -61,6 +61,10 @@ window.snowplow_name_here(
 
 In this case an empty string has been provided to the optional `customTitle` argument in order to reach the `context` argument, which has to be the last argument of the functions.
 
+Knowing in advance what the expected structure and format of data should be as a necessity to be able to handle custom contexts brought about an idea of what we call **schema registry**.
+
+» Read more about [schema registry](Schema-registry)
+
 ##Further reading
 
 To find out more about the concepts mentioned above and ultimately how to set up custom events and contexts and send them to Snowplow pipeline, follow the links below.
@@ -69,4 +73,5 @@ To find out more about the concepts mentioned above and ultimately how to set up
 - [Events](Events-overview)
 - [Contexts](Contexts-overview)
 - [Event dictionary](Event-dictionary)
+- [Schema registry](Schema-registry)
 - [Iglu repository](Iglu-repository)

@@ -49,7 +49,7 @@ In general, each tracker will have a specific API call for tracking any events t
 
 ##Custom events
 
-If you wish to track an event that Snowplow does not recognise as a first class citizen (i.e. one of the events listed above), then you can track them using either the generic *custom structured event* or *custom unstructured event*. 
+If you wish to track an event that Snowplow does not recognise as a first class citizen (i.e. one of the events listed above), then you can track them using either the generic *custom structured event* or *self-describing events* (also called *unstructured events*). 
 
 When you track a **structured event**, you get five parameters:
 
@@ -59,7 +59,7 @@ When you track a **structured event**, you get five parameters:
 - *Property*: An optional string describing the object or the action performed on it.
 - *Value*: An optional numeric data to quantify or further describe the user action.
 
-You may wish to track events on your website or application which are not directly supported by Snowplow and which *structured* event tracking does not adequately capture. Your event may have more than the five fields offered by trackStructEvent, or its fields may not fit into the category-action-label-property-value model. The solution is Snowplow's **custom unstructured events**. Unstructured events use *self-describing JSON* which can have arbitrarily many fields.
+You may wish to track events on your website or application which are not directly supported by Snowplow and which *structured* event tracking does not adequately capture. Your event may have more than the five fields offered by `trackStructEvent`, or its fields may not fit into the category-action-label-property-value model. The solution is Snowplow's **self-describing events** (also called *unstructured events*). Self-describing events use *self-describing JSON* which can have arbitrarily many fields.
 
 » Read more about [custom events](Custom-events)
 
@@ -71,4 +71,5 @@ To find out more about the concepts mentioned above and ultimately how to set up
 - [Custom events](Custom-events)
 - [Contexts overview](Contexts-overview)
 - [Event dictionary](Event-dictionary)
+- [Schema registry](Schema-registry)
 - [Iglu repository](Iglu-repository)
