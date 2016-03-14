@@ -169,7 +169,7 @@ The sink is configured using a HOCON file. These are the fields:
 
 * `source`: Change this from "kinesis" to "stdin" to get input from stdin rather than Kinesis. You can pipe in the output of [Scala Kinesis Enrich][scala-kinesis-enrich].
 * `sink.good`: Where to write good events. "elasticsearch" or "stdout".
-* `sink.bad`: Where to write error JSONs for bad events. "kinesis" or "stderr".
+* `sink.bad`: Where to write error JSONs for bad events. "kinesis" or "stderr" (or "none" to ignore bad events).
 * `aws.access-key` and `aws.secret-key`: Change these to your AWS credentials. You can alternatively leave them as "default", in which case the [DefaultAWSCredentialsProviderChain][DefaultAWSCredentialsProviderChain] will be used.
 * `kinesis.in.stream-name`: The name of the input Kinesis stream
 * `stream-type`: "good" if the input stream contains successfully enriched events; "bad" if it contains bad rows.
