@@ -1,4 +1,4 @@
-[**HOME**](Home) » [**EVENTS AND CONTEXTS**](Events-and-Contexts) » [Event dictionary](Event-dictionary) » Schema registry
+[**HOME**](Home) » [**EVENTS AND CONTEXTS**](Events-and-Contexts) » [Event Dictionary](Event-dictionary) » Schema Registry
 
 ##Overview
 
@@ -54,8 +54,8 @@ Note you'll need to update the above command to replace the bucket `s3://snowplo
 ####Useful resources
 
 - [Iglu schema repository 0.1.0 release blog post](http://snowplowanalytics.com/blog/2014/07/01/iglu-schema-repository-released/)
-- [Iglu central](https://github.com/snowplow/iglu-central) - centralized repository (schema registry) for all the schemas hosted by the Snowplow team
-- [Iglu](https://github.com/snowplow/iglu) - repository with both Iglu server and client libraries
+- [Iglu central](https://github.com/snowplow/iglu-central) - centralized schema registry for all the schemas hosted by the Snowplow team
+- [Iglu](https://github.com/snowplow/iglu) - schema registry with both Iglu server and client libraries
 
 ###3. Creating the jsonpath files and SQL table definitions
 
@@ -150,7 +150,7 @@ To find out more about the concepts mentioned above and ultimately how to set up
 - [Events](Events-overview)
 - [Contexts](Contexts-overview)
 - [Event dictionary](Event-dictionary)
-- [Iglu repository](Iglu-repository)
+- [Iglu schema registry](Iglu-registry)
 
 Documentation on **jsonschemas**:
 

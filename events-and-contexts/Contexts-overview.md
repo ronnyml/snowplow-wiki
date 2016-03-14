@@ -147,4 +147,4 @@ To find out more about the concepts mentioned above and ultimately how to set up
 - [Events](Events-overview)
 - [Event dictionary](Event-dictionary)
 - [Schema registry](Schema-registry)
-- [Iglu repository](Iglu-repository)
+- [Iglu schema registry](Iglu-registry)

@@ -10,7 +10,7 @@ Each custom context is a **self-describing JSON**.
 
 > [**Self-describing JSON**](https://github.com/snowplow/iglu/wiki/Self-describing-JSONs) is a standardized [JSON](http://www.json.org/) format which co-locates a reference to the instance's [JSON Schema](http://json-schema.org/) alongside the instance's data
 
-If you want to create your own custom context, you must create a [JSON Schema](http://json-schema.org/) for it and upload it to an [Iglu repository](Iglu-repository). Since more than one can be attached to an event, the `context` argument (if it is provided at all) should be a *non-empty array of self-describing JSONs*.
+If you want to create your own custom context, you must create a [JSON schema](http://json-schema.org/) for it and upload it to an [Iglu schema registry](Iglu-registry). Since more than one can be attached to an event, the `context` argument (if it is provided at all) should be a *non-empty array of self-describing JSONs*.
 
 **Important:** Even if only one custom context is being attached to an event, it still needs to be wrapped in an array.
 
@@ -74,4 +74,4 @@ To find out more about the concepts mentioned above and ultimately how to set up
 - [Contexts](Contexts-overview)
 - [Event dictionary](Event-dictionary)
 - [Schema registry](Schema-registry)
-- [Iglu repository](Iglu-repository)
+- [Iglu schema registry](Iglu-registry)

@@ -26,7 +26,7 @@ That's where **event dictionary** comes into play. It is a document that defines
 
 When it comes to actual implementation of *event dictionaries* we prefer to call it a **schema registry**.
 
-> **Schema Registry** provides a serving layer for your metadata. It provides a RESTful interface for storing and retrieving schemas. It stores a versioned history of all schemas and allows evolution of schemas.
+> **Schema registry** provides a serving layer for your metadata. It provides a RESTful interface for storing and retrieving schemas. It stores a versioned history of all schemas and allows evolution of schemas.
 
 When an **event** occurs, it generally involves a number of **entities**, and takes place in a particular setting. Those entities we call **contexts**.
 
@@ -47,7 +47,7 @@ Snowplow requires that you put together schemas for your events and contexts, ah
 1. To validate that the data coming in is "good data" that conforms to the schema
 2. Process the data correctly, in particular, shredding the JSONs that represent the data into tidy tables in Redshift suitable for analysis
 
-**Iglu** is a key technology for making this possible. It is machine-readable, open-source *schema repository* for JSON and Thrift schemas from the team at Snowplow Analytics. A schema repository (sometimes called a registry) is like `git` but holds data schemas instead of software or code.
+**Iglu** is a key technology for making this possible. It is machine-readable, open-source *schema registry* for JSON and Thrift schemas from the team at Snowplow Analytics. A schema registry is like [Git](https://en.wikipedia.org/wiki/Git_(software)) but holds data schemas instead of software or code.
 
 ###Further reading
 
@@ -56,5 +56,5 @@ To find out more about the concepts mentioned above and ultimately how to set up
 - [Events](Events-overview)
 - [Contexts](Contexts-overview)
 - [Event dictionary](Event-dictionary)
-- [Schema registry](Schema-registry) as implementation of [event dictionaries](Event-dictionary)
-- [Iglu repository](Iglu-repository)
+- [Schema registry](Schema-registry)
+- [Iglu schema registry](Iglu-registry)

@@ -1,4 +1,4 @@
-[**HOME**](Home) » [**EVENTS AND CONTEXTS**](Events-and-Contexts) » [Events Overview](Events-overview) » Custom events
+[**HOME**](Home) » [**EVENTS AND CONTEXTS**](Events-and-Contexts) » [Events Overview](Events-overview) » Custom Events
 
 ##Overview
 
@@ -109,6 +109,6 @@ To find out more about the concepts mentioned above and ultimately how to set up
 - [Contexts](Contexts-overview)
 - [Event dictionary](Event-dictionary)
 - [Schema registry](Schema-registry)
-- [Iglu repository](Iglu-repository)
+- [Iglu schema registry](Iglu-registry)
 
 [unstructured-events]: http://snowplowanalytics.com/blog/2013/05/14/snowplow-unstructured-events-guide/

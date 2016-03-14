@@ -30,4 +30,5 @@ To find out more about the events and ultimately how to set up custom events and
 - [Custom events](Custom-events)
 - [Custom contexts](Custom-contexts)
 - [Event dictionary](Event-dictionary)
-- [Iglu repository](Iglu-repository)
+- [Schema registry](Schema-registry)
+- [Iglu schema registry](Iglu-registry)
