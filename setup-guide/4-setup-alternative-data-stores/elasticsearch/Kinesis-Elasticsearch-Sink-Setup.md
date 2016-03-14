@@ -203,7 +203,7 @@ You will need to configure the names of the input and output streams.
 The Kinesis Elasticsearch Sink is an executable jarfile which should be runnable from any Unix-like shell environment. Simply provide the configuration file as a parameter:
 
 ```
-$ ./kinesis-Elasticsearch-sink-0.4.0 --config my.conf
+$ ./kinesis-elasticsearch-sink-0.4.0 --config my.conf
 ```
 
 This will start the process of reading events from Kinesis and writing them to an Elasticsearch cluster.
