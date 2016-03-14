@@ -2,10 +2,10 @@
 
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 4: setting up alternative data stores**](Setting-up-alternative-data-stores) > [Kinesis-Elasticsearch-Sink-Setup](Kinesis-Elasticsearch-Sink-Setup)
 
-This documentation is for version 0.5.0 of Kinesis Elasticsearch Sink.  For previous versions:
+This documentation is for version 0.4.0 of Kinesis Elasticsearch Sink.  For other versions:
 
 **[Version 0.1.0 - 0.3.0][0.1]**  
-**[Version 0.4.0][0.4]**
+**[Version 0.5.0][0.5]**  
 
 ## Overview
 
@@ -167,12 +167,11 @@ The `jar` file will be saved as `snowplow-elasticsearch-sink-0.1.0` in the `targ
 
 The sink is configured using a HOCON file. These are the fields:
 
-* `source`: Change this from "kinesis" to "stdin" to get input from stdin rather than Kinesis. You can pipe in the output of [Scala Kinesis Enrich][scala-kinesis-enrich].
-* `sink.good`: Where to write good events. "elasticsearch" or "stdout".
-* `sink.bad`: Where to write error JSONs for bad events. "kinesis" or "stderr".
+* `source`: Change this from "kinesis" to "stdin" to run the sink in local mode. You can pipe in the output of [Scala Kinesis Enrich][scala-kinesis-enrich] and the sink will log the resulting JSONs to stdout and any events which couldn't be converted to JSON to stderr.
+* `sink`: Change this from "kinesis" to "stdouterr" to write to stdout rather than Elasticsearch and stderr rather than Kinesis. Log messages will still be logged to stdout, so make sure to filter them out if you intend to pipe the output of the sink to another process.
 * `aws.access-key` and `aws.secret-key`: Change these to your AWS credentials. You can alternatively leave them as "default", in which case the [DefaultAWSCredentialsProviderChain][DefaultAWSCredentialsProviderChain] will be used.
 * `kinesis.in.stream-name`: The name of the input Kinesis stream
-* `stream-type`: "good" if the input stream contains successfully enriched events; "bad" if it contains bad rows.
+* `kinesis.in.stream-type`: "good" if the input stream contains successfully enriched events; "bad" if it contains bad rows.
 * `kinesis.in.initial-position`: Where to start reading from the stream the first time the app is run. "TRIM_HORIZON" for as far back as possible, "LATEST" for as recent as possibly.
 * `kinesis.out.stream-name`: The name of the output Kinesis stream. Records which cannot be converted to JSON or can be converted but are rejected by Elasticsearch get sent here. If this stream doesn't exist already it will be created automatically.
 * `kinesis.out.shards`: If the out stream doesn't exist, create it with this many shards.
@@ -217,3 +216,4 @@ This will start the process of reading events from Kinesis and writing them to a
 [scala-kinesis-enrich]: https://github.com/snowplow/snowplow/wiki/Scala-Kinesis-Enrich
 [conf-example]: https://github.com/snowplow/snowplow/blob/r67-bohemian-waxwing/4-storage/kinesis-elasticsearch-sink/src/main/resources/config.hocon.sample
 [0.1]: https://github.com/snowplow/snowplow/wiki/kinesis-elasticsearch-sink-setup-0.1.0
+[0.5]: https://github.com/snowplow/snowplow/wiki/kinesis-elasticsearch-sink-setup
