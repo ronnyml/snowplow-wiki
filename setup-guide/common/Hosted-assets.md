@@ -88,19 +88,11 @@ Our shredding process for loading JSONs into Redshift uses a standard set of JSO
 
 If you are running StorageLoader, these files will automatically be used for loading corresponding JSONs into Redshift.
 
-### 4.2 Hadoop Elasticsearch Sink resources
-
-The Hadoop Elasticsearch Sink process uses a single jarfile containing the MapReduce job. This is made available in a public Amazon S3 bucket, for Snowplowers who are running their Hadoop Enrich & Shred process on Amazon EMR:
-
-    s3://snowplow-hosted-assets/4-storage/hadoop-elasticsearch-sink/hadoop-elasticsearch-sink-0.1.0.jar
-
-Right-click on this [Download link] [hadoop-elasticsearch-sink-download] to save it down locally via CloudFront CDN.
-
-### 4.3 Kinesis Elasticsearch Sink resources
+### 4.2 Kinesis Elasticsearch Sink resources
 
 See _6. Kinesis resources_ below.
 
-### 4.4 Kinesis LZO S3 Sink resources
+### 4.3 Kinesis LZO S3 Sink resources
 
 See _6. Kinesis resources_ below.
 
@@ -114,7 +106,7 @@ We are steadily moving over to [Bintray][bintray] for hosting binaries and artif
 
 To make deployment easier, the Kinesis apps Scala Stream Collector, Scala Kinesis Enrich and Kinesis Elasticsearch Sink are now all available in a single zip file here:
 
-    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r67_bohemian_waxwing.zip
+    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r78_great_hornbill.zip
 
 Right-click on this [Download link] [kinesis-download] to save it down locally.
 
@@ -134,14 +126,13 @@ Please see the [[Artifact repositories]] wiki page for more information.
 [cc-download]: http://d2io1hx8u877l0.cloudfront.net/2-collectors/clojure-collector/clojure-collector-1.1.0-standalone.war
 [hadoop-enrich-download]: http://d2io1hx8u877l0.cloudfront.net/3-enrich/scala-hadoop-enrich/snowplow-hadoop-enrich-1.6.0.jar
 [hadoop-shred-download]: http://d2io1hx8u877l0.cloudfront.net/3-enrich/scala-hadoop-shred/snowplow-hadoop-shred-0.8.0.jar
-[hadoop-elasticsearch-sink-download]: http://d2io1hx8u877l0.cloudfront.net/4-storage/hadoop-elasticsearch-sink/hadoop-elasticsearch-sink-0.1.0.jar
 [hadoop-bad-rows-download]: http://d2io1hx8u877l0.cloudfront.net/3-enrich/scala-bad-rows/snowplow-bad-rows-0.1.0.jar
 [glc-download]: http://d2io1hx8u877l0.cloudfront.net/third-party/maxmind/GeoLiteCity.dat
 [geolite]: http://dev.maxmind.com/geoip/legacy/geolite?rld=snowplow
 [maxmind]: http://www.maxmind.com/?rld=snowplow
 
 [bintray]: https://bintray.com/
-[kinesis-download]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r77_great_auk.zip
+[kinesis-download]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r78_great_hornbill.zip
 [kinesis-s3-download]: http://dl.bintray.com/snowplow/snowplow-generic/kinesis_s3_0.4.0.zip
 
-[emr-download]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_emr_r75_long_legged_buzzard.zip
+[emr-download]: http://dl.bintray.com/snowplow/snowplow-generic/snowplow_emr_r77_great_auk.zip

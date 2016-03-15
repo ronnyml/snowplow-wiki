@@ -1,6 +1,6 @@
 [**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 1: setup a Collector**](Setting-up-a-Collector) > [**Scala Stream Collector setup**](setting-up-the-Scala-Stream-Collector) > [[Configure the Scala Stream Collector]]
 
-**This documentation refers to version 0.6.0 of the Scala Stream Collector**
+**This documentation refers to version 0.5.0 of the Scala Stream Collector**
 
 **[Version 0.1.0][v0.1]**  
 **[Version 0.3.0 & 0.4.0][v0.3]**
@@ -81,8 +81,6 @@ if not set, the P3P policy header defaults to:
 	policyref="/w3c/p3p.xml", CP="NOI DSP COR NID PSA OUR IND COM NAV STA"
 
 ### 4. Setting the domain name
-
-Set the cookie name using the `collector.cookie.name` setting. To maintain backward compatibility with earlier versions of the collector, use the string "sp" as the cookie name.
 
 Setting the domain name in `collector.cookie.domain` can be useful if you want to make the cookie accessible to other applications on your domain. In our example above, for example, we've setup the collector on `collector.snplow.com`. If we do not set a domain name, the cookie will default to this domain. However, if we set it to `.snplow.com`, that cookie will be accessible to other applications running on `*.snplow.com`.
 
