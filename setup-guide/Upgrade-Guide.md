@@ -6,6 +6,7 @@ You can also use [Snowplow Version Matrix](Snowplow-version-matrix) as a guidanc
 
 For easier navigation, please, follow the links below.
 
+- [Snowplow 78 Great Hornbill](#r78) (**r78**) 2016-03-15
 - [Snowplow 77 Great Auk](#r77) (**r77**) 2016-02-29
 - [Snowplow 76 Changeable Hawk-Eagle](#r76) (**r76**) 2016-01-26
 - [Snowplow 75 Long-Legged Buzzard](#r75) (**r75**) 2016-01-02
@@ -39,6 +40,63 @@ For easier navigation, please, follow the links below.
 - [Snowplow 0.9.2](#v0.9.2) (**v0.9.2**) 2014-04-30
 - [Snowplow 0.9.1](#v0.9.1) (**v0.9.1**) 2014-04-11
 - [Snowplow 0.9.0](#v0.9.0) (**v0.9.0**) 2014-02-04
+
+<a name="r78" />
+##Snowplow 78 Great Hornbill
+
+This release brings our Kinesis pipeline functionally up-to-date with our Hadoop pipeline, and makes various further improvements to the Kinesis pipeline.
+
+### Upgrade steps
+
+The Kinesis apps for R78 Great Hornbill are now all available in a single zip file here:
+
+```
+http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r78_great_hornbill.zip
+```
+
+####Configuration file
+
+Upgrading will require the following configuration changes to the applications' individual HOCON configuration files.
+
+#####Scala Stream Collector
+
+Add a `collector.cookie.name` field to the HOCON and set its value to `"sp"`.
+
+Also note that the configuration file no longer supports loading AWS credentials from the classpath using [ClasspathPropertiesFileCredentialsProvider](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/auth/ClasspathPropertiesFileCredentialsProvider.html). If your configuration looks like this:
+
+```json
+{
+	"aws": {
+		"access-key": "cpf",
+		"secret-key": "cpf"
+	}
+}
+```
+
+then you should change "cpf" to "default" to use the [DefaultAWSCredentialsProviderChain](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/auth/DefaultAWSCredentialsProviderChain.html). You will need to ensure that your credentials are available in one of the places the AWS Java SDK looks. For more information about this, see the [Javadoc](http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/auth/DefaultAWSCredentialsProviderChain.html).
+
+#####Kinesis Elasticsearch Sink
+
+Replace the `sink.kinesis.out` string with an object with two fields:
+
+```json
+{
+	"sink": {
+		"good": "elasticsearch",  # or "stdout"
+		"bad": "kinesis"          # or "stderr" or "none"
+}
+```
+
+Additionally, move the `stream-type` setting from the `sink.kinesis.in` section to the `sink` section.
+
+If you are loading Snowplow bad rows into for example Elasticsearch, please make sure to update all applications.
+
+For a complete example, see our sample [`config.hocon`](https://github.com/snowplow/snowplow/blob/r78-great-hornbill/4-storage/kinesis-elasticsearch-sink/src/main/resources/config.hocon.sample) template.
+
+### Read more
+
+* [R78 Blog Post](http://snowplowanalytics.com/blog/2016/03/15/snowplow-r78-great-hornbill-released/)
+* [R78 Release Notes](https://github.com/snowplow/snowplow/releases/tag/r78-great-hornbill)
 
 <a name="r77" />
 ##Snowplow 77 Great Auk

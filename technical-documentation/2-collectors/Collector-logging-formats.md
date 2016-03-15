@@ -156,7 +156,7 @@ struct CollectorPayload {
 }
 ```
 
-It's important to note that we built stream data processing on the idea of [Lambda architecture](http://lambda-architecture.net/) which implies both a speed (real-time) layer and a batch layer. As a result we provide two consumers: [Scala Kinesis Enrich](setting-up-scala-kinesis-enrich) and [Kineses-S3 sink](kinesis-lzo-s3-sink-setup).
+It's important to note that we built stream data processing on the idea of [Lambda architecture](http://lambda-architecture.net/) which implies both a speed (real-time) layer and a batch layer. As a result we provide two consumers: [Scala Kinesis Enrich](setting-up-scala-kinesis-enrich) and [Kinesis-S3 sink](kinesis-lzo-s3-sink-setup).
 
 Due to their nature (purpose):
 
