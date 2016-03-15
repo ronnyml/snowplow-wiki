@@ -8,8 +8,12 @@ Enrichment process parses raw Snowplow events and performs the following:
 2. Validates data against [Snowplow Tracker Protocol](snowplow-tracker-protocol) and JSON schema
 3. Enriches data (adds extra value derived from the tracked/captured data), so called "dimension widening"
 4. Writes enriched data out
- 
+
 Therefore feeding in a raw Snowplow event will produce either the enriched event with additional data (context), modified (enriched) data or a `bad` record.
+
+> **JSON schema** specifies a *JSON*-based format to define the structure of JSON data for validation, documentation, and interaction control. 
+
+> **JSON** (JavaScript Object Notation) is an open-standard format that uses human-readable text to transmit data objects consisting of attribute–value pairs.
 
 We distinguish 3 types of enrichment:
  
@@ -19,7 +23,9 @@ We distinguish 3 types of enrichment:
 
 *Legacy enrichments* are those which populate `atomic.events` table as opposed to enrichment’s dedicated tables. The hardcoded legacy enrichments normally take place as part of common enrichment process and they precede configurable enrichments.
 
-*Configurable enrichments* are those controlled with `--enrichments` option passed to the ETL runner. They often depend on the data produced by the common enrichment process.
+*Configurable enrichments* are those controlled with `--enrichments` option passed to the ETL (Extract, Transform, Load) runner. They often depend on the data produced by the common enrichment process.
+
+> **ETL** stands for **E**xtract, **T**ransform, **L**oad.
 
 During the common enrichment process the data received from collector(s) is mapped according to our [Canonical Event Model](canonical-event-model).
 
@@ -41,13 +47,20 @@ Raw Parameter | Enriched Parameter | Purpose
 `ip` | `user_ipaddress` | Snowplow collectors log IP address as standard. However, you can override the value derived from the collector by populating this value in the tracker.
 `ua` | `useragent` | Raw useragent (browser string). Could be overwritten with `ua`.
 
-The following fields are populated depending on the collector and ETL utilized in the pipeline.
+The following fields are populated depending on the collector and ETL (Extract, Transform, Load) utilized in the pipeline.
 
 Added Parameter | Purpose
 :---|:---
 `v_etl` | Host ETL version
 `etl_tstamp` | Timestamp event began ETL
 `collector_tstamp` | Time stamp for the event recorded by the collector
+
+The raw parameter `res` (if present) representing the screen/monitor resolution and coming in as a combination of width and height (ex. `1280x1024`) is broken up into separate entities.
+
+Added Parameter | Purpose
+:---|:---
+`dvce_screenwidth` | Screen / monitor width
+`dvce_screenheight` | Screen / monitor height
 
 The `url` parameter provides the value for `page_url` in `atomic.events`, which represents the current page's URL. The following parts are extracted and populate separate fields as outlined below.
 
