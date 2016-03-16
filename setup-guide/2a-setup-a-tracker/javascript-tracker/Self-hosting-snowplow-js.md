@@ -1,4 +1,4 @@
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2: setup a Tracker**](Setting-up-a-Tracker) > [**JavaScript Tracker**](Javascript-tracker-setup) > [Self-hosting Snowplow.js](Self-hosting-snowplow-js)
+[**HOME**](Home) » [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) » [**Step 2: setup a Tracker**](Setting-up-a-Tracker) » [**JavaScript Tracker**](Javascript-tracker-setup) » Self-hosting Snowplow.js
 
 ## Overview
 
