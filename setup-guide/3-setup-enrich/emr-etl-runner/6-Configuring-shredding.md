@@ -1,4 +1,4 @@
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 3: Setting up Enrich](Setting-up-enrich) > [**Step 3.1: setting up EmrEtlRunner**](Setting-up-EmrEtlRunner) > [5: Configuring shredding](5-Configuring-shredding)
+[**HOME**](Home) » [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) » [Step 3: Setting up Enrich](Setting-up-enrich) » [**Step 3.1: setting up EmrEtlRunner**](Setting-up-EmrEtlRunner) » 5: Configuring shredding
 
 1. [Overview](#overview)
 2. [Pre-requisites](#pre-reqs)
@@ -8,14 +8,15 @@
 <a name="overview"/>
 ## 1. Overview
 
-Snowplow has a [Shredding process](Shredding) for Redshift which consists of two phases:
+Snowplow has a [Shredding process](Shredding) for Redshift which contributes to the following three phases:
 
 1. Extracting unstructured event JSONs and context JSONs from enriched event files into their own files
-2. Loading those files into corresponding tables in Redshift
+2. Removing endogenous duplicate records, which are sometimes introduced within the Snowplow pipeline (introduced in r76)
+3. Loading those files into corresponding tables in Redshift
 
-The first phase is instrumented by EmrEtlRunner; in this page we will explain how to configure the shredding process to operate smoothly with EmrEtlRunner.
+The first two phases are instrumented by EmrEtlRunner; in this page we will explain how to configure the shredding process to operate smoothly with EmrEtlRunner.
 
-**Note: this guide is ONLY required if you want to shred your own unstructured event JSONs and context JSONs. If you are only shredding Snowplow-authored JSONs like link clicks and ad impressions, then you can skip this page and go straight to [Loading shredded types](4-Loading-shredded-types).**
+**Note: Even though the first phase is required only if you want to shred your own unstructured event JSONs and context JSONs, the second phase will be beneficial to data modeling and analysis. If none of it is required and you are only shredding Snowplow-authored JSONs like link clicks and ad impressions, then you can skip this page and go straight to [Loading shredded types](4-Loading-shredded-types).**
 
 <a name="pre-reqs"/>
 ## 2. Pre-requisites
@@ -31,71 +32,68 @@ Secondly, we assume that you have defined self-describing JSON Schemas for each 
 * [Iglu documentation on self-describing JSON Schemas](https://github.com/snowplow/iglu/wiki/Self-describing-JSON-Schemas)
 * [Understanding JSON Schema (PDF)](http://spacetelescope.github.io/understanding-json-schema/UnderstandingJSONSchema.pdf)
 
-Thirdly, we assume that you have setup your own Iglu schema repository to host your schemas. Resources:
+Thirdly, we assume that you have setup your own Iglu schema registry to host your schemas. Resources:
 
 * [Setup a static Iglu repository](https://github.com/snowplow/iglu/wiki/Static-repo-setup)
 * [Iglu FAQ: How do I host a schema privately?](https://github.com/snowplow/iglu/wiki/Developer-FAQ#how-do-i-host-a-schema-privately)
+
+» Read more about the topics related to events and contexts:
+
+- [Events and contexts](Events-and-contexts)
+- [Iglu schema registry](Iglu-registry)
 
 You are now ready to configure EmrEtlRunner for shredding.
 
 <a name="configure"/>
 ## 3. Configuring EmrEtlRunner
 
-The first relevant section of the EmrEtlRunner's `config.yml` is:
+The relevant section of the EmrEtlRunner's [`config.yml`](https://github.com/snowplow/snowplow/blob/master/3-enrich/emr-etl-runner/config/config.yml.sample) is:
 
 ```yaml
-:shredded:
-  :good: ADD HERE       # e.g. s3://my-out-bucket/shredded/good
-  :bad: ADD HERE        # e.g. s3://my-out-bucket/shredded/bad
-  :errors: ADD HERE     # Leave blank unless :continue_on_unexpected_error: set to true below
+shredded:
+  good: s3://my-out-bucket/shredded/good       # e.g. s3://my-out-bucket/shredded/good
+  bad: s3://my-out-bucket/shredded/bad        # e.g. s3://my-out-bucket/shredded/bad
+  errors: s3://my-out-bucket/shredded/errors     # Leave blank unless :continue_on_unexpected_error: set to true below
+  archive: s3://my-out-bucket/shredded/archive  # Not required for Postgres currently
 ```
+
+The configuration file is referenced with `--config` option to EmrEtlRunner.
 
 Please make sure that these shredded buckets are set correctly. 
 
-Next, we let EmrEtlRunner know about your Iglu schema repository, so that schemas can be retrieved from there as well as from Iglu Central. The relevant section of `config.yml` is:
+Next, we let EmrEtlRunner know about your Iglu schema registry, so that schemas can be retrieved from there as well as from Iglu Central. Add your own registry to the repositories array in  [`iglu_resolver.json`](https://github.com/snowplow/snowplow/blob/master/3-enrich/config/iglu_resolver.json) file:
 
 ```yaml
-:iglu:
-  :schema: iglu:com.snowplowanalytics.iglu/resolver-config/jsonschema/1-0-0
-  :data:
-    :cache_size: 500
-    :repositories:
-      - :name: "Iglu Central"
-        :priority: 0
-        :vendor_prefixes:
-          - com.snowplowanalytics
-        :connection:
-          :http:
-            :uri: http://iglucentral.com
+{
+  "schema": "iglu:com.snowplowanalytics.iglu/resolver-config/jsonschema/1-0-0",
+  "data": {
+    "cacheSize": 500,
+    "repositories": [
+      {
+        "name": "Iglu Central",
+        "priority": 0,
+        "vendorPrefixes": [ "com.snowplowanalytics" ],
+        "connection": {
+          "http": {
+            "uri": "http://iglucentral.com"
+          }
+        }
+      }
+      #custom section starts here
+      #add your own repository details
+      ,
+      {
+       ... 
+      }
+      #custom section ends here
+    ]
+  }
+}
 ```
 
-You must add an extra entry in the `:repositories:` array pointing to your own Iglu schema repository.
+You must add an extra entr(-y/ies) in the `repositories:` array pointing to your own Iglu schema registry. If you are not submitting custom events and contexts and are not interested in shredding then there's no need in adding the custom section but the `iglu_resolver.json` file is still required and is referenced with `--resolver` option to EmrEtlRunner.
 
-For more information on how to do this, please review the [Iglu client configuration](https://github.com/snowplow/iglu/wiki/Iglu-client-configuration) wiki page. The EmrEtlRunner converts the YAML format given above into an Iglu client configuration JSON automatically.
-
-Your updated `config.yml` will end up looking something like:
-
-```yaml
-:iglu:
-  :schema: iglu:com.snowplowanalytics.iglu/resolver-config/jsonschema/1-0-0
-  :data:
-    :cache_size: 500
-    :repositories:
-      - :name: "Iglu Central"
-        :priority: 0
-        :vendor_prefixes:
-          - com.snowplowanalytics
-        :connection:
-          :http:
-            :uri: http://iglucentral.com
-      - :name: "Acme's Iglu repository"
-        :priority: 0
-        :vendor_prefixes:
-          - com.acme
-        :connection:
-          :http:
-            :uri: http://internal.acme.com/iglu
-```
+For more information on how to customize the `iglu_resolver.json` file, please review the [Iglu client configuration](https://github.com/snowplow/iglu/wiki/Iglu-client-configuration) wiki page.
 
 <a name="next-steps"/>
 ## 4. Next steps
