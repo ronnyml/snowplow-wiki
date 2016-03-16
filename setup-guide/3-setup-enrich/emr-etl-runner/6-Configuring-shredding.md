@@ -11,7 +11,7 @@
 Snowplow has a [Shredding process](Shredding) for Redshift which contributes to the following three phases:
 
 1. Extracting unstructured event JSONs and context JSONs from enriched event files into their own files
-2. Removing endogenous duplicate records, which are sometimes introduced within the Snowplow pipeline (introduced in r76)
+2. Removing endogenous duplicate records, which are sometimes introduced within the Snowplow pipeline (feature added to r76)
 3. Loading those files into corresponding tables in Redshift
 
 The first two phases are instrumented by EmrEtlRunner; in this page we will explain how to configure the shredding process to operate smoothly with EmrEtlRunner.
@@ -79,13 +79,12 @@ Next, we let EmrEtlRunner know about your Iglu schema registry, so that schemas 
           }
         }
       }
-      #custom section starts here
-      #add your own repository details
+      #custom section starts here -->
       ,
       {
        ... 
       }
-      #custom section ends here
+      #custom section ends here <--
     ]
   }
 }

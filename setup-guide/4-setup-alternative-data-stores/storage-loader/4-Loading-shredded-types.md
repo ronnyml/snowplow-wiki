@@ -1,4 +1,4 @@
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [Step 4: setting up alternative data stores](Setting-up-alternative-data-stores) > [1: Installing the StorageLoader](1-Installing-the-StorageLoader) > [2: Using the StorageLoader](2-Using-the-StorageLoader) > [3: Scheduling the StorageLoader](3-Scheduling-the-StorageLoader) > 4: Loading shredded types
+[**HOME**](Home) » [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) » [Step 4: setting up alternative data stores](Setting-up-alternative-data-stores) » [1: Installing the StorageLoader](1-Installing-the-StorageLoader) » [2: Using the StorageLoader](2-Using-the-StorageLoader) » [3: Scheduling the StorageLoader](3-Scheduling-the-StorageLoader) » 4: Loading shredded types
 
 1. [Overview](#overview)
 2. [Loading Snowplow-authored JSONs](#snowplow-jsons)
@@ -10,12 +10,13 @@
 <a name="overview"/>
 ## 1. Overview
 
-Snowplow has a [Shredding process](Shredding) for Redshift which consists of two phases:
+Snowplow has a [Shredding process](Shredding) for Redshift which consists of three phases:
 
 1. Extracting unstructured event JSONs and context JSONs from enriched event files into their own files
-2. Loading those files into corresponding tables in Redshift
+2. Removing endogenous duplicate records, which are sometimes introduced within the Snowplow pipeline (feature added to r76)
+3. Loading those files into corresponding tables in Redshift
 
-The second phase is instrumented by StorageLoader and is documented on this wiki page; to configure the first phase, visit the [Configuring shredding](5-Configuring-shredding) wiki page.
+The third phase is instrumented by StorageLoader and is documented on this wiki page; to configure the first phase, visit the [Configuring shredding](5-Configuring-shredding) wiki page (second phase requires no configuration).
 
 <a name="snowplow-jsons"/>
 ## 2. Loading Snowplow-authored JSONs
@@ -53,7 +54,7 @@ The table name would be:
 
     de_company_add_to_basket_2
 
-Note that only the model version is included - do not incldue the remaining portions of the version (SchemaVer revision or addition).
+Note that only the model version is included - do not include the remaining portions of the version (SchemaVer revision or addition).
 
 ### 3.2 Creating the table definition
 
@@ -174,22 +175,24 @@ Store the JSON Paths file in a sub-folder named after the vendor, for example:
 <a name="configure"/>
 ## 5. Configuring StorageLoader
 
-Now you need to update StorageLoader's `config.yml` to load the shredded types. First, make sure that your `:jsonpath_assets:` points to the private S3 bucket you stored the JSON Paths file in section 4.
+Now you need to update StorageLoader's `config.yml` to load the shredded types. First, make sure that your `jsonpath_assets:` points to the private S3 bucket you stored the JSON Paths file in section 4.
 
 ```yaml
-:buckets:
-  :jsonpath_assets: s3://acme-jsonpaths-file
+buckets:
+  jsonpath_assets: s3://acme-jsonpaths-file
 ```
 
-Next, make sure that you have populated the `:shredded:` section correctly:
+Next, make sure that you have populated the `shredded:` section correctly:
 
 ```yaml
-:shredded:
-  :good: ADD HERE # Must be s3:// not s3n:// for Redshift. This is the same as the :shredded:good: bucket specified for EmrEtlRunner
-  :archive: ADD HERE # Where to archive shredded types to
+shredded:
+  good: s3://my-data-bucket/shredded/good       # e.g. s3://my-out-bucket/shredded/good
+  bad: s3://my-data-bucket/shredded/bad        # e.g. s3://my-out-bucket/shredded/bad
+  errors: s3://my-data-bucket/shredded/errors     # Leave blank unless :continue_on_unexpected_error: set to true below
+  archive: s3://my-data-bucket/shredded/archive    # Where to archive shredded events to, e.g. s3://my-archive-bucket/shredded
 ```
 
-Make sure this cross-checks with the corresponding paths in your EmrEtlRunner's `config.yml`.
+If you are using separate configuration files make sure this cross-checks with the corresponding paths in your EmrEtlRunner's `config.yml`.
 
 <a name="next-steps"/>
 ## 6. Next steps
