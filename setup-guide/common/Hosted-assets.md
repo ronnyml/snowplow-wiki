@@ -12,9 +12,11 @@ We are steadily moving over to [Bintray][bintray] for hosting binaries and artif
 
 To make operating Snowplow easier, the EmrEtlRunner and StorageLoader apps are now available as prebuilt executables in a single zipfile here:
 
-    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_emr_r75_long_legged_buzzard.zip
+    http://dl.bintray.com/snowplow/snowplow-generic/snowplow_emr_r77_great_auk.zip
 
 Right-click on this [Download link] [emr-download] to save it down locally.
+
+**Note**: The link above refers to the latest version at the time of writing (r77). If you know there is a newer version you can locate and download it from the [generic page](http://dl.bintray.com/snowplow/snowplow-generic/). Search for the pattern `snowplow_emr_`. The higher the number version the newer it is.
 
 ## 1. Trackers
 
@@ -22,7 +24,9 @@ Right-click on this [Download link] [emr-download] to save it down locally.
 
 The minified JavaScript tracker is hosted on CloudFront against its full semantic version:
 
-    http(s)://d1fc8wv8zag5ca.cloudfront.net/2.5.3/sp.js
+    http(s)://d1fc8wv8zag5ca.cloudfront.net/2.6.0/sp.js
+
+**Note**: The above URL references JavaScript tracker v2.6.0 (d1fc8wv8zag5ca.cloudfront.net/**2.6.0**/sp.js). To ensure you are using the latest version, please, check what it currently is at [GitHub](https://github.com/snowplow/snowplow-javascript-tracker/releases) and amend accordingly.
 
 ### 2.1 Clojure Collector resources
 
