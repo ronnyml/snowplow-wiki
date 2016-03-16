@@ -1,9 +1,14 @@
-Snowplow has a Shredding process which consists of two phases:
+[**HOME**](Home) » [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) » [Enrichment](Enrichment) » Shredding
+
+##Overview
+
+Snowplow has a Shredding process which consists of three phases:
 
 1. Extracting unstructured event JSONs and context JSONs from enriched event files into their own files
-2. Loading those files into corresponding tables in Redshift
+2. Removing endogenous duplicate records, which are sometimes introduced within the Snowplow pipeline (feature added to r76)
+3. Loading those files into corresponding tables in Redshift
 
-Postgres does not support copying data in JSON format, so you cannot load Snowplow JSONs into Postgres. However, if you are using Postgres, you must still run the shred step because it also creates the TSV which is loaded into the atomic.events table.
+Postgres does not support copying data in JSON format, so you cannot load Snowplow JSONs into Postgres. However, if you are using Postgres, you must still run the shred step because it also creates the TSV which is loaded into the `atomic.events` table.
 
 ## Technical architecture
 
@@ -15,7 +20,7 @@ The shredding flow and main components are highlighted in blue on the right-hand
 
 ### 0. Iglu
 
-Iglu is a schema repository technology which holds the JSON Schemas against which unstructured events and context JSONs are validated.
+Iglu is a schema repository technology which holds the JSON Schemas against which self-describing events (also called unstructured events) and context JSONs are validated.
 
 For more information on Iglu, see the [Iglu wiki] [iglu-wiki].
 
@@ -31,9 +36,11 @@ Scala Hadoop Shred is a dedicated Scalding job to perform the JSON validation an
 
 Configuring this is covered in [Configuring shredding](6-Configuring-shredding).
 
+**Note**: Removing endogenous duplicate records as a phase in Shredding process was introduced to r76 release. It does not require an additional configuration.
+
 ### 2. StorageLoader
 
-The StorageLoader has functionality to load shredded types into corresponding tables in Redshift, using Redshift's native `COPY FROM JSON` functionality. This is a multi-step process:
+The StorageLoader has functionality to load shredded types into corresponding tables in Redshift, using Redshift's native [`COPY FROM JSON`](http://docs.aws.amazon.com/redshift/latest/dg/copy-usage_notes-copy-from-json.html) functionality. This is a multi-step process:
 
 * Find folders of shredded types in S3
 * For each folder of shredded types:

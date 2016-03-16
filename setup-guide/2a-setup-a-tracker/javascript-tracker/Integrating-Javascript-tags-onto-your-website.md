@@ -1,4 +1,4 @@
-[**HOME**](Home) > [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) > [**Step 2: setup a Tracker**](Setting-up-a-Tracker) > [JavaScript Tracker](Javascript-Tracker-setup)
+[**HOME**](Home) » [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) » [**Step 2: setup a Tracker**](Setting-up-a-Tracker) » [JavaScript Tracker](Javascript-Tracker-setup) » Integrating Javascript tags onto your website
 
 This guide takes you through the process for integrating Snowplow's JavaScript Tracker into your website or web app.
 
@@ -26,7 +26,7 @@ In general, we recommend Snowplow users to install the asyncronous version of th
 
 #### 1.1.1 Installing the header script
 
-To use `snowplow.js` in an 'async' manner, first add the following script into your website template's `<head>` section:
+To use `sp.js` in an 'async' manner, first add the following script into your website template's `<head>` section:
 
 ```html
 <!-- Snowplow starts plowing -->
@@ -34,7 +34,7 @@ To use `snowplow.js` in an 'async' manner, first add the following script into y
 ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
 p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
 };p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.5.1/sp.js","snowplow"));
+n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","//d1fc8wv8zag5ca.cloudfront.net/2.6.0/sp.js","snowplow"));
 
 window.snowplow('newTracker', 'cf', '{{MY-COLLECTOR-URI}}', { // Initialise a tracker
   appId: '{{MY-SITE-ID}}',
@@ -45,6 +45,8 @@ window.snowplow('trackPageView');
 </script>
 <!-- Snowplow stops plowing -->
 ```
+
+**Note**: The above snippet references JavaScript tracker v2.6.0 (//d1fc8wv8zag5ca.cloudfront.net/**2.6.0**/sp.js). To ensure you are using the latest version, please, check what it currently is at [GitHub](https://github.com/snowplow/snowplow-javascript-tracker/releases) and amend accordingly.
 
 #### 1.1.2 Configuring the header script: setting the Collector endpoint
 
