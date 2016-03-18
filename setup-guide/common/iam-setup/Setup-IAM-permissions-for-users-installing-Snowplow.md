@@ -75,6 +75,8 @@ Paste the following JSON into the _Policy Document_ text area:
     {
       "Effect": "Allow",
       "Action": [
+        "acm:DescribeCertificate",
+        "acm:ListCertificate",
         "autoscaling:*",
         "aws-marketplace:ViewSubscriptions",
         "aws-marketplace:Subscribe",
@@ -122,7 +124,8 @@ Paste the following JSON into the _Policy Document_ text area:
     {
       "Effect": "Allow",
       "Action": [
-        "autoscaling:*",
+        "acm:DescribeCertificate",
+        "acm:ListCertificate","autoscaling:*",
         "elasticloadbalancing:*",
         "kinesis:*",
         "iam:*",
