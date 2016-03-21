@@ -114,7 +114,7 @@ Enable the page view tracking like so:
   "triggers": {
     "trackPageview": {  // Trigger names can be any string. trackPageview is not a required name
       "on": "visible",
-      "request": "pageview"
+      "request": "pageView"
     }
   }
 }
