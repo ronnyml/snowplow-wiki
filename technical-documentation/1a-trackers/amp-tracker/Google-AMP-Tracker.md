@@ -89,7 +89,7 @@ Notes:
 <a name="events" />
 ## 3. Tracking events
 
-The following trigger request values are supported for the Google Analytics configuration:
+The following trigger request values are supported for the Snowplow Analytics configuration:
 
  * `pageView` for page view tracking
  * `unstructEvent` for structured event tracking
@@ -114,7 +114,7 @@ Enable the page view tracking like so:
   "triggers": {
     "trackPageview": {  // Trigger names can be any string. trackPageview is not a required name
       "on": "visible",
-      "request": "pageview"
+      "request": "pageView"
     }
   }
 }
