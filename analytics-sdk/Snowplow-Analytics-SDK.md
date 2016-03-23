@@ -23,5 +23,5 @@ We are hugely excited about developing our analytics SDK initiative in four dire
 
 - [Scala Analytics SDK](Scala-Analytics-SDK) - lets you work with Snowplow enriched events in your Scala event processing, data modeling and machine-learning jobs.
 - Python Analytics SDK
-- Nore.js Analytics SDK
+- Node.js Analytics SDK
 - Java Analytics SDK
