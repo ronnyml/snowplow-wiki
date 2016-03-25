@@ -1,4 +1,4 @@
-[**HOME**](Home) » [**EVENTS AND CONTEXTS**](Events-and-Contexts) » Event dictionary
+[**HOME**](Home) » [**EVENTS AND CONTEXTS**](Events-and-Contexts) » Event Dictionary
 
 ##Overview
 
@@ -87,4 +87,4 @@ To find out more about the concepts mentioned above and ultimately how to set up
 - [Schema registry](Schema-registry)
 - [Custom events](Custom-events)
 - [Custom contexts](Custom-contexts)
-- [Iglu repository](Iglu-repository)
+- [Iglu schema registry](Iglu-registry)
