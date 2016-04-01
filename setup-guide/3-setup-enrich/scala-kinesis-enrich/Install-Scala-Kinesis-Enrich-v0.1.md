@@ -4,7 +4,7 @@
 
 *This page refers to version 0.1.0 of Scala Kinesis Enrich. Documentation for other versions is available:*
 
-*[Version 0.2](v0.7)*
+*[Version 0.7](v0.7)*
 
 ## 1. Dependencies
 
