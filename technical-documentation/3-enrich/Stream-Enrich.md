@@ -17,7 +17,7 @@ reading Thrift-serialized objects collected with the Scala Stream Collector.
 # See also:
 
 + [Setup guide][setup]
-+ [Repository][kinesis-enrich]
++ [Repository][stream-enrich]
 
 [kinesis]: http://aws.amazon.com/kinesis/
 
