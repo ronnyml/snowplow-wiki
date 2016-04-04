@@ -492,6 +492,12 @@ snowplow_name_here('setReferrerUrl', 'http://custom-referrer.com');
 
 On a single-page app, the page URL might change without the page being reloaded. Whenever an event is fired, the Tracker checks whether the page URL has changed since the last event. If it has, the page URL is updated and the URL at the time of the last event is used as the referrer. If you use `setCustomUrl`, the page URL will no longer be updated in this way. If you use `setReferrerUrl`, the referrer URL will no longer be updated in this way.
 
+If you want to ensure that the original referrer is preserved even though your page URL can change without the page being reloaded, use `setReferrerUrl` like this before sending any events:
+
+```javascript
+snowplow_name_here('setReferrerUrl', document.referrer);
+```
+
 [Back to top](#top)  
 [Back to JavaScript technical documentation contents][contents]
 
