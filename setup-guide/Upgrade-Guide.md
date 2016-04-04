@@ -54,6 +54,8 @@ The Kinesis apps for R78 Great Hornbill are now all available in a single zip fi
 http://dl.bintray.com/snowplow/snowplow-generic/snowplow_kinesis_r78_great_hornbill.zip
 ```
 
+Scala Kinesis Enrich has been renamed to Stream Enrich. The name of the artifact has changed to "snowplow-stream-enrich".
+
 ####Configuration file
 
 Upgrading will require the following configuration changes to the applications' individual HOCON configuration files.
