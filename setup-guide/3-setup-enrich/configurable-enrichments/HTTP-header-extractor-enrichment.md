@@ -4,7 +4,7 @@
 
 ### Compatibility
 
-JSON Schema   [iglu:com.snowplowanalytics.snowplow/http_header_extractor_config/jsonschema/1-0-0][schema]  
+JSON Schema   [iglu:com.snowplowanalytics.snowplow.enrichments/http_header_extractor_config/jsonschema/1-0-0][schema]  
 Compatibility r79+, Scala Stream Collector only **NOT RELEASED YET**  
 Data provider None 
 
@@ -22,10 +22,10 @@ Below configuration allows to extract all headers present in HTTP request, inclu
 
 ```json
 {
-	"schema": "iglu:com.snowplowanalytics.snowplow/http_header_extractor_config/jsonschema/1-0-0",
+	"schema": "iglu:com.snowplowanalytics.snowplow.enrichments/http_header_extractor_config/jsonschema/1-0-0",
 	"data": {
 		"name": "http_header_extractor_config",
-		"vendor": "com.snowplowanalytics.snowplow",
+		"vendor": "com.snowplowanalytics.snowplow.enrichments",
 		"enabled": true,
 		"parameters": {
 			"headersPattern": [".*"]
@@ -53,5 +53,5 @@ As each key-value pair corresponding to the header is represented as a `derived_
 If EMR enrichment is engaged (as opposed to Kinesis) the generated data ends up in `org_ietf_http_header_1` table.
 
 
-[schema]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow/http_header_extractor_config/jsonschema/1-0-0
+[schema]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow.enrichments/http_header_extractor_config/jsonschema/1-0-0
 [http-header-schema]: http://iglucentral.com/schemas/org.ietf/http_header/jsonschema/1-0-0
