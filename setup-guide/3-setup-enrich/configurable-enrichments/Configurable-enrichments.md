@@ -44,6 +44,7 @@ These are the available configurable enrichments:
 [[Cookie extractor enrichment]]  
 [[Weather enrichment]]  
 [[API Request enrichment]]  
+[[HTTP Header extractor enrichment]]  
 
 
 Snowplow ships with a set of sensible default configurations for the configurable enrichments. You can browser them on GitHub: [3-enrich/config/enrichments][enrichment-json-examples].
