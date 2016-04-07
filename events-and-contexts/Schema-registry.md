@@ -26,7 +26,7 @@ We recommend setting up the following 3 tools before staring:
 In order to start sending a new event or context type into Snowplow, you first need to define a new schema for that event.
 
 1. Create a file in the repo for the new schema e.g. `/schemas/com.mycompany/new_event_or_context_name/jsonschema/1-0-0`
-2. Create the schema in that file. Follow the `/schemas/com.example_company/example_event/jsonschema/1-0-0`
+2. Create the schema in that file. Follow the [`/schemas/com.example_company/example_event/jsonschema/1-0-0`](https://github.com/snowplow/example-event-dictionary/blob/master/schemas/com.example_company/example_event/jsonschema/1-0-0)
 3. Save the file schema
 
 Note that if you have JSON data already and you want to create a corresponding schema, you can do so using [Schema Guru](https://github.com/snowplow/schema-guru), both the [web UI](http://schemaguru.snowplowanalytics.com/) and the [CLI](https://github.com/snowplow/schema-guru).

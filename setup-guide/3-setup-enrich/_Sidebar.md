@@ -21,3 +21,4 @@
 - [Glossary of Terms](Glossary)
 - [[Upgrade Guide]]
 - [Snowplow Version Matrix](Snowplow-version-matrix)
+- [Batch Pipeline Steps](Batch-pipeline-steps) (block dataflow diagram)

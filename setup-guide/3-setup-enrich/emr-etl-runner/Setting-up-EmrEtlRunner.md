@@ -23,6 +23,7 @@ This guide covers how to setup EmrEtlRunner (including scheduling it) so that yo
 
 - [The enrichment process](The-enrichment-process)
 - [Events and contexts](Events-and-contexts)
+- [Batch pipeline steps](Batch-pipeline-steps) (block dataflow diagram)
 
 To start with, [install] [installation] EmrEtlRunner.
 

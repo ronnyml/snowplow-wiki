@@ -52,6 +52,7 @@ To find out more about the concepts mentioned above and ultimately how to set up
 
 - [Iglu common architecture](https://github.com/snowplow/iglu/wiki/Common-architecture)
 - [Iglu clients](https://github.com/snowplow/iglu/wiki/Iglu-clients)
+- [Iglu client configuration](https://github.com/snowplow/iglu/wiki/Iglu-client-configuration)
 - [Iglu registries](https://github.com/snowplow/iglu/wiki/Iglu-repositories)
 - [Iglu Central](https://github.com/snowplow/iglu/wiki/Iglu-Central-setup)
 - [Self-describing JSON](https://github.com/snowplow/iglu/wiki/Self-describing-JSONs)
