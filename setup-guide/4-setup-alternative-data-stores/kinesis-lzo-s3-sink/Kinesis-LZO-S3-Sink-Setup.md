@@ -109,6 +109,10 @@ $ ./kinesis-lzo-sink-0.4.0 --config my.conf
 
 This will start the process of reading events from Kinesis, compressing them, and writing them to S3.
 
+##Further reading
+
+- [Kinesis at-least-once processing](Kinesis-at-least-once-processing)
+
 [ssc]: https://github.com/snowplow/snowplow/tree/master/2-collectors/scala-stream-collector
 [thrift]: https://thrift.apache.org/
 [kinesis]: http://aws.amazon.com/kinesis/
