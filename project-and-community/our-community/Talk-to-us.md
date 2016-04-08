@@ -1,16 +1,12 @@
 We want to make it super-easy for Snowplow users and contributors to talk to us and connect with each other, to share ideas, solve problems and help make Snowplow awesome. Here are the main channels we're running currently, we'd love to hear from you on one of them:
 
-## Google Group
+## Discourse
 
-[Snowplow Google Group] [google-group]
+[Snowplow Discourse Forum] [discourse]
 
-The Snowplow Google Group (aka `snowplow-user`) is a good first stop for a general inquiry about Snowplow or a specific support issue (e.g. trouble setting Snowplow up). It's also a good forum for discussions about the roadmap or potential new functionality.
+This is for all Snowplow users: engineers setting up Snowplow, data modelers structuring the data and data consumers building insights. You can find guides, recipes, questions and answers from Snowplow users including the Snowplow team.
 
-## IRC
-
-`#snowplow`
-
-We're big fans of IRC here at Snowplow. We have a `#snowplow` channel on Freenode - stop by and say hi, you can even use [Freenode's webchat service] [freenode-webchat] so don't need to install anything to access it. Soon, this channel will be linked to our GitHub - so you can see new issues, merged pull requests and so on as they happen.
+We welcome questions and contributions!
 
 ## Twitter
 
@@ -38,3 +34,4 @@ If you want to talk directly to us (e.g. about a commercially sensitive issue), 
 [issues]: https://github.com/snowplow/snowplow/issues?direction=desc&sort=created&state=open
 [community-email]: mailto:community@snowplowanalytics.com
 [freenode-webchat]: http://webchat.freenode.net/
+[discourse]: http://discourse.snowplowanalytics.com/
