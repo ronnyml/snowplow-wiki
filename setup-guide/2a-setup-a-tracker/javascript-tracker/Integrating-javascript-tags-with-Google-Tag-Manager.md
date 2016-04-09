@@ -533,7 +533,7 @@ The location field contains the links to the problematic configuration. Follow t
 
 Now load a web page with the container in a tab in the same browser. You should see an additional GTM interface in the bottom half of the screen that indicates when different tags defined in the UI have been fired. 
 
-[[/setup-guide/images/gtm/publish-4.png]]
+[[/setup-guide/images/gtm-debug.png]]
 
 If you are happy that the setup works as expected, click the **Publish** button. The updates will be pushed to live.
 
