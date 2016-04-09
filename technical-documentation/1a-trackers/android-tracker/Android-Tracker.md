@@ -814,6 +814,10 @@ This will make the functions for checking these metrics available for the tracke
 <a name="android-idfa" />
 ## 3.3 Getting the Android Idfa Code
 
+__NOTE__: For this code to be available you must include the following library dependency: 
+
+* `compile 'com.google.android.gms:play-services-analytics:7.5.0'
+
 The Android Idfa code is a unique identifier for google advertising.  You can get this code using this library in two ways:
 
 1. Use the utility function available:

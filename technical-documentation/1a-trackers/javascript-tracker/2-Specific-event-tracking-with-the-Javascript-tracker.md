@@ -1215,7 +1215,7 @@ Here are two example custom context JSONs. One describes a page, and the other d
 {
     schema: "iglu:com.example_company/user/jsonschema/2-0-0",
     data: {
-      userType: 'tester',
+      userType: 'tester'
     }
 }
 ```

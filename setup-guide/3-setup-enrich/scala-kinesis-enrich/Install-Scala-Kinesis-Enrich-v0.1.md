@@ -4,7 +4,7 @@
 
 *This page refers to version 0.1.0 of Scala Kinesis Enrich. Documentation for other versions is available:*
 
-*[Version 0.2][v0.2] (not yet released)*
+*[Version 0.7](v0.7)*
 
 ## 1. Dependencies
 
@@ -54,4 +54,4 @@ Next: [[Configure Scala Kinesis Enrich]]
 [assembly]: https://github.com/softprops/assembly-sbt
 
 [geolite]: http://dev.maxmind.com/geoip/legacy/geolite/?rld=snowplow
-[v0.1]: https://github.com/snowplow/snowplow/wiki/Install-Scala-Kinesis-Enrich
+[v0.7]: https://github.com/snowplow/snowplow/wiki/Install-Stream-Enrich
