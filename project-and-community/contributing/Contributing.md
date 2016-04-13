@@ -21,7 +21,7 @@ Please complete and sign the most appropriate CLA for you. For more information,
 
 ## 2. Join the conversation
 
-Have an idea for Snowplow? Found a bug? We encourage you to start a conversation on the [Snowplow Google Group] [snowplow-user] or to file a [new issue on GitHub] [new-issue] before writing code. Announcing what you're working on (or even just your need or pain points) starts a collaborative process to identify general solutions and helps us all avoid duplicating effort.
+Have an idea for Snowplow? Found a bug? We encourage you to start a conversation on the [Snowplow Discourse] [discourse] or to file a [new issue on GitHub] [new-issue] before writing code. Announcing what you're working on (or even just your need or pain points) starts a collaborative process to identify general solutions and helps us all avoid duplicating effort.
 
 Let's build Snowplow and grow our community, together. You can find other ways of joining the conversation on our [[Talk to us]] page.
 
@@ -36,5 +36,5 @@ We are working on a set of Contributor Guides to make contributing to every aspe
 [indiv-cla]: https://docs.google.com/forms/d/1J1FNYq9538ndzzcBdlCbxPo1yFiOY4mwalhDTSl1pgg/viewform
 [corp-cla]: https://docs.google.com/forms/d/1ZUzz7lQJhs7oZqbkBL1bp0r048hAi7uIN6aLWCyZWWs/viewform
 
-[snowplow-user]: https://groups.google.com/forum/#!forum/snowplow-user
+[discourse]: http://discourse.snowplowanalytics.com/
 [new-issue]: https://github.com/snowplow/snowplow/issues/new
