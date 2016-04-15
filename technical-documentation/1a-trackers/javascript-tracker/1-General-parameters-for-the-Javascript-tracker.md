@@ -127,6 +127,7 @@ snowplow_name_here("newTracker", "cf", "d3rkrsqld9gmqf.cloudfront.net", {
   appId: "cfe23a",
   platform: "mob"
   cookieDomain: null,
+  discoverRootDomain: true,
   cookieName: "_sp534_",
   encodeBase64: false,
   respectDoNotTrack: false,
@@ -412,7 +413,7 @@ The Clojure Collector can't handle requests bigger than 64kB. The Scala Stream C
 <a name="discoverRootDomain" />
 #### 2.2.19 Automatically discover and set the root domain
 
-If set the Tracker automatically discovers and sets the `configCookieDomain` value to the root domain.
+If the optional `discoverRootDomain` field of the argmap is set to `true`, the Tracker automatically discovers and sets the `configCookieDomain` value to the root domain.
 
 __NOTE__: If you have been setting this manually please note that the automatic detection does not prepend a '.' to the domain. For example a root domain of ".mydomain.com" would become "mydomain.com".  This is because the library we use for setting cookies doesn't care about the difference.
 
