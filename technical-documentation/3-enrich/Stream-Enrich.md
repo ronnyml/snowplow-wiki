@@ -1,5 +1,7 @@
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Enrichment**](Enrichment) > [[Stream Enrich]]
 
+##Overview
+
 Stream Enrich is an [Amazon Kinesis] [kinesis] app, written in Scala and using the Kinesis Client Library, which:
 
 1. **Reads** raw Snowplow events off a Kinesis stream populated by the Scala Stream Collector
@@ -13,34 +15,56 @@ It also supports reading raw events from `stdin` and writing enriched events to 
 
 Stream Enrich utilizes the [scala-common-enrich][common-enrich] Scala project to enrich events and the [SnowplowRawEvent][schema] for reading Thrift-serialized objects collected with the Scala Stream Collector.
 
+##Steam Enrich output
+
 The result of the enrichment process is a TSV representation of the event breakdown of which is outlined below.
 
-#####The application (site, game, app etc) this event belongs to, and the tracker platform
-<hr style="border: 1px solid #DDD">
+<br>
+
+**The application (site, game, app, etc.) this event belongs to, and the tracker platform**
+
+----------
+
 - `app_id`: String
 - `platform`: String
 
-#####Date/time
-<hr style="border: 1px solid #DDD">
+<br>
+
+**Date/time**
+
+----------
+
 - `etl_tstamp`: String
 - `collector_tstamp`: String
 - `dvce_created_tstamp`: String
 
-#####Transaction (i.e. this logging event)
-<hr style="border: 1px solid #DDD">
+<br>
+
+**Transaction (i.e. this logging event)**
+
+----------
+
 - `event`: String
 - `event_id`: String
 - `txn_id`: String
 
-#####Versioning
-<hr style="border: 1px solid #DDD">
+<br>
+
+**Versioning**
+
+----------
+
 - `name_tracker`: String
 - `v_tracker`: String
 - `v_collector`: String
 - `v_etl`: String
 
-#####User and visit
-<hr style="border: 1px solid #DDD">
+<br>
+
+**User and visit**
+
+----------
+
 - `user_id`: String
 - `user_ipaddress`: String
 - `user_fingerprint`: String
@@ -48,8 +72,12 @@ The result of the enrichment process is a TSV representation of the event breakd
 - `domain_sessionidx`: Integer
 - `network_userid`: String
 
-#####Location
-<hr style="border: 1px solid #DDD">
+<br>
+
+**Location**
+
+----------
+
 - `geo_country`: String
 - `geo_region`: String
 - `geo_city`: String
@@ -58,21 +86,33 @@ The result of the enrichment process is a TSV representation of the event breakd
 - `geo_longitude`: Float
 - `geo_region_name`: String
 
-#####Other IP lookups
-<hr style="border: 1px solid #DDD">
+<br>
+
+**Other IP lookups**
+
+----------
+
 - `ip_isp`: String
 - `ip_organization`: String
 - `ip_domain`: String
 - `ip_netspeed`: String
 
-#####Page
-<hr style="border: 1px solid #DDD">
+<br>
+
+**Page**
+
+----------
+
 - `page_url`: String
 - `page_title`: String
 - `page_referrer`: String
 
-#####Page URL components
-<hr style="border: 1px solid #DDD">
+<br>
+
+**Page URL components**
+
+----------
+
 - `page_urlscheme`: String
 - `page_urlhost`: String  
 - `page_urlport`: Integer
@@ -80,8 +120,12 @@ The result of the enrichment process is a TSV representation of the event breakd
 - `page_urlquery`: String
 - `page_urlfragment`: String
 
-#####Referrer URL components
-<hr style="border: 1px solid #DDD">
+<br>
+
+**Referrer URL components**
+
+----------
+
 - `refr_urlscheme`: String  
 - `refr_urlhost`: String  
 - `refr_urlport`: Integer
@@ -89,38 +133,62 @@ The result of the enrichment process is a TSV representation of the event breakd
 - `refr_urlquery`: String
 - `refr_urlfragment`: String 
 
-#####Referrer details
-<hr style="border: 1px solid #DDD">
+<br>
+
+**Referrer details**
+
+----------
+
 - `refr_medium`: String
 - `refr_source`: String
 - `refr_term`: String
 
-#####Marketing
-<hr style="border: 1px solid #DDD">
+<br>
+
+**Marketing**
+
+----------
+
 - `mkt_medium`: String
 - `mkt_source`: String
 - `mkt_term`: String
 - `mkt_content`: String
 - `mkt_campaign`: String
 
-#####Custom Contexts
-<hr style="border: 1px solid #DDD">
+<br>
+
+**Custom Contexts**
+
+----------
+
 - `contexts`: String
 
-#####Structured Event
-<hr style="border: 1px solid #DDD">
+<br>
+
+**Structured Event**
+
+----------
+
 - `se_category`: String
 - `se_action`: String
 - `se_label`: String
 - `se_property`: String
 - `se_value`: String
 
-#####Unstructured Event
-<hr style="border: 1px solid #DDD">
+<br>
+
+**Unstructured Event**
+
+----------
+
 - `unstruct_event`: String
 
-#####Ecommerce transaction (from querystring)
-<hr style="border: 1px solid #DDD">
+<br>
+
+**Ecommerce transaction (from querystring)**
+
+----------
+
 - `tr_orderid`: String
 - `tr_affiliation`: String
 - `tr_total`: String
@@ -130,8 +198,12 @@ The result of the enrichment process is a TSV representation of the event breakd
 - `tr_state`: String
 - `tr_country`: String
 
-#####Ecommerce transaction item (from querystring)
-<hr style="border: 1px solid #DDD">
+<br>
+
+**Ecommerce transaction item (from querystring)**
+
+----------
+
 - `ti_orderid`: String
 - `ti_sku`: String
 - `ti_name`: String
@@ -139,27 +211,43 @@ The result of the enrichment process is a TSV representation of the event breakd
 - `ti_price`: String
 - `ti_quantity`: String
 
-  // Page Pings
-<hr style="border: 1px solid #DDD">
+<br>
+
+**Page Pings**
+
+----------
+
 - `pp_xoffset_min`: Integer
 - `pp_xoffset_max`: Integer
 - `pp_yoffset_min`: Integer
 - `pp_yoffset_max`: Integer
   
-#####User Agent
-<hr style="border: 1px solid #DDD">
+<br>
+
+**User Agent**
+
+----------
+
 - `useragent`: String
 
-#####Browser (from user-agent)
-<hr style="border: 1px solid #DDD">
+<br>
+
+**Browser (from user-agent)**
+
+----------
+
 - `br_name`: String
 - `br_family`: String
 - `br_version`: String
 - `br_type`: String
 - `br_renderengine`: String
 
-#####Browser (from querystring)
-<hr style="border: 1px solid #DDD">
+<br>
+
+**Browser (from querystring)**
+
+----------
+
 - `br_lang`: String
 - `br_features_pdf`: Byte_
 - `br_features_flash`: Byte
@@ -175,31 +263,51 @@ The result of the enrichment process is a TSV representation of the event breakd
 - `br_viewwidth`: Integer
 - `br_viewheight`: Integer
 
-  // OS (from user-agent)
-<hr style="border: 1px solid #DDD">
+<br>
+
+**OS (from user-agent)**
+
+----------
+
 - `os_name`: String
 - `os_family`: String
 - `os_manufacturer`: String
 - `os_timezone`: String
 
-#####Device/Hardware (from user-agent)
-<hr style="border: 1px solid #DDD">
+<br>
+
+**Device/Hardware (from user-agent)**
+
+----------
+
 - `dvce_type`: String
 - `dvce_ismobile`: Byte
 
-#####Device (from querystring)
-<hr style="border: 1px solid #DDD">
+<br>
+
+**Device (from querystring)**
+
+----------
+
 - `dvce_screenwidth`: Integer
 - `dvce_screenheight`: Integer
 
-#####Document
-<hr style="border: 1px solid #DDD">
+<br>
+
+**Document**
+
+----------
+
 - `doc_charset`: String 
 - `doc_width`: Integer 
 - `doc_height`: Integer
 
-#####Currency
-<hr style="border: 1px solid #DDD">
+<br>
+
+**Currency**
+
+----------
+
 - `tr_currency`: String
 - `tr_total_base`: String
 - `tr_tax_base`: String
@@ -208,53 +316,102 @@ The result of the enrichment process is a TSV representation of the event breakd
 - `ti_price_base`: String
 - `base_currency`: String
 
-#####Geolocation
-<hr style="border: 1px solid #DDD">
+<br>
+
+Geolocation
+
+----------
+
 - `geo_timezone`: String
 
-  // Click ID
-<hr style="border: 1px solid #DDD">
+<br>
+
+**Click ID**
+
+----------
+
 - `mkt_clickid`: String
 - `mkt_network`: String
 
-#####ETL tags
-<hr style="border: 1px solid #DDD">
+<br>
+
+**ETL tags**
+
+----------
+
 - `etl_tags`: String
 
-  // Time event was sent
-<hr style="border: 1px solid #DDD">
+
+<br>
+
+**Time event was sent**
+
+----------
+
 - `dvce_sent_tstamp`: String
 
-  // Referer
-<hr style="border: 1px solid #DDD">
+
+<br>
+
+**Referer**
+
+----------
+
 - `refr_domain_userid`: String
 - `refr_dvce_tstamp`: String
 
-#####Derived contexts
-<hr style="border: 1px solid #DDD">
+
+<br>
+
+**Derived contexts**
+
+----------
+
 - `derived_contexts`: String
 
-#####Session ID
-<hr style="border: 1px solid #DDD">
+
+<br>
+
+**Session ID**
+
+----------
+
 - `domain_sessionid`: String
 
-#####Derived timestamp
-<hr style="border: 1px solid #DDD">
+
+<br>
+
+**Derived timestamp**
+
+----------
+
 - `derived_tstamp`: String
 
-#####Derived event vendor/name/format/version
-<hr style="border: 1px solid #DDD">
+<br>
+
+**Derived event vendor/name/format/version**
+
+----------
+
 - `event_vendor`: String
 - `event_name`: String
 - `event_format`: String
 - `event_version`: String
 
-#####Event fingerprint
-<hr style="border: 1px solid #DDD">
+<br>
+
+**Event fingerprint**
+
+----------
+
 - `event_fingerprint`: String
 
-#####True timestamp
-<hr style="border: 1px solid #DDD">
+<br>
+
+**True timestamp**
+
+----------
+
 - `true_tstamp`: String 
 
 
