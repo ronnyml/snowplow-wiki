@@ -17,7 +17,7 @@ Stream Enrich utilizes the [scala-common-enrich][common-enrich] Scala project to
 
 ##Steam Enrich output
 
-The result of the enrichment process is a TSV representation of the event breakdown of which is outlined below.
+The result of the enrichment process is a TSV representation of the event breakdown of which is outlined below. For the description of each field, please, refer to the [Canonical Event Model](canonical-event-model).
 
 <br>
 
