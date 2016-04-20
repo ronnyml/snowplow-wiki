@@ -32,6 +32,8 @@ The technical documentation reflects the Snowplow architecture, with six loosely
 [[Mandrill webhook adapter]]  
 [[Pagerduty webhook adapter]]  
 [[Pingdom webhook adapter]]  
+[[SendGrid-webhook-adapter]]  
+[[Urban-Airship-Connect-webhook-adapter]]  
 
 ### A. [Snowplow tracker protocol](snowplow-tracker-protocol)  
 

@@ -21,6 +21,11 @@
 [[Iglu webhook adapter]]  
 [[CallRail webhook adapter]]  
 [[MailChimp webhook adapter]]  
+[[Mandrill webhook adapter]]  
+[[Pagerduty webhook adapter]]  
+[[Pingdom webhook adapter]]  
+[[SendGrid-webhook-adapter]]  
+[[Urban-Airship-Connect-webhook-adapter]]  
 
 **[A. Snowplow Tracker Protocol](snowplow-tracker-protocol)**  
 
