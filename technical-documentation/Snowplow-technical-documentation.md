@@ -61,7 +61,7 @@ The technical documentation reflects the Snowplow architecture, with six loosely
 [Storage in Redshift](amazon-redshift-storage)  
 [Storage in PostgreSQL](postgresql-storage)   
 [Storage in Infobright](infobright-storage) (deprecated)  
-[The StorageLoader](The-Storage-Loader)  
+[The StorageLoader](The-StorageLoader)  
 
 ### D. Snowplow storage formats (to write)
 
