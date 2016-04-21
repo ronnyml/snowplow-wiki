@@ -23,7 +23,6 @@ As a result the **enriched good** file is "shredded" into a few **shredded good*
 
 1. a TSV formatted file containing the data for `atomic.events` table;
 2. possibly one or more JSON files related to custom user specific (self-describing) events extracted from `unstruct_event` field of the enriched good file;
-3. 
 3. possibly one or more JSON files related to custom contexts extracted from `contexts` filed of the enriched good file;
 4. possibly one or more JSON files related to configurable enrichments (if any was enabled) extracted from `derived_contexts` field of the enriched good file.
 
