@@ -21,6 +21,11 @@
 [[Iglu webhook adapter]]  
 [[CallRail webhook adapter]]  
 [[MailChimp webhook adapter]]  
+[[Mandrill webhook adapter]]  
+[[Pagerduty webhook adapter]]  
+[[Pingdom webhook adapter]]  
+[[SendGrid-webhook-adapter]]  
+[[Urban-Airship-Connect-webhook-adapter]]  
 
 **[A. Snowplow Tracker Protocol](snowplow-tracker-protocol)**  
 
@@ -45,7 +50,7 @@
 [Storage in Redshift](amazon-redshift-storage)  
 [Storage in PostgreSQL](postgresql-storage)  
 [Storage in Infobright](infobright-storage) (deprecated)  
-[The StorageLoader](The-Storage-Loader)   
+[The StorageLoader](The-StorageLoader)   
 
 **D. Snowplow storage formats (to write)**
 
