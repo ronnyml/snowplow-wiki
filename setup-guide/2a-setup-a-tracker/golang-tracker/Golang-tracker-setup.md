@@ -41,7 +41,7 @@ To import the package, add the following line to your code:
 import "gopkg.in/snowplow/snowplow-golang-tracker.v1/tracker"
 ```
 
-The current version of the Snowplow Golang Tracker is 0.1.0.
+The current version of the Snowplow Golang Tracker is 1.0.0.
 
 [Back to top](#top)
 
