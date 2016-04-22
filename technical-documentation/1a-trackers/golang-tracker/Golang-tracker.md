@@ -715,6 +715,8 @@ emitter := sp.InitEmitter(
 )
 ```
 
+The OptionDbName can be any valid path on your host file system (that can be created with the current user).  By default it will create the required files wherever the application is being run from.
+
 [Back to top](#top)
 
 <a name="emitter-inner-workings">
