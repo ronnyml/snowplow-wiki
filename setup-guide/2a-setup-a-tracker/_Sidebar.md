@@ -16,6 +16,7 @@
   - [2.10: Setup the ActionScript 3.0 Tracker](ActionScript3-tracker-Setup)
   - [2.11: Setup the Android Tracker](Android-tracker-Setup)
   - [2.12: Setup the iOS Tracker](iOS-tracker-Setup)
+  - [2.13: Setup the Golang Tracker](Golang-tracker-Setup)
 - [Step 2b: Setup a Webhook] (Setting-up-a-webhook)
 - [Step 3: Setup Enrich] (setting-up-enrich)
 - [Step 4: Setup alternative data stores] (setting-up-alternative-data-stores)

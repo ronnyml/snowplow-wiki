@@ -25,8 +25,9 @@
 * [[Ruby Tracker]] - for tracking events in your Ruby and Rails apps and gems
 * [[Scala Tracker]] - for tracking events in your Scala apps and servers
 * [[Unity Tracker]] - for tracking events from your Unity games and apps
+* [[Golang Tracker]] - for tracking events from your Golang apps and servers
 
-For other trackers (e.g. iOS, Android) and their approximate timelines, please see the [Product roadmap](Product-roadmap).
+For other trackers (e.g. Erlang, C++) and their approximate timelines, please see the [Product roadmap](Product-roadmap).
 
 ### Protocol
 
