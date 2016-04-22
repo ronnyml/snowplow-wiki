@@ -183,9 +183,10 @@ The sink is configured using a HOCON file. These are the fields:
 * `elasticsearch.max-timeout`: The Elasticesarch maximum timeout in milliseconds
 * `elasticsearch.index`: The Elasticsearch index name
 * `elasticsearch.type`: The Elasticesarch type name
-* `buffer.byte-limit`: Whenever the total size of the buffered records exceeds this number, they will all be sent to Elasticsearch.
-* `buffer.record-limit`: Whenever the total number of buffered records exceeds this number, they will all be sent to Elasticsearch.
-* `buffer.time-limit`: If this length of time passes without the buffer being flushed, the buffer will be flushed.
+* `buffer`: The app maintains a buffer of enriched events and won't send them until certain conditions are met.
+ - `buffer.byte-limit`: Whenever the total size of the buffered records exceeds this number, they will all be sent to Elasticsearch.
+ - `buffer.record-limit`: Whenever the total number of buffered records exceeds this number, they will all be sent to Elasticsearch.
+ - `buffer.time-limit`: If this length of time passes without the buffer being flushed, the buffer will be flushed.
 
 ### Monitoring
 

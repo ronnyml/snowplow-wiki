@@ -34,6 +34,16 @@ The `enrich.source` setting determines which of the supported sources to read ra
 + `"kinesis`" for reading Thrift-serialized records from a named Amazon Kinesis stream
 + `"stdin`" for reading Base64-encoded Thrift-serialized records from the app's own `stdin` I/O stream
 
+If you select `"kinesis"`, you need to set some other fields in the `enrich.streams.in` section:
+
+* `enrich.streams.in.raw`: the name of your raw Snowplow event stream [configured in your Scala Stream Collector](Configure-the-Scala-Stream-Collector).
+* `enrich.streams.in.buffer`
+* `enrich.streams.in.buffer`: Stream Enrich maintains a buffer of enriched events and won't send them until certain conditions are met.
+ - `buffer.byte-limit`: Whenever the total size of the buffered records exceeds this number, the buffer will be flushed.
+ - `buffer.record-limit`: Whenever the total number of buffered records exceeds this number, the buffer will be flushed.
+ - `buffer.time-limit`: If this length of time passes without the buffer being flushed, the buffer will be flushed.
+
+
 If you select `"kinesis"`, you need to set `enrich.streams.in` to the name of your raw Snowplow event stream [configured in your Scala Stream Collector](Configure-the-Scala-Stream-Collector).
 
 ### Sinks
@@ -51,6 +61,8 @@ out: {
   bad: "SnowplowBad"
 }
 ```
+
+
 
 ### Monitoring
 
