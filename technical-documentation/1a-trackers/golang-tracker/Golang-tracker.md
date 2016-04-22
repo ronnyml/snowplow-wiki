@@ -358,8 +358,16 @@ Tracking methods supported by the Golang Tracker at a glance:
 | [`TrackStructEvent()`](#struct-event)           | Track a Snowplow custom structured event               |
 | [`TrackSelfDescribingEvent()`](#unstruct-event) | Track a Snowplow custom unstructured event             |
 | [`TrackScreenView()`](#screen-view)             | Track the user viewing a screen within the application |
-| [`TrackTiming()`](#timing)                      | Track a timing event                                   |
+| [`TrackTiming()`](#timing-event)                | Track a timing event                                   |
 | [`TrackEcommerceTransaction()`](#ecommerce)     | Track an ecommerce transaction                         |
+
+__NOTE__: All event structs require pointer values as a way of asserting properly whether or not a value has been passed that might have been required.  As such there are three functions provided that allow you to inline pointer values:
+
+* `NewString`
+* `NewInt64`
+* `NewFloat64`
+
+These all accept their respective raw value and return a pointer to this value.
 
 <a name="common" />
 ### 4.1 Common
