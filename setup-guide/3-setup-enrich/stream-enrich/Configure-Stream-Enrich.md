@@ -48,9 +48,7 @@ If you select `"kinesis"`, you will also need to update the `enrich.streams.out`
 ```
 out: {
   enriched: "SnowplowEnriched"
-  enriched_shards: 1 # Number of shards to use if created.
-  bad: "SnowplowBad" # Not used until #463
-  bad_shards: 1 # Number of shards to use if created.
+  bad: "SnowplowBad"
 }
 ```
 
