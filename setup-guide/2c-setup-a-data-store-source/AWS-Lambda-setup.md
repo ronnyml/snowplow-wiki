@@ -92,7 +92,7 @@ and the initial trust policy to invoke AWS Lambda:
 
 - Ensure the `description` field is set to the collector you wish to use, e.g. `http://mycollector.com` (NB the 'http://' is required)
 
-3.&nbsp;Upload the zip file
+3.&nbsp;Upload the zip file  
 4.&nbsp;Add the event sources for your S3 bucket(s)
 
 More information on uploading a AWS Lambda function manually is available [here](http://docs.aws.amazon.com/lambda/latest/dg/with-s3.html).
