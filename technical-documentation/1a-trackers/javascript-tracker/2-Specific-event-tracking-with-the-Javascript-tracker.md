@@ -4,7 +4,7 @@
 
 __UNRELEASED__
 
-*This page refers to version 2.6.0 of the Snowplow JavaScript Tracker.*  
+*This page refers to version 2.6.1 of the Snowplow JavaScript Tracker.*  
 *Click [here] [specific-events-v1] for the corresponding documentation for version 1.*  
 *Click [here] [specific-events-v2.0] for the corresponding documentation for version 2.0.*  
 *Click [here] [specific-events-v2.2] for the corresponding documentation for version 2.2.2.*  
