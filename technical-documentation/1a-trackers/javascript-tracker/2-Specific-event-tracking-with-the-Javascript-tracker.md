@@ -1196,7 +1196,7 @@ Custom contexts can be used to augment any standard Snowplow event type, includi
 
 Custom contexts can be added as an extra argument to any of Snowplow's `track..()` methods and to `addItem` and `addTrans`.
 
-Each custom context is a self-describing JSON following the same pattern as an [unstructured event](#trackUnstructEvent). As with unstructured events, if you want to create your own custom context, you must create a [JSON schema][json-schema] for it and upload it to an [Iglu repository][iglu-repo]. Since more than one can be attached to an event, the `context` argument (if it is provided at all) should be a non-empty array of self-describing JSONs.
+Each custom context is a self-describing JSON following the same pattern as an [unstructured event](#trackUnstructEvent). As with unstructured events, if you want to create your own custom context, you must create a [JSON schema][json-schema] for it and upload it to an [Iglu repository][iglu-repo]. Since more than one (of either different or the same type) can be attached to an event, the `context` argument (if it is provided at all) should be a non-empty array of self-describing JSONs.
 
 **Important:** Even if only one custom context is being attached to an event, it still needs to be wrapped in an array.
 

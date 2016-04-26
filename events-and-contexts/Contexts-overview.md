@@ -74,6 +74,8 @@ We can then track an add to basket event as follows, we can pass in a handful of
 
 Contexts provide a convenient way in Snowplow to schema common entities once, and then use those schemas across all the different events where those entities are relevant.
 
+Moreover, *multiple* contexts of either different or the same type can be sent with a single event. For example, you could send multiple product impressions (one for each product) with a page view event (say, if a user has loaded a catalogue page) or a transaction event (if a user has multiple line items in a transaction).
+
 We distiguish 2 types of contexts:
 
 - [Predefined contexts](#predefined-contexts)
