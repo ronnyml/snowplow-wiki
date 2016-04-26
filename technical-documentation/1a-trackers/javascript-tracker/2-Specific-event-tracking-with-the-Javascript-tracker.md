@@ -174,7 +174,7 @@ Notes:
 <a name="ecommerce" />
 ### 3.3 Ecommerce tracking
 
-Modelled on Google Analytics ecommerce tracking capability, Snowplow uses three methods that have to be used together track online transactions:
+Modelled on Google Analytics ecommerce tracking capability, Snowplow uses three methods that have to be used together to track online transactions:
 
 1. **Create a transaction object**. Use `addTrans()` method to initialize a transaction object. This will be the object that is loaded with all the data relevant to the specific transaction that is being tracked including all the items in the order, the prices of the items, the price of shipping and the `order_id`.
 2. **Add items to the transaction.** Use the `addItem()` method to add data about each individual item to the transaction object.
@@ -183,18 +183,19 @@ Modelled on Google Analytics ecommerce tracking capability, Snowplow uses three 
 <a name="addTrans" >
 #### 3.3.1 `addTrans`
 
-The `addTrans` method creates a transaction object. It takes seven possible parameters, two of which are required:
+The `addTrans` method creates a transaction object. It takes nine possible parameters, two of which are required:
 
-| **Parameter**                  | **Required?** | **Example value** | 
-|:-------------------------------|:--------------|:------------------|
-| `order ID`                     | Yes           | '1234'            |
-| `affiliation or store name`    | No            | 'Womens Apparel'  |
-| `total spend`                  | Yes           | '19.99'           |
-| `shipping cost`                | No            | '2.99'            |
-| `city`                         | No            | 'San Jose'        | 
-| `state or province`            | No            | 'California'      |
-| `country`                      | No            | 'USA'             |
-| `currency`                     | No            | 'USD'             |
+| **Parameter** | **Description** | **Required?** | **Example value** | 
+|:---|:---|:---|:---|
+| `orderId` | Internal unique order id number for this transaction | Yes | '1234' |
+| `affiliation` | Partner or store affiliation | No | 'Womens Apparel' |
+| `total` | Total amount of the transaction | Yes | '19.99' |
+| `tax` | Tax amount of the transaction | No | '1.00' |
+| `shipping` | Shipping charge for the transaction | No | '2.99' |
+| `city` | City to associate with transaction | No | 'San Jose' | 
+| `state` | State or province to associate with transaction | No | 'California' |
+| `country` | Country to associate with transaction | No | 'USA' |
+| `currency` | Currency to associate with this transaction | No | 'USD' |
 
 For example: 
 
@@ -224,15 +225,15 @@ The `addItem` method is used to capture the details of each product item include
 
 There are six potential parameters that can be passed with each call, four of which are required:
 
-| **Parameter**                  | **Required?**                                     | **Example value** |
-|:-------------------------------|:--------------------------------------------------|:------------------|
-| `order ID`                     | Yes (in order to associate item with transaction) | '1234'            |
-| `SKU / product code`           | Yes                                               | 'pbz0001234'      |
-| `product name`                 | No, but advisable (to make interpreting SKU easier) | 'Black Tarot'   |
-| `category or variation`        | No                                                | 'Large'           |
-| `unit price`                   | Yes                                               | '9.99'            |
-| `quantity`                     | Yes                                               | '1'               |
-| `currency`                     | No                                                | 'USD'             |
+| **Parameter** | **Description** | **Required?** | **Example value** |
+|:---|:---|:---|:---|
+| `orderId` | Order ID of the transaction to associate with item | Yes | '1234' |
+| `sku` | Item's SKU code | Yes | 'pbz0001234' |
+| `name` | Product name | No, but advisable (to make interpreting SKU easier) | 'Black Tarot' |
+| `category` | Product category | No | 'Large' |
+| `price` | Product price | Yes | '9.99' |
+| `quantity` | Purchase quantity | Yes | '1' |
+| `currency` | Product price currency | No | 'USD' |
 
 For example:
 
