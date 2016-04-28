@@ -66,9 +66,9 @@ Here is an example configuration, using imaginary api.acme.com RESTful service t
         }
       },
       "outputs": [ {
+        "schema": "iglu:com.acme/user/jsonschema/1-0-0",
         "json": {
-          "jsonPath": "$.record",
-          "schema": "iglu:com.acme/user/jsonschema/1-0-0"
+          "jsonPath": "$.record"
         }
       } ],
       "cache": {
@@ -152,9 +152,9 @@ With this configuration:
 
 ```json
 "outputs": [ {
+  "schema": "iglu:com.acme/user/jsonschema/1-0-0",
   "json": {
-    "jsonPath": "$.record",
-    "schemaUri": "iglu:com.acme/user/jsonschema/1-0-0"
+    "jsonPath": "$.record"
   }
 } ]
 ```
@@ -213,7 +213,7 @@ Here are some clues on how this enrichment will handle some exceptional cases:
 
 ### Data generated
 
-As during the API Request enrichment process the new context is added to `derived_contexts` of the enriched/good event, the data generated will end up in its own table determined by the custom `schemaUri` key in `output` configuration sub-object.
+As during the API Request enrichment process the new context is added to `derived_contexts` of the enriched/good event, the data generated will end up in its own table determined by the custom `schema` key in `output` configuration sub-object.
 
 [schema]: http://iglucentral.com/schemas/com.snowplowanalytics.snowplow.enrichments/api_request_enrichment_config/jsonschema/1-0-0
 [Configurable-enrichments]: https://github.com/snowplow/snowplow/wiki/Configurable-enrichments
