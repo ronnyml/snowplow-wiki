@@ -18,7 +18,7 @@ There are currently three collectors available:
 |:-----------------------------------------------|:----------------------------------------------------|:-----------------|
 | [Cloudfront Collector] [cloudfront-collector]  | A simple, robust and scalable collector powered by AWS Cloudfront | Production-ready |
 | [Clojure Collector] [clojure-collector]        | A Clojure-based collector that enables user tracking across domains. Powered by Amazon Elastic Beanstalk | Production-ready |
-| [Scala Stream Collector] [scala-stream-collector]        | A Scala-based collector that enables user tracking across domains. Powered by Amazon Kinesis | Beta |
+| [Scala Stream Collector] [scala-stream-collector]        | A Scala-based collector that enables user tracking across domains. Powered by Amazon Kinesis | Production-ready |
 
 ### Do you want to track data from mobile apps, application servers and/or 3rd party webhooks?
 
@@ -32,7 +32,7 @@ If you are tracking users across a single domain and don't require mobile app or
 
 ### Do you want to experiment with real-time event analytics?
 
-Then check out the [Scala Stream Collector] [scala-stream-collector] - but please note that this collector is **still in beta**.
+Then check out the [Scala Stream Collector] [scala-stream-collector].
 
 <a name="setup" />
 ## 2. Setup your Collector
