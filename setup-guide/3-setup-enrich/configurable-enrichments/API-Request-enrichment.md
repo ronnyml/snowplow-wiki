@@ -93,7 +93,7 @@ To go through each of sub-objects in more detail:
 
 #### `inputs`
 
-Specify an array of `inputs` to use as keys when performing your API lookup. Each input consists of a `key` and a source: either `pojo` if the datapoint comes from the Snowplow enriched event POJO, or `json` if the datapoint comes from a self-describing JSON inside one of the three JSON fields. The `key` can be referred to later in the `api.http.uri` property.
+Specify an array of `inputs` to use as keys when performing your API lookup. Each input consists of a `key` and a source: either `pojo` if the datapoint comes from the Snowplow enriched event POJO, or `json` if the datapoint comes from a self-describing JSON inside one of the three JSON fields. The `key` can be referred to later in the `api.http.uri` property. Note that key name can contain only alphanumeric symbols, hyphens and underscores.
 
 For `pojo`, the field name must be specified. A field name which is not recognized as part of the POJO will be ignored by the enrichment.
 
@@ -115,6 +115,8 @@ For the `uri` field, specify the full URI including the protocol. You can attach
 ```
 
 If a key required in the `uri` was not found in any of the `inputs`, then the lookup will not proceed, but this will **not** be flagged as a failure.
+
+Make sure your `uri` is actually valid URI and does not contain any special symbols or spaces. Enrichment will "urlize" content of input extracted from event with `java.net.URLEncoder.encode` function, but safety of `uri` is on user's behalf.
 
 Currently the only supported `authentication` option is `http-basic`: provide a `username` and/or a `password` for the enrichment to use to connect to your API using [basic access authentication][basic-auth]. Some APIs use only the `username` or `password` field to contain an API key; in this case, set the other property to the empty string `""`.
 
@@ -210,6 +212,7 @@ Here are some clues on how this enrichment will handle some exceptional cases:
 * if output's JSONPath wasn't found - event will be sent to `enriched/bad` bucket
 * if server returned any non-successful response or timed-out - event will be sent to `enriched/bad` bucket
 * if server response returned JSON which invalidated by schema provided in output - event will be sent to `shredded/bad`
+* if input JSONPath will match non-primitive value in context or unstructured event, enrichment will try to stringify it. Array will be concatenated with commas, `null` will be transformed to string "null", object will be just stringified and will inevitable result in invalid URL
 
 ### Data generated
 
