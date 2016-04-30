@@ -5,7 +5,7 @@
 ### Compatibility
 
 JSON Schema	[iglu:com.snowplowanalytics.snowplow.enrichments/api_request_enrichment_config/jsonschema/1-0-0][schema]  
-Compatibility	**NOT RELEASED YET**  
+Compatibility	R79+  
 Data provider	Any  
 
 
