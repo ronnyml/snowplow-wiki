@@ -108,12 +108,12 @@ That's it - with these tables deployed, your SendGrid events should automaticall
 
 [processed-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.sendgrid/processed_1.sql
 [dropped-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.sendgrid/dropped_1.sql
-[delivered-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.sendgrid/delivered.sql
+[delivered-sql]: https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.sendgrid/delivered_1.sql
 [deferred-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.sendgrid/deferred_1.sql
 [bounce-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.sendgrid/bounce_1.sql
 [open-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.sendgrid/open_1.sql
 [click-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.sendgrid/click_1.sql
-[spam_report-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.sendgrid/spam_report_1.sql
+[spam_report-sql]: https://github.com/snowplow/snowplow/blob/master/4-storage/redshift-storage/sql/com.sendgrid/spamreport_1.sql
 [unsubscribe-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.sendgrid/unsubscribe_1.sql
 [unsubscribe-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.sendgrid/unsubscribe_1.sql
 [group_unsubscribe-sql]: https://github.com/snowplow/snowplow/tree/master/4-storage/redshift-storage/sql/com.sendgrid/group_unsubscribe_1.sql
