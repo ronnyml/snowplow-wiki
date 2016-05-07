@@ -99,7 +99,7 @@ For `pojo`, the field name must be specified. A field name which is not recogniz
 
 For `json`, you must specify the field name as either `unstruct_event`, `contexts` or `derived_contexts`. You must then provide two additional fields:
 
-* `schemaCriterion` lets you specify the self-describing JSON you are looking for in the given JSON field. You can specify only the SchemaVer MODEL (e.g. 1-*-*), MODEL plus REVISION (e.g. 1-1-*) or a full MODEL-REVISION-ADDITION version (e.g. 1-1-1)
+* `schemaCriterion` lets you specify the self-describing JSON you are looking for in the given JSON field. You can specify all SchemaVers (`*-*-*`), only the SchemaVer MODEL (e.g. `1-*-*`), MODEL plus REVISION (e.g. `1-1-*`) or a full MODEL-REVISION-ADDITION version (e.g. `1-1-1`)
 * `jsonPath` lets you provide the [JSON Path statement][jsonpath] to navigate to the field inside the JSON that you want to use as the input.
 
 The lookup algorithm is short-circuiting: the first match for a given key will be used.
