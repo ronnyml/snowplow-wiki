@@ -57,9 +57,11 @@ Then add into the same file:
 dependencies {
     ...
     // Snowplow Scala Tracker
-    compile 'com.snowplowanalytics:snowplow-scala-tracker:0.2.0'
+    compile 'com.snowplowanalytics:snowplow-scala-tracker_2.10:0.2.0'
 }
 ```
+
+Notice a `_2.10` postfix in artifactId. This is used for Scala libraries and denote Scala version which artifact (in our case `snowplow-scala-tracker`) is compiled against. It also means that this library will bring a `org.scala-lang:scala-library_2.10.x` as transitive dependency and if you're using any other Scala dependency you should keep these postfixes in accordance (`snowplow-scala-tracker` is also compiled against Scala 2.11).
 
 <a name="maven" />
 ### 2.4 Maven
@@ -94,10 +96,12 @@ Then add into your project's `pom.xml`:
 ```xml
 <dependency>
     <groupId>com.snowplowanalytics</groupId>
-    <artifactId>snowplow-scala-tracker</artifactId>
+    <artifactId>snowplow-scala-tracker_2.10</artifactId>
     <version>0.2.0</version>
 </dependency>
 ```
+
+Notice a `_2.10` postfix in artifactId. This is used for Scala libraries and denote Scala version which artifact (in our case `snowplow-scala-tracker`) is compiled against. It also means that this library will bring a `org.scala-lang:scala-library_2.10.x` as transitive dependency and if you're using any other Scala dependency you should keep these postfixes in accordance (`snowplow-scala-tracker` is also compiled against Scala 2.11).
 
 Done? Now read the [Scala Tracker API](Scala-Tracker) to start tracking events.
 
