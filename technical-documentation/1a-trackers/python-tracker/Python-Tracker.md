@@ -161,7 +161,7 @@ Create a subject like this:
 
 ```python
 from snowplow_tracker import Subject
-s = subject()
+s = Subject()
 ```
 
 The Subject class has a set of `set...()` methods to attach extra data relating to the user to all tracked events:
@@ -282,7 +282,7 @@ s.timezone( {{TIMEZONE}} )
 The timezone should be a string:
 
 ```python
-s.set_color_depth("Europe/London")
+s.timezone("Europe/London")
 ```
 
 [Back to top](#top)
