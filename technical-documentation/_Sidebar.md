@@ -45,6 +45,7 @@
 [Overview](Enrichment)  
 [EmrEtlRunner](EmrEtlRunner)  
 [Stream Enrich](Stream-Enrich)
+[Hadoop Event Recovery](Hadoop-Event-Recovery)
 
 **[C. Canonical Snowplow event model](canonical-event-model)**  
 
