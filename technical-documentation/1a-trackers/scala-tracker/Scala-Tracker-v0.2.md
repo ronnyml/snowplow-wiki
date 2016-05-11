@@ -2,10 +2,10 @@
 
 [**HOME**](Home) > [**SNOWPLOW TECHNICAL DOCUMENTATION**](Snowplow technical documentation) > [**Trackers**](trackers) > Scala Tracker
 
-**This page refers to version 0.3.0 of the Snowplow Scala Tracker. Documentation for other versions is available:**
+**This page refers to version 0.2.0 of the Snowplow Scala Tracker. Documentation for other versions is available:**
 
 *[Version 0.1][scala-0.1]*  
-*[Version 0.2][scala-0.2]*  
+*[Version 0.3][scala-0.3]*  
 
 ## Contents
 
@@ -80,9 +80,6 @@ tracker.enableEc2Context()
 <a name="events" />
 ## 3. Sending events
 
-<a name="example" />
-### 3.1 Example
-
 Create a Snowplow unstructured event [self-describing JSON][self-describing-jsons] using the [json4s DSL][json4s-dsl]:
 
 ```scala
@@ -116,34 +113,17 @@ val userContext = SelfDescribingJson(
 t.trackUnstructEvent(productViewEvent, List(pageTypeContext, userContext))
 ```
 
-<a name="methods" />
-### 3.2 Available tracking methods
+A timestamp will automatically be attached to every event. You can override this timestamp by providing your own. It should be in milliseconds since the Unix epoch:
+
+```scala
+tracker.trackUnstructEvent(productViewEvent, Nil, Some(1432806619000L))
+```
 
 Currently supported methods are:
 
 + trackUnstructEvent
 + trackStructEvent
 + trackPageView
-
-<a name="timestamp" />
-### 3.3 Settings timestamp
-
-By default, Scala Tracker will generate a `dvce_created_tstamp` and add it to event payload.
-You also can manually set it using `timestamp` argument in all tracking methods.
-It should be in milliseconds since the Unix epoch:
-
-```scala
-tracker.trackUnstructEvent(productViewEvent, Nil, Some(1432806619000L))
-```
-
-Beside of it, you can set `true_tstamp` if you have more reliable source about event timestamp.
-You can tag timstamp as "true" using class `TrueTimestamp`:
-
-```scala
-tracker.trackUnstructEvent(productViewEvent, Nil, Some(Tracker.TrueTimestamp(1432806619000L)))
-```
-
-Now event will be sent with `ttm` parameter instead of `dtm`.
 
 <a name="subject" />
 ## 4. Subject methods
@@ -217,15 +197,6 @@ If your Scala code has access to the timezone of the device, you can pass it in 
 subject.setTimezone("Europe London")
 ```
 
-<a name="set-language" />
-### 4.7 Setting the language with `setLang`
-
-You can set the language field like this:
-
-```scala
-subject.setLang("en")
-```
-
 <a name="set-ip-address" />
 ### 4.8 Setting the IP address with `setIpAddress`
 
@@ -235,17 +206,8 @@ If you have access to the user's IP address, you can set it like this:
 subject.setIpAddresss("34.634.11.139")
 ```
 
-<a name="set-useragent" />
-### 4.9 Setting the useragent with `setUseragent`
-
-If you have access to the user's useragent (sometimes called "browser string"), you can set it like this:
-
-```scala
-subject.setUseragent("Mozilla/5.0 (Windows NT 5.1; rv:24.0) Gecko/20100101 Firefox/24.0")
-```
-
 <a name="set-domain-user-id" />
-### 4.10 Setting the domain user ID with `setDomainUserId`
+### 4.9 Setting the domain user ID with `setDomainUserId`
 
 The `domain_userid` field of the Snowplow event model corresponds to the ID stored in the first party cookie set by the Snowplow JavaScript Tracker. If you want to match up server-side events with client-side events, you can set the domain user ID for server-side events like this:
 
@@ -254,7 +216,7 @@ subject.setDomainUserId("c7aadf5c60a5dff9")
 ```
 
 <a name="set-network-user-id" />
-### 4.11 Setting the network user ID with `setNetworkUserId`
+### 4.10 Setting the network user ID with `setNetworkUserId`
 
 The `network_user_id` field of the Snowplow event model corresponds to the ID stored in the third party cookie set by the Snowplow Clojure Collector and Scala Stream Collector. You can set the network user ID for server-side events like this:
 
@@ -262,10 +224,12 @@ The `network_user_id` field of the Snowplow event model corresponds to the ID st
 subject.setNetworkUserId("ecdff4d0-9175-40ac-a8bb-325c49733607")
 ```
 
+
+
 [Back to top](#top)
 
 [scala-0.1]: https://github.com/snowplow/snowplow/wiki/Scala-Tracker-v0.1
-[scala-0.2]: https://github.com/snowplow/snowplow/wiki/Scala-Tracker-v0.2
+[scala-0.3]: https://github.com/snowplow/snowplow/wiki/Scala-Tracker-v0.3
 
 [json4s]: https://github.com/json4s/json4s
 [json4s-dsl]: https://github.com/json4s/json4s#dsl-rules
