@@ -17,6 +17,9 @@
 - 2.2. [Subject](#subject)
 - 2.3. [EC2 Context](#ec2)
 - 3. [Sending events](#events)
+- 3.1 [Example](#example)
+- 3.2 [Available tracking methods](#methods)
+- 3.3 [Setting timestamp](#timestamp)
 - 4. [Subject methods](#subject)
 
 <a name="overview" />
@@ -128,7 +131,7 @@ Currently supported methods are:
 + trackPageView
 
 <a name="timestamp" />
-### 3.3 Settings timestamp
+### 3.3 Setting timestamp
 
 By default, Scala Tracker will generate a `dvce_created_tstamp` and add it to event payload.
 You also can manually set it using `timestamp` argument in all tracking methods.
