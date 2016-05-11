@@ -218,7 +218,7 @@ subject.setNetworkUserId("ecdff4d0-9175-40ac-a8bb-325c49733607")
 [Back to top](#top)
 
 [scala-0.2]: https://github.com/snowplow/snowplow/wiki/Scala-Tracker-v0.2
-[scala-0.3]: https://github.com/snowplow/snowplow/wiki/Scala-Tracker-v0.3
+[scala-0.3]: https://github.com/snowplow/snowplow/wiki/Scala-Tracker
 
 [json4s]: https://github.com/json4s/json4s
 [json4s-dsl]: https://github.com/json4s/json4s#dsl-rules
