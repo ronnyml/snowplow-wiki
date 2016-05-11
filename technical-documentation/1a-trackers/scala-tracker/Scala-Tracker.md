@@ -17,9 +17,10 @@
   - 2.2. [Subject](#subject)
   - 2.3. [EC2 Context](#ec2)
 - 3. [Sending events](#events)
-  - 3.1 [Overview](#example)
-  - 3.2 [Available tracking methods](#methods)
-  - 3.3 [Setting timestamp](#timestamp)
+  - 3.1 [`trackUnstructEvent`](#trackUnstructEvent)
+  - 3.2 [`trackStructEvent`](#trackStructEvent)
+  - 3.3 [`trackPageView`](#trackPageView)
+  - 3.4 [Setting timestamp](#timestamp)
 - 4. [Subject methods](#subject)
 
 <a name="overview" />
