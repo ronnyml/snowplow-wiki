@@ -4,6 +4,8 @@
 
 **This page refers to version 0.3.0 of the Snowplow Scala Tracker. Documentation for other versions is available:**
 
+**UNRELEASED**
+
 *[Version 0.1][scala-0.1]*  
 *[Version 0.2][scala-0.2]*  
 
