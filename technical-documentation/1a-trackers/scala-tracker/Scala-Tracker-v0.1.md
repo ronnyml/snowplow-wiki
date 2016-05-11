@@ -11,8 +11,8 @@
 
 - 1. [Overview](#overview)  
 - 2. [Initialization](#init)
-- 2.1. [Tracker](#tracker-init)
-- 2.2. [Subject](#subject)
+  - 2.1. [Tracker](#tracker-init)
+  - 2.2. [Subject](#subject)
 - 3. [Sending events](#events)
 - 4. [Subject methods](#subject)
 

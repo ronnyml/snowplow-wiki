@@ -13,13 +13,13 @@
 
 - 1. [Overview](#overview)  
 - 2. [Initialization](#init)
-- 2.1. [Tracker](#tracker-init)
-- 2.2. [Subject](#subject)
-- 2.3. [EC2 Context](#ec2)
+  - 2.1. [Tracker](#tracker-init)
+  - 2.2. [Subject](#subject)
+  - 2.3. [EC2 Context](#ec2)
 - 3. [Sending events](#events)
-- 3.1 [Example](#example)
-- 3.2 [Available tracking methods](#methods)
-- 3.3 [Setting timestamp](#timestamp)
+  - 3.1 [Overview](#example)
+  - 3.2 [Available tracking methods](#methods)
+  - 3.3 [Setting timestamp](#timestamp)
 - 4. [Subject methods](#subject)
 
 <a name="overview" />
@@ -85,8 +85,30 @@ tracker.enableEc2Context()
 <a name="events" />
 ## 3. Sending events
 
-<a name="example" />
-### 3.1 Example
+Snowplow has been built to enable you to track a wide range of events that occur when users interact with your websites and apps.
+We are constantly growing the range of functions available in order to capture that data more richly.
+
+Tracking methods supported by the Scala Tracker at a glance:
+
++ [trackUnstructEvent](#trackUnstructEvent)
++ [trackStructEvent](#trackStructEvent)
++ [trackPageView](#trackPageView)
+
+<a name="trackUnstructEvent" />
+### 3.1 `trackUnstructEvent`
+
+Use `trackUnstructEvent` to track a custom event which consists of a name and an unstructured set of properties. This is useful when:
+
+* You want to track event types which are proprietary/specific to your business (i.e. not already part of Snowplow), or
+* You want to track events which have unpredictable or frequently changing properties
+
+You can use its alias `trackSelfDescribingEvent`.
+
+| **Argument** | **Description**                                                         | **Required?** | **Type**                   |
+|--------------------:|:---------------------------------------------------------------  |:--------------|:---------------------------|
+| `unstructuredEvent` | Self-describing JSON containing unstructured event               | Yes           | `SelfDescribingJson`       |
+| `contexts`          | List of custom contexts for the event                            | No            | `List[SelfDescribingJson]` |
+| `timestamp`         | Device created timestamp or true timestamp                       | No            | `Option[Timestamp]`        |
 
 Create a Snowplow unstructured event [self-describing JSON][self-describing-jsons] using the [json4s DSL][json4s-dsl]:
 
@@ -121,17 +143,58 @@ val userContext = SelfDescribingJson(
 t.trackUnstructEvent(productViewEvent, List(pageTypeContext, userContext))
 ```
 
-<a name="methods" />
-### 3.2 Available tracking methods
+<a name="trackStructEvent" />
+### 3.2 `trackStructEvent`
 
-Currently supported methods are:
+Use `trackStructEvent` to track a custom event happening in your app which fits the Google Analytics-style structure of having up to five fields (with only the first two required).
 
-+ trackUnstructEvent
-+ trackStructEvent
-+ trackPageView
+| **Argument** | **Description**                                                  | **Required?** | **Type**                   |
+|-------------:|:---------------------------------------------------------------  |:--------------|:---------------------------|
+| `category`   | The grouping of structured events which this `action` belongs to | Yes           | `String`                   |
+| `action`     | Defines the type of user interaction which this event involves   | Yes           | `String`                   |
+| `label`      | A string to provide additional dimensions to the event data      | No            | `Option[String]            |
+| `property`   | A string describing the object or the action performed on it     | No            | `Option[String]            |
+| `value`      | A value to provide numerical data about the event                | No            | `Option[Double]`           |
+| `contexts`   | List of custom contexts for the event                            | No            | `List[SelfDescribingJson]` |
+| `timestamp`  | Device created timestamp or true timestamp                       | No            | `Option[Timestamp]`        |
+
+Example:
+
+```scala
+val pageTypeContext = SelfDescribingJson(
+  "iglu:com.acme/page_type/jsonschema/1-0-0",
+  ("type" -> "promotional") ~ ("backgroundColor" -> "red")
+)
+
+val userContext = SelfDescribingJson(
+  "iglu:com.acme/user/jsonschema/1-0-0",
+  ("userType" -> "tester")
+)
+
+t.trackStructEvent("commerce", "order", property=Some("book"), contexts=List(pageTypeContext, userContext))
+```
+
+<a name="trackPageView" />
+### 3.3 `trackPageView`
+
+Use `trackPageView` to track a user viewing a page within your app. Arguments are:
+
+| **Argument** | **Description**                     | **Required?** | **Validation**             |
+|-------------:|:------------------------------------|:--------------|:---------------------------|
+| `pageUrl`    | The URL of the page                 | Yes           | `String`                   |
+| `pageTitle`  | The title of the page               | No            | `Option[String]`           |
+| `referrer`   | The address which linked to the page| No            | `Option[String]`           |
+| `contexts`   | Custom contexts for the event       | No            | `List[SelfDescribingJson]` |
+| `timestamp`  | When the pageview occurred          | No            | `Option[Timestamp]`        |
+
+Example:
+
+```scala
+t.trackPageView("www.example.com", Some("example"), Some("www.referrer.com"))
+```
 
 <a name="timestamp" />
-### 3.3 Setting timestamp
+### 3.4 Setting timestamp
 
 By default, Scala Tracker will generate a `dvce_created_tstamp` and add it to event payload.
 You also can manually set it using `timestamp` argument in all tracking methods.
