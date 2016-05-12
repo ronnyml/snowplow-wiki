@@ -1,4 +1,4 @@
-[**HOME**](Home) » [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) » [**Step 2c: Setup a Data Store Source**](Setting-up-a-Data-Store-Source) » **AWS-Lambda-setup**
+[**HOME**](Home) » [**SNOWPLOW SETUP GUIDE**](Setting-up-Snowplow) » [**Step 2c: Setup a Data Store Source**](Setting-up-a-Data-Store-Source) » **AWS-Lambda-source-setup**
 
 ##Overview
 

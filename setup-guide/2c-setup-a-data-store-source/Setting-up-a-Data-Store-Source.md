@@ -10,7 +10,7 @@ The following Data Store Sources are currently available for setup:
 
 | **Data Store Source** (click for setup) | **Description**                                                                          | **Status** |
 |:---|:---|:---|
-| **[AWS Lambda](AWS-Lambda-setup)** | Currently supports S3 Bucket operations | Beta |
+| **[AWS Lambda source](AWS-Lambda-source-setup)** | Currently supports S3 bucket operations | Beta |
 
 
 **If you are interested in sponsoring a new data store source integration for Snowplow, please [talk to us](Talk-to-us).**
