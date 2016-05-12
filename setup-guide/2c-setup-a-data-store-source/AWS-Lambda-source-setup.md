@@ -16,7 +16,7 @@ Executing the following:
 
 in either Vagrant or your host will build a zipped archive ready for deployment in `build/distrubutions/`.
 
-##Using the `install.sh` script
+##Using the `install.bash` script
 
 Providing you have the [aws-cli](http://docs.aws.amazon.com/cli/latest/userguide/installing.html) tools installed (and [jq](https://stedolan.github.io/jq/download/)) you can use the install script provided as `install/install.sh`. This script is interactive and will set up everything required to start monitoring an existing s3 bucket.
 
@@ -25,7 +25,7 @@ To run:
 ```
 cd install
 chmod +x install.sh
-./install.sh
+./install.bash
 ```
 
 ##Using the AWS web UI
