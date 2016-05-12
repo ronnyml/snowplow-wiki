@@ -19,7 +19,8 @@ This is the field which this enrichment will augment:
 
 ### Example
 
-Here is an example configuration, using imaginary api.acme.com RESTful service to widen Snowplow event with context containing information about users:
+
+Below you can see an example configuration using imaginary api.acme.com RESTful service to widen Snowplow event with context containing information about users. To find real-world example you can check our extensive tutorial on [Integrating Clearbit data into Snowplow using the API Request Enrichment][clearbit-tutorial].
 
 ```json
 {
@@ -224,3 +225,4 @@ As during the API Request enrichment process the new context is added to `derive
 [Custon-contexts]: https://github.com/snowplow/snowplow/wiki/Custom-contexts
 [basic-auth]: https://en.wikipedia.org/wiki/Basic_access_authentication
 [jsonpath]: http://goessner.net/articles/JsonPath/
+[clearbit-tutorial]: http://discourse.snowplowanalytics.com/t/integrating-clearbit-data-into-snowplow-using-the-api-request-enrichment/210
