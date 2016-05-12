@@ -46,7 +46,7 @@ See _6. Kinesis resources_ below.
 
 The Scala Hadoop Enrich process uses a single jarfile containing the MapReduce job. This is made available in a public Amazon S3 bucket, for Snowplowers who are running their Hadoop Enrich process on Amazon EMR:
 
-    s3://snowplow-hosted-assets/3-enrich/scala-hadoop-enrich/snowplow-hadoop-enrich-1.6.0.jar
+    s3://snowplow-hosted-assets/3-enrich/scala-hadoop-enrich/snowplow-hadoop-enrich-1.7.0.jar
 
 Right-click on this [Download link] [hadoop-enrich-download] to save it down locally via CloudFront CDN.
 
@@ -54,7 +54,7 @@ Right-click on this [Download link] [hadoop-enrich-download] to save it down loc
 
 The Scala Hadoop Shred process uses a single jarfile containing the MapReduce job. This is made available in a public Amazon S3 bucket, for Snowplowers who are running their Hadoop Enrich & Shred process on Amazon EMR:
 
-    s3://snowplow-hosted-assets/3-enrich/scala-hadoop-shred/snowplow-hadoop-shred-0.8.0.jar
+    s3://snowplow-hosted-assets/3-enrich/scala-hadoop-shred/snowplow-hadoop-shred-0.9.0.jar
 
 Right-click on this [Download link] [hadoop-shred-download] to save it down locally via CloudFront CDN.
 
@@ -128,8 +128,8 @@ Please see the [[Artifact repositories]] wiki page for more information.
 
 [snowplow-repo]: https://github.com/snowplow/snowplow
 [cc-download]: http://d2io1hx8u877l0.cloudfront.net/2-collectors/clojure-collector/clojure-collector-1.1.0-standalone.war
-[hadoop-enrich-download]: http://d2io1hx8u877l0.cloudfront.net/3-enrich/scala-hadoop-enrich/snowplow-hadoop-enrich-1.6.0.jar
-[hadoop-shred-download]: http://d2io1hx8u877l0.cloudfront.net/3-enrich/scala-hadoop-shred/snowplow-hadoop-shred-0.8.0.jar
+[hadoop-enrich-download]: http://d2io1hx8u877l0.cloudfront.net/3-enrich/scala-hadoop-enrich/snowplow-hadoop-enrich-1.7.0.jar
+[hadoop-shred-download]: http://d2io1hx8u877l0.cloudfront.net/3-enrich/scala-hadoop-shred/snowplow-hadoop-shred-0.9.0.jar
 [hadoop-bad-rows-download]: http://d2io1hx8u877l0.cloudfront.net/3-enrich/scala-bad-rows/snowplow-bad-rows-0.1.0.jar
 [glc-download]: http://d2io1hx8u877l0.cloudfront.net/third-party/maxmind/GeoLiteCity.dat
 [geolite]: http://dev.maxmind.com/geoip/legacy/geolite?rld=snowplow
