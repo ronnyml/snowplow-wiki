@@ -1,4 +1,4 @@
-[**HOME**](Home) > **UPGRADE GUIDE**
+[**HOME**](Home) » **UPGRADE GUIDE**
 
 On this page, we are posting the steps to upgrade sequentially after a Snowplow release with the latest version at the top. Here *sequentially* means from the previous to the following.
 
@@ -6,6 +6,7 @@ You can also use [Snowplow Version Matrix](Snowplow-version-matrix) as a guidanc
 
 For easier navigation, please, follow the links below.
 
+- [Snowplow 79 Black Swan](#r79) (**r79**) 2016-05-12
 - [Snowplow 78 Great Hornbill](#r78) (**r78**) 2016-03-15
 - [Snowplow 77 Great Auk](#r77) (**r77**) 2016-02-29
 - [Snowplow 76 Changeable Hawk-Eagle](#r76) (**r76**) 2016-01-26
@@ -40,6 +41,76 @@ For easier navigation, please, follow the links below.
 - [Snowplow 0.9.2](#v0.9.2) (**v0.9.2**) 2014-04-30
 - [Snowplow 0.9.1](#v0.9.1) (**v0.9.1**) 2014-04-11
 - [Snowplow 0.9.0](#v0.9.0) (**v0.9.0**) 2014-02-04
+
+<a name="r79" />
+##Snowplow 79 Black Swan
+
+This release introduces our powerful new [API Request Enrichment](https://github.com/snowplow/snowplow/wiki/API-Request-enrichment), plus a new [HTTP Header Extractor Enrichment](https://github.com/snowplow/snowplow/wiki/HTTP-header-extractor-enrichment) and several other improvements on the enrichments side.
+
+It also updates the ***Iglu client*** used by our *Hadoop Enrich* and *Hadoop Shred* components. The version 1.4.0 lets you fetch your schemas from Iglu registries with *authentication support*, allowing you to keep your proprietary schemas private.
+
+### Upgrade steps
+
+####Configuration file
+
+The recommended AMI version to run Snowplow is now **4.5.0** - update your configuration YAML as follows:
+
+```yaml
+emr:
+  ami_version: 4.5.0 # WAS 4.3.0
+```
+
+Next, update your `hadoop_enrich` and `hadoop_shred` job versions like so:
+
+```yaml
+versions:
+  hadoop_enrich: 1.7.0        # WAS 1.6.0
+  hadoop_shred: 0.9.0         # WAS 0.8.0
+  hadoop_elasticsearch: 0.1.0 # UNCHANGED
+```
+
+For a complete example, see our sample [`config.yml`](https://github.com/snowplow/snowplow/blob/r79-black-swan/3-enrich/emr-etl-runner/config/config.yml.sample) template.
+
+####JSON resolver
+
+If you want to use an Iglu registry *with authentication*, add a private `apikey` to the registry’s configuration entry and set the schema version to [1-0-1](https://github.com/snowplow/iglu-central/blob/r57/schemas/com.snowplowanalytics.iglu/resolver-config/jsonschema/1-0-1) as in the example below.
+
+```
+{
+  "schema": "iglu:com.snowplowanalytics.iglu/resolver-config/jsonschema/1-0-1",
+  "data": {
+    "cacheSize": 500,
+    "repositories": [
+      {
+        "name": "Iglu Central",
+        "priority": 0,
+        "vendorPrefixes": [ "com.snowplowanalytics" ],
+        "connection": {
+          "http": {
+            "uri": "http://iglucentral.com"
+          }
+        }
+      },
+      {
+        "name": "Private Acme repository for com.acme",
+        "priority": 1,
+        "vendorPrefixes": [ "com.acme" ],
+        "connection": {
+          "http": {
+            "uri": "http://iglu.acme.com/api",
+            "apikey": "APIKEY-FOR-ACME"
+          }
+        }
+      }
+    ]
+  }
+}
+```
+
+### Read more
+
+* [R79 Blog Post](http://snowplowanalytics.com/blog/2016/05/12/snowplow-r79-black-swan-with-api-request-enrichment-released/)
+* [R79 Release Notes](https://github.com/snowplow/snowplow/releases/tag/r79-black-swan)
 
 <a name="r78" />
 ##Snowplow 78 Great Hornbill
