@@ -2,7 +2,7 @@
 
 ##Overview
 
-We are pleased to announce the release of our first analytics SDK for Snowplow, created for data engineers and data scientists working with Snowplow in Scala.
+We are pleased to announce the releases of our first analytics SDKs for Snowplow, created for data engineers and data scientists working with Snowplow in Scala.
 
 Some good use cases for the SDK include:
 
@@ -21,7 +21,7 @@ We are hugely excited about developing our analytics SDK initiative in four dire
 
 ##Snowplow Analytics SDKs
 
-- [Scala Analytics SDK](Scala-Analytics-SDK) - lets you work with Snowplow enriched events in your Scala event processing, data modeling and machine-learning jobs.
-- Python Analytics SDK
+- [Scala Analytics SDK](Scala-Analytics-SDK) - lets you work with Snowplow enriched events in your Scala event processing, data modeling and machine-learning jobs. You can use this SDK with Apache Spark, AWS Lambda, Apache Flink, Scalding, Apache Samza and other Scala-compatible data processing frameworks.
+- [Python Analytics SDK](Python-Analytics-SDK) - lets you work with Snowplow enriched events in your Python event processing, data modeling and machine-learning jobs. You can use this SDK with Apache Spark, AWS Lambda, and other Python-compatible data processing frameworks.
 - Node.js Analytics SDK
 - Java Analytics SDK
