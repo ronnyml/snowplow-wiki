@@ -2,9 +2,6 @@
 
 ##Overview
 
-
-##Overview
-
 The [Snowplow Analytics SDK for Python](https://github.com/snowplow/snowplow-python-analytics-sdk) lets you work with [Snowplow enriched events](https://github.com/snowplow/snowplow/wiki/canonical-event-model) in your Python event processing, data modeling and machine-learning jobs. You can use this SDK with [Apache Spark](http://spark.apache.org/), [AWS Lambda](https://aws.amazon.com/lambda/), and other Python-compatible data processing frameworks.
 
 The Snowplow enriched event is a relatively complex TSV string containing self-describing JSONs. Rather than work with this structure directly, Snowplow analytics SDKs ship with *event transformers*, which translate the Snowplow enriched event format into something more convenient for engineers and analysts.
