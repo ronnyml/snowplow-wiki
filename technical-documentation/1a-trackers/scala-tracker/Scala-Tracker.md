@@ -15,7 +15,7 @@
   - 2.2. [Subject](#subject)
   - 2.3. [EC2 Context](#ec2)
 - 3. [Sending events](#events)
-  - 3.1 [`trackUnstructEvent`](#trackUnstructEvent)
+  - 3.1 [`trackSelfDescribingEvent`](#trackSelfDescribingEvent)
   - 3.2 [`trackStructEvent`](#trackStructEvent)
   - 3.3 [`trackPageView`](#trackPageView)
   - 3.4 [Setting timestamp](#timestamp)
@@ -89,19 +89,19 @@ We are constantly growing the range of functions available in order to capture t
 
 Tracking methods supported by the Scala Tracker at a glance:
 
-+ [trackUnstructEvent](#trackUnstructEvent)
++ [trackSelfDescribingEvent](#trackSelfDescribingEvent)
 + [trackStructEvent](#trackStructEvent)
 + [trackPageView](#trackPageView)
 
-<a name="trackUnstructEvent" />
-### 3.1 `trackUnstructEvent`
+<a name="trackSelfDescribingEvent" />
+### 3.1 `trackSelfDescribingEvent`
 
-Use `trackUnstructEvent` to track a custom event which consists of a name and an unstructured set of properties. This is useful when:
+Use `trackSelfDescribingEvent` to track a custom Self-describing events (previously known as Unstructured Events) which consists of a name and an unstructured set of properties. This is useful when:
 
 * You want to track event types which are proprietary/specific to your business (i.e. not already part of Snowplow), or
 * You want to track events which have unpredictable or frequently changing properties
 
-You can use its alias `trackSelfDescribingEvent`.
+You can use its alias `trackUnstructEvent`.
 
 | **Argument** | **Description**                                                         | **Required?** | **Type**                   |
 |--------------------:|:---------------------------------------------------------------  |:--------------|:---------------------------|
@@ -120,10 +120,10 @@ val productViewEvent = SelfDescribingJson(
 )
 ```
 
-Send it using the `trackUnstructEvent` tracker method:
+Send it using the `trackSelfDescribingEvent` tracker method:
 
 ```scala
-tracker.trackUnstructEvent(productViewEvent)
+tracker.trackSelfDescribingEvent(productViewEvent)
 ```
 
 You can attach any number of custom contexts to an event:
@@ -139,7 +139,7 @@ val userContext = SelfDescribingJson(
   ("userType" -> "tester")
 )
 
-t.trackUnstructEvent(productViewEvent, List(pageTypeContext, userContext))
+t.trackSelfDescribingEvent(productViewEvent, List(pageTypeContext, userContext))
 ```
 
 <a name="trackStructEvent" />
@@ -200,14 +200,14 @@ You also can manually set it using `timestamp` argument in all tracking methods.
 It should be in milliseconds since the Unix epoch:
 
 ```scala
-tracker.trackUnstructEvent(productViewEvent, Nil, Some(1432806619000L))
+tracker.trackSelfDescribingEvent(productViewEvent, Nil, Some(1432806619000L))
 ```
 
 Beside of it, you can set `true_tstamp` if you have more reliable source about event timestamp.
 You can tag timstamp as "true" using class `TrueTimestamp`:
 
 ```scala
-tracker.trackUnstructEvent(productViewEvent, Nil, Some(Tracker.TrueTimestamp(1432806619000L)))
+tracker.trackSelfDescribingEvent(productViewEvent, Nil, Some(Tracker.TrueTimestamp(1432806619000L)))
 ```
 
 Now event will be sent with `ttm` parameter instead of `dtm`.
