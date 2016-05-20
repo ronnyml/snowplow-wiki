@@ -20,7 +20,12 @@ Ready? Let's get started.
 <a name="compatibility" />
 ## 2 Tracker compatibility
 
-The Snowplow C++ Tracker has been built and tested using C++11 as a minimum.
+The Snowplow C++ Tracker has been built and tested using C++11 as a minimum.  
+
+Supported operating systems:
+
+- OSX
+- Windows
 
 [Back to top](#top)
 
