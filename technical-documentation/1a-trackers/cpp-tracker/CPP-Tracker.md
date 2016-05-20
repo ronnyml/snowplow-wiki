@@ -322,7 +322,7 @@ contexts.push_back(sdj);
 This is how to fire a structured event with the above custom context:
 
 ```c++
-StructuredEvent se("category", "action");
+Tracker::StructuredEvent se("category", "action");
 se.contexts = contexts;
 
 Tracker::instance()->track_struct_event(se);
@@ -342,7 +342,7 @@ If you do not pass this timestamp in as an argument, then the C++ Tracker will u
 Here is an example tracking a structured event and supplying the optional timestamp argument:
 
 ```c++
-StructuredEvent se("category", "action");
+Tracker::StructuredEvent se("category", "action");
 se.timestamp(1368725287000);
 
 Tracker::instance()->track_struct_event(se);
@@ -356,7 +356,7 @@ Each `track...()` method supports an optional true-timestamp argument; this allo
 Here is an example tracking a structured event and supplying the optional true-timestamp argument:
 
 ```c++
-StructuredEvent se("category", "action");
+Tracker::StructuredEvent se("category", "action");
 
 // As it is optional you will need to pass the address for this value
 unsigned long long true_tstamp = "1368725287000";
@@ -408,7 +408,7 @@ json data = "{\"level\":5,\"saveId\":\"ju302\",\"hardMode\":true}"_json;
 // Create a new SelfDescribingJson
 SelfDescribingJson sdj("iglu:com.example_company/save-game/jsonschema/1-0-2", data);
 
-SelfDescribingEvent sde(sdj);
+Tracker::SelfDescribingEvent sde(sdj);
 Tracker::instance()->track_self_describing_event(sde);
 ```
 
@@ -437,7 +437,7 @@ Example:
 ```c++
 string name = "Screen ID - 5asd56";
 
-ScreenViewEvent sve;
+Tracker::ScreenViewEvent sve;
 sve.name = &name;
 
 Tracker::instance()->track_screen_view(sve);
@@ -465,7 +465,7 @@ Use `TrackStructEvent()` to track a custom event happening in your app which fit
 Example:
 
 ```c++
-StructuredEvent se("shop", "add-to-basket");
+Tracker::StructuredEvent se("shop", "add-to-basket");
 se.property = "pcs";
 se.value = 25.6;
 
@@ -495,7 +495,7 @@ The arguments are as follows:
 Example:
 
 ```c++
-TimingEvent te("category", "variable", 123);
+Tracker::TimingEvent te("category", "variable", 123);
 Tracker::instance()->track_timing(te);
 ```
 
