@@ -53,7 +53,7 @@ To enable webhooks, login into your mailgun account and go to the Webhooks tab i
 <a name="setup-redshift" />
 ## 2.2 Redshift
 
-If you are running the Snowplow batch (Hadoop) flow with Amazon Redshift, then you should deploy the relevent event tables into your Amazon Redshift.
+If you are running the Snowplow batch (Hadoop) flow with Amazon Redshift, then you should deploy the relevant event tables into your Amazon Redshift.
 
 You can find the table definitions here:
 
